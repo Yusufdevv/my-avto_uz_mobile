@@ -18,10 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$DealerCardEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isRefresh, String search) getResults,
-    required TResult Function(
-            bool? isRefresh, int? mark, String? regionId, String? carType)
-        getFilterResult,
+    required TResult Function(bool isRefresh, String search, int? mark,
+            String? regionId, String? carType)
+        getResults,
     required TResult Function(String? regions, String? maker, String? carType)
         getFilterParams,
     required TResult Function() getMoreResults,
@@ -29,10 +28,9 @@ mixin _$DealerCardEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isRefresh, String search)? getResults,
-    TResult? Function(
-            bool? isRefresh, int? mark, String? regionId, String? carType)?
-        getFilterResult,
+    TResult? Function(bool isRefresh, String search, int? mark,
+            String? regionId, String? carType)?
+        getResults,
     TResult? Function(String? regions, String? maker, String? carType)?
         getFilterParams,
     TResult? Function()? getMoreResults,
@@ -40,10 +38,9 @@ mixin _$DealerCardEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isRefresh, String search)? getResults,
-    TResult Function(
-            bool? isRefresh, int? mark, String? regionId, String? carType)?
-        getFilterResult,
+    TResult Function(bool isRefresh, String search, int? mark, String? regionId,
+            String? carType)?
+        getResults,
     TResult Function(String? regions, String? maker, String? carType)?
         getFilterParams,
     TResult Function()? getMoreResults,
@@ -53,7 +50,6 @@ mixin _$DealerCardEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetResults value) getResults,
-    required TResult Function(_GetFilter value) getFilterResult,
     required TResult Function(_GetFilterParams value) getFilterParams,
     required TResult Function(_GetMoreResults value) getMoreResults,
   }) =>
@@ -61,7 +57,6 @@ mixin _$DealerCardEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetResults value)? getResults,
-    TResult? Function(_GetFilter value)? getFilterResult,
     TResult? Function(_GetFilterParams value)? getFilterParams,
     TResult? Function(_GetMoreResults value)? getMoreResults,
   }) =>
@@ -69,7 +64,6 @@ mixin _$DealerCardEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetResults value)? getResults,
-    TResult Function(_GetFilter value)? getFilterResult,
     TResult Function(_GetFilterParams value)? getFilterParams,
     TResult Function(_GetMoreResults value)? getMoreResults,
     required TResult orElse(),
@@ -101,7 +95,12 @@ abstract class _$$_GetResultsCopyWith<$Res> {
           _$_GetResults value, $Res Function(_$_GetResults) then) =
       __$$_GetResultsCopyWithImpl<$Res>;
   @useResult
-  $Res call({bool isRefresh, String search});
+  $Res call(
+      {bool isRefresh,
+      String search,
+      int? mark,
+      String? regionId,
+      String? carType});
 }
 
 /// @nodoc
@@ -117,6 +116,9 @@ class __$$_GetResultsCopyWithImpl<$Res>
   $Res call({
     Object? isRefresh = null,
     Object? search = null,
+    Object? mark = freezed,
+    Object? regionId = freezed,
+    Object? carType = freezed,
   }) {
     return _then(_$_GetResults(
       isRefresh: null == isRefresh
@@ -127,170 +129,6 @@ class __$$_GetResultsCopyWithImpl<$Res>
           ? _value.search
           : search // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_GetResults implements _GetResults {
-  _$_GetResults({required this.isRefresh, required this.search});
-
-  @override
-  final bool isRefresh;
-  @override
-  final String search;
-
-  @override
-  String toString() {
-    return 'DealerCardEvent.getResults(isRefresh: $isRefresh, search: $search)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_GetResults &&
-            (identical(other.isRefresh, isRefresh) ||
-                other.isRefresh == isRefresh) &&
-            (identical(other.search, search) || other.search == search));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, isRefresh, search);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_GetResultsCopyWith<_$_GetResults> get copyWith =>
-      __$$_GetResultsCopyWithImpl<_$_GetResults>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(bool isRefresh, String search) getResults,
-    required TResult Function(
-            bool? isRefresh, int? mark, String? regionId, String? carType)
-        getFilterResult,
-    required TResult Function(String? regions, String? maker, String? carType)
-        getFilterParams,
-    required TResult Function() getMoreResults,
-  }) {
-    return getResults(isRefresh, search);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isRefresh, String search)? getResults,
-    TResult? Function(
-            bool? isRefresh, int? mark, String? regionId, String? carType)?
-        getFilterResult,
-    TResult? Function(String? regions, String? maker, String? carType)?
-        getFilterParams,
-    TResult? Function()? getMoreResults,
-  }) {
-    return getResults?.call(isRefresh, search);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isRefresh, String search)? getResults,
-    TResult Function(
-            bool? isRefresh, int? mark, String? regionId, String? carType)?
-        getFilterResult,
-    TResult Function(String? regions, String? maker, String? carType)?
-        getFilterParams,
-    TResult Function()? getMoreResults,
-    required TResult orElse(),
-  }) {
-    if (getResults != null) {
-      return getResults(isRefresh, search);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_GetResults value) getResults,
-    required TResult Function(_GetFilter value) getFilterResult,
-    required TResult Function(_GetFilterParams value) getFilterParams,
-    required TResult Function(_GetMoreResults value) getMoreResults,
-  }) {
-    return getResults(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GetResults value)? getResults,
-    TResult? Function(_GetFilter value)? getFilterResult,
-    TResult? Function(_GetFilterParams value)? getFilterParams,
-    TResult? Function(_GetMoreResults value)? getMoreResults,
-  }) {
-    return getResults?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_GetResults value)? getResults,
-    TResult Function(_GetFilter value)? getFilterResult,
-    TResult Function(_GetFilterParams value)? getFilterParams,
-    TResult Function(_GetMoreResults value)? getMoreResults,
-    required TResult orElse(),
-  }) {
-    if (getResults != null) {
-      return getResults(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _GetResults implements DealerCardEvent {
-  factory _GetResults(
-      {required final bool isRefresh,
-      required final String search}) = _$_GetResults;
-
-  bool get isRefresh;
-  String get search;
-  @JsonKey(ignore: true)
-  _$$_GetResultsCopyWith<_$_GetResults> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$_GetFilterCopyWith<$Res> {
-  factory _$$_GetFilterCopyWith(
-          _$_GetFilter value, $Res Function(_$_GetFilter) then) =
-      __$$_GetFilterCopyWithImpl<$Res>;
-  @useResult
-  $Res call({bool? isRefresh, int? mark, String? regionId, String? carType});
-}
-
-/// @nodoc
-class __$$_GetFilterCopyWithImpl<$Res>
-    extends _$DealerCardEventCopyWithImpl<$Res, _$_GetFilter>
-    implements _$$_GetFilterCopyWith<$Res> {
-  __$$_GetFilterCopyWithImpl(
-      _$_GetFilter _value, $Res Function(_$_GetFilter) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? isRefresh = freezed,
-    Object? mark = freezed,
-    Object? regionId = freezed,
-    Object? carType = freezed,
-  }) {
-    return _then(_$_GetFilter(
-      isRefresh: freezed == isRefresh
-          ? _value.isRefresh
-          : isRefresh // ignore: cast_nullable_to_non_nullable
-              as bool?,
       mark: freezed == mark
           ? _value.mark
           : mark // ignore: cast_nullable_to_non_nullable
@@ -309,11 +147,18 @@ class __$$_GetFilterCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_GetFilter implements _GetFilter {
-  _$_GetFilter({this.isRefresh, this.mark, this.regionId, this.carType});
+class _$_GetResults implements _GetResults {
+  _$_GetResults(
+      {required this.isRefresh,
+      required this.search,
+      this.mark,
+      this.regionId,
+      this.carType});
 
   @override
-  final bool? isRefresh;
+  final bool isRefresh;
+  @override
+  final String search;
   @override
   final int? mark;
   @override
@@ -323,16 +168,17 @@ class _$_GetFilter implements _GetFilter {
 
   @override
   String toString() {
-    return 'DealerCardEvent.getFilterResult(isRefresh: $isRefresh, mark: $mark, regionId: $regionId, carType: $carType)';
+    return 'DealerCardEvent.getResults(isRefresh: $isRefresh, search: $search, mark: $mark, regionId: $regionId, carType: $carType)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_GetFilter &&
+            other is _$_GetResults &&
             (identical(other.isRefresh, isRefresh) ||
                 other.isRefresh == isRefresh) &&
+            (identical(other.search, search) || other.search == search) &&
             (identical(other.mark, mark) || other.mark == mark) &&
             (identical(other.regionId, regionId) ||
                 other.regionId == regionId) &&
@@ -341,56 +187,53 @@ class _$_GetFilter implements _GetFilter {
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, isRefresh, mark, regionId, carType);
+      Object.hash(runtimeType, isRefresh, search, mark, regionId, carType);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_GetFilterCopyWith<_$_GetFilter> get copyWith =>
-      __$$_GetFilterCopyWithImpl<_$_GetFilter>(this, _$identity);
+  _$$_GetResultsCopyWith<_$_GetResults> get copyWith =>
+      __$$_GetResultsCopyWithImpl<_$_GetResults>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isRefresh, String search) getResults,
-    required TResult Function(
-            bool? isRefresh, int? mark, String? regionId, String? carType)
-        getFilterResult,
+    required TResult Function(bool isRefresh, String search, int? mark,
+            String? regionId, String? carType)
+        getResults,
     required TResult Function(String? regions, String? maker, String? carType)
         getFilterParams,
     required TResult Function() getMoreResults,
   }) {
-    return getFilterResult(isRefresh, mark, regionId, carType);
+    return getResults(isRefresh, search, mark, regionId, carType);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isRefresh, String search)? getResults,
-    TResult? Function(
-            bool? isRefresh, int? mark, String? regionId, String? carType)?
-        getFilterResult,
+    TResult? Function(bool isRefresh, String search, int? mark,
+            String? regionId, String? carType)?
+        getResults,
     TResult? Function(String? regions, String? maker, String? carType)?
         getFilterParams,
     TResult? Function()? getMoreResults,
   }) {
-    return getFilterResult?.call(isRefresh, mark, regionId, carType);
+    return getResults?.call(isRefresh, search, mark, regionId, carType);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isRefresh, String search)? getResults,
-    TResult Function(
-            bool? isRefresh, int? mark, String? regionId, String? carType)?
-        getFilterResult,
+    TResult Function(bool isRefresh, String search, int? mark, String? regionId,
+            String? carType)?
+        getResults,
     TResult Function(String? regions, String? maker, String? carType)?
         getFilterParams,
     TResult Function()? getMoreResults,
     required TResult orElse(),
   }) {
-    if (getFilterResult != null) {
-      return getFilterResult(isRefresh, mark, regionId, carType);
+    if (getResults != null) {
+      return getResults(isRefresh, search, mark, regionId, carType);
     }
     return orElse();
   }
@@ -399,53 +242,52 @@ class _$_GetFilter implements _GetFilter {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetResults value) getResults,
-    required TResult Function(_GetFilter value) getFilterResult,
     required TResult Function(_GetFilterParams value) getFilterParams,
     required TResult Function(_GetMoreResults value) getMoreResults,
   }) {
-    return getFilterResult(this);
+    return getResults(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetResults value)? getResults,
-    TResult? Function(_GetFilter value)? getFilterResult,
     TResult? Function(_GetFilterParams value)? getFilterParams,
     TResult? Function(_GetMoreResults value)? getMoreResults,
   }) {
-    return getFilterResult?.call(this);
+    return getResults?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetResults value)? getResults,
-    TResult Function(_GetFilter value)? getFilterResult,
     TResult Function(_GetFilterParams value)? getFilterParams,
     TResult Function(_GetMoreResults value)? getMoreResults,
     required TResult orElse(),
   }) {
-    if (getFilterResult != null) {
-      return getFilterResult(this);
+    if (getResults != null) {
+      return getResults(this);
     }
     return orElse();
   }
 }
 
-abstract class _GetFilter implements DealerCardEvent {
-  factory _GetFilter(
-      {final bool? isRefresh,
+abstract class _GetResults implements DealerCardEvent {
+  factory _GetResults(
+      {required final bool isRefresh,
+      required final String search,
       final int? mark,
       final String? regionId,
-      final String? carType}) = _$_GetFilter;
+      final String? carType}) = _$_GetResults;
 
-  bool? get isRefresh;
+  bool get isRefresh;
+  String get search;
   int? get mark;
   String? get regionId;
   String? get carType;
   @JsonKey(ignore: true)
-  _$$_GetFilterCopyWith<_$_GetFilter> get copyWith =>
+  _$$_GetResultsCopyWith<_$_GetResults> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -529,10 +371,9 @@ class _$_GetFilterParams implements _GetFilterParams {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isRefresh, String search) getResults,
-    required TResult Function(
-            bool? isRefresh, int? mark, String? regionId, String? carType)
-        getFilterResult,
+    required TResult Function(bool isRefresh, String search, int? mark,
+            String? regionId, String? carType)
+        getResults,
     required TResult Function(String? regions, String? maker, String? carType)
         getFilterParams,
     required TResult Function() getMoreResults,
@@ -543,10 +384,9 @@ class _$_GetFilterParams implements _GetFilterParams {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isRefresh, String search)? getResults,
-    TResult? Function(
-            bool? isRefresh, int? mark, String? regionId, String? carType)?
-        getFilterResult,
+    TResult? Function(bool isRefresh, String search, int? mark,
+            String? regionId, String? carType)?
+        getResults,
     TResult? Function(String? regions, String? maker, String? carType)?
         getFilterParams,
     TResult? Function()? getMoreResults,
@@ -557,10 +397,9 @@ class _$_GetFilterParams implements _GetFilterParams {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isRefresh, String search)? getResults,
-    TResult Function(
-            bool? isRefresh, int? mark, String? regionId, String? carType)?
-        getFilterResult,
+    TResult Function(bool isRefresh, String search, int? mark, String? regionId,
+            String? carType)?
+        getResults,
     TResult Function(String? regions, String? maker, String? carType)?
         getFilterParams,
     TResult Function()? getMoreResults,
@@ -576,7 +415,6 @@ class _$_GetFilterParams implements _GetFilterParams {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetResults value) getResults,
-    required TResult Function(_GetFilter value) getFilterResult,
     required TResult Function(_GetFilterParams value) getFilterParams,
     required TResult Function(_GetMoreResults value) getMoreResults,
   }) {
@@ -587,7 +425,6 @@ class _$_GetFilterParams implements _GetFilterParams {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetResults value)? getResults,
-    TResult? Function(_GetFilter value)? getFilterResult,
     TResult? Function(_GetFilterParams value)? getFilterParams,
     TResult? Function(_GetMoreResults value)? getMoreResults,
   }) {
@@ -598,7 +435,6 @@ class _$_GetFilterParams implements _GetFilterParams {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetResults value)? getResults,
-    TResult Function(_GetFilter value)? getFilterResult,
     TResult Function(_GetFilterParams value)? getFilterParams,
     TResult Function(_GetMoreResults value)? getMoreResults,
     required TResult orElse(),
@@ -662,10 +498,9 @@ class _$_GetMoreResults implements _GetMoreResults {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isRefresh, String search) getResults,
-    required TResult Function(
-            bool? isRefresh, int? mark, String? regionId, String? carType)
-        getFilterResult,
+    required TResult Function(bool isRefresh, String search, int? mark,
+            String? regionId, String? carType)
+        getResults,
     required TResult Function(String? regions, String? maker, String? carType)
         getFilterParams,
     required TResult Function() getMoreResults,
@@ -676,10 +511,9 @@ class _$_GetMoreResults implements _GetMoreResults {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isRefresh, String search)? getResults,
-    TResult? Function(
-            bool? isRefresh, int? mark, String? regionId, String? carType)?
-        getFilterResult,
+    TResult? Function(bool isRefresh, String search, int? mark,
+            String? regionId, String? carType)?
+        getResults,
     TResult? Function(String? regions, String? maker, String? carType)?
         getFilterParams,
     TResult? Function()? getMoreResults,
@@ -690,10 +524,9 @@ class _$_GetMoreResults implements _GetMoreResults {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isRefresh, String search)? getResults,
-    TResult Function(
-            bool? isRefresh, int? mark, String? regionId, String? carType)?
-        getFilterResult,
+    TResult Function(bool isRefresh, String search, int? mark, String? regionId,
+            String? carType)?
+        getResults,
     TResult Function(String? regions, String? maker, String? carType)?
         getFilterParams,
     TResult Function()? getMoreResults,
@@ -709,7 +542,6 @@ class _$_GetMoreResults implements _GetMoreResults {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetResults value) getResults,
-    required TResult Function(_GetFilter value) getFilterResult,
     required TResult Function(_GetFilterParams value) getFilterParams,
     required TResult Function(_GetMoreResults value) getMoreResults,
   }) {
@@ -720,7 +552,6 @@ class _$_GetMoreResults implements _GetMoreResults {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetResults value)? getResults,
-    TResult? Function(_GetFilter value)? getFilterResult,
     TResult? Function(_GetFilterParams value)? getFilterParams,
     TResult? Function(_GetMoreResults value)? getMoreResults,
   }) {
@@ -731,7 +562,6 @@ class _$_GetMoreResults implements _GetMoreResults {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetResults value)? getResults,
-    TResult Function(_GetFilter value)? getFilterResult,
     TResult Function(_GetFilterParams value)? getFilterParams,
     TResult Function(_GetMoreResults value)? getMoreResults,
     required TResult orElse(),

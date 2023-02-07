@@ -13,13 +13,13 @@ class DealerUseCase
   Future<Either<Failure, GenericPagination<DealerCardModel>>> call(
       DealerParams params) async {
     final map = <String, dynamic>{'search': params.search};
-    if (params.filter?.car_type != null) {
-      map.putIfAbsent('car_type', () => params.filter?.car_type);
+    if (params.filter?.carType != null) {
+      map.putIfAbsent('car_type', () => params.filter?.carType);
     }
-    if(params.filter?.regionId != null){
+    if (params.filter?.regionId != null) {
       map.putIfAbsent('region', () => params.filter?.regionId);
     }
-    if(params.filter?.mark != null){
+    if (params.filter?.mark != null) {
       map.putIfAbsent('mark', () => params.filter?.mark);
     }
     print('map:$map');
@@ -42,9 +42,9 @@ class DealerParams {
 }
 
 class DealerFilterParams {
-  final String? car_type;
+  final String? carType;
   final String? regionId;
   final String? mark;
 
-  DealerFilterParams({this.regionId, this.car_type, this.mark});
+  DealerFilterParams({this.regionId, this.carType, this.mark});
 }

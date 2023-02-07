@@ -27,16 +27,7 @@ class AllCarsInDealerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: WAppBar(
-          extraActions: [
-            Text(LocaleKeys.all_cars.tr(),
-                style: Theme.of(context)
-                    .textTheme
-                    .headline1!
-                    .copyWith(fontSize: 16, fontWeight: FontWeight.w600)),
-            const Spacer(
-              flex: 120,
-            ),
-          ],
+          textWithButton: LocaleKeys.all_cars.tr(),
         ),
         body: BlocBuilder<CarsInDealerBloc, CarsInDealerState>(
             builder: (context, state) {
@@ -46,50 +37,39 @@ class AllCarsInDealerScreen extends StatelessWidget {
           if (state.status.isSubmissionSuccess) {
             return Paginator(
               paginatorStatus: state.status,
+              padding: const EdgeInsets.symmetric(vertical: 16),
               itemBuilder: (context, index) {
                 final item = state.cars[index];
-                return BlocListener<WishlistAddBloc, WishlistAddState>(
-                  listener: (context, stateWish) {
-                    if (stateWish.addStatus.isSubmissionSuccess ||
-                          stateWish.removeStatus.isSubmissionSuccess) {
-                        if (stateWish.id == item.id) {
-                          // context.read<TopAdBloc>().add(TopAdEvent.changeIsWish(
-                          //     index: stateWish.index, id: stateWish.id));
-                        }
-                        // context
-                        //     .read<WishlistAddBloc>()
-                        //     .add(WishlistAddEvent.clearState());
-                      }
-                  },
-                  child: Padding(
-                                  padding: const EdgeInsets.only(bottom: 12),
-                                  child: InfoContainer(
-                                    index: index,
-                                    avatarPicture: item.userType == 'owner'
-                                        ? item.user.avatar
-                                        : item.dealer.avatar,
-                                    carModel: item.absoluteCarName,
-                                    hasDiscount: double.parse(item.discount) > 0,
-                                    location: item.region.title,
-                                    owner: item.absoluteCarName,
-                                    ownerType: item.userType,
-                                    publishTime: MyFunctions.getAutoPublishDate(item.createdAt),
-                                    subtitle: item.description,
-                                    year: item.year,
-                                    price: item.price,
-                                    discountPrice: item.price,
-                                    sellType: item.currency,
-                                    hasStatusInfo: item.isNew,
-                                    gallery: item.gallery,
-                                    currency: item.currency,
-                                    initialLike: item.isWishlisted,
-                                    onTapFavorites: () {
-                                    },
-                                    onTapComparsion: () {},
-                                    initialComparsions: item.isComparison,
-                                    id: item.id,
-                                  ),
-                                ),
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: InfoContainer(
+                    index: index,
+                    avatarPicture: item.userType == 'owner'
+                        ? item.user.avatar
+                        : item.dealer.avatar,
+                    carModel: item.absoluteCarName,
+                    // ignore: avoid_bool_literals_in_conditional_expressions
+                    hasDiscount: item.discount.isEmpty
+                        ? false
+                        : double.parse(item.discount) > 0,
+                    location: item.region.title,
+                    owner: item.absoluteCarName,
+                    ownerType: item.userType,
+                    publishTime: MyFunctions.getAutoPublishDate(item.createdAt),
+                    subtitle: item.description,
+                    year: item.year,
+                    price: item.price,
+                    discountPrice: item.price,
+                    sellType: item.currency,
+                    hasStatusInfo: item.isNew,
+                    gallery: item.gallery,
+                    currency: item.currency,
+                    initialLike: item.isWishlisted,
+                    onTapFavorites: () {},
+                    onTapComparsion: () {},
+                    initialComparsions: item.isComparison,
+                    id: item.id,
+                  ),
                 );
               },
               itemCount: state.cars.length,

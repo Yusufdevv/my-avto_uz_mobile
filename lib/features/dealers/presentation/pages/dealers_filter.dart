@@ -61,14 +61,14 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
           builder: (context, state) => Scaffold(
             backgroundColor: white,
             appBar: WAppBar(
-               boxShadow: [
-              BoxShadow(
-                  offset: const Offset(0, 8),
-                  blurRadius: 24,
-                  color: dark.withOpacity(0.08)),
-              BoxShadow(
-                  offset: const Offset(0, -1), color: dark.withOpacity(0.08))
-            ],
+              boxShadow: [
+                BoxShadow(
+                    offset: const Offset(0, 8),
+                    blurRadius: 24,
+                    color: dark.withOpacity(0.08)),
+                BoxShadow(
+                    offset: const Offset(0, -1), color: dark.withOpacity(0.08))
+              ],
               titleStyle:
                   Theme.of(context).textTheme.headline1!.copyWith(fontSize: 16),
               extraActions: [
@@ -196,11 +196,13 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
                     textStyle: const TextStyle(
                         fontWeight: FontWeight.w600, fontSize: 14),
                     onTap: () {
-                      widget.dealerBloc.add(DealerCardEvent.getFilterResult(
+                      widget.dealerBloc.add(DealerCardEvent.getResults(
+                        isRefresh: false,
+                        search: '',
                         regionId: state.region.isEmpty
                             ? ''
                             : MyFunctions.text(state.region),
-                        mark: state.maker.id,
+                        mark: state.maker.id != -1 ? state.maker.id : null,
                         carType: selectedCategory,
                       ));
                       Navigator.pop(context);

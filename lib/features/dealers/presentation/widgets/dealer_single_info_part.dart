@@ -1,11 +1,13 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class DealerSingleInfoPart extends StatefulWidget {
@@ -38,6 +40,7 @@ class _DealerSingleInfoPartState extends State<DealerSingleInfoPart> {
   late YandexMapController controller;
   double maxZoomLevel = 0;
   double minZoomLevel = 0;
+  bool isSelected = false;
 
   @override
   Widget build(BuildContext context) => Container(
@@ -122,14 +125,75 @@ class _DealerSingleInfoPartState extends State<DealerSingleInfoPart> {
                 ),
               ],
             ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            child: Info(
-              text: MyFunctions.phoneFormat(widget.contact),
-              icon: AppIcons.tablerPhone,
+          const SizedBox(height: 16),
+          if (!isSelected)
+            WScaleAnimation(
+              onTap: () {
+                setState(() => isSelected = true);
+              },
+              child: Container(
+                width: double.maxFinite,
+                alignment: Alignment.center,
+                padding:
+                    const EdgeInsets.symmetric(vertical: 13, horizontal: 16),
+                decoration: BoxDecoration(
+                    color: emerald, borderRadius: BorderRadius.circular(8)),
+                child: Text(LocaleKeys.show_contact.tr(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4!
+                        .copyWith(fontSize: 14, height: 1.3)),
+              ),
+            )
+          else
+            Row(
+              children: [
+                Expanded(
+                  child: Row(
+                    children: [
+                      SvgPicture.asset(AppIcons.phoneCall1),
+                      const SizedBox(width: 8),
+                      Text(MyFunctions.phoneFormat(widget.contact),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline1!
+                              .copyWith(
+                                  fontSize: 16, fontWeight: FontWeight.w600)),
+                    ],
+                  ),
+                ),
+                WScaleAnimation(
+                  onTap: () {
+                    launchUrl(Uri.parse('tel: ${widget.contact}'));
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 13, horizontal: 16),
+                    decoration: BoxDecoration(
+                        color: emerald, borderRadius: BorderRadius.circular(8)),
+                    child: Text(LocaleKeys.call.tr(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline4!
+                            .copyWith(fontSize: 14, height: 1.3)),
+                  ),
+                ),
+              ],
             ),
-          ),
-          Info(icon: AppIcons.tablerInfo, text: widget.additionalInfo),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(vertical: 20),
+          //   child: Info(
+          //     text: MyFunctions.phoneFormat(widget.contact),
+          //     icon: AppIcons.tablerPhone,
+          //   ),
+          // ),
+          if (widget.additionalInfo != '')
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child:
+                  Info(icon: AppIcons.tablerInfo, text: widget.additionalInfo),
+            ),
         ],
       ));
 }

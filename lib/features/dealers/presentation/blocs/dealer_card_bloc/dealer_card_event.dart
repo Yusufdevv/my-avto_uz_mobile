@@ -5,13 +5,10 @@ class DealerCardEvent with _$DealerCardEvent {
   factory DealerCardEvent.getResults({
     required bool isRefresh,
     required String search,
-  }) = _GetResults;
-  factory DealerCardEvent.getFilterResult({
-    bool? isRefresh,
-    int? mark,
+     int? mark,
     String? regionId,
     String? carType,
-}) = _GetFilter;
+  }) = _GetResults;
   factory DealerCardEvent.getFilterParams({
     String? regions,
     String? maker,

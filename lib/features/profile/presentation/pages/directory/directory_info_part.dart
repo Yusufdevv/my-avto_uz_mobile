@@ -42,7 +42,6 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
   double maxZoomLevel = 0;
   double minZoomLevel = 0;
   bool isSelected = false;
-  bool toggledToCall = false;
 
   @override
   Widget build(BuildContext context) => Container(
@@ -71,22 +70,15 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
                   '${LocaleKeys.every_day.tr()}, ${widget.contactFrom} - ${widget.contactTo}',
               icon: AppIcons.clock),
           const SizedBox(height: 16),
-          Row(
-            children: [
-              SvgPicture.asset(AppIcons.location1),
-              const SizedBox(width: 8),
-              Text(widget.address,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline1!
-                      .copyWith(fontSize: 14, fontWeight: FontWeight.w400))
-            ],
-          ),
+          if (widget.address != '')
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: Info(icon: AppIcons.location1, text: widget.address),
+            ),
           if (widget.latitude > 1 && widget.longitude > 1)
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 16),
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(6),
@@ -100,14 +92,6 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
                       rotateGesturesEnabled: false,
                       onMapCreated: (controller) async {
                         controller = controller;
-                        // maxZoomLevel = await controller.getMaxZoom();
-                        // minZoomLevel = await controller.getMinZoom();
-                        // final camera = await controller.getCameraPosition();
-                        // final position = Point(
-                        //     latitude: StorageRepository.getDouble('lat',
-                        //         defValue: 41.310990),
-                        //     longitude: StorageRepository.getDouble('long',
-                        //         defValue: 69.281997));
                         await controller.moveCamera(
                           CameraUpdate.newCameraPosition(
                             CameraPosition(
