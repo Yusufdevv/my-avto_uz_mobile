@@ -17,6 +17,10 @@ StoryItemModel _$StoryItemModelFromJson(Map<String, dynamic> json) =>
       expired: json['expired'] as bool? ?? false,
       redirectTo: json['redirect_to'] as String? ?? '',
       isRead: json['is_read'] as bool? ?? false,
+      redirectData: json['redirect_data'] == null
+          ? const StoryRedirectDataEntity()
+          : const StoryRedirectDataConverter()
+              .fromJson(json['redirect_data'] as Map<String, dynamic>?),
     );
 
 Map<String, dynamic> _$StoryItemModelToJson(StoryItemModel instance) =>
@@ -30,4 +34,6 @@ Map<String, dynamic> _$StoryItemModelToJson(StoryItemModel instance) =>
       'expired': instance.expired,
       'redirect_to': instance.redirectTo,
       'is_read': instance.isRead,
+      'redirect_data':
+          const StoryRedirectDataConverter().toJson(instance.redirectData),
     };
