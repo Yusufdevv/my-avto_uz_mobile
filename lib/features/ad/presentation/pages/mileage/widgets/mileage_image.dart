@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MileageImageItem extends StatefulWidget {
-  final String image;
+  final String? image;
 
   const MileageImageItem({required this.image, Key? key}) : super(key: key);
 
@@ -19,7 +19,7 @@ class MileageImageItem extends StatefulWidget {
 
 class _MileageImageItemState extends State<MileageImageItem> {
   @override
-  Widget build(BuildContext context) => widget.image.isEmpty
+  Widget build(BuildContext context) => widget.image == null|| widget.image!.isEmpty
       ? WScaleAnimation(
           onTap: () {
             context.read<MileageImageBloc>().add(const PickMileageImage());
@@ -46,7 +46,7 @@ class _MileageImageItemState extends State<MileageImageItem> {
             image: DecorationImage(
               fit: BoxFit.cover,
               image: FileImage(
-                File(widget.image),
+                File(widget.image!),
               ),
             ),
           ),

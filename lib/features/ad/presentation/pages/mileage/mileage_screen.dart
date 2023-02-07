@@ -15,9 +15,10 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class MileageScreen extends StatefulWidget {
   final Function(String) onImageChange;
-  final String initialMilage;
+  final String initialMileage;
+  final String? initialMileageImage;
   const MileageScreen(
-      {required this.onImageChange, required this.initialMilage, Key? key})
+      {required this.onImageChange, required this.initialMileage,required this.initialMileageImage, Key? key})
       : super(key: key);
 
   @override
@@ -30,8 +31,8 @@ class _MileageScreenState extends State<MileageScreen> {
 
   @override
   void initState() {
-    mileageImageBloc = MileageImageBloc();
-    mileageController = TextEditingController(text: widget.initialMilage);
+    mileageImageBloc = MileageImageBloc(widget.initialMileageImage);
+    mileageController = TextEditingController(text: widget.initialMileage);
 
     super.initState();
   }
@@ -50,7 +51,9 @@ class _MileageScreenState extends State<MileageScreen> {
             body: BlocConsumer<MileageImageBloc, MileageImageState>(
               listener: (context, state) {
                 print('=> => => =>     milage image change in listener: ${state.image}    <= <= <= <=');
-                widget.onImageChange(state.image);
+               if(state.image != null&& state.image!.isNotEmpty) {
+                  widget.onImageChange(state.image!);
+                }
               },
               builder: (context, state) => BaseWidget(
                 headerText: LocaleKeys.Mileage.tr(),
@@ -119,7 +122,7 @@ class _MileageScreenState extends State<MileageScreen> {
                       const SizedBox(height: 8),
                       MileageImageItem(image: state.image),
                       const SizedBox(
-                        height: 20,
+                        height: 20
                       ),
                     ],
                   ),

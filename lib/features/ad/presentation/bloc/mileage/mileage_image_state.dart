@@ -1,7 +1,7 @@
 part of 'mileage_image_bloc.dart';
 
  class MileageImageState extends Equatable {
-   final String image;
+   final String? image;
 
   const MileageImageState({required this.image});
 

@@ -396,7 +396,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                   postingAdBloc.add(
                                       PostingAdChooseEvent(milageImage: image));
                                 },
-                                initialMilage: state.mileage ?? ''),
+                                initialMileageImage: state.milageImage,
+                                initialMileage: state.mileage ?? ''),
                             // //19
                             // const StsScreen(),
                             //19
