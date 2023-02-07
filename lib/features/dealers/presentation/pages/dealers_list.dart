@@ -3,6 +3,7 @@ import 'package:auto/features/dealers/presentation/pages/dealer_single_page.dart
 import 'package:auto/features/dealers/presentation/widgets/dealer_card.dart';
 import 'package:auto/features/dealers/presentation/widgets/dealers_empty_state.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/pagination/presentation/paginator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,7 +43,15 @@ class _DealersListState extends State<DealersList>
           );
         } else {
           if (state.list.isNotEmpty) {
-            return ListView.builder(
+            return Paginator(
+              paginatorStatus: state.paginationStatus,
+              fetchMoreFunction: () {
+                context
+                    .read<DealerCardBloc>()
+                    .add(DealerCardEvent.getMoreResults());
+              },
+              hasMoreToFetch: state.next != null,
+              errorWidget: const SizedBox(),
               physics: const BouncingScrollPhysics(),
               padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
               itemBuilder: (context, index) => Padding(
@@ -63,7 +72,7 @@ class _DealersListState extends State<DealersList>
                   contactFrom: state.list[index].contactFrom,
                 ),
               ),
-              itemCount: state.count,
+              itemCount: state.list.length,
             );
           } else {
             return const EmptyState();

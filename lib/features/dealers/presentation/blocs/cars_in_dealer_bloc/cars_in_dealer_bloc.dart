@@ -50,13 +50,10 @@ class CarsInDealerBloc extends Bloc<CarsInDealerEvent, CarsInDealerState> {
 
   void _onChangeIsWish(_ChangeIsWish event, Emitter<CarsInDealerState> emit) {
     // ignore: prefer_final_locals
-    print('=======id ${event.id}');
     var list = <CarsInDealerEntity>[...state.cars];
     final item = list.firstWhere((element) => element.id == event.id);
     final index = list.indexOf(item);
-    print('=======before ${list[index].isWishlisted}');
     list[index].isWishlisted = !list[index].isWishlisted;
-    print('=======after ${list[index].isWishlisted}');
     emit(state.copyWith(cars: list));
   }
 }

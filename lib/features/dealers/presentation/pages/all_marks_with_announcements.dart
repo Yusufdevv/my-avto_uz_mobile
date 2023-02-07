@@ -24,16 +24,7 @@ class AllMarksWithAnnouncements extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: WAppBar(
-        extraActions: [
-          Text(LocaleKeys.all_brands_with_ads.tr(),
-              style: Theme.of(context)
-                  .textTheme
-                  .headline1!
-                  .copyWith(fontSize: 16, fontWeight: FontWeight.w600)),
-          const Spacer(
-            flex: 120,
-          ),
-        ],
+        textWithButton: LocaleKeys.all_brands_with_ads.tr(),
       ),
       body: BlocBuilder<MarksInDealersBloc, MarksInDealersState>(
         builder: (context, state) {
@@ -43,11 +34,13 @@ class AllMarksWithAnnouncements extends StatelessWidget {
           if (state.status.isSubmissionSuccess) {
             return GridView.builder(
               itemCount: state.marks.length + 1,
+              padding: const EdgeInsets.all(16),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 15,
-                  crossAxisSpacing: 15,
-                  childAspectRatio: 2.3),
+                crossAxisCount: 2,
+                mainAxisSpacing: 15,
+                crossAxisSpacing: 15,
+                childAspectRatio: 2.3,
+              ),
               itemBuilder: (context, index) {
                 if (index == state.marks.length) {
                   if (state.next != null) {
@@ -89,7 +82,6 @@ class AllMarksWithAnnouncements extends StatelessWidget {
                         child: ClipRRect(
                           child: CachedNetworkImage(
                             imageUrl: item.make.logo,
-                            fit: BoxFit.cover,
                             errorWidget: (context, url, error) =>
                                 Image.asset(AppImages.autoUz),
                           ),

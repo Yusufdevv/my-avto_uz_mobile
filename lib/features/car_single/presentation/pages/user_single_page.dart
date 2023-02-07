@@ -2,9 +2,8 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/car_single/presentation/bloc/user_single_bloc/user_single_bloc.dart';
-import 'package:auto/features/commercial/presentation/widgets/info_container.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/dealers/presentation/widgets/dealer_single_info_part.dart';
-import 'package:auto/features/profile/domain/entities/dealer_type_entity.dart';
 import 'package:auto/features/profile/presentation/pages/directory/directory_sliver_delegete.dart';
 import 'package:auto/features/search/presentation/widgets/info_result_container.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -12,7 +11,9 @@ import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 // ignore: must_be_immutable
@@ -53,6 +54,7 @@ class _UserSinglePageState extends State<UserSinglePage> {
   late YandexMapController controller;
   double maxZoomLevel = 0;
   double minZoomLevel = 0;
+  bool isSelected = false;
 
   @override
   Widget build(BuildContext context) => BlocProvider.value(
@@ -189,20 +191,87 @@ class _UserSinglePageState extends State<UserSinglePage> {
                                         ),
                                       ],
                                     ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 16),
-                                    child: Info(
-                                      text: MyFunctions.phoneFormat(
-                                          item.announcement?.contactPhone ??
-                                              ''),
-                                      icon: AppIcons.tablerPhone,
+                                  const SizedBox(height: 16),
+                                  if (!isSelected)
+                                    WScaleAnimation(
+                                      onTap: () {
+                                        setState(() => isSelected = true);
+                                      },
+                                      child: Container(
+                                        width: double.maxFinite,
+                                        alignment: Alignment.center,
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 13, horizontal: 16),
+                                        decoration: BoxDecoration(
+                                            color: emerald,
+                                            borderRadius:
+                                                BorderRadius.circular(8)),
+                                        child: Text(
+                                            LocaleKeys.show_contact.tr(),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline4!
+                                                .copyWith(
+                                                    fontSize: 14, height: 1.3)),
+                                      ),
+                                    )
+                                  else
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Row(
+                                            children: [
+                                              SvgPicture.asset(
+                                                  AppIcons.phoneCall1),
+                                              const SizedBox(width: 8),
+                                              Text(
+                                                  MyFunctions.phoneFormat(item
+                                                          .announcement
+                                                          ?.contactPhone ??
+                                                      ''),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headline1!
+                                                      .copyWith(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.w600)),
+                                            ],
+                                          ),
+                                        ),
+                                        WScaleAnimation(
+                                          onTap: () {
+                                            launchUrl(Uri.parse(
+                                                'tel: ${item.announcement?.contactPhone}'));
+                                          },
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 13, horizontal: 16),
+                                            decoration: BoxDecoration(
+                                                color: emerald,
+                                                borderRadius:
+                                                    BorderRadius.circular(8)),
+                                            child: Text(LocaleKeys.call.tr(),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline4!
+                                                    .copyWith(
+                                                        fontSize: 14,
+                                                        height: 1.3)),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                  Info(
-                                      icon: AppIcons.tablerInfo,
-                                      text:
-                                          item.announcement?.description ?? ''),
+                                  if (item.announcement?.description != '')
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 16),
+                                      child: Info(
+                                          icon: AppIcons.tablerInfo,
+                                          text:
+                                              item.announcement?.description ??
+                                                  ''),
+                                    ),
                                 ],
                               )),
                           if (state.userAds.isNotEmpty)

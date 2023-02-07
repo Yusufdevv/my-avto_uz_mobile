@@ -146,11 +146,6 @@ class _BottomItemState extends State<BottomItem>
               Navigator.of(context)
                       .push(fade(page: DealerSinglePage(slug: widget.slug)));
              }
-            //  widget.usertype == 'owner'
-            //       ? Navigator.of(context)
-            //           .push(fade(page:UserSinglePage(userId: widget.userId, announcementId: widget.id,)))
-            //       : Navigator.of(context)
-            //           .push(fade(page: DealerSinglePage(slug: widget.slug)));
             },
             child: Container(
               height: 44,

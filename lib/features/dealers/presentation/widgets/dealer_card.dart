@@ -9,6 +9,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DealerCard extends StatefulWidget {
   final String dealerInfo;
@@ -155,54 +156,68 @@ class _DealerCardState extends State<DealerCard> {
                             fontSize: 13,
                             color: warmerGrey),
                       )),
-                      Text(
-                        widget.contractCode,
-                        style: Theme.of(context).textTheme.headline1!.copyWith(
-                            fontSize: 16, fontWeight: FontWeight.w600),
+                      WScaleAnimation(
+                        isDisabled: !isSelected,
+                        onTap: () {
+                          if (isSelected) {
+                            launchUrl(Uri.parse('tel: ${widget.phoneNumber}'));
+                          }
+                        },
+                        child: Row(
+                          children: [
+                            Text(
+                              widget.contractCode,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline1!
+                                  .copyWith(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600),
+                            ),
+                            if (isSelected)
+                              Text(
+                                MyFunctions.phoneFormatter(
+                                    widget.contractNumber, [
+                                  4,
+                                  6,
+                                ]),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline1!
+                                    .copyWith(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600),
+                              ),
+                          ],
+                        ),
                       ),
                       if (isSelected)
                         const SizedBox(width: 3)
                       else
                         const SizedBox(width: 9),
-                      WScaleAnimation(
-                        onTap: () {
-                          setState(() => isSelected = true);
-                        },
-                        child: isSelected
-                            ? Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 5, 16, 5),
-                                child: Text(
-                                  MyFunctions.phoneFormatter(
-                                      widget.contractNumber, [
-                                    4,
-                                    6,
-                                  ]),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline1!
-                                      .copyWith(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600),
-                                ),
-                              )
-                            : Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16, vertical: 5),
-                                decoration: BoxDecoration(
-                                  color: emerald,
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  LocaleKeys.show_contact.tr(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline4!
-                                      .copyWith(
-                                        fontSize: 14,
-                                      ),
-                                ),
-                              ),
-                      ),
+                      if (!isSelected)
+                        WScaleAnimation(
+                          onTap: () {
+                            setState(() => isSelected = true);
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 5),
+                            decoration: BoxDecoration(
+                              color: emerald,
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: Text(
+                              LocaleKeys.show_contact.tr(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline4!
+                                  .copyWith(
+                                    fontSize: 14,
+                                  ),
+                            ),
+                          ),
+                        ),
                     ],
                   ),
                 ],
