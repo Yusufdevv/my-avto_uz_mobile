@@ -15,13 +15,13 @@ import 'package:auto/features/profile/presentation/bloc/user_wishlists_notificat
 import 'package:auto/features/profile/presentation/widgets/custom_profile_bottomsheet.dart';
 import 'package:auto/features/profile/presentation/widgets/empty_item_body.dart';
 import 'package:auto/features/profile/presentation/widgets/my_search_item.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
-import 'package:auto/generated/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class MySearchesPage extends StatefulWidget {
   const MySearchesPage({super.key});

@@ -496,5 +496,11 @@ abstract class  LocaleKeys {
   static const monthly_pay = 'monthly_pay';
   static const map = 'map';
   static const we_compared_all_parameters = 'we_compared_all_parameters';
+  static const km = 'km';
+  static const dayss = 'dayss';
+  static const u_t_e_o_t_a_p_l = 'u_t_e_o_t_a_p_l';
+  static const phone_call = 'phone_call';
+  static const added_to_favorites = 'added_to_favorites';
+  static const days_on_sale = 'days_on_sale';
 
 }

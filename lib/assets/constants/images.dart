@@ -12,6 +12,7 @@ class AppImages {
   static const placeholderImage = 'assets/images/global/placeholder-image.jpg';
   static const proverka = 'assets/images/global/proverka.png';
   static const pl = 'assets/images/global/pl.png';
+  static const pl2 = 'assets/images/global/pl2.png';
   static const audi = 'assets/images/global/audi.png';
   static const mainMap = 'assets/images/global/main_map.png';
   static const tahoe = 'assets/images/global/tahoe.png';

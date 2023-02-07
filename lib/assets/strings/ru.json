@@ -493,5 +493,11 @@
   "minimal_summa_must_be":"Минимальная сумма должна быть",
   "monthly_pay":"Ежемесячная оплата",
   "map":"Карта",
-  "we_compared_all_parameters": "Biz "
+  "we_compared_all_parameters": "Мы сравнили все похожие авто на ",
+  "km": "км",
+  "dayss": "дня",
+  "u_t_e_o_t_a_p_l": "До окончания срока объявления осталось: ",
+  "phone_call": "Позвонили по\n телефону",
+  "added_to_favorites": "Добавили в\n избранное",
+  "days_on_sale": "Дней\nв продаже"
 }

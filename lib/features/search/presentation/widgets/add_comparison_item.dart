@@ -65,16 +65,18 @@ class _AddComparisonItemState extends State<AddComparisonItem> {
                 ),
                 child: isLiked
                     ? SvgPicture.asset(
-                        AppIcons.scalesRed,
+                        AppIcons.scales,
                         key: const ValueKey<int>(1),
                         fit: BoxFit.cover,
+                        color: orange,
                         height: 28,
                         width: 28,
                       )
                     : SvgPicture.asset(
-                        widget.isGreen ? AppIcons.comparGreen : AppIcons.scale,
+                        AppIcons.scales,
                         fit: BoxFit.cover,
                         key: const ValueKey<int>(2),
+                        color: widget.isGreen ? emerald : greyText,
                         height: 28,
                         width: 28,
                       ),
@@ -93,7 +95,7 @@ class _AddComparisonItemState extends State<AddComparisonItem> {
                     LocaleKeys.compare.tr(),
                     style: Theme.of(context).textTheme.headline6!.copyWith(
                           fontSize: 12,
-                          color: isLiked ? orange : null,
+                          color: isLiked ? orange : const Color(0xff696974),
                         ),
                   )
             ],
