@@ -84,9 +84,6 @@ class AllCarsInDealerScreen extends StatelessWidget {
                                     currency: item.currency,
                                     initialLike: item.isWishlisted,
                                     onTapFavorites: () {
-                                      context.read<WishlistAddBloc>().add(item.isWishlisted
-                                          ? WishlistAddEvent.removeWishlist(item.id, index)
-                                          : WishlistAddEvent.addWishlist(item.id, index));
                                     },
                                     onTapComparsion: () {},
                                     initialComparsions: item.isComparison,

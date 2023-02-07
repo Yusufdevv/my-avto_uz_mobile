@@ -63,10 +63,10 @@ class CarsInDealerEntity extends Equatable {
   final CarUserEntity user;
   @DealerCardConvert()
   final DealerSingleEntity dealer;
-  final bool isWishlisted;
+    bool isWishlisted;
   final bool isComparison;
 
-  const CarsInDealerEntity({
+    CarsInDealerEntity({
     this.id = 0,
     this.viewsCount = 0,
     this.createdAt = '',

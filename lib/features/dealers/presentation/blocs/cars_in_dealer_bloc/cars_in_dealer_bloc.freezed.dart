@@ -16,23 +16,25 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CarsInDealerEvent {
-  String get slug => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String slug) getResults,
     required TResult Function(String slug) getMoreResults,
+    required TResult Function(int index, int id) changeIsWish,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String slug)? getResults,
     TResult? Function(String slug)? getMoreResults,
+    TResult? Function(int index, int id)? changeIsWish,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String slug)? getResults,
     TResult Function(String slug)? getMoreResults,
+    TResult Function(int index, int id)? changeIsWish,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -40,24 +42,23 @@ mixin _$CarsInDealerEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetResults value) getResults,
     required TResult Function(_GetMoreResults value) getMoreResults,
+    required TResult Function(_ChangeIsWish value) changeIsWish,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetResults value)? getResults,
     TResult? Function(_GetMoreResults value)? getMoreResults,
+    TResult? Function(_ChangeIsWish value)? changeIsWish,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetResults value)? getResults,
     TResult Function(_GetMoreResults value)? getMoreResults,
+    TResult Function(_ChangeIsWish value)? changeIsWish,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $CarsInDealerEventCopyWith<CarsInDealerEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -66,8 +67,6 @@ abstract class $CarsInDealerEventCopyWith<$Res> {
   factory $CarsInDealerEventCopyWith(
           CarsInDealerEvent value, $Res Function(CarsInDealerEvent) then) =
       _$CarsInDealerEventCopyWithImpl<$Res, CarsInDealerEvent>;
-  @useResult
-  $Res call({String slug});
 }
 
 /// @nodoc
@@ -79,28 +78,13 @@ class _$CarsInDealerEventCopyWithImpl<$Res, $Val extends CarsInDealerEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? slug = null,
-  }) {
-    return _then(_value.copyWith(
-      slug: null == slug
-          ? _value.slug
-          : slug // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$_GetResultsCopyWith<$Res>
-    implements $CarsInDealerEventCopyWith<$Res> {
+abstract class _$$_GetResultsCopyWith<$Res> {
   factory _$$_GetResultsCopyWith(
           _$_GetResults value, $Res Function(_$_GetResults) then) =
       __$$_GetResultsCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String slug});
 }
@@ -162,6 +146,7 @@ class _$_GetResults implements _GetResults {
   TResult when<TResult extends Object?>({
     required TResult Function(String slug) getResults,
     required TResult Function(String slug) getMoreResults,
+    required TResult Function(int index, int id) changeIsWish,
   }) {
     return getResults(slug);
   }
@@ -171,6 +156,7 @@ class _$_GetResults implements _GetResults {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String slug)? getResults,
     TResult? Function(String slug)? getMoreResults,
+    TResult? Function(int index, int id)? changeIsWish,
   }) {
     return getResults?.call(slug);
   }
@@ -180,6 +166,7 @@ class _$_GetResults implements _GetResults {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String slug)? getResults,
     TResult Function(String slug)? getMoreResults,
+    TResult Function(int index, int id)? changeIsWish,
     required TResult orElse(),
   }) {
     if (getResults != null) {
@@ -193,6 +180,7 @@ class _$_GetResults implements _GetResults {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetResults value) getResults,
     required TResult Function(_GetMoreResults value) getMoreResults,
+    required TResult Function(_ChangeIsWish value) changeIsWish,
   }) {
     return getResults(this);
   }
@@ -202,6 +190,7 @@ class _$_GetResults implements _GetResults {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetResults value)? getResults,
     TResult? Function(_GetMoreResults value)? getMoreResults,
+    TResult? Function(_ChangeIsWish value)? changeIsWish,
   }) {
     return getResults?.call(this);
   }
@@ -211,6 +200,7 @@ class _$_GetResults implements _GetResults {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetResults value)? getResults,
     TResult Function(_GetMoreResults value)? getMoreResults,
+    TResult Function(_ChangeIsWish value)? changeIsWish,
     required TResult orElse(),
   }) {
     if (getResults != null) {
@@ -223,21 +213,17 @@ class _$_GetResults implements _GetResults {
 abstract class _GetResults implements CarsInDealerEvent {
   factory _GetResults({required final String slug}) = _$_GetResults;
 
-  @override
   String get slug;
-  @override
   @JsonKey(ignore: true)
   _$$_GetResultsCopyWith<_$_GetResults> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_GetMoreResultsCopyWith<$Res>
-    implements $CarsInDealerEventCopyWith<$Res> {
+abstract class _$$_GetMoreResultsCopyWith<$Res> {
   factory _$$_GetMoreResultsCopyWith(
           _$_GetMoreResults value, $Res Function(_$_GetMoreResults) then) =
       __$$_GetMoreResultsCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String slug});
 }
@@ -299,6 +285,7 @@ class _$_GetMoreResults implements _GetMoreResults {
   TResult when<TResult extends Object?>({
     required TResult Function(String slug) getResults,
     required TResult Function(String slug) getMoreResults,
+    required TResult Function(int index, int id) changeIsWish,
   }) {
     return getMoreResults(slug);
   }
@@ -308,6 +295,7 @@ class _$_GetMoreResults implements _GetMoreResults {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String slug)? getResults,
     TResult? Function(String slug)? getMoreResults,
+    TResult? Function(int index, int id)? changeIsWish,
   }) {
     return getMoreResults?.call(slug);
   }
@@ -317,6 +305,7 @@ class _$_GetMoreResults implements _GetMoreResults {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String slug)? getResults,
     TResult Function(String slug)? getMoreResults,
+    TResult Function(int index, int id)? changeIsWish,
     required TResult orElse(),
   }) {
     if (getMoreResults != null) {
@@ -330,6 +319,7 @@ class _$_GetMoreResults implements _GetMoreResults {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetResults value) getResults,
     required TResult Function(_GetMoreResults value) getMoreResults,
+    required TResult Function(_ChangeIsWish value) changeIsWish,
   }) {
     return getMoreResults(this);
   }
@@ -339,6 +329,7 @@ class _$_GetMoreResults implements _GetMoreResults {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetResults value)? getResults,
     TResult? Function(_GetMoreResults value)? getMoreResults,
+    TResult? Function(_ChangeIsWish value)? changeIsWish,
   }) {
     return getMoreResults?.call(this);
   }
@@ -348,6 +339,7 @@ class _$_GetMoreResults implements _GetMoreResults {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetResults value)? getResults,
     TResult Function(_GetMoreResults value)? getMoreResults,
+    TResult Function(_ChangeIsWish value)? changeIsWish,
     required TResult orElse(),
   }) {
     if (getMoreResults != null) {
@@ -360,11 +352,158 @@ class _$_GetMoreResults implements _GetMoreResults {
 abstract class _GetMoreResults implements CarsInDealerEvent {
   factory _GetMoreResults({required final String slug}) = _$_GetMoreResults;
 
-  @override
   String get slug;
-  @override
   @JsonKey(ignore: true)
   _$$_GetMoreResultsCopyWith<_$_GetMoreResults> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_ChangeIsWishCopyWith<$Res> {
+  factory _$$_ChangeIsWishCopyWith(
+          _$_ChangeIsWish value, $Res Function(_$_ChangeIsWish) then) =
+      __$$_ChangeIsWishCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int index, int id});
+}
+
+/// @nodoc
+class __$$_ChangeIsWishCopyWithImpl<$Res>
+    extends _$CarsInDealerEventCopyWithImpl<$Res, _$_ChangeIsWish>
+    implements _$$_ChangeIsWishCopyWith<$Res> {
+  __$$_ChangeIsWishCopyWithImpl(
+      _$_ChangeIsWish _value, $Res Function(_$_ChangeIsWish) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? index = null,
+    Object? id = null,
+  }) {
+    return _then(_$_ChangeIsWish(
+      index: null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_ChangeIsWish implements _ChangeIsWish {
+  _$_ChangeIsWish({required this.index, required this.id});
+
+  @override
+  final int index;
+  @override
+  final int id;
+
+  @override
+  String toString() {
+    return 'CarsInDealerEvent.changeIsWish(index: $index, id: $id)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_ChangeIsWish &&
+            (identical(other.index, index) || other.index == index) &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, index, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_ChangeIsWishCopyWith<_$_ChangeIsWish> get copyWith =>
+      __$$_ChangeIsWishCopyWithImpl<_$_ChangeIsWish>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String slug) getResults,
+    required TResult Function(String slug) getMoreResults,
+    required TResult Function(int index, int id) changeIsWish,
+  }) {
+    return changeIsWish(index, id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String slug)? getResults,
+    TResult? Function(String slug)? getMoreResults,
+    TResult? Function(int index, int id)? changeIsWish,
+  }) {
+    return changeIsWish?.call(index, id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String slug)? getResults,
+    TResult Function(String slug)? getMoreResults,
+    TResult Function(int index, int id)? changeIsWish,
+    required TResult orElse(),
+  }) {
+    if (changeIsWish != null) {
+      return changeIsWish(index, id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetResults value) getResults,
+    required TResult Function(_GetMoreResults value) getMoreResults,
+    required TResult Function(_ChangeIsWish value) changeIsWish,
+  }) {
+    return changeIsWish(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetResults value)? getResults,
+    TResult? Function(_GetMoreResults value)? getMoreResults,
+    TResult? Function(_ChangeIsWish value)? changeIsWish,
+  }) {
+    return changeIsWish?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetResults value)? getResults,
+    TResult Function(_GetMoreResults value)? getMoreResults,
+    TResult Function(_ChangeIsWish value)? changeIsWish,
+    required TResult orElse(),
+  }) {
+    if (changeIsWish != null) {
+      return changeIsWish(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ChangeIsWish implements CarsInDealerEvent {
+  factory _ChangeIsWish({required final int index, required final int id}) =
+      _$_ChangeIsWish;
+
+  int get index;
+  int get id;
+  @JsonKey(ignore: true)
+  _$$_ChangeIsWishCopyWith<_$_ChangeIsWish> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

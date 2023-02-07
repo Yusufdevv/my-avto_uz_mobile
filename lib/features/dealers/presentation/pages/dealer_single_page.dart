@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
+import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/dealers/data/datasource/cars_in_dealer_datasource.dart';
 import 'package:auto/features/dealers/data/datasource/dealer_single_datasource.dart';
 import 'package:auto/features/dealers/data/datasource/marks_in_dealer_datasource.dart';
@@ -19,6 +20,7 @@ import 'package:auto/features/dealers/presentation/pages/single_mark_announcemen
 import 'package:auto/features/dealers/presentation/widgets/dealer_info_sliver_delegate.dart';
 import 'package:auto/features/dealers/presentation/widgets/dealer_single_info_part.dart';
 import 'package:auto/features/dealers/presentation/widgets/mark_with_announcement.dart';
+import 'package:auto/features/main/presentation/bloc/top_ad/top_ad_bloc.dart';
 import 'package:auto/features/main/presentation/widgets/ads_item.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/pagination/presentation/paginator.dart';
@@ -349,22 +351,75 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                                                 scrollDirection:
                                                     Axis.horizontal,
                                                 itemBuilder: (context, index) {
-                                                  final carItem = carsInDealerState
-                                                      .cars[index];
-                                                  return AdsItem(
-                                                    id: carItem.id,
-                                                    image:
-                                                        carItem.gallery.isNotEmpty
-                                                            ? carItem.gallery.first
-                                                            : '',
-                                                    name: carItem.absoluteCarName,
-                                                    currency: carItem.currency,
-                                                    description:
-                                                        carItem.description,
-                                                    isLiked: carItem.isWishlisted,
-                                                    location: carItem.region.title,
-                                                    onTapLike: () {},
-                                                    price: carItem.price,
+                                                  final carItem =
+                                                      carsInDealerState
+                                                          .cars[index];
+                                                  return BlocListener<
+                                                      WishlistAddBloc,
+                                                      WishlistAddState>(
+                                                    listener:
+                                                        (context, stateWish) {
+                                                      if (stateWish.addStatus
+                                                              .isSubmissionSuccess ||
+                                                          stateWish.removeStatus
+                                                              .isSubmissionSuccess) {
+                                                               
+                                                               
+                                                        if (stateWish.id ==
+                                                            carItem.id) {
+                                                          context
+                                                              .read<
+                                                                  CarsInDealerBloc>()
+                                                              .add(CarsInDealerEvent
+                                                                  .changeIsWish(
+                                                                      index: stateWish
+                                                                          .index,
+                                                                      id: stateWish
+                                                                          .id));
+                                                        }
+                                                        context
+                                                            .read<
+                                                                WishlistAddBloc>()
+                                                            .add(WishlistAddEvent
+                                                                .clearState());
+                                                      }
+                                                    },
+                                                    child: AdsItem(
+                                                      id: carItem.id,
+                                                      image: carItem.gallery
+                                                              .isNotEmpty
+                                                          ? carItem
+                                                              .gallery.first
+                                                          : '',
+                                                      name: carItem
+                                                          .absoluteCarName,
+                                                      currency:
+                                                          carItem.currency,
+                                                      description:
+                                                          carItem.description,
+                                                      isLiked:
+                                                          carItem.isWishlisted,
+                                                      location:
+                                                          carItem.region.title,
+                                                      onTapLike: () {
+                                                        context
+                                                            .read<
+                                                                WishlistAddBloc>()
+                                                            .add(carItem
+                                                                    .isWishlisted
+                                                                ? WishlistAddEvent
+                                                                    .removeWishlist(
+                                                                        carItem
+                                                                            .id,
+                                                                        index)
+                                                                : WishlistAddEvent
+                                                                    .addWishlist(
+                                                                        carItem
+                                                                            .id,
+                                                                        index));
+                                                      },
+                                                      price: carItem.price,
+                                                    ),
                                                   );
                                                 },
                                                 itemCount: carsInDealerState

@@ -43,5 +43,17 @@ class CarsInDealerBloc extends Bloc<CarsInDealerEvent, CarsInDealerState> {
         );
       } 
     });
+
+        on<_ChangeIsWish>(_onChangeIsWish);
+
+  }
+
+  void _onChangeIsWish(_ChangeIsWish event, Emitter<CarsInDealerState> emit) {
+    // ignore: prefer_final_locals
+    var list = <CarsInDealerEntity>[...state.cars];
+    final item = list.firstWhere((element) => element.id == event.id);
+    final index = list.indexOf(item);
+    list[index].isWishlisted = !list[index].isWishlisted;
+    emit(state.copyWith(cars: list));
   }
 }
