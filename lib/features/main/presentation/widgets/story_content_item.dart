@@ -3,10 +3,13 @@ import 'dart:math';
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/features/car_single/presentation/car_single_screen.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/dealers/presentation/pages/dealer_single_page.dart';
 import 'package:auto/features/main/domain/entities/story_entity.dart';
 import 'package:auto/features/main/presentation/widgets/animated_bar.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -52,9 +55,10 @@ class _StoryContentItemState extends State<StoryContentItem>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    print('state: $state');
+    print('state:1 $state');
     switch (state) {
       case AppLifecycleState.resumed:
+        _onLongPress(isStopped: false);
         break;
       case AppLifecycleState.inactive:
         break;
@@ -67,11 +71,7 @@ class _StoryContentItemState extends State<StoryContentItem>
 
   @override
   void initState() {
-    print('isPaused: ${widget.isPaused}');
     WidgetsBinding.instance.addObserver(this);
-    if (WidgetsBinding.instance.lifecycleState != null) {
-      print('state: 1 ${WidgetsBinding.instance.lifecycleState!}');
-    }
     animationController = AnimationController(vsync: this);
     animationController.addStatusListener(_animationListener);
     _loadStory();
@@ -80,7 +80,6 @@ class _StoryContentItemState extends State<StoryContentItem>
 
   @override
   Widget build(BuildContext context) {
-    print('isPaused: ${widget.isPaused}');
     var isLandscape = false;
     if (initialized && _videoPlayerController.value.isInitialized) {
       isLandscape = _videoPlayerController.value.size.width >
@@ -89,7 +88,7 @@ class _StoryContentItemState extends State<StoryContentItem>
     return GestureDetector(
       onLongPress: _onLongPress,
       onLongPressEnd: (e) => _onLongPress(isStopped: false),
-      onTapDown: _onTapDown, behavior: HitTestBehavior.opaque,
+      onTapDown: _onTapDown,
       child: Stack(
         children: [
           if (isVideo && initialized)
@@ -105,27 +104,8 @@ class _StoryContentItemState extends State<StoryContentItem>
                   image: image,
                   fit: BoxFit.cover,
                 ),
-                progressIndicatorBuilder: (context, s, progress) {
-                  // print('progress.downloaded: ${progress.downloaded}');
-                  // print('progress.progress: ${progress.progress}');
-                  // print('progress.totalSize: ${progress.totalSize}');
-
-                  // if (progress.totalSize != null &&
-                  //     progress.progress != 1.0 &&
-                  //     animationController.status == AnimationStatus.forward) {
-                  //   animationController.stop(canceled: false);
-                  // }
-                  // if ((progress.progress == 1.0 ||
-                  //         progress.totalSize == null &&
-                  //             progress.downloaded == 0) &&
-                  //     animationController.status != AnimationStatus.forward) {
-                  //   animationController.forward(from: 0);
-                  // }
-
-                  return Container(
-                    color: grey,
-                  );
-                },
+                progressIndicatorBuilder: (context, s, progress) =>
+                    Container(color: grey),
                 errorWidget: (context, url, error) => Container(),
               ),
             ),
@@ -186,10 +166,30 @@ class _StoryContentItemState extends State<StoryContentItem>
                   ),
                 ),
                 const SizedBox(height: 28),
-                if (widget.story.items[itemIndex].url.isNotEmpty)
+                if (canNavigate)
                   WButton(
-                    onTap: () {
-                      launchUrl(Uri.parse(widget.story.items[itemIndex].url));
+                    onTap: () async {
+                      _onLongPress();
+                      if (widget.story.items[itemIndex].redirectTo ==
+                          'dealer') {
+                        await Navigator.of(context, rootNavigator: true).push(
+                            fade(
+                                page: DealerSinglePage(
+                                    slug: widget.story.items[itemIndex]
+                                        .redirectData.slug)));
+                        _onLongPress(isStopped: false);
+                      } else if (widget.story.items[itemIndex].redirectTo ==
+                          'announcement') {
+                        await Navigator.of(context, rootNavigator: true).push(
+                            fade(
+                                page: CarSingleScreen(
+                                    id: widget.story.items[itemIndex]
+                                        .redirectData.id)));
+                        _onLongPress(isStopped: false);
+                      } else {
+                        await launchUrl(
+                            Uri.parse(widget.story.items[itemIndex].url));
+                      }
                     },
                     text: LocaleKeys.more.tr(),
                     textColor: white,
@@ -256,6 +256,12 @@ class _StoryContentItemState extends State<StoryContentItem>
     );
   }
 
+  bool get canNavigate =>
+      widget.story.items[itemIndex].url.isNotEmpty ||
+      (widget.story.items[itemIndex].redirectTo != '' &&
+          (widget.story.items[itemIndex].redirectData.id != -1 ||
+              widget.story.items[itemIndex].redirectData.slug != ''));
+
   void _animationListener(AnimationStatus status) {
     if (status == AnimationStatus.completed && !isVideo) {
       animationController
@@ -267,10 +273,12 @@ class _StoryContentItemState extends State<StoryContentItem>
 
   void _onTapDown(TapDownDetails details) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     final dx = details.globalPosition.dx;
-    if (dx < screenWidth / 3) {
+    final dy = details.globalPosition.dy;
+    if (dx < screenWidth / 3 && dy < screenHeight - (canNavigate ? 54 : 0)) {
       setState(prevStory);
-    } else if (dx > 2 * screenWidth / 3) {
+    } else if (dx > 2 * screenWidth / 3 && dy < screenHeight - (canNavigate ? 54 : 0)) {
       setState(nextStory);
     }
   }
@@ -446,7 +454,6 @@ class _StoryContentItemState extends State<StoryContentItem>
 
   @override
   void dispose() {
-    print('isPaused: ${widget.isPaused}');
     WidgetsBinding.instance.removeObserver(this);
     animationController.dispose();
     disposeVideo();
