@@ -35,9 +35,11 @@ import 'package:auto/features/common/usecases/get_regions_usecase.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
+import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -89,6 +91,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     required this.bodyTypesUseCase,
     required this.createUseCase,
   }) : super(PostingAdState(
+    colorName:
+    LocaleKeys.white.tr(),
             status: FormzStatus.pure,
             phoneController: TextEditingController(),
             emailController: TextEditingController(),
@@ -158,6 +162,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         state.copyWith(
           status: FormzStatus.submissionSuccess,
           modifications: result.right.results,
+          modificationId: result.right.results.isNotEmpty ? result.right.results.first.id : null,
         ),
       );
     } else {
@@ -250,7 +255,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         await getYearsUseCase.call(YearsParams(modelId: state.modelId!));
     if (result.isRight) {
       emit(state.copyWith(
-          status: FormzStatus.submissionSuccess, years: result.right.results));
+          status: FormzStatus.submissionSuccess, years: result.right.results,yearEntity: result.right.results.isNotEmpty? result.right.results.first:null,),);
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
@@ -399,7 +404,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         state.copyWith(
             status: FormzStatus.submissionSuccess,
             bodyTypes: result.right.results,
-            bodyTypeId: bodies.length == 1 ? bodies.first.id : null),
+            bodyTypeId: bodies.isNotEmpty ? bodies.first.id : null),
       );
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
@@ -416,7 +421,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         state.copyWith(
             status: FormzStatus.submissionSuccess,
             gearBoxes: gearBoxes,
-            gearboxId: gearBoxes.length == 1 ? gearBoxes.first.id : null),
+            gearboxId: gearBoxes.isNotEmpty? gearBoxes.first.id : null),
       );
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
@@ -436,7 +441,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         state.copyWith(
           status: FormzStatus.submissionSuccess,
           driveTypes: driveTypes,
-          driveTypeId: driveTypes.length == 1 ? driveTypes.first.id : null,
+          driveTypeId: driveTypes.isNotEmpty ? driveTypes.first.id : null,
         ),
       );
     } else {
@@ -458,7 +463,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         state.copyWith(
           status: FormzStatus.submissionSuccess,
           engines: engines,
-          engineId: engines.length == 1 ? engines.first.id : null,
+          engineId: engines.isNotEmpty ? engines.first.id : null,
         ),
       );
     } else {
@@ -494,7 +499,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       emit(state.copyWith(
           generations: generations,
           status: FormzStatus.submissionSuccess,
-          generationId: generations.length == 1 ? generations.first.id : null));
+          generationId: generations.isNotEmpty ? generations.first.id : null));
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }

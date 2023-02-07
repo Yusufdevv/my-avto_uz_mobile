@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cupertino_datetime_picker/flutter_cupertino_datetime_picker.dart';
 
 void showCupertinoDatePicker(
-    BuildContext context, Function(DateTime) datePicked) {
+    BuildContext context, Function(DateTime) datePicked, DateTime? minDateTime) {
   FocusScope.of(context).unfocus();
   showModalBottomSheet(
     useRootNavigator: true,
@@ -16,6 +16,7 @@ void showCupertinoDatePicker(
       children: [
         DateTimePickerWidget(
           maxDateTime: DateTime.now(),
+          minDateTime: minDateTime,
           locale: DateTimePickerLocale.ru,
           dateFormat: 'dd MMMM yyyy',
           onCancel: () {},
