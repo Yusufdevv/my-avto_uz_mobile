@@ -1,3 +1,4 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/common/widgets/car_brand_item.dart';
 import 'package:auto/features/main/presentation/bloc/top_brand/top_brand_bloc.dart';
 import 'package:auto/features/main/presentation/widgets/brand_shimmer_item.dart';
@@ -34,7 +35,8 @@ class TopBrands extends StatelessWidget {
                             .textTheme
                             .headline1!
                             .copyWith(fontSize: 18))),
-              SizedBox(
+              Container(
+                color: white,
                 height: isText ? 124 : 132,
                 child: Paginator(
                   separatorBuilder: (context, index) =>

@@ -90,6 +90,8 @@ class CarSingleEntity extends Equatable {
   final bool isMine;
   @JsonKey(defaultValue: 0)
   final int viewsCount;
+  @JsonKey(defaultValue: 0)
+  final int todayViewedCount;
   @JsonKey(defaultValue: '')
   final String createdAt;
   @JsonKey(defaultValue: '')
@@ -163,6 +165,7 @@ class CarSingleEntity extends Equatable {
     this.latitude = 0,
     this.isMine = false,
     this.viewsCount = 0,
+    this.todayViewedCount = 0,
     this.createdAt = '',
     this.updatedAt = '',
     this.damagedParts = const [],
@@ -213,6 +216,7 @@ class CarSingleEntity extends Equatable {
         isWishlisted,
         isComparison,
         priceAnalytics,
+        todayViewedCount,
       ];
 }
 

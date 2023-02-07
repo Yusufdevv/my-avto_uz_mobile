@@ -87,6 +87,7 @@ CarSingleModel _$CarSingleModelFromJson(Map<String, dynamic> json) =>
               .fromJson(json['user'] as Map<String, dynamic>?),
       userType: json['user_type'] as String? ?? '',
       viewsCount: json['views_count'] as int? ?? 0,
+      todayViewedCount: json['today_viewed_count'] as int? ?? 0,
       callCount: json['call_count'] as int? ?? 0,
       wishlistCount: json['wishlist_count'] as int? ?? 0,
       isComparison: json['is_comparison'] as bool? ?? false,
@@ -145,6 +146,7 @@ Map<String, dynamic> _$CarSingleModelToJson(CarSingleModel instance) =>
       'latitude': instance.latitude,
       'is_mine': instance.isMine,
       'views_count': instance.viewsCount,
+      'today_viewed_count': instance.todayViewedCount,
       'created_at': instance.createdAt,
       'updated_at': instance.updatedAt,
       'damaged_parts': instance.damagedParts

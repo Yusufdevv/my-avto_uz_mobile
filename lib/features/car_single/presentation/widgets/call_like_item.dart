@@ -46,6 +46,7 @@ class CallLikeItem extends StatelessWidget {
           ),
           Text(
             text,
+            textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.headline1!.copyWith(
                   fontSize: 12,
                   fontWeight: FontWeight.w400,

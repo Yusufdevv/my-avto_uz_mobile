@@ -17,23 +17,21 @@ class CarActionsBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) => WScaleAnimation(
         onTap: onTap,
-        child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              widget,
-              const SizedBox(
-                height: 4,
-              ),
-              Text(
-                carStatistic.valueText,
-                style: Theme.of(context).textTheme.headline1!.copyWith(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 12,
-                    color: const Color(0xff696974)),
-              )
-            ],
-          ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            widget,
+            const SizedBox(
+              height: 4,
+            ),
+            Text(
+              carStatistic.valueText,
+              style: Theme.of(context).textTheme.headline1!.copyWith(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 12,
+                  color: const Color(0xff696974)),
+            )
+          ],
         ),
       );
 }

@@ -47,7 +47,7 @@ class CarBrandItem extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 8),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+            color: white,
             border: Border.all(
               width: 1,
               color: Theme.of(context)
@@ -67,24 +67,21 @@ class CarBrandItem extends StatelessWidget {
           ),
           child: Column(
             children: [
-              const SizedBox(height: 16),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: SizedBox(
-                  height: 36,
-                  width: 40,
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: CachedNetworkImage(
-                        imageUrl: carBrandEntity.logo,
-                        errorWidget: (context, url, error) => SvgPicture.asset(
-                          AppImages.carLogo,
-                          fit: BoxFit.cover,
-                        ),
-                      )),
-                ),
-              ),
               const SizedBox(height: 8),
+              SizedBox(
+                height: 44,
+                width: 48,
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: CachedNetworkImage(
+                      imageUrl: carBrandEntity.logo,
+                      errorWidget: (context, url, error) => SvgPicture.asset(
+                        AppImages.carLogo,
+                        fit: BoxFit.cover,
+                      ),
+                    )),
+              ),
+              const SizedBox(height: 4),
               Expanded(
                 child: Text(
                   carBrandEntity.name,

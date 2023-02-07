@@ -4,14 +4,13 @@ import 'package:auto/features/car_single/domain/entities/damaged_parts_entity.da
 import 'package:auto/features/car_single/domain/entities/drive_type_entity.dart';
 import 'package:auto/features/car_single/domain/entities/engine_type_entity.dart';
 import 'package:auto/features/car_single/domain/entities/gearbox_type_entity.dart';
+import 'package:auto/features/car_single/domain/entities/price_analytics_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_bodytype_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_generation_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_make_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_models_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_modification_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:auto/features/car_single/domain/entities/price_analytics_entity.dart';
-
 
 part 'car_single_model.g.dart';
 
@@ -60,6 +59,7 @@ class CarSingleModel extends CarSingleEntity {
     super.user,
     super.userType,
     super.viewsCount,
+    super.todayViewedCount,
     super.callCount,
     super.wishlistCount,
     super.isComparison,

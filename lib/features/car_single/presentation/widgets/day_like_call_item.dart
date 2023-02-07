@@ -1,5 +1,8 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/car_single/presentation/widgets/call_like_item.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class DayLikeCallItem extends StatelessWidget {
@@ -23,67 +26,66 @@ class DayLikeCallItem extends StatelessWidget {
         ),
         child: Column(
           children: [
+            const SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 CallLikeItem(
                   icon: AppIcons.calendar,
                   number: days,
-                  text: '    Дней \nв продаже',
+                  text: LocaleKeys.days_on_sale.tr(),
+                ),
+                Container(
+                  width: 1,
+                  height: 28,
+                  color: dividerColor,
                 ),
                 CallLikeItem(
                   icon: AppIcons.heart,
                   number: '$likes',
-                  text: ' Добавили в  \n  избранное',
+                  text: LocaleKeys.added_to_favorites.tr(),
+                ),
+                Container(
+                  width: 1,
+                  height: 28,
+                  color: dividerColor,
                 ),
                 CallLikeItem(
                   icon: AppIcons.phoneCall,
                   number: '$calls',
-                  text: 'Позвонили по \n    телефону',
+                  text:LocaleKeys.phone_call.tr(),
                 ),
               ],
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            const Divider(),
+            const SizedBox(height: 16),
+            const Divider(height: 1),
             Container(
-              width: double.infinity,
+              width: double.maxFinite,
               padding: const EdgeInsets.only(left: 12, top: 8, bottom: 8),
               margin: const EdgeInsets.only(top: 16, bottom: 16),
               decoration: BoxDecoration(
                 color: const Color(0xffFFFBFA),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'До окончания срока объявления',
+              child: RichText(
+                text: TextSpan(children: [
+                  TextSpan(
+                    text: LocaleKeys.u_t_e_o_t_a_p_l.tr(),
                     style: Theme.of(context).textTheme.headline1!.copyWith(
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
+                        height: 1.4,
                         color: const Color(0xff92929D)),
                   ),
-                  Row(
-                    children: [
-                      Text(
-                        'осталось: ',
-                        style: Theme.of(context).textTheme.headline1!.copyWith(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14,
-                            color: const Color(0xff92929D)),
-                      ),
-                      Text(
-                        '$leftDays дня',
-                        style: Theme.of(context).textTheme.headline1!.copyWith(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16,
-                            color: const Color(0xffEA5930)),
-                      ),
-                    ],
+                  TextSpan(
+                    text: '$leftDays ${LocaleKeys.dayss.tr()}',
+                    style: Theme.of(context).textTheme.headline1!.copyWith(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                        height: 1.4,
+                        color: const Color(0xffEA5930)),
                   )
-                ],
+                ]),
               ),
             )
           ],

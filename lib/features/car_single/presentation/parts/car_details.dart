@@ -29,14 +29,7 @@ class CarDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
         width: double.infinity,
-        decoration: BoxDecoration(
-            color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
-            border: Border(
-                bottom: BorderSide(
-                    width: 1,
-                    color: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .solitudeToDarkRider))),
+        color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
         child: Column(children: [
           CarInfoTile(
@@ -45,7 +38,7 @@ class CarDetails extends StatelessWidget {
           ),
           CarInfoTile(
             text: LocaleKeys.Mileage.tr(),
-            value: '$mileage км',
+            value: '$mileage ${LocaleKeys.km.tr()}',
           ),
           CarInfoTile(
             text: LocaleKeys.body.tr(),
@@ -68,7 +61,7 @@ class CarDetails extends StatelessWidget {
             value: gearType,
           ),
           CarInfoTile(
-            text: 'Растаможен в Узбекистане',
+            text: LocaleKeys.rastamojen_v_uzbekistan.tr(),
             value: uzb,
           ),
         ]),

@@ -1,5 +1,4 @@
 // ignore_for_file: unnecessary_null_comparison
-
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/car_single/data/repository/car_single_repository_impl.dart';
@@ -236,6 +235,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                               ),
                               date: state.singleEntity.publishedAt,
                               view: '${state.singleEntity.viewsCount}',
+                              todayViewedCount: '${state.singleEntity.todayViewedCount}',
                               id: '${state.singleEntity.id}',
                               currency: state.singleEntity.currency == 'usd'
                                   ? 'USD'
