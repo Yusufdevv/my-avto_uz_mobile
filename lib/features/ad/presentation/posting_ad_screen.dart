@@ -240,10 +240,11 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                     context.read<ShowPopUpBloc>().add(
                           ShowPopUp(
                             message: state.toastMessage!,
-                            status: PopStatus.error,
+                            status: state.popStatus,
                             dismissible: false,
                           ),
                         );
+                    postingAdBloc.add(PostingAdShowToastEvent(message: '', status: PopStatus.success));
                   }
                 },
                 builder: (context, state) =>
@@ -340,7 +341,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                             const ColorsScreen(),
                             //10
                             AddPhotoScreen(onImageChanged: (v) {
-                              hidePopUp();
+
                               postingAdBloc
                                   .add(PostingAdChooseEvent(gallery: v));
                             }, onPanaramaChanged: (v) {
@@ -391,8 +392,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                             MileageScreen(
                                 onImageChange: (image) {
                                      print('=> => => =>     POSTING ADD PAGE: ${image}    <= <= <= <=');
-              
-                                  hidePopUp();
+
                                   postingAdBloc.add(
                                       PostingAdChooseEvent(milageImage: image));
                                 },

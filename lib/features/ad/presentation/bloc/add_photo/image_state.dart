@@ -23,7 +23,7 @@ class ImageState extends Equatable {
         panaramaImages: panaramaImages ?? this.panaramaImages,
         images: images ?? this.images,
         image: image ?? this.image,
-        toastMessage: toastMessage ?? this.toastMessage,
+        toastMessage: toastMessage,
       );
 
   @override

@@ -22,7 +22,7 @@ class _MileageImageItemState extends State<MileageImageItem> {
   Widget build(BuildContext context) => widget.image == null|| widget.image!.isEmpty
       ? WScaleAnimation(
           onTap: () {
-            context.read<MileageImageBloc>().add(const PickMileageImage());
+            context.read<MileageImageBloc>().add( PickMileageImage());
           },
           child: Container(
             alignment: Alignment.center,

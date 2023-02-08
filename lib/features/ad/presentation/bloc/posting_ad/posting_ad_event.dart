@@ -2,6 +2,12 @@ part of 'posting_ad_bloc.dart';
 
 abstract class PostingAdEvent {}
 
+class PostingAdShowToastEvent extends PostingAdEvent{
+  final String message;
+  final PopStatus status;
+  PostingAdShowToastEvent({required this.message,required this.status});
+}
+
 class PostingAdSerchControllerClearEvent extends PostingAdEvent {}
 
 class PostingAdClearStateEvent extends PostingAdEvent {}

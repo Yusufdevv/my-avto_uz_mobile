@@ -1,6 +1,7 @@
 part of 'posting_ad_bloc.dart';
 
 class PostingAdState extends Equatable {
+  final PopStatus popStatus;
   final FormzStatus status;
   final FormzStatus getDistrictsStatus;
   final FormzStatus getMakesStatus;
@@ -77,6 +78,7 @@ class PostingAdState extends Equatable {
     required this.phoneController,
     required this.emailController,
     required this.nameController,
+    required this.popStatus,
     this.id,
     this.makeLetterIndex,
     this.minimumPrice = 0,
@@ -164,6 +166,7 @@ class PostingAdState extends Equatable {
     FormzStatus? getDistrictsStatus,
     FormzStatus? createStatus,
     FormzStatus? getMakesStatus,
+    PopStatus? popStatus,
     int? modificationId,
     List<ModificationTypeEntity>? modifications,
     int? gearboxId,
@@ -224,6 +227,7 @@ class PostingAdState extends Equatable {
     // print('====   ACTUALLY IN STATE:  ${this.districts}  ====');
     // print('==== INCOMING DISTRICT TO COPYWITH:  ${districts}  ====');
     final newState = PostingAdState(
+      popStatus: popStatus??this.popStatus,
       milageImage: milageImage ?? this.milageImage,
       modificationId: modificationId ?? this.modificationId,
       modifications: modifications ?? this.modifications,
@@ -302,6 +306,7 @@ class PostingAdState extends Equatable {
 
   @override
   List<Object?> get props => [
+    popStatus,
         milageImage,
         modificationId,
         modifications,

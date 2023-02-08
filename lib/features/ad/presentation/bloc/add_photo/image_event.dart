@@ -3,11 +3,15 @@ part of 'image_bloc.dart';
 abstract class ImageEvent {
   const ImageEvent();
 }
+
 class PickPanaramaImageEvent extends ImageEvent{
   
 }
+class PickImageEmptyToastMessageEvent extends ImageEvent{
 
+}
 class PickImage extends ImageEvent {
+
   final ImageSource source;
 
   const PickImage({required this.source});

@@ -208,7 +208,7 @@ class MyFunctions {
   static List<String> getUpperLetter() =>
       [for (int i = 0; i < 26; i++) String.fromCharCode(i + 65)];
 
-  static Future<bool> getPhotosPermission(bool platformIsAndroid) async {
+  static Future<PermissionStatus> getPhotosPermission(bool platformIsAndroid) async {
     if (platformIsAndroid) {
       Permission permissionType;
 
@@ -223,12 +223,12 @@ class MyFunctions {
       if (!permission.isGranted) {
         permission = await permissionType.request();
       }
-      return permission.isGranted;
+      return permission;
     }
-    return true;
+    return PermissionStatus.granted;
   }
 
-  static Future<bool> getCameraPermission(bool platformIsAndroid) async {
+  static Future<PermissionStatus> getCameraPermission(bool platformIsAndroid) async {
     if (platformIsAndroid) {
       var permission = await Permission.camera.status;
       print(
@@ -238,9 +238,9 @@ class MyFunctions {
         print(
             '=> => => =>     camera request status name: ${permission.name}    <= <= <= <=');
       }
-      return permission.isGranted;
+      return permission;
     }
-    return true;
+    return PermissionStatus.granted;
   }
 
   static Future<Position> determinePosition() async {
