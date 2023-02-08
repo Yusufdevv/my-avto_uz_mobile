@@ -162,15 +162,8 @@ class MyFunctions {
     return data?.buffer.asUint8List() ?? Uint8List(0);
   }
 
-  static String? extractAddress(YandexSearchModel result) {
-    String? address;
-    try {
-      return '${result.features[6].properties.name}, ${result.features[4].properties.name}, ${result.features[0].properties.name}';
-    } catch (e) {
-      print('GET YANDEX ADDRESS EXEPTION: $e');
-      return null;
-    }
-  }
+  static String? extractAddress(YandexSearchModel result) =>
+      result.features[0].properties.geocoderMetaData.text;
 
   static Future<MapObject<dynamic>> getMyPoint(
       Point point, BuildContext context) async {
@@ -254,7 +247,9 @@ class MyFunctions {
     bool serviceEnabled;
     LocationPermission permission;
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
+
+    permission = await Geolocator.checkPermission();
+    if (!serviceEnabled || permission == LocationPermission.denied) {
       permission = await Geolocator.checkPermission();
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
