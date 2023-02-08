@@ -19,7 +19,7 @@ class VinPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const VinTitleItem(
-                title: "Проверка по VIN",
+                title: 'Проверка по VIN',
               ),
               const VinPageItem(
                 description: 'Дата обновления',
@@ -29,7 +29,7 @@ class VinPage extends StatelessWidget {
                 height: 10,
               ),
               const VinTitleItem(
-                title: "Данные из ПТС",
+                title: 'Данные из ПТС',
               ),
               const VinPageItem(
                 description: 'Марка и модель',
@@ -55,7 +55,7 @@ class VinPage extends StatelessWidget {
                 height: 10,
               ),
               const VinTitleItem(
-                title: "Владельцы",
+                title: 'Владельцы',
               ),
               const VinPageItem(
                 description: 'Тип владельца',
@@ -69,7 +69,7 @@ class VinPage extends StatelessWidget {
                 height: 10,
               ),
               const VinTitleItem(
-                title: "Нахождение в залоге",
+                title: 'Нахождение в залоге',
               ),
               Text(
                 'Автомобиль не находился в залоге',
@@ -79,7 +79,7 @@ class VinPage extends StatelessWidget {
                 height: 20,
               ),
               const VinTitleItem(
-                title: "Ограничения",
+                title: 'Ограничения',
               ),
               Text(
                 'Ограничения на регистрационные и другие действия не обнаружены',
@@ -89,7 +89,7 @@ class VinPage extends StatelessWidget {
                 height: 10,
               ),
               const VinTitleItem(
-                title: "Розыск",
+                title: 'Розыск',
               ),
               Text(
                 'Сведения о нахождении в розыске не обнаружены',

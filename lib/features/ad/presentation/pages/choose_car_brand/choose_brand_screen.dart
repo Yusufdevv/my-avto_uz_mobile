@@ -1,14 +1,11 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/bloc/bloc/choose_make_anime_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/car_items.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/persistant_header.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/persistent_header_search.dart';
-import 'package:auto/features/ad/presentation/widgets/serch_suffix_cancel_button.dart';
 import 'package:auto/features/common/widgets/car_brand_item.dart';
-import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/main/presentation/widgets/brand_shimmer_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -17,7 +14,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 

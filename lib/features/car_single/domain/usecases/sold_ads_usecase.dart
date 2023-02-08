@@ -9,6 +9,6 @@ class SoldAdsUseCase implements UseCase<dynamic, int> {
   SoldAdsUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, dynamic>> call(params) async =>
+  Future<Either<Failure, dynamic>> call(int params) async =>
       repository.soldAds(id: params);
 }

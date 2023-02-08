@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 
 Future<dynamic> filterBottomSheet(
   BuildContext context, {
-  SortSearchResultStatus? sortingValue,
   required Function(SortSearchResultStatus) onChanged,
+  SortSearchResultStatus? sortingValue,
 }) =>
     showModalBottomSheet(
       context: context,

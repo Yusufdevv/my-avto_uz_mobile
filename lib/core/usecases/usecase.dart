@@ -1,3 +1,5 @@
+// ignore_for_file: one_member_abstracts
+
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/utils/either.dart';
 import 'package:equatable/equatable.dart';

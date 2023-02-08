@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use, duplicate_ignore
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/car_single/presentation/widgets/invoice_in_progress.dart';
@@ -226,14 +228,15 @@ class _InvoicePageState extends State<InvoicePage> {
                                 text:
                                     'Условиями использования и Политикой конфиденциальности',
                                 recognizer: TapGestureRecognizer()
+                                  // ignore: duplicate_ignore, duplicate_ignore
                                   ..onTap = () async {
                                     const url =
                                         'https://jobo.uz/companies/limonpay-1';
+                                    // ignore: deprecated_member_use
                                     final urllaunchable = await canLaunch(url);
                                     if (urllaunchable) {
                                       await launch(url);
                                     } else {
-                                      print("URL can't be launched.");
                                     }
                                   }),
                             const TextSpan(

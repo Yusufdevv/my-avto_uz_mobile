@@ -127,8 +127,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdSerchControllerClearEvent>(_clearSearchController);
   }
   FutureOr<void> _clearSearchController(
-      PostingAdSerchControllerClearEvent event, Emitter<PostingAdState> emit) {
-    print('=> => => =>      search controller clear triggered    <= <= <= <=');
+      PostingAdSerchControllerClearEvent event, Emitter<PostingAdState> emit) { 
     add(PostingAdMakesEvent());
     emit(state.copyWith(searchController: TextEditingController()));
   }
@@ -238,9 +237,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     final result = await screenShotUseCase
         .call({'longitude': '${event.long}', 'latitude': '${event.lat}'});
 
-    if (result.isRight) {
-      print(
-          '=> => => =>     lenth in bloc: ${result.right.length}    <= <= <= <=');
+    if (result.isRight) { 
       emit(state.copyWith(
           status: FormzStatus.submissionSuccess, mapPointBytes: result.right));
     } else {
@@ -380,8 +377,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       PostingAdCreateEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(createStatus: FormzStatus.submissionInProgress));
     final result = await createUseCase.call(await PASingleton.create(state));
-    if (result.isRight) {
-      print('=> => => =>     RIGHT RIGHT RIGHT RIGHT       <= <= <= <=');
+    if (result.isRight) { 
       emit(state.copyWith(
           createStatus: FormzStatus.submissionSuccess,
           toastMessage: 'Your ad created successfully!'));

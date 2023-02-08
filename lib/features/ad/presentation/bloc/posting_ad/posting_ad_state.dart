@@ -270,7 +270,7 @@ class PostingAdState extends Equatable {
       makeId: makeId ?? this.makeId,
       letter: eventLetter,
       colorName: colorName ?? this.colorName,
-      licenceType: typeDocument ?? this.licenceType,
+      licenceType: typeDocument ?? licenceType,
       ownerStep: ownerStep ?? this.ownerStep,
       purchasedDate: purchasedDate ?? this.purchasedDate,
       notRegisteredInUzbekistan:

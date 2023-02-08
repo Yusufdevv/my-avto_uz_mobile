@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 class AnnouncementPeriodItem extends StatelessWidget {
   final String days;
 
-  const AnnouncementPeriodItem({Key? key, required this.days})
-      : super(key: key);
+  const AnnouncementPeriodItem({
+    required this.days,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(

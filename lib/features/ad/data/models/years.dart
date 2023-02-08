@@ -1,4 +1,3 @@
-import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/years/years.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

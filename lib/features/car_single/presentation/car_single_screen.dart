@@ -115,7 +115,6 @@ class _CarSingleScreenState extends State<CarSingleScreen>
     super.initState();
   }
 
-  @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch (state) {
       case AppLifecycleState.resumed:

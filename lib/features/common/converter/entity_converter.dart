@@ -1,4 +1,3 @@
-import 'package:auto/features/rent/data/models/region_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 class EntityConverter<Entity>

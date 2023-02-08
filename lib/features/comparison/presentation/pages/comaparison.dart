@@ -1,3 +1,5 @@
+// ignore_for_file: directives_ordering
+
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ads/presentation/pages/ads_screen.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
@@ -9,7 +11,7 @@ import 'package:auto/features/comparison/presentation/bloc/comparison-bloc/compa
 import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_model.dart';
 import 'package:auto/features/comparison/presentation/widgets/engin_info_widget.dart';
-import 'package:auto/features/comparison/presentation/widgets/main_parameters_widget.dart';
+import 'package:auto/features/comparison/presentation/widgets/characteristics_parameters_widget.dart';
 import 'package:auto/features/comparison/presentation/widgets/comparison_sliver_delegate.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -111,6 +113,7 @@ class _ComparisonState extends State<Comparison> {
     totalNUmberOfParameters = complectationParameters.length;
     sliverWidgetScrollController = ScrollController();
     linkedScrollControllerGroup = LinkedScrollControllerGroup();
+    currentValueOfComplectation = complectationParameters[0].id;
     scrollControllers = [
       ...List.generate(
           complectationParameters.length + 1, (index) => ScrollController())

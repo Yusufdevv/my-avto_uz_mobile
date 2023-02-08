@@ -2,7 +2,6 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/presentation/widgets/warning_circle_widget.dart';
-import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

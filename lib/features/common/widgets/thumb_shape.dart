@@ -1,8 +1,9 @@
-// ignore_for_file: prefer_asserts_with_message
+// ignore_for_file: prefer_asserts_with_message, unnecessary_null_comparison
+
+import 'dart:math' as math;
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
 class CustomThumb extends SliderComponentShape {
   /// Create a slider thumb that draws a circle.
   const CustomThumb({
@@ -42,9 +43,7 @@ class CustomThumb extends SliderComponentShape {
   final double pressedElevation;
 
   @override
-  Size getPreferredSize(bool isEnabled, bool isDiscrete) {
-    return Size.fromRadius(isEnabled == true ? enabledThumbRadius : _disabledThumbRadius);
-  }
+  Size getPreferredSize(bool isEnabled, bool isDiscrete) => Size.fromRadius(isEnabled == true ? enabledThumbRadius : _disabledThumbRadius);
 
   @override
   void paint(

@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_catches_without_on_clauses
+// ignore_for_file: avoid_catches_without_on_clauses, prefer_final_locals
 
 import 'dart:convert';
 import 'dart:typed_data';
@@ -496,10 +496,8 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
                 }
               : {},
         ),
-      );
-      print(
-          '=> => => =>    IN DATA SOURCE: ${response.data}         <= <= <= <=');
-      await Future.delayed(Duration(milliseconds: 5000));
+      ); 
+      await Future.delayed(const Duration(milliseconds: 5000));
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return;
       }
@@ -552,8 +550,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
           data: model.toJson(),
           options: Options(headers: {
             'Authorization': 'Bearer ${StorageRepository.getString('token')}'
-          }));
-      print('===> ==> kor ${model.toJson()}');
+          })); 
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
@@ -689,6 +686,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
       headers.addEntries(list);
       final request = http.Request('POST',
           Uri.parse('https://panel.avto.uz/api/v1/common/map/screenshot'));
+      // ignore: cascade_invocations
       request.body = json.encode(params);
 
       request.headers.addAll(headers);

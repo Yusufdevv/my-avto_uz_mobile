@@ -44,7 +44,6 @@ class ComparisonDataSourceImpl extends ComparisonCarsDataSource {
 
   @override
   Future<void> postComparisonCars(int id) async {
-    print('Bu menga kelgan id $id');
     final response = await _dio.post('/car/comparison/',
         data: {'announcement': id, 'order': id},
         options: Options(headers: {

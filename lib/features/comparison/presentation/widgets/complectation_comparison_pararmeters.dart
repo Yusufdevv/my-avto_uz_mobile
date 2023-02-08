@@ -41,7 +41,7 @@ class ComplectationComparisonWidget extends StatelessWidget {
                 else
                   SvgPicture.asset(AppIcons.statusNotGood),
                 if (numberOfCars == 1)
-                  SizedBox()
+                  const SizedBox()
                 else
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.7,

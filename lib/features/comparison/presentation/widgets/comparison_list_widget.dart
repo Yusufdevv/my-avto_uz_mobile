@@ -2,8 +2,11 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/material.dart';
 
 class ComparsionList extends StatelessWidget {
-  const ComparsionList({Key? key, required this.info, required this.isGrey})
-      : super(key: key);
+  const ComparsionList({
+    required this.info,
+    required this.isGrey,
+    Key? key,
+  }) : super(key: key);
 
   final String info;
   final bool isGrey;

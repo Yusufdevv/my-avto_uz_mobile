@@ -8,7 +8,10 @@ import 'package:flutter/services.dart';
 
 class BusySheet extends StatelessWidget {
   final String copyUrl;
-  const BusySheet({Key? key, required this.copyUrl}) : super(key: key);
+  const BusySheet({
+    required this.copyUrl,
+    Key? key,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);

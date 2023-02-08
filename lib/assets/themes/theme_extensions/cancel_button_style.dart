@@ -13,12 +13,10 @@ class CancelButtonStyle extends ThemeExtension<CancelButtonStyle> {
   CancelButtonStyle copyWith({
     Color? backgroundColor,
     Color? onButtonColor,
-  }) {
-    return CancelButtonStyle(
+  }) => CancelButtonStyle(
       backgroundColor: backgroundColor ?? this.backgroundColor,
       onButtonColor: onButtonColor ?? this.onButtonColor,
     );
-  }
 
   @override
   ThemeExtension<CancelButtonStyle> lerp(

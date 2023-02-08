@@ -500,10 +500,10 @@
   "phone_call": "Telefonga\nqo'ng'iroq qilindi",
   "added_to_favorites": "Tanlanganlarga\nqo'shildi",
   "days_on_sale": "Kundan beri\nsotuvda",
-  "become_vip_for_3_days" : "Стать VIP на 3 дня",
-  "send_to_top" : "Отправить в “ТОП”",
-  "in_hot" : "В горячие\n ",
-  "in_hot_one_line" : "В горячие",
+  "become_vip_for_3_days" : "3 kun VIP bo’lish",
+  "send_to_top" : "“TOP”ga yuborish",
+  "in_hot" : "Yangilari \n",
+  "in_hot_one_line" : "Yangilari",
   "close_ad" : "E'lonni tugatish"
 
 }

@@ -19,12 +19,9 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
         )) {
     on<PickPanaramaImageEvent>((event, emit) async {
       final permission =
-          await MyFunctions.getPhotosPermission(Platform.isAndroid);
-          print('=> => => =>     permidssion is $permission    <= <= <= <=');
+          await MyFunctions.getPhotosPermission(Platform.isAndroid); 
       if (!permission) return;
-      final image = await imagePicker.pickImage(source: ImageSource.gallery);
-      print(
-          '=> => => => picked panarama image path    ${image?.path}    <= <= <= <=');
+      final image = await imagePicker.pickImage(source: ImageSource.gallery); 
       if (image != null) {
         emit(state
             .copyWith(panaramaImages: [image.path, ...state.panaramaImages]));
@@ -43,17 +40,13 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
     });
     on<DeleteImage>((event, emit) {
       final image = <String>[...state.images];
-      final panarama = <String>[...state.panaramaImages];
-      print(
-          '=> => => =>     pl: ${panarama.length}  il: ${image.length}  <= <= <= <=');
+      final panarama = <String>[...state.panaramaImages]; 
       if (image.contains(event.imageUrl)) {
         image.remove(event.imageUrl);
       }
       if (panarama.contains(event.imageUrl)) {
         panarama.remove(event.imageUrl);
-      }
-      print(
-          '=> => => =>     pl: ${panarama.length}  il: ${image.length}  <= <= <= <=');
+      } 
       emit(state.copyWith(images: image, panaramaImages: panarama));
       emit(state.copyWith(image: File('')));
     });

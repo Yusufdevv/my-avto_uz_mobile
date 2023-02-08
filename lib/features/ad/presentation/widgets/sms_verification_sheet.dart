@@ -6,7 +6,6 @@ import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/usecases/verify_contacts_usecase.dart';
 import 'package:auto/features/ad/presentation/bloc/virify_contacts/verify_contacts_bloc.dart';
 import 'package:auto/features/ad/presentation/widgets/edit_box_widget.dart';
-import 'package:auto/features/car_single/presentation/widgets/orange_button.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/profile/presentation/widgets/refresh_button.dart';
 import 'package:auto/features/profile/presentation/widgets/time_counter.dart';
