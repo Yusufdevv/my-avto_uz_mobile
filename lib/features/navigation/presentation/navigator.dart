@@ -2,7 +2,6 @@ import 'package:auto/features/ad/presentation/posting_ad_screen.dart';
 import 'package:auto/features/main/presentation/main_screen.dart';
 import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:auto/features/profile/presentation/profile_screen.dart';
-import 'package:auto/features/reels/presentation/pages/reels_screen.dart';
 import 'package:auto/features/search/presentation/search_screen.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -39,11 +38,6 @@ class _TabNavigatorState extends State<TabNavigator>
         return {
           TabNavigatorRoutes.root: (context) =>
               PostingAdScreen(parentContext: context)
-          // const SizedBox(child: Center(child: Text('Tez orada'))),
-        };
-      case NavItemEnum.categories:
-        return {
-          TabNavigatorRoutes.root: (context) => const ReelsScreen(),
         };
       case NavItemEnum.profile:
         return {
@@ -62,6 +56,7 @@ class _TabNavigatorState extends State<TabNavigator>
     return Navigator(
       key: widget.navigatorKey,
       initialRoute: TabNavigatorRoutes.root,
+      requestFocus: false,
       onGenerateRoute: (routeSettings) {
         final routeBuilders =
             _routeBuilders(context: context, routeSettings: routeSettings);

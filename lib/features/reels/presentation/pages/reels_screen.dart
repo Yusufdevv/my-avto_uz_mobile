@@ -5,7 +5,6 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:auto/features/reels/presentation/bloc/reels_bloc.dart';
 import 'package:auto/features/reels/presentation/widgets/content_item.dart';
 import 'package:flutter/material.dart';
@@ -15,9 +14,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:formz/formz.dart';
 
 class ReelsScreen extends StatefulWidget {
-  const ReelsScreen({Key? key, this.isFromMain = false}) : super(key: key);
+  const ReelsScreen({Key? key, this.isForOfferDay = false}) : super(key: key);
 
-  final bool isFromMain;
+  final bool isForOfferDay;
 
   @override
   State<ReelsScreen> createState() => _ReelsScreenState();
@@ -41,7 +40,7 @@ class _ReelsScreenState extends State<ReelsScreen>
 
   @override
   void initState() {
-    bloc = ReelsBloc()..add(InitialEvent(isFromMain: widget.isFromMain));
+    bloc = ReelsBloc()..add(InitialEvent(isForOfferDay: widget.isForOfferDay));
     _pageController = PageController(keepPage: true);
     _pageController.addListener(_scrollListener);
     isFirstTimeWatchReel = StorageRepository.getBool(
@@ -113,12 +112,9 @@ class _ReelsScreenState extends State<ReelsScreen>
                             currentPageIndex: _currentPage,
                             isPaused: _isOnPageTurning,
                             videoEnded: () {
-                              if(index == state.reels.length - 1 && !state.hasNext) {
-                                if(widget.isFromMain) {
-                                  Navigator.pop(context);
-                                } else {
-                                  HomeTabControllerProvider.of(context);
-                                }
+                              if (index == state.reels.length - 1 &&
+                                  !state.hasNext) {
+                                Navigator.pop(context);
                               }
                             },
                           ),
@@ -130,12 +126,11 @@ class _ReelsScreenState extends State<ReelsScreen>
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            if (widget.isFromMain)
-                              WScaleAnimation(
-                                child:
-                                    SvgPicture.asset(AppIcons.chevronLeftWhite),
-                                onTap: () => Navigator.pop(context),
-                              ),
+                            WScaleAnimation(
+                              child:
+                                  SvgPicture.asset(AppIcons.chevronLeftWhite),
+                              onTap: () => Navigator.pop(context),
+                            ),
                             const Spacer(),
                             SvgPicture.asset(AppIcons.whiteLogo),
                           ],
@@ -192,7 +187,7 @@ class _ReelsScreenState extends State<ReelsScreen>
         !bloc.state.statusReelsGet.isSubmissionInProgress &&
         bloc.state.hasNext) {
       bloc.add(GetMoreReelsEvent(
-          isFromMain: widget.isFromMain, offset: bloc.state.reels.length - 1));
+          isForOfferDay: widget.isForOfferDay, offset: bloc.state.reels.length - 1));
     }
   }
 }

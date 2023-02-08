@@ -190,7 +190,7 @@ class _MainScreenState extends State<MainScreen> {
                       DealButton(
                         onTap: () {
                           Navigator.of(context, rootNavigator: true).push(
-                              fade(page: const ReelsScreen(isFromMain: true)));
+                              fade(page: const ReelsScreen(isForOfferDay: true)));
                         },
                       ),
                       BlocBuilder<GetMakesBloc, GetMakesState>(
