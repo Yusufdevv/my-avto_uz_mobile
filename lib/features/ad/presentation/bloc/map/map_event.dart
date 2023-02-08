@@ -2,6 +2,12 @@ part of 'map_bloc.dart';
 
 abstract class MapEvent {}
 
+class GetPointName extends MapEvent {
+  final double lat;
+  final double long;
+  GetPointName({required this.long,required this.lat});
+}
+
 class MapGetCurrentLocationEvent extends MapEvent {
   final Function(Position) onSuccess;
   final Function(String) onError;

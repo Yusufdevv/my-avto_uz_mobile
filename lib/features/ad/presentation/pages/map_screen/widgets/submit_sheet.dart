@@ -13,16 +13,15 @@ import 'package:formz/formz.dart';
 
 class PostingAdSubmitBox extends StatelessWidget {
   final VoidCallback onTab;
-  final String? address;
 
   const PostingAdSubmitBox({
     required this.onTab,
-    this.address,
     super.key,
   }) : super();
 
   @override
-  Widget build(BuildContext context) => Container(
+  Widget build(BuildContext context) => BlocBuilder<MapBloc, MapState>(
+  builder: (context, state) => Container(
         width: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
@@ -45,13 +44,14 @@ class PostingAdSubmitBox extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             MapPointName(
-                isWaiting: context.watch<MapBloc>().state.status ==
+                isWaiting:state.getPointNameStatus ==
                     FormzStatus.submissionInProgress,
-                name: context.watch<MapBloc>().state.address),
+                name: state.address),
             const SizedBox(height: 24),
             WButton(
-              isDisabled: address?.isEmpty ?? true,
-              onTap: (address?.isNotEmpty ?? false)
+
+              isDisabled: state.address?.isEmpty ?? true,
+              onTap: (state.address?.isNotEmpty ?? false)
                   ? onTab
                   : () {
                       Navigator.of(context).pop();
@@ -62,5 +62,6 @@ class PostingAdSubmitBox extends StatelessWidget {
             ),
           ],
         ),
-      );
+      ),
+);
 }

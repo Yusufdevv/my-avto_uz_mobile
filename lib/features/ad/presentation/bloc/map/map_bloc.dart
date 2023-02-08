@@ -17,27 +17,35 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
   MapBloc()
       : super(const MapState(
+            getPointNameStatus: FormzStatus.pure,
             getCurrentLocationStatus: FormzStatus.pure,
             status: FormzStatus.pure)) {
     on<MapGetCurrentLocationEvent>(_getCurrentLocation);
     on<MapChangeLatLongEvent>(_changeLongLat);
+    on<GetPointName>(_getPointName);
+  }
+
+  FutureOr<void> _getPointName(
+      GetPointName event, Emitter<MapState> emit) async {
+    emit(state.copyWith(getPointNameStatus: FormzStatus.submissionInProgress));
+    final result = await useCase
+        .call({'type': 'geo', 'long': '${event.long}', 'lat': '${event.lat}'});
+    if (result.isRight) {
+      emit(state.copyWith(
+          getPointNameStatus: FormzStatus.submissionSuccess,
+          address: MyFunctions.extractAddress(result.right)));
+    }
   }
 
   FutureOr<void> _changeLongLat(
       MapChangeLatLongEvent event, Emitter<MapState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    String? address;
-    final res = await useCase
-        .call({'type': 'geo', 'long': '${event.long}', 'lat': '${event.lat}'});
-    if (res.isRight) {
-      address = MyFunctions.extractAddress(res.right);
-    }
+    add(GetPointName(long: event.long, lat: event.lat));
     if (event.radius == null) {
       emit(
         state.copyWith(
           lat: event.lat,
           long: event.long,
-          address: address,
           status: FormzStatus.submissionSuccess,
         ),
       );
@@ -47,7 +55,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
           lat: event.lat,
           long: event.long,
           radius: event.radius!,
-          address: address,
           status: FormzStatus.submissionSuccess,
         ),
       );
@@ -60,11 +67,17 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         getCurrentLocationStatus: FormzStatus.submissionInProgress));
     try {
       final position = await MyFunctions.determinePosition();
+      print('=================GET CURRENT LOCATION SUCCES=================');
       emit(state.copyWith(
           getCurrentLocationStatus: FormzStatus.submissionSuccess));
       event.onSuccess(position);
-    } on ParsingException catch (e) {
+    } on ParsingException catch(e){
       event.onError(e.errorMessage);
+      emit(state.copyWith(
+          getCurrentLocationStatus: FormzStatus.submissionSuccess));
+    } catch (e) {
+      print('GET CURRENT POSITION FAILED');
+      event.onError(e.toString());
       emit(state.copyWith(
           getCurrentLocationStatus: FormzStatus.submissionSuccess));
     }
