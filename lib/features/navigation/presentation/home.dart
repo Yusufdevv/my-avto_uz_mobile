@@ -9,7 +9,7 @@ import 'package:auto/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-enum NavItemEnum { head, search, newPost, profile }
+enum NavItemEnum { head, search, newPost, reels, profile }
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -28,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     NavItemEnum.head: GlobalKey<NavigatorState>(),
     NavItemEnum.search: GlobalKey<NavigatorState>(),
     NavItemEnum.newPost: GlobalKey<NavigatorState>(),
+    NavItemEnum.reels: GlobalKey<NavigatorState>(),
     NavItemEnum.profile: GlobalKey<NavigatorState>(),
   };
 
@@ -162,10 +163,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 ),
                 child: TabBar(
                   enableFeedback: true,
-                  onTap: (index) {
+                  onTap: (index) async {
                     if (index == 3) {
-                      Navigator.of(context, rootNavigator: true)
+                      await Navigator.of(context, rootNavigator: true)
                           .push(fade(page: const ReelsScreen()));
+                      changePage(_currentIndex);
                     }
                   },
                   indicator: const BoxDecoration(),
@@ -237,6 +239,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   _buildPageNavigator(NavItemEnum.head),
                   _buildPageNavigator(NavItemEnum.search),
                   _buildPageNavigator(NavItemEnum.newPost),
+                  _buildPageNavigator(NavItemEnum.reels),
                   _buildPageNavigator(NavItemEnum.profile),
                 ],
               ),

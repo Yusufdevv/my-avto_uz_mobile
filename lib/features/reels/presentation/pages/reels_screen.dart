@@ -14,9 +14,14 @@ import 'package:flutter_svg/svg.dart';
 import 'package:formz/formz.dart';
 
 class ReelsScreen extends StatefulWidget {
-  const ReelsScreen({Key? key, this.isForOfferDay = false}) : super(key: key);
+  const ReelsScreen({
+    Key? key,
+    this.isForOfferDay = false,
+    this.context,
+  }) : super(key: key);
 
   final bool isForOfferDay;
+  final BuildContext? context;
 
   @override
   State<ReelsScreen> createState() => _ReelsScreenState();
@@ -187,7 +192,8 @@ class _ReelsScreenState extends State<ReelsScreen>
         !bloc.state.statusReelsGet.isSubmissionInProgress &&
         bloc.state.hasNext) {
       bloc.add(GetMoreReelsEvent(
-          isForOfferDay: widget.isForOfferDay, offset: bloc.state.reels.length - 1));
+          isForOfferDay: widget.isForOfferDay,
+          offset: bloc.state.reels.length - 1));
     }
   }
 }
