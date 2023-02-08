@@ -136,8 +136,8 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                           latitude: lat,
                           longitude: long,
                         );
-                        final myPlaceMark = await MyFunctions.getMyPoint(
-                            myPoint, context);
+                        final myPlaceMark =
+                            await MyFunctions.getMyPoint(myPoint, context);
                         setState(() {
                           _mapObjects.add(myPlaceMark);
                         });
@@ -208,47 +208,6 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                     child: Padding(
                       padding: const EdgeInsets.all(16),
                       child: PostingAdMapControllerButtons(
-                        onCurrentLocationTap: () async {
-                          mapBloc.add(
-                            MapGetCurrentLocationEvent(
-                              onSuccess: (position) async {
-                                myPoint = Point(
-                                    latitude: position.latitude,
-                                    longitude: position.longitude);
-                                final myPlaceMark =
-                                    await MyFunctions.getMyPoint(
-                                        myPoint, context);
-                                setState(() {
-                                  _mapObjects.add(myPlaceMark);
-                                });
-                                accuracy = position.accuracy;
-                                await _mapController.moveCamera(
-                                  CameraUpdate.newCameraPosition(
-                                    CameraPosition(
-                                      target: Point(
-                                          latitude: position.latitude,
-                                          longitude: position.longitude),
-                                      zoom: 15,
-                                    ),
-                                  ),
-                                  animation: const MapAnimation(
-                                      duration: 0.15,
-                                      type: MapAnimationType.smooth),
-                                );
-                                zoomLevel = 15;
-                              },
-                              onError: (message) {
-                                context.read<ShowPopUpBloc>().add(
-                                      ShowPopUp(
-                                        message: message,
-                                        status: PopStatus.warning,
-                                      ),
-                                    );
-                              },
-                            ),
-                          );
-                          zoomLevel = 15;
-                        },
                         onMinusTap: () {
                           if (minZoomLevel < zoomLevel) {
                             _mapController.moveCamera(
