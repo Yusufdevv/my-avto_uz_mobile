@@ -20,9 +20,13 @@ class CommercialBodyScreen extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.2),
-            Image.asset(
-              AppImages.pl,
-              fit: BoxFit.cover,
+            SizedBox(
+              height: 140,
+              width: 140,
+              child: Image.asset(
+                AppImages.pl2,
+                fit: BoxFit.cover,
+              ),
             ),
             const SizedBox(height: 24),
             Text(LocaleKeys.very_soon.tr(),

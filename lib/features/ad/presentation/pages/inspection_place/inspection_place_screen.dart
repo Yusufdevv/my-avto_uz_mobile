@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
 

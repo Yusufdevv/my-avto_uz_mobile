@@ -10,7 +10,5 @@ class PhotoInstructionsUseCase
   final AdRepository repository;
   PhotoInstructionsUseCase({required this.repository});
   @override
-  Future<Either<Failure, GenericPagination<FotoInstructionEntity>>> call(NoParams params) async {
-    return await repository.getFotoInstructions();
-  }
+  Future<Either<Failure, GenericPagination<FotoInstructionEntity>>> call(NoParams params) async => await repository.getFotoInstructions();
 }

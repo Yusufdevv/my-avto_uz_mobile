@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/checkbox_style.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';

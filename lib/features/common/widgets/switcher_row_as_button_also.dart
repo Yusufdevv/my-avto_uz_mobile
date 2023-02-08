@@ -18,8 +18,6 @@ class SwitcherRowAsButtonAlso extends StatelessWidget {
   @override
   Widget build(BuildContext context) => GestureDetector(
         onTap: () {
-           print('=>=>=>=> $value <=<=<=<=');
-          
             onChanged(!value);
           if (value) {
             return;

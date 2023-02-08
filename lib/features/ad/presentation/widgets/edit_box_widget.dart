@@ -8,6 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 class EditBoxWidget extends StatelessWidget {
   final String text;
   final VoidCallback onTap;
+  // ignore: always_put_required_named_parameters_first
   const EditBoxWidget({super.key, required this.text, required this.onTap});
 
   @override

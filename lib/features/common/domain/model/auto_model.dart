@@ -12,6 +12,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'auto_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
+// ignore: must_be_immutable
 class AutoModel extends AutoEntity {
     AutoModel({
     required super.id,

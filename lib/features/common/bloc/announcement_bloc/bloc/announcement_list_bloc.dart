@@ -1,10 +1,8 @@
-import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/ad/data/models/announcement_filter.dart';
 import 'package:auto/features/ad/data/models/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
-import 'package:auto/features/ad/domain/repositories/ad_repository.dart';
 import 'package:auto/features/ads/data/models/search_history_model.dart';
 import 'package:auto/features/ads/domain/entities/search_history_entity.dart';
 import 'package:auto/features/ads/domain/usecases/filter_history_usecase.dart';
@@ -74,7 +72,6 @@ class AnnouncementListBloc
           ),
         ),
       );
-      print('===> ==> Hullas ${state.searchHistoryEntity.make}');
     });
     on<_GetHistoryApi>((event, emit) async {
       await filterHistoryUseCase.call(state.searchModel);

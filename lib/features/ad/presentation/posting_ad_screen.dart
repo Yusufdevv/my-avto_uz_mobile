@@ -288,10 +288,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                 .animateTo(0);
                           }
                         },
-                        onTapCancel: () {
-                          hidePopUp();
-                          print('=> => => =>     on tap cancel    <= <= <= <=');
-                        },
+                        onTapCancel: hidePopUp,
                         title: currentTabIndex == 0
                             ? LocaleKeys.get_back.tr()
                             : tabs[currentTabIndex - 1],
@@ -390,8 +387,6 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                             //18
                             MileageScreen(
                                 onImageChange: (image) {
-                                     print('=> => => =>     POSTING ADD PAGE: ${image}    <= <= <= <=');
-              
                                   hidePopUp();
                                   postingAdBloc.add(
                                       PostingAdChooseEvent(milageImage: image));
@@ -416,9 +411,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                 hidePopUp();
                                 if (currentTabIndex < tabLength - 1) {
                                   if (currentTabIndex == 0 &&
-                                      animeState.isCollapsed) {
-                                    print(
-                                        '=> => => =>     reversing    <= <= <= <=');
+                                      animeState.isCollapsed) { 
                                     animeState.animationController.reverse();
                                   }
                                   currentTabIndex++;

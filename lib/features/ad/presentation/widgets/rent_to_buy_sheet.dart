@@ -200,24 +200,16 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                                         final rentalPeriod = int.tryParse(state
                                                 .controller.text
                                                 .replaceAll(' ', '')) ??
-                                            0;
-                                        print(
-                                            '=> => => =>     prepayment: $prePayment    <= <= <= <=');
-                                        print(
-                                            '=> => => =>     rental Period: $rentalPeriod    <= <= <= <=');
-                                        print(
-                                            '=> => => =>     widget price: ${widget.price}    <= <= <= <=');
+                                            0; 
                                         final mini = widget.price > 0
                                             ? (widget.price - prePayment) ~/
                                                 rentalPeriod
                                             : 0;
-                                        print(
-                                            '=> => => =>     MINI: ${mini}    <= <= <= <=');
                                         rentToBuyBloc.add(RentToBuyEvent(
                                             rentalPeriod: state.controller.text
                                                 .replaceAll(' ', ''),
                                             controller: TextEditingController(),
-                                            title: 'Ежемесячная оплата',
+                                            title: LocaleKeys.monthly_pay.tr(),
                                             step: state.step + 1,
                                             minimumMonthlyPay: mini));
                                       }

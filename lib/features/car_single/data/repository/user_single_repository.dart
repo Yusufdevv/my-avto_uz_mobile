@@ -15,9 +15,9 @@ class UserSingleRepositoryImpl extends UserSingleRepository {
   UserSingleRepositoryImpl();
   @override
   Future<Either<Failure, GenericPagination<AnnouncementListEntity>>> getUserAds(
-      int userId) async {
+      int params) async {
     try {
-      final result = await dataSource.getUserAds(userId: userId);
+      final result = await dataSource.getUserAds(userId: params);
       return Right(result);
     } on ServerException catch (e) {
       return Left(

@@ -11,8 +11,7 @@ class WKeyboardDismisser extends StatefulWidget {
 
 class _WKeyboardDismisserState extends State<WKeyboardDismisser> with WidgetsBindingObserver {
   @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
+  Widget build(BuildContext context) => GestureDetector(
       // onHorizontalDragEnd: (_) {
       //   WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
       // },
@@ -30,7 +29,6 @@ class _WKeyboardDismisserState extends State<WKeyboardDismisser> with WidgetsBin
       },
       child: widget.child,
     );
-  }
 
   @override
   void initState() {

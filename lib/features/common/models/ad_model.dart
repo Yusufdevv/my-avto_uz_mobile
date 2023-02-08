@@ -5,6 +5,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'ad_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
+// ignore: must_be_immutable
 class AdModel extends AdsEntity {
   AdModel({
     super.id = -1,

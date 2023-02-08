@@ -1,4 +1,3 @@
-import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/engine_type.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

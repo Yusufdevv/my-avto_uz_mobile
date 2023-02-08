@@ -1,10 +1,11 @@
+import 'dart:developer' as dev;
+
 import 'package:auto/assets/constants/app_constants.dart';
 import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:chuck_interceptor/chuck.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'dart:developer' as dev;
 
 class DioSettings {
   BaseOptions _dioBaseOptions = BaseOptions(

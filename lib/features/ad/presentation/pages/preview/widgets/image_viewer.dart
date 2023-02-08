@@ -1,3 +1,5 @@
+// ignore_for_file: type_annotate_public_apis
+
 import 'dart:io';
 
 import 'package:auto/features/ad/presentation/pages/preview/widgets/image_indicator.dart';

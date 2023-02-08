@@ -50,7 +50,6 @@ class _MileageScreenState extends State<MileageScreen> {
           child: Scaffold(
             body: BlocConsumer<MileageImageBloc, MileageImageState>(
               listener: (context, state) {
-                print('=> => => =>     milage image change in listener: ${state.image}    <= <= <= <=');
                if(state.image != null&& state.image!.isNotEmpty) {
                   widget.onImageChange(state.image!);
                 }

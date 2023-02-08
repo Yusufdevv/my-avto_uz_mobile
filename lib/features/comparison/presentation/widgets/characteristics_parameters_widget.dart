@@ -98,61 +98,75 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     children: [
                       ...List.generate(
-                        numberOfAddedCars.length,
+                        numberOfAddedCars.length + 1,
                         (index) => Column(
                           children: [
                             ComparsionList(
-                              info: numberOfAddedCars[index]
-                                  .announcement
-                                  .mainData
-                                  .make,
+                              info: index == numberOfAddedCars.length
+                                  ? ''
+                                  : numberOfAddedCars[index]
+                                      .announcement
+                                      .mainData
+                                      .make,
                               isGrey: true,
                             ),
                             ComparsionList(
-                              info: numberOfAddedCars[index]
-                                  .announcement
-                                  .mainData
-                                  .generation,
+                              info: index == numberOfAddedCars.length
+                                  ? ''
+                                  : numberOfAddedCars[index]
+                                      .announcement
+                                      .mainData
+                                      .generation,
                               isGrey: false,
                             ),
                             ComparsionList(
-                              info: numberOfAddedCars[index]
-                                  .announcement
-                                  .mainData
-                                  .bodyType
-                                  .toUpperCase(),
+                              info: index == numberOfAddedCars.length
+                                  ? ''
+                                  : numberOfAddedCars[index]
+                                      .announcement
+                                      .mainData
+                                      .bodyType
+                                      .toUpperCase(),
                               isGrey: true,
                             ),
                             ComparsionList(
-                              info: numberOfAddedCars[index]
-                                  .announcement
-                                  .mainData
-                                  .driveType
-                                  .toUpperCase(),
+                              info: index == numberOfAddedCars.length
+                                  ? ''
+                                  : numberOfAddedCars[index]
+                                      .announcement
+                                      .mainData
+                                      .driveType
+                                      .toUpperCase(),
                               isGrey: false,
                             ),
                             ComparsionList(
-                              info: numberOfAddedCars[index]
-                                  .announcement
-                                  .mainData
-                                  .gearboxType
-                                  .toUpperCase(),
+                              info: index == numberOfAddedCars.length
+                                  ? ''
+                                  : numberOfAddedCars[index]
+                                      .announcement
+                                      .mainData
+                                      .gearboxType
+                                      .toUpperCase(),
                               isGrey: true,
                             ),
                             ComparsionList(
-                              info: numberOfAddedCars[index]
-                                  .announcement
-                                  .mainData
-                                  .year
-                                  .toString(),
+                              info: index == numberOfAddedCars.length
+                                  ? ''
+                                  : numberOfAddedCars[index]
+                                      .announcement
+                                      .mainData
+                                      .year
+                                      .toString(),
                               isGrey: false,
                             ),
                             ComparsionList(
-                              info: numberOfAddedCars[index]
-                                  .announcement
-                                  .mainData
-                                  .color
-                                  .toUpperCase(),
+                              info: index == numberOfAddedCars.length
+                                  ? ''
+                                  : numberOfAddedCars[index]
+                                      .announcement
+                                      .mainData
+                                      .color
+                                      .toUpperCase(),
                               isGrey: true,
                             ),
                           ],
@@ -202,5 +216,3 @@ class CharacteristicsParametersWidget extends StatelessWidget {
         ],
       );
 }
-
-

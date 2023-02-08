@@ -146,7 +146,6 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
-        print('datasource succ sold');
         return response.data;
       } else if (response.statusCode != null &&
           response.statusCode! >= 400 &&
@@ -160,7 +159,6 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
                   .toString());
         }
       } else {
-        print('datasource fail sold');
         throw ServerException(
             statusCode: response.statusCode!,
             errorMessage: response.data.toString());
@@ -185,11 +183,8 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
-        print('DATASOURCE --- GET COUNT');
         return response.data;
-      } else {
-        print('DATASOURCE ERROR CALL');
-        print('DATASOURCE ERROR CALL ---> ${response.data}');
+      } else { 
         throw ServerException(
             statusCode: response.statusCode!,
             errorMessage: response.data.toString());

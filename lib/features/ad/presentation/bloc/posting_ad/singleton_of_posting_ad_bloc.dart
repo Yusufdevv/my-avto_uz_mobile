@@ -1,3 +1,5 @@
+// ignore_for_file: omit_local_variable_types, prefer_final_locals, duplicate_ignore
+
 part of 'posting_ad_bloc.dart';
 
 /// PostingAd Singleton
@@ -5,6 +7,7 @@ class PASingleton {
   PASingleton._();
 
   static Future<FormData> create(PostingAdState v) async {
+    // ignore: prefer_final_locals
     var announcementFields = <String, dynamic>{
       'make': v.makeId,
       'model': v.modelId,
@@ -135,6 +138,7 @@ class PASingleton {
     String? phone = '';
     try {
       phone = MyFunctions.phoneFormat(v.user.phoneNumber.substring(4));
+    // ignore: avoid_catches_without_on_clauses
     } catch (e) {
       phone = null;
     }
@@ -365,15 +369,11 @@ class PASingleton {
       // MileageScreen
       case 18:
         final milage =
-            int.tryParse(state.mileage?.replaceAll(' ', '') ?? '0') ?? 0;
-        print('milage $milage');
-        print('is without milage ${state.isWithoutMileage}');
-        print('milage image ${state.milageImage}');
+            int.tryParse(state.mileage?.replaceAll(' ', '') ?? '0') ?? 0; 
 
         final v = !(milage > 0 ||
             (state.isWithoutMileage ?? false) ||
-            state.milageImage != null);
-        print('=> => => =>     $v    <= <= <= <=');
+            state.milageImage != null); 
         return v;
       // PreviewScreen
       case 19:

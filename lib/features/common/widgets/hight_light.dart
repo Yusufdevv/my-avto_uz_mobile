@@ -1,3 +1,5 @@
+// ignore_for_file: omit_local_variable_types, prefer_final_locals
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:flutter/material.dart';
 
@@ -36,6 +38,7 @@ class HighlightedText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String textLC = caseSensitive ? allText : allText.toLowerCase();
+    // ignore: unnecessary_parenthesis
     final List<String> termList = [highlightedText ?? '', ...(terms ?? [])];
     final List<String> termListLC = termList
         .where((s) => s.isNotEmpty)

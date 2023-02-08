@@ -1,5 +1,4 @@
 import 'package:auto/features/ad/data/models/modification_type.dart';
-import 'package:auto/features/ad/domain/entities/types/modification_type.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/preview/widgets/car_info_row.dart';
 import 'package:auto/features/ad/presentation/pages/preview/widgets/car_model_price_text.dart';
