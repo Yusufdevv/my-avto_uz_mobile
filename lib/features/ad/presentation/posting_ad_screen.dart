@@ -64,6 +64,7 @@ import 'package:formz/formz.dart';
 class PostingAdScreen extends StatefulWidget {
   final BuildContext parentContext;
   final int? announcementId;
+
   const PostingAdScreen(
       {required this.parentContext, this.announcementId, Key? key})
       : super(key: key);
@@ -82,6 +83,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
   late AnimationController animeController;
   static int initialPage = 0;
   final int tabLength = 20;
+
   @override
   void initState() {
     animeController = AnimationController(
@@ -183,6 +185,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
     LocaleKeys.Mileage.tr(),
     LocaleKeys.preispection.tr(),
   ];
+
   void hidePopUp() {
     context.read<ShowPopUpBloc>().add(HidePopUp());
   }
@@ -244,7 +247,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                             dismissible: false,
                           ),
                         );
-                    postingAdBloc.add(PostingAdShowToastEvent(message: '', status: PopStatus.success));
+                    postingAdBloc.add(PostingAdShowToastEvent(
+                        message: '', status: PopStatus.success));
                   }
                 },
                 builder: (context, state) =>
@@ -341,7 +345,6 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                             const ColorsScreen(),
                             //10
                             AddPhotoScreen(onImageChanged: (v) {
-
                               postingAdBloc
                                   .add(PostingAdChooseEvent(gallery: v));
                             }, onPanaramaChanged: (v) {
@@ -358,11 +361,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                             //14
                             const DamageScreen(),
                             //15
-                            ContactScreen(
-                              initialEmail: state.ownerEmail ?? '',
-                              initialName: state.ownerName ?? '',
-                              initialPhone: state.ownerPhone ?? '',
-                            ),
+                          const   ContactScreen(),
                             //16
                             InspectionPlaceScreen(
                               onToMapPressed: () {
@@ -391,7 +390,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                             //18
                             MileageScreen(
                                 onImageChange: (image) {
-                                     print('=> => => =>     POSTING ADD PAGE: ${image}    <= <= <= <=');
+                                  print(
+                                      '=> => => =>     POSTING ADD PAGE: ${image}    <= <= <= <=');
 
                                   postingAdBloc.add(
                                       PostingAdChooseEvent(milageImage: image));
@@ -449,10 +449,10 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                             right: 16,
                             left: 16,
                             child: WButton(
-
-                               isDisabled: state.createStatus == FormzStatus.submissionSuccess,
+                              isDisabled: state.createStatus ==
+                                  FormzStatus.submissionSuccess,
                               isLoading: state.createStatus ==
-                                  FormzStatus.submissionInProgress ,
+                                  FormzStatus.submissionInProgress,
                               onTap: () async {
                                 hidePopUp();
                                 postingAdBloc.add(PostingAdCreateEvent());

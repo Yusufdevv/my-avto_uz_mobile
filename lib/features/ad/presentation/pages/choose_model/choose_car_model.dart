@@ -132,6 +132,7 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                               ),
                               const SizedBox(height: 10),
                               Divider(
+                                height: 1,
                                 thickness: 1,
                                 color: Theme.of(context).dividerColor,
                               ),

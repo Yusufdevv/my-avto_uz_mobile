@@ -30,7 +30,7 @@ class SwitcherRowAsButtonAlso extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              title,
+              title.length > 36?'${title.substring(0,35)}..':title,
               style: Theme.of(context)
                   .textTheme
                   .headline6!
