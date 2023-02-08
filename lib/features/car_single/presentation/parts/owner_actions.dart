@@ -6,6 +6,8 @@ import 'package:auto/features/car_single/presentation/widgets/owner_action_box.d
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class OwnerActions extends StatelessWidget {
   const OwnerActions({Key? key}) : super(key: key);
@@ -14,8 +16,8 @@ class OwnerActions extends StatelessWidget {
   Widget build(BuildContext context) => Container(
         margin: const EdgeInsets.symmetric(horizontal: 16),
         child: Container(
-            color: Theme.of(context).scaffoldBackgroundColor,
-            padding: const EdgeInsets.symmetric(vertical: 12),
+          color: Theme.of(context).scaffoldBackgroundColor,
+          padding: const EdgeInsets.symmetric(vertical: 12),
           child: Row(
             children: [
               Expanded(
@@ -23,10 +25,11 @@ class OwnerActions extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).push(fade(page: const InvoicePage()));
                   },
-                  child: const OwnerActionBox(
+                  child: OwnerActionBox(
                       color: accentYellow,
                       entity: OwnerActionEntity(
-                          title: 'Стать VIP на 3 дня', icon: AppIcons.crown)),
+                          title: LocaleKeys.become_vip_for_3_days.tr(),
+                          icon: AppIcons.crown)),
                 ),
               ),
               const SizedBox(
@@ -37,24 +40,24 @@ class OwnerActions extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).push(fade(page: const InvoicePage()));
                   },
-                  child: const OwnerActionBox(
+                  child: OwnerActionBox(
                       color: accentGreen,
                       entity: OwnerActionEntity(
-                          title: 'Продлить на 7 дней', icon: AppIcons.refresher)),
+                          title: LocaleKeys.extends_for_7.tr(),
+                          icon: AppIcons.refresher)),
                 ),
               ),
-              const SizedBox(
-                width: 8,
-              ),
+              const SizedBox(width: 8),
               Expanded(
                 child: WScaleAnimation(
                   onTap: () {
                     Navigator.of(context).push(fade(page: const InvoicePage()));
                   },
-                  child: const OwnerActionBox(
+                  child: OwnerActionBox(
                       color: accentRed,
                       entity: OwnerActionEntity(
-                          title: 'Отправить в “ТОП”', icon: AppIcons.rocket)),
+                          title: LocaleKeys.send_to_top.tr(),
+                          icon: AppIcons.rocket)),
                 ),
               ),
               const SizedBox(
@@ -65,10 +68,10 @@ class OwnerActions extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).push(fade(page: const InvoicePage()));
                   },
-                  child: const OwnerActionBox(
-                      color: Color(0xffDFEFFF),
+                  child: OwnerActionBox(
+                      color: const Color(0xffDFEFFF),
                       entity: OwnerActionEntity(
-                        title: 'В горячие \n ',
+                        title: LocaleKeys.in_hot.tr(),
                         icon: AppIcons.blue_fire,
                       )),
                 ),

@@ -2,22 +2,21 @@ import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:auto/features/main/presentation/bloc/top_ad/top_ad_bloc.dart';
 import 'package:auto/features/main/presentation/widgets/ads_item.dart';
+import 'package:auto/features/main/presentation/widgets/ads_shimmer.dart';
 import 'package:auto/features/main/presentation/widgets/main_empty_favourite.dart';
+import 'package:auto/features/pagination/presentation/paginator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 // ignore: must_be_immutable
 class MainFavorites extends StatelessWidget {
-  MainFavorites({required this.parentContext, Key? key}) : super(key: key);
+  MainFavorites({required this.parentContext,Key? key}) : super(key: key);
   final BuildContext parentContext;
 
   late List<AutoEntity> favorites;
-  final GlobalKey<AnimatedListState> listkey = GlobalKey();
-
   @override
   Widget build(BuildContext context) => BlocConsumer<TopAdBloc, TopAdState>(
         listener: (context, state) {
@@ -45,82 +44,15 @@ class MainFavorites extends StatelessWidget {
                   builder: (context, stateWish) => (state
                               .favoritesStatus.isSubmissionSuccess &&
                           state.favorites.isEmpty)
-                      ? MainEmptyFavourite(parentContext: parentContext)
+                      ?   MainEmptyFavourite(parentContext: parentContext,)
                       : SizedBox(
                           height: 298,
-                          child: AnimatedList(
-                            key: listkey,
+                          child: Paginator(
                             scrollDirection: Axis.horizontal,
                             padding: const EdgeInsets.only(
                                 top: 8, bottom: 16, right: 16, left: 16),
-                            itemBuilder: (context, index, animation) {
-                              if (index == state.favorites.length) {
-                                if (state.nextF != null) {
-                                  context
-                                      .read<TopAdBloc>()
-                                      .add(TopAdEvent.getMoreFavorite());
-                                  return const Center(
-                                      child: CupertinoActivityIndicator());
-                                } else {
-                                  return const SizedBox();
-                                }
-                              }
-                              return BlocListener<WishlistAddBloc,
-                                  WishlistAddState>(
-                                listener: (context, stateWish) {
-                                  if (stateWish
-                                          .removeStatus.isSubmissionSuccess &&
-                                      stateWish.id ==
-                                          state.favorites[index].id) {
-                                    listkey.currentState?.removeItem(
-                                      index,
-                                      (context, animation) => SlideTransition(
-                                        key: UniqueKey(),
-                                        position: Tween(
-                                                begin: const Offset(-1, 0),
-                                                end: Offset.zero)
-                                            .animate(CurvedAnimation(
-                                                parent: animation,
-                                                curve: Curves.easeInOut)),
-                                        child: AdsItem(
-                                          id: state.favorites[index].id,
-                                          name:
-                                              state.favorites[index].make.name,
-                                          price: state.favorites[index].price
-                                              .toString(),
-                                          location: state
-                                              .favorites[index].region.title,
-                                          description: state
-                                              .favorites[index].description,
-                                          image: state.favorites[index].gallery
-                                                  .isNotEmpty
-                                              ? state.favorites[index].gallery
-                                                  .first
-                                              : '',
-                                          currency:
-                                              state.favorites[index].currency,
-                                          isLiked: state
-                                              .favorites[index].isWishlisted,
-                                          onTapLike: () {},
-                                        ),
-                                      ),
-                                    );
-                                    context.read<TopAdBloc>().add(
-                                        TopAdEvent.deleteFavoriteItem(
-                                            id: stateWish.id, adding: false));
-                                  }
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 24),
-                                  child: SlideTransition(
-                                    key: UniqueKey(),
-                                    position: Tween(
-                                            begin: const Offset(-1, 0),
-                                            end: Offset.zero)
-                                        .animate(CurvedAnimation(
-                                            parent: animation,
-                                            curve: Curves.easeInOut)),
-                                    child: AdsItem(
+                            itemBuilder: (context, index) => Builder(
+                                builder: (context) => AdsItem(
                                       id: favorites[index].id,
                                       name: favorites[index].make.name,
                                       price: favorites[index].price.toString(),
@@ -140,18 +72,34 @@ class MainFavorites extends StatelessWidget {
                                             WishlistAddEvent.removeWishlist(
                                                 favorites[index].id, index));
                                       },
-                                    ),
-                                  ),
-                                ),
-                              );
+                                    )),
+                            itemCount: state.favorites.length,
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(width: 24),
+                            errorWidget: const SizedBox(),
+                            fetchMoreFunction: () {
+                              context
+                                  .read<TopAdBloc>()
+                                  .add(TopAdEvent.getMoreFavorite());
                             },
-                            initialItemCount: state.favorites.length + 1,
+                            hasMoreToFetch: state.nextF != null,
+                            paginatorStatus: state.favoritesStatus,
+                            loadingWidget: ListView.separated(
+                              scrollDirection: Axis.horizontal,
+                              padding: const EdgeInsets.only(
+                                  top: 8, bottom: 16, right: 16, left: 16),
+                              itemBuilder: (context, index) => AdsShimmer(),
+                              separatorBuilder: (context, index) =>
+                                  const SizedBox(width: 24),
+                              itemCount: 2,
+                            ),
                           ),
                         ),
                 ),
-              ],
+                ],
             ),
           );
         },
       );
 }
+

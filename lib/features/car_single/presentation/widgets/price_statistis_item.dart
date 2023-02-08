@@ -4,6 +4,7 @@ import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class PriceStatisticItem extends StatelessWidget {
   final double percent;
   final String price;

@@ -19,14 +19,12 @@ class CarsPrice extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(
-              height: 10,
-            ),
             Text(
               date,
               style: Theme.of(context).textTheme.headline2!.copyWith(
                   fontWeight: FontWeight.w400, fontSize: 14, color: grey),
             ),
+            const SizedBox(height: 2),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -45,9 +43,6 @@ class CarsPrice extends StatelessWidget {
                       .copyWith(color: textColor),
                 ),
               ],
-            ),
-            const SizedBox(
-              height: 16,
             ),
           ],
         ),

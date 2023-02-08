@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
 
-class MineMoreBottomSheet extends StatelessWidget {
+class MoreBottomSheet extends StatelessWidget {
   final int id;
   final FormzStatus status;
   final String name;
@@ -19,7 +19,7 @@ class MineMoreBottomSheet extends StatelessWidget {
   final VoidCallback onDealer;
   final VoidCallback onSold;
 
-  const MineMoreBottomSheet({
+  const MoreBottomSheet({
     required this.name,
     required this.position,
     required this.image,
@@ -37,12 +37,8 @@ class MineMoreBottomSheet extends StatelessWidget {
         decoration: const BoxDecoration(
           color: white,
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(
-              16,
-            ),
-            topRight: Radius.circular(
-              16,
-            ),
+            topLeft: Radius.circular(16),
+            topRight: Radius.circular(16),
           ),
         ),
         child: Column(
@@ -188,7 +184,7 @@ class MineMoreBottomSheet extends StatelessWidget {
             ),
             MoreActionItem(
               icon: AppIcons.crown,
-              text: 'Стать VIP на 3 дня',
+              text: LocaleKeys.become_vip_for_3_days.tr(),
               color: const Color(
                 0xffFFF6E1,
               ),
@@ -197,7 +193,7 @@ class MineMoreBottomSheet extends StatelessWidget {
             ),
             MoreActionItem(
               icon: AppIcons.rocket,
-              text: 'Отправить в “ТОП”',
+              text: LocaleKeys.send_to_top.tr(),
               color: const Color(
                 0xffFFECE7,
               ),
@@ -206,69 +202,24 @@ class MineMoreBottomSheet extends StatelessWidget {
             ),
             MoreActionItem(
               icon: AppIcons.blue_fire,
-              text: 'В горячие',
+              text: LocaleKeys.in_hot_one_line.tr(),
               color: const Color(
                 0xffDFEFFF,
               ),
               borderColor: const Color(0xff4D88C8).withOpacity(0.12),
               onTap: () {},
             ),
-            // MoreActionItem(
-            //   icon: AppIcons.surface,
-            //   text: 'Завершить объявление',
-            //   color: const Color(
-            //     0xff55BB00,
-            //   ).withOpacity(0.12),
-            //   onTap: () {
-            //   },
-            //   borderColor: const Color(0xff55BB00).withOpacity(0.12),
-            // ),
-            WScaleAnimation(
+            MoreActionItem(
+              icon: AppIcons.surface,
+              text: LocaleKeys.close_ad.tr(),
+              color: const Color(
+                0xff55BB00,
+              ).withOpacity(0.12),
               onTap: onSold,
-              child: Container(
-                height: 52,
-                decoration: BoxDecoration(
-                  color: const Color(
-                    0xff55BB00,
-                  ).withOpacity(0.12),
-                  borderRadius: BorderRadius.circular(
-                    12,
-                  ),
-                  border: Border.all(
-                    color: const Color(0xff55BB00).withOpacity(0.12),
-                  ),
-                ),
-                padding: const EdgeInsets.symmetric(
-                  vertical: 12,
-                  horizontal: 14,
-                ),
-                margin: const EdgeInsets.only(top: 8, right: 16, left: 16),
-                child: Center(
-                  child: Row(
-                    children: [
-                      SvgPicture.asset(
-                        AppIcons.surface,
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Text(
-                        'Завершить объявление',
-                        style: Theme.of(context).textTheme.headline1!.copyWith(
-                              color: const Color(
-                                0xff171725,
-                              ),
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16,
-                            ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              borderColor: const Color(0xff55BB00).withOpacity(0.12),
             ),
             SizedBox(
-              height: MediaQuery.of(context).padding.bottom + 8,
+              height: MediaQuery.of(context).padding.bottom + 24,
             ),
           ],
         ),

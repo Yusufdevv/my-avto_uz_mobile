@@ -38,8 +38,12 @@ class MoreActionItem extends StatelessWidget {
           child: Center(
             child: Row(
               children: [
-                SvgPicture.asset(
-                  icon,
+                SizedBox(
+                  height: 24,
+                  width: 24,
+                  child: SvgPicture.asset(
+                    icon,
+                  ),
                 ),
                 const SizedBox(
                   width: 8,

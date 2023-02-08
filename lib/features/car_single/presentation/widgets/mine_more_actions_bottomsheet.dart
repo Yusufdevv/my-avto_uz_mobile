@@ -1,16 +1,14 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/car_single/presentation/widgets/dealer_item.dart';
-import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/search/presentation/widgets/add_comparison_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class MoreActions extends StatefulWidget {
+class MineMoreActions extends StatefulWidget {
   final String name;
   final String position;
   final String image;
@@ -20,7 +18,7 @@ class MoreActions extends StatefulWidget {
   final int id;
   final bool? isCompare;
 
-  const MoreActions({
+  const MineMoreActions({
     required this.name,
     required this.position,
     required this.image,
@@ -33,10 +31,10 @@ class MoreActions extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<MoreActions> createState() => _MoreActionsState();
+  State<MineMoreActions> createState() => _MineMoreActionsState();
 }
 
-class _MoreActionsState extends State<MoreActions> {
+class _MineMoreActionsState extends State<MineMoreActions> {
   bool isLiked = false;
 
   @override
@@ -223,38 +221,6 @@ class _MoreActionsState extends State<MoreActions> {
               position: widget.position,
               onTap: widget.onDealer,
             ),
-            // MoreActionItem(
-            //   icon: AppIcons.refresh,
-            //   text: 'Продлить еще на 12 дней',
-            //   color: const Color(
-            //     0xffF0FAF6,
-            //   ),
-            //   onTap: () {},
-            // ),
-            // MoreActionItem(
-            //   icon: AppIcons.crown,
-            //   text: 'Стать VIP на 3 дня',
-            //   color: const Color(
-            //     0xffFFF6E1,
-            //   ),
-            //   onTap: () {},
-            // ),
-            // MoreActionItem(
-            //   icon: AppIcons.rocket,
-            //   text: 'Отправить в “ТОП”',
-            //   color: const Color(
-            //     0xffFFECE7,
-            //   ),
-            //   onTap: () {},
-            // ),
-            // MoreActionItem(
-            //   icon: AppIcons.blue_fire,
-            //   text: 'В горячие',
-            //   color: const Color(
-            //     0xffDFEFFF,
-            //   ),
-            //   onTap: () {},
-            // ),
             SizedBox(
               height: MediaQuery.of(context).padding.bottom + 8,
             ),
@@ -262,7 +228,3 @@ class _MoreActionsState extends State<MoreActions> {
         ),
       );
 }
-
-// onTap: () {
-// Navigator.of(context).push(fade(page: const VinPage()));
-// },

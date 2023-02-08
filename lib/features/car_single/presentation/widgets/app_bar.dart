@@ -1,9 +1,11 @@
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/features/car_single/presentation/widgets/mine_more_bottomsheet.dart';
-import 'package:auto/features/car_single/presentation/widgets/more_actions_bottomsheet.dart';
+import 'package:auto/features/ad/presentation/posting_ad_screen.dart';
+import 'package:auto/features/car_single/presentation/widgets/more_bottomsheet.dart';
+import 'package:auto/features/car_single/presentation/widgets/mine_more_actions_bottomsheet.dart';
 import 'package:auto/features/car_single/presentation/widgets/sliver_images_item.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/search/presentation/widgets/add_wishlist_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -119,7 +121,15 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
               padding: const EdgeInsets.only(left: 8, right: 8),
               child: widget.isMine
                   ? GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            fade(
+                                page: PostingAdScreen(
+                              parentContext: context,
+                              announcementId: widget.id,
+                            )));
+                      },
                       behavior: HitTestBehavior.opaque,
                       child: SvgPicture.asset(
                         AppIcons.edit_single,
@@ -160,7 +170,7 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                   isScrollControlled: false,
                   context: context,
                   builder: (context) => widget.isMine == true
-                      ? MineMoreBottomSheet(
+                      ? MoreBottomSheet(
                           name: widget.dealerName,
                           position: widget.position,
                           image: widget.avatar ?? '',
@@ -175,7 +185,7 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                           status: widget.status,
                           onSold: widget.onSold,
                         )
-                      : MoreActions(
+                      : MineMoreActions(
                           name: widget.dealerName,
                           position: widget.position == 'owner'
                               ? LocaleKeys.private_person.tr()

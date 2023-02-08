@@ -502,5 +502,10 @@ abstract class  LocaleKeys {
   static const phone_call = 'phone_call';
   static const added_to_favorites = 'added_to_favorites';
   static const days_on_sale = 'days_on_sale';
+  static const become_vip_for_3_days = 'become_vip_for_3_days';
+  static const send_to_top = 'send_to_top';
+  static const in_hot = 'in_hot';
+  static const in_hot_one_line = 'in_hot_one_line';
+  static const close_ad = 'close_ad';
 
 }

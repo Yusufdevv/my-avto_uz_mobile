@@ -412,7 +412,7 @@ class CodegenLoader extends AssetLoader{
   "code_confimer": "Код подтверждения",
   "how_many_ads": "объявлений",
   "day": "дней",
-  "extends_for_7": "Продлить еще на 7 дней",
+  "extends_for_7": "Продлить на 7 дней",
   "confirmation": "Подтверждение",
   "returner": "Возврат",
   "rent_periodic": "Период аренды",
@@ -515,7 +515,12 @@ class CodegenLoader extends AssetLoader{
   "u_t_e_o_t_a_p_l": "До окончания срока объявления осталось: ",
   "phone_call": "Позвонили по\n телефону",
   "added_to_favorites": "Добавили в\n избранное",
-  "days_on_sale": "Дней\nв продаже"
+  "days_on_sale": "Дней\nв продаже",
+  "become_vip_for_3_days": "Стать VIP на 3 дня",
+  "send_to_top": "Отправить в “ТОП”",
+  "in_hot": "В горячие\n ",
+  "in_hot_one_line": "В горячие",
+  "close_ad": "Завершить объявление"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -905,7 +910,7 @@ static const Map<String,dynamic> uz = {
   "code_confimer": "Tasdiqlash kodi",
   "how_many_ads": "E'lonlar",
   "day": "kun",
-  "extends_for_7": "Yana 7 kunga uzaytirish",
+  "extends_for_7": "7 kunga uzaytirish",
   "confirmation": "Tasdiqlash",
   "returner": "Qaytarish",
   "rent_periodic": "Ijara muddati",
@@ -922,7 +927,7 @@ static const Map<String,dynamic> uz = {
   "reviews": "Izohlar",
   "yes": "Ha",
   "this_ad_has_expired": "Bu e'lonning muddati tugagan, uni cho'zdirishingiz mumkin",
-  "your_ad_will_be_available": "Reklamangiz moderatsiyadan muvaffaqiyatli o‘tgandan so‘ng boshqa foydalanuvchilar uchun ochiq bo‘ladi",
+  "your_ad_will_be_available": "E'loningiz moderatsiyadan muvaffaqiyatli o‘tgandan so‘ng boshqa foydalanuvchilar uchun ochiq bo‘ladi",
   "editing_ad": "E'lonni tahrirlash",
   "categories": "Kategoriyalar",
   "call_not_available": "Qo'ng'iroq qilish cheklangan\n",
@@ -1003,7 +1008,7 @@ static const Map<String,dynamic> uz = {
   "rent_to_sale": "Sotib olish sharti bilan ijaraga olish",
   "add_rent_condition": "Ijara shartlarini qo'shish",
   "final_review": "Yakuniy ko'rinish",
-  "rastamojen_v_uzbekistan": "Avtomobil O‘zbekistonda bojxonadan o‘tkazilgan",
+  "rastamojen_v_uzbekistan": "Bojxonadan o‘tkazilgan",
   "car_model": "Avtomobil modeli",
   "photographation": "Rasmlari",
   "start_free_week": "7 kunga bepul joylashtirish....",
@@ -1015,10 +1020,15 @@ static const Map<String,dynamic> uz = {
   "map": "Xarita",
   "km": "km",
   "dayss": "kun",
-  "u_t_e_o_t_a_p_l": "До окончания срока объявления осталось: ",
-  "phone_call": "Позвонили по\n телефону",
-  "added_to_favorites": "Добавили в\n избранное",
-  "days_on_sale": "Дней\nв продаже"
+  "u_t_e_o_t_a_p_l": "E'lon muddati tugaguncha: ",
+  "phone_call": "Telefonga\nqo'ng'iroq qilindi",
+  "added_to_favorites": "Tanlanganlarga\nqo'shildi",
+  "days_on_sale": "Kundan beri\nsotuvda",
+  "become_vip_for_3_days": "Стать VIP на 3 дня",
+  "send_to_top": "Отправить в “ТОП”",
+  "in_hot": "В горячие\n ",
+  "in_hot_one_line": "В горячие",
+  "close_ad": "E'lonni tugatish"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }
