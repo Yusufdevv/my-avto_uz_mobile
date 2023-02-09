@@ -19,12 +19,12 @@ class ImageItem extends StatelessWidget {
             height: 109,
             width: 109,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: FileImage(
-                      File(image),
-                    ))),
+              borderRadius: BorderRadius.circular(8),
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: FileImage(File(image)),
+              ),
+            ),
           ),
           Positioned(
             top: 4,

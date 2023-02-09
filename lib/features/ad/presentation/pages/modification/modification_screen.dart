@@ -34,10 +34,10 @@ class _ModificationScreenState extends State<ModificationScreen> {
                 itemBuilder: (context, index) => PostingRadioItem(
                   image: '',
                   selected:
-                      state.modifications[index].id == state.modificationId,
+                      state.modifications[index].id == state.modification?.id,
                   onTap: () {
                     context.read<PostingAdBloc>().add(PostingAdChooseEvent(
-                        modificationId: state.modifications[index].id));
+                        modification: state.modifications[index]));
                   },
                   title:
                       'Volume ${state.modifications[index].volume} Power (${state.modifications[index].power})',

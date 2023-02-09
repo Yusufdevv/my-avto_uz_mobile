@@ -315,7 +315,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                               onTopBrandPressed: (makeId) {
                                 hidePopUp();
                                 postingAdBloc
-                                    .add(PostingAdChooseEvent(makeId: makeId));
+                                    .add(PostingAdChooseEvent(make: makeId));
                                 currentTabIndex++;
                                 postingAdBloc.add(PostingAdAddEventForEveryPage(
                                     page: currentTabIndex));
@@ -361,7 +361,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                             //14
                             const DamageScreen(),
                             //15
-                          const   ContactScreen(),
+                            const ContactScreen(),
                             //16
                             InspectionPlaceScreen(
                               onToMapPressed: () {

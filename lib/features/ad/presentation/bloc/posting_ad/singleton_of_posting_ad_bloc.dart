@@ -6,15 +6,15 @@ class PASingleton {
 
   static Future<FormData> create(PostingAdState v) async {
     var announcementFields = <String, dynamic>{
-      'make': v.makeId,
-      'model': v.modelId,
+      'make': v.make?.id,
+      'model': v.model?.id,
       'generation': v.generationId,
-      'body_type': v.bodyTypeId,
+      'body_type': v.bodyType!.id,
       'drive_type': v.driveTypeId,
       'engine_type': v.engineId,
-      'gearbox_type': v.gearboxId,
+      'gearbox_type': v.gearbox?.id,
       'year': v.yearEntity?.id,
-      'modification_type': v.modificationId,
+      'modification_type': v.modification!.id,
       'color': v.colorName,
       'licence_type': v.licenceType,
       'ownership': v.ownerStep,
@@ -33,8 +33,7 @@ class PASingleton {
           ? '0'
           : (v.mileage?.replaceAll(' ', '') ?? '0'),
       'contact_available_from': v.callTimeFrom,
-      'contact_available_to':v.callTimeTo
-      ,
+      'contact_available_to': v.callTimeTo,
       'registration_vin': 'KENTEKENMEWIJS',
       'registration_plate': 'KENTEKENMEWIJS',
       'registration_certificate': 'KENTEKENMEWIJS',
@@ -47,11 +46,11 @@ class PASingleton {
           v.rentWithPurchaseConditions.map((e) => e.toApi()).toList(),
     };
     if (v.milageImage != null && v.milageImage!.isNotEmpty) {
-    final milageImage = await MultipartFile.fromFile(v.milageImage!);
-    final List<MultipartFile> list = [milageImage];
-    announcementFields.addEntries(list.map((e) => MapEntry('mileage_image', e)));
+      final milageImage = await MultipartFile.fromFile(v.milageImage!);
+      final List<MultipartFile> list = [milageImage];
+      announcementFields
+          .addEntries(list.map((e) => MapEntry('mileage_image', e)));
     }
-
 
     var i = -1;
     announcementFields.addEntries(v.damagedParts.entries.map((e) {
@@ -78,15 +77,11 @@ class PASingleton {
 
     final announcementFormData = FormData.fromMap(announcementFields);
 
-
     return announcementFormData;
   }
 
-  static Map<String, dynamic> getMiniPrice(PostingAdState state) => {
-        'make': state.makeId,
-        'model': state.modelId,
-        'currency': state.currency
-      };
+  static Map<String, dynamic> getMiniPrice(PostingAdState state) =>
+      {'make': state.make, 'model': state.model, 'currency': state.currency};
 
   static PostingAdState initUserFromApi(UserModel user, PostingAdState state) =>
       state.copyWith(
@@ -131,15 +126,24 @@ class PASingleton {
     return result;
   }
 
-  static PostingAdState stateForEdit(CarSingleEntity v) {
+  static Future<PostingAdState> stateForEdit(CarSingleEntity v) async {
     String? phone = '';
     try {
       phone = MyFunctions.phoneFormat(v.user.phoneNumber.substring(4));
     } catch (e) {
       phone = null;
     }
+    var gallery = <String>[];
+    for (var i = 0; i < v.gallery.length; i++) {
+      final path = await MyFunctions.urlToFilePath(v.gallery[i]);
+      if (path != null) {
+        gallery.add(path);
+      }
+    }
 
     return PostingAdState(
+      licenceType: v.licenceType,
+      gallery: gallery,
       popStatus: PopStatus.success,
       isContactsVerified: true,
       searchController: TextEditingController(),
@@ -148,27 +152,49 @@ class PASingleton {
       nameController: TextEditingController(
           text: v.user.name.isEmpty ? v.user.fullName : v.user.name),
       status: FormzStatus.submissionSuccess,
-      bodyTypeId: v.bodyType.id,
+      bodyType: BodyTypeEntity(
+          logo: v.bodyType.logo ?? '',
+          id: v.bodyType.id,
+          type: v.bodyType.type),
       callTimeFrom: v.contactAvailableFrom.trim().substring(0, 5),
       callTimeTo: v.contactAvailableTo.trim().substring(0, 5),
+      isCallTimed: v.contactAvailableFrom.isNotEmpty &&
+          v.contactAvailableFrom.isNotEmpty,
       colorName: v.color,
       damagedParts: damagedPartAdopter(v.damagedParts),
       currency: v.currency,
       description: v.description,
       driveTypeId: v.driveType.id,
       engineId: v.engineType.id,
-      gearboxId: v.gearboxType.id,
+      gearbox: GearboxTypeEntity(
+        id: v.gearboxType.id,
+        type: v.gearboxType.type,
+        logo: v.gearboxType.type,
+      ),
       generationId: v.gearboxType.id,
       isWithoutMileage: !(v.distanceTraveled > 0),
-      makeId: v.make.id,
-      modelId: v.model.id,
+      make:
+          MakeEntity(id: v.make.id, logo: v.make.logo ?? '', name: v.make.name),
+      model: MakeEntity(id: v.model.id, name: v.model.name),
       ownerName: v.user.name.isEmpty ? v.user.fullName : v.user.name,
       ownerPhone: phone ?? v.user.phoneNumber,
       ownerStep: v.ownership,
-      price: v.price,
-      mileage: '${v.distanceTraveled}',
+      price: MyFunctions.getThousandsSeparatedPrice(
+          v.price.split('.').toList().first),
+      mileage: MyFunctions.getThousandsSeparatedPrice('${v.distanceTraveled}'),
       purchasedDate: v.purchaseDate,
       notRegisteredInUzbekistan: v.registeredInUzbekistan,
+      yearEntity: YearsEntity(
+        id: v.generation.id,
+        modelId: v.generation.model,
+        yearBegin: v.generation.yearBegin,
+        yearEnd: v.generation.yearEnd,
+      ),
+      modification: ModificationTypeEntity(
+        id: v.modificationType.id,
+        power: v.modificationType.power,
+        volume: v.modificationType.volume,
+      ),
     );
   }
 
@@ -176,7 +202,7 @@ class PASingleton {
           PostingAdState state, PostingAdChooseEvent event) =>
       state.copyWith(
           milageImage: event.milageImage,
-          modificationId: event.modificationId,
+          modification: event.modification,
           panaramaGallery: event.panaramaGallery,
           mapPointBytes: event.bodyBytes,
           years: event.years,
@@ -196,17 +222,17 @@ class PASingleton {
           callTimeFrom: event.callTimeFrom,
           mileage: event.mileage,
           ownerStep: event.ownerStep,
-          typeDocument: event.typeDocument,
+          licenceType: event.typeDocument,
           colorName: event.colorName,
-          gearboxId: event.gearboxId,
+          gearbox: event.gearbox,
           driveTypeId: event.driveTypeId,
           engineId: event.engineId,
           generationId: event.generationId,
-          bodyTypeId: event.selectedBodyTypeId,
+          bodyType: event.bodyType,
           isSortByLetter: event.letter != state.letter,
-          modelId: event.modelId,
+          model: event.model,
           eventLetter: event.letter,
-          makeId: event.makeId,
+          make: event.make,
           purchasedDate: event.purchasedDate,
           notRegisteredInUzbekistan: event.isRastamojen,
           ownerEmail: event.ownerEmail,
@@ -306,10 +332,10 @@ class PASingleton {
     switch (page) {
       //make
       case 0:
-        return state.makeId == null;
+        return state.make == null;
 // model
       case 1:
-        return state.modelId == null;
+        return state.model == null;
       // year
       case 2:
         return state.yearEntity == null;
@@ -319,7 +345,7 @@ class PASingleton {
 
       // body type
       case 4:
-        return state.bodyTypeId == null;
+        return state.bodyType == null;
       // engine
       case 5:
         return state.engineId == null;
@@ -328,10 +354,10 @@ class PASingleton {
         return state.driveTypeId == null;
       // gearbox
       case 7:
-        return state.gearboxId == null;
+        return state.gearbox == null;
       // ModificationScreen
       case 8:
-        return state.modificationId == null;
+        return state.modification == null;
       // ColorsScreen
       case 9:
         return false;

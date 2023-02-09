@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/presentation/bloc/bloc/choose_make_anime_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/car_items.dart';
@@ -23,8 +24,9 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class ChooseCarBrand extends StatefulWidget {
   final int tabLength;
-  final Function(int) onTopBrandPressed;
+  final Function(MakeEntity) onTopBrandPressed;
   final PostingAdBloc postingAddBloc;
+
   const ChooseCarBrand({
     required this.tabLength,
     required this.postingAddBloc,
@@ -230,37 +232,34 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                               _bgTweenColor.evaluate(animeState.scaleAnimation),
                           padding: const EdgeInsets.only(top: 16, bottom: 12),
                           child: WTextField(
-                          
-                              focusColor: _fillTweenColor
-                                  .evaluate(animeState.scaleAnimation),
-                              fillColor: _fillTweenColor
-                                  .evaluate(animeState.scaleAnimation),
-                              filled: true,
-                              margin:
-                                  const EdgeInsets.only(left: 16, right: 16),
-                              onChanged: (value) => widget.postingAddBloc
-                                  .add(PostingAdSearchMakesEvent(name: value)),
-                              borderRadius: 12,
-                              borderColor: purple,
-                              hasSearch: true,
-                              hintText: LocaleKeys.search.tr(),
-                              height: 40,
-                              controller: state.searchController,
-                              hasClearButton: true,
-                              textStyle: Theme.of(context)
-                                  .textTheme
-                                  .headline1!
-                                  .copyWith(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 16),
-                                      onClear:  () {
-                                      context.read<PostingAdBloc>().add(
-                                          PostingAdSerchControllerClearEvent());
-                                    },
-                             ),
+                            focusColor: _fillTweenColor
+                                .evaluate(animeState.scaleAnimation),
+                            fillColor: _fillTweenColor
+                                .evaluate(animeState.scaleAnimation),
+                            filled: true,
+                            margin: const EdgeInsets.only(left: 16, right: 16),
+                            onChanged: (value) => widget.postingAddBloc
+                                .add(PostingAdSearchMakesEvent(name: value)),
+                            borderRadius: 12,
+                            borderColor: purple,
+                            hasSearch: true,
+                            hintText: LocaleKeys.search.tr(),
+                            height: 40,
+                            controller: state.searchController,
+                            hasClearButton: true,
+                            textStyle: Theme.of(context)
+                                .textTheme
+                                .headline1!
+                                .copyWith(
+                                    fontWeight: FontWeight.w400, fontSize: 16),
+                            onClear: () {
+                              context
+                                  .read<PostingAdBloc>()
+                                  .add(PostingAdSerchControllerClearEvent());
+                            },
+                          ),
                         ),
                       ),
-                      
                       pinned: true,
                     ),
                   ),
@@ -296,7 +295,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                                         carBrandEntity: state.topMakes[index],
                                         onTap: () {
                                           widget.onTopBrandPressed(
-                                              state.topMakes[index].id);
+                                              state.topMakes[index]);
                                         },
                                       ),
                                   separatorBuilder: (context, index) =>
@@ -367,12 +366,12 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                             onTap: () {
                               context.read<PostingAdBloc>().add(
                                     PostingAdChooseEvent(
-                                      makeId: state.makes[index].id,
+                                      make: state.makes[index],
                                     ),
                                   );
                             },
                             selectedId:
-                                context.watch<PostingAdBloc>().state.makeId ??
+                                context.watch<PostingAdBloc>().state.make?.id ??
                                     -1,
                             id: state.makes[index].id,
                             imageUrl: state.makes[index].logo,

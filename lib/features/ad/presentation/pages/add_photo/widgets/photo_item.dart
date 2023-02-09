@@ -1,4 +1,3 @@
-
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/pages/add_photo/widgets/image_item.dart';
@@ -18,17 +17,6 @@ class PhotoItem extends StatefulWidget {
 }
 
 class _PhotoItemState extends State<PhotoItem> {
-  // late TargetPlatform? platform;
-  // @override
-  // void initState() {
-  //   if (Platform.isAndroid) {
-  //     platform = TargetPlatform.android;
-  //   } else {
-  //     platform = TargetPlatform.iOS;
-  //   }
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) => widget.images.isEmpty
       ? WScaleAnimation(
@@ -50,7 +38,8 @@ class _PhotoItemState extends State<PhotoItem> {
         )
       : Padding(
           padding: const EdgeInsets.all(16),
-          child: Wrap(         
+          child: Wrap(
+
             runSpacing: 16,
             spacing: 8,
             children: [
@@ -70,7 +59,8 @@ class _PhotoItemState extends State<PhotoItem> {
                   child: const PlusCircle(),
                 ),
               ),
-              ...List.generate(widget.images.length,
+              ...List.generate(
+                  widget.images.length,
                   (index) => ImageItem(image: widget.images[index])).toList()
             ],
           ),

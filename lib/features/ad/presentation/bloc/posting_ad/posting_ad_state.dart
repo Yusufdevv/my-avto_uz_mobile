@@ -11,22 +11,22 @@ class PostingAdState extends Equatable {
   final TextEditingController emailController;
   final TextEditingController nameController;
   final TextEditingController searchController;
-  final int? modificationId;
+  final ModificationTypeEntity? modification;
   final List<ModificationTypeEntity> modifications;
-  final int? gearboxId;
+  final GearboxTypeEntity? gearbox;
   final List<GearboxTypeEntity> gearBoxes;
   final int? driveTypeId;
   final List<DriveTypeEntity> driveTypes;
   final int? engineId;
   final List<EngineTypeEntity> engines;
-  final int? modelId;
+  final MakeEntity? model;
   final List<MakeEntity> models;
-  final int? makeId;
+  final MakeEntity? make;
   final List<MakeEntity> makes;
   final List<MakeEntity> topMakes;
   final int? generationId;
   final List<GenerationEntity> generations;
-  final int? bodyTypeId;
+  final BodyTypeEntity? bodyType;
   final List<BodyTypeEntity> bodyTypes;
   final int? regionId;
   final List<Region> regions;
@@ -82,22 +82,22 @@ class PostingAdState extends Equatable {
     this.id,
     this.makeLetterIndex,
     this.minimumPrice = 0,
-    this.modificationId,
+    this.modification,
     this.modifications = const <ModificationTypeEntity>[],
-    this.gearboxId,
+    this.gearbox,
     this.gearBoxes = const <GearboxTypeEntity>[],
     this.driveTypeId,
     this.driveTypes = const <DriveTypeEntity>[],
-    this.makeId,
+    this.make,
     this.makes = const <MakeEntity>[],
     this.engineId,
     this.engines = const <EngineTypeEntity>[],
     this.topMakes = const <MakeEntity>[],
-    this.modelId,
+    this.model,
     this.models = const <MakeEntity>[],
     this.generationId,
     this.generations = const <GenerationEntity>[],
-    this.bodyTypeId,
+    this.bodyType,
     this.bodyTypes = const <BodyTypeEntity>[],
     this.yearEntity,
     this.years = const <YearsEntity>[],
@@ -167,21 +167,21 @@ class PostingAdState extends Equatable {
     FormzStatus? createStatus,
     FormzStatus? getMakesStatus,
     PopStatus? popStatus,
-    int? modificationId,
+    ModificationTypeEntity? modification,
     List<ModificationTypeEntity>? modifications,
-    int? gearboxId,
+    GearboxTypeEntity? gearbox,
     List<GearboxTypeEntity>? gearBoxes,
     int? driveTypeId,
     List<DriveTypeEntity>? driveTypes,
     int? engineId,
     List<EngineTypeEntity>? engines,
-    int? modelId,
+    MakeEntity? model,
     List<MakeEntity>? models,
     int? generationId,
     List<GenerationEntity>? generations,
-    int? bodyTypeId,
+    BodyTypeEntity? bodyType,
     List<BodyTypeEntity>? bodyTypes,
-    int? makeId,
+    MakeEntity? make,
     List<MakeEntity>? makes,
     List<Region>? regions,
     List<MakeEntity>? topMakes,
@@ -196,7 +196,7 @@ class PostingAdState extends Equatable {
     String? milageImage,
     String? eventLetter,
     String? colorName,
-    String? typeDocument,
+    String? licenceType,
     String? ownerStep,
     String? ownerName,
     Uint8List? mapPointBytes,
@@ -229,7 +229,7 @@ class PostingAdState extends Equatable {
     final newState = PostingAdState(
       popStatus: popStatus??this.popStatus,
       milageImage: milageImage ?? this.milageImage,
-      modificationId: modificationId ?? this.modificationId,
+      modification: modification ?? this.modification,
       modifications: modifications ?? this.modifications,
       getMakesStatus: getMakesStatus ?? this.getMakesStatus,
       searchController: searchController ?? this.searchController,
@@ -253,7 +253,7 @@ class PostingAdState extends Equatable {
       districtId: districtId ?? this.districtId,
       city: city ?? this.city,
       regionId: regionId ?? this.regionId,
-      gearboxId: gearboxId ?? this.gearboxId,
+      gearbox: gearbox ?? this.gearbox,
       gearBoxes: gearBoxes ?? this.gearBoxes,
       driveTypeId: driveTypeId ?? this.driveTypeId,
       driveTypes: driveTypes ?? this.driveTypes,
@@ -262,7 +262,7 @@ class PostingAdState extends Equatable {
       models: models ?? this.models,
       generationId: generationId ?? this.generationId,
       generations: generations ?? this.generations,
-      bodyTypeId: bodyTypeId ?? this.bodyTypeId,
+      bodyType: bodyType ?? this.bodyType,
       topMakes: topMakes ?? this.topMakes,
       makes: makes ?? this.makes,
       status: status ?? this.status,
@@ -270,11 +270,11 @@ class PostingAdState extends Equatable {
       years: years ?? this.years,
       hasAppBarShadow: hasAppBarShadow ?? this.hasAppBarShadow,
       isSortByLetter: isSortByLetter,
-      modelId: modelId ?? this.modelId,
-      makeId: makeId ?? this.makeId,
+      model: model ?? this.model,
+      make: make ?? this.make,
       letter: eventLetter,
       colorName: colorName ?? this.colorName,
-      licenceType: typeDocument ?? this.licenceType,
+      licenceType: licenceType ?? this.licenceType,
       ownerStep: ownerStep ?? this.ownerStep,
       purchasedDate: purchasedDate ?? this.purchasedDate,
       notRegisteredInUzbekistan:
@@ -308,7 +308,7 @@ class PostingAdState extends Equatable {
   List<Object?> get props => [
     popStatus,
         milageImage,
-        modificationId,
+        modification,
         modifications,
         getMakesStatus,
         searchController,
@@ -338,16 +338,16 @@ class PostingAdState extends Equatable {
         callTimeFrom,
         city,
         regionId,
-        gearboxId,
+        gearbox,
         gearBoxes,
         driveTypeId,
         driveTypes,
         engineId,
         engines,
         generations,
-        modelId,
+        model,
         isSortByLetter,
-        makeId,
+        make,
         letter,
         hasAppBarShadow,
         years,
@@ -359,7 +359,7 @@ class PostingAdState extends Equatable {
         licenceType,
         ownerStep,
         purchasedDate,
-        bodyTypeId,
+        bodyType,
         notRegisteredInUzbekistan,
         description,
         ownerEmail,
@@ -379,4 +379,5 @@ class PostingAdState extends Equatable {
         orElse: () => const Region(id: -1, name: '', title: ''));
     return v;
   }
+
 }

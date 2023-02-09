@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
@@ -20,6 +21,10 @@ import 'package:geolocator/geolocator.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
+import 'dart:math';
 
 // ignore: avoid_classes_with_only_static_members
 class MyFunctions {
@@ -115,6 +120,23 @@ class MyFunctions {
     return buffer.toString();
   }
 
+  static String getThousandsSeparatedPrice(String price) {
+    var priceInText = '';
+    var counter = 0;
+    for (var i = price.length - 1; i >= 0; i--) {
+      counter++;
+      var str = price[i];
+      if ((counter % 3) != 0 && i != 0) {
+        priceInText = '$str$priceInText';
+      } else if (i == 0) {
+        priceInText = '$str$priceInText';
+      } else {
+        priceInText = ' $str$priceInText';
+      }
+    }
+    return priceInText.trim();
+  }
+
   static Future<ImageInfo> getImageInfo(
       BuildContext context, String image) async {
     final assetImage = AssetImage(image);
@@ -208,7 +230,8 @@ class MyFunctions {
   static List<String> getUpperLetter() =>
       [for (int i = 0; i < 26; i++) String.fromCharCode(i + 65)];
 
-  static Future<PermissionStatus> getPhotosPermission(bool platformIsAndroid) async {
+  static Future<PermissionStatus> getPhotosPermission(
+      bool platformIsAndroid) async {
     if (platformIsAndroid) {
       Permission permissionType;
 
@@ -228,7 +251,8 @@ class MyFunctions {
     return PermissionStatus.granted;
   }
 
-  static Future<PermissionStatus> getCameraPermission(bool platformIsAndroid) async {
+  static Future<PermissionStatus> getCameraPermission(
+      bool platformIsAndroid) async {
     if (platformIsAndroid) {
       var permission = await Permission.camera.status;
       print(
@@ -541,5 +565,28 @@ class MyFunctions {
     final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
 
     return byteData?.buffer.asUint8List();
+  }
+
+  static Future<String?> urlToFilePath(String imageUrl) async {
+    try {
+      // generate random number.
+      final rng = Random();
+// get temporary directory of device.
+      final tempDir = await getTemporaryDirectory();
+// get temporary path from temporary directory.
+      final tempPath = tempDir.path;
+// create a new file in temporary path with random file name.
+      final file = File(
+          '$tempPath${(rng.nextInt(100)).toString()}.${imageUrl.split('.').toList().last}');
+// call http.get method and pass imageUrl into it to get response.
+      final response = await http.get(Uri.parse(imageUrl));
+// write bodyBytes received in response to file.
+      await file.writeAsBytes(response.bodyBytes);
+// now return the file which is created with random name in
+// temporary directory and image bytes from response is written to // that file.
+      return file.path;
+    } catch (e) {
+      return null;
+    }
   }
 }

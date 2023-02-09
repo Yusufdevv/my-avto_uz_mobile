@@ -156,12 +156,14 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                                 hasBorder: index != state.models.length - 1,
                                 onTap: () => context.read<PostingAdBloc>().add(
                                     PostingAdChooseEvent(
-                                        modelId: state.models[index].id)),
+                                        model: state.models[index])),
                                 entity: state.models[index].name,
-                                isSelected: context
-                                        .watch<PostingAdBloc>()
-                                        .state
-                                        .modelId ==
+                                isSelected: (context
+                                            .watch<PostingAdBloc>()
+                                            .state
+                                            .model
+                                            ?.id ??
+                                        -1) ==
                                     state.models[index].id,
                                 text: searchController.text,
                               ),
