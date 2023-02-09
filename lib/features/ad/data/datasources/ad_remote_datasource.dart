@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/storage.dart';
-import 'package:auto/features/ad/data/models/announcement_filter.dart';
 import 'package:auto/features/ad/data/models/body_type.dart';
 import 'package:auto/features/ad/data/models/drive_type.dart';
 import 'package:auto/features/ad/data/models/engine_type.dart';
@@ -25,9 +24,13 @@ import 'package:http/http.dart' as http;
 
 abstract class AdRemoteDataSource {
   Future<GenericPagination<FotoInstructionEntity>> getFotoInstructions();
+
   Future<Uint8List> getMapScreenShot(Map<String, String> params);
+
   Future<num> getMinimumPrice(Map<String, dynamic> params);
+
   Future<bool> verify(Map<String, String> params);
+
   Future<String> sendCode({required String phone});
 
   Future<GenericPagination<MakeModel>> getTopMakes({String? next});
@@ -51,6 +54,7 @@ abstract class AdRemoteDataSource {
     required int generationId,
     String? next,
   });
+
   Future<GenericPagination<BodyTypeModel>> bodyTypesGet();
 
   Future<GenericPagination<EngineTypeModel>> getEngineType({
@@ -65,6 +69,7 @@ abstract class AdRemoteDataSource {
     required int engineTypeId,
     String? next,
   });
+
   Future<GenericPagination<DriveTypeModel>> driveTypesGet();
 
   Future<GenericPagination<GearboxTypeModel>> getGearboxType({
@@ -91,8 +96,8 @@ abstract class AdRemoteDataSource {
   });
 
   Future<GenericPagination<AnnouncementListModel>> getAnnouncementList(
-    AnnouncementFilterModel filter,
-  );
+      Map<String, dynamic> params);
+
   Future<void> filterHistory({required SearchHistoryModel model});
 }
 
@@ -515,15 +520,14 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
 
   @override
   Future<GenericPagination<AnnouncementListModel>> getAnnouncementList(
-    AnnouncementFilterModel filter,
-  ) async {
+      Map<String, dynamic> params) async {
     try {
       final response = await _dio.get(
         '/car/announcement/list/',
         options: Options(headers: {
           'Authorization': 'Bearer ${StorageRepository.getString('token')}'
         }),
-        queryParameters: filter.toJson(),
+        queryParameters: params,
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return GenericPagination.fromJson(response.data,

@@ -1,11 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:equatable/equatable.dart';
-import 'package:json_annotation/json_annotation.dart';
 
-part 'announcement_filter.g.dart';
-
-@JsonSerializable(fieldRename: FieldRename.snake)
 class AnnouncementFilterModel extends Equatable {
   final int? make;
   final int? model;
@@ -47,22 +43,19 @@ class AnnouncementFilterModel extends Equatable {
     String? region__in,
   }) =>
       AnnouncementFilterModel(
-        make: make == -1 ? null : make ?? this.make,
-        model: model == -1 ? null : model ?? this.model,
-        isNew: isNew,
-        bodyType: bodyType,
-        gearboxType: gearboxType,
-        driveType: driveType,
-        priceFrom: priceFrom,
-        priceTo: priceTo,
-        yearFrom: yearFrom,
-        yearTo: yearTo,
-        region__in: region__in,
+        make: make ?? this.make,
+        model:  model ?? this.model,
+        isNew: isNew ?? this.isNew,
+        bodyType: bodyType ?? this.bodyType,
+        gearboxType: gearboxType ?? this.gearboxType,
+        driveType: driveType ?? this.driveType,
+        priceFrom: priceFrom ?? this.priceFrom,
+        priceTo: priceTo ?? this.priceTo,
+        yearFrom: yearFrom ?? this.yearFrom,
+        yearTo: yearTo ?? this.yearTo,
+        region__in: region__in ?? this.region__in,
       );
-  factory AnnouncementFilterModel.fromJson(Map<String, dynamic> json) =>
-      _$AnnouncementFilterModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$AnnouncementFilterModelToJson(this);
   @override
   List<Object?> get props => [
         make,

@@ -101,9 +101,6 @@ class _MainScreenState extends State<MainScreen> {
             .add(GetCarModelEvent.selectedModelItem(id: -1, name: ''));
         context.read<GetMakesBloc>().add(
             GetMakesBlocEvent.selectedCarItems(id: -1, name: '', imageUrl: ''));
-        context
-            .read<AnnouncementListBloc>()
-            .add(AnnouncementListEvent.getFilterClear(ismake: true));
         Navigator.of(context, rootNavigator: true)
             .push(fade(page: AdsScreen(isBack: false, onTap: () {})));
       },
@@ -166,109 +163,105 @@ class _MainScreenState extends State<MainScreen> {
                   ..add(TopAdEvent.getTopAds())
                   ..add(TopAdEvent.getFavorites());
               },
-              child: BlocBuilder<AnnouncementListBloc, AnnouncementListState>(
-                builder: (context, stateAnnounc) => SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.only(top: 20, bottom: 24),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Visibility(
-                        visible:
-                            state.statusStoriesGet.isSubmissionInProgress ||
-                                state.statusStoriesGet.isSubmissionSuccess &&
-                                    state.stories.isNotEmpty,
-                        child: Stories(
-                          status: state.statusStoriesGet,
-                          stories: state.stories,
-                          onBack: () {
-                            mainBloc.add(InitialEvent());
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                padding: const EdgeInsets.only(top: 20, bottom: 24),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Visibility(
+                      visible: state.statusStoriesGet.isSubmissionInProgress ||
+                          state.statusStoriesGet.isSubmissionSuccess &&
+                              state.stories.isNotEmpty,
+                      child: Stories(
+                        status: state.statusStoriesGet,
+                        stories: state.stories,
+                        onBack: () {
+                          mainBloc.add(InitialEvent());
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    DealButton(
+                      onTap: () {
+                        Navigator.of(context, rootNavigator: true).push(
+                            fade(page: const ReelsScreen(isForOfferDay: true)));
+                      },
+                    ),
+                    BlocBuilder<GetMakesBloc, GetMakesState>(
+                      builder: (context, state) => CarModelItem(
+                          onTapSelect: () =>
+                              Navigator.of(context, rootNavigator: true)
+                                  .push(fade(
+                                      page: ChooseCarBrandComparison(
+                                onTap: () {},
+                                isbak: true,
+                                isClear: true,
+                              )))
+                                  .then((value) {
+                                context.read<AnnouncementListBloc>().add(
+                                    AnnouncementListEvent.getFilter(context
+                                        .read<AnnouncementListBloc>()
+                                        .state
+                                        .filter
+                                        .copyWith(
+                                          make: context
+                                              .read<GetMakesBloc>()
+                                              .state
+                                              .selectId,
+                                        )));
+                                context.read<AnnouncementListBloc>().add(
+                                    AnnouncementListEvent
+                                        .getAnnouncementList());
+                              }),
+                          onTapShow: () {
+                            Navigator.of(context, rootNavigator: true).push(
+                                fade(
+                                    page: AdsScreen(
+                                        isBack: false, onTap: () {})));
                           },
-                        ),
+                          imageUrl: state.imageUrl,
+                          title: state.name,
+                          count: 123123123,
+                          isCheck: state.ischeck),
+                    ),
+                    SizedBox(
+                      height: 64,
+                      child: ListView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          padding: const EdgeInsets.only(right: 12, bottom: 16),
+                          itemBuilder: (context, index) => ServiceItem(
+                                serviceEntity: serviceEntity[index],
+                                onTap: serviceTaps[index],
+                              ),
+                          itemCount: serviceEntity.length,
+                          scrollDirection: Axis.horizontal),
+                    ),
+                    TopBrands(
+                      onTap: () => Navigator.of(context, rootNavigator: true)
+                          .push(fade(
+                              page: AdsScreen(isBack: false, onTap: () {}))),
+                    ),
+                    const TopAds(),
+                    BlocListener<WishlistAddBloc, WishlistAddState>(
+                      listener: (context, stateWish) {
+                        if (stateWish.addStatus.isSubmissionSuccess ||
+                            stateWish.removeStatus.isSubmissionSuccess) {
+                          context
+                              .read<TopAdBloc>()
+                              .add(TopAdEvent.getFavorites());
+                          context
+                              .read<WishlistAddBloc>()
+                              .add(WishlistAddEvent.clearState());
+                        }
+                      },
+                      child: MainFavorites(
+                        parentContext: widget.parentContext,
                       ),
-                      const SizedBox(height: 16),
-                      DealButton(
-                        onTap: () {
-                          Navigator.of(context, rootNavigator: true).push(
-                              fade(page: const ReelsScreen(isForOfferDay: true)));
-                        },
-                      ),
-                      BlocBuilder<GetMakesBloc, GetMakesState>(
-                        builder: (context, state) => CarModelItem(
-                            onTapSelect: () =>
-                                Navigator.of(context, rootNavigator: true)
-                                    .push(fade(
-                                        page: ChooseCarBrandComparison(
-                                  onTap: () {},
-                                  isbak: true,
-                                  isClear: true,
-                                )))
-                                    .then((value) {
-                                  context.read<AnnouncementListBloc>().add(
-                                      AnnouncementListEvent.getFilter(context
-                                          .read<AnnouncementListBloc>()
-                                          .state
-                                          .filter
-                                          .copyWith(
-                                            make: context
-                                                .read<GetMakesBloc>()
-                                                .state
-                                                .selectId,
-                                          )));
-                                  context.read<AnnouncementListBloc>().add(
-                                      AnnouncementListEvent
-                                          .getAnnouncementList());
-                                }),
-                            onTapShow: () {
-                              Navigator.of(context, rootNavigator: true).push(
-                                  fade(
-                                      page: AdsScreen(
-                                          isBack: false, onTap: () {})));
-                            },
-                            imageUrl: state.imageUrl,
-                            title: state.name,
-                            count: stateAnnounc.count,
-                            isCheck: state.ischeck),
-                      ),
-                      SizedBox(
-                        height: 64,
-                        child: ListView.builder(
-                            physics: const BouncingScrollPhysics(),
-                            padding:
-                                const EdgeInsets.only(right: 12, bottom: 16),
-                            itemBuilder: (context, index) => ServiceItem(
-                                  serviceEntity: serviceEntity[index],
-                                  onTap: serviceTaps[index],
-                                ),
-                            itemCount: serviceEntity.length,
-                            scrollDirection: Axis.horizontal),
-                      ),
-                      TopBrands(
-                        onTap: () => Navigator.of(context, rootNavigator: true)
-                            .push(fade(
-                                page: AdsScreen(isBack: false, onTap: () {}))),
-                      ),
-                      const TopAds(),
-                      BlocListener<WishlistAddBloc, WishlistAddState>(
-                        listener: (context, stateWish) {
-                          if (stateWish.addStatus.isSubmissionSuccess ||
-                              stateWish.removeStatus.isSubmissionSuccess) {
-                            context
-                                .read<TopAdBloc>()
-                                .add(TopAdEvent.getFavorites());
-                            context
-                                .read<WishlistAddBloc>()
-                                .add(WishlistAddEvent.clearState());
-                          }
-                        },
-                        child: MainFavorites(
-                          parentContext: widget.parentContext,
-                        ),
-                      ),
-                      const MainMapPart(),
-                      const CreateAdButton(),
-                    ],
-                  ),
+                    ),
+                    const MainMapPart(),
+                    const CreateAdButton(),
+                  ],
                 ),
               ),
             ),

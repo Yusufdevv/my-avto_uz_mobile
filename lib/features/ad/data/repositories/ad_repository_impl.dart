@@ -4,7 +4,6 @@ import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/ad/data/datasources/ad_remote_datasource.dart';
-import 'package:auto/features/ad/data/models/announcement_filter.dart';
 import 'package:auto/features/ad/domain/entities/foto_instruction_entity.dart';
 import 'package:auto/features/ad/domain/entities/generation/generation.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
@@ -325,9 +324,9 @@ class AdRepositoryImpl extends AdRepository {
 
   @override
   Future<Either<Failure, GenericPagination<AnnouncementListEntity>>>
-      getAnnouncementList(AnnouncementFilterModel filter) async {
+      getAnnouncementList(Map<String, dynamic> params) async {
     try {
-      final result = await remoteDataSource.getAnnouncementList(filter);
+      final result = await remoteDataSource.getAnnouncementList(params);
       return Right(result);
     } on DioException {
       return Left(DioFailure());
