@@ -5,7 +5,6 @@ import 'package:equatable/equatable.dart';
 class AnnouncementFilterModel extends Equatable {
   final int? make;
   final int? model;
-  final bool? isNew;
   final int? bodyType;
   final int? gearboxType;
   final int? driveType;
@@ -13,12 +12,11 @@ class AnnouncementFilterModel extends Equatable {
   final int? priceTo;
   final int? yearFrom;
   final int? yearTo;
-  final String? region__in;
+  final String? regionIn;
 
   const AnnouncementFilterModel({
     this.make,
     this.model,
-    this.isNew,
     this.bodyType,
     this.gearboxType,
     this.driveType,
@@ -26,13 +24,12 @@ class AnnouncementFilterModel extends Equatable {
     this.priceTo,
     this.yearFrom,
     this.yearTo,
-    this.region__in,
+    this.regionIn,
   });
 
   AnnouncementFilterModel copyWith({
     int? make,
     int? model,
-    bool? isNew,
     int? bodyType,
     int? gearboxType,
     int? driveType,
@@ -40,12 +37,11 @@ class AnnouncementFilterModel extends Equatable {
     int? priceTo,
     int? yearFrom,
     int? yearTo,
-    String? region__in,
+    String? regionIn,
   }) =>
       AnnouncementFilterModel(
         make: make ?? this.make,
         model:  model ?? this.model,
-        isNew: isNew ?? this.isNew,
         bodyType: bodyType ?? this.bodyType,
         gearboxType: gearboxType ?? this.gearboxType,
         driveType: driveType ?? this.driveType,
@@ -53,18 +49,17 @@ class AnnouncementFilterModel extends Equatable {
         priceTo: priceTo ?? this.priceTo,
         yearFrom: yearFrom ?? this.yearFrom,
         yearTo: yearTo ?? this.yearTo,
-        region__in: region__in ?? this.region__in,
+        regionIn: regionIn ?? this.regionIn,
       );
 
   @override
   List<Object?> get props => [
         make,
         model,
-        isNew,
         bodyType,
         gearboxType,
         driveType,
-        region__in,
+        regionIn,
         priceFrom,
         priceTo,
         yearFrom,

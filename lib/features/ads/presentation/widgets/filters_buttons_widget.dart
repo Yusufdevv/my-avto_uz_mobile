@@ -1,117 +1,65 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/ads/presentation/pages/filter_parameters.dart';
-import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
-import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
-import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
-import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/widgets/w_filter_button.dart';
-import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FilterButtonsWidget extends StatelessWidget {
   const FilterButtonsWidget({
     required this.size,
     required this.theme,
+    required this.onTapParams1,
+    required this.onTapClear1,
+    required this.onTapParams2,
+    required this.onTapClear2,
+    required this.isFilter,
+    required this.name,
+    required this.regions,
     Key? key,
   }) : super(key: key);
 
   final Size size;
   final ThemedColors theme;
+  final VoidCallback onTapParams1;
+  final VoidCallback onTapClear1;
+  final VoidCallback onTapParams2;
+  final VoidCallback onTapClear2;
+  final bool isFilter;
+  final String name;
+  final List<Region> regions;
 
   @override
-  Widget build(BuildContext context) =>
-      BlocBuilder<AnnouncementListBloc, AnnouncementListState>(
-        builder: (context, state) => Padding(
-          padding: const EdgeInsets.only(right: 16, left: 16, bottom: 12),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              WFilterButton(
-                size: size,
-                theme: theme,
-                icon: AppIcons.filter,
-                name: '',
-                claerA: state.isFilter,
-                activeColor: orange,
-                defaultTitle: LocaleKeys.options.tr(),
-                onTap: () {
-                  Navigator.of(context).push(
-                    fade(
-                      page: FilterParameters(
-                        bloc: context.read<AnnouncementListBloc>(),
-                        bodyType: state.bodyTypeEntity,
-                        gearboxType: state.gearboxTypeEntity,
-                        carDriveType: state.driveTypeEntity,
-                        yearValues: state.yearValues,
-                        priceValues: state.priceValues,
-                        idVal: state.idVal,
-                        ischek: state.isFilter,
-                      ),
-                    ),
-                  );
-                },
-                onTapClear: () {
-                  context
-                      .read<AnnouncementListBloc>()
-                      .add(AnnouncementListEvent.getInfo(isFilter: false));
-                  context
-                      .read<AnnouncementListBloc>()
-                      .add(AnnouncementListEvent.getFilterClear());
-                  context
-                      .read<AnnouncementListBloc>()
-                      .add(AnnouncementListEvent.getAnnouncementList());
-                },
-              ),
-              WFilterButton(
-                size: size,
-                theme: theme,
-                icon: AppIcons.location,
-                name: state.regions.isNotEmpty ? state.regions[0].title : '',
-                claerA: state.regions.isNotEmpty,
-                activeColor: dark,
-                defaultTitle: LocaleKeys.all_regions.tr(),
-                onTap: () async {
-                  await showModalBottomSheet<List<Region>>(
-                    isDismissible: false,
-                    context: context,
-                    isScrollControlled: true,
-                    backgroundColor: Colors.transparent,
-                    builder: (c) => RentChooseRegionBottomSheet(
-                      checkedRegions: state.regions.asMap(),
-                      list: context.read<RegionsBloc>().state.regions,
-                    ),
-                  ).then((value) {
-                    if (context.read<GetMakesBloc>().state.name.isNotEmpty &&
-                        context.read<GetCarModelBloc>().state.name.isNotEmpty) {
-                      context.read<AnnouncementListBloc>().add(
-                          AnnouncementListEvent.getIsHistory(value!.isEmpty));
-                    }
-                    context
-                        .read<AnnouncementListBloc>()
-                        .add(AnnouncementListEvent.getRegions(value!));
-                    context
-                        .read<AnnouncementListBloc>()
-                        .add(AnnouncementListEvent.getAnnouncementList());
-                  });
-                },
-                onTapClear: () {
-                  context
-                      .read<AnnouncementListBloc>()
-                      .add(AnnouncementListEvent.getRegions([]));
-                  context
-                      .read<AnnouncementListBloc>()
-                      .add(AnnouncementListEvent.getAnnouncementList());
-                },
-              ),
-            ],
-          ),
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.only(right: 16, left: 16, bottom: 12),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            WFilterButton(
+              size: size,
+              theme: theme,
+              icon: AppIcons.filter,
+              name: '',
+              claerA: isFilter,
+              activeColor: orange,
+              defaultTitle: LocaleKeys.options.tr(),
+              onTap: onTapParams1,
+              onTapClear: onTapClear2,
+            ),
+            WFilterButton(
+              size: size,
+              theme: theme,
+              icon: AppIcons.location,
+              name: name,
+              claerA: regions.isNotEmpty,
+              activeColor: dark,
+              defaultTitle: LocaleKeys.all_regions.tr(),
+              onTap: onTapParams2,
+              onTapClear: onTapClear2,
+            ),
+          ],
         ),
       );
 }

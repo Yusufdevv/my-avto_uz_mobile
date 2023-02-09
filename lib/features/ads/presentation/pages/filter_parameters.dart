@@ -29,16 +29,18 @@ class FilterParameters extends StatefulWidget {
   final RangeValues? priceValues;
   final bool? ischek;
   final AnnouncementListBloc? bloc;
-  const FilterParameters(
-      {super.key,
-      this.bodyType,
-      this.carDriveType,
-      this.gearboxType,
-      this.yearValues,
-      this.priceValues,
-      this.bloc,
-      this.idVal,
-      this.ischek});
+
+  const FilterParameters({
+    super.key,
+    this.bodyType,
+    this.carDriveType,
+    this.gearboxType,
+    this.yearValues,
+    this.priceValues,
+    this.bloc,
+    this.idVal,
+    this.ischek,
+  });
 
   @override
   State<FilterParameters> createState() => _FilterParametersState();
@@ -74,10 +76,10 @@ class _FilterParametersState extends State<FilterParameters> {
                   onPressed: () {
                     widget.bloc!
                         .add(AnnouncementListEvent.getInfo(isFilter: false));
-                    widget.bloc!.add(AnnouncementListEvent.getIsHistory(true));
+                    widget.bloc!.add(AnnouncementListEvent.getIsHistory(true,null));
                     widget.bloc!.add(AnnouncementListEvent.getFilterClear());
                     widget.bloc!
-                        .add(AnnouncementListEvent.getAnnouncementList());
+                        .add(AnnouncementListEvent.getAnnouncementList(null));
                     filterBloc.add(FilterClearEvent());
                   },
                   child: Text(
@@ -256,7 +258,7 @@ class _FilterParametersState extends State<FilterParameters> {
                             : state.gearboxType?.id,
                       )));
                       widget.bloc!
-                          .add(AnnouncementListEvent.getAnnouncementList());
+                          .add(AnnouncementListEvent.getAnnouncementList(null));
                       if (context.read<GetMakesBloc>().state.name.isNotEmpty &&
                           context
                               .read<GetCarModelBloc>()
@@ -264,7 +266,7 @@ class _FilterParametersState extends State<FilterParameters> {
                               .name
                               .isNotEmpty) {
                         widget.bloc!.add(
-                            AnnouncementListEvent.getIsHistory(!state.ischeck));
+                            AnnouncementListEvent.getIsHistory(!state.ischeck, null));
                       }
                       widget.bloc!.add(
                         AnnouncementListEvent.getInfo(

@@ -34,8 +34,8 @@ class AnnouncementListBloc
         'body_type': state.filter.bodyType,
         'drive_type': state.filter.driveType,
         'gearbox_type': state.filter.gearboxType,
-        'is_new': state.filter.isNew,
-        'region__in': state.filter.region__in,
+        'is_new': event.isNew,
+        'region__in': state.filter.regionIn,
         'price_from': state.filter.priceFrom,
         'price_to': state.filter.priceTo,
         'year_from': state.filter.yearFrom,
@@ -60,12 +60,16 @@ class AnnouncementListBloc
       }
     });
     on<_GetFilter>(
-      (event, emit) => emit(state.copyWith(filter: event.filter)),
+      (event, emit) {
+        print('makeID: ${event.filter.make}');
+        print('modelID: ${event.filter.model}');
+        emit(state.copyWith(filter: event.filter));
+      },
     );
     on<_GetRegions>((event, emit) {
       emit(state.copyWith(
           filter: state.filter.copyWith(
-              region__in:
+              regionIn:
                   event.regions.map((e) => '${e.id}').toList().join(','))));
       emit(state.copyWith(regions: event.regions));
     });
@@ -80,12 +84,12 @@ class AnnouncementListBloc
               bodyType: state.filter.bodyType,
               driveType: state.filter.driveType,
               gearboxType: state.filter.gearboxType,
-              regionIn: state.filter.region__in,
+              regionIn: state.filter.regionIn,
               priceFrom: state.filter.priceFrom,
               priceTo: state.filter.priceTo,
               yearFrom: state.filter.yearFrom,
               yearTo: state.filter.yearTo,
-              isNew: state.filter.isNew,
+              isNew: event.isNew,
             ),
           ),
         ),
@@ -97,7 +101,7 @@ class AnnouncementListBloc
     on<_GetFilterClear>((event, emit) {
       emit(state.copyWith(filter: const AnnouncementFilterModel()));
       if (event.ismake == true) {
-        add(AnnouncementListEvent.getAnnouncementList());
+        add(AnnouncementListEvent.getAnnouncementList(null));
       }
     });
     on<_GetInfo>(
