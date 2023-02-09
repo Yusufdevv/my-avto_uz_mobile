@@ -129,7 +129,7 @@ class _MySearchesPageState extends State<MySearchesPage> {
                                                           item.model?[0]?.id)));
                                       context.read<AnnouncementListBloc>().add(
                                           AnnouncementListEvent
-                                              .getAnnouncementList());
+                                              .getAnnouncementList(null));
                                       Navigator.push(context,
                                           fade(page: const AdsScreen()));
                                     }

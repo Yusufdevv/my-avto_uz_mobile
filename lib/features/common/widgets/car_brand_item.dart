@@ -39,7 +39,7 @@ class CarBrandItem extends StatelessWidget {
               );
           context
               .read<AnnouncementListBloc>()
-              .add(AnnouncementListEvent.getAnnouncementList());
+              .add(AnnouncementListEvent.getAnnouncementList(null));
           onTap();
         },
         child: Container(

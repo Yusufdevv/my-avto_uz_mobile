@@ -21,7 +21,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class AdsScreen extends StatefulWidget {
-  const AdsScreen({super.key});
+  const AdsScreen({
+    this.makeId,
+    this.modelId,
+    Key? key,
+  }) : super(key: key);
+
+  final int? makeId;
+  final int? modelId;
 
   @override
   State<AdsScreen> createState() => _AdsScreenState();
@@ -62,11 +69,13 @@ class _AdsScreenState extends State<AdsScreen>
     }
     announcementListBloc = AnnouncementListBloc();
     announcementListBloc
+      ..add(AnnouncementListEvent.getFilter(
+          announcementListBloc.state.filter.copyWith(
+        make: widget.makeId,
+        model: widget.modelId,
+      )))
       ..add(AnnouncementListEvent.getInfo(isFilter: false))
-      ..add(AnnouncementListEvent.getIsHistory(true))
-      ..add(AnnouncementListEvent.getFilterClear())
-      ..add(AnnouncementListEvent.getIsHistory(
-          context.read<GetMakesBloc>().state.selectId <= 0));
+      ..add(AnnouncementListEvent.getIsHistory(true, null));
     super.initState();
   }
 
@@ -147,6 +156,15 @@ class _AdsScreenState extends State<AdsScreen>
                         size: MediaQuery.of(context).size,
                         theme: Theme.of(context).extension<ThemedColors>()!,
                         tabController: tabController,
+                        onSelectMakeModel: (makeId, modelId) {
+                          announcementListBloc.add(
+                              AnnouncementListEvent.getFilter(
+                                  announcementListBloc.state.filter.copyWith(
+                            make: makeId,
+                            model: modelId,
+                          )));
+                        },
+                        bloc: announcementListBloc,
                       ),
                     ),
                   ],
@@ -188,7 +206,7 @@ class _AdsScreenState extends State<AdsScreen>
                                 .isNotEmpty) {
                           context
                               .read<AnnouncementListBloc>()
-                              .add(AnnouncementListEvent.getIsHistory(true));
+                              .add(AnnouncementListEvent.getIsHistory(true, false));
                           context
                               .read<AnnouncementListBloc>()
                               .add(AnnouncementListEvent.getHistoryApi());

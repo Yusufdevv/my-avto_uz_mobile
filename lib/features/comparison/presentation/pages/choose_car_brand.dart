@@ -156,14 +156,19 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                               await Navigator.of(context).push(fade(
                                   page: const ChooseCarModelComparison(
                                       isClear: false)));
+                              context
+                                  .read<AnnouncementListBloc>()
+                                  .add(AnnouncementListEvent.getIsHistory(
+                                    context
+                                            .read<GetMakesBloc>()
+                                            .state
+                                            .selectId <=
+                                        0,
+                                    null,
+                                  ));
                               context.read<AnnouncementListBloc>().add(
-                                  AnnouncementListEvent.getIsHistory(context
-                                          .read<GetMakesBloc>()
-                                          .state
-                                          .selectId <=
-                                      0));
-                              context.read<AnnouncementListBloc>().add(
-                                  AnnouncementListEvent.getAnnouncementList());
+                                  AnnouncementListEvent.getAnnouncementList(
+                                      null));
                               Navigator.pop(context);
                             },
                             isbak: widget.isbak,
