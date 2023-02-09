@@ -1,3 +1,4 @@
+import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/data/models/announcement_filter.dart';
 import 'package:auto/features/ad/data/models/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
@@ -6,6 +7,7 @@ import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/ads/data/models/search_history_model.dart';
 import 'package:auto/features/ads/domain/entities/search_history_entity.dart';
 import 'package:auto/features/ads/domain/usecases/filter_history_usecase.dart';
+import 'package:auto/features/ads/domain/usecases/get_min_max_price_use_case.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/usecases/announcement_list_usecase.dart';
 import 'package:auto/features/comparison/domain/entities/announcement_list_entity.dart';
@@ -24,6 +26,8 @@ class AnnouncementListBloc
     extends Bloc<AnnouncementListEvent, AnnouncementListState> {
   AnnouncementListUseCase useCase = AnnouncementListUseCase();
   FilterHistoryUseCase filterHistoryUseCase = FilterHistoryUseCase();
+  GetMinMaxPriceYearUseCase minMaxPriceYearUseCase =
+      GetMinMaxPriceYearUseCase();
 
   AnnouncementListBloc() : super(AnnouncementListState()) {
     on<_GetAnnouncementList>((event, emit) async {
@@ -61,8 +65,6 @@ class AnnouncementListBloc
     });
     on<_GetFilter>(
       (event, emit) {
-        print('makeID: ${event.filter.make}');
-        print('modelID: ${event.filter.model}');
         emit(state.copyWith(filter: event.filter));
       },
     );
@@ -121,5 +123,10 @@ class AnnouncementListBloc
         ),
       ),
     );
+    on<_GetMinMaxPriceYear>((event, emit) async {
+      final result = await minMaxPriceYearUseCase.call(event.currency.value);
+      if (result.isRight) {
+      }
+    });
   }
 }
