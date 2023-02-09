@@ -1,4 +1,5 @@
 import 'package:auto/core/singletons/service_locator.dart';
+import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
@@ -38,9 +39,9 @@ class _ComparisonPageState extends State<ComparisonPage> {
         onWillPop: () async {
           context
               .read<GetCarModelBloc>()
-              .add(GetCarModelEvent.selectedModelItem(id: -1, name: ''));
+              .add(GetCarModelEvent.selectedModelItem(id: -1, name: '', model:const MakeEntity()));
           context.read<GetMakesBloc>().add(GetMakesBlocEvent.selectedCarItems(
-              id: -1, name: '', imageUrl: ''));
+              id: -1, name: '', imageUrl: '', makeEntity:const MakeEntity()));
           return true;
         },
         child: MultiBlocProvider(
@@ -60,10 +61,10 @@ class _ComparisonPageState extends State<ComparisonPage> {
               onTapBack: () {
                 context
                     .read<GetCarModelBloc>()
-                    .add(GetCarModelEvent.selectedModelItem(id: -1, name: ''));
+                    .add(GetCarModelEvent.selectedModelItem(id: -1, name: '',model:const MakeEntity()));
                 context.read<GetMakesBloc>().add(
                     GetMakesBlocEvent.selectedCarItems(
-                        id: -1, name: '', imageUrl: ''));
+                        id: -1, name: '', imageUrl: '', makeEntity:const MakeEntity()));
                 Navigator.pop(context);
               },
             ),
