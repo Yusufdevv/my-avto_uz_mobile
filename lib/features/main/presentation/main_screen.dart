@@ -3,7 +3,6 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ads/presentation/pages/ads_screen.dart';
 import 'package:auto/features/commercial/presentation/commercial_screen.dart';
-import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
@@ -102,7 +101,7 @@ class _MainScreenState extends State<MainScreen> {
         context.read<GetMakesBloc>().add(
             GetMakesBlocEvent.selectedCarItems(id: -1, name: '', imageUrl: ''));
         Navigator.of(context, rootNavigator: true)
-            .push(fade(page: AdsScreen(isBack: false, onTap: () {})));
+            .push(fade(page: const AdsScreen()));
       },
       () {
         showModalBottomSheet(
@@ -193,32 +192,13 @@ class _MainScreenState extends State<MainScreen> {
                           onTapSelect: () =>
                               Navigator.of(context, rootNavigator: true)
                                   .push(fade(
-                                      page: ChooseCarBrandComparison(
-                                onTap: () {},
+                                      page: const ChooseCarBrandComparison(
                                 isbak: true,
                                 isClear: true,
-                              )))
-                                  .then((value) {
-                                context.read<AnnouncementListBloc>().add(
-                                    AnnouncementListEvent.getFilter(context
-                                        .read<AnnouncementListBloc>()
-                                        .state
-                                        .filter
-                                        .copyWith(
-                                          make: context
-                                              .read<GetMakesBloc>()
-                                              .state
-                                              .selectId,
-                                        )));
-                                context.read<AnnouncementListBloc>().add(
-                                    AnnouncementListEvent
-                                        .getAnnouncementList());
-                              }),
+                              ))),
                           onTapShow: () {
-                            Navigator.of(context, rootNavigator: true).push(
-                                fade(
-                                    page: AdsScreen(
-                                        isBack: false, onTap: () {})));
+                            Navigator.of(context, rootNavigator: true)
+                                .push(fade(page: const AdsScreen()));
                           },
                           imageUrl: state.imageUrl,
                           title: state.name,
@@ -239,8 +219,7 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                     TopBrands(
                       onTap: () => Navigator.of(context, rootNavigator: true)
-                          .push(fade(
-                              page: AdsScreen(isBack: false, onTap: () {}))),
+                          .push(fade(page: const AdsScreen())),
                     ),
                     const TopAds(),
                     BlocListener<WishlistAddBloc, WishlistAddState>(

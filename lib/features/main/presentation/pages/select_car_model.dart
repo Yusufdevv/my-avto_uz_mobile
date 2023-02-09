@@ -163,10 +163,8 @@ class _SelectCarModelScreenState extends State<SelectCarModelScreen> {
                           itemBuilder: (context, index) => CarBrandItem(
                             carBrandEntity: carBrandEntity[index],
                             onTap: () =>
-                                Navigator.of(context, rootNavigator: true).push(
-                                    fade(
-                                        page: AdsScreen(
-                                            isBack: false, onTap: () {}))),
+                                Navigator.of(context, rootNavigator: true)
+                                    .push(fade(page: const AdsScreen())),
                           ),
                           itemCount: carBrandEntity.length,
                         ),

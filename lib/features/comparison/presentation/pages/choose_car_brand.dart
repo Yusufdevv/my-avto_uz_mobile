@@ -2,14 +2,17 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/car_items.dart';
+import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/comparison/presentation/bloc/scroll-bloc/scrolling_bloc.dart';
+import 'package:auto/features/comparison/presentation/pages/choose_model.dart';
 import 'package:auto/features/comparison/presentation/widgets/alphabetic_header.dart';
 import 'package:auto/features/comparison/presentation/widgets/search_bar.dart';
 import 'package:auto/features/comparison/presentation/widgets/top_brand_sliver_delegate.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/main/presentation/bloc/top_brand/top_brand_bloc.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +23,8 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 class ChooseCarBrandComparison extends StatefulWidget {
   final bool isbak;
   final bool isClear;
-  final VoidCallback onTap;
+
   const ChooseCarBrandComparison({
-    required this.onTap,
     Key? key,
     this.isbak = false,
     this.isClear = true,
@@ -150,7 +152,20 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                       if (state.search.isEmpty)
                         SliverPersistentHeader(
                           delegate: TopBrandSliverWidget(
-                            onTap: widget.onTap,
+                            onTap: () async {
+                              await Navigator.of(context).push(fade(
+                                  page: const ChooseCarModelComparison(
+                                      isClear: false)));
+                              context.read<AnnouncementListBloc>().add(
+                                  AnnouncementListEvent.getIsHistory(context
+                                          .read<GetMakesBloc>()
+                                          .state
+                                          .selectId <=
+                                      0));
+                              context.read<AnnouncementListBloc>().add(
+                                  AnnouncementListEvent.getAnnouncementList());
+                              Navigator.pop(context);
+                            },
                             isbak: widget.isbak,
                           ),
                         ),
@@ -198,11 +213,7 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                     right: 16,
                     left: 16,
                     child: WButton(
-                      onTap: widget.isbak == true
-                          ? () {
-                              Navigator.pop(context);
-                            }
-                          : widget.onTap,
+                      onTap: () => Navigator.pop(context),
                       text: LocaleKeys.further.tr(),
                       shadow: [
                         BoxShadow(

@@ -1471,7 +1471,7 @@ abstract class _GetInfo implements AnnouncementListEvent {
 mixin _$AnnouncementListState {
   FormzStatus get status => throw _privateConstructorUsedError;
   int get selected => throw _privateConstructorUsedError;
-  String? get next => throw _privateConstructorUsedError;
+  bool get next => throw _privateConstructorUsedError;
   String get search => throw _privateConstructorUsedError;
   SearchHistoryModel get searchModel => throw _privateConstructorUsedError;
   int get count => throw _privateConstructorUsedError;
@@ -1505,7 +1505,7 @@ abstract class $AnnouncementListStateCopyWith<$Res> {
   $Res call(
       {FormzStatus status,
       int selected,
-      String? next,
+      bool next,
       String search,
       SearchHistoryModel searchModel,
       int count,
@@ -1539,7 +1539,7 @@ class _$AnnouncementListStateCopyWithImpl<$Res,
   $Res call({
     Object? status = null,
     Object? selected = null,
-    Object? next = freezed,
+    Object? next = null,
     Object? search = null,
     Object? searchModel = null,
     Object? count = null,
@@ -1565,10 +1565,10 @@ class _$AnnouncementListStateCopyWithImpl<$Res,
           ? _value.selected
           : selected // ignore: cast_nullable_to_non_nullable
               as int,
-      next: freezed == next
+      next: null == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as bool,
       search: null == search
           ? _value.search
           : search // ignore: cast_nullable_to_non_nullable
@@ -1644,7 +1644,7 @@ abstract class _$$_AnnouncementListCopyWith<$Res>
   $Res call(
       {FormzStatus status,
       int selected,
-      String? next,
+      bool next,
       String search,
       SearchHistoryModel searchModel,
       int count,
@@ -1675,7 +1675,7 @@ class __$$_AnnouncementListCopyWithImpl<$Res>
   $Res call({
     Object? status = null,
     Object? selected = null,
-    Object? next = freezed,
+    Object? next = null,
     Object? search = null,
     Object? searchModel = null,
     Object? count = null,
@@ -1701,10 +1701,10 @@ class __$$_AnnouncementListCopyWithImpl<$Res>
           ? _value.selected
           : selected // ignore: cast_nullable_to_non_nullable
               as int,
-      next: freezed == next
+      next: null == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as bool,
       search: null == search
           ? _value.search
           : search // ignore: cast_nullable_to_non_nullable
@@ -1775,7 +1775,7 @@ class _$_AnnouncementList implements _AnnouncementList {
   _$_AnnouncementList(
       {this.status = FormzStatus.pure,
       this.selected = 0,
-      this.next = '',
+      this.next = true,
       this.search = '',
       this.searchModel = const SearchHistoryModel(),
       this.count = 0,
@@ -1803,7 +1803,7 @@ class _$_AnnouncementList implements _AnnouncementList {
   final int selected;
   @override
   @JsonKey()
-  final String? next;
+  final bool next;
   @override
   @JsonKey()
   final String search;
@@ -1937,7 +1937,7 @@ abstract class _AnnouncementList implements AnnouncementListState {
   factory _AnnouncementList(
       {final FormzStatus status,
       final int selected,
-      final String? next,
+      final bool next,
       final String search,
       final SearchHistoryModel searchModel,
       final int count,
@@ -1959,7 +1959,7 @@ abstract class _AnnouncementList implements AnnouncementListState {
   @override
   int get selected;
   @override
-  String? get next;
+  bool get next;
   @override
   String get search;
   @override

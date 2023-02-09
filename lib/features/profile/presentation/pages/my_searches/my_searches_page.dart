@@ -49,6 +49,7 @@ class _MySearchesPageState extends State<MySearchesPage> {
   List<MySearchesEntity> deletedList = [];
   bool isToggled = false;
   bool isDeleted = false;
+
   @override
   Widget build(BuildContext context) => BlocProvider.value(
         value: bloc,
@@ -129,13 +130,8 @@ class _MySearchesPageState extends State<MySearchesPage> {
                                       context.read<AnnouncementListBloc>().add(
                                           AnnouncementListEvent
                                               .getAnnouncementList());
-                                      Navigator.push(
-                                          context,
-                                          fade(
-                                              page: AdsScreen(
-                                            isBack: false,
-                                            onTap: () {},
-                                          )));
+                                      Navigator.push(context,
+                                          fade(page: const AdsScreen()));
                                     }
                                   },
                                   behavior: HitTestBehavior.opaque,
@@ -182,7 +178,7 @@ class _MySearchesPageState extends State<MySearchesPage> {
                                         setState(() {});
                                         mySearches.removeWhere(
                                             (e) => deletedList.contains(e));
-                                            context
+                                        context
                                             .read<ProfileBloc>()
                                             .add(GetProfileEvent());
                                         deletedList.clear();

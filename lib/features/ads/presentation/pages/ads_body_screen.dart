@@ -4,7 +4,6 @@ import 'package:auto/features/ads/presentation/widgets/no_data_widget.dart';
 import 'package:auto/features/car_single/presentation/car_single_screen.dart';
 import 'package:auto/features/commercial/presentation/widgets/info_container.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
-import 'package:auto/features/comparison/domain/entities/announcement_list_entity.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/pagination/presentation/paginator.dart';
 import 'package:auto/utils/my_functions.dart';
@@ -29,12 +28,10 @@ class AdsBodyScreen extends StatefulWidget {
 class _AdsBodyScreenState extends State<AdsBodyScreen> {
   @override
   void initState() {
-    context.read<AnnouncementListBloc>().add(AnnouncementListEvent.getFilter(
-        context.read<AnnouncementListBloc>().state.filter.copyWith(
-              isNew: widget.isNew,
-            )));
-    context
-        .read<AnnouncementListBloc>()
+    widget.announcementListBloc.add(AnnouncementListEvent.getFilter(widget
+        .announcementListBloc.state.filter
+        .copyWith(isNew: widget.isNew)));
+    widget.announcementListBloc
         .add(AnnouncementListEvent.getAnnouncementList());
     super.initState();
   }
@@ -44,8 +41,6 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
         value: widget.announcementListBloc,
         child: BlocBuilder<AnnouncementListBloc, AnnouncementListState>(
           builder: (context, state) {
-            final list =
-                List<AnnouncementListEntity>.from(state.announcementList);
             if (state.status.isSubmissionInProgress) {
               return const Center(child: CupertinoActivityIndicator());
             } else if (state.status.isSubmissionFailure) {
@@ -102,19 +97,24 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                           hasStatusInfo: state.announcementList[index].isNew,
                           gallery: state.announcementList[index].gallery,
                           currency: state.announcementList[index].currency,
-                          initialLike: list[index].isWishlisted,
+                          initialLike:
+                              state.announcementList[index].isWishlisted,
                           id: state.announcementList[index].id,
                           onTapComparsion: () {},
                           onTapFavorites: () {},
-                          initialComparsions: list[index].isComparison,
+                          initialComparsions:
+                              state.announcementList[index].isComparison,
                         ),
                       ),
                     ),
                     itemCount: state.announcementList.length,
-                    fetchMoreFunction: () {},
-                    hasMoreToFetch: state.announcementList.length > 9
-                        ? state.next != null
-                        : false,
+                    fetchMoreFunction: () {
+                      if (!state.status.isSubmissionInProgress) {
+                        widget.announcementListBloc
+                            .add(AnnouncementListEvent.getAnnouncementList());
+                      }
+                    },
+                    hasMoreToFetch: state.next,
                     errorWidget: const Text('Error'),
                   ),
                 );

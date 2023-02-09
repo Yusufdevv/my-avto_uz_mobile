@@ -46,10 +46,13 @@ class AnnouncementListBloc
       if (result.isRight) {
         emit(
           state.copyWith(
-            announcementList: result.right.results,
+            announcementList: [
+              ...state.announcementList,
+              ...result.right.results
+            ],
             status: FormzStatus.submissionSuccess,
             count: result.right.count,
-            next: result.right.next ?? '',
+            next: result.right.next != null,
           ),
         );
       } else {

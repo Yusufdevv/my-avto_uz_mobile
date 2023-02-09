@@ -2,6 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/pages/choose_model/widgets/model_items.dart';
+import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -14,10 +15,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class ChooseCarModelComparison extends StatefulWidget {
-  final VoidCallback onTap;
   final bool isClear;
-  const ChooseCarModelComparison(
-      {required this.onTap, Key? key, this.isClear = false})
+
+  const ChooseCarModelComparison({Key? key, this.isClear = false})
       : super(key: key);
 
   @override
@@ -27,6 +27,7 @@ class ChooseCarModelComparison extends StatefulWidget {
 class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
   late TextEditingController searchController;
   late int id;
+
   @override
   void initState() {
     id = context.read<GetMakesBloc>().state.selectId;
@@ -59,7 +60,8 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                       pinned: true,
                       leadingWidth: 36,
                       leading: GestureDetector(
-                        onTap: () => Navigator.pop(context), behavior: HitTestBehavior.opaque,
+                        onTap: () => Navigator.pop(context),
+                        behavior: HitTestBehavior.opaque,
                         child: Padding(
                           padding: const EdgeInsets.only(left: 16),
                           child: SvgPicture.asset(AppIcons.chevronLeft),
@@ -156,7 +158,30 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                   right: 16,
                   left: 16,
                   child: WButton(
-                    onTap: state.selectedId == -1 ? () {} : widget.onTap,
+                    onTap: () {
+                      context
+                          .read<AnnouncementListBloc>()
+                          .add(AnnouncementListEvent
+                          .getFilter(
+                        context
+                            .read<
+                            AnnouncementListBloc>()
+                            .state
+                            .filter
+                            .copyWith(
+                            make: context
+                                .read<
+                                GetMakesBloc>()
+                                .state
+                                .selectId,
+                            model: context
+                                .read<
+                                GetCarModelBloc>()
+                                .state
+                                .selectedId),
+                      ));
+                      Navigator.pop(context);
+                    },
                     text: LocaleKeys.further.tr(),
                     shadow: [
                       BoxShadow(

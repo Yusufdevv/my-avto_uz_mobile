@@ -5,7 +5,7 @@ class AnnouncementListState with _$AnnouncementListState {
   factory AnnouncementListState({
     @Default(FormzStatus.pure) FormzStatus status,
     @Default(0) int selected,
-    @Default('') String? next,
+    @Default(true) bool next,
     @Default('') String search,
     @Default(SearchHistoryModel()) SearchHistoryModel searchModel,
     @Default(0) int count,

@@ -1,15 +1,10 @@
 // ignore_for_file: directives_ordering
 
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/ads/presentation/pages/ads_screen.dart';
-import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
-import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
-import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/comparison/domain/entities/complectation_entity.dart';
 import 'package:auto/features/comparison/domain/entities/complectation_parameters_entity.dart';
 import 'package:auto/features/comparison/presentation/bloc/comparison-bloc/comparison_bloc.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
-import 'package:auto/features/comparison/presentation/pages/choose_model.dart';
 import 'package:auto/features/comparison/presentation/widgets/engin_info_widget.dart';
 import 'package:auto/features/comparison/presentation/widgets/characteristics_parameters_widget.dart';
 import 'package:auto/features/comparison/presentation/widgets/comparison_sliver_delegate.dart';
@@ -23,6 +18,7 @@ import 'package:linked_scroll_controller/linked_scroll_controller.dart';
 class Comparison extends StatefulWidget {
   final bool isSticky;
   final ComparisonBloc comparisonBloc;
+
   const Comparison({
     required this.isSticky,
     required this.comparisonBloc,
@@ -108,6 +104,7 @@ class _ComparisonState extends State<Comparison> {
       complectationParameters: [],
     ),
   ];
+
   @override
   void initState() {
     totalNUmberOfParameters = complectationParameters.length;
@@ -146,49 +143,7 @@ class _ComparisonState extends State<Comparison> {
                         setState(() => showDifferences = showDifferences1),
                     scrollController: sliverWidgetScrollController,
                     onAddCar: () => Navigator.of(context).push(
-                      fade(
-                        page: ChooseCarBrandComparison(
-                          onTap: () => Navigator.of(context).push(
-                            fade(
-                              page: ChooseCarModelComparison(
-                                onTap: () {
-                                  context.read<AnnouncementListBloc>().add(
-                                        AnnouncementListEvent.getFilter(
-                                          context
-                                              .read<AnnouncementListBloc>()
-                                              .state
-                                              .filter
-                                              .copyWith(
-                                                  make: context
-                                                      .read<GetMakesBloc>()
-                                                      .state
-                                                      .selectId,
-                                                  model: context
-                                                      .read<GetCarModelBloc>()
-                                                      .state
-                                                      .selectedId),
-                                        ),
-                                      );
-                                  Navigator.of(context).push(
-                                    fade(
-                                      page: AdsScreen(
-                                        isBack: true,
-                                        onTap: () {
-                                          widget.comparisonBloc
-                                              .add(GetComparableCars());
-                                          Navigator.of(context).pop();
-                                          Navigator.of(context).pop();
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                      fade(page: const ChooseCarBrandComparison()),
                     ),
                     setSticky: (val) {
                       context

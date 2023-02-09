@@ -21,14 +21,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class AdsScreen extends StatefulWidget {
-  final bool isBack;
-  final VoidCallback onTap;
-
-  const AdsScreen({
-    required this.isBack,
-    required this.onTap,
-    super.key,
-  });
+  const AdsScreen({super.key});
 
   @override
   State<AdsScreen> createState() => _AdsScreenState();
@@ -107,11 +100,7 @@ class _AdsScreenState extends State<AdsScreen>
                       elevation: 0,
                       automaticallyImplyLeading: false,
                       leading: WScaleAnimation(
-                        onTap: widget.isBack
-                            ? widget.onTap
-                            : () {
-                                Navigator.pop(context);
-                              },
+                        onTap: () => Navigator.pop(context),
                         child: Padding(
                           padding: const EdgeInsets.only(left: 24, right: 16),
                           child: Align(
