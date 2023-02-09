@@ -27,4 +27,6 @@ class AnnouncementListEvent with _$AnnouncementListEvent {
     int? idVal,
     bool? isFilter,
   }) = _GetInfo;
+
+  factory AnnouncementListEvent.getMinMaxPriceYear(Currency currency) = _GetMinMaxPriceYear;
 }
