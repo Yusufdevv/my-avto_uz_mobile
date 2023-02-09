@@ -25,21 +25,21 @@ class CarBrandItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) => WScaleAnimation(
         onTap: () {
-          context.read<AnnouncementListBloc>().add(
-              AnnouncementListEvent.getFilter(
-                  context.read<AnnouncementListBloc>().state.filter.copyWith(
-                        make: carBrandEntity.id,
-                      )));
-          context.read<GetMakesBloc>().add(
-                GetMakesBlocEvent.selectedCarItems(
-                  id: carBrandEntity.id,
-                  name: carBrandEntity.name,
-                  imageUrl: carBrandEntity.logo,
-                ),
-              );
-          context
-              .read<AnnouncementListBloc>()
-              .add(AnnouncementListEvent.getAnnouncementList(null));
+          // context.read<AnnouncementListBloc>().add(
+          //     AnnouncementListEvent.getFilter(
+          //         context.read<AnnouncementListBloc>().state.filter.copyWith(
+          //               make: carBrandEntity.id,
+          //             )));
+          // context.read<GetMakesBloc>().add(
+          //       GetMakesBlocEvent.selectedCarItems(
+          //         id: carBrandEntity.id,
+          //         name: carBrandEntity.name,
+          //         imageUrl: carBrandEntity.logo,
+          //       ),
+          //     );
+          // context
+          //     .read<AnnouncementListBloc>()
+          //     .add(AnnouncementListEvent.getAnnouncementList(null));
           onTap();
         },
         child: Container(

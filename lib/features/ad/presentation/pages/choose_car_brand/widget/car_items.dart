@@ -80,6 +80,7 @@ class ChangeCarItems extends StatelessWidget {
                         HighlightedText(
                           allText: name,
                           highlightedText: '',
+                          
                           terms: text.split(' '),
                           highlightColor:
                               LightThemeColors.tangerineYellowToMediumSlateBlue,

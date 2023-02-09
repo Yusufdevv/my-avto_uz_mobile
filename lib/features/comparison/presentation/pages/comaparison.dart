@@ -143,7 +143,7 @@ class _ComparisonState extends State<Comparison> {
                         setState(() => showDifferences = showDifferences1),
                     scrollController: sliverWidgetScrollController,
                     onAddCar: () => Navigator.of(context).push(
-                      fade(page: const ChooseCarBrandComparison()),
+                      fade(page:   ChooseCarBrandComparison(parentContext: context)),
                     ),
                     setSticky: (val) {
                       context

@@ -18,3 +18,12 @@ class ChangeStatusEvent extends MainEvent {
   @override
   List<Object?> get props => [status];
 }
+class GetMakeModelEvent extends MainEvent {
+  final MakeEntity selectedMake;
+  final MakeEntity selectedModel;
+
+  const GetMakeModelEvent({required this.selectedMake, required this.selectedModel});
+
+  @override
+  List<Object?> get props => [selectedMake, selectedModel];
+}

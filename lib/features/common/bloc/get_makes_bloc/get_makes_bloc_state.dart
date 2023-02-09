@@ -14,6 +14,7 @@ class GetMakesState with _$GetMakesState {
     @Default(0) int index,
     @Default('A') String selectChar,
     @Default(-1) int selectId,
+    @Default(MakeEntity()) selectedMake,
     @Default(0) int confirmId,
     @Default('') String name,
     @Default('') String imageUrl,
