@@ -12,6 +12,7 @@ import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/features/search/presentation/search_screen.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -217,6 +218,10 @@ class _AdsScreenState extends State<AdsScreen>
                               ));
                         }
                         setState(() {});
+                        
+                      //!mysearches ni sonini oshirish uchun ishlatilgan, mySearchesCount nechta qo'shishni bildiradi
+                      context.read<ProfileBloc>().add(ChangeCountDataEvent(
+                          adding: true, mySearchesCount: 1));
                       },
                       child: AnimatedContainer(
                         alignment: crossFadeState == CrossFadeState.showFirst
