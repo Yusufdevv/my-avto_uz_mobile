@@ -6,7 +6,7 @@ import 'package:auto/features/dealers/data/datasource/cars_in_dealer_datasource.
 import 'package:auto/features/dealers/data/datasource/dealer_single_datasource.dart';
 import 'package:auto/features/dealers/data/datasource/marks_in_dealer_datasource.dart';
 import 'package:auto/features/dealers/data/repositories/cars_in_dealers_repository.dart';
-import 'package:auto/features/dealers/data/repositories/dealer_single_repository.dart';
+import 'package:auto/features/dealers/data/repositories/dealer_single_repository_impl.dart';
 import 'package:auto/features/dealers/data/repositories/marks_in_dealer_repository.dart';
 import 'package:auto/features/dealers/domain/usecases/cars_in_dealers_usecase.dart';
 import 'package:auto/features/dealers/domain/usecases/dealer_single_usecase.dart';
@@ -20,7 +20,6 @@ import 'package:auto/features/dealers/presentation/pages/single_mark_announcemen
 import 'package:auto/features/dealers/presentation/widgets/dealer_info_sliver_delegate.dart';
 import 'package:auto/features/dealers/presentation/widgets/dealer_single_info_part.dart';
 import 'package:auto/features/dealers/presentation/widgets/mark_with_announcement.dart';
-import 'package:auto/features/main/presentation/bloc/top_ad/top_ad_bloc.dart';
 import 'package:auto/features/main/presentation/widgets/ads_item.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/pagination/presentation/paginator.dart';
@@ -53,13 +52,8 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
 
   @override
   void initState() {
-    dealerSingleBloc = DealerSingleBloc(
-      dealerSingleUseCase: DealerSingleUseCase(
-        dealerSingle: DealerSingleRepositoryImpl(
-          dataSource: DealerSingleDataSource(DioSettings().dio),
-        ),
-      ),
-    )..add(DealerSingleEvent.getResults(slug: widget.slug));
+    dealerSingleBloc = DealerSingleBloc()
+      ..add(DealerSingleEvent.getResults(slug: widget.slug));
     marksBloc = MarksInDealersBloc(
         marksInDealerUseCase: MarksInDealerUseCase(
             marks: MarksInDealerRepositoryImpl(
@@ -115,7 +109,8 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 16),
                           child: DealerSingleInfoPart(
-                            //dealerType: dealerType,
+                            daelerId: dealer.id,
+                            dealerSingleBloc: dealerSingleBloc,
                             dealerName: dealer.name,
                             quantityOfCars: dealer.carCount,
                             contactFrom: dealer.contactFrom,

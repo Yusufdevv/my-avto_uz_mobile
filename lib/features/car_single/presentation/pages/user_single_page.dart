@@ -191,77 +191,19 @@ class _UserSinglePageState extends State<UserSinglePage> {
                                         ),
                                       ],
                                     ),
-                                  const SizedBox(height: 16),
-                                  if (!isSelected)
-                                    WScaleAnimation(
-                                      onTap: () {
-                                        setState(() => isSelected = true);
-                                      },
-                                      child: Container(
-                                        width: double.maxFinite,
-                                        alignment: Alignment.center,
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 13, horizontal: 16),
-                                        decoration: BoxDecoration(
-                                            color: emerald,
-                                            borderRadius:
-                                                BorderRadius.circular(8)),
-                                        child: Text(
-                                            LocaleKeys.show_contact.tr(),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline4!
-                                                .copyWith(
-                                                    fontSize: 14, height: 1.3)),
+                                  if (item.announcement?.contactPhone != '')
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 16),
+                                      child: Info(
+                                        onTap: () {
+                                          launchUrl(Uri.parse(
+                                              'tel: ${item.announcement?.contactPhone}'));
+                                        },
+                                        text: MyFunctions.phoneFormat(
+                                            item.announcement?.contactPhone ??
+                                                ''),
+                                        icon: AppIcons.tablerPhone,
                                       ),
-                                    )
-                                  else
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: Row(
-                                            children: [
-                                              SvgPicture.asset(
-                                                  AppIcons.phoneCall1),
-                                              const SizedBox(width: 8),
-                                              Text(
-                                                  MyFunctions.phoneFormat(item
-                                                          .announcement
-                                                          ?.contactPhone ??
-                                                      ''),
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .headline1!
-                                                      .copyWith(
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.w600)),
-                                            ],
-                                          ),
-                                        ),
-                                        WScaleAnimation(
-                                          onTap: () {
-                                            launchUrl(Uri.parse(
-                                                'tel: ${item.announcement?.contactPhone}'));
-                                          },
-                                          child: Container(
-                                            alignment: Alignment.center,
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 13, horizontal: 16),
-                                            decoration: BoxDecoration(
-                                                color: emerald,
-                                                borderRadius:
-                                                    BorderRadius.circular(8)),
-                                            child: Text(LocaleKeys.call.tr(),
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .headline4!
-                                                    .copyWith(
-                                                        fontSize: 14,
-                                                        height: 1.3)),
-                                          ),
-                                        ),
-                                      ],
                                     ),
                                   if (item.announcement?.description != '')
                                     Padding(

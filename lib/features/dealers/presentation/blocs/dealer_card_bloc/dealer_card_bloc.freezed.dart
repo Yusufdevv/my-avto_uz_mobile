@@ -24,6 +24,7 @@ mixin _$DealerCardEvent {
     required TResult Function(String? regions, String? maker, String? carType)
         getFilterParams,
     required TResult Function() getMoreResults,
+    required TResult Function(int id) watchContact,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -34,6 +35,7 @@ mixin _$DealerCardEvent {
     TResult? Function(String? regions, String? maker, String? carType)?
         getFilterParams,
     TResult? Function()? getMoreResults,
+    TResult? Function(int id)? watchContact,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -44,6 +46,7 @@ mixin _$DealerCardEvent {
     TResult Function(String? regions, String? maker, String? carType)?
         getFilterParams,
     TResult Function()? getMoreResults,
+    TResult Function(int id)? watchContact,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -52,6 +55,7 @@ mixin _$DealerCardEvent {
     required TResult Function(_GetResults value) getResults,
     required TResult Function(_GetFilterParams value) getFilterParams,
     required TResult Function(_GetMoreResults value) getMoreResults,
+    required TResult Function(_WatchContact value) watchContact,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -59,6 +63,7 @@ mixin _$DealerCardEvent {
     TResult? Function(_GetResults value)? getResults,
     TResult? Function(_GetFilterParams value)? getFilterParams,
     TResult? Function(_GetMoreResults value)? getMoreResults,
+    TResult? Function(_WatchContact value)? watchContact,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -66,6 +71,7 @@ mixin _$DealerCardEvent {
     TResult Function(_GetResults value)? getResults,
     TResult Function(_GetFilterParams value)? getFilterParams,
     TResult Function(_GetMoreResults value)? getMoreResults,
+    TResult Function(_WatchContact value)? watchContact,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -204,6 +210,7 @@ class _$_GetResults implements _GetResults {
     required TResult Function(String? regions, String? maker, String? carType)
         getFilterParams,
     required TResult Function() getMoreResults,
+    required TResult Function(int id) watchContact,
   }) {
     return getResults(isRefresh, search, mark, regionId, carType);
   }
@@ -217,6 +224,7 @@ class _$_GetResults implements _GetResults {
     TResult? Function(String? regions, String? maker, String? carType)?
         getFilterParams,
     TResult? Function()? getMoreResults,
+    TResult? Function(int id)? watchContact,
   }) {
     return getResults?.call(isRefresh, search, mark, regionId, carType);
   }
@@ -230,6 +238,7 @@ class _$_GetResults implements _GetResults {
     TResult Function(String? regions, String? maker, String? carType)?
         getFilterParams,
     TResult Function()? getMoreResults,
+    TResult Function(int id)? watchContact,
     required TResult orElse(),
   }) {
     if (getResults != null) {
@@ -244,6 +253,7 @@ class _$_GetResults implements _GetResults {
     required TResult Function(_GetResults value) getResults,
     required TResult Function(_GetFilterParams value) getFilterParams,
     required TResult Function(_GetMoreResults value) getMoreResults,
+    required TResult Function(_WatchContact value) watchContact,
   }) {
     return getResults(this);
   }
@@ -254,6 +264,7 @@ class _$_GetResults implements _GetResults {
     TResult? Function(_GetResults value)? getResults,
     TResult? Function(_GetFilterParams value)? getFilterParams,
     TResult? Function(_GetMoreResults value)? getMoreResults,
+    TResult? Function(_WatchContact value)? watchContact,
   }) {
     return getResults?.call(this);
   }
@@ -264,6 +275,7 @@ class _$_GetResults implements _GetResults {
     TResult Function(_GetResults value)? getResults,
     TResult Function(_GetFilterParams value)? getFilterParams,
     TResult Function(_GetMoreResults value)? getMoreResults,
+    TResult Function(_WatchContact value)? watchContact,
     required TResult orElse(),
   }) {
     if (getResults != null) {
@@ -377,6 +389,7 @@ class _$_GetFilterParams implements _GetFilterParams {
     required TResult Function(String? regions, String? maker, String? carType)
         getFilterParams,
     required TResult Function() getMoreResults,
+    required TResult Function(int id) watchContact,
   }) {
     return getFilterParams(regions, maker, carType);
   }
@@ -390,6 +403,7 @@ class _$_GetFilterParams implements _GetFilterParams {
     TResult? Function(String? regions, String? maker, String? carType)?
         getFilterParams,
     TResult? Function()? getMoreResults,
+    TResult? Function(int id)? watchContact,
   }) {
     return getFilterParams?.call(regions, maker, carType);
   }
@@ -403,6 +417,7 @@ class _$_GetFilterParams implements _GetFilterParams {
     TResult Function(String? regions, String? maker, String? carType)?
         getFilterParams,
     TResult Function()? getMoreResults,
+    TResult Function(int id)? watchContact,
     required TResult orElse(),
   }) {
     if (getFilterParams != null) {
@@ -417,6 +432,7 @@ class _$_GetFilterParams implements _GetFilterParams {
     required TResult Function(_GetResults value) getResults,
     required TResult Function(_GetFilterParams value) getFilterParams,
     required TResult Function(_GetMoreResults value) getMoreResults,
+    required TResult Function(_WatchContact value) watchContact,
   }) {
     return getFilterParams(this);
   }
@@ -427,6 +443,7 @@ class _$_GetFilterParams implements _GetFilterParams {
     TResult? Function(_GetResults value)? getResults,
     TResult? Function(_GetFilterParams value)? getFilterParams,
     TResult? Function(_GetMoreResults value)? getMoreResults,
+    TResult? Function(_WatchContact value)? watchContact,
   }) {
     return getFilterParams?.call(this);
   }
@@ -437,6 +454,7 @@ class _$_GetFilterParams implements _GetFilterParams {
     TResult Function(_GetResults value)? getResults,
     TResult Function(_GetFilterParams value)? getFilterParams,
     TResult Function(_GetMoreResults value)? getMoreResults,
+    TResult Function(_WatchContact value)? watchContact,
     required TResult orElse(),
   }) {
     if (getFilterParams != null) {
@@ -504,6 +522,7 @@ class _$_GetMoreResults implements _GetMoreResults {
     required TResult Function(String? regions, String? maker, String? carType)
         getFilterParams,
     required TResult Function() getMoreResults,
+    required TResult Function(int id) watchContact,
   }) {
     return getMoreResults();
   }
@@ -517,6 +536,7 @@ class _$_GetMoreResults implements _GetMoreResults {
     TResult? Function(String? regions, String? maker, String? carType)?
         getFilterParams,
     TResult? Function()? getMoreResults,
+    TResult? Function(int id)? watchContact,
   }) {
     return getMoreResults?.call();
   }
@@ -530,6 +550,7 @@ class _$_GetMoreResults implements _GetMoreResults {
     TResult Function(String? regions, String? maker, String? carType)?
         getFilterParams,
     TResult Function()? getMoreResults,
+    TResult Function(int id)? watchContact,
     required TResult orElse(),
   }) {
     if (getMoreResults != null) {
@@ -544,6 +565,7 @@ class _$_GetMoreResults implements _GetMoreResults {
     required TResult Function(_GetResults value) getResults,
     required TResult Function(_GetFilterParams value) getFilterParams,
     required TResult Function(_GetMoreResults value) getMoreResults,
+    required TResult Function(_WatchContact value) watchContact,
   }) {
     return getMoreResults(this);
   }
@@ -554,6 +576,7 @@ class _$_GetMoreResults implements _GetMoreResults {
     TResult? Function(_GetResults value)? getResults,
     TResult? Function(_GetFilterParams value)? getFilterParams,
     TResult? Function(_GetMoreResults value)? getMoreResults,
+    TResult? Function(_WatchContact value)? watchContact,
   }) {
     return getMoreResults?.call(this);
   }
@@ -564,6 +587,7 @@ class _$_GetMoreResults implements _GetMoreResults {
     TResult Function(_GetResults value)? getResults,
     TResult Function(_GetFilterParams value)? getFilterParams,
     TResult Function(_GetMoreResults value)? getMoreResults,
+    TResult Function(_WatchContact value)? watchContact,
     required TResult orElse(),
   }) {
     if (getMoreResults != null) {
@@ -575,6 +599,160 @@ class _$_GetMoreResults implements _GetMoreResults {
 
 abstract class _GetMoreResults implements DealerCardEvent {
   factory _GetMoreResults() = _$_GetMoreResults;
+}
+
+/// @nodoc
+abstract class _$$_WatchContactCopyWith<$Res> {
+  factory _$$_WatchContactCopyWith(
+          _$_WatchContact value, $Res Function(_$_WatchContact) then) =
+      __$$_WatchContactCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int id});
+}
+
+/// @nodoc
+class __$$_WatchContactCopyWithImpl<$Res>
+    extends _$DealerCardEventCopyWithImpl<$Res, _$_WatchContact>
+    implements _$$_WatchContactCopyWith<$Res> {
+  __$$_WatchContactCopyWithImpl(
+      _$_WatchContact _value, $Res Function(_$_WatchContact) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$_WatchContact(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_WatchContact implements _WatchContact {
+  _$_WatchContact({required this.id});
+
+  @override
+  final int id;
+
+  @override
+  String toString() {
+    return 'DealerCardEvent.watchContact(id: $id)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_WatchContact &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_WatchContactCopyWith<_$_WatchContact> get copyWith =>
+      __$$_WatchContactCopyWithImpl<_$_WatchContact>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool isRefresh, String search, int? mark,
+            String? regionId, String? carType)
+        getResults,
+    required TResult Function(String? regions, String? maker, String? carType)
+        getFilterParams,
+    required TResult Function() getMoreResults,
+    required TResult Function(int id) watchContact,
+  }) {
+    return watchContact(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool isRefresh, String search, int? mark,
+            String? regionId, String? carType)?
+        getResults,
+    TResult? Function(String? regions, String? maker, String? carType)?
+        getFilterParams,
+    TResult? Function()? getMoreResults,
+    TResult? Function(int id)? watchContact,
+  }) {
+    return watchContact?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool isRefresh, String search, int? mark, String? regionId,
+            String? carType)?
+        getResults,
+    TResult Function(String? regions, String? maker, String? carType)?
+        getFilterParams,
+    TResult Function()? getMoreResults,
+    TResult Function(int id)? watchContact,
+    required TResult orElse(),
+  }) {
+    if (watchContact != null) {
+      return watchContact(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetResults value) getResults,
+    required TResult Function(_GetFilterParams value) getFilterParams,
+    required TResult Function(_GetMoreResults value) getMoreResults,
+    required TResult Function(_WatchContact value) watchContact,
+  }) {
+    return watchContact(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetResults value)? getResults,
+    TResult? Function(_GetFilterParams value)? getFilterParams,
+    TResult? Function(_GetMoreResults value)? getMoreResults,
+    TResult? Function(_WatchContact value)? watchContact,
+  }) {
+    return watchContact?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetResults value)? getResults,
+    TResult Function(_GetFilterParams value)? getFilterParams,
+    TResult Function(_GetMoreResults value)? getMoreResults,
+    TResult Function(_WatchContact value)? watchContact,
+    required TResult orElse(),
+  }) {
+    if (watchContact != null) {
+      return watchContact(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _WatchContact implements DealerCardEvent {
+  factory _WatchContact({required final int id}) = _$_WatchContact;
+
+  int get id;
+  @JsonKey(ignore: true)
+  _$$_WatchContactCopyWith<_$_WatchContact> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

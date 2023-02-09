@@ -139,8 +139,8 @@ class _ComparisonPageState extends State<ComparisonPage> {
                     );
                   }
                 }
-                return const Center(
-                  child: Text('Error'),
+                return Center(
+                  child: Text(LocaleKeys.error.tr()),
                 );
               },
             ),

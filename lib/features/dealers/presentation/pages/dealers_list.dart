@@ -57,6 +57,7 @@ class _DealersListState extends State<DealersList>
               itemBuilder: (context, index) => Padding(
                 padding: const EdgeInsets.only(bottom: 16),
                 child: DealerCard(
+                  dealerId: state.list[index].id,
                   onTap: () => onTap(state.list[index].slug),
                   dealerName: state.list[index].name,
                   phoneNumber: state.list[index].phoneNumber,

@@ -1,4 +1,5 @@
 import 'package:auto/features/dealers/domain/entities/dealer_card_entity.dart';
+import 'package:auto/features/dealers/domain/usecases/dealer_single_watch_contact_usecase.dart';
 import 'package:auto/features/dealers/domain/usecases/dealer_usecase.dart';
 import 'package:auto/features/rent/presentation/bloc/rent_list_bloc/rent_list_bloc.dart';
 import 'package:bloc/bloc.dart';
@@ -13,6 +14,8 @@ part 'dealer_card_bloc.freezed.dart';
 
 class DealerCardBloc extends Bloc<DealerCardEvent, DealerCardState> {
   final DealerUseCase dealerUseCase;
+  final DealerSingleWatchContactUseCase dealerSingleWatchContactUseCase =
+      DealerSingleWatchContactUseCase();
 
   DealerCardBloc(this.dealerUseCase) : super(DealerCardState()) {
     on<_GetResults>((event, emit) async {
@@ -60,5 +63,9 @@ class DealerCardBloc extends Bloc<DealerCardEvent, DealerCardState> {
     //     emit(state.copyWith(status: FormzStatus.submissionFailure));
     //   }
     // });
+
+    on<_WatchContact>((event, emit) async {
+      await dealerSingleWatchContactUseCase.call(event.id);
+    });
   }
 }
