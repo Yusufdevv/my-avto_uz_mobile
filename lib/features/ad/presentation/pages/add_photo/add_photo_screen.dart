@@ -5,6 +5,7 @@ import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.da
 import 'package:auto/features/ad/presentation/pages/add_photo/widgets/add_photo_instructions_screen.dart';
 import 'package:auto/features/ad/presentation/pages/add_photo/widgets/photo_item.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
+import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -17,6 +18,7 @@ import 'package:image_picker/image_picker.dart';
 class AddPhotoScreen extends StatefulWidget {
   final Function(List<String>) onImageChanged;
   final Function(List<String>) onPanaramaChanged;
+
   const AddPhotoScreen(
       {required this.onImageChanged, required this.onPanaramaChanged, Key? key})
       : super(key: key);
@@ -58,6 +60,17 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
               builder: (context, postingAdState) =>
                   BlocConsumer<ImageBloc, ImageState>(
                 listener: (context, state) {
+                  if (state.toastMessage != null &&
+                      state.toastMessage!.isNotEmpty) {
+                    context.read<PostingAdBloc>().add(
+                          PostingAdShowToastEvent(
+                            message: state.toastMessage!,
+                            status: PopStatus.warning,
+                          ),
+                        );
+                    imageBloc.add(PickImageEmptyToastMessageEvent());
+
+                  }
                   widget.onImageChanged(state.images);
                   widget.onPanaramaChanged(state.panaramaImages);
                 },

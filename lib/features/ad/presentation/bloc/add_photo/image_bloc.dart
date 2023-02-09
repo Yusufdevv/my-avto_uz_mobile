@@ -4,8 +4,10 @@ import 'package:auto/utils/my_functions.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 part 'image_event.dart';
+
 part 'image_state.dart';
 
 class ImageBloc extends Bloc<ImageEvent, ImageState> {
@@ -17,25 +19,43 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
           images: const [],
           image: File(''),
         )) {
+    on<PickImageEmptyToastMessageEvent>(
+        (event, emit) => emit(state.copyWith(toastMessage: '')));
     on<PickPanaramaImageEvent>((event, emit) async {
       final permission =
-          await MyFunctions.getPhotosPermission(Platform.isAndroid); 
-      if (!permission) return;
-      final image = await imagePicker.pickImage(source: ImageSource.gallery); 
-      if (image != null) {
-        emit(state
-            .copyWith(panaramaImages: [image.path, ...state.panaramaImages]));
+          await MyFunctions.getPhotosPermission(Platform.isAndroid);
+      print('=> => => =>     permidssion is $permission    <= <= <= <=');
+
+      if (permission.isGranted) {
+        final image = await imagePicker.pickImage(source: ImageSource.gallery);
+        print(
+            '=> => => => picked panarama image path    ${image?.path}    <= <= <= <=');
+        if (image != null) {
+          emit(state
+              .copyWith(panaramaImages: [image.path, ...state.panaramaImages]));
+        }
+      } else {
+        final how = permission.isPermanentlyDenied ? 'permanently' : '';
+        emit(
+            state.copyWith(toastMessage: 'You have denied picking image $how'));
       }
     });
     on<PickImage>((event, emit) async {
-      final permission =
-          await MyFunctions.getCameraPermission(Platform.isAndroid);
+      final permission = event.source == ImageSource.camera
+          ? await MyFunctions.getCameraPermission(Platform.isAndroid)
+          : await MyFunctions.getPhotosPermission(Platform.isAndroid);
 
-      if (permission) {
+      if (permission.isGranted) {
         final image = await imagePicker.pickImage(source: event.source);
         if (image != null) {
           emit(state.copyWith(images: [image.path, ...state.images]));
         }
+      } else {
+        final what = event.source == ImageSource.camera
+            ? 'taking picture'
+            : 'picking image';
+        final how = permission.isPermanentlyDenied ? 'permanently' : '';
+        emit(state.copyWith(toastMessage: 'You have denied $what $how'));
       }
     });
     on<DeleteImage>((event, emit) {

@@ -64,6 +64,7 @@ import 'package:formz/formz.dart';
 class PostingAdScreen extends StatefulWidget {
   final BuildContext parentContext;
   final int? announcementId;
+
   const PostingAdScreen(
       {required this.parentContext, this.announcementId, Key? key})
       : super(key: key);
@@ -240,10 +241,12 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                     context.read<ShowPopUpBloc>().add(
                           ShowPopUp(
                             message: state.toastMessage!,
-                            status: PopStatus.error,
+                            status: state.popStatus,
                             dismissible: false,
                           ),
                         );
+                    postingAdBloc.add(PostingAdShowToastEvent(
+                        message: '', status: PopStatus.success));
                   }
                 },
                 builder: (context, state) =>
@@ -337,7 +340,6 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                             const ColorsScreen(),
                             //10
                             AddPhotoScreen(onImageChanged: (v) {
-                              hidePopUp();
                               postingAdBloc
                                   .add(PostingAdChooseEvent(gallery: v));
                             }, onPanaramaChanged: (v) {
@@ -354,11 +356,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                             //14
                             const DamageScreen(),
                             //15
-                            ContactScreen(
-                              initialEmail: state.ownerEmail ?? '',
-                              initialName: state.ownerName ?? '',
-                              initialPhone: state.ownerPhone ?? '',
-                            ),
+                          const   ContactScreen(),
                             //16
                             InspectionPlaceScreen(
                               onToMapPressed: () {
@@ -387,7 +385,9 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                             //18
                             MileageScreen(
                                 onImageChange: (image) {
-                                  hidePopUp();
+                                  print(
+                                      '=> => => =>     POSTING ADD PAGE: ${image}    <= <= <= <=');
+
                                   postingAdBloc.add(
                                       PostingAdChooseEvent(milageImage: image));
                                 },
@@ -442,10 +442,10 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                             right: 16,
                             left: 16,
                             child: WButton(
-
-                               isDisabled: state.createStatus == FormzStatus.submissionSuccess,
+                              isDisabled: state.createStatus ==
+                                  FormzStatus.submissionSuccess,
                               isLoading: state.createStatus ==
-                                  FormzStatus.submissionInProgress ,
+                                  FormzStatus.submissionInProgress,
                               onTap: () async {
                                 hidePopUp();
                                 postingAdBloc.add(PostingAdCreateEvent());

@@ -24,14 +24,10 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class ContactScreen extends StatefulWidget {
-  final String initialPhone;
-  final String initialEmail;
-  final String initialName;
+
 
   const ContactScreen(
-      {required this.initialEmail,
-      required this.initialName,
-      required this.initialPhone,
+      {
       Key? key})
       : super(key: key);
 
@@ -230,13 +226,19 @@ class _ContactScreenState extends State<ContactScreen> {
                               controller: postingAdState.phoneController,
                               prefix: Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 16, right: 8, top: 13),
+                                    left: 16, right: 8, top: 13.5),
                                 child: Text(
                                   '+998',
-                                  style: Theme.of(context)
+                                  style: postingAdState.phoneController.text.isEmpty? Theme.of(context)
                                       .textTheme
                                       .headline2!
-                                      .copyWith(fontWeight: FontWeight.w400),
+                                      .copyWith(fontWeight: FontWeight.w400):Theme.of(context)
+                                      .textTheme
+                                      .headline1!
+                                      .copyWith(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
                               ),
                               hintText: '_ _  _ _ _  _ _  _ _',
@@ -343,7 +345,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                   .textTheme
                                   .headline1!
                                   .copyWith(
-                                    fontSize: 16,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.w400,
                                   ),
                             ),

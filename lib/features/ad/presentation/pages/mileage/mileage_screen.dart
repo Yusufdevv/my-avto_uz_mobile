@@ -18,7 +18,10 @@ class MileageScreen extends StatefulWidget {
   final String initialMileage;
   final String? initialMileageImage;
   const MileageScreen(
-      {required this.onImageChange, required this.initialMileage,required this.initialMileageImage, Key? key})
+      {required this.onImageChange,
+      required this.initialMileage,
+      required this.initialMileageImage,
+      Key? key})
       : super(key: key);
 
   @override
@@ -52,6 +55,13 @@ class _MileageScreenState extends State<MileageScreen> {
               listener: (context, state) {
                if(state.image != null&& state.image!.isNotEmpty) {
                   widget.onImageChange(state.image!);
+                }
+                if (state.toastMessage != null &&
+                    state.toastMessage!.isNotEmpty) {
+                  print('toast is showing');
+                  context.read<PostingAdBloc>().add(PostingAdShowToastEvent(
+                      message: state.toastMessage!, status: PopStatus.warning));
+                  mileageImageBloc.add(MakeToastMessageNullEvent());
                 }
               },
               builder: (context, state) => BaseWidget(
@@ -120,9 +130,7 @@ class _MileageScreenState extends State<MileageScreen> {
                       ),
                       const SizedBox(height: 8),
                       MileageImageItem(image: state.image),
-                      const SizedBox(
-                        height: 20
-                      ),
+                      const SizedBox(height: 20),
                     ],
                   ),
                 ),

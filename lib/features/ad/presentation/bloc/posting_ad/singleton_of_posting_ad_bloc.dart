@@ -144,6 +144,7 @@ class PASingleton {
     }
 
     return PostingAdState(
+      popStatus: PopStatus.success,
       isContactsVerified: true,
       searchController: TextEditingController(),
       phoneController: TextEditingController(text: phone ?? v.user.phoneNumber),

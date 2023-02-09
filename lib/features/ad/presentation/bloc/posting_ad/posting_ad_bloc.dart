@@ -27,6 +27,7 @@ import 'package:auto/features/ad/domain/usecases/minimum_price_usecase.dart';
 import 'package:auto/features/car_single/domain/entities/car_single_entity.dart';
 import 'package:auto/features/car_single/domain/entities/damaged_parts_entity.dart';
 import 'package:auto/features/car_single/domain/usecases/get_ads_usecase.dart';
+import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/domain/model/user.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/repository/auth.dart';
@@ -91,6 +92,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     required this.bodyTypesUseCase,
     required this.createUseCase,
   }) : super(PostingAdState(
+    popStatus: PopStatus.success,
     colorName:
     LocaleKeys.white.tr(),
             status: FormzStatus.pure,
@@ -125,6 +127,10 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdModificationsEvent>(_modification);
     on<PostingAdClearStateEvent>(_clearState);
     on<PostingAdSerchControllerClearEvent>(_clearSearchController);
+    on<PostingAdShowToastEvent>(_showToast);
+  }
+  FutureOr<void> _showToast(PostingAdShowToastEvent event, Emitter<PostingAdState> emit){
+    emit(state.copyWith(toastMessage: event.message,popStatus: event.status ));
   }
   FutureOr<void> _clearSearchController(
       PostingAdSerchControllerClearEvent event, Emitter<PostingAdState> emit) { 
@@ -136,6 +142,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       PostingAdClearStateEvent event, Emitter<PostingAdState> emit) {
     emit(
       PostingAdState(
+        popStatus: PopStatus.success,
         status: FormzStatus.pure,
         phoneController: TextEditingController(),
         emailController: TextEditingController(),
@@ -406,6 +413,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
   }
+
 
   FutureOr<void> _gearBoxes(
       PostingAdGearBoxesEvent event, Emitter<PostingAdState> emit) async {

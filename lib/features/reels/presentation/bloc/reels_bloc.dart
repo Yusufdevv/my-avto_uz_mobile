@@ -27,12 +27,12 @@ class ReelsBloc extends Bloc<ReelsEvent, ReelsState> {
   }
 
   Future _onInit(InitialEvent event, Emitter<ReelsState> emit) async {
-    await _getReels(0, event.isFromMain, emit);
+    await _getReels(0, event.isForOfferDay, emit);
   }
 
   Future _onGetMoreReels(
       GetMoreReelsEvent event, Emitter<ReelsState> emit) async {
-    await _getReels(event.offset, event.isFromMain, emit);
+    await _getReels(event.offset, event.isForOfferDay, emit);
   }
 
   Future _onChangeStatus(
