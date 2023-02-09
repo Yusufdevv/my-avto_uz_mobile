@@ -33,6 +33,7 @@ mixin _$AnnouncementListEvent {
             int? idVal,
             bool? isFilter)
         getInfo,
+    required TResult Function(Currency currency) getMinMaxPriceYear,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -52,6 +53,7 @@ mixin _$AnnouncementListEvent {
             int? idVal,
             bool? isFilter)?
         getInfo,
+    TResult? Function(Currency currency)? getMinMaxPriceYear,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -71,6 +73,7 @@ mixin _$AnnouncementListEvent {
             int? idVal,
             bool? isFilter)?
         getInfo,
+    TResult Function(Currency currency)? getMinMaxPriceYear,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -83,6 +86,7 @@ mixin _$AnnouncementListEvent {
     required TResult Function(_GetFilter value) getFilter,
     required TResult Function(_GetHistoryApi value) getHistoryApi,
     required TResult Function(_GetInfo value) getInfo,
+    required TResult Function(_GetMinMaxPriceYear value) getMinMaxPriceYear,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -94,6 +98,7 @@ mixin _$AnnouncementListEvent {
     TResult? Function(_GetFilter value)? getFilter,
     TResult? Function(_GetHistoryApi value)? getHistoryApi,
     TResult? Function(_GetInfo value)? getInfo,
+    TResult? Function(_GetMinMaxPriceYear value)? getMinMaxPriceYear,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -105,6 +110,7 @@ mixin _$AnnouncementListEvent {
     TResult Function(_GetFilter value)? getFilter,
     TResult Function(_GetHistoryApi value)? getHistoryApi,
     TResult Function(_GetInfo value)? getInfo,
+    TResult Function(_GetMinMaxPriceYear value)? getMinMaxPriceYear,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -209,6 +215,7 @@ class _$_GetAnnouncementList implements _GetAnnouncementList {
             int? idVal,
             bool? isFilter)
         getInfo,
+    required TResult Function(Currency currency) getMinMaxPriceYear,
   }) {
     return getAnnouncementList(isNew);
   }
@@ -231,6 +238,7 @@ class _$_GetAnnouncementList implements _GetAnnouncementList {
             int? idVal,
             bool? isFilter)?
         getInfo,
+    TResult? Function(Currency currency)? getMinMaxPriceYear,
   }) {
     return getAnnouncementList?.call(isNew);
   }
@@ -253,6 +261,7 @@ class _$_GetAnnouncementList implements _GetAnnouncementList {
             int? idVal,
             bool? isFilter)?
         getInfo,
+    TResult Function(Currency currency)? getMinMaxPriceYear,
     required TResult orElse(),
   }) {
     if (getAnnouncementList != null) {
@@ -271,6 +280,7 @@ class _$_GetAnnouncementList implements _GetAnnouncementList {
     required TResult Function(_GetFilter value) getFilter,
     required TResult Function(_GetHistoryApi value) getHistoryApi,
     required TResult Function(_GetInfo value) getInfo,
+    required TResult Function(_GetMinMaxPriceYear value) getMinMaxPriceYear,
   }) {
     return getAnnouncementList(this);
   }
@@ -285,6 +295,7 @@ class _$_GetAnnouncementList implements _GetAnnouncementList {
     TResult? Function(_GetFilter value)? getFilter,
     TResult? Function(_GetHistoryApi value)? getHistoryApi,
     TResult? Function(_GetInfo value)? getInfo,
+    TResult? Function(_GetMinMaxPriceYear value)? getMinMaxPriceYear,
   }) {
     return getAnnouncementList?.call(this);
   }
@@ -299,6 +310,7 @@ class _$_GetAnnouncementList implements _GetAnnouncementList {
     TResult Function(_GetFilter value)? getFilter,
     TResult Function(_GetHistoryApi value)? getHistoryApi,
     TResult Function(_GetInfo value)? getInfo,
+    TResult Function(_GetMinMaxPriceYear value)? getMinMaxPriceYear,
     required TResult orElse(),
   }) {
     if (getAnnouncementList != null) {
@@ -396,6 +408,7 @@ class _$_GetFilterClear implements _GetFilterClear {
             int? idVal,
             bool? isFilter)
         getInfo,
+    required TResult Function(Currency currency) getMinMaxPriceYear,
   }) {
     return getFilterClear(ismake);
   }
@@ -418,6 +431,7 @@ class _$_GetFilterClear implements _GetFilterClear {
             int? idVal,
             bool? isFilter)?
         getInfo,
+    TResult? Function(Currency currency)? getMinMaxPriceYear,
   }) {
     return getFilterClear?.call(ismake);
   }
@@ -440,6 +454,7 @@ class _$_GetFilterClear implements _GetFilterClear {
             int? idVal,
             bool? isFilter)?
         getInfo,
+    TResult Function(Currency currency)? getMinMaxPriceYear,
     required TResult orElse(),
   }) {
     if (getFilterClear != null) {
@@ -458,6 +473,7 @@ class _$_GetFilterClear implements _GetFilterClear {
     required TResult Function(_GetFilter value) getFilter,
     required TResult Function(_GetHistoryApi value) getHistoryApi,
     required TResult Function(_GetInfo value) getInfo,
+    required TResult Function(_GetMinMaxPriceYear value) getMinMaxPriceYear,
   }) {
     return getFilterClear(this);
   }
@@ -472,6 +488,7 @@ class _$_GetFilterClear implements _GetFilterClear {
     TResult? Function(_GetFilter value)? getFilter,
     TResult? Function(_GetHistoryApi value)? getHistoryApi,
     TResult? Function(_GetInfo value)? getInfo,
+    TResult? Function(_GetMinMaxPriceYear value)? getMinMaxPriceYear,
   }) {
     return getFilterClear?.call(this);
   }
@@ -486,6 +503,7 @@ class _$_GetFilterClear implements _GetFilterClear {
     TResult Function(_GetFilter value)? getFilter,
     TResult Function(_GetHistoryApi value)? getHistoryApi,
     TResult Function(_GetInfo value)? getInfo,
+    TResult Function(_GetMinMaxPriceYear value)? getMinMaxPriceYear,
     required TResult orElse(),
   }) {
     if (getFilterClear != null) {
@@ -589,6 +607,7 @@ class _$_GetRegions implements _GetRegions {
             int? idVal,
             bool? isFilter)
         getInfo,
+    required TResult Function(Currency currency) getMinMaxPriceYear,
   }) {
     return getRegions(regions);
   }
@@ -611,6 +630,7 @@ class _$_GetRegions implements _GetRegions {
             int? idVal,
             bool? isFilter)?
         getInfo,
+    TResult? Function(Currency currency)? getMinMaxPriceYear,
   }) {
     return getRegions?.call(regions);
   }
@@ -633,6 +653,7 @@ class _$_GetRegions implements _GetRegions {
             int? idVal,
             bool? isFilter)?
         getInfo,
+    TResult Function(Currency currency)? getMinMaxPriceYear,
     required TResult orElse(),
   }) {
     if (getRegions != null) {
@@ -651,6 +672,7 @@ class _$_GetRegions implements _GetRegions {
     required TResult Function(_GetFilter value) getFilter,
     required TResult Function(_GetHistoryApi value) getHistoryApi,
     required TResult Function(_GetInfo value) getInfo,
+    required TResult Function(_GetMinMaxPriceYear value) getMinMaxPriceYear,
   }) {
     return getRegions(this);
   }
@@ -665,6 +687,7 @@ class _$_GetRegions implements _GetRegions {
     TResult? Function(_GetFilter value)? getFilter,
     TResult? Function(_GetHistoryApi value)? getHistoryApi,
     TResult? Function(_GetInfo value)? getInfo,
+    TResult? Function(_GetMinMaxPriceYear value)? getMinMaxPriceYear,
   }) {
     return getRegions?.call(this);
   }
@@ -679,6 +702,7 @@ class _$_GetRegions implements _GetRegions {
     TResult Function(_GetFilter value)? getFilter,
     TResult Function(_GetHistoryApi value)? getHistoryApi,
     TResult Function(_GetInfo value)? getInfo,
+    TResult Function(_GetMinMaxPriceYear value)? getMinMaxPriceYear,
     required TResult orElse(),
   }) {
     if (getRegions != null) {
@@ -785,6 +809,7 @@ class _$_GetIsHistory implements _GetIsHistory {
             int? idVal,
             bool? isFilter)
         getInfo,
+    required TResult Function(Currency currency) getMinMaxPriceYear,
   }) {
     return getIsHistory(isHistory, isNew);
   }
@@ -807,6 +832,7 @@ class _$_GetIsHistory implements _GetIsHistory {
             int? idVal,
             bool? isFilter)?
         getInfo,
+    TResult? Function(Currency currency)? getMinMaxPriceYear,
   }) {
     return getIsHistory?.call(isHistory, isNew);
   }
@@ -829,6 +855,7 @@ class _$_GetIsHistory implements _GetIsHistory {
             int? idVal,
             bool? isFilter)?
         getInfo,
+    TResult Function(Currency currency)? getMinMaxPriceYear,
     required TResult orElse(),
   }) {
     if (getIsHistory != null) {
@@ -847,6 +874,7 @@ class _$_GetIsHistory implements _GetIsHistory {
     required TResult Function(_GetFilter value) getFilter,
     required TResult Function(_GetHistoryApi value) getHistoryApi,
     required TResult Function(_GetInfo value) getInfo,
+    required TResult Function(_GetMinMaxPriceYear value) getMinMaxPriceYear,
   }) {
     return getIsHistory(this);
   }
@@ -861,6 +889,7 @@ class _$_GetIsHistory implements _GetIsHistory {
     TResult? Function(_GetFilter value)? getFilter,
     TResult? Function(_GetHistoryApi value)? getHistoryApi,
     TResult? Function(_GetInfo value)? getInfo,
+    TResult? Function(_GetMinMaxPriceYear value)? getMinMaxPriceYear,
   }) {
     return getIsHistory?.call(this);
   }
@@ -875,6 +904,7 @@ class _$_GetIsHistory implements _GetIsHistory {
     TResult Function(_GetFilter value)? getFilter,
     TResult Function(_GetHistoryApi value)? getHistoryApi,
     TResult Function(_GetInfo value)? getInfo,
+    TResult Function(_GetMinMaxPriceYear value)? getMinMaxPriceYear,
     required TResult orElse(),
   }) {
     if (getIsHistory != null) {
@@ -974,6 +1004,7 @@ class _$_GetFilter implements _GetFilter {
             int? idVal,
             bool? isFilter)
         getInfo,
+    required TResult Function(Currency currency) getMinMaxPriceYear,
   }) {
     return getFilter(filter);
   }
@@ -996,6 +1027,7 @@ class _$_GetFilter implements _GetFilter {
             int? idVal,
             bool? isFilter)?
         getInfo,
+    TResult? Function(Currency currency)? getMinMaxPriceYear,
   }) {
     return getFilter?.call(filter);
   }
@@ -1018,6 +1050,7 @@ class _$_GetFilter implements _GetFilter {
             int? idVal,
             bool? isFilter)?
         getInfo,
+    TResult Function(Currency currency)? getMinMaxPriceYear,
     required TResult orElse(),
   }) {
     if (getFilter != null) {
@@ -1036,6 +1069,7 @@ class _$_GetFilter implements _GetFilter {
     required TResult Function(_GetFilter value) getFilter,
     required TResult Function(_GetHistoryApi value) getHistoryApi,
     required TResult Function(_GetInfo value) getInfo,
+    required TResult Function(_GetMinMaxPriceYear value) getMinMaxPriceYear,
   }) {
     return getFilter(this);
   }
@@ -1050,6 +1084,7 @@ class _$_GetFilter implements _GetFilter {
     TResult? Function(_GetFilter value)? getFilter,
     TResult? Function(_GetHistoryApi value)? getHistoryApi,
     TResult? Function(_GetInfo value)? getInfo,
+    TResult? Function(_GetMinMaxPriceYear value)? getMinMaxPriceYear,
   }) {
     return getFilter?.call(this);
   }
@@ -1064,6 +1099,7 @@ class _$_GetFilter implements _GetFilter {
     TResult Function(_GetFilter value)? getFilter,
     TResult Function(_GetHistoryApi value)? getHistoryApi,
     TResult Function(_GetInfo value)? getInfo,
+    TResult Function(_GetMinMaxPriceYear value)? getMinMaxPriceYear,
     required TResult orElse(),
   }) {
     if (getFilter != null) {
@@ -1135,6 +1171,7 @@ class _$_GetHistoryApi implements _GetHistoryApi {
             int? idVal,
             bool? isFilter)
         getInfo,
+    required TResult Function(Currency currency) getMinMaxPriceYear,
   }) {
     return getHistoryApi();
   }
@@ -1157,6 +1194,7 @@ class _$_GetHistoryApi implements _GetHistoryApi {
             int? idVal,
             bool? isFilter)?
         getInfo,
+    TResult? Function(Currency currency)? getMinMaxPriceYear,
   }) {
     return getHistoryApi?.call();
   }
@@ -1179,6 +1217,7 @@ class _$_GetHistoryApi implements _GetHistoryApi {
             int? idVal,
             bool? isFilter)?
         getInfo,
+    TResult Function(Currency currency)? getMinMaxPriceYear,
     required TResult orElse(),
   }) {
     if (getHistoryApi != null) {
@@ -1197,6 +1236,7 @@ class _$_GetHistoryApi implements _GetHistoryApi {
     required TResult Function(_GetFilter value) getFilter,
     required TResult Function(_GetHistoryApi value) getHistoryApi,
     required TResult Function(_GetInfo value) getInfo,
+    required TResult Function(_GetMinMaxPriceYear value) getMinMaxPriceYear,
   }) {
     return getHistoryApi(this);
   }
@@ -1211,6 +1251,7 @@ class _$_GetHistoryApi implements _GetHistoryApi {
     TResult? Function(_GetFilter value)? getFilter,
     TResult? Function(_GetHistoryApi value)? getHistoryApi,
     TResult? Function(_GetInfo value)? getInfo,
+    TResult? Function(_GetMinMaxPriceYear value)? getMinMaxPriceYear,
   }) {
     return getHistoryApi?.call(this);
   }
@@ -1225,6 +1266,7 @@ class _$_GetHistoryApi implements _GetHistoryApi {
     TResult Function(_GetFilter value)? getFilter,
     TResult Function(_GetHistoryApi value)? getHistoryApi,
     TResult Function(_GetInfo value)? getInfo,
+    TResult Function(_GetMinMaxPriceYear value)? getMinMaxPriceYear,
     required TResult orElse(),
   }) {
     if (getHistoryApi != null) {
@@ -1385,6 +1427,7 @@ class _$_GetInfo implements _GetInfo {
             int? idVal,
             bool? isFilter)
         getInfo,
+    required TResult Function(Currency currency) getMinMaxPriceYear,
   }) {
     return getInfo(yearValues, priceValues, bodyType, carDriveType, gearboxType,
         idVal, isFilter);
@@ -1408,6 +1451,7 @@ class _$_GetInfo implements _GetInfo {
             int? idVal,
             bool? isFilter)?
         getInfo,
+    TResult? Function(Currency currency)? getMinMaxPriceYear,
   }) {
     return getInfo?.call(yearValues, priceValues, bodyType, carDriveType,
         gearboxType, idVal, isFilter);
@@ -1431,6 +1475,7 @@ class _$_GetInfo implements _GetInfo {
             int? idVal,
             bool? isFilter)?
         getInfo,
+    TResult Function(Currency currency)? getMinMaxPriceYear,
     required TResult orElse(),
   }) {
     if (getInfo != null) {
@@ -1450,6 +1495,7 @@ class _$_GetInfo implements _GetInfo {
     required TResult Function(_GetFilter value) getFilter,
     required TResult Function(_GetHistoryApi value) getHistoryApi,
     required TResult Function(_GetInfo value) getInfo,
+    required TResult Function(_GetMinMaxPriceYear value) getMinMaxPriceYear,
   }) {
     return getInfo(this);
   }
@@ -1464,6 +1510,7 @@ class _$_GetInfo implements _GetInfo {
     TResult? Function(_GetFilter value)? getFilter,
     TResult? Function(_GetHistoryApi value)? getHistoryApi,
     TResult? Function(_GetInfo value)? getInfo,
+    TResult? Function(_GetMinMaxPriceYear value)? getMinMaxPriceYear,
   }) {
     return getInfo?.call(this);
   }
@@ -1478,6 +1525,7 @@ class _$_GetInfo implements _GetInfo {
     TResult Function(_GetFilter value)? getFilter,
     TResult Function(_GetHistoryApi value)? getHistoryApi,
     TResult Function(_GetInfo value)? getInfo,
+    TResult Function(_GetMinMaxPriceYear value)? getMinMaxPriceYear,
     required TResult orElse(),
   }) {
     if (getInfo != null) {
@@ -1506,6 +1554,201 @@ abstract class _GetInfo implements AnnouncementListEvent {
   bool? get isFilter;
   @JsonKey(ignore: true)
   _$$_GetInfoCopyWith<_$_GetInfo> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_GetMinMaxPriceYearCopyWith<$Res> {
+  factory _$$_GetMinMaxPriceYearCopyWith(_$_GetMinMaxPriceYear value,
+          $Res Function(_$_GetMinMaxPriceYear) then) =
+      __$$_GetMinMaxPriceYearCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Currency currency});
+}
+
+/// @nodoc
+class __$$_GetMinMaxPriceYearCopyWithImpl<$Res>
+    extends _$AnnouncementListEventCopyWithImpl<$Res, _$_GetMinMaxPriceYear>
+    implements _$$_GetMinMaxPriceYearCopyWith<$Res> {
+  __$$_GetMinMaxPriceYearCopyWithImpl(
+      _$_GetMinMaxPriceYear _value, $Res Function(_$_GetMinMaxPriceYear) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? currency = null,
+  }) {
+    return _then(_$_GetMinMaxPriceYear(
+      null == currency
+          ? _value.currency
+          : currency // ignore: cast_nullable_to_non_nullable
+              as Currency,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_GetMinMaxPriceYear implements _GetMinMaxPriceYear {
+  _$_GetMinMaxPriceYear(this.currency);
+
+  @override
+  final Currency currency;
+
+  @override
+  String toString() {
+    return 'AnnouncementListEvent.getMinMaxPriceYear(currency: $currency)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_GetMinMaxPriceYear &&
+            (identical(other.currency, currency) ||
+                other.currency == currency));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, currency);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_GetMinMaxPriceYearCopyWith<_$_GetMinMaxPriceYear> get copyWith =>
+      __$$_GetMinMaxPriceYearCopyWithImpl<_$_GetMinMaxPriceYear>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool? isNew) getAnnouncementList,
+    required TResult Function(bool? ismake) getFilterClear,
+    required TResult Function(List<Region> regions) getRegions,
+    required TResult Function(bool isHistory, bool? isNew) getIsHistory,
+    required TResult Function(AnnouncementFilterModel filter) getFilter,
+    required TResult Function() getHistoryApi,
+    required TResult Function(
+            RangeValues? yearValues,
+            RangeValues? priceValues,
+            BodyTypeEntity? bodyType,
+            DriveTypeEntity? carDriveType,
+            GearboxTypeEntity? gearboxType,
+            int? idVal,
+            bool? isFilter)
+        getInfo,
+    required TResult Function(Currency currency) getMinMaxPriceYear,
+  }) {
+    return getMinMaxPriceYear(currency);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool? isNew)? getAnnouncementList,
+    TResult? Function(bool? ismake)? getFilterClear,
+    TResult? Function(List<Region> regions)? getRegions,
+    TResult? Function(bool isHistory, bool? isNew)? getIsHistory,
+    TResult? Function(AnnouncementFilterModel filter)? getFilter,
+    TResult? Function()? getHistoryApi,
+    TResult? Function(
+            RangeValues? yearValues,
+            RangeValues? priceValues,
+            BodyTypeEntity? bodyType,
+            DriveTypeEntity? carDriveType,
+            GearboxTypeEntity? gearboxType,
+            int? idVal,
+            bool? isFilter)?
+        getInfo,
+    TResult? Function(Currency currency)? getMinMaxPriceYear,
+  }) {
+    return getMinMaxPriceYear?.call(currency);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool? isNew)? getAnnouncementList,
+    TResult Function(bool? ismake)? getFilterClear,
+    TResult Function(List<Region> regions)? getRegions,
+    TResult Function(bool isHistory, bool? isNew)? getIsHistory,
+    TResult Function(AnnouncementFilterModel filter)? getFilter,
+    TResult Function()? getHistoryApi,
+    TResult Function(
+            RangeValues? yearValues,
+            RangeValues? priceValues,
+            BodyTypeEntity? bodyType,
+            DriveTypeEntity? carDriveType,
+            GearboxTypeEntity? gearboxType,
+            int? idVal,
+            bool? isFilter)?
+        getInfo,
+    TResult Function(Currency currency)? getMinMaxPriceYear,
+    required TResult orElse(),
+  }) {
+    if (getMinMaxPriceYear != null) {
+      return getMinMaxPriceYear(currency);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetAnnouncementList value) getAnnouncementList,
+    required TResult Function(_GetFilterClear value) getFilterClear,
+    required TResult Function(_GetRegions value) getRegions,
+    required TResult Function(_GetIsHistory value) getIsHistory,
+    required TResult Function(_GetFilter value) getFilter,
+    required TResult Function(_GetHistoryApi value) getHistoryApi,
+    required TResult Function(_GetInfo value) getInfo,
+    required TResult Function(_GetMinMaxPriceYear value) getMinMaxPriceYear,
+  }) {
+    return getMinMaxPriceYear(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetAnnouncementList value)? getAnnouncementList,
+    TResult? Function(_GetFilterClear value)? getFilterClear,
+    TResult? Function(_GetRegions value)? getRegions,
+    TResult? Function(_GetIsHistory value)? getIsHistory,
+    TResult? Function(_GetFilter value)? getFilter,
+    TResult? Function(_GetHistoryApi value)? getHistoryApi,
+    TResult? Function(_GetInfo value)? getInfo,
+    TResult? Function(_GetMinMaxPriceYear value)? getMinMaxPriceYear,
+  }) {
+    return getMinMaxPriceYear?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetAnnouncementList value)? getAnnouncementList,
+    TResult Function(_GetFilterClear value)? getFilterClear,
+    TResult Function(_GetRegions value)? getRegions,
+    TResult Function(_GetIsHistory value)? getIsHistory,
+    TResult Function(_GetFilter value)? getFilter,
+    TResult Function(_GetHistoryApi value)? getHistoryApi,
+    TResult Function(_GetInfo value)? getInfo,
+    TResult Function(_GetMinMaxPriceYear value)? getMinMaxPriceYear,
+    required TResult orElse(),
+  }) {
+    if (getMinMaxPriceYear != null) {
+      return getMinMaxPriceYear(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetMinMaxPriceYear implements AnnouncementListEvent {
+  factory _GetMinMaxPriceYear(final Currency currency) = _$_GetMinMaxPriceYear;
+
+  Currency get currency;
+  @JsonKey(ignore: true)
+  _$$_GetMinMaxPriceYearCopyWith<_$_GetMinMaxPriceYear> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

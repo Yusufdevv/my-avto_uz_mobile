@@ -1,4 +1,4 @@
-package org.uicgroup.auto.uz
+package org.uicgroup.avto.uz
 
 import android.app.Application
 import com.yandex.mapkit.MapKitFactory

@@ -1,4 +1,4 @@
-package org.uicgroup.auto.uz
+package org.uicgroup.avto.uz
 
 import com.yandex.mapkit.MapKitFactory
 import io.flutter.embedding.android.FlutterActivity
