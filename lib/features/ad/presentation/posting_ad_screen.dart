@@ -53,6 +53,7 @@ import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -83,6 +84,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
   late AnimationController animeController;
   static int initialPage = 0;
   final int tabLength = 20;
+
   @override
   void initState() {
     animeController = AnimationController(
@@ -184,6 +186,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
     LocaleKeys.Mileage.tr(),
     LocaleKeys.preispection.tr(),
   ];
+
   void hidePopUp() {
     context.read<ShowPopUpBloc>().add(HidePopUp());
   }
@@ -194,7 +197,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
           HomeTabControllerProvider.of(widget.parentContext)
               .controller
               .animateTo(0);
-          return Future.value(false);
+          return Future.value(widget.announcementId != null);
         },
         child: CustomScreen(
           child: AnnotatedRegion(
@@ -210,47 +213,75 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                 BlocProvider(create: (c) => postingAdBloc)
               ],
               child: BlocConsumer<PostingAdBloc, PostingAdState>(
-                listener: (context, state) async {
-                  if (state.createStatus == FormzStatus.submissionSuccess) {
-                    context.read<ShowPopUpBloc>().add(ShowPopUp(
+                  listener: (context, state) async {
+                if (state.createStatus == FormzStatus.submissionSuccess) {
+                  context.read<ShowPopUpBloc>().add(ShowPopUp(
+                        message: state.toastMessage!,
+                        status: PopStatus.success,
+                        dismissible: false,
+                      ));
+                  await Future.delayed(const Duration(milliseconds: 1000));
+                  hidePopUp();
+
+                  HomeTabControllerProvider.of(widget.parentContext)
+                      .controller
+                      .animateTo(4);
+                  context
+                      .read<ProfileBloc>()
+                      .add(ChangeCountDataEvent(adding: true, myAdsCount: 1));
+                  context
+                      .read<WishlistAddBloc>()
+                      .add(WishlistAddEvent.goToAdds(1));
+                  currentTabIndex = 0;
+                  await Future.delayed(const Duration(milliseconds: 500));
+                  await pageController.animateToPage(currentTabIndex,
+                      duration: const Duration(milliseconds: 150),
+                      curve: Curves.linear);
+                  postingAdBloc.add(PostingAdClearStateEvent());
+                  setState(() {});
+                  return;
+                }
+
+                if (state.toastMessage != null &&
+                    state.toastMessage!.isNotEmpty) {
+                  context.read<ShowPopUpBloc>().add(
+                        ShowPopUp(
                           message: state.toastMessage!,
-                          status: PopStatus.success,
+                          status: state.popStatus,
                           dismissible: false,
-                        ));
-                    await Future.delayed(const Duration(milliseconds: 1000));
-                    hidePopUp();
-
-                    HomeTabControllerProvider.of(widget.parentContext)
-                        .controller
-                        .animateTo(4);
-                    context
-                        .read<WishlistAddBloc>()
-                        .add(WishlistAddEvent.goToAdds(1));
-                    currentTabIndex = 0;
-                    await Future.delayed(const Duration(milliseconds: 500));
-                    await pageController.animateToPage(currentTabIndex,
-                        duration: const Duration(milliseconds: 150),
-                        curve: Curves.linear);
-                    postingAdBloc.add(PostingAdClearStateEvent());
-                    setState(() {});
-                    return;
-                  }
-
-                  if (state.toastMessage != null &&
-                      state.toastMessage!.isNotEmpty) {
-                    context.read<ShowPopUpBloc>().add(
-                          ShowPopUp(
-                            message: state.toastMessage!,
-                            status: state.popStatus,
-                            dismissible: false,
-                          ),
-                        );
-                    postingAdBloc.add(PostingAdShowToastEvent(
-                        message: '', status: PopStatus.success));
-                  }
-                },
-                builder: (context, state) =>
-                    BlocBuilder<ChooseMakeAnimeBloc, ChooseMakeAnimeState>(
+                        ),
+                      );
+                  postingAdBloc.add(PostingAdShowToastEvent(
+                      message: '', status: PopStatus.success));
+                }
+              }, builder: (context, state) {
+                if (state.getAnnouncementToEditStatus !=
+                    FormzStatus.submissionFailure) {
+                  return Scaffold(
+                      body: Center(
+                          child: Padding(
+                              padding: EdgeInsets.all(20),
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      state.toastMessage ??
+                                          'something went wrong',
+                                      textAlign: TextAlign.center,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline1!
+                                          .copyWith(fontSize: 24),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    WButton(
+                                        text: 'OK',
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                        })
+                                  ]))));
+                }
+                return BlocBuilder<ChooseMakeAnimeBloc, ChooseMakeAnimeState>(
                   builder: (context, animeState) => Scaffold(
                     appBar: PreferredSize(
                       preferredSize: const Size.fromHeight(54),
@@ -411,7 +442,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                 hidePopUp();
                                 if (currentTabIndex < tabLength - 1) {
                                   if (currentTabIndex == 0 &&
-                                      animeState.isCollapsed) { 
+                                      animeState.isCollapsed) {
                                     animeState.animationController.reverse();
                                   }
                                   currentTabIndex++;
@@ -464,8 +495,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                       ],
                     ),
                   ),
-                ),
-              ),
+                );
+              }),
             ),
           ),
         ),

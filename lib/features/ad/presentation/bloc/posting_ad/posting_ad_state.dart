@@ -6,6 +6,8 @@ class PostingAdState extends Equatable {
   final FormzStatus getDistrictsStatus;
   final FormzStatus getMakesStatus;
   final FormzStatus createStatus;
+
+  final FormzStatus getAnnouncementToEditStatus;
   final String? id;
   final TextEditingController phoneController;
   final TextEditingController emailController;
@@ -74,6 +76,7 @@ class PostingAdState extends Equatable {
 
   const PostingAdState({
     required this.status,
+    required this.getAnnouncementToEditStatus,
     required this.searchController,
     required this.phoneController,
     required this.emailController,
@@ -166,6 +169,7 @@ class PostingAdState extends Equatable {
     FormzStatus? getDistrictsStatus,
     FormzStatus? createStatus,
     FormzStatus? getMakesStatus,
+    FormzStatus? getAnnouncementToEditStatus,
     PopStatus? popStatus,
     ModificationTypeEntity? modification,
     List<ModificationTypeEntity>? modifications,
@@ -227,7 +231,9 @@ class PostingAdState extends Equatable {
     // print('====   ACTUALLY IN STATE:  ${this.districts}  ====');
     // print('==== INCOMING DISTRICT TO COPYWITH:  ${districts}  ====');
     final newState = PostingAdState(
-      popStatus: popStatus??this.popStatus,
+      getAnnouncementToEditStatus:
+          getAnnouncementToEditStatus ?? this.getAnnouncementToEditStatus,
+      popStatus: popStatus ?? this.popStatus,
       milageImage: milageImage ?? this.milageImage,
       modification: modification ?? this.modification,
       modifications: modifications ?? this.modifications,
@@ -274,9 +280,7 @@ class PostingAdState extends Equatable {
       make: make ?? this.make,
       letter: eventLetter,
       colorName: colorName ?? this.colorName,
-
       licenceType: licenceType ?? this.licenceType,
-
       ownerStep: ownerStep ?? this.ownerStep,
       purchasedDate: purchasedDate ?? this.purchasedDate,
       notRegisteredInUzbekistan:
@@ -308,7 +312,8 @@ class PostingAdState extends Equatable {
 
   @override
   List<Object?> get props => [
-    popStatus,
+        getAnnouncementToEditStatus,
+        popStatus,
         milageImage,
         modification,
         modifications,
@@ -375,11 +380,12 @@ class PostingAdState extends Equatable {
         showOwnerContacts,
         isContactsVerified,
       ];
+
   bool buttonStatus(int page) => PASingleton.buttonStatus(page, this);
+
   Region get getSelectedRegion {
     final v = regions.firstWhere((e) => e.id == regionId,
         orElse: () => const Region(id: -1, name: '', title: ''));
     return v;
   }
-
 }

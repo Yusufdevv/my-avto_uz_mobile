@@ -133,7 +133,7 @@ class PASingleton {
     String? phone = '';
     try {
       phone = MyFunctions.phoneFormat(v.user.phoneNumber.substring(4));
-    // ignore: avoid_catches_without_on_clauses
+      // ignore: avoid_catches_without_on_clauses
     } catch (e) {
       phone = null;
     }
@@ -146,6 +146,7 @@ class PASingleton {
     }
 
     return PostingAdState(
+      getAnnouncementToEditStatus: FormzStatus.submissionSuccess,
       licenceType: v.licenceType,
       gallery: gallery,
       popStatus: PopStatus.success,
@@ -155,7 +156,7 @@ class PASingleton {
       emailController: TextEditingController(),
       nameController: TextEditingController(
           text: v.user.name.isEmpty ? v.user.fullName : v.user.name),
-      status: FormzStatus.submissionSuccess,
+      status: FormzStatus.pure,
       bodyType: BodyTypeEntity(
           logo: v.bodyType.logo ?? '',
           id: v.bodyType.id,
@@ -396,11 +397,11 @@ class PASingleton {
       // MileageScreen
       case 18:
         final milage =
-            int.tryParse(state.mileage?.replaceAll(' ', '') ?? '0') ?? 0; 
+            int.tryParse(state.mileage?.replaceAll(' ', '') ?? '0') ?? 0;
 
         final v = !(milage > 0 ||
             (state.isWithoutMileage ?? false) ||
-            state.milageImage != null); 
+            state.milageImage != null);
         return v;
       // PreviewScreen
       case 19:
