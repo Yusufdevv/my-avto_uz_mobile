@@ -63,13 +63,34 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     var profileData = state.profileEntity;
     var announcementWishlistCount =
         profileData.usercountdata.announcementWishlistCount;
+    var mySearchesCount = profileData.usercountdata.filterHistoryCount;
+    var myAdsCount = profileData.usercountdata.announcementsCount;
     if (event.adding) {
-      announcementWishlistCount += 1;
+      if (event.favoritesCount != null) {
+        announcementWishlistCount += event.favoritesCount!;
+      }
+      if (event.mySearchesCount != null) {
+        mySearchesCount += event.mySearchesCount!;
+      }
+      if (event.myAdsCount != null) {
+        myAdsCount += event.myAdsCount!;
+      }
     } else {
-      announcementWishlistCount -= 1;
+      if (event.favoritesCount != null) {
+        announcementWishlistCount -= event.favoritesCount!;
+      }
+      if (event.mySearchesCount != null) {
+        mySearchesCount -= event.mySearchesCount!;
+      }
+      if (event.myAdsCount != null) {
+        myAdsCount -= event.myAdsCount!;
+      }
     }
     profileData.usercountdata.announcementWishlistCount =
         announcementWishlistCount;
+    profileData.usercountdata.filterHistoryCount = mySearchesCount;
+    profileData.usercountdata.announcementsCount = myAdsCount;
+
     emit(state.copyWith(
         profileEntity: profileData,
         changeStatus: FormzStatus.submissionSuccess));

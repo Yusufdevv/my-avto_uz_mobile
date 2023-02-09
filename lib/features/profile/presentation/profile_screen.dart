@@ -70,12 +70,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             if (stateWish.addStatus.isSubmissionSuccess) {
               context
                   .read<ProfileBloc>()
-                  .add(ChangeCountDataEvent(adding: true));
+                  .add(ChangeCountDataEvent(adding: true, favoritesCount: 1));
             }
             if (stateWish.removeStatus.isSubmissionSuccess) {
               context
                   .read<ProfileBloc>()
-                  .add(ChangeCountDataEvent(adding: false));
+                  .add(ChangeCountDataEvent(adding: false, favoritesCount: 1));
             }
           },
           builder: (context, stateWish) =>

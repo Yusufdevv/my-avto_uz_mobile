@@ -13,7 +13,11 @@ class GetTermsOfUseEvent extends ProfileEvent {
 
 class ChangeCountDataEvent extends ProfileEvent {
   final bool adding;
-  ChangeCountDataEvent({required this.adding});
+  final int? favoritesCount;
+  final int? mySearchesCount;
+  final int? myAdsCount;
+
+  ChangeCountDataEvent({required this.adding,   this.favoritesCount, this.mySearchesCount,this.myAdsCount,});
 }
 
 class LoginUser extends ProfileEvent {
