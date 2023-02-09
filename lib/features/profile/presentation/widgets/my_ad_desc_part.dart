@@ -113,13 +113,11 @@ class MyAdDesc extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 11),
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            fade(
-                                page: PostingAdScreen(
-                              parentContext: context,
-                              announcementId: item.id,
-                            )));
+                        Navigator.of(context, rootNavigator: true).push(fade(
+                            page: PostingAdScreen(
+                          parentContext: context,
+                          announcementId: item.id,
+                        )));
                       },
                       child: SvgPicture.asset(AppIcons.editProfile,
                           color: Theme.of(context)
@@ -182,8 +180,7 @@ class MyAdDesc extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 11),
                       onTap: () {
-                        Navigator.push(
-                          context,
+                        Navigator.of(context, rootNavigator: true).push(
                           fade(
                             page: PostingAdScreen(
                               parentContext: context,

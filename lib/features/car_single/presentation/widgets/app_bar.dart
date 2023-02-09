@@ -122,13 +122,11 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
               child: widget.isMine
                   ? GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            fade(
-                                page: PostingAdScreen(
-                              parentContext: context,
-                              announcementId: widget.id,
-                            )));
+                        Navigator.of(context, rootNavigator: true).push(fade(
+                            page: PostingAdScreen(
+                          parentContext: context,
+                          announcementId: widget.id,
+                        )));
                       },
                       behavior: HitTestBehavior.opaque,
                       child: SvgPicture.asset(
