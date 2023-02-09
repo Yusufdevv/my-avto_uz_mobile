@@ -22,8 +22,6 @@ class DealerUseCase
     if (params.filter?.mark != null) {
       map.putIfAbsent('mark', () => params.filter?.mark);
     }
-    print('map:$map');
-
     return await repo.fetchMore(
       url: '/users/dealers/',
       fromJson: DealerCardModel.fromJson,

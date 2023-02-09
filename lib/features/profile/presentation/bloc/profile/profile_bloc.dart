@@ -99,7 +99,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   Future<void> _onGetNoReadNotificationsEvent(
       GetNoReadNotificationsEvent event, Emitter<ProfileState> emit) async {
     emit(state.copyWith(changeStatus: FormzStatus.submissionInProgress));
-    final result = await getNotificationsUseCase.call(event.filter);
+    final result = await getNotificationsUseCase.call(NotificationParams(filter: event.filter));
     if (result.isRight) {
       emit(state.copyWith(
           changeStatus: FormzStatus.submissionSuccess,

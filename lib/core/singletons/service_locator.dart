@@ -34,12 +34,12 @@ void setupLocator() {
     ..registerLazySingleton(UserSingleDataSourceImpl.new)
     ..registerLazySingleton(DealerSingleDataSource.new)
     ..registerLazySingleton(DealerSingleRepositoryImpl.new)
+    ..registerLazySingleton(GetUserListRepoImpl.new)
+    ..registerLazySingleton(GetUserListDatasourceImpl.new)
     ..registerLazySingleton(
         () => ProfileRepositoryImpl(dataSource: ProfileDataSourceImpl()))
     ..registerLazySingleton(
         () => GetRegionsRepositoryImpl(dataSource: GetRegionsDatasourceImpl()))
-    ..registerLazySingleton(
-        () => GetUserListRepoImpl(dataSource: GetUserListDatasourceImpl()))
     ..registerLazySingleton(
         () => ComparisonDataSourceImpl(serviceLocator<DioSettings>().dio))
     ..registerLazySingleton(
