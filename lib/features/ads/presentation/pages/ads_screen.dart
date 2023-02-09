@@ -62,27 +62,19 @@ class _AdsScreenState extends State<AdsScreen>
 
   @override
   void initState() {
-    _scrollController = ScrollController()
-      ..addListener(_scrollListener);
+    _scrollController = ScrollController()..addListener(_scrollListener);
     tabController = TabController(length: 3, vsync: this);
-    if (context
-        .read<RegionsBloc>()
-        .state
-        .regions
-        .isEmpty) {
+    if (context.read<RegionsBloc>().state.regions.isEmpty) {
       context.read<RegionsBloc>().add(RegionsEvent.getRegions());
-      announcementListBloc = AnnouncementListBloc();
-      announcementListBloc..add(
-          AnnouncementListEvent.getInfo(isFilter: false))..add(
-          AnnouncementListEvent.getIsHistory(true))..add(
-          AnnouncementListEvent.getFilterClear())..add(
-          AnnouncementListEvent.getIsHistory(
-              context
-                  .read<GetMakesBloc>()
-                  .state
-                  .selectId <= 0));
-      super.initState();
     }
+    announcementListBloc = AnnouncementListBloc();
+    announcementListBloc
+      ..add(AnnouncementListEvent.getInfo(isFilter: false))
+      ..add(AnnouncementListEvent.getIsHistory(true))
+      ..add(AnnouncementListEvent.getFilterClear())
+      ..add(AnnouncementListEvent.getIsHistory(
+          context.read<GetMakesBloc>().state.selectId <= 0));
+    super.initState();
   }
 
   @override
@@ -218,10 +210,10 @@ class _AdsScreenState extends State<AdsScreen>
                               ));
                         }
                         setState(() {});
-                        
-                      //!mysearches ni sonini oshirish uchun ishlatilgan, mySearchesCount nechta qo'shishni bildiradi
-                      context.read<ProfileBloc>().add(ChangeCountDataEvent(
-                          adding: true, mySearchesCount: 1));
+
+                        //!mysearches ni sonini oshirish uchun ishlatilgan, mySearchesCount nechta qo'shishni bildiradi
+                        context.read<ProfileBloc>().add(ChangeCountDataEvent(
+                            adding: true, mySearchesCount: 1));
                       },
                       child: AnimatedContainer(
                         alignment: crossFadeState == CrossFadeState.showFirst
