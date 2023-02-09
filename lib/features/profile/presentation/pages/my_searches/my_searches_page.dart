@@ -69,6 +69,9 @@ class _MySearchesPageState extends State<MySearchesPage> {
                           WScaleAnimation(
                             onTap: () {
                               if (mySearches.isNotEmpty) {
+                                if (isToggled) {
+                                  deletedList.clear();
+                                }
                                 setState(() {
                                   isToggled = !isToggled;
                                 });
@@ -179,6 +182,9 @@ class _MySearchesPageState extends State<MySearchesPage> {
                                         setState(() {});
                                         mySearches.removeWhere(
                                             (e) => deletedList.contains(e));
+                                            context
+                                            .read<ProfileBloc>()
+                                            .add(GetProfileEvent());
                                         deletedList.clear();
                                         isToggled = false;
                                         Navigator.pop(context);
