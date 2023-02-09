@@ -108,12 +108,13 @@ class _NotificationPageState extends State<NotificationPage> {
                     final notifications = state.notifications;
                     return notifications.isNotEmpty
                         ? Paginator(
-                          paginatorStatus: state.myAdsStatus,
-                          fetchMoreFunction: () {
-                            
-                          },
-                          hasMoreToFetch: state.moreFetchNotifications,
-                          errorWidget: const SizedBox(),
+                            paginatorStatus: state.myAdsStatus,
+                            fetchMoreFunction: () {
+                              bloc.add(GetMoreNotificationsEvent());
+                            },
+                            hasMoreToFetch: state.moreFetchNotifications,
+                            loadingWidget: const SizedBox(),
+                            errorWidget: const SizedBox(),
                             physics: const BouncingScrollPhysics(),
                             itemCount: notifications.length,
                             itemBuilder: (context, index) {

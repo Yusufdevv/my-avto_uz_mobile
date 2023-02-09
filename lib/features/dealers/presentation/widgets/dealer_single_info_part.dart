@@ -173,8 +173,8 @@ class Info extends StatelessWidget {
           SvgPicture.asset(icon),
           const SizedBox(width: 8),
           Expanded(
-            child: WScaleAnimation(
-              onTap: onTap ?? () {},
+            child: GestureDetector(
+              onTap: onTap,
               child: Text(
                 text,
                 maxLines: 4,
