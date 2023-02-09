@@ -6,9 +6,11 @@ import 'package:auto/features/ad/presentation/pages/add_photo/widgets/add_photo_
 import 'package:auto/features/ad/presentation/pages/add_photo/widgets/photo_item.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
+import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:auto/generated/locale_keys.g.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -69,7 +71,6 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                           ),
                         );
                     imageBloc.add(PickImageEmptyToastMessageEvent());
-
                   }
                   widget.onImageChanged(state.images);
                   widget.onPanaramaChanged(state.panaramaImages);
@@ -110,6 +111,14 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                         imageBloc.add(PickPanaramaImageEvent());
                       },
                     ),
+                    // WButton(
+                    //     text: 'print',
+                    //     onTap: () {
+                    //       String str = '9823452374';
+                    //
+                    //       print(
+                    //           '=====> ${MyFunctions.getThousandsSeperatedPrice('1241234523425')}');
+                    //     }),
                   ],
                 ),
               ),

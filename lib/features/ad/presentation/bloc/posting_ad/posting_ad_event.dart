@@ -115,16 +115,16 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final int? districtId;
   final List<RentWithPurchaseEntity>? rentWithPurchaseConditions;
   final Map<DamagedParts, DamageType>? damagedParts;
-  final int? modificationId;
-  final int? modelId;
+  final ModificationTypeEntity? modification;
+  final MakeEntity? model;
   final int? generationId;
 
   final int? popularTypeId;
-  final int? makeId;
+  final MakeEntity? make;
   final int? engineId;
-  final int? selectedBodyTypeId;
+  final BodyTypeEntity? bodyType;
   final int? driveTypeId;
-  final int? gearboxId;
+  final GearboxTypeEntity? gearbox;
   final YearsEntity? yearEntity;
   final Uint8List? bodyBytes;
   final String? milageImage;
@@ -160,7 +160,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final bool? isNew;
 
   PostingAdChooseEvent({
-    this.modificationId,
+    this.modification,
     this.searchController,
     this.panaramaGallery,
     this.bodyBytes,
@@ -179,14 +179,14 @@ class PostingAdChooseEvent extends PostingAdEvent {
     this.districtId,
     this.driveTypeId,
     this.generationId,
-    this.selectedBodyTypeId,
+    this.bodyType,
     this.years,
-    this.modelId,
+    this.model,
     this.letter,
-    this.makeId,
+    this.make,
     this.popularTypeId,
     this.engineId,
-    this.gearboxId,
+    this.gearbox,
     this.colorName,
     this.typeDocument,
     this.ownerStep,

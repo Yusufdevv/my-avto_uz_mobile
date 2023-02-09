@@ -31,11 +31,12 @@ class _GearboxScreenState extends State<GearboxScreen> {
             return ListView.builder(
               physics: const BouncingScrollPhysics(),
               itemBuilder: (context, index) => PostingRadioItem(
-                onTap: () => context.read<PostingAdBloc>().add(
-                    PostingAdChooseEvent(gearboxId: state.gearBoxes[index].id)),
+                onTap: () => context
+                    .read<PostingAdBloc>()
+                    .add(PostingAdChooseEvent(gearbox: state.gearBoxes[index])),
                 image: state.gearBoxes[index].logo,
                 title: state.gearBoxes[index].type,
-                selected: state.gearBoxes[index].id == state.gearboxId,
+                selected: state.gearBoxes[index].id == state.gearbox?.id,
               ),
               itemCount: state.gearBoxes.length,
             );

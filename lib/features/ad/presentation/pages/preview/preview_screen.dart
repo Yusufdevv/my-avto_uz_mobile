@@ -34,9 +34,7 @@ class PreviewScreen extends StatelessWidget {
                       ImageViewer(
                           images: [...state.gallery, ...state.panaramaGallery]),
                       const SizedBox(height: 12),
-                      CarModelText(
-                          text:
-                              '${state.makes[state.makes.indexWhere((element) => element.id == state.makeId)]}'),
+                      CarModelText(text: state.model?.name ?? 'null'),
                       CarPriceText(text: '${state.price}'),
                       const SizedBox(height: 12),
                       DateAndViewsRow(date: state.purchasedDate!),
@@ -54,36 +52,25 @@ class PreviewScreen extends StatelessWidget {
                               ? ''
                               : '${state.yearEntity!.yearBegin}'),
                       CarInfoRow(
-                          title: LocaleKeys.Mileage.tr(), info: '${state.mileage}'),
+                          title: LocaleKeys.Mileage.tr(),
+                          info: state.mileage ?? '0'),
                       CarInfoRow(
                           title: LocaleKeys.body.tr(),
-                          info: state.bodyTypes.isEmpty
-                              ? 'not selected'
-                              : state.bodyTypes
-                                  .firstWhere((e) => e.id == state.bodyTypeId)
-                                  .type),
+                          info: state.bodyType?.type ?? 'null'),
                       CarInfoRow(
                         title: LocaleKeys.color.tr(),
                         info: '${state.colorName}',
                       ),
                       CarInfoRow(
                           title: LocaleKeys.complectation.tr(),
-                          info: 'hsergfd'),
+                          info: 'really soon'),
                       CarInfoRow(
                         title: LocaleKeys.engine_volume_l.tr(),
-                        info: state.modifications
-                            .singleWhere((e) => e.id == state.modificationId,
-                                orElse: () => const ModificationTypeModel(
-                                    volume: '', id: -1, power: ''))
-                            .volume,
+                        info: state.modification?.volume ?? '',
                       ),
                       CarInfoRow(
                         title: LocaleKeys.Transmission.tr(),
-                        info: state.gearBoxes.isEmpty
-                            ? 'not selected'
-                            : state.gearBoxes
-                                .firstWhere((e) => e.id == state.gearboxId)
-                                .type,
+                        info: state.gearbox?.type ?? '',
                       ),
                       CarInfoRow(
                         title: LocaleKeys.rastamojen_v_uzbekistan.tr(),

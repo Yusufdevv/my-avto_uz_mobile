@@ -35,8 +35,8 @@ class _BodyTypeScreenState extends State<BodyTypeScreen> {
                 itemBuilder: (context, index) => PostingRadioItem(
                   onTap: () => context.read<PostingAdBloc>().add(
                       PostingAdChooseEvent(
-                          selectedBodyTypeId: state.bodyTypes[index].id)),
-                  selected: state.bodyTypes[index].id == state.bodyTypeId,
+                          bodyType: state.bodyTypes[index])),
+                  selected: state.bodyTypes[index].id == state.bodyType?.id,
                   title: state.bodyTypes[index].type,
                   image: state.bodyTypes[index].logo,
                 ),
