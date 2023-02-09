@@ -183,21 +183,22 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                     BlocBuilder<GetMakesBloc, GetMakesState>(
                       builder: (context, state) => CarModelItem(
-                          onTapSelect: () =>
-                              Navigator.of(context, rootNavigator: true)
-                                  .push(fade(
-                                      page: const ChooseCarBrandComparison(
-                                isbak: true,
-                                isClear: true,
-                              ))),
-                          onTapShow: () {
+                        onTapSelect: () =>
                             Navigator.of(context, rootNavigator: true)
-                                .push(fade(page: const AdsScreen()));
-                          },
-                          imageUrl: state.imageUrl,
-                          title: state.name,
-                          count: 123123123,
-                          isCheck: state.ischeck),
+                                .push(fade(
+                                    page: const ChooseCarBrandComparison(
+                          isbak: true,
+                          isClear: true,
+                        ))),
+                        onTapShow: () {
+                          Navigator.of(context, rootNavigator: true)
+                              .push(fade(page: const AdsScreen()));
+                        },
+                        imageUrl: state.imageUrl,
+                        title: state.name,
+                        count: 1231231233,
+                        isCheck: state.ischeck,
+                      ),
                     ),
                     SizedBox(
                       height: 64,
