@@ -136,12 +136,14 @@ class _MapScreenState extends State<MapScreen>
                       mapOrganizationBloc.add(
                         MapOrganizationEvent.getCurrentLocation(
                           onError: (message) {
+                            print('ON ERROR TRIGGERED IN GET CURRENT LOCATION');
                             context.read<ShowPopUpBloc>().add(ShowPopUp(
                                   message: message,
                                   status: PopStatus.error,
                                 ));
                           },
                           onSuccess: (position) async {
+                            print('GET CURRENT LOCATION ON SUCCESS TRIGGERED');
                             myPoint = Point(
                                 latitude: position.latitude,
                                 longitude: position.longitude);
@@ -163,6 +165,7 @@ class _MapScreenState extends State<MapScreen>
                                   duration: 0.15,
                                   type: MapAnimationType.smooth),
                             );
+                            print("CHANGE LANG LONG TRIGGERED");
                             mapOrganizationBloc.add(
                               MapOrganizationEvent.changeLatLong(
                                 lat: position.latitude,
