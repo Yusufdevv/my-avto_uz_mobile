@@ -41,7 +41,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<EditProfileEvent>(_onEditProfile);
     on<GetTermsOfUseEvent>(_onGetTermsOfUse);
     on<LoginUser>(_onLoginUser);
-    on<ChangeCountDataEvent>(_onChangeIsWish);
+    on<ChangeCountDataEvent>(_onChangeCountData);
     on<GetNoReadNotificationsEvent>(_onGetNoReadNotificationsEvent);
 
     on<ChangeNotificationAllRead>(
@@ -57,7 +57,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       },
     );
   }
-  void _onChangeIsWish(ChangeCountDataEvent event, Emitter<ProfileState> emit) {
+  void _onChangeCountData(ChangeCountDataEvent event, Emitter<ProfileState> emit) {
     emit(state.copyWith(changeStatus: FormzStatus.submissionInProgress));
     // ignore: prefer_final_locals
     var profileData = state.profileEntity;
