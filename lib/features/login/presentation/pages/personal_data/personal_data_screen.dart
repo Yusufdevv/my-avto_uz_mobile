@@ -82,54 +82,137 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                         color: darkGray.withOpacity(0.08))
                   ],
                 ),
-                body: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      LoginHeader(
-                        title: LocaleKeys.personal_data.tr(),
-                        description: LocaleKeys.complete_registration.tr(),
-                        hasSizedBox: false,
-                      ),
-                      const SizedBox(height: 36),
-                      AddPhotoItem(
-                        onTap: hidePopUp,
-                      ),
-                      PersonalDataItemm(
-                        isRequired: true,
-                        onTap: hidePopUp,
-                        title: LocaleKeys.full_name.tr(),
-                        controller: nameController,
-                        hintText: LocaleKeys.enter_fullname.tr(),
-                        onChanged: (value) {
-                          setState(() {});
-                        },
-                      ),
-                      RegionButton(
-                        onTap: hidePopUp,
-                        title: '',
-                      ),
-                      PersonalDataItemm(
-                        onTap: hidePopUp,
-                        title: LocaleKeys.email.tr(),
-                        controller: emailController,
-                        hintText: 'example@auto.uz',
-                        onChanged: (value) {
-                          setState(() {});
-                        },
-                      ),
-                      const SizedBox(height: 24),
-                      WButton(
-                        onTap: () {
-                          if (nameController.text.isNotEmpty) {
-                            if (emailController.text.isNotEmpty) {
-                              if (!MyFunctions.isEmail(emailController.text)) {
-                                context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                    message: LocaleKeys.please_enter_valid_email
-                                        .tr(),
-                                    status: PopStatus.error,
-                                    dismissible: false));
+                body: SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        left: 16,
+                        right: 16,
+                        top: 16,
+                        bottom: 16 + MediaQuery.of(context).viewInsets.bottom),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        LoginHeader(
+                          title: LocaleKeys.personal_data.tr(),
+                          description: LocaleKeys.complete_registration.tr(),
+                          hasSizedBox: false,
+                        ),
+                        const SizedBox(height: 36),
+                        AddPhotoItem(
+                          onTap: hidePopUp,
+                        ),
+                        PersonalDataItemm(
+                          isRequired: true,
+                          onTap: hidePopUp,
+                          title: LocaleKeys.full_name.tr(),
+                          controller: nameController,
+                          hintText: LocaleKeys.enter_fullname.tr(),
+                          onChanged: (value) {
+                            setState(() {});
+                          },
+                        ),
+                        RegionButton(
+                          onTap: hidePopUp,
+                          title: '',
+                        ),
+                        PersonalDataItemm(
+                          onTap: hidePopUp,
+                          title: LocaleKeys.email.tr(),
+                          controller: emailController,
+                          hintText: 'example@auto.uz',
+                          onChanged: (value) {
+                            setState(() {});
+                          },
+                        ),
+                        const SizedBox(height: 24),
+                        WButton(
+                          onTap: () {
+                            if (nameController.text.isNotEmpty) {
+                              if (emailController.text.isNotEmpty) {
+                                if (!MyFunctions.isEmail(
+                                    emailController.text)) {
+                                  context.read<ShowPopUpBloc>().add(ShowPopUp(
+                                      message: LocaleKeys
+                                          .please_enter_valid_email
+                                          .tr(),
+                                      status: PopStatus.error,
+                                      dismissible: false));
+                                } else {
+                                  context.read<RegisterBloc>().add(
+                                        RegisterEvent.setName(
+                                          fullName: nameController.text,
+                                          email: emailController.text,
+                                          onSuccess: () {
+                                            Navigator.push(
+                                              context,
+                                              fade(
+                                                page: BlocProvider.value(
+                                                  value: context
+                                                      .read<RegisterBloc>(),
+                                                  child: NewPasswordScreen(
+                                                    onSubmit: (password,
+                                                        confirmPassword) {
+                                                      context
+                                                          .read<RegisterBloc>()
+                                                          .add(
+                                                            RegisterEvent
+                                                                .register(
+                                                              validPassword:
+                                                                  password,
+                                                              onError: (text) {
+                                                                var error =
+                                                                    text;
+                                                                if (error
+                                                                        .toLowerCase()
+                                                                        .contains(
+                                                                            'dio') ||
+                                                                    error
+                                                                        .toLowerCase()
+                                                                        .contains(
+                                                                            'type')) {
+                                                                  error = LocaleKeys
+                                                                      .service_error
+                                                                      .tr();
+                                                                }
+                                                                context
+                                                                    .read<
+                                                                        ShowPopUpBloc>()
+                                                                    .add(
+                                                                      ShowPopUp(
+                                                                          message:
+                                                                              error,
+                                                                          status: PopStatus
+                                                                              .error,
+                                                                          dismissible:
+                                                                              false),
+                                                                    );
+                                                                isToastShowing =
+                                                                    true;
+                                                              },
+                                                              onSuccess: () {
+                                                                context
+                                                                    .read<
+                                                                        AuthenticationBloc>()
+                                                                    .add(AuthenticationStatusChanged(
+                                                                        status:
+                                                                            AuthenticationStatus.authenticated));
+                                                                context
+                                                                    .read<
+                                                                        ShowPopUpBloc>()
+                                                                    .add(
+                                                                        HidePopUp());
+                                                              },
+                                                            ),
+                                                          );
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      );
+                                }
                               } else {
                                 context.read<RegisterBloc>().add(
                                       RegisterEvent.setName(
@@ -188,11 +271,6 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                                                                   .add(AuthenticationStatusChanged(
                                                                       status: AuthenticationStatus
                                                                           .authenticated));
-                                                              context
-                                                                  .read<
-                                                                      ShowPopUpBloc>()
-                                                                  .add(
-                                                                      HidePopUp());
                                                             },
                                                           ),
                                                         );
@@ -206,95 +284,27 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                                     );
                               }
                             } else {
-                              context.read<RegisterBloc>().add(
-                                    RegisterEvent.setName(
-                                      fullName: nameController.text,
-                                      email: emailController.text,
-                                      onSuccess: () {
-                                        Navigator.push(
-                                          context,
-                                          fade(
-                                            page: BlocProvider.value(
-                                              value:
-                                                  context.read<RegisterBloc>(),
-                                              child: NewPasswordScreen(
-                                                onSubmit: (password,
-                                                    confirmPassword) {
-                                                  context
-                                                      .read<RegisterBloc>()
-                                                      .add(
-                                                        RegisterEvent.register(
-                                                          validPassword:
-                                                              password,
-                                                          onError: (text) {
-                                                            var error = text;
-                                                            if (error
-                                                                    .toLowerCase()
-                                                                    .contains(
-                                                                        'dio') ||
-                                                                error
-                                                                    .toLowerCase()
-                                                                    .contains(
-                                                                        'type')) {
-                                                              error = LocaleKeys
-                                                                  .service_error
-                                                                  .tr();
-                                                            }
-                                                            context
-                                                                .read<
-                                                                    ShowPopUpBloc>()
-                                                                .add(
-                                                                  ShowPopUp(
-                                                                      message:
-                                                                          error,
-                                                                      status: PopStatus
-                                                                          .error,
-                                                                      dismissible:
-                                                                          false),
-                                                                );
-                                                            isToastShowing =
-                                                                true;
-                                                          },
-                                                          onSuccess: () {
-                                                            context
-                                                                .read<
-                                                                    AuthenticationBloc>()
-                                                                .add(AuthenticationStatusChanged(
-                                                                    status: AuthenticationStatus
-                                                                        .authenticated));
-                                                          },
-                                                        ),
-                                                      );
-                                                },
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  );
+                              context.read<ShowPopUpBloc>().add(ShowPopUp(
+                                  message: LocaleKeys.please_fullname.tr(),
+                                  status: PopStatus.error,
+                                  dismissible: false));
+                              isToastShowing = true;
                             }
-                          } else {
-                            context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                message: LocaleKeys.please_fullname.tr(),
-                                status: PopStatus.error,
-                                dismissible: false));
-                            isToastShowing = true;
-                          }
-                        },
-                        margin: const EdgeInsets.only(bottom: 4),
-                        color: (nameController.text.isNotEmpty)
-                            ? orange
-                            : Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .veryLightGreyToEclipse,
-                        text: LocaleKeys.continuee.tr(),
-                        border: Border.all(
-                          width: 1,
-                          color: white,
+                          },
+                          margin: const EdgeInsets.only(bottom: 4),
+                          color: (nameController.text.isNotEmpty)
+                              ? orange
+                              : Theme.of(context)
+                                  .extension<ThemedColors>()!
+                                  .veryLightGreyToEclipse,
+                          text: LocaleKeys.continuee.tr(),
+                          border: Border.all(
+                            width: 1,
+                            color: white,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
