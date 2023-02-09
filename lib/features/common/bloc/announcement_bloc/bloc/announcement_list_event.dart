@@ -5,13 +5,19 @@ part of 'announcement_list_bloc.dart';
 @freezed
 class AnnouncementListEvent with _$AnnouncementListEvent {
   factory AnnouncementListEvent.getAnnouncementList() = _GetAnnouncementList;
+
   factory AnnouncementListEvent.getFilterClear({bool? ismake}) =
       _GetFilterClear;
+
   factory AnnouncementListEvent.getRegions(List<Region> regions) = _GetRegions;
+
   factory AnnouncementListEvent.getIsHistory(bool isHistory) = _GetIsHistory;
+
   factory AnnouncementListEvent.getFilter(AnnouncementFilterModel filter) =
       _GetFilter;
+
   factory AnnouncementListEvent.getHistoryApi() = _GetHistoryApi;
+
   factory AnnouncementListEvent.getInfo({
     RangeValues? yearValues,
     RangeValues? priceValues,

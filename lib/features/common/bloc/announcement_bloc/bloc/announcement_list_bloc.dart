@@ -1,10 +1,8 @@
-import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/ad/data/models/announcement_filter.dart';
 import 'package:auto/features/ad/data/models/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
-import 'package:auto/features/ad/domain/repositories/ad_repository.dart';
 import 'package:auto/features/ads/data/models/search_history_model.dart';
 import 'package:auto/features/ads/domain/entities/search_history_entity.dart';
 import 'package:auto/features/ads/domain/usecases/filter_history_usecase.dart';
@@ -17,19 +15,34 @@ import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'announcement_list_event.dart';
+
 part 'announcement_list_state.dart';
+
 part 'announcement_list_bloc.freezed.dart';
 
 class AnnouncementListBloc
     extends Bloc<AnnouncementListEvent, AnnouncementListState> {
-  AnnouncementListUseCase useCase;
-  FilterHistoryUseCase filterHistoryUseCase;
-  AnnouncementListBloc(
-      {required this.useCase, required this.filterHistoryUseCase})
-      : super(AnnouncementListState()) {
+  AnnouncementListUseCase useCase = AnnouncementListUseCase();
+  FilterHistoryUseCase filterHistoryUseCase = FilterHistoryUseCase();
+
+  AnnouncementListBloc() : super(AnnouncementListState()) {
     on<_GetAnnouncementList>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
-      final result = await useCase.call(state.filter);
+      final result = await useCase.call({
+        'make': state.filter.make,
+        'model': state.filter.model,
+        'body_type': state.filter.bodyType,
+        'drive_type': state.filter.driveType,
+        'gearbox_type': state.filter.gearboxType,
+        'is_new': state.filter.isNew,
+        'region__in': state.filter.region__in,
+        'price_from': state.filter.priceFrom,
+        'price_to': state.filter.priceTo,
+        'year_from': state.filter.yearFrom,
+        'year_to': state.filter.yearTo,
+        'limit': 10,
+        'offset': state.announcementList.length,
+      });
       if (result.isRight) {
         emit(
           state.copyWith(
@@ -74,43 +87,14 @@ class AnnouncementListBloc
           ),
         ),
       );
-      print('===> ==> Hullas ${state.searchHistoryEntity.make}');
     });
     on<_GetHistoryApi>((event, emit) async {
       await filterHistoryUseCase.call(state.searchModel);
     });
     on<_GetFilterClear>((event, emit) {
+      emit(state.copyWith(filter: const AnnouncementFilterModel()));
       if (event.ismake == true) {
-        emit(
-          state.copyWith(
-            filter: state.filter.copyWith(
-              make: -1,
-              model: -1,
-              gearboxType: null,
-              bodyType: null,
-              driveType: null,
-              priceFrom: 1000,
-              priceTo: 500000,
-              yearFrom: 1960,
-              yearTo: 2023,
-            ),
-          ),
-        );
         add(AnnouncementListEvent.getAnnouncementList());
-      } else {
-        emit(
-          state.copyWith(
-            filter: state.filter.copyWith(
-              gearboxType: null,
-              bodyType: null,
-              driveType: null,
-              priceFrom: 1000,
-              priceTo: 500000,
-              yearFrom: 1960,
-              yearTo: 2023,
-            ),
-          ),
-        );
       }
     });
     on<_GetInfo>(
