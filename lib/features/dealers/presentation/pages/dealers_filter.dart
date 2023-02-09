@@ -8,6 +8,7 @@ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/dealers/presentation/blocs/dealer_card_bloc/dealer_card_bloc.dart';
 import 'package:auto/features/dealers/presentation/blocs/filter_bloc/dealer_filter_bloc.dart';
+import 'package:auto/features/dealers/presentation/widgets/dealer_selector_item.dart';
 import 'package:auto/features/dealers/presentation/widgets/filter_radio.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_maker.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
@@ -149,7 +150,7 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  SelectorItem(
+                  DealerSelectorItem(
                     onTap: () async {
                       await showModalBottomSheet<List<Region>>(
                         isDismissible: false,
@@ -165,13 +166,11 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
                             .add(DealerFilterSelectEvent(region: value));
                       });
                     },
-                    hintText: (state.region.isEmpty)
-                        ? LocaleKeys.choose_region.tr()
-                        : MyFunctions.text(state.region, true),
+                    hintText: MyFunctions.text(state.region, true),
                     title: LocaleKeys.region.tr(),
-                    hasArrowDown: true,
+                    defaultText: LocaleKeys.choose_region.tr(),
                   ),
-                  SelectorItem(
+                  DealerSelectorItem(
                     onTap: () async {
                       await showModalBottomSheet<MakeEntity>(
                         isDismissible: false,
@@ -185,11 +184,9 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
                             .add(DealerFilterSelectEvent(maker: value));
                       });
                     },
-                    hintText: state.maker.name.isEmpty
-                        ? LocaleKeys.choose_brand.tr()
-                        : state.maker.name,
+                    hintText: state.maker.name,
                     title: LocaleKeys.brand.tr(),
-                    hasArrowDown: true,
+                    defaultText: LocaleKeys.choose_brand.tr(),
                   ),
                   const Spacer(),
                   WButton(
