@@ -3,11 +3,13 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/dealers/presentation/blocs/dealer_card_bloc/dealer_card_bloc.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -17,6 +19,7 @@ class DealerCard extends StatefulWidget {
   final String dealerImageUrl;
   final String phoneNumber;
   final int quantityOfCars;
+  final int dealerId;
   final String contactTo;
   final String contactFrom;
   final String contractCode;
@@ -30,6 +33,7 @@ class DealerCard extends StatefulWidget {
     required this.dealerName,
     required this.dealerImageUrl,
     required this.quantityOfCars,
+    required this.dealerId,
     required this.contactTo,
     required this.contactFrom,
     required this.contractCode,
@@ -78,8 +82,9 @@ class _DealerCardState extends State<DealerCard> {
                       child: CachedNetworkImage(
                         imageUrl: widget.dealerImageUrl,
                         fit: BoxFit.cover,
-                        errorWidget: (context, url, error) => SvgPicture.asset(
-                          AppImages.autoUz,
+                        errorWidget: (context, url, error) => Image.asset(
+                          AppImages.carPlaceHolder,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
@@ -199,6 +204,9 @@ class _DealerCardState extends State<DealerCard> {
                         WScaleAnimation(
                           onTap: () {
                             setState(() => isSelected = true);
+                            context.read<DealerCardBloc>().add(
+                                DealerCardEvent.watchContact(
+                                    id: widget.dealerId));
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(

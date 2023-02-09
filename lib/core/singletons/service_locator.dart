@@ -11,6 +11,8 @@ import 'package:auto/features/common/repository/add_wishlist_repository.dart';
 import 'package:auto/features/common/repository/get_regions_repository.dart';
 import 'package:auto/features/comparison/data/datasources/comparison_cars_datasource.dart';
 import 'package:auto/features/comparison/data/repositories/comparison_cars_repo_impl.dart';
+import 'package:auto/features/dealers/data/datasource/dealer_single_datasource.dart';
+import 'package:auto/features/dealers/data/repositories/dealer_single_repository_impl.dart';
 import 'package:auto/features/main/data/datasources/main_data_source.dart';
 import 'package:auto/features/main/data/repositories/main_repo_impl.dart';
 import 'package:auto/features/profile/data/datasources/get_user_lists_datasource.dart';
@@ -30,6 +32,8 @@ void setupLocator() {
     ..registerLazySingleton(MainDataSource.new)
     ..registerLazySingleton(UserSingleRepositoryImpl.new)
     ..registerLazySingleton(UserSingleDataSourceImpl.new)
+    ..registerLazySingleton(DealerSingleDataSource.new)
+    ..registerLazySingleton(DealerSingleRepositoryImpl.new)
     ..registerLazySingleton(
         () => ProfileRepositoryImpl(dataSource: ProfileDataSourceImpl()))
     ..registerLazySingleton(

@@ -16,4 +16,6 @@ class DealerCardEvent with _$DealerCardEvent {
 }) = _GetFilterParams;
 
   factory DealerCardEvent.getMoreResults() = _GetMoreResults;
+  factory DealerCardEvent.watchContact({required int id}) = _WatchContact;
+
 }

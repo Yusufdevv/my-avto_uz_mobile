@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
-
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';

@@ -3,7 +3,7 @@ import 'package:auto/features/commercial/presentation/widgets/info_container.dar
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/dealers/data/datasource/dealer_single_datasource.dart';
-import 'package:auto/features/dealers/data/repositories/dealer_single_repository.dart';
+import 'package:auto/features/dealers/data/repositories/dealer_single_repository_impl.dart';
 import 'package:auto/features/dealers/domain/usecases/dealer_single_usecase.dart';
 import 'package:auto/features/dealers/presentation/blocs/cars_in_dealer_bloc/cars_in_dealer_bloc.dart';
 import 'package:auto/features/dealers/presentation/blocs/dealer_single_bloc/dealer_single_bloc.dart';

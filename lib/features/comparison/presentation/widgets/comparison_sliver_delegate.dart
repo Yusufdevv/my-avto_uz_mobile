@@ -103,80 +103,89 @@ class ComparisonSliverDelegete extends SliverPersistentHeaderDelegate {
                         children: [
                           SizedBox(
                             height: 234,
-                            child: AnimatedList(
-                              key: listkey,
-                              padding:
-                                  const EdgeInsets.only(right: 16, left: 8),
-                              controller: scrollController,
-                              physics: const BouncingScrollPhysics(),
-                              scrollDirection: Axis.horizontal,
-                              initialItemCount: state.cars.length + 1,
-                              itemBuilder: (context, index, animation) {
-                                final item = state.cars.length == index
-                                    ? null
-                                    : state.cars[index];
-                                if (state.cars.length == index) {
-                                  return AddNewCar(
-                                    onTap: onAddCar,
-                                  );
-                                } else {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      Navigator.of(context, rootNavigator: true)
-                                          .push(fade(
-                                              page: CarSingleScreen(
-                                                  id: item!.announcement.id)));
-                                    },
-                                    behavior: HitTestBehavior.opaque,
-                                    child: AddedCar(
-                                      ownerType: item!.announcement.ownership,
-                                      hasCallCard: true,
-                                      carName: item.announcement.mainData.model,
-                                      carSalary:
-                                          '${item.announcement.price} ${item.announcement.currency.toUpperCase()}',
-                                      imageUrl:
-                                          item.announcement.mainData.gallery,
-                                      onTabCall: () {
-                                        bottomSheetForCalling(
-                                          context,
-                                          item.announcement.mainData.user
-                                              .phoneNumber,
-                                        );
-                                      },
-                                      onTabClose: () {
-                                        comparisonBloc
-                                            .add(GetCars(id: item.id));
-                                        listkey.currentState?.removeItem(
-                                          index,
-                                          (context, animation) => AddedCar(
-                                            ownerType:
-                                                item.announcement.ownership,
-                                            hasCallCard: true,
-                                            carName: item
-                                                .announcement.mainData.model,
-                                            carSalary:
-                                                '${item.announcement.price} ${item.announcement.currency.toUpperCase()}',
-                                            imageUrl: item
-                                                .announcement.mainData.gallery,
-                                            onTabCall: () {},
-                                            onTabClose: () {},
-                                            id: item.id,
-                                            animation: animation,
-                                          ),
-                                        );
-                                        context.read<ComparisonAddBloc>().add(
-                                              ComparisonAddEvent
-                                                  .deleteComparison(
-                                                item.order,
-                                              ),
-                                            );
-                                      },
-                                      id: item.id,
-                                      animation: animation,
-                                    ),
-                                  );
-                                }
+                            child: NotificationListener<
+                                OverscrollIndicatorNotification>(
+                              onNotification: (overscroll) {
+                                overscroll.disallowIndicator();
+                                return true;
                               },
+                              child: AnimatedList(
+                                key: listkey,
+                                padding:
+                                    const EdgeInsets.only(right: 16, left: 8),
+                                controller: scrollController,
+                                scrollDirection: Axis.horizontal,
+                                initialItemCount: state.cars.length + 1,
+                                itemBuilder: (context, index, animation) {
+                                  final item = state.cars.length == index
+                                      ? null
+                                      : state.cars[index];
+                                  if (state.cars.length == index) {
+                                    return AddNewCar(
+                                      onTap: onAddCar,
+                                    );
+                                  } else {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Navigator.of(context,
+                                                rootNavigator: true)
+                                            .push(fade(
+                                                page: CarSingleScreen(
+                                                    id: item!
+                                                        .announcement.id)));
+                                      },
+                                      behavior: HitTestBehavior.opaque,
+                                      child: AddedCar(
+                                        ownerType: item!.announcement.ownership,
+                                        hasCallCard: true,
+                                        carName:
+                                            item.announcement.mainData.model,
+                                        carSalary:
+                                            '${item.announcement.price} ${item.announcement.currency.toUpperCase()}',
+                                        imageUrl:
+                                            item.announcement.mainData.gallery,
+                                        onTabCall: () {
+                                          bottomSheetForCalling(
+                                            context,
+                                            item.announcement.mainData.user
+                                                .phoneNumber,
+                                          );
+                                        },
+                                        onTabClose: () {
+                                          comparisonBloc
+                                              .add(GetCars(id: item.id));
+                                          listkey.currentState?.removeItem(
+                                            index,
+                                            (context, animation) => AddedCar(
+                                              ownerType:
+                                                  item.announcement.ownership,
+                                              hasCallCard: true,
+                                              carName: item
+                                                  .announcement.mainData.model,
+                                              carSalary:
+                                                  '${item.announcement.price} ${item.announcement.currency.toUpperCase()}',
+                                              imageUrl: item.announcement
+                                                  .mainData.gallery,
+                                              onTabCall: () {},
+                                              onTabClose: () {},
+                                              id: item.id,
+                                              animation: animation,
+                                            ),
+                                          );
+                                          context.read<ComparisonAddBloc>().add(
+                                                ComparisonAddEvent
+                                                    .deleteComparison(
+                                                  item.order,
+                                                ),
+                                              );
+                                        },
+                                        id: item.id,
+                                        animation: animation,
+                                      ),
+                                    );
+                                  }
+                                },
+                              ),
                             ),
                           ),
                         ],
