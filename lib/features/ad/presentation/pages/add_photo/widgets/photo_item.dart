@@ -3,13 +3,15 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/pages/add_photo/widgets/image_item.dart';
 import 'package:auto/features/ad/presentation/pages/add_photo/widgets/plus_circle.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PhotoItem extends StatefulWidget {
   final List<String> images;
   final VoidCallback onTap;
+  final bool isWaiting;
 
-  const PhotoItem({required this.images, required this.onTap, Key? key})
+  const PhotoItem({required this.images, required this.onTap,this.isWaiting = false, Key? key})
       : super(key: key);
 
   @override
@@ -33,7 +35,7 @@ class _PhotoItemState extends State<PhotoItem> {
                   .extension<ThemedColors>()!
                   .ghostWhiteToUltramarine10,
             ),
-            child: const PlusCircle(),
+            child:widget.isWaiting?const CupertinoActivityIndicator(): const PlusCircle(),
           ),
         )
       : Padding(

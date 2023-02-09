@@ -94,6 +94,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     required this.bodyTypesUseCase,
     required this.createUseCase,
   }) : super(PostingAdState(
+            getAnnouncementToEditStatus: FormzStatus.pure,
             popStatus: PopStatus.success,
             colorName: LocaleKeys.white.tr(),
             status: FormzStatus.pure,
@@ -137,7 +138,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   }
 
   FutureOr<void> _clearSearchController(
-      PostingAdSerchControllerClearEvent event, Emitter<PostingAdState> emit) { 
+      PostingAdSerchControllerClearEvent event, Emitter<PostingAdState> emit) {
     add(PostingAdMakesEvent());
     emit(state.copyWith(searchController: TextEditingController()));
   }
@@ -146,6 +147,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       PostingAdClearStateEvent event, Emitter<PostingAdState> emit) {
     emit(
       PostingAdState(
+        getAnnouncementToEditStatus: FormzStatus.pure,
         popStatus: PopStatus.success,
         status: FormzStatus.pure,
         phoneController: TextEditingController(),
@@ -250,7 +252,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     final result = await screenShotUseCase
         .call({'longitude': '${event.long}', 'latitude': '${event.lat}'});
 
-    if (result.isRight) { 
+    if (result.isRight) {
       emit(state.copyWith(
           status: FormzStatus.submissionSuccess, mapPointBytes: result.right));
     } else {
@@ -340,13 +342,16 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
   FutureOr<void> _getAnnouncement(
       PostingAdGetAnnouncementEvent event, Emitter<PostingAdState> emit) async {
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    emit(state.copyWith(
+        getAnnouncementToEditStatus: FormzStatus.submissionInProgress));
     final result = await announcementUseCase.call(event.id);
     if (result.isRight) {
-      print('${result.right}');
-      emit( await PASingleton.stateForEdit(result.right));
+      final stateForEdit = await PASingleton.stateForEdit(result.right);
+      emit(stateForEdit);
     } else {
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
+      emit(state.copyWith(
+          getAnnouncementToEditStatus: FormzStatus.submissionFailure,
+          toastMessage: MyFunctions.getErrorMessage(result.left)));
     }
   }
 
@@ -398,7 +403,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       PostingAdCreateEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(createStatus: FormzStatus.submissionInProgress));
     final result = await createUseCase.call(await PASingleton.create(state));
-    if (result.isRight) { 
+    if (result.isRight) {
       emit(state.copyWith(
           createStatus: FormzStatus.submissionSuccess,
           toastMessage: 'Your ad created successfully!'));

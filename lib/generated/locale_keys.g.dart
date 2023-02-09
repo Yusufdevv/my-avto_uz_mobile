@@ -507,5 +507,6 @@ abstract class  LocaleKeys {
   static const in_hot = 'in_hot';
   static const in_hot_one_line = 'in_hot_one_line';
   static const close_ad = 'close_ad';
+  static const milage_photo = 'milage_photo';
 
 }

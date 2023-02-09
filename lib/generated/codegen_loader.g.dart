@@ -520,7 +520,8 @@ class CodegenLoader extends AssetLoader{
   "send_to_top": "Отправить в “ТОП”",
   "in_hot": "В горячие\n ",
   "in_hot_one_line": "В горячие",
-  "close_ad": "Завершить объявление"
+  "close_ad": "Завершить объявление",
+  "milage_photo": "Фото датчика"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -1028,7 +1029,8 @@ static const Map<String,dynamic> uz = {
   "send_to_top": "“TOP”ga yuborish",
   "in_hot": "Yangilari \n",
   "in_hot_one_line": "Yangilari",
-  "close_ad": "E'lonni tugatish"
+  "close_ad": "E'lonni tugatish",
+  "milage_photo": "Фото датчика"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }

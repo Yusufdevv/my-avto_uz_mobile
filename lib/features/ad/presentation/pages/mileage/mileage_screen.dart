@@ -123,7 +123,7 @@ class _MileageScreenState extends State<MileageScreen> {
                         height: 20,
                       ),
                       Text(
-                        '${LocaleKeys.photo.tr()} 360°',
+                        LocaleKeys.milage_photo.tr(),
                         style: Theme.of(context)
                             .textTheme
                             .subtitle1!
