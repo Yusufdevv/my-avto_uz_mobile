@@ -370,13 +370,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                             //9
                             const ColorsScreen(),
                             //10
-                            AddPhotoScreen(onImageChanged: (v) {
-                              postingAdBloc
-                                  .add(PostingAdChooseEvent(gallery: v));
-                            }, onPanaramaChanged: (v) {
-                              postingAdBloc.add(
-                                  PostingAdChooseEvent(panaramaGallery: v));
-                            }),
+                            const AddPhotoScreen(),
                             //11
                             const PtsScreen(),
                             //12

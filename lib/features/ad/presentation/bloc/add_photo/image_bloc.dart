@@ -13,12 +13,14 @@ part 'image_state.dart';
 class ImageBloc extends Bloc<ImageEvent, ImageState> {
   final imagePicker = ImagePicker();
 
-  ImageBloc()
-      : super(ImageState(
-          panaramaImages: const [],
-          images: const [],
-          image: File(''),
-        )) {
+  ImageBloc({List<String> images = const [], List<String> panaramas = const []})
+      : super(
+          ImageState(
+            panaramaImages: panaramas,
+            images: images,
+            image: File(''),
+          ),
+        ) {
     on<PickImageEmptyToastMessageEvent>(
         (event, emit) => emit(state.copyWith(toastMessage: '')));
     on<PickPanaramaImageEvent>((event, emit) async {
@@ -60,13 +62,13 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
     });
     on<DeleteImage>((event, emit) {
       final image = <String>[...state.images];
-      final panarama = <String>[...state.panaramaImages]; 
+      final panarama = <String>[...state.panaramaImages];
       if (image.contains(event.imageUrl)) {
         image.remove(event.imageUrl);
       }
       if (panarama.contains(event.imageUrl)) {
         panarama.remove(event.imageUrl);
-      } 
+      }
       emit(state.copyWith(images: image, panaramaImages: panarama));
       emit(state.copyWith(image: File('')));
     });
