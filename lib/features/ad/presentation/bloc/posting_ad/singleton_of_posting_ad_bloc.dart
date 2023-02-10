@@ -153,7 +153,7 @@ class PASingleton {
       isContactsVerified: true,
       searchController: TextEditingController(),
       phoneController: TextEditingController(text: phone ?? v.user.phoneNumber),
-      emailController: TextEditingController(),
+      emailController: TextEditingController(text: v.contactEmail),
       nameController: TextEditingController(
           text: v.user.name.isEmpty ? v.user.fullName : v.user.name),
       status: FormzStatus.pure,
@@ -179,6 +179,7 @@ class PASingleton {
       model: MakeEntity(id: v.model.id, name: v.model.name),
       ownerName: v.user.name.isEmpty ? v.user.fullName : v.user.name,
       ownerPhone: phone ?? v.user.phoneNumber,
+      ownerEmail: v.contactEmail,
       ownerStep: v.ownership,
       price: MyFunctions.getThousandsSeparatedPrice(
           v.price.split('.').toList().first),
@@ -191,11 +192,9 @@ class PASingleton {
         yearBegin: v.generation.yearBegin,
         yearEnd: v.generation.yearEnd,
       ),
-      modification: ModificationTypeEntity(
-        id: v.modificationType.id,
-        power: v.modificationType.power,
-        volume: v.modificationType.volume,
-      ),
+      modification: v.modificationType,
+
+
     );
   }
 

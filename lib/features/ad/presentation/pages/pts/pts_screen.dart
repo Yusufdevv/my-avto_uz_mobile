@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
@@ -69,18 +71,19 @@ class _PtsScreenState extends State<PtsScreen> {
                       Wrap(
                         spacing: 8,
                         children: List.generate(
-                          documentList.length,
-                          (index) => PtsButtons(
-                            onTap: (id) => context.read<PostingAdBloc>().add(
-                                PostingAdChooseEvent(
-                                    typeDocument:
-                                        LicenceType.values[index].name)),
-                            id: index.toString(),
-                            isSelected: state.licenceType ==
-                                LicenceType.values[index].name,
-                            text: documentList[index],
-                          ),
-                        ),
+                            documentList.length,
+                            (index) => PtsButtons(
+                                  onTap: (id) {
+                                    context.read<PostingAdBloc>().add(
+                                        PostingAdChooseEvent(
+                                            typeDocument: LicenceType
+                                                .values[index].name));
+                                  },
+                                  id: index.toString(),
+                                  isSelected: state.licenceType ==
+                                      LicenceType.values[index].name,
+                                  text: documentList[index],
+                                )),
                       ),
                       const SizedBox(height: 41),
                       Text(
@@ -120,14 +123,13 @@ class _PtsScreenState extends State<PtsScreen> {
                       WContainer(
                         onTap: () {
                           showCupertinoDatePicker(
-
-                            context,
-                            (date) => context.read<PostingAdBloc>().add(
-                                  PostingAdChooseEvent(
-                                      purchasedDate: '$date'.substring(0, 10)),
-                                ),
-                            DateTime(state.yearEntity!.yearBegin)
-                          );
+                              context,
+                              (date) => context.read<PostingAdBloc>().add(
+                                    PostingAdChooseEvent(
+                                        purchasedDate:
+                                            '$date'.substring(0, 10)),
+                                  ),
+                              DateTime(state.yearEntity!.yearBegin));
                         },
                         titleStyle: state.purchasedDate != null &&
                                 state.purchasedDate!.isNotEmpty

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
@@ -34,6 +36,7 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
+        log('THIS IS CAR SINGLE DATA: ${response.data}');
         return CarSingleModel.fromJson(response.data);
       } else {
         throw ServerException(
@@ -184,7 +187,7 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
         return response.data;
-      } else { 
+      } else {
         throw ServerException(
             statusCode: response.statusCode!,
             errorMessage: response.data.toString());

@@ -215,23 +215,30 @@ class _PostingAdScreenState extends State<PostingAdScreen>
               child: BlocConsumer<PostingAdBloc, PostingAdState>(
                   listener: (context, state) async {
                 if (state.createStatus == FormzStatus.submissionSuccess) {
-                  context.read<ShowPopUpBloc>().add(ShowPopUp(
-                        message: state.toastMessage!,
-                        status: PopStatus.success,
-                        dismissible: false,
-                      ));
+                  context.read<ShowPopUpBloc>().add(
+                        ShowPopUp(
+                          message: widget.announcementId == null
+                              ? state.toastMessage!
+                              : 'Your ad edited successfully!',
+                          status: PopStatus.success,
+                          dismissible: false,
+                        ),
+                      );
                   await Future.delayed(const Duration(milliseconds: 1000));
                   hidePopUp();
 
-                  HomeTabControllerProvider.of(widget.parentContext)
-                      .controller
-                      .animateTo(4);
-                  context
-                      .read<ProfileBloc>()
-                      .add(ChangeCountDataEvent(adding: true, myAdsCount: 1));
-                  context
-                      .read<WishlistAddBloc>()
-                      .add(WishlistAddEvent.goToAdds(1));
+                  if (widget.announcementId == null) {
+                    HomeTabControllerProvider.of(widget.parentContext)
+                        .controller
+                        .animateTo(4);
+                    context
+                        .read<ProfileBloc>()
+                        .add(ChangeCountDataEvent(adding: true, myAdsCount: 1));
+                    context
+                        .read<WishlistAddBloc>()
+                        .add(WishlistAddEvent.goToAdds(1));
+                  }
+
                   currentTabIndex = 0;
                   await Future.delayed(const Duration(milliseconds: 500));
                   await pageController.animateToPage(currentTabIndex,
@@ -239,6 +246,9 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                       curve: Curves.linear);
                   postingAdBloc.add(PostingAdClearStateEvent());
                   setState(() {});
+                  if (widget.announcementId != null) {
+                    Navigator.pop(context);
+                  }
                   return;
                 }
 
