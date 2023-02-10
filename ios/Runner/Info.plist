@@ -61,7 +61,5 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
-	<key>FirebaseCrashlyticsCollectionEnabled</key>
-	<true/>
 </dict>
 </plist>
