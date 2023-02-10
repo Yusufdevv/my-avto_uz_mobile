@@ -13,16 +13,14 @@ class AnnouncementListState with _$AnnouncementListState {
     @Default(false) bool isFilter,
     @Default(false) bool isHistory,
     @Default([]) List<AnnouncementListEntity> announcementList,
-    @Default(AnnouncementFilterModel()) AnnouncementFilterModel filter,
-    @Default(SearchHistoryEntity()) SearchHistoryEntity searchHistoryEntity,
+    @Default(SearchHistoryEntity()) SearchHistoryEntity searchHistory,
     @Default(RangeValues(1960, 2023)) RangeValues yearValues,
     @Default(RangeValues(1000, 500000)) RangeValues priceValues,
-    @Default(0) int idVal,
-    @Default(GearboxTypeEntity(id: -1, type: '', logo: ''))
-        GearboxTypeEntity? gearboxTypeEntity,
-    @Default(BodyTypeEntity(id: -1, type: '', logo: ''))
-        BodyTypeEntity? bodyTypeEntity,
-    @Default(DriveTypeModel(id: -1, type: '', logo: ''))
-        DriveTypeEntity? driveTypeEntity,
+    @Default(Currency.usd) Currency currency,
+    GearboxTypeEntity? gearboxType,
+    BodyTypeEntity? bodyType,
+    DriveTypeEntity? driveType,
+    int? makeId,
+    int? modelId,
   }) = _AnnouncementList;
 }
