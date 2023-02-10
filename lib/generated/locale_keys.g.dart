@@ -178,7 +178,6 @@ abstract class  LocaleKeys {
   static const trusted_car_dealers = 'trusted_car_dealers';
   static const more_than = 'more_than';
   static const offers = 'offers';
-  static const offers1 = 'offers1';
   static const neww = 'neww';
   static const enter_to_system = 'enter_to_system';
   static const another_ways = 'another_ways';
@@ -418,6 +417,7 @@ abstract class  LocaleKeys {
   static const no = 'no';
   static const car_sale = 'car_sale';
   static const load_more = 'load_more';
+  static const show_offers = 'show_offers';
   static const show = 'show';
   static const select_currency = 'select_currency';
   static const result = 'result';

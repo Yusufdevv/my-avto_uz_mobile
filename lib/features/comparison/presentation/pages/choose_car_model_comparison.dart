@@ -1,12 +1,12 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/presentation/pages/choose_model/widgets/model_items.dart';
-import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/comparison/presentation/widgets/search_bar.dart';
+import 'package:auto/features/comparison/presentation/widgets/comparison_search_bar.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -15,9 +15,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class ChooseCarModelComparison extends StatefulWidget {
-  final bool isClear;
+  final BuildContext parentContext;
+  final MakeEntity? selectedModel;
 
-  const ChooseCarModelComparison({Key? key, this.isClear = false})
+  const ChooseCarModelComparison(
+      {required this.parentContext, this.selectedModel, Key? key})
       : super(key: key);
 
   @override
@@ -33,6 +35,11 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
     id = context.read<GetMakesBloc>().state.selectId;
     searchController = TextEditingController();
     context.read<GetCarModelBloc>().add(GetCarModelEvent.getSerched(''));
+    context.read<GetCarModelBloc>().add(GetCarModelEvent.selectedModelItem(
+          id: widget.selectedModel?.id ?? -1,
+          name: widget.selectedModel?.name ?? '',
+          model: widget.selectedModel ?? const MakeEntity(),
+        ));
     context.read<GetCarModelBloc>().add(
           GetCarModelEvent.getCarModel(id),
         );
@@ -60,7 +67,9 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                       pinned: true,
                       leadingWidth: 36,
                       leading: GestureDetector(
-                        onTap: () => Navigator.pop(context),
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
                         behavior: HitTestBehavior.opaque,
                         child: Padding(
                           padding: const EdgeInsets.only(left: 16),
@@ -77,20 +86,28 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                         ),
                       ),
                       actions: [
+                        // ! x button
                         Padding(
                           padding: const EdgeInsets.only(right: 16),
                           child: InkWell(
                             onTap: () {
+                              context
+                                  .read<GetCarModelBloc>()
+                                  .add(GetCarModelEvent.selectedModelItem(
+                                    id: -1,
+                                    name: '',
+                                    model: const MakeEntity(),
+                                  ));
+                              context
+                                  .read<GetMakesBloc>()
+                                  .add(GetMakesBlocEvent.selectedCarItems(
+                                    id: -1,
+                                    name: '',
+                                    imageUrl: '',
+                                    makeEntity: const MakeEntity(),
+                                  ));
                               Navigator.of(context).pop();
-                              Navigator.of(context).pop();
-                              if (widget.isClear) {
-                                context.read<GetCarModelBloc>().add(
-                                    GetCarModelEvent.selectedModelItem(
-                                        id: -1, name: ''));
-                                context.read<GetMakesBloc>().add(
-                                    GetMakesBlocEvent.selectedCarItems(
-                                        id: -1, name: '', imageUrl: ''));
-                              }
+                              Navigator.of(widget.parentContext).pop();
                             },
                             child: SvgPicture.asset(AppIcons.close),
                           ),
@@ -101,7 +118,7 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                       top: false,
                       bottom: true,
                       sliver: SliverPersistentHeader(
-                        delegate: WSerachBar(
+                        delegate: ComparisonSearchBar(
                           controller: searchController,
                           onChanged: () {
                             context.read<GetCarModelBloc>().add(
@@ -140,9 +157,12 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                             text: state.search,
                             onTap: () {
                               context.read<GetCarModelBloc>().add(
-                                  GetCarModelEvent.selectedModelItem(
+                                    GetCarModelEvent.selectedModelItem(
                                       id: state.model.results[index].id,
-                                      name: state.model.results[index].name));
+                                      name: state.model.results[index].name,
+                                      model: state.model.results[index],
+                                    ),
+                                  );
                               setState(() {});
                             },
                           ),
@@ -159,28 +179,26 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                   left: 16,
                   child: WButton(
                     onTap: () {
-                      context
-                          .read<AnnouncementListBloc>()
-                          .add(AnnouncementListEvent
-                          .getFilter(
-                        context
-                            .read<
-                            AnnouncementListBloc>()
-                            .state
-                            .filter
-                            .copyWith(
-                            make: context
-                                .read<
-                                GetMakesBloc>()
-                                .state
-                                .selectId,
-                            model: context
-                                .read<
-                                GetCarModelBloc>()
-                                .state
-                                .selectedId),
-                      ));
                       Navigator.pop(context);
+                      Navigator.of(widget.parentContext).pop([
+                        context.read<GetMakesBloc>().state.selectedMake,
+                        state.selectedModel
+                      ]); 
+                      context
+                          .read<GetCarModelBloc>()
+                          .add(GetCarModelEvent.selectedModelItem(
+                            id: -1,
+                            name: '',
+                            model: const MakeEntity(),
+                          ));
+                      context
+                          .read<GetMakesBloc>()
+                          .add(GetMakesBlocEvent.selectedCarItems(
+                            id: -1,
+                            name: '',
+                            imageUrl: '',
+                            makeEntity: const MakeEntity(),
+                          ));
                     },
                     text: LocaleKeys.further.tr(),
                     shadow: [

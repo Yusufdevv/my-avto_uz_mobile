@@ -5,11 +5,12 @@ import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-class WSerachBar extends SliverPersistentHeaderDelegate {
+class ComparisonSearchBar extends SliverPersistentHeaderDelegate {
   final TextEditingController controller;
   final Function() onChanged;
   final VoidCallback? onClear;
-  WSerachBar({required this.controller, required this.onChanged,this.onClear});
+  ComparisonSearchBar(
+      {required this.controller, required this.onChanged, this.onClear});
   @override
   double get minExtent => 64;
 
@@ -17,7 +18,7 @@ class WSerachBar extends SliverPersistentHeaderDelegate {
   double get maxExtent => 64;
 
   @override
-  bool shouldRebuild(WSerachBar oldDelegate) =>
+  bool shouldRebuild(ComparisonSearchBar oldDelegate) =>
       controller != oldDelegate.controller;
   @override
   Widget build(

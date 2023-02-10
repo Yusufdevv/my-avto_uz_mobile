@@ -255,7 +255,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                       message: '', status: PopStatus.success));
                 }
               }, builder: (context, state) {
-                if (state.getAnnouncementToEditStatus !=
+                if (state.getAnnouncementToEditStatus ==
                     FormzStatus.submissionFailure) {
                   return Scaffold(
                       body: Center(

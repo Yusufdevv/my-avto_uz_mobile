@@ -55,8 +55,7 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                     final res = await Navigator.push(
                         context,
                         fade(
-                            page: const ChooseCarBrandComparison(
-                                isClear: false)));
+                            page:   ChooseCarBrandComparison(parentContext: context)));
                     if (res is Map<String, dynamic>) {
                       onSelectMakeModel(res['makeId'], res['modelId']);
                     }

@@ -1,15 +1,15 @@
+import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
+import 'package:auto/features/ad/domain/entities/types/modification_type.dart';
 import 'package:auto/features/car_single/data/model/car_single_model.dart';
 import 'package:auto/features/car_single/domain/entities/car_user_entity.dart';
 import 'package:auto/features/car_single/domain/entities/damaged_parts_entity.dart';
 import 'package:auto/features/car_single/domain/entities/drive_type_entity.dart';
 import 'package:auto/features/car_single/domain/entities/engine_type_entity.dart';
-import 'package:auto/features/car_single/domain/entities/gearbox_type_entity.dart';
 import 'package:auto/features/car_single/domain/entities/price_analytics_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_bodytype_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_generation_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_make_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_models_entity.dart';
-import 'package:auto/features/rent/domain/entities/rent_car_modification_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -42,10 +42,10 @@ class CarSingleEntity extends Equatable {
   final RentCarDriveTypeEntity driveType;
   @RentCarEngineTypeConverter()
   final RentCarEngineTypeEntity engineType;
-  @RentCarGearboxTypeConverter()
-  final RentCarGearboxTypeEntity gearboxType;
-  @RentCarModificationConverter()
-  final RentCarModificationEntity modificationType;
+  @GearboxTypeEntityConverter()
+  final GearboxTypeEntity gearboxType;
+  @ModificationTypeEntityConverter()
+  final ModificationTypeEntity modificationType;
   @JsonKey(defaultValue: '')
   final String licenceType;
   @JsonKey(defaultValue: '')
@@ -142,8 +142,8 @@ class CarSingleEntity extends Equatable {
     this.bodyType = const RentCarBodyTypeEntity(),
     this.driveType = const RentCarDriveTypeEntity(),
     this.engineType = const RentCarEngineTypeEntity(),
-    this.gearboxType = const RentCarGearboxTypeEntity(),
-    this.modificationType = const RentCarModificationEntity(),
+    this.gearboxType = const GearboxTypeEntity(),
+    this.modificationType = const ModificationTypeEntity(),
     this.priceAnalytics = const PriceAnalyticsEntity(),
     this.licenceType = '',
     this.ownership = '',

@@ -171,11 +171,7 @@ class PASingleton {
       description: v.description,
       driveTypeId: v.driveType.id,
       engineId: v.engineType.id,
-      gearbox: GearboxTypeEntity(
-        id: v.gearboxType.id,
-        type: v.gearboxType.type,
-        logo: v.gearboxType.type,
-      ),
+      gearbox:v.gearboxType,
       generationId: v.gearboxType.id,
       isWithoutMileage: !(v.distanceTraveled > 0),
       make:

@@ -1,9 +1,9 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ads/presentation/pages/ads_screen.dart';
 import 'package:auto/features/commercial/presentation/commercial_screen.dart';
-import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
 import 'package:auto/features/main/domain/entities/service_entity.dart';
@@ -26,7 +26,7 @@ import 'package:auto/features/main/presentation/widgets/soon_bottomsheet.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/features/reels/presentation/pages/reels_screen.dart';
-import 'package:auto/features/rent/presentation/rent_screen.dart';
+import 'package:auto/features/rent/presentation/rent_screen.dart'; 
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -78,7 +78,7 @@ class _MainScreenState extends State<MainScreen> {
     mainBloc = MainBloc()..add(InitialEvent());
     context.read<ProfileBloc>().add(GetProfileEvent());
     context.read<ProfileBloc>().add(GetNoReadNotificationsEvent(filter: 0));
-    context.read<GetMakesBloc>().add(GetMakesBlocEvent.getMakes());
+    // context.read<GetMakesBloc>().add(GetMakesBlocEvent.getMakes());
     topAdBloc = TopAdBloc(GetTopAdsUseCase())
       ..add(TopAdEvent.getTopAds())
       ..add(TopAdEvent.getFavorites());
@@ -181,23 +181,40 @@ class _MainScreenState extends State<MainScreen> {
                             fade(page: const ReelsScreen(isForOfferDay: true)));
                       },
                     ),
-                    BlocBuilder<GetMakesBloc, GetMakesState>(
-                      builder: (context, state) => CarModelItem(
-                          onTapSelect: () =>
-                              Navigator.of(context, rootNavigator: true)
-                                  .push(fade(
-                                      page: const ChooseCarBrandComparison(
-                                isbak: true,
-                                isClear: true,
-                              ))),
-                          onTapShow: () {
-                            Navigator.of(context, rootNavigator: true)
-                                .push(fade(page: const AdsScreen()));
-                          },
-                          imageUrl: state.imageUrl,
-                          title: state.name,
-                          count: 123123123,
-                          isCheck: state.ischeck),
+                    CarModelItem(
+                      onTapSelect: () =>
+                          Navigator.of(context, rootNavigator: true)
+                              .push(fade(
+                                  page: ChooseCarBrandComparison(
+                        parentContext: context,
+                        selectedMake: state.selectedMake,
+                        selectedModel: state.selectedModel,
+                      )))
+                              .then((value) {
+                        if (value != null) {
+                          final selectedMake = value[0] as MakeEntity;
+                          final selectedModel = value[1] as MakeEntity;
+                          mainBloc.add(GetMakeModelEvent(
+                              selectedMake: selectedMake,
+                              selectedModel: selectedModel));
+
+                        } else {
+                          mainBloc.add(const GetMakeModelEvent(
+                              selectedMake: MakeEntity(),
+                              selectedModel: MakeEntity()));
+                        }
+                      }),
+                      onTapShow: () {
+                        Navigator.of(context, rootNavigator: true).push(fade(
+                            page: AdsScreen(
+                          makeId: state.selectedMake?.id,
+                          modelId: state.selectedModel?.id,
+                        )));
+                      },
+                      imageUrl: state.selectedMake?.logo ?? '',
+                      title: state.selectedMake?.name ?? '',
+                      count: 1231231233,
+                      isCheck: true,
                     ),
                     SizedBox(
                       height: 64,
@@ -212,8 +229,7 @@ class _MainScreenState extends State<MainScreen> {
                           scrollDirection: Axis.horizontal),
                     ),
                     TopBrands(
-                      onTap: () => Navigator.of(context, rootNavigator: true)
-                          .push(fade(page: const AdsScreen())),
+                      
                     ),
                     const TopAds(),
                     BlocListener<WishlistAddBloc, WishlistAddState>(

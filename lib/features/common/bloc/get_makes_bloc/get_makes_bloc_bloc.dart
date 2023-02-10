@@ -89,6 +89,7 @@ class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
           selectId: event.id,
           name: event.name,
           imageUrl: event.imageUrl,
+          selectedMake: event.makeEntity,
           ischeck: event.id == -1 ? false : true));
     });
     on<_ConfirmCarOption>((event, emit) {

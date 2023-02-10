@@ -1,14 +1,15 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/car_items.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/comparison/presentation/bloc/scroll-bloc/scrolling_bloc.dart';
-import 'package:auto/features/comparison/presentation/pages/choose_model.dart';
+import 'package:auto/features/comparison/presentation/pages/choose_car_model_comparison.dart';
 import 'package:auto/features/comparison/presentation/widgets/alphabetic_header.dart';
-import 'package:auto/features/comparison/presentation/widgets/search_bar.dart';
+import 'package:auto/features/comparison/presentation/widgets/comparison_search_bar.dart';
 import 'package:auto/features/comparison/presentation/widgets/top_brand_sliver_delegate.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/main/presentation/bloc/top_brand/top_brand_bloc.dart';
@@ -21,13 +22,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class ChooseCarBrandComparison extends StatefulWidget {
-  final bool isbak;
-  final bool isClear;
-
+  final BuildContext parentContext;
+  final MakeEntity? selectedMake;
+  final MakeEntity? selectedModel;
   const ChooseCarBrandComparison({
+    required this.parentContext,
+    this.selectedMake,
+    this.selectedModel,
     Key? key,
-    this.isbak = false,
-    this.isClear = true,
   }) : super(key: key);
 
   @override
@@ -50,7 +52,15 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
     topBrandBloc = TopBrandBloc(GetTopBrandUseCase())
       ..add(TopBrandEvent.getBrand());
     context.read<GetMakesBloc>().add(GetMakesBlocEvent.getSerched(''));
-    context.read<GetMakesBloc>().add(GetMakesBlocEvent.getMakes());
+    context.read<GetMakesBloc>().add(GetMakesBlocEvent.selectedCarItems(
+          id: widget.selectedMake?.id ?? -1,
+          name: widget.selectedMake?.name ?? '',
+          imageUrl: widget.selectedMake?.logo ?? '',
+          makeEntity: widget.selectedMake ?? const MakeEntity(),
+        ));
+    if (context.read<GetMakesBloc>().state.makes.isEmpty) {
+      context.read<GetMakesBloc>().add(GetMakesBlocEvent.getMakes());
+    }
     scrollingBloc = ScrollingBloc();
     scrollController = ScrollController();
     controllerScroll = ScrollController();
@@ -70,7 +80,7 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
           child: BlocConsumer<GetMakesBloc, GetMakesState>(
             listener: (context, state) {
               scrollController.animateTo(state.index.toDouble() * 54,
-                  duration: const Duration(milliseconds: 500),
+                  duration: const Duration(milliseconds: 1000),
                   curve: Curves.ease);
             },
             builder: (context, state) => Scaffold(
@@ -86,7 +96,17 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                         pinned: true,
                         leadingWidth: 44,
                         leading: GestureDetector(
-                          onTap: () => Navigator.pop(context),
+                          onTap: () {
+                            context
+                                .read<GetMakesBloc>()
+                                .add(GetMakesBlocEvent.selectedCarItems(
+                                  id: -1,
+                                  name: '',
+                                  imageUrl: '',
+                                  makeEntity: const MakeEntity(),
+                                ));
+                            Navigator.pop(context);
+                          },
                           behavior: HitTestBehavior.opaque,
                           child: Padding(
                             padding: const EdgeInsets.only(
@@ -104,16 +124,20 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                           ),
                         ),
                         actions: [
+                          //! x button
                           Padding(
                             padding: const EdgeInsets.only(right: 16),
                             child: GestureDetector(
                               onTap: () {
+                                context
+                                    .read<GetMakesBloc>()
+                                    .add(GetMakesBlocEvent.selectedCarItems(
+                                      id: -1,
+                                      name: '',
+                                      imageUrl: '',
+                                      makeEntity: const MakeEntity(),
+                                    ));
                                 Navigator.of(context).pop();
-                                if (widget.isClear) {
-                                  context.read<GetMakesBloc>().add(
-                                      GetMakesBlocEvent.selectedCarItems(
-                                          id: -1, name: '', imageUrl: ''));
-                                }
                               },
                               behavior: HitTestBehavior.opaque,
                               child: SvgPicture.asset(AppIcons.close),
@@ -122,7 +146,7 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                         ],
                       ),
                       SliverPersistentHeader(
-                        delegate: WSerachBar(
+                        delegate: ComparisonSearchBar(
                           controller: searchController,
                           onChanged: () {
                             context.read<GetMakesBloc>().add(
@@ -152,26 +176,13 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                       if (state.search.isEmpty)
                         SliverPersistentHeader(
                           delegate: TopBrandSliverWidget(
-                            onTap: () async {
-                              await Navigator.of(context).push(fade(
-                                  page: const ChooseCarModelComparison(
-                                      isClear: false)));
-                              context
-                                  .read<AnnouncementListBloc>()
-                                  .add(AnnouncementListEvent.getIsHistory(
-                                    context
-                                            .read<GetMakesBloc>()
-                                            .state
-                                            .selectId <=
-                                        0,
-                                    null,
-                                  ));
-                              context.read<AnnouncementListBloc>().add(
-                                  AnnouncementListEvent.getAnnouncementList(
-                                      null));
-                              Navigator.pop(context);
+                            onTap: () {
+                              Navigator.of(context).push(fade(
+                                  page: ChooseCarModelComparison(
+                                parentContext: widget.parentContext,
+                                selectedModel: widget.selectedModel,
+                              )));
                             },
-                            isbak: widget.isbak,
                           ),
                         ),
                       if (state.search.isEmpty)
@@ -206,6 +217,7 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                                     id: state.makes[index].id,
                                     name: state.makes[index].name,
                                     imageUrl: state.makes[index].logo,
+                                    makeEntity: state.makes[index],
                                   ),
                                 );
                           },
@@ -218,7 +230,14 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                     right: 16,
                     left: 16,
                     child: WButton(
-                      onTap: () => Navigator.pop(context),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            fade(
+                                page: ChooseCarModelComparison(
+                                    parentContext: context,
+                                    selectedModel: widget.selectedModel)));
+                      },
                       text: LocaleKeys.further.tr(),
                       shadow: [
                         BoxShadow(

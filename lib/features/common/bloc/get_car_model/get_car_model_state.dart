@@ -12,5 +12,6 @@ class GetCarModelState with _$GetCarModelState {
     @Default(0) selectedId,
     @Default(0) confirmId,
     @Default('') String name,
+    @Default(MakeEntity()) MakeEntity selectedModel,
   }) = _GetCarModelState;
 }

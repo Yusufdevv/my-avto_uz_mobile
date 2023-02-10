@@ -1,3 +1,4 @@
+import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
 import 'package:auto/features/common/entities/makes_entity.dart';
 import 'package:bloc/bloc.dart';
@@ -28,7 +29,7 @@ class GetCarModelBloc extends Bloc<GetCarModelEvent, GetCarModelState> {
     on<_GetMakeId>((event, emit) => emit(state.copyWith(getId: event.id)));
     on<_GetSerched>((event, emit) => emit(state.copyWith(search: event.naem)));
     on<_SelectedModelItem>((event, emit) {
-      emit(state.copyWith(selectedId: event.id, name: event.name));
+      emit(state.copyWith(selectedId: event.id, name: event.name, selectedModel: event.model));
     });
     on<_ConfirmModel>((event, emit) {
       emit(state.copyWith(confirmId: state.selectedId));

@@ -79,7 +79,7 @@ class ChangeCarItems extends StatelessWidget {
                         const SizedBox(width: 12),
                         HighlightedText(
                           allText: name,
-                          highlightedText: '',
+                          highlightedText: text,
                           terms: text.split(' '),
                           highlightColor:
                               LightThemeColors.tangerineYellowToMediumSlateBlue,
@@ -90,7 +90,7 @@ class ChangeCarItems extends StatelessWidget {
                                   fontSize: 16, fontWeight: FontWeight.w600),
                           textStyleHighlight:
                               Theme.of(context).textTheme.headline1!.copyWith(
-                                    fontSize: 16,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.w600,
                                   ),
                         ),
