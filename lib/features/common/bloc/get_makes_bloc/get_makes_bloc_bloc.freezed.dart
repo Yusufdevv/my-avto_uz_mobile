@@ -26,6 +26,7 @@ mixin _$GetMakesBlocEvent {
     required TResult Function() getIsCheck,
     required TResult Function() getNextTop,
     required TResult Function(String index) getIndex,
+    required TResult Function() changeControlleStatus,
     required TResult Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)
         selectedCarItems,
@@ -43,6 +44,7 @@ mixin _$GetMakesBlocEvent {
     TResult? Function()? getIsCheck,
     TResult? Function()? getNextTop,
     TResult? Function(String index)? getIndex,
+    TResult? Function()? changeControlleStatus,
     TResult? Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)?
         selectedCarItems,
@@ -60,6 +62,7 @@ mixin _$GetMakesBlocEvent {
     TResult Function()? getIsCheck,
     TResult Function()? getNextTop,
     TResult Function(String index)? getIndex,
+    TResult Function()? changeControlleStatus,
     TResult Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)?
         selectedCarItems,
@@ -78,6 +81,8 @@ mixin _$GetMakesBlocEvent {
     required TResult Function(_GetIsCheck value) getIsCheck,
     required TResult Function(_GetNextTop value) getNextTop,
     required TResult Function(_GetIndex value) getIndex,
+    required TResult Function(_ChangeControlleStatus value)
+        changeControlleStatus,
     required TResult Function(_SelectedCarItems value) selectedCarItems,
     required TResult Function(_ConfirmCarOption value) confirmCarOption,
     required TResult Function(_RevertCarOption value) revertCarOption,
@@ -93,6 +98,7 @@ mixin _$GetMakesBlocEvent {
     TResult? Function(_GetIsCheck value)? getIsCheck,
     TResult? Function(_GetNextTop value)? getNextTop,
     TResult? Function(_GetIndex value)? getIndex,
+    TResult? Function(_ChangeControlleStatus value)? changeControlleStatus,
     TResult? Function(_SelectedCarItems value)? selectedCarItems,
     TResult? Function(_ConfirmCarOption value)? confirmCarOption,
     TResult? Function(_RevertCarOption value)? revertCarOption,
@@ -108,6 +114,7 @@ mixin _$GetMakesBlocEvent {
     TResult Function(_GetIsCheck value)? getIsCheck,
     TResult Function(_GetNextTop value)? getNextTop,
     TResult Function(_GetIndex value)? getIndex,
+    TResult Function(_ChangeControlleStatus value)? changeControlleStatus,
     TResult Function(_SelectedCarItems value)? selectedCarItems,
     TResult Function(_ConfirmCarOption value)? confirmCarOption,
     TResult Function(_RevertCarOption value)? revertCarOption,
@@ -180,6 +187,7 @@ class _$_GetMakes implements _GetMakes {
     required TResult Function() getIsCheck,
     required TResult Function() getNextTop,
     required TResult Function(String index) getIndex,
+    required TResult Function() changeControlleStatus,
     required TResult Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)
         selectedCarItems,
@@ -200,6 +208,7 @@ class _$_GetMakes implements _GetMakes {
     TResult? Function()? getIsCheck,
     TResult? Function()? getNextTop,
     TResult? Function(String index)? getIndex,
+    TResult? Function()? changeControlleStatus,
     TResult? Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)?
         selectedCarItems,
@@ -220,6 +229,7 @@ class _$_GetMakes implements _GetMakes {
     TResult Function()? getIsCheck,
     TResult Function()? getNextTop,
     TResult Function(String index)? getIndex,
+    TResult Function()? changeControlleStatus,
     TResult Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)?
         selectedCarItems,
@@ -244,6 +254,8 @@ class _$_GetMakes implements _GetMakes {
     required TResult Function(_GetIsCheck value) getIsCheck,
     required TResult Function(_GetNextTop value) getNextTop,
     required TResult Function(_GetIndex value) getIndex,
+    required TResult Function(_ChangeControlleStatus value)
+        changeControlleStatus,
     required TResult Function(_SelectedCarItems value) selectedCarItems,
     required TResult Function(_ConfirmCarOption value) confirmCarOption,
     required TResult Function(_RevertCarOption value) revertCarOption,
@@ -262,6 +274,7 @@ class _$_GetMakes implements _GetMakes {
     TResult? Function(_GetIsCheck value)? getIsCheck,
     TResult? Function(_GetNextTop value)? getNextTop,
     TResult? Function(_GetIndex value)? getIndex,
+    TResult? Function(_ChangeControlleStatus value)? changeControlleStatus,
     TResult? Function(_SelectedCarItems value)? selectedCarItems,
     TResult? Function(_ConfirmCarOption value)? confirmCarOption,
     TResult? Function(_RevertCarOption value)? revertCarOption,
@@ -280,6 +293,7 @@ class _$_GetMakes implements _GetMakes {
     TResult Function(_GetIsCheck value)? getIsCheck,
     TResult Function(_GetNextTop value)? getNextTop,
     TResult Function(_GetIndex value)? getIndex,
+    TResult Function(_ChangeControlleStatus value)? changeControlleStatus,
     TResult Function(_SelectedCarItems value)? selectedCarItems,
     TResult Function(_ConfirmCarOption value)? confirmCarOption,
     TResult Function(_RevertCarOption value)? revertCarOption,
@@ -342,6 +356,7 @@ class _$_GetTopMakes implements _GetTopMakes {
     required TResult Function() getIsCheck,
     required TResult Function() getNextTop,
     required TResult Function(String index) getIndex,
+    required TResult Function() changeControlleStatus,
     required TResult Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)
         selectedCarItems,
@@ -362,6 +377,7 @@ class _$_GetTopMakes implements _GetTopMakes {
     TResult? Function()? getIsCheck,
     TResult? Function()? getNextTop,
     TResult? Function(String index)? getIndex,
+    TResult? Function()? changeControlleStatus,
     TResult? Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)?
         selectedCarItems,
@@ -382,6 +398,7 @@ class _$_GetTopMakes implements _GetTopMakes {
     TResult Function()? getIsCheck,
     TResult Function()? getNextTop,
     TResult Function(String index)? getIndex,
+    TResult Function()? changeControlleStatus,
     TResult Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)?
         selectedCarItems,
@@ -406,6 +423,8 @@ class _$_GetTopMakes implements _GetTopMakes {
     required TResult Function(_GetIsCheck value) getIsCheck,
     required TResult Function(_GetNextTop value) getNextTop,
     required TResult Function(_GetIndex value) getIndex,
+    required TResult Function(_ChangeControlleStatus value)
+        changeControlleStatus,
     required TResult Function(_SelectedCarItems value) selectedCarItems,
     required TResult Function(_ConfirmCarOption value) confirmCarOption,
     required TResult Function(_RevertCarOption value) revertCarOption,
@@ -424,6 +443,7 @@ class _$_GetTopMakes implements _GetTopMakes {
     TResult? Function(_GetIsCheck value)? getIsCheck,
     TResult? Function(_GetNextTop value)? getNextTop,
     TResult? Function(_GetIndex value)? getIndex,
+    TResult? Function(_ChangeControlleStatus value)? changeControlleStatus,
     TResult? Function(_SelectedCarItems value)? selectedCarItems,
     TResult? Function(_ConfirmCarOption value)? confirmCarOption,
     TResult? Function(_RevertCarOption value)? revertCarOption,
@@ -442,6 +462,7 @@ class _$_GetTopMakes implements _GetTopMakes {
     TResult Function(_GetIsCheck value)? getIsCheck,
     TResult Function(_GetNextTop value)? getNextTop,
     TResult Function(_GetIndex value)? getIndex,
+    TResult Function(_ChangeControlleStatus value)? changeControlleStatus,
     TResult Function(_SelectedCarItems value)? selectedCarItems,
     TResult Function(_ConfirmCarOption value)? confirmCarOption,
     TResult Function(_RevertCarOption value)? revertCarOption,
@@ -530,6 +551,7 @@ class _$_GetSerched implements _GetSerched {
     required TResult Function() getIsCheck,
     required TResult Function() getNextTop,
     required TResult Function(String index) getIndex,
+    required TResult Function() changeControlleStatus,
     required TResult Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)
         selectedCarItems,
@@ -550,6 +572,7 @@ class _$_GetSerched implements _GetSerched {
     TResult? Function()? getIsCheck,
     TResult? Function()? getNextTop,
     TResult? Function(String index)? getIndex,
+    TResult? Function()? changeControlleStatus,
     TResult? Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)?
         selectedCarItems,
@@ -570,6 +593,7 @@ class _$_GetSerched implements _GetSerched {
     TResult Function()? getIsCheck,
     TResult Function()? getNextTop,
     TResult Function(String index)? getIndex,
+    TResult Function()? changeControlleStatus,
     TResult Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)?
         selectedCarItems,
@@ -594,6 +618,8 @@ class _$_GetSerched implements _GetSerched {
     required TResult Function(_GetIsCheck value) getIsCheck,
     required TResult Function(_GetNextTop value) getNextTop,
     required TResult Function(_GetIndex value) getIndex,
+    required TResult Function(_ChangeControlleStatus value)
+        changeControlleStatus,
     required TResult Function(_SelectedCarItems value) selectedCarItems,
     required TResult Function(_ConfirmCarOption value) confirmCarOption,
     required TResult Function(_RevertCarOption value) revertCarOption,
@@ -612,6 +638,7 @@ class _$_GetSerched implements _GetSerched {
     TResult? Function(_GetIsCheck value)? getIsCheck,
     TResult? Function(_GetNextTop value)? getNextTop,
     TResult? Function(_GetIndex value)? getIndex,
+    TResult? Function(_ChangeControlleStatus value)? changeControlleStatus,
     TResult? Function(_SelectedCarItems value)? selectedCarItems,
     TResult? Function(_ConfirmCarOption value)? confirmCarOption,
     TResult? Function(_RevertCarOption value)? revertCarOption,
@@ -630,6 +657,7 @@ class _$_GetSerched implements _GetSerched {
     TResult Function(_GetIsCheck value)? getIsCheck,
     TResult Function(_GetNextTop value)? getNextTop,
     TResult Function(_GetIndex value)? getIndex,
+    TResult Function(_ChangeControlleStatus value)? changeControlleStatus,
     TResult Function(_SelectedCarItems value)? selectedCarItems,
     TResult Function(_ConfirmCarOption value)? confirmCarOption,
     TResult Function(_RevertCarOption value)? revertCarOption,
@@ -723,6 +751,7 @@ class _$_ChangeSelected implements _ChangeSelected {
     required TResult Function() getIsCheck,
     required TResult Function() getNextTop,
     required TResult Function(String index) getIndex,
+    required TResult Function() changeControlleStatus,
     required TResult Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)
         selectedCarItems,
@@ -743,6 +772,7 @@ class _$_ChangeSelected implements _ChangeSelected {
     TResult? Function()? getIsCheck,
     TResult? Function()? getNextTop,
     TResult? Function(String index)? getIndex,
+    TResult? Function()? changeControlleStatus,
     TResult? Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)?
         selectedCarItems,
@@ -763,6 +793,7 @@ class _$_ChangeSelected implements _ChangeSelected {
     TResult Function()? getIsCheck,
     TResult Function()? getNextTop,
     TResult Function(String index)? getIndex,
+    TResult Function()? changeControlleStatus,
     TResult Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)?
         selectedCarItems,
@@ -787,6 +818,8 @@ class _$_ChangeSelected implements _ChangeSelected {
     required TResult Function(_GetIsCheck value) getIsCheck,
     required TResult Function(_GetNextTop value) getNextTop,
     required TResult Function(_GetIndex value) getIndex,
+    required TResult Function(_ChangeControlleStatus value)
+        changeControlleStatus,
     required TResult Function(_SelectedCarItems value) selectedCarItems,
     required TResult Function(_ConfirmCarOption value) confirmCarOption,
     required TResult Function(_RevertCarOption value) revertCarOption,
@@ -805,6 +838,7 @@ class _$_ChangeSelected implements _ChangeSelected {
     TResult? Function(_GetIsCheck value)? getIsCheck,
     TResult? Function(_GetNextTop value)? getNextTop,
     TResult? Function(_GetIndex value)? getIndex,
+    TResult? Function(_ChangeControlleStatus value)? changeControlleStatus,
     TResult? Function(_SelectedCarItems value)? selectedCarItems,
     TResult? Function(_ConfirmCarOption value)? confirmCarOption,
     TResult? Function(_RevertCarOption value)? revertCarOption,
@@ -823,6 +857,7 @@ class _$_ChangeSelected implements _ChangeSelected {
     TResult Function(_GetIsCheck value)? getIsCheck,
     TResult Function(_GetNextTop value)? getNextTop,
     TResult Function(_GetIndex value)? getIndex,
+    TResult Function(_ChangeControlleStatus value)? changeControlleStatus,
     TResult Function(_SelectedCarItems value)? selectedCarItems,
     TResult Function(_ConfirmCarOption value)? confirmCarOption,
     TResult Function(_RevertCarOption value)? revertCarOption,
@@ -916,6 +951,7 @@ class _$_SortMakes implements _SortMakes {
     required TResult Function() getIsCheck,
     required TResult Function() getNextTop,
     required TResult Function(String index) getIndex,
+    required TResult Function() changeControlleStatus,
     required TResult Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)
         selectedCarItems,
@@ -936,6 +972,7 @@ class _$_SortMakes implements _SortMakes {
     TResult? Function()? getIsCheck,
     TResult? Function()? getNextTop,
     TResult? Function(String index)? getIndex,
+    TResult? Function()? changeControlleStatus,
     TResult? Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)?
         selectedCarItems,
@@ -956,6 +993,7 @@ class _$_SortMakes implements _SortMakes {
     TResult Function()? getIsCheck,
     TResult Function()? getNextTop,
     TResult Function(String index)? getIndex,
+    TResult Function()? changeControlleStatus,
     TResult Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)?
         selectedCarItems,
@@ -980,6 +1018,8 @@ class _$_SortMakes implements _SortMakes {
     required TResult Function(_GetIsCheck value) getIsCheck,
     required TResult Function(_GetNextTop value) getNextTop,
     required TResult Function(_GetIndex value) getIndex,
+    required TResult Function(_ChangeControlleStatus value)
+        changeControlleStatus,
     required TResult Function(_SelectedCarItems value) selectedCarItems,
     required TResult Function(_ConfirmCarOption value) confirmCarOption,
     required TResult Function(_RevertCarOption value) revertCarOption,
@@ -998,6 +1038,7 @@ class _$_SortMakes implements _SortMakes {
     TResult? Function(_GetIsCheck value)? getIsCheck,
     TResult? Function(_GetNextTop value)? getNextTop,
     TResult? Function(_GetIndex value)? getIndex,
+    TResult? Function(_ChangeControlleStatus value)? changeControlleStatus,
     TResult? Function(_SelectedCarItems value)? selectedCarItems,
     TResult? Function(_ConfirmCarOption value)? confirmCarOption,
     TResult? Function(_RevertCarOption value)? revertCarOption,
@@ -1016,6 +1057,7 @@ class _$_SortMakes implements _SortMakes {
     TResult Function(_GetIsCheck value)? getIsCheck,
     TResult Function(_GetNextTop value)? getNextTop,
     TResult Function(_GetIndex value)? getIndex,
+    TResult Function(_ChangeControlleStatus value)? changeControlleStatus,
     TResult Function(_SelectedCarItems value)? selectedCarItems,
     TResult Function(_ConfirmCarOption value)? confirmCarOption,
     TResult Function(_RevertCarOption value)? revertCarOption,
@@ -1083,6 +1125,7 @@ class _$_GetIsCheck implements _GetIsCheck {
     required TResult Function() getIsCheck,
     required TResult Function() getNextTop,
     required TResult Function(String index) getIndex,
+    required TResult Function() changeControlleStatus,
     required TResult Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)
         selectedCarItems,
@@ -1103,6 +1146,7 @@ class _$_GetIsCheck implements _GetIsCheck {
     TResult? Function()? getIsCheck,
     TResult? Function()? getNextTop,
     TResult? Function(String index)? getIndex,
+    TResult? Function()? changeControlleStatus,
     TResult? Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)?
         selectedCarItems,
@@ -1123,6 +1167,7 @@ class _$_GetIsCheck implements _GetIsCheck {
     TResult Function()? getIsCheck,
     TResult Function()? getNextTop,
     TResult Function(String index)? getIndex,
+    TResult Function()? changeControlleStatus,
     TResult Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)?
         selectedCarItems,
@@ -1147,6 +1192,8 @@ class _$_GetIsCheck implements _GetIsCheck {
     required TResult Function(_GetIsCheck value) getIsCheck,
     required TResult Function(_GetNextTop value) getNextTop,
     required TResult Function(_GetIndex value) getIndex,
+    required TResult Function(_ChangeControlleStatus value)
+        changeControlleStatus,
     required TResult Function(_SelectedCarItems value) selectedCarItems,
     required TResult Function(_ConfirmCarOption value) confirmCarOption,
     required TResult Function(_RevertCarOption value) revertCarOption,
@@ -1165,6 +1212,7 @@ class _$_GetIsCheck implements _GetIsCheck {
     TResult? Function(_GetIsCheck value)? getIsCheck,
     TResult? Function(_GetNextTop value)? getNextTop,
     TResult? Function(_GetIndex value)? getIndex,
+    TResult? Function(_ChangeControlleStatus value)? changeControlleStatus,
     TResult? Function(_SelectedCarItems value)? selectedCarItems,
     TResult? Function(_ConfirmCarOption value)? confirmCarOption,
     TResult? Function(_RevertCarOption value)? revertCarOption,
@@ -1183,6 +1231,7 @@ class _$_GetIsCheck implements _GetIsCheck {
     TResult Function(_GetIsCheck value)? getIsCheck,
     TResult Function(_GetNextTop value)? getNextTop,
     TResult Function(_GetIndex value)? getIndex,
+    TResult Function(_ChangeControlleStatus value)? changeControlleStatus,
     TResult Function(_SelectedCarItems value)? selectedCarItems,
     TResult Function(_ConfirmCarOption value)? confirmCarOption,
     TResult Function(_RevertCarOption value)? revertCarOption,
@@ -1245,6 +1294,7 @@ class _$_GetNextTop implements _GetNextTop {
     required TResult Function() getIsCheck,
     required TResult Function() getNextTop,
     required TResult Function(String index) getIndex,
+    required TResult Function() changeControlleStatus,
     required TResult Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)
         selectedCarItems,
@@ -1265,6 +1315,7 @@ class _$_GetNextTop implements _GetNextTop {
     TResult? Function()? getIsCheck,
     TResult? Function()? getNextTop,
     TResult? Function(String index)? getIndex,
+    TResult? Function()? changeControlleStatus,
     TResult? Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)?
         selectedCarItems,
@@ -1285,6 +1336,7 @@ class _$_GetNextTop implements _GetNextTop {
     TResult Function()? getIsCheck,
     TResult Function()? getNextTop,
     TResult Function(String index)? getIndex,
+    TResult Function()? changeControlleStatus,
     TResult Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)?
         selectedCarItems,
@@ -1309,6 +1361,8 @@ class _$_GetNextTop implements _GetNextTop {
     required TResult Function(_GetIsCheck value) getIsCheck,
     required TResult Function(_GetNextTop value) getNextTop,
     required TResult Function(_GetIndex value) getIndex,
+    required TResult Function(_ChangeControlleStatus value)
+        changeControlleStatus,
     required TResult Function(_SelectedCarItems value) selectedCarItems,
     required TResult Function(_ConfirmCarOption value) confirmCarOption,
     required TResult Function(_RevertCarOption value) revertCarOption,
@@ -1327,6 +1381,7 @@ class _$_GetNextTop implements _GetNextTop {
     TResult? Function(_GetIsCheck value)? getIsCheck,
     TResult? Function(_GetNextTop value)? getNextTop,
     TResult? Function(_GetIndex value)? getIndex,
+    TResult? Function(_ChangeControlleStatus value)? changeControlleStatus,
     TResult? Function(_SelectedCarItems value)? selectedCarItems,
     TResult? Function(_ConfirmCarOption value)? confirmCarOption,
     TResult? Function(_RevertCarOption value)? revertCarOption,
@@ -1345,6 +1400,7 @@ class _$_GetNextTop implements _GetNextTop {
     TResult Function(_GetIsCheck value)? getIsCheck,
     TResult Function(_GetNextTop value)? getNextTop,
     TResult Function(_GetIndex value)? getIndex,
+    TResult Function(_ChangeControlleStatus value)? changeControlleStatus,
     TResult Function(_SelectedCarItems value)? selectedCarItems,
     TResult Function(_ConfirmCarOption value)? confirmCarOption,
     TResult Function(_RevertCarOption value)? revertCarOption,
@@ -1433,6 +1489,7 @@ class _$_GetIndex implements _GetIndex {
     required TResult Function() getIsCheck,
     required TResult Function() getNextTop,
     required TResult Function(String index) getIndex,
+    required TResult Function() changeControlleStatus,
     required TResult Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)
         selectedCarItems,
@@ -1453,6 +1510,7 @@ class _$_GetIndex implements _GetIndex {
     TResult? Function()? getIsCheck,
     TResult? Function()? getNextTop,
     TResult? Function(String index)? getIndex,
+    TResult? Function()? changeControlleStatus,
     TResult? Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)?
         selectedCarItems,
@@ -1473,6 +1531,7 @@ class _$_GetIndex implements _GetIndex {
     TResult Function()? getIsCheck,
     TResult Function()? getNextTop,
     TResult Function(String index)? getIndex,
+    TResult Function()? changeControlleStatus,
     TResult Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)?
         selectedCarItems,
@@ -1497,6 +1556,8 @@ class _$_GetIndex implements _GetIndex {
     required TResult Function(_GetIsCheck value) getIsCheck,
     required TResult Function(_GetNextTop value) getNextTop,
     required TResult Function(_GetIndex value) getIndex,
+    required TResult Function(_ChangeControlleStatus value)
+        changeControlleStatus,
     required TResult Function(_SelectedCarItems value) selectedCarItems,
     required TResult Function(_ConfirmCarOption value) confirmCarOption,
     required TResult Function(_RevertCarOption value) revertCarOption,
@@ -1515,6 +1576,7 @@ class _$_GetIndex implements _GetIndex {
     TResult? Function(_GetIsCheck value)? getIsCheck,
     TResult? Function(_GetNextTop value)? getNextTop,
     TResult? Function(_GetIndex value)? getIndex,
+    TResult? Function(_ChangeControlleStatus value)? changeControlleStatus,
     TResult? Function(_SelectedCarItems value)? selectedCarItems,
     TResult? Function(_ConfirmCarOption value)? confirmCarOption,
     TResult? Function(_RevertCarOption value)? revertCarOption,
@@ -1533,6 +1595,7 @@ class _$_GetIndex implements _GetIndex {
     TResult Function(_GetIsCheck value)? getIsCheck,
     TResult Function(_GetNextTop value)? getNextTop,
     TResult Function(_GetIndex value)? getIndex,
+    TResult Function(_ChangeControlleStatus value)? changeControlleStatus,
     TResult Function(_SelectedCarItems value)? selectedCarItems,
     TResult Function(_ConfirmCarOption value)? confirmCarOption,
     TResult Function(_RevertCarOption value)? revertCarOption,
@@ -1552,6 +1615,175 @@ abstract class _GetIndex implements GetMakesBlocEvent {
   @JsonKey(ignore: true)
   _$$_GetIndexCopyWith<_$_GetIndex> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_ChangeControlleStatusCopyWith<$Res> {
+  factory _$$_ChangeControlleStatusCopyWith(_$_ChangeControlleStatus value,
+          $Res Function(_$_ChangeControlleStatus) then) =
+      __$$_ChangeControlleStatusCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_ChangeControlleStatusCopyWithImpl<$Res>
+    extends _$GetMakesBlocEventCopyWithImpl<$Res, _$_ChangeControlleStatus>
+    implements _$$_ChangeControlleStatusCopyWith<$Res> {
+  __$$_ChangeControlleStatusCopyWithImpl(_$_ChangeControlleStatus _value,
+      $Res Function(_$_ChangeControlleStatus) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_ChangeControlleStatus implements _ChangeControlleStatus {
+  _$_ChangeControlleStatus();
+
+  @override
+  String toString() {
+    return 'GetMakesBlocEvent.changeControlleStatus()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_ChangeControlleStatus);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getMakes,
+    required TResult Function() getTopMakes,
+    required TResult Function(String naem) getSerched,
+    required TResult Function(int id) changeSelected,
+    required TResult Function(String letter) sortMakes,
+    required TResult Function() getIsCheck,
+    required TResult Function() getNextTop,
+    required TResult Function(String index) getIndex,
+    required TResult Function() changeControlleStatus,
+    required TResult Function(
+            int id, String name, String imageUrl, MakeEntity makeEntity)
+        selectedCarItems,
+    required TResult Function() confirmCarOption,
+    required TResult Function() revertCarOption,
+  }) {
+    return changeControlleStatus();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getMakes,
+    TResult? Function()? getTopMakes,
+    TResult? Function(String naem)? getSerched,
+    TResult? Function(int id)? changeSelected,
+    TResult? Function(String letter)? sortMakes,
+    TResult? Function()? getIsCheck,
+    TResult? Function()? getNextTop,
+    TResult? Function(String index)? getIndex,
+    TResult? Function()? changeControlleStatus,
+    TResult? Function(
+            int id, String name, String imageUrl, MakeEntity makeEntity)?
+        selectedCarItems,
+    TResult? Function()? confirmCarOption,
+    TResult? Function()? revertCarOption,
+  }) {
+    return changeControlleStatus?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getMakes,
+    TResult Function()? getTopMakes,
+    TResult Function(String naem)? getSerched,
+    TResult Function(int id)? changeSelected,
+    TResult Function(String letter)? sortMakes,
+    TResult Function()? getIsCheck,
+    TResult Function()? getNextTop,
+    TResult Function(String index)? getIndex,
+    TResult Function()? changeControlleStatus,
+    TResult Function(
+            int id, String name, String imageUrl, MakeEntity makeEntity)?
+        selectedCarItems,
+    TResult Function()? confirmCarOption,
+    TResult Function()? revertCarOption,
+    required TResult orElse(),
+  }) {
+    if (changeControlleStatus != null) {
+      return changeControlleStatus();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetMakes value) getMakes,
+    required TResult Function(_GetTopMakes value) getTopMakes,
+    required TResult Function(_GetSerched value) getSerched,
+    required TResult Function(_ChangeSelected value) changeSelected,
+    required TResult Function(_SortMakes value) sortMakes,
+    required TResult Function(_GetIsCheck value) getIsCheck,
+    required TResult Function(_GetNextTop value) getNextTop,
+    required TResult Function(_GetIndex value) getIndex,
+    required TResult Function(_ChangeControlleStatus value)
+        changeControlleStatus,
+    required TResult Function(_SelectedCarItems value) selectedCarItems,
+    required TResult Function(_ConfirmCarOption value) confirmCarOption,
+    required TResult Function(_RevertCarOption value) revertCarOption,
+  }) {
+    return changeControlleStatus(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetMakes value)? getMakes,
+    TResult? Function(_GetTopMakes value)? getTopMakes,
+    TResult? Function(_GetSerched value)? getSerched,
+    TResult? Function(_ChangeSelected value)? changeSelected,
+    TResult? Function(_SortMakes value)? sortMakes,
+    TResult? Function(_GetIsCheck value)? getIsCheck,
+    TResult? Function(_GetNextTop value)? getNextTop,
+    TResult? Function(_GetIndex value)? getIndex,
+    TResult? Function(_ChangeControlleStatus value)? changeControlleStatus,
+    TResult? Function(_SelectedCarItems value)? selectedCarItems,
+    TResult? Function(_ConfirmCarOption value)? confirmCarOption,
+    TResult? Function(_RevertCarOption value)? revertCarOption,
+  }) {
+    return changeControlleStatus?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetMakes value)? getMakes,
+    TResult Function(_GetTopMakes value)? getTopMakes,
+    TResult Function(_GetSerched value)? getSerched,
+    TResult Function(_ChangeSelected value)? changeSelected,
+    TResult Function(_SortMakes value)? sortMakes,
+    TResult Function(_GetIsCheck value)? getIsCheck,
+    TResult Function(_GetNextTop value)? getNextTop,
+    TResult Function(_GetIndex value)? getIndex,
+    TResult Function(_ChangeControlleStatus value)? changeControlleStatus,
+    TResult Function(_SelectedCarItems value)? selectedCarItems,
+    TResult Function(_ConfirmCarOption value)? confirmCarOption,
+    TResult Function(_RevertCarOption value)? revertCarOption,
+    required TResult orElse(),
+  }) {
+    if (changeControlleStatus != null) {
+      return changeControlleStatus(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ChangeControlleStatus implements GetMakesBlocEvent {
+  factory _ChangeControlleStatus() = _$_ChangeControlleStatus;
 }
 
 /// @nodoc
@@ -1656,6 +1888,7 @@ class _$_SelectedCarItems implements _SelectedCarItems {
     required TResult Function() getIsCheck,
     required TResult Function() getNextTop,
     required TResult Function(String index) getIndex,
+    required TResult Function() changeControlleStatus,
     required TResult Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)
         selectedCarItems,
@@ -1676,6 +1909,7 @@ class _$_SelectedCarItems implements _SelectedCarItems {
     TResult? Function()? getIsCheck,
     TResult? Function()? getNextTop,
     TResult? Function(String index)? getIndex,
+    TResult? Function()? changeControlleStatus,
     TResult? Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)?
         selectedCarItems,
@@ -1696,6 +1930,7 @@ class _$_SelectedCarItems implements _SelectedCarItems {
     TResult Function()? getIsCheck,
     TResult Function()? getNextTop,
     TResult Function(String index)? getIndex,
+    TResult Function()? changeControlleStatus,
     TResult Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)?
         selectedCarItems,
@@ -1720,6 +1955,8 @@ class _$_SelectedCarItems implements _SelectedCarItems {
     required TResult Function(_GetIsCheck value) getIsCheck,
     required TResult Function(_GetNextTop value) getNextTop,
     required TResult Function(_GetIndex value) getIndex,
+    required TResult Function(_ChangeControlleStatus value)
+        changeControlleStatus,
     required TResult Function(_SelectedCarItems value) selectedCarItems,
     required TResult Function(_ConfirmCarOption value) confirmCarOption,
     required TResult Function(_RevertCarOption value) revertCarOption,
@@ -1738,6 +1975,7 @@ class _$_SelectedCarItems implements _SelectedCarItems {
     TResult? Function(_GetIsCheck value)? getIsCheck,
     TResult? Function(_GetNextTop value)? getNextTop,
     TResult? Function(_GetIndex value)? getIndex,
+    TResult? Function(_ChangeControlleStatus value)? changeControlleStatus,
     TResult? Function(_SelectedCarItems value)? selectedCarItems,
     TResult? Function(_ConfirmCarOption value)? confirmCarOption,
     TResult? Function(_RevertCarOption value)? revertCarOption,
@@ -1756,6 +1994,7 @@ class _$_SelectedCarItems implements _SelectedCarItems {
     TResult Function(_GetIsCheck value)? getIsCheck,
     TResult Function(_GetNextTop value)? getNextTop,
     TResult Function(_GetIndex value)? getIndex,
+    TResult Function(_ChangeControlleStatus value)? changeControlleStatus,
     TResult Function(_SelectedCarItems value)? selectedCarItems,
     TResult Function(_ConfirmCarOption value)? confirmCarOption,
     TResult Function(_RevertCarOption value)? revertCarOption,
@@ -1830,6 +2069,7 @@ class _$_ConfirmCarOption implements _ConfirmCarOption {
     required TResult Function() getIsCheck,
     required TResult Function() getNextTop,
     required TResult Function(String index) getIndex,
+    required TResult Function() changeControlleStatus,
     required TResult Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)
         selectedCarItems,
@@ -1850,6 +2090,7 @@ class _$_ConfirmCarOption implements _ConfirmCarOption {
     TResult? Function()? getIsCheck,
     TResult? Function()? getNextTop,
     TResult? Function(String index)? getIndex,
+    TResult? Function()? changeControlleStatus,
     TResult? Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)?
         selectedCarItems,
@@ -1870,6 +2111,7 @@ class _$_ConfirmCarOption implements _ConfirmCarOption {
     TResult Function()? getIsCheck,
     TResult Function()? getNextTop,
     TResult Function(String index)? getIndex,
+    TResult Function()? changeControlleStatus,
     TResult Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)?
         selectedCarItems,
@@ -1894,6 +2136,8 @@ class _$_ConfirmCarOption implements _ConfirmCarOption {
     required TResult Function(_GetIsCheck value) getIsCheck,
     required TResult Function(_GetNextTop value) getNextTop,
     required TResult Function(_GetIndex value) getIndex,
+    required TResult Function(_ChangeControlleStatus value)
+        changeControlleStatus,
     required TResult Function(_SelectedCarItems value) selectedCarItems,
     required TResult Function(_ConfirmCarOption value) confirmCarOption,
     required TResult Function(_RevertCarOption value) revertCarOption,
@@ -1912,6 +2156,7 @@ class _$_ConfirmCarOption implements _ConfirmCarOption {
     TResult? Function(_GetIsCheck value)? getIsCheck,
     TResult? Function(_GetNextTop value)? getNextTop,
     TResult? Function(_GetIndex value)? getIndex,
+    TResult? Function(_ChangeControlleStatus value)? changeControlleStatus,
     TResult? Function(_SelectedCarItems value)? selectedCarItems,
     TResult? Function(_ConfirmCarOption value)? confirmCarOption,
     TResult? Function(_RevertCarOption value)? revertCarOption,
@@ -1930,6 +2175,7 @@ class _$_ConfirmCarOption implements _ConfirmCarOption {
     TResult Function(_GetIsCheck value)? getIsCheck,
     TResult Function(_GetNextTop value)? getNextTop,
     TResult Function(_GetIndex value)? getIndex,
+    TResult Function(_ChangeControlleStatus value)? changeControlleStatus,
     TResult Function(_SelectedCarItems value)? selectedCarItems,
     TResult Function(_ConfirmCarOption value)? confirmCarOption,
     TResult Function(_RevertCarOption value)? revertCarOption,
@@ -1992,6 +2238,7 @@ class _$_RevertCarOption implements _RevertCarOption {
     required TResult Function() getIsCheck,
     required TResult Function() getNextTop,
     required TResult Function(String index) getIndex,
+    required TResult Function() changeControlleStatus,
     required TResult Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)
         selectedCarItems,
@@ -2012,6 +2259,7 @@ class _$_RevertCarOption implements _RevertCarOption {
     TResult? Function()? getIsCheck,
     TResult? Function()? getNextTop,
     TResult? Function(String index)? getIndex,
+    TResult? Function()? changeControlleStatus,
     TResult? Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)?
         selectedCarItems,
@@ -2032,6 +2280,7 @@ class _$_RevertCarOption implements _RevertCarOption {
     TResult Function()? getIsCheck,
     TResult Function()? getNextTop,
     TResult Function(String index)? getIndex,
+    TResult Function()? changeControlleStatus,
     TResult Function(
             int id, String name, String imageUrl, MakeEntity makeEntity)?
         selectedCarItems,
@@ -2056,6 +2305,8 @@ class _$_RevertCarOption implements _RevertCarOption {
     required TResult Function(_GetIsCheck value) getIsCheck,
     required TResult Function(_GetNextTop value) getNextTop,
     required TResult Function(_GetIndex value) getIndex,
+    required TResult Function(_ChangeControlleStatus value)
+        changeControlleStatus,
     required TResult Function(_SelectedCarItems value) selectedCarItems,
     required TResult Function(_ConfirmCarOption value) confirmCarOption,
     required TResult Function(_RevertCarOption value) revertCarOption,
@@ -2074,6 +2325,7 @@ class _$_RevertCarOption implements _RevertCarOption {
     TResult? Function(_GetIsCheck value)? getIsCheck,
     TResult? Function(_GetNextTop value)? getNextTop,
     TResult? Function(_GetIndex value)? getIndex,
+    TResult? Function(_ChangeControlleStatus value)? changeControlleStatus,
     TResult? Function(_SelectedCarItems value)? selectedCarItems,
     TResult? Function(_ConfirmCarOption value)? confirmCarOption,
     TResult? Function(_RevertCarOption value)? revertCarOption,
@@ -2092,6 +2344,7 @@ class _$_RevertCarOption implements _RevertCarOption {
     TResult Function(_GetIsCheck value)? getIsCheck,
     TResult Function(_GetNextTop value)? getNextTop,
     TResult Function(_GetIndex value)? getIndex,
+    TResult Function(_ChangeControlleStatus value)? changeControlleStatus,
     TResult Function(_SelectedCarItems value)? selectedCarItems,
     TResult Function(_ConfirmCarOption value)? confirmCarOption,
     TResult Function(_RevertCarOption value)? revertCarOption,
@@ -2112,6 +2365,7 @@ abstract class _RevertCarOption implements GetMakesBlocEvent {
 mixin _$GetMakesState {
   FormzStatus get status => throw _privateConstructorUsedError;
   FormzStatus get statusTop => throw _privateConstructorUsedError;
+  FormzStatus get statusController => throw _privateConstructorUsedError;
   List<MakeEntity> get makes => throw _privateConstructorUsedError;
   List<MakeEntity> get topMakes => throw _privateConstructorUsedError;
   String? get next => throw _privateConstructorUsedError;
@@ -2140,6 +2394,7 @@ abstract class $GetMakesStateCopyWith<$Res> {
   $Res call(
       {FormzStatus status,
       FormzStatus statusTop,
+      FormzStatus statusController,
       List<MakeEntity> makes,
       List<MakeEntity> topMakes,
       String? next,
@@ -2170,6 +2425,7 @@ class _$GetMakesStateCopyWithImpl<$Res, $Val extends GetMakesState>
   $Res call({
     Object? status = null,
     Object? statusTop = null,
+    Object? statusController = null,
     Object? makes = null,
     Object? topMakes = null,
     Object? next = freezed,
@@ -2192,6 +2448,10 @@ class _$GetMakesStateCopyWithImpl<$Res, $Val extends GetMakesState>
       statusTop: null == statusTop
           ? _value.statusTop
           : statusTop // ignore: cast_nullable_to_non_nullable
+              as FormzStatus,
+      statusController: null == statusController
+          ? _value.statusController
+          : statusController // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
       makes: null == makes
           ? _value.makes
@@ -2260,6 +2520,7 @@ abstract class _$$_GetMakesStateCopyWith<$Res>
   $Res call(
       {FormzStatus status,
       FormzStatus statusTop,
+      FormzStatus statusController,
       List<MakeEntity> makes,
       List<MakeEntity> topMakes,
       String? next,
@@ -2288,6 +2549,7 @@ class __$$_GetMakesStateCopyWithImpl<$Res>
   $Res call({
     Object? status = null,
     Object? statusTop = null,
+    Object? statusController = null,
     Object? makes = null,
     Object? topMakes = null,
     Object? next = freezed,
@@ -2310,6 +2572,10 @@ class __$$_GetMakesStateCopyWithImpl<$Res>
       statusTop: null == statusTop
           ? _value.statusTop
           : statusTop // ignore: cast_nullable_to_non_nullable
+              as FormzStatus,
+      statusController: null == statusController
+          ? _value.statusController
+          : statusController // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
       makes: null == makes
           ? _value._makes
@@ -2365,6 +2631,7 @@ class _$_GetMakesState implements _GetMakesState {
   _$_GetMakesState(
       {this.status = FormzStatus.pure,
       this.statusTop = FormzStatus.pure,
+      this.statusController = FormzStatus.pure,
       final List<MakeEntity> makes = const [],
       final List<MakeEntity> topMakes = const [],
       this.next = '',
@@ -2387,6 +2654,9 @@ class _$_GetMakesState implements _GetMakesState {
   @override
   @JsonKey()
   final FormzStatus statusTop;
+  @override
+  @JsonKey()
+  final FormzStatus statusController;
   final List<MakeEntity> _makes;
   @override
   @JsonKey()
@@ -2441,7 +2711,7 @@ class _$_GetMakesState implements _GetMakesState {
 
   @override
   String toString() {
-    return 'GetMakesState(status: $status, statusTop: $statusTop, makes: $makes, topMakes: $topMakes, next: $next, ischeck: $ischeck, search: $search, count: $count, index: $index, selectChar: $selectChar, selectId: $selectId, selectedMake: $selectedMake, confirmId: $confirmId, name: $name, imageUrl: $imageUrl)';
+    return 'GetMakesState(status: $status, statusTop: $statusTop, statusController: $statusController, makes: $makes, topMakes: $topMakes, next: $next, ischeck: $ischeck, search: $search, count: $count, index: $index, selectChar: $selectChar, selectId: $selectId, selectedMake: $selectedMake, confirmId: $confirmId, name: $name, imageUrl: $imageUrl)';
   }
 
   @override
@@ -2452,6 +2722,8 @@ class _$_GetMakesState implements _GetMakesState {
             (identical(other.status, status) || other.status == status) &&
             (identical(other.statusTop, statusTop) ||
                 other.statusTop == statusTop) &&
+            (identical(other.statusController, statusController) ||
+                other.statusController == statusController) &&
             const DeepCollectionEquality().equals(other._makes, _makes) &&
             const DeepCollectionEquality().equals(other._topMakes, _topMakes) &&
             (identical(other.next, next) || other.next == next) &&
@@ -2477,6 +2749,7 @@ class _$_GetMakesState implements _GetMakesState {
       runtimeType,
       status,
       statusTop,
+      statusController,
       const DeepCollectionEquality().hash(_makes),
       const DeepCollectionEquality().hash(_topMakes),
       next,
@@ -2502,6 +2775,7 @@ abstract class _GetMakesState implements GetMakesState {
   factory _GetMakesState(
       {final FormzStatus status,
       final FormzStatus statusTop,
+      final FormzStatus statusController,
       final List<MakeEntity> makes,
       final List<MakeEntity> topMakes,
       final String? next,
@@ -2520,6 +2794,8 @@ abstract class _GetMakesState implements GetMakesState {
   FormzStatus get status;
   @override
   FormzStatus get statusTop;
+  @override
+  FormzStatus get statusController;
   @override
   List<MakeEntity> get makes;
   @override

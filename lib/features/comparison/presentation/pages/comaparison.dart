@@ -1,6 +1,8 @@
 // ignore_for_file: directives_ordering
 
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/domain/entities/types/make.dart';
+import 'package:auto/features/ads/presentation/pages/ads_screen.dart';
 import 'package:auto/features/comparison/domain/entities/complectation_entity.dart';
 import 'package:auto/features/comparison/domain/entities/complectation_parameters_entity.dart';
 import 'package:auto/features/comparison/presentation/bloc/comparison-bloc/comparison_bloc.dart';
@@ -142,9 +144,37 @@ class _ComparisonState extends State<Comparison> {
                     onChanged: (showDifferences1) =>
                         setState(() => showDifferences = showDifferences1),
                     scrollController: sliverWidgetScrollController,
-                    onAddCar: () => Navigator.of(context).push(
-                      fade(page:   ChooseCarBrandComparison(parentContext: context)),
-                    ),
+                    onAddCar: () {
+                      ///
+                      Navigator.of(context)
+                          .push(
+                        fade(page: const ChooseCarBrandComparison()),
+                      )
+                          .then((value) {
+                        if (value != null) {
+                          final selectedMake = value[0] as MakeEntity;
+                          final selectedModel = value[1] as MakeEntity;
+                          // widget.comparisonBloc
+                          //   .add(GetMakeModelEvent(
+                          //       selectedMake: selectedMake,
+                          //       selectedModel: selectedModel));
+                          Navigator.of(context, rootNavigator: true)
+                              .push(fade(
+                                  page: AdsScreen(
+                            makeId: selectedMake.id,
+                            modelId: selectedModel.id,
+                          )))
+                              .then((value) {
+                            widget.comparisonBloc.add(GetComparableCars());
+                          });
+                        }
+                        // else {
+                        //   widget.comparisonBloc.add(const GetMakeModelEvent(
+                        //       selectedMake: MakeEntity(),
+                        //       selectedModel: MakeEntity()));
+                        // }
+                      });
+                    },
                     setSticky: (val) {
                       context
                           .read<ComparisonBloc>()

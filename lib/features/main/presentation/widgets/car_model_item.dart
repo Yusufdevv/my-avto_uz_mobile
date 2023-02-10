@@ -82,7 +82,9 @@ class CarModelItem extends StatelessWidget {
                     width: 10,
                   ),
                   Text(
-                    title.isEmpty ? LocaleKeys.choose_brand_model.tr() : title,
+                    title.trim().isEmpty
+                        ? LocaleKeys.choose_brand_model.tr()
+                        : title,
                     style: Theme.of(context).textTheme.headline6!.copyWith(
                         fontSize: 14,
                         color: Theme.of(context)
@@ -95,7 +97,7 @@ class CarModelItem extends StatelessWidget {
             const SizedBox(height: 16),
             WButton(
               height: 44,
-              onTap:onTapShow,
+              onTap: onTapShow,
               color: Theme.of(context)
                   .extension<ThemedColors>()!
                   .lightSlateBlue12ToLightSlateBlue,
@@ -110,8 +112,8 @@ class CarModelItem extends StatelessWidget {
                   ? LocaleKeys.choose_brand.tr()
                   : count > 0
                       ? LocaleKeys.show_offers.tr(args: [
-                              MyFunctions.getThousandsSeparatedPrice('$count')
-                            ])
+                          MyFunctions.getThousandsSeparatedPrice('$count')
+                        ])
                       : LocaleKeys.no_offers.tr(),
               textStyle: Theme.of(context).textTheme.headline6!.copyWith(
                   fontSize: 14,

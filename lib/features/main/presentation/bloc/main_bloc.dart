@@ -1,4 +1,5 @@
 import 'package:auto/features/ad/domain/entities/types/make.dart';
+import 'package:auto/features/common/usecases/announcement_list_usecase.dart';
 import 'package:auto/features/main/domain/entities/story_entity.dart';
 import 'package:auto/features/main/domain/usecases/get_stories_use_case.dart';
 import 'package:bloc/bloc.dart';
@@ -12,11 +13,12 @@ part 'main_state.dart';
 
 class MainBloc extends Bloc<MainEvent, MainState> {
   GetStoriesUseCase getStoriesUseCase = GetStoriesUseCase();
-
-  MainBloc() : super(MainState()) {
+  AnnouncementListUseCase announcementListUseCase = AnnouncementListUseCase();
+  MainBloc() : super(const MainState()) {
     on<InitialEvent>(_onInit);
     on<ChangeStatusEvent>(_onChangeStatus);
     on<GetMakeModelEvent>(_onGetMakeModel);
+    on<GetAnnouncement>(_onGetAnnouncement);
   }
 
   Future _onInit(InitialEvent event, Emitter<MainState> emit) async {
@@ -28,9 +30,20 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     emit(state.copWith(statusStoriesGet: event.status));
   }
 
-  void _onGetMakeModel(GetMakeModelEvent event, Emitter<MainState> emit) { 
+  void _onGetMakeModel(GetMakeModelEvent event, Emitter<MainState> emit) {
     emit(state.copWith(
-        selectedMake: event.selectedMake, selectedModel: event.selectedModel)); 
+        selectedMake: event.selectedMake, selectedModel: event.selectedModel));
+  }
+
+  Future _onGetAnnouncement(
+      GetAnnouncement event, Emitter<MainState> emit) async {
+    final result = await announcementListUseCase.call({
+      'make': state.selectedMake?.id ?? '',
+      'model': state.selectedModel?.id ?? '',
+    });
+    if (result.isRight) {
+      emit(state.copWith(announcementCount: result.right.count));
+    }
   }
 
   Future _getStories(Emitter<MainState> emit) async {

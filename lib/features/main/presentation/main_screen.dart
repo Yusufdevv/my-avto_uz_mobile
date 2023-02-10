@@ -26,7 +26,7 @@ import 'package:auto/features/main/presentation/widgets/soon_bottomsheet.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/features/reels/presentation/pages/reels_screen.dart';
-import 'package:auto/features/rent/presentation/rent_screen.dart'; 
+import 'package:auto/features/rent/presentation/rent_screen.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -75,7 +75,9 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   void initState() {
-    mainBloc = MainBloc()..add(InitialEvent());
+    mainBloc = MainBloc()
+      ..add(InitialEvent())
+      ..add(GetAnnouncement());
     context.read<ProfileBloc>().add(GetProfileEvent());
     context.read<ProfileBloc>().add(GetNoReadNotificationsEvent(filter: 0));
     // context.read<GetMakesBloc>().add(GetMakesBlocEvent.getMakes());
@@ -146,7 +148,9 @@ class _MainScreenState extends State<MainScreen> {
             body: RefreshIndicator(
               color: purple,
               onRefresh: () async {
-                mainBloc.add(InitialEvent());
+                mainBloc
+                  ..add(InitialEvent())
+                  ..add(GetAnnouncement());
                 context.read<ProfileBloc>().add(GetProfileEvent());
                 context
                     .read<ProfileBloc>()
@@ -186,7 +190,6 @@ class _MainScreenState extends State<MainScreen> {
                           Navigator.of(context, rootNavigator: true)
                               .push(fade(
                                   page: ChooseCarBrandComparison(
-                        parentContext: context,
                         selectedMake: state.selectedMake,
                         selectedModel: state.selectedModel,
                       )))
@@ -194,10 +197,11 @@ class _MainScreenState extends State<MainScreen> {
                         if (value != null) {
                           final selectedMake = value[0] as MakeEntity;
                           final selectedModel = value[1] as MakeEntity;
-                          mainBloc.add(GetMakeModelEvent(
-                              selectedMake: selectedMake,
-                              selectedModel: selectedModel));
-
+                          mainBloc
+                            ..add(GetMakeModelEvent(
+                                selectedMake: selectedMake,
+                                selectedModel: selectedModel))
+                            ..add(GetAnnouncement());
                         } else {
                           mainBloc.add(const GetMakeModelEvent(
                               selectedMake: MakeEntity(),
@@ -212,8 +216,9 @@ class _MainScreenState extends State<MainScreen> {
                         )));
                       },
                       imageUrl: state.selectedMake?.logo ?? '',
-                      title: state.selectedMake?.name ?? '',
-                      count: 1231231233,
+                      title:
+                          '${state.selectedMake?.name ?? ''} ${state.selectedModel?.name ?? ''}',
+                      count: state.announcementCount,
                       isCheck: true,
                     ),
                     SizedBox(
@@ -229,7 +234,10 @@ class _MainScreenState extends State<MainScreen> {
                           scrollDirection: Axis.horizontal),
                     ),
                     TopBrands(
-                      
+                      onTap: (selectedMake) {
+                        Navigator.of(context, rootNavigator: true)
+                            .push(fade(page: AdsScreen(makeId: selectedMake.id)));
+                      },
                     ),
                     const TopAds(),
                     BlocListener<WishlistAddBloc, WishlistAddState>(

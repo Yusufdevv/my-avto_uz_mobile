@@ -5,6 +5,7 @@ class GetMakesState with _$GetMakesState {
   factory GetMakesState({
     @Default(FormzStatus.pure) FormzStatus status,
     @Default(FormzStatus.pure) FormzStatus statusTop,
+    @Default(FormzStatus.pure) FormzStatus statusController,
     @Default([]) List<MakeEntity> makes,
     @Default([]) List<MakeEntity> topMakes,
     @Default('') String? next,

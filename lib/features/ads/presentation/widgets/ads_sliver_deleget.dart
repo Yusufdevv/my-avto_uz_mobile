@@ -53,9 +53,7 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                   imageUrl: context.read<GetMakesBloc>().state.imageUrl,
                   onTap: () async {
                     final res = await Navigator.push(
-                        context,
-                        fade(
-                            page:   ChooseCarBrandComparison(parentContext: context)));
+                        context, fade(page: const ChooseCarBrandComparison()));
                     if (res is Map<String, dynamic>) {
                       onSelectMakeModel(res['makeId'], res['modelId']);
                     }
@@ -101,8 +99,8 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                   ).then((value) {
                     if (context.read<GetMakesBloc>().state.name.isNotEmpty &&
                         context.read<GetCarModelBloc>().state.name.isNotEmpty) {
-                      bloc.add(
-                          AnnouncementListEvent.getIsHistory(value!.isEmpty, null));
+                      bloc.add(AnnouncementListEvent.getIsHistory(
+                          value!.isEmpty, null));
                     }
                     bloc
                       ..add(AnnouncementListEvent.getRegions(value!))
