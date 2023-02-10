@@ -11,9 +11,9 @@ class GearboxTypeEntity extends Equatable {
   final String logo;
 
   const GearboxTypeEntity({
-    required this.id,
-    required this.type,
-    required this.logo,
+     this.id =-1,
+     this.type = '',
+     this.logo= '',
   });
 
   @override

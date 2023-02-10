@@ -48,8 +48,8 @@ CarSingleModel _$CarSingleModelFromJson(Map<String, dynamic> json) =>
               .toList() ??
           [],
       gearboxType: json['gearbox_type'] == null
-          ? const RentCarGearboxTypeEntity()
-          : const RentCarGearboxTypeConverter()
+          ? const GearboxTypeEntity()
+          : const GearboxTypeEntityConverter()
               .fromJson(json['gearbox_type'] as Map<String, dynamic>?),
       generation: json['generation'] == null
           ? const RentCarGenerationEntity()
@@ -67,8 +67,8 @@ CarSingleModel _$CarSingleModelFromJson(Map<String, dynamic> json) =>
           : const RentCarMakeConverter()
               .fromJson(json['make'] as Map<String, dynamic>?),
       modificationType: json['modification_type'] == null
-          ? const RentCarModificationEntity()
-          : const RentCarModificationConverter()
+          ? const ModificationTypeEntity()
+          : const ModificationTypeEntityConverter()
               .fromJson(json['modification_type'] as Map<String, dynamic>?),
       ownership: json['ownership'] as String? ?? '',
       publishedAt: json['published_at'] as String? ?? '',
@@ -121,8 +121,8 @@ Map<String, dynamic> _$CarSingleModelToJson(CarSingleModel instance) =>
       'engine_type':
           const RentCarEngineTypeConverter().toJson(instance.engineType),
       'gearbox_type':
-          const RentCarGearboxTypeConverter().toJson(instance.gearboxType),
-      'modification_type': const RentCarModificationConverter()
+          const GearboxTypeEntityConverter().toJson(instance.gearboxType),
+      'modification_type': const ModificationTypeEntityConverter()
           .toJson(instance.modificationType),
       'licence_type': instance.licenceType,
       'ownership': instance.ownership,
