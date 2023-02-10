@@ -2,12 +2,9 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
-import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
-import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/material.dart'; 
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CarBrandItem extends StatelessWidget {
@@ -24,24 +21,7 @@ class CarBrandItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => WScaleAnimation(
-        onTap: () {
-          // context.read<AnnouncementListBloc>().add(
-          //     AnnouncementListEvent.getFilter(
-          //         context.read<AnnouncementListBloc>().state.filter.copyWith(
-          //               make: carBrandEntity.id,
-          //             )));
-          // context.read<GetMakesBloc>().add(
-          //       GetMakesBlocEvent.selectedCarItems(
-          //         id: carBrandEntity.id,
-          //         name: carBrandEntity.name,
-          //         imageUrl: carBrandEntity.logo,
-          //       ),
-          //     );
-          // context
-          //     .read<AnnouncementListBloc>()
-          //     .add(AnnouncementListEvent.getAnnouncementList(null));
-          onTap();
-        },
+        onTap: onTap,
         child: Container(
           width: 72,
           padding: const EdgeInsets.symmetric(horizontal: 8),

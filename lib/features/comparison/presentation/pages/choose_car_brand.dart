@@ -52,15 +52,15 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
     topBrandBloc = TopBrandBloc(GetTopBrandUseCase())
       ..add(TopBrandEvent.getBrand());
     context.read<GetMakesBloc>().add(GetMakesBlocEvent.getSerched(''));
-    print('=======choosecar make ${widget.selectedMake}');
-    print('=======model ${widget.selectedModel}');
     context.read<GetMakesBloc>().add(GetMakesBlocEvent.selectedCarItems(
           id: widget.selectedMake?.id ?? -1,
           name: widget.selectedMake?.name ?? '',
           imageUrl: widget.selectedMake?.logo ?? '',
-          makeEntity: const MakeEntity(),
+          makeEntity: widget.selectedMake ?? const MakeEntity(),
         ));
-    context.read<GetMakesBloc>().add(GetMakesBlocEvent.getMakes());
+    if (context.read<GetMakesBloc>().state.makes.isEmpty) {
+      context.read<GetMakesBloc>().add(GetMakesBlocEvent.getMakes());
+    }
     scrollingBloc = ScrollingBloc();
     scrollController = ScrollController();
     controllerScroll = ScrollController();
@@ -230,12 +230,14 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                     right: 16,
                     left: 16,
                     child: WButton(
-                      onTap: () => Navigator.push(
-                          context,
-                          fade(
-                              page: ChooseCarModelComparison(
-                                  parentContext: context,
-                                  selectedModel: widget.selectedModel))),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            fade(
+                                page: ChooseCarModelComparison(
+                                    parentContext: context,
+                                    selectedModel: widget.selectedModel)));
+                      },
                       text: LocaleKeys.further.tr(),
                       shadow: [
                         BoxShadow(
