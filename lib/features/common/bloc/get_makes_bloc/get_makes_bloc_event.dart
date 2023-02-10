@@ -10,12 +10,14 @@ class GetMakesBlocEvent with _$GetMakesBlocEvent {
   factory GetMakesBlocEvent.getIsCheck() = _GetIsCheck;
   factory GetMakesBlocEvent.getNextTop() = _GetNextTop;
   factory GetMakesBlocEvent.getIndex(String index) = _GetIndex;
+  factory GetMakesBlocEvent.changeControlleStatus() = _ChangeControlleStatus;
 
-  factory GetMakesBlocEvent.selectedCarItems(
-      {required int id,
-      required String name,
-      required String imageUrl, 
-      required MakeEntity makeEntity,}) = _SelectedCarItems;
+  factory GetMakesBlocEvent.selectedCarItems({
+    required int id,
+    required String name,
+    required String imageUrl,
+    required MakeEntity makeEntity,
+  }) = _SelectedCarItems;
 
   factory GetMakesBlocEvent.confirmCarOption() = _ConfirmCarOption;
   factory GetMakesBlocEvent.revertCarOption() = _RevertCarOption;

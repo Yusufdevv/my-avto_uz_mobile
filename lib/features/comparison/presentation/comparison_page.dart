@@ -35,63 +35,50 @@ class _ComparisonPageState extends State<ComparisonPage> {
   }
 
   @override
-  Widget build(BuildContext context) => WillPopScope(
-        onWillPop: () async {
+  Widget build(BuildContext context) => 
+      BlocProvider(
+        create: (context) => bloc,
+    child: Scaffold(
+      appBar: WAppBar(
+        boxShadow: const [],
+        title: LocaleKeys.car_comparison.tr(),
+        titleStyle: Theme.of(context)
+            .textTheme
+            .headline1!
+            .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
+        onTapBack: () {
           context
               .read<GetCarModelBloc>()
-              .add(GetCarModelEvent.selectedModelItem(id: -1, name: '', model:const MakeEntity()));
-          context.read<GetMakesBloc>().add(GetMakesBlocEvent.selectedCarItems(
-              id: -1, name: '', imageUrl: '', makeEntity:const MakeEntity()));
-          return true;
+              .add(GetCarModelEvent.selectedModelItem(id: -1, name: '',model:const MakeEntity()));
+          context.read<GetMakesBloc>().add(
+              GetMakesBlocEvent.selectedCarItems(
+                  id: -1, name: '', imageUrl: '', makeEntity:const MakeEntity()));
+          Navigator.pop(context);
         },
-        child: MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (context) => bloc,
-            ),
-          ],
-          child: Scaffold(
-            appBar: WAppBar(
-              boxShadow: const [],
-              title: LocaleKeys.car_comparison.tr(),
-              titleStyle: Theme.of(context)
-                  .textTheme
-                  .headline1!
-                  .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
-              onTapBack: () {
-                context
-                    .read<GetCarModelBloc>()
-                    .add(GetCarModelEvent.selectedModelItem(id: -1, name: '',model:const MakeEntity()));
-                context.read<GetMakesBloc>().add(
-                    GetMakesBlocEvent.selectedCarItems(
-                        id: -1, name: '', imageUrl: '', makeEntity:const MakeEntity()));
-                Navigator.pop(context);
-              },
-            ),
-            body: BlocBuilder<ComparisonBloc, ComparisonState>(
-              builder: (context, state) {
-                if (state.status == FormzStatus.submissionInProgress) {
-                  return const Center(child: CupertinoActivityIndicator());
-                }
-                if (state.status == FormzStatus.submissionSuccess ||
-                    state.status == FormzStatus.submissionFailure) {
-                  if (state.cars.isEmpty) {
-                    return EmptyComparison(
-                      onTap: () {},
-                    );
-                  } else {
-                    return Comparison(
-                      isSticky: state.isSticky,
-                      comparisonBloc: bloc,
-                    );
-                  }
-                }
-                return Center(
-                  child: Text(LocaleKeys.error.tr()),
-                );
-              },
-            ),
-          ),
-        ),
-      );
+      ),
+      body: BlocBuilder<ComparisonBloc, ComparisonState>(
+        builder: (context, state) {
+          if (state.status == FormzStatus.submissionInProgress) {
+            return const Center(child: CupertinoActivityIndicator());
+          }
+          if (state.status == FormzStatus.submissionSuccess ||
+              state.status == FormzStatus.submissionFailure) {
+            if (state.cars.isEmpty) {
+              return EmptyComparison(
+                onTap: () {},
+              );
+            } else {
+              return Comparison(
+                isSticky: state.isSticky,
+                comparisonBloc: bloc,
+              );
+            }
+          }
+          return Center(
+            child: Text(LocaleKeys.error.tr()),
+          );
+        },
+      ),
+    ),
+  );
 }

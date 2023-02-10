@@ -9,9 +9,11 @@ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/comparison/presentation/widgets/comparison_search_bar.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class ChooseCarModelComparison extends StatefulWidget {
@@ -40,9 +42,7 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
           name: widget.selectedModel?.name ?? '',
           model: widget.selectedModel ?? const MakeEntity(),
         ));
-    context.read<GetCarModelBloc>().add(
-          GetCarModelEvent.getCarModel(id),
-        );
+    context.read<GetCarModelBloc>().add(GetCarModelEvent.getCarModel(id));
     super.initState();
   }
 
@@ -57,40 +57,143 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           body: BlocBuilder<GetCarModelBloc, GetCarModelState>(
-            bloc: context.read<GetCarModelBloc>(),
-            builder: (context, state) => Stack(
-              children: [
-                CustomScrollView(
-                  slivers: [
-                    SliverAppBar(
-                      elevation: 0,
-                      pinned: true,
-                      leadingWidth: 36,
-                      leading: GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        behavior: HitTestBehavior.opaque,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 16),
-                          child: SvgPicture.asset(AppIcons.chevronLeft),
-                        ),
+              bloc: context.read<GetCarModelBloc>(),
+              builder: (context, state) {
+                if (state.status.isSubmissionInProgress) {
+                  return const Center(child: CupertinoActivityIndicator());
+                }
+                if (state.status.isSubmissionSuccess) {
+                  return Stack(
+                    children: [
+                      CustomScrollView(
+                        slivers: [
+                          SliverAppBar(
+                            elevation: 0,
+                            pinned: true,
+                            leadingWidth: 36,
+                            leading: GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              behavior: HitTestBehavior.opaque,
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 16),
+                                child: SvgPicture.asset(AppIcons.chevronLeft),
+                              ),
+                            ),
+                            titleSpacing: 4,
+                            title: Text(
+                              LocaleKeys.choose_model_auto.tr(),
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                                color: dark,
+                              ),
+                            ),
+                            actions: [
+                              // ! x button
+                              Padding(
+                                padding: const EdgeInsets.only(right: 16),
+                                child: InkWell(
+                                  onTap: () {
+                                    context
+                                        .read<GetCarModelBloc>()
+                                        .add(GetCarModelEvent.selectedModelItem(
+                                          id: -1,
+                                          name: '',
+                                          model: const MakeEntity(),
+                                        ));
+                                    context
+                                        .read<GetMakesBloc>()
+                                        .add(GetMakesBlocEvent.selectedCarItems(
+                                          id: -1,
+                                          name: '',
+                                          imageUrl: '',
+                                          makeEntity: const MakeEntity(),
+                                        ));
+                                    context
+                                        .read<GetMakesBloc>()
+                                        .add(GetMakesBlocEvent.getIndex(''));
+                                    Navigator.of(context).pop();
+                                    Navigator.of(widget.parentContext).pop();
+                                  },
+                                  child: SvgPicture.asset(AppIcons.close),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SliverSafeArea(
+                            top: false,
+                            bottom: true,
+                            sliver: SliverPersistentHeader(
+                              delegate: ComparisonSearchBar(
+                                controller: searchController,
+                                onChanged: () {
+                                  context.read<GetCarModelBloc>().add(
+                                        GetCarModelEvent.getSerched(
+                                          searchController.text,
+                                        ),
+                                      );
+                                  context
+                                      .read<GetCarModelBloc>()
+                                      .add(GetCarModelEvent.getCarModel(id));
+                                },
+                                onClear: () {
+                                  context.read<GetCarModelBloc>().add(
+                                        GetCarModelEvent.getSerched(
+                                          searchController.text,
+                                        ),
+                                      );
+                                  context
+                                      .read<GetCarModelBloc>()
+                                      .add(GetCarModelEvent.getCarModel(id));
+                                },
+                              ),
+                              pinned: true,
+                            ),
+                          ),
+                          SliverList(
+                            delegate: SliverChildBuilderDelegate(
+                              (context, index) => Container(
+                                color: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .whiteToDark,
+                                child: ModelItems(
+                                  entity: state.model.results[index].name,
+                                  isSelected: state.selectedId ==
+                                      state.model.results[index].id,
+                                  text: state.search,
+                                  onTap: () {
+                                    context.read<GetCarModelBloc>().add(
+                                          GetCarModelEvent.selectedModelItem(
+                                            id: state.model.results[index].id,
+                                            name:
+                                                state.model.results[index].name,
+                                            model: state.model.results[index],
+                                          ),
+                                        );
+                                    setState(() {});
+                                  },
+                                ),
+                              ),
+                              childCount: state.model.results.length,
+                            ),
+                          ),
+                          const SliverToBoxAdapter(child: SizedBox(height: 60)),
+                        ],
                       ),
-                      titleSpacing: 4,
-                      title: Text(
-                        LocaleKeys.choose_model_auto.tr(),
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                          color: dark,
-                        ),
-                      ),
-                      actions: [
-                        // ! x button
-                        Padding(
-                          padding: const EdgeInsets.only(right: 16),
-                          child: InkWell(
-                            onTap: () {
+                      Positioned(
+                        bottom: 16,
+                        right: 16,
+                        left: 16,
+                        child: WButton(
+                          onTap: () {
+                            if (state.selectedModel.id != -1) {
+                              Navigator.pop(context);
+                              Navigator.of(widget.parentContext).pop([
+                                context.read<GetMakesBloc>().state.selectedMake,
+                                state.selectedModel
+                              ]);
                               context
                                   .read<GetCarModelBloc>()
                                   .add(GetCarModelEvent.selectedModelItem(
@@ -106,113 +209,27 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                                     imageUrl: '',
                                     makeEntity: const MakeEntity(),
                                   ));
-                              Navigator.of(context).pop();
-                              Navigator.of(widget.parentContext).pop();
-                            },
-                            child: SvgPicture.asset(AppIcons.close),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SliverSafeArea(
-                      top: false,
-                      bottom: true,
-                      sliver: SliverPersistentHeader(
-                        delegate: ComparisonSearchBar(
-                          controller: searchController,
-                          onChanged: () {
-                            context.read<GetCarModelBloc>().add(
-                                  GetCarModelEvent.getSerched(
-                                    searchController.text,
-                                  ),
-                                );
-                            context
-                                .read<GetCarModelBloc>()
-                                .add(GetCarModelEvent.getCarModel(id));
+                            }
                           },
-                          onClear: () {
-                            context.read<GetCarModelBloc>().add(
-                                  GetCarModelEvent.getSerched(
-                                    searchController.text,
+                          text: LocaleKeys.further.tr(),
+                          isDisabled: state.selectedModel.id == -1,
+                          disabledColor: darkGray,
+                          shadow: state.selectedModel.id != -1
+                              ? [
+                                  BoxShadow(
+                                    offset: const Offset(0, 4),
+                                    blurRadius: 20,
+                                    color: orange.withOpacity(0.2),
                                   ),
-                                );
-                            context
-                                .read<GetCarModelBloc>()
-                                .add(GetCarModelEvent.getCarModel(id));
-                          },
+                                ]
+                              : [],
                         ),
-                        pinned: true,
-                      ),
-                    ),
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) => Container(
-                          color: Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .whiteToDark,
-                          child: ModelItems(
-                            entity: state.model.results[index].name,
-                            isSelected: state.selectedId ==
-                                state.model.results[index].id,
-                            text: state.search,
-                            onTap: () {
-                              context.read<GetCarModelBloc>().add(
-                                    GetCarModelEvent.selectedModelItem(
-                                      id: state.model.results[index].id,
-                                      name: state.model.results[index].name,
-                                      model: state.model.results[index],
-                                    ),
-                                  );
-                              setState(() {});
-                            },
-                          ),
-                        ),
-                        childCount: state.model.results.length,
-                      ),
-                    ),
-                    const SliverToBoxAdapter(child: SizedBox(height: 60)),
-                  ],
-                ),
-                Positioned(
-                  bottom: 16,
-                  right: 16,
-                  left: 16,
-                  child: WButton(
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.of(widget.parentContext).pop([
-                        context.read<GetMakesBloc>().state.selectedMake,
-                        state.selectedModel
-                      ]); 
-                      context
-                          .read<GetCarModelBloc>()
-                          .add(GetCarModelEvent.selectedModelItem(
-                            id: -1,
-                            name: '',
-                            model: const MakeEntity(),
-                          ));
-                      context
-                          .read<GetMakesBloc>()
-                          .add(GetMakesBlocEvent.selectedCarItems(
-                            id: -1,
-                            name: '',
-                            imageUrl: '',
-                            makeEntity: const MakeEntity(),
-                          ));
-                    },
-                    text: LocaleKeys.further.tr(),
-                    shadow: [
-                      BoxShadow(
-                        offset: const Offset(0, 4),
-                        blurRadius: 20,
-                        color: orange.withOpacity(0.2),
                       ),
                     ],
-                  ),
-                ),
-              ],
-            ),
-          ),
+                  );
+                }
+                return const SizedBox();
+              }),
         ),
       );
 }

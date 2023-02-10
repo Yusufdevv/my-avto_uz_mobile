@@ -4,7 +4,7 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart'; 
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CarBrandItem extends StatelessWidget {
@@ -61,7 +61,7 @@ class CarBrandItem extends StatelessWidget {
                       ),
                     )),
               ),
-              const SizedBox(height: 4),
+              const SizedBox(height: 8),
               Expanded(
                 child: Text(
                   carBrandEntity.name,
@@ -71,7 +71,7 @@ class CarBrandItem extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .headline1!
-                      .copyWith(fontSize: 12, fontWeight: FontWeight.w600),
+                      .copyWith(fontSize: 10, fontWeight: FontWeight.w600),
                 ),
               ),
               const SizedBox(height: 8),

@@ -3,14 +3,17 @@ part of 'main_bloc.dart';
 class MainState extends Equatable {
   final List<StoryEntity> stories;
   final FormzStatus statusStoriesGet;
-  MakeEntity? selectedMake;
-  MakeEntity? selectedModel;
+  final  MakeEntity? selectedMake;
+  final MakeEntity? selectedModel;
+  final int announcementCount;
+  
 
-  MainState({
+ const MainState({
     this.stories = const [],
     this.statusStoriesGet = FormzStatus.pure,
     this.selectedMake,
     this.selectedModel,
+    this.announcementCount = 0,
   });
 
   MainState copWith({
@@ -18,12 +21,15 @@ class MainState extends Equatable {
     FormzStatus? statusStoriesGet,
     MakeEntity? selectedMake,
     MakeEntity? selectedModel,
+    int? announcementCount,
   }) =>
       MainState(
           stories: stories ?? this.stories,
           statusStoriesGet: statusStoriesGet ?? this.statusStoriesGet,
           selectedMake: selectedMake ?? this.selectedMake,
-          selectedModel: selectedModel ?? this.selectedModel);
+          selectedModel: selectedModel ?? this.selectedModel,
+          announcementCount: announcementCount ?? this.announcementCount
+          );
 
   @override
   List<Object?> get props => [
@@ -31,5 +37,6 @@ class MainState extends Equatable {
         statusStoriesGet,
         selectedMake,
         selectedModel,
+        announcementCount,
       ];
 }

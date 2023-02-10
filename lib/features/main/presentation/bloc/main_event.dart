@@ -27,3 +27,7 @@ class GetMakeModelEvent extends MainEvent {
   @override
   List<Object?> get props => [selectedMake, selectedModel];
 }
+class GetAnnouncement extends MainEvent{
+  @override
+  List<Object?> get props => [];
+}
