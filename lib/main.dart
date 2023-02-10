@@ -37,42 +37,30 @@ import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/onboarding/presentation/first_onboarding.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/features/splash/presentation/pages/splash_sc.dart';
-import 'package:auto/firebase_options.dart';
 import 'package:auto/generated/codegen_loader.g.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
-  runZonedGuarded<Future<void>>(() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-    // The following lines are the same as previously explained in "Handling uncaught errors"
-    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
-
-    await EasyLocalization.ensureInitialized();
-    setupLocator();
-    await StorageRepository.getInstance();
-    debugRepaintRainbowEnabled = false;
-    runApp(
-      EasyLocalization(
-          supportedLocales: const [
-            Locale('ru'),
-            Locale('uz'),
-          ],
-          path: 'lib/assets/strings',
-          fallbackLocale: const Locale('uz'),
-          assetLoader: const CodegenLoader(),
-          child: const AppProvider()),
-    );
-  }, (error, stack) => FirebaseCrashlytics.instance.recordError(error, stack));
+void main() async {
+  await EasyLocalization.ensureInitialized();
+  setupLocator();
+  await StorageRepository.getInstance();
+  debugRepaintRainbowEnabled = false;
+  runApp(
+    EasyLocalization(
+        supportedLocales: const [
+          Locale('ru'),
+          Locale('uz'),
+        ],
+        path: 'lib/assets/strings',
+        fallbackLocale: const Locale('uz'),
+        assetLoader: const CodegenLoader(),
+        child: const AppProvider()),
+  );
 }
 
 class AppProvider extends StatefulWidget {
