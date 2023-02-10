@@ -4,7 +4,6 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ads/presentation/pages/ads_screen.dart';
 import 'package:auto/features/commercial/presentation/commercial_screen.dart';
-import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
 import 'package:auto/features/main/domain/entities/service_entity.dart';
@@ -27,8 +26,7 @@ import 'package:auto/features/main/presentation/widgets/soon_bottomsheet.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/features/reels/presentation/pages/reels_screen.dart';
-import 'package:auto/features/rent/presentation/rent_screen.dart';
-import 'package:auto/features/reviews/data/models/make_model.dart';
+import 'package:auto/features/rent/presentation/rent_screen.dart'; 
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -199,6 +197,7 @@ class _MainScreenState extends State<MainScreen> {
                           mainBloc.add(GetMakeModelEvent(
                               selectedMake: selectedMake,
                               selectedModel: selectedModel));
+
                         } else {
                           mainBloc.add(const GetMakeModelEvent(
                               selectedMake: MakeEntity(),
@@ -230,8 +229,7 @@ class _MainScreenState extends State<MainScreen> {
                           scrollDirection: Axis.horizontal),
                     ),
                     TopBrands(
-                      onTap: () => Navigator.of(context, rootNavigator: true)
-                          .push(fade(page: const AdsScreen())),
+                      
                     ),
                     const TopAds(),
                     BlocListener<WishlistAddBloc, WishlistAddState>(

@@ -183,7 +183,22 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                       Navigator.of(widget.parentContext).pop([
                         context.read<GetMakesBloc>().state.selectedMake,
                         state.selectedModel
-                      ]);
+                      ]); 
+                      context
+                          .read<GetCarModelBloc>()
+                          .add(GetCarModelEvent.selectedModelItem(
+                            id: -1,
+                            name: '',
+                            model: const MakeEntity(),
+                          ));
+                      context
+                          .read<GetMakesBloc>()
+                          .add(GetMakesBlocEvent.selectedCarItems(
+                            id: -1,
+                            name: '',
+                            imageUrl: '',
+                            makeEntity: const MakeEntity(),
+                          ));
                     },
                     text: LocaleKeys.further.tr(),
                     shadow: [

@@ -17,8 +17,7 @@ class TopBrandSliverWidget extends SliverPersistentHeaderDelegate {
   ) =>
       Column(
         children: [
-          TopBrands(
-            onTap:  onTap,
+          TopBrands( 
             isText: false,
           ),
           Transform.translate(
