@@ -9,9 +9,8 @@ import 'package:flutter/material.dart';
 class PhotoItem extends StatefulWidget {
   final List<String> images;
   final VoidCallback onTap;
-  final bool isWaiting;
 
-  const PhotoItem({required this.images, required this.onTap,this.isWaiting = false, Key? key})
+  const PhotoItem({required this.images, required this.onTap, Key? key})
       : super(key: key);
 
   @override
@@ -35,13 +34,12 @@ class _PhotoItemState extends State<PhotoItem> {
                   .extension<ThemedColors>()!
                   .ghostWhiteToUltramarine10,
             ),
-            child:widget.isWaiting?const CupertinoActivityIndicator(): const PlusCircle(),
+            child: const PlusCircle(),
           ),
         )
       : Padding(
           padding: const EdgeInsets.all(16),
           child: Wrap(
-
             runSpacing: 16,
             spacing: 8,
             children: [
@@ -61,8 +59,7 @@ class _PhotoItemState extends State<PhotoItem> {
                   child: const PlusCircle(),
                 ),
               ),
-              ...List.generate(
-                  widget.images.length,
+              ...List.generate(widget.images.length,
                   (index) => ImageItem(image: widget.images[index])).toList()
             ],
           ),
