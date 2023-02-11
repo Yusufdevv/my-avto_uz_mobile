@@ -6,8 +6,6 @@ import 'package:auto/features/ads/presentation/widgets/ads_appbar_sliver_delegat
 import 'package:auto/features/ads/presentation/widgets/ads_sliver_deleget.dart';
 import 'package:auto/features/ads/presentation/widgets/filter_bottom_sheet.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
-import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
-import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
@@ -69,13 +67,11 @@ class _AdsScreenState extends State<AdsScreen>
     }
     announcementListBloc = AnnouncementListBloc();
     announcementListBloc
-      ..add(AnnouncementListEvent.getFilter(
-          announcementListBloc.state.filter.copyWith(
-        make: widget.makeId,
-        model: widget.modelId,
-      )))
-      ..add(AnnouncementListEvent.getInfo(isFilter: false))
-      ..add(AnnouncementListEvent.getIsHistory(true, null));
+      ..add(AnnouncementListEvent.setFilter(
+        makeId: widget.makeId,
+        modelId: widget.modelId,
+      ))
+      ..add(AnnouncementListEvent.getMinMaxPriceYear());
     super.initState();
   }
 
@@ -157,12 +153,11 @@ class _AdsScreenState extends State<AdsScreen>
                         theme: Theme.of(context).extension<ThemedColors>()!,
                         tabController: tabController,
                         onSelectMakeModel: (makeId, modelId) {
-                          announcementListBloc.add(
-                              AnnouncementListEvent.getFilter(
-                                  announcementListBloc.state.filter.copyWith(
-                            make: makeId,
-                            model: modelId,
-                          )));
+                          announcementListBloc
+                              .add(AnnouncementListEvent.setFilter(
+                            makeId: makeId,
+                            modelId: modelId,
+                          ));
                         },
                         bloc: announcementListBloc,
                       ),
@@ -194,28 +189,11 @@ class _AdsScreenState extends State<AdsScreen>
                   ? const SizedBox()
                   : WScaleAnimation(
                       onTap: () {
-                        if (context
-                                .read<GetMakesBloc>()
-                                .state
-                                .name
-                                .isNotEmpty &&
-                            context
-                                .read<GetCarModelBloc>()
-                                .state
-                                .name
-                                .isNotEmpty) {
-                          context
-                              .read<AnnouncementListBloc>()
-                              .add(AnnouncementListEvent.getIsHistory(true, false));
-                          context
-                              .read<AnnouncementListBloc>()
-                              .add(AnnouncementListEvent.getHistoryApi());
-                          context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                message: LocaleKeys.search_history_saved.tr(),
-                                status: PopStatus.success,
-                                dismissible: false,
-                              ));
-                        }
+                        context.read<ShowPopUpBloc>().add(ShowPopUp(
+                              message: LocaleKeys.search_history_saved.tr(),
+                              status: PopStatus.success,
+                              dismissible: false,
+                            ));
                         setState(() {});
 
                         //!mysearches ni sonini oshirish uchun ishlatilgan, mySearchesCount nechta qo'shishni bildiradi

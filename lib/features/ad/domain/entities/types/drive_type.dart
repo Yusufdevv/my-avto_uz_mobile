@@ -11,9 +11,9 @@ class DriveTypeEntity extends Equatable {
   final String logo;
 
   const DriveTypeEntity({
-    required this.id,
-    required this.type,
-    required this.logo,
+    this.id = -1,
+    this.type = '',
+    this.logo = '',
   });
 
   @override

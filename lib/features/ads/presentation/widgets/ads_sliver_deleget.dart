@@ -61,26 +61,40 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
               FilterButtonsWidget(
                 size: size,
                 theme: theme,
-                onTapParams1: () {
-                  Navigator.of(context).push(
+                onTapParams1: () async {
+                  final res = await Navigator.of(context).push(
                     fade(
                       page: FilterParameters(
                         bloc: context.read<AnnouncementListBloc>(),
-                        bodyType: state.bodyTypeEntity,
-                        gearboxType: state.gearboxTypeEntity,
-                        carDriveType: state.driveTypeEntity,
+                        bodyType: state.bodyType,
+                        gearboxType: state.gearboxType,
+                        carDriveType: state.driveType,
                         yearValues: state.yearValues,
                         priceValues: state.priceValues,
-                        idVal: state.idVal,
+                        currency: state.currency,
                         ischek: state.isFilter,
                       ),
                     ),
                   );
+                  if (res is Map<String, dynamic>) {
+                    bloc
+                      ..add(
+                        AnnouncementListEvent.setFilter(
+                          bodyType: res['bodyType'],
+                          gearboxType: res['gearboxType'],
+                          driveType: res['carDriveType'],
+                          yearValues: res['yearValues'],
+                          priceValues: res['priceValues'],
+                          currency: res['currency'],
+                          isFilter: res['isFilter'],
+                        ),
+                      )
+                      ..add(AnnouncementListEvent.getAnnouncementList(null));
+                  }
                 },
                 onTapClear1: () {
                   bloc
-                    ..add(AnnouncementListEvent.getInfo(isFilter: false))
-                    ..add(AnnouncementListEvent.getFilterClear())
+                    ..add(AnnouncementListEvent.clearFilter())
                     ..add(AnnouncementListEvent.getAnnouncementList(null));
                 },
                 isFilter: state.isFilter,
@@ -97,19 +111,14 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                       list: context.read<RegionsBloc>().state.regions,
                     ),
                   ).then((value) {
-                    if (context.read<GetMakesBloc>().state.name.isNotEmpty &&
-                        context.read<GetCarModelBloc>().state.name.isNotEmpty) {
-                      bloc.add(AnnouncementListEvent.getIsHistory(
-                          value!.isEmpty, null));
-                    }
                     bloc
-                      ..add(AnnouncementListEvent.getRegions(value!))
+                      ..add(AnnouncementListEvent.setRegions(value ?? []))
                       ..add(AnnouncementListEvent.getAnnouncementList(null));
                   });
                 },
                 onTapClear2: () {
                   bloc
-                    ..add(AnnouncementListEvent.getRegions([]))
+                    ..add(AnnouncementListEvent.setRegions([]))
                     ..add(AnnouncementListEvent.getAnnouncementList(null));
                 },
               ),

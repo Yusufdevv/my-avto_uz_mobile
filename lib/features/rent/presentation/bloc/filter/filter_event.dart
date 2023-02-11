@@ -1,10 +1,8 @@
 part of 'filter_bloc.dart';
 
 abstract class FilterEvent {}
-    class  FilterClearEvent  extends FilterEvent  {
-      
 
-}
+class FilterClearEvent extends FilterEvent {}
 
 class FilterSelectEvent extends FilterEvent {
   List<Region>? regions;
@@ -14,7 +12,8 @@ class FilterSelectEvent extends FilterEvent {
   final GearboxTypeEntity? gearboxType;
   final RangeValues? yearValues;
   final RangeValues? priceValues;
-  final int? idVal;
+  final Currency? currency;
+
   FilterSelectEvent({
     this.bodyType,
     this.carDriveType,
@@ -23,6 +22,6 @@ class FilterSelectEvent extends FilterEvent {
     this.priceValues,
     this.regions,
     this.yearValues,
-    this.idVal
+    this.currency,
   });
 }
