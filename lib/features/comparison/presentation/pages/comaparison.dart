@@ -157,19 +157,14 @@ class _ComparisonState extends State<Comparison> {
                           Navigator.of(context, rootNavigator: true)
                               .push(fade(
                                   page: AdsScreen(
-                                     isComparison: true,
-                            makeId: makeId.id,
-                            modelId: modelId.id,
+                            isComparison: true,
+                            makeId: makeId,
+                            modelId: modelId,
                           )))
                               .then((value) {
                             widget.comparisonBloc.add(GetComparableCars());
                           });
                         }
-                        // else {
-                        //   widget.comparisonBloc.add(const GetMakeModelEvent(
-                        //       selectedMake: MakeEntity(),
-                        //       selectedModel: MakeEntity()));
-                        // }
                       });
                     },
                     setSticky: (val) {

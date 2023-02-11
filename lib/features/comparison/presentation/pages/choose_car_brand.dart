@@ -1,7 +1,11 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/core/singletons/service_locator.dart';
+import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
+import 'package:auto/features/ad/domain/usecases/get_makes.dart';
+import 'package:auto/features/ad/domain/usecases/get_top_makes.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/car_items.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -37,66 +41,72 @@ class ChooseCarBrandComparison extends StatefulWidget {
 }
 
 class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
-  late TextEditingController searchController;
-  late TopBrandBloc topBrandBloc;
-  late ScrollController scrollController;
-  late ScrollController controllerScroll;
-  late ScrollingBloc scrollingBloc;
+  late TextEditingController _searchController;
+  late TopBrandBloc _topBrandBloc;
+  late GetMakesBloc _getMakesBloc;
+  late ScrollController _scrollController;
+  late ScrollController _controllerScroll;
   Color color = Colors.transparent;
-  bool isSerach = false;
 
   @override
   void initState() {
-    searchController = TextEditingController();
-    topBrandBloc = TopBrandBloc(GetTopBrandUseCase())
+    super.initState();
+    _searchController = TextEditingController();
+    _topBrandBloc = TopBrandBloc(GetTopBrandUseCase())
       ..add(TopBrandEvent.getBrand());
-    // context.read<GetMakesBloc>().add(GetMakesBlocEvent.getSerched(''));
-    context.read<GetMakesBloc>().add(GetMakesBlocEvent.changeSelected(widget.selectedMakeId ?? -1));
-    context.read<GetMakesBloc>().add(GetMakesBlocEvent.getMakes());
-    scrollingBloc = ScrollingBloc();
-    scrollController = ScrollController();
-    controllerScroll = ScrollController();
-    if (context.read<GetMakesBloc>().state.makes.isNotEmpty &&
-        widget.selectedMakeId!=null) {
+    _getMakesBloc = GetMakesBloc(
+      topUseCase:
+          GetTopMakesUseCase(repository: serviceLocator<AdRepositoryImpl>()),
+      useCase: GetMakesUseCase(
+        repository: serviceLocator<AdRepositoryImpl>(),
+      ),
+    )
+      ..add(GetMakesBlocEvent.getMakes())
+      ..add(GetMakesBlocEvent.changeSelected(widget.selectedMakeId ?? -1));
+    _scrollController = ScrollController();
+    _controllerScroll = ScrollController();
+    if (_getMakesBloc.state.makes.isNotEmpty && widget.selectedMakeId != null) {
       //! tanlangan itemga borish uchun
-      final index = context.read<GetMakesBloc>().state.makes.indexWhere(
-          (element) => element.id == widget.selectedMakeId);
-      Future.delayed(const  Duration(seconds: 1), () {
-        scrollController.animateTo(index.toDouble() * 54,
+      final index = context
+          .read<GetMakesBloc>()
+          .state
+          .makes
+          .indexWhere((element) => element.id == widget.selectedMakeId);
+      Future.delayed(const Duration(seconds: 1), () {
+        _scrollController.animateTo(index.toDouble() * 54,
             duration: const Duration(milliseconds: 1000), curve: Curves.ease);
       });
     }
-    super.initState();
   }
 
   @override
   void dispose() {
-    searchController.dispose();
+    _searchController.dispose();
+    _scrollController.dispose();
+    _controllerScroll.dispose();
+    _getMakesBloc.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
-        child: BlocProvider.value(
-          value: topBrandBloc,
-          child: BlocConsumer<GetMakesBloc, GetMakesState>(
-            listener: (context, state) {
-              if (state.statusController.isSubmissionSuccess) {
-                scrollController.animateTo(state.index.toDouble() * 54,
-                    duration: const Duration(milliseconds: 1000),
-                    curve: Curves.ease);
-              }
-              context
-                  .read<GetMakesBloc>()
-                  .add(GetMakesBlocEvent.changeControlleStatus());
-            },
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => _topBrandBloc,
+            ),
+            BlocProvider(
+              create: (context) => _getMakesBloc,
+            ),
+          ],
+          child: BlocBuilder<GetMakesBloc, GetMakesState>(
             builder: (context, state) => Scaffold(
               resizeToAvoidBottomInset: false,
               body: Stack(
                 children: [
                   NestedScrollView(
                     physics: const BouncingScrollPhysics(),
-                    controller: controllerScroll,
+                    controller: _controllerScroll,
                     headerSliverBuilder: (context, innerBoxIsScrolled) => [
                       SliverAppBar(
                         elevation: 0,
@@ -104,15 +114,6 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                         leadingWidth: 44,
                         leading: GestureDetector(
                           onTap: () {
-                            context
-                                .read<GetMakesBloc>()
-                                .add(GetMakesBlocEvent.selectedCarItems(
-                                  makeEntity: const MakeEntity(),
-                                ));
-                            context
-                                .read<GetMakesBloc>()
-                                .add(GetMakesBlocEvent.getIndex(''));
-                            GetMakesBlocEvent.getSerched('');
                             Navigator.pop(context);
                           },
                           behavior: HitTestBehavior.opaque,
@@ -133,24 +134,13 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                         ),
                         actions: [
                           /// x button
-                          Padding(
-                            padding: const EdgeInsets.only(right: 16),
-                            child: GestureDetector(
-                              onTap: () {
-                                context
-                                    .read<GetMakesBloc>()
-                                    .add(GetMakesBlocEvent.selectedCarItems(
-                                      makeEntity: const MakeEntity(),
-                                    ));
-                                context
-                                    .read<GetMakesBloc>()
-                                    .add(GetMakesBlocEvent.getIndex(''));
-                                context.read<GetMakesBloc>().add(
-                                      GetMakesBlocEvent.getSerched(''),
-                                    );
-                                Navigator.of(context).pop();
-                              },
-                              behavior: HitTestBehavior.opaque,
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).pop();
+                            },
+                            behavior: HitTestBehavior.opaque,
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 16),
                               child: SvgPicture.asset(AppIcons.close),
                             ),
                           ),
@@ -158,28 +148,18 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                       ),
                       SliverPersistentHeader(
                         delegate: ComparisonSearchBar(
-                          controller: searchController,
+                          controller: _searchController,
                           onChanged: () {
-                            context.read<GetMakesBloc>().add(
-                                  GetMakesBlocEvent.getSerched(
-                                    searchController.text,
-                                  ),
-                                );
-                            context
-                                .read<GetMakesBloc>()
-                                .add(GetMakesBlocEvent.getMakes());
-                            setState(() {});
+                            _getMakesBloc
+                              ..add(GetMakesBlocEvent.getSerched(
+                                  _searchController.text))
+                              ..add(GetMakesBlocEvent.getMakes());
                           },
                           onClear: () {
-                            context.read<GetMakesBloc>().add(
-                                  GetMakesBlocEvent.getSerched(
-                                    searchController.text,
-                                  ),
-                                );
-                            context
-                                .read<GetMakesBloc>()
-                                .add(GetMakesBlocEvent.getMakes());
-                            setState(() {});
+                            _getMakesBloc
+                              ..add(GetMakesBlocEvent.getSerched(
+                                  _searchController.text))
+                              ..add(GetMakesBlocEvent.getMakes());
                           },
                         ),
                         pinned: true,
@@ -197,6 +177,7 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                                 fade(
                                   page: ChooseCarModelComparison(
                                       parentContext: context,
+                                      selectedMake: selectedMake,
                                       selectedModelId: widget.selectedModelId),
                                 ),
                               );
@@ -207,12 +188,22 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                         SliverPersistentHeader(
                           delegate: AlphabeticHeader(
                             color: color,
-                            controller: controllerScroll,
+                            controller: _controllerScroll,
                           ),
                           pinned: true,
                         ),
                     ],
-                    body: Builder(builder: (context) {
+                    body: BlocConsumer<GetMakesBloc, GetMakesState>(
+                        listener: (context, stateCons) {
+                      if (stateCons.statusController.isSubmissionSuccess) {
+                        _scrollController.animateTo(state.index.toDouble() * 54,
+                            duration: const Duration(milliseconds: 1000),
+                            curve: Curves.ease);
+                      }
+                      context
+                          .read<GetMakesBloc>()
+                          .add(GetMakesBlocEvent.changeControlleStatus());
+                    }, builder: (context, stateCons) {
                       if (state.status.isSubmissionInProgress) {
                         return const Center(
                           child: CupertinoActivityIndicator(),
@@ -222,9 +213,7 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                         return ListView.builder(
                           padding: const EdgeInsets.only(bottom: 60),
                           itemCount: state.makes.length,
-                          controller: scrollController,
-                          physics: const BouncingScrollPhysics(),
-                          shrinkWrap: true,
+                          controller: _scrollController,
                           itemBuilder: (context, index) => Container(
                             height: 54,
                             color: Theme.of(context)
@@ -256,20 +245,34 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                     left: 16,
                     child: WButton(
                       onTap: () {
-                        if (state.selectedMake.id != -1) {
-                          Navigator.push(
-                              context,
-                              fade(
-                                  page: ChooseCarModelComparison(
-                                      parentContext: context,
-                                      selectedMake: state.selectedMake,
-                                      selectedModelId: widget.selectedModelId)));
+                        if (state.selectId != -1) {
+                          if (state.selectedMake.id == -1) {
+                            final item = state.makes.firstWhere(
+                                (element) => element.id == state.selectId);
+                            Navigator.push(
+                                context,
+                                fade(
+                                    page: ChooseCarModelComparison(
+                                        parentContext: context,
+                                        selectedMake: item,
+                                        selectedModelId:
+                                            widget.selectedModelId)));
+                          } else {
+                            Navigator.push(
+                                context,
+                                fade(
+                                    page: ChooseCarModelComparison(
+                                        parentContext: context,
+                                        selectedMake: state.selectedMake,
+                                        selectedModelId:
+                                            widget.selectedModelId)));
+                          }
                         }
                       },
-                      isDisabled: state.selectedMake.id == -1,
+                      isDisabled: state.selectId == -1,
                       disabledColor: darkGray,
                       text: LocaleKeys.further.tr(),
-                      shadow: state.selectedMake.id != -1
+                      shadow: state.selectId != -1
                           ? [
                               BoxShadow(
                                 offset: const Offset(0, 4),

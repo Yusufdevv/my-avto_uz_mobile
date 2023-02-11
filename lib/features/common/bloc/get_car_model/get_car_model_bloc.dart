@@ -24,12 +24,15 @@ class GetCarModelBloc extends Bloc<GetCarModelEvent, GetCarModelState> {
             next: result.right.next,
           ),
         );
+      } else {
+        emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     });
     on<_GetMakeId>((event, emit) => emit(state.copyWith(getId: event.id)));
     on<_GetSerched>((event, emit) => emit(state.copyWith(search: event.naem)));
     on<_SelectedModelItem>((event, emit) {
-      emit(state.copyWith(selectedId: event.selectedId, selectedModel: event.model));
+      emit(state.copyWith(
+          selectedId: event.selectedId, selectedModel: event.model));
     });
     on<_ConfirmModel>((event, emit) {
       emit(state.copyWith(confirmId: state.selectedId));
