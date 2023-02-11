@@ -8,8 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SoonBottomsheet extends StatelessWidget {
-  const SoonBottomsheet({required this.onTap, Key? key}) : super(key: key);
-  final Function() onTap;
+  const SoonBottomsheet({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -53,17 +52,11 @@ class SoonBottomsheet extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           SizedBox(height: size.height * 0.079),
-          Row(
-            children: [
-              Expanded(
-                child: WButton(
-                    color: orange,
-                    onTap: onTap,
-                    text: LocaleKeys.superr.tr(),
-                    textColor: white),
-              ),
-            ],
-          )
+          WButton(
+              color: orange,
+              onTap: () => Navigator.pop(context),
+              text: LocaleKeys.superr.tr(),
+              textColor: white)
         ],
       ),
     );

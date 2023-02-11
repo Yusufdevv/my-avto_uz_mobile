@@ -92,7 +92,7 @@ class _MainScreenState extends State<MainScreen> {
           backgroundColor: Colors.transparent,
           useRootNavigator: true,
           context: context,
-          builder: (context) => SoonBottomsheet(onTap: () {}),
+          builder: (context) => const SoonBottomsheet(),
         );
       },
       () {
@@ -104,7 +104,7 @@ class _MainScreenState extends State<MainScreen> {
           backgroundColor: Colors.transparent,
           useRootNavigator: true,
           context: context,
-          builder: (context) => SoonBottomsheet(onTap: () {}),
+          builder: (context) => const SoonBottomsheet(),
         );
       },
       () {
@@ -112,7 +112,7 @@ class _MainScreenState extends State<MainScreen> {
           backgroundColor: Colors.transparent,
           useRootNavigator: true,
           context: context,
-          builder: (context) => SoonBottomsheet(onTap: () {}),
+          builder: (context) => const SoonBottomsheet(),
         );
       },
       () {
@@ -235,8 +235,8 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                     TopBrands(
                       onTap: (selectedMake) {
-                        Navigator.of(context, rootNavigator: true)
-                            .push(fade(page: AdsScreen(makeId: selectedMake.id)));
+                        Navigator.of(context, rootNavigator: true).push(
+                            fade(page: AdsScreen(makeId: selectedMake.id)));
                       },
                     ),
                     const TopAds(),

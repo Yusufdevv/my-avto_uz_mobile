@@ -61,12 +61,20 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
     scrollingBloc = ScrollingBloc();
     scrollController = ScrollController();
     controllerScroll = ScrollController();
+    if (context.read<GetMakesBloc>().state.makes.isNotEmpty &&
+        widget.selectedMake!.name.isNotEmpty) {
+      //! tanlangan itemga borish uchun
+      final index = context.read<GetMakesBloc>().state.makes.indexWhere(
+          (element) => element.name
+              .toLowerCase()
+              .contains(widget.selectedMake!.name.toLowerCase()));
+      Future.delayed(  Duration(seconds: 1), () {
+        scrollController.animateTo(index.toDouble() * 54,
+            duration: const Duration(milliseconds: 1000), curve: Curves.ease);
+      });
+    }
     super.initState();
   }
-
-  // void scrollToIndex(int index) =>
-  //     scrollController.animateTo(index.toDouble() * 54,
-  //         duration: const Duration(milliseconds: 1000), curve: Curves.ease);
 
   @override
   void dispose() {
@@ -227,23 +235,6 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                         );
                       }
                       if (state.status.isSubmissionSuccess) {
-                        if (state.makes.isNotEmpty &&
-                            widget.selectedMake!.name.isNotEmpty) {
-                          //! tanlangan itemga borish uchun
-                          final index = context
-                              .read<GetMakesBloc>()
-                              .state
-                              .makes
-                              .indexWhere((element) => element.name
-                                  .toLowerCase()
-                                  .contains(
-                                      widget.selectedMake!.name.toLowerCase()));
-                          Future.delayed(const Duration(milliseconds: 300), () {
-                            scrollController.animateTo(index.toDouble() * 54,
-                                duration: const Duration(milliseconds: 1000),
-                                curve: Curves.ease);
-                          });
-                        }
                         return ListView.builder(
                           padding: const EdgeInsets.only(bottom: 60),
                           itemCount: state.makes.length,
