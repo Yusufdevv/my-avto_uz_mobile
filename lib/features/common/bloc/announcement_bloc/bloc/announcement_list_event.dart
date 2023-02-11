@@ -33,8 +33,6 @@ class GetMinMaxPriceYear extends AnnouncementListEvent {
 }
 
 class SetFilter extends AnnouncementListEvent {
-  final int? makeId;
-  final int? modelId;
   final Currency? currency;
   final GearboxTypeEntity? gearboxType;
   final BodyTypeEntity? bodyType;
@@ -45,8 +43,6 @@ class SetFilter extends AnnouncementListEvent {
   final bool? isNew;
 
   const SetFilter({
-    this.makeId,
-    this.modelId,
     this.currency,
     this.gearboxType,
     this.bodyType,
@@ -72,4 +68,22 @@ class ChangeSaveFilterStatus extends AnnouncementListEvent {
   final FormzStatus status;
 
   const ChangeSaveFilterStatus(this.status);
+}
+
+class SetMakeModel extends AnnouncementListEvent {
+  final int? makeId;
+  final int? modelId;
+  final String? makeName;
+  final String? modelName;
+  final String? makeLogo;
+  final bool? isNew;
+
+  const SetMakeModel({
+    this.makeId,
+    this.modelId,
+    this.makeName,
+    this.modelName,
+    this.makeLogo,
+    this.isNew,
+  });
 }

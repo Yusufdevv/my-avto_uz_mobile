@@ -223,11 +223,13 @@ class _MainScreenState extends State<MainScreen> {
                             page: AdsScreen(
                           makeId: state.makeId,
                           modelId: state.modelId,
+                          makeName: state.makeName,
+                          modelName: state.modelName,
+                          makeLogo: state.makeLogo,
                         )));
                       },
                       imageUrl: state.makeLogo ?? '',
-                      title:
-                          '${state.makeName ?? ''} ${state.modelName ?? ''}',
+                      title: '${state.makeName ?? ''} ${state.modelName ?? ''}',
                       count: state.announcementCount,
                       isCheck: true,
                     ),

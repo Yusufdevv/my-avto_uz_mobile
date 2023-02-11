@@ -23,12 +23,18 @@ class AdsScreen extends StatefulWidget {
   const AdsScreen({
     this.makeId,
     this.modelId,
+    this.makeName,
+    this.modelName,
+    this.makeLogo,
     this.isComparison,
     Key? key,
   }) : super(key: key);
 
   final int? makeId;
   final int? modelId;
+  final String? makeName;
+  final String? modelName;
+  final String? makeLogo;
   final bool? isComparison;
 
   @override
@@ -70,9 +76,12 @@ class _AdsScreenState extends State<AdsScreen>
     }
     announcementListBloc = AnnouncementListBloc();
     announcementListBloc
-      ..add(SetFilter(
+      ..add(SetMakeModel(
         makeId: widget.makeId,
         modelId: widget.modelId,
+        makeName: widget.makeName,
+        modelName: widget.modelName,
+        makeLogo: widget.makeLogo,
       ))
       ..add(const GetMinMaxPriceYear());
     super.initState();
@@ -167,12 +176,6 @@ class _AdsScreenState extends State<AdsScreen>
                         size: MediaQuery.of(context).size,
                         theme: Theme.of(context).extension<ThemedColors>()!,
                         tabController: tabController,
-                        onSelectMakeModel: (makeId, modelId) {
-                          announcementListBloc.add(SetFilter(
-                            makeId: makeId,
-                            modelId: modelId,
-                          ));
-                        },
                         bloc: announcementListBloc,
                       ),
                     ),
@@ -206,8 +209,6 @@ class _AdsScreenState extends State<AdsScreen>
                   ? WScaleAnimation(
                       onTap: () {
                         announcementListBloc.add(const SaveHistory());
-                        setState(() {});
-
                         //!mysearches ni sonini oshirish uchun ishlatilgan, mySearchesCount nechta qo'shishni bildiradi
                         context.read<ProfileBloc>().add(ChangeCountDataEvent(
                             adding: true, mySearchesCount: 1));

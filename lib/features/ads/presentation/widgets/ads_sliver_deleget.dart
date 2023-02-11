@@ -4,8 +4,6 @@ import 'package:auto/features/ads/presentation/widgets/filters_buttons_widget.da
 import 'package:auto/features/commercial/presentation/widgets/commercial_car_model_item.dart';
 import 'package:auto/features/commercial/presentation/widgets/commercial_tab.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
-import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
-import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
@@ -21,7 +19,6 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
     required this.size,
     required this.theme,
     required this.tabController,
-    required this.onSelectMakeModel,
     required this.bloc,
     required this.isNew,
   });
@@ -29,7 +26,6 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
   final Size size;
   final ThemedColors theme;
   final TabController tabController;
-  final Function(int makeId, int modelId) onSelectMakeModel;
   final AnnouncementListBloc bloc;
   final bool? isNew;
 
@@ -50,14 +46,26 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                 ],
               ),
               CommercialCarModelItem(
-                  title: context.read<GetMakesBloc>().state.name,
-                  subtitle: context.read<GetCarModelBloc>().state.name,
-                  imageUrl: context.read<GetMakesBloc>().state.imageUrl,
+                  title: state.makeName ?? '',
+                  subtitle: state.modelName ?? '',
+                  imageUrl: state.makeLogo ?? '',
                   onTap: () async {
                     final res = await Navigator.push(
-                        context, fade(page: const ChooseCarBrandComparison()));
+                        context,
+                        fade(
+                            page: ChooseCarBrandComparison(
+                          selectedMakeId: state.makeId,
+                          selectedModelId: state.modelId,
+                        )));
                     if (res is Map<String, dynamic>) {
-                      onSelectMakeModel(res['makeId'], res['modelId']);
+                      bloc.add(SetMakeModel(
+                        makeId: res['makeId'],
+                        modelId: res['modelId'],
+                        makeName: res['makeName'],
+                        modelName: res['modelName'],
+                        makeLogo: res['makeLogo'],
+                        isNew: isNew,
+                      ));
                     }
                   }),
               FilterButtonsWidget(
