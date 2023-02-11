@@ -14,6 +14,7 @@ class MySearchItem extends StatelessWidget {
     required this.deletedList,
     required this.mySearches,
     required this.index,
+    required this.onTap,
     Key? key,
   }) : super(key: key);
 
@@ -22,71 +23,76 @@ class MySearchItem extends StatelessWidget {
   final List deletedList;
   final List mySearches;
   final int index;
+  final VoidCallback onTap;
 
   @override
-  Widget build(BuildContext context) => Container(
-        margin: EdgeInsets.only(
-          left: SizeConfig.h(16),
-          right: SizeConfig.h(16),
-          top: index == 0 ? SizeConfig.v(20) : 0,
-          bottom: SizeConfig.v(12),
-        ),
-        padding: EdgeInsets.only(
+  Widget build(BuildContext context) => GestureDetector(
+        onTap: onTap,
+        child: Container(
+          margin: EdgeInsets.only(
             left: SizeConfig.h(16),
-            right: SizeConfig.h(12),
-            top: SizeConfig.v(16),
-            bottom: SizeConfig.v(16)),
-        decoration: BoxDecoration(
-            color: white,
-            borderRadius: BorderRadius.circular(SizeConfig.h(12)),
-            boxShadow: [
-              BoxShadow(
-                  offset: const Offset(0, 8),
-                  blurRadius: 19,
-                  color: profileContainers.withOpacity(0.07))
-            ]),
-        child: Row(
-          children: [
-            SizedBox(
-              height: SizeConfig.v(38),
-              width: SizeConfig.h(38),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(SizeConfig.h(50)),
-                child: CachedNetworkImage(
-                  imageUrl: item.make?.logo ?? '',
-                  errorWidget: (context, url, error) =>
-                      Image.asset(AppImages.carPlaceHolder, fit: BoxFit.cover),
+            right: SizeConfig.h(16),
+            top: index == 0 ? SizeConfig.v(20) : 0,
+            bottom: SizeConfig.v(12),
+          ),
+          padding: EdgeInsets.only(
+              left: SizeConfig.h(16),
+              right: SizeConfig.h(12),
+              top: SizeConfig.v(16),
+              bottom: SizeConfig.v(16)),
+          decoration: BoxDecoration(
+              color: white,
+              borderRadius: BorderRadius.circular(SizeConfig.h(12)),
+              boxShadow: [
+                BoxShadow(
+                    offset: const Offset(0, 8),
+                    blurRadius: 19,
+                    color: profileContainers.withOpacity(0.07))
+              ]),
+          child: Row(
+            children: [
+              SizedBox(
+                height: SizeConfig.v(38),
+                width: SizeConfig.h(38),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(SizeConfig.h(50)),
+                  child: CachedNetworkImage(
+                    imageUrl: item.make?.logo ?? '',
+                    errorWidget: (context, url, error) => Image.asset(
+                        AppImages.carPlaceHolder,
+                        fit: BoxFit.cover),
+                  ),
                 ),
               ),
-            ),
-            SizedBox(width: SizeConfig.h(6)),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if(item.make?.name!=null)
-                  Text(item.make?.name ?? '',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline6
-                          ?.copyWith(color: dark)),
-                  SizedBox(height: SizeConfig.v(2)),
-                  if(item.make?.name!=null && item.model?[0]?.name!=null)
-                  Text('${item.make?.name} • ${item.model?[0]?.name}',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline2
-                          ?.copyWith(color: greyText)),
-                ],
+              SizedBox(width: SizeConfig.h(6)),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (item.make?.name != null)
+                      Text(item.make?.name ?? '',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline6
+                              ?.copyWith(color: dark)),
+                    SizedBox(height: SizeConfig.v(2)),
+                    if (item.make?.name != null && item.model?[0]?.name != null)
+                      Text('${item.make?.name} • ${item.model?[0]?.name}',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline2
+                              ?.copyWith(color: greyText)),
+                  ],
+                ),
               ),
-            ),
-            if (isToggled)
-              SvgPicture.asset(deletedList.contains(mySearches[index])
-                  ? AppIcons.circleChecked
-                  : AppIcons.circleEmpty)
-            else
-              SvgPicture.asset(AppIcons.chevronRight1)
-          ],
+              if (isToggled)
+                SvgPicture.asset(deletedList.contains(mySearches[index])
+                    ? AppIcons.circleChecked
+                    : AppIcons.circleEmpty)
+              else
+                SvgPicture.asset(AppIcons.chevronRight1)
+            ],
+          ),
         ),
       );
 }

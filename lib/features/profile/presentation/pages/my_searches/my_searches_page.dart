@@ -102,33 +102,47 @@ class _MySearchesPageState extends State<MySearchesPage> {
                               itemCount: mySearches.length,
                               itemBuilder: (context, index) {
                                 final item = mySearches[index];
-                                return GestureDetector(
-                                  onTap: () {
-                                    if (isToggled) {
-                                      if (deletedList
-                                          .contains(mySearches[index])) {
-                                        setState(() {
-                                          deletedList.remove(mySearches[index]);
-                                        });
+                                return MySearchItem(
+                                    onTap: () {
+                                      if (isToggled) {
+                                        if (deletedList
+                                            .contains(mySearches[index])) {
+                                          setState(() {
+                                            deletedList
+                                                .remove(mySearches[index]);
+                                          });
+                                        } else {
+                                          setState(() {
+                                            deletedList.add(mySearches[index]);
+                                          });
+                                        }
                                       } else {
-                                        setState(() {
-                                          deletedList.add(mySearches[index]);
-                                        });
+                                        Navigator.push(
+                                            context,
+                                            fade(
+                                                page: AdsScreen(
+                                              makeId:
+                                                  mySearches[index].make?.id,
+                                              modelId: mySearches[index]
+                                                  .model
+                                                  ?.first
+                                                  ?.id,
+                                              makeName:
+                                                  mySearches[index].make?.name,
+                                              modelName: mySearches[index]
+                                                  .model
+                                                  ?.first
+                                                  ?.name,
+                                              makeLogo:
+                                                  mySearches[index].make?.logo,
+                                            )));
                                       }
-                                    } else {
-
-                                      Navigator.push(context,
-                                          fade(page: const AdsScreen()));
-                                    }
-                                  },
-                                  behavior: HitTestBehavior.opaque,
-                                  child: MySearchItem(
-                                      item: item,
-                                      index: index,
-                                      isToggled: isToggled,
-                                      deletedList: deletedList,
-                                      mySearches: mySearches),
-                                );
+                                    },
+                                    item: item,
+                                    index: index,
+                                    isToggled: isToggled,
+                                    deletedList: deletedList,
+                                    mySearches: mySearches);
                               },
                             )
                           : Center(
@@ -193,7 +207,7 @@ class _MySearchesPageState extends State<MySearchesPage> {
       );
 
   List<int> deletedIds(List<MySearchesEntity> list) {
-    List<int> result = <int>[];
+    final result = <int>[];
 
     for (var i = 0; i < list.length; i++) {
       if (list[i].id != null) {
