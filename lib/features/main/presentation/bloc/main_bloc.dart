@@ -1,4 +1,5 @@
-import 'package:auto/features/common/usecases/announcement_list_usecase.dart';
+import 'package:auto/features/ad/domain/entities/types/make.dart';
+import 'package:auto/features/ads/domain/usecases/get_announcement_list_usecase.dart';
 import 'package:auto/features/main/domain/entities/story_entity.dart';
 import 'package:auto/features/main/domain/usecases/get_stories_use_case.dart';
 import 'package:bloc/bloc.dart';
@@ -12,8 +13,7 @@ part 'main_state.dart';
 
 class MainBloc extends Bloc<MainEvent, MainState> {
   GetStoriesUseCase getStoriesUseCase = GetStoriesUseCase();
-  AnnouncementListUseCase announcementListUseCase = AnnouncementListUseCase();
-
+  GetAnnouncementListUseCase announcementListUseCase = GetAnnouncementListUseCase();
   MainBloc() : super(const MainState()) {
     on<InitialEvent>(_onInit);
     on<ChangeStatusEvent>(_onChangeStatus);

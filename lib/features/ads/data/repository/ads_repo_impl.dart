@@ -4,7 +4,10 @@ import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/ads/data/data_source/ads_data_source.dart';
 import 'package:auto/features/ads/data/models/min_max_price_year_model.dart';
+import 'package:auto/features/ads/data/models/search_history_model.dart';
 import 'package:auto/features/ads/domain/repository/ads_repository.dart';
+import 'package:auto/features/comparison/domain/entities/announcement_list_entity.dart';
+import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:dio/dio.dart';
 
 class AdsRepositoryImpl extends AdsRepository {
@@ -23,6 +26,40 @@ class AdsRepositoryImpl extends AdsRepository {
       return Left(DioFailure());
     } on DioError {
       return Left(DioFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> filterHistory(
+      {required SaveFilterModel model}) async {
+    try {
+      final result = await dataSource.filterHistory(model: model);
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+          errorMessage: e.errorMessage, statusCode: e.statusCode));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GenericPagination<AnnouncementListEntity>>>
+      getAnnouncementList(Map<String, dynamic> params) async {
+    try {
+      final result = await dataSource.getAnnouncementList(params);
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+        errorMessage: e.errorMessage,
+        statusCode: e.statusCode,
+      ));
     }
   }
 }
