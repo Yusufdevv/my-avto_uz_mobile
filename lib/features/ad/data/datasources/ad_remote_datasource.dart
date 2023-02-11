@@ -13,10 +13,8 @@ import 'package:auto/features/ad/data/models/generation.dart';
 import 'package:auto/features/ad/data/models/modification_type.dart';
 import 'package:auto/features/ad/data/models/years.dart';
 import 'package:auto/features/ad/domain/entities/foto_instruction_entity.dart';
-import 'package:auto/features/ads/data/models/search_history_model.dart';
 import 'package:auto/features/common/entities/makes_entity.dart';
 import 'package:auto/features/common/models/get_make_model.dart';
-import 'package:auto/features/comparison/data/models/announcement_list_model.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:auto/features/reviews/data/models/make_model.dart';
 import 'package:dio/dio.dart';
@@ -95,10 +93,6 @@ abstract class AdRemoteDataSource {
     required FormData announcementFormData,
   });
 
-  Future<GenericPagination<AnnouncementListModel>> getAnnouncementList(
-      Map<String, dynamic> params);
-
-  Future<void> filterHistory({required SearchHistoryModel model});
 }
 
 class AdRemoteDataSourceImpl extends AdRemoteDataSource {
@@ -509,61 +503,6 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
       throw ServerException(
           statusCode: response.statusCode ?? 0,
           errorMessage: response.statusMessage ?? '');
-    } on ServerException {
-      rethrow;
-    } on DioError {
-      throw DioException();
-    } on Exception catch (e) {
-      throw ParsingException(errorMessage: e.toString());
-    }
-  }
-
-  @override
-  Future<GenericPagination<AnnouncementListModel>> getAnnouncementList(
-      Map<String, dynamic> params) async {
-    try {
-      final response = await _dio.get(
-        '/car/announcement/list/',
-        options: Options(headers: {
-          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
-        }),
-        queryParameters: params,
-      );
-      if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        return GenericPagination.fromJson(response.data,
-            (p0) => AnnouncementListModel.fromJson(p0 as Map<String, dynamic>));
-      } else {
-        throw ServerException(
-          statusCode: response.statusCode!,
-          errorMessage: response.data.toString(),
-        );
-      }
-    } on ServerException {
-      rethrow;
-    } on DioError {
-      throw DioException();
-    } on Exception catch (e) {
-      throw ParsingException(errorMessage: e.toString());
-    }
-  }
-
-  @override
-  Future<void> filterHistory({required SearchHistoryModel model}) async {
-    try {
-      final response = await _dio.post('users/filter-history/create/',
-          data: model.toJson(),
-          options: Options(headers: {
-            'Authorization': 'Bearer ${StorageRepository.getString('token')}'
-          })); 
-      if (response.statusCode != null &&
-          response.statusCode! >= 200 &&
-          response.statusCode! < 300) {
-      } else {
-        throw ServerException(
-          statusCode: response.statusCode!,
-          errorMessage: response.data.toString(),
-        );
-      }
     } on ServerException {
       rethrow;
     } on DioError {

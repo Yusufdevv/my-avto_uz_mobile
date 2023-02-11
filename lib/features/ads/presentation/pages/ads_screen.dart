@@ -17,6 +17,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:formz/formz.dart';
 
 class AdsScreen extends StatefulWidget {
   const AdsScreen({
@@ -88,7 +89,18 @@ class _AdsScreenState extends State<AdsScreen>
   @override
   Widget build(BuildContext context) => BlocProvider(
         create: (context) => announcementListBloc,
-        child: BlocBuilder<AnnouncementListBloc, AnnouncementListState>(
+        child: BlocConsumer<AnnouncementListBloc, AnnouncementListState>(
+          listener: (context, state) {
+            if (state.saveFilterStatus.isSubmissionSuccess) {
+              context.read<ShowPopUpBloc>().add(ShowPopUp(
+                    message: LocaleKeys.search_history_saved.tr(),
+                    status: PopStatus.success,
+                    dismissible: false,
+                  ));
+              announcementListBloc
+                  .add(const ChangeSaveFilterStatus(FormzStatus.pure));
+            }
+          },
           builder: (context, state) => CustomScreen(
             child: Scaffold(
               body: NotificationListener<OverscrollIndicatorNotification>(
@@ -185,15 +197,10 @@ class _AdsScreenState extends State<AdsScreen>
               ),
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.startFloat,
-              floatingActionButton: state.makeId != null &&
-                      state.modelId != null
+              floatingActionButton: !state.historySaved
                   ? WScaleAnimation(
                       onTap: () {
-                        context.read<ShowPopUpBloc>().add(ShowPopUp(
-                              message: LocaleKeys.search_history_saved.tr(),
-                              status: PopStatus.success,
-                              dismissible: false,
-                            ));
+                        announcementListBloc.add(const SaveHistory());
                         setState(() {});
 
                         //!mysearches ni sonini oshirish uchun ishlatilgan, mySearchesCount nechta qo'shishni bildiradi
@@ -270,7 +277,7 @@ class _AdsScreenState extends State<AdsScreen>
                         ),
                       ),
                     )
-                  : const SizedBox(),
+                  : null,
             ),
           ),
         ),
