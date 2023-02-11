@@ -107,12 +107,10 @@ class AnnouncementListBloc
       }
     });
     on<SetFilter>((event, emit) {
-      if (state.currency != event.currency) {
+      if (state.currency != event.currency && event.currency != null) {
         add(const GetMinMaxPriceYear());
       }
       emit(state.copyWith(
-        makeId: event.makeId,
-        modelId: event.modelId,
         currency: event.currency ?? state.currency,
         gearboxType: event.gearboxType,
         bodyType: event.bodyType,
@@ -120,7 +118,17 @@ class AnnouncementListBloc
         yearValues: event.yearValues,
         priceValues: event.priceValues,
         isFilter: event.isFilter,
-        historySaved: event.makeId != null && event.modelId != null,
+      ));
+      add(GetAnnouncementList(isNew: event.isNew));
+    });
+    on<SetMakeModel>((event, emit) {
+      emit(state.copyWith(
+        makeId: event.makeId,
+        modelId: event.modelId,
+        makeName: event.makeName,
+        modelName: event.modelName,
+        makeLogo: event.makeLogo,
+        historySaved: event.makeId == null && event.modelId == null,
       ));
       add(GetAnnouncementList(isNew: event.isNew));
     });
@@ -148,6 +156,12 @@ class AnnouncementListBloc
       final saveFilterModel = SaveFilterModel(
           make: state.makeId,
           model: [state.modelId],
+          query:
+              'make=${state.makeId}&model=${state.modelId}&body_type=${state.bodyType?.id}'
+              '&drive_type=${state.driveType?.id}&gearbox_type=${state.gearboxType?.id}&is_new=${state.isNew}'
+              '&region__in=${getRegionsId(state.regions)}&price_from=${state.priceValues?.start.toInt()}'
+              '&price_to${state.priceValues?.end.toInt()}&year_from=${state.yearValues?.start.toInt()}'
+              '&year_to=${state.yearValues?.end.toInt()}',
           queryData: QueryDataModel(
             bodyType: state.bodyType?.id,
             driveType: state.driveType?.id,

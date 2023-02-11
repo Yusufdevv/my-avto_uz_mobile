@@ -19,6 +19,9 @@ class AnnouncementListState extends Equatable {
   final DriveTypeEntity? driveType;
   final int? makeId;
   final int? modelId;
+  final String? makeName;
+  final String? modelName;
+  final String? makeLogo;
   final bool? isNew;
   final FormzStatus saveFilterStatus;
 
@@ -41,6 +44,9 @@ class AnnouncementListState extends Equatable {
     this.driveType,
     this.makeId,
     this.modelId,
+    this.makeName,
+    this.modelName,
+    this.makeLogo,
     this.isNew,
     this.saveFilterStatus = FormzStatus.pure,
   });
@@ -64,6 +70,9 @@ class AnnouncementListState extends Equatable {
     DriveTypeEntity? driveType,
     int? makeId,
     int? modelId,
+    String? makeName,
+    String? modelName,
+    String? makeLogo,
     bool? isNew,
     FormzStatus? saveFilterStatus,
   }) =>
@@ -86,6 +95,9 @@ class AnnouncementListState extends Equatable {
         driveType: driveType ?? this.driveType,
         makeId: makeId ?? this.makeId,
         modelId: modelId ?? this.modelId,
+        makeName: makeName ?? this.makeName,
+        modelName: modelName ?? this.modelName,
+        makeLogo: makeLogo ?? this.makeLogo,
         isNew: isNew ?? this.isNew,
         saveFilterStatus: saveFilterStatus ?? this.saveFilterStatus,
       );
@@ -110,6 +122,9 @@ class AnnouncementListState extends Equatable {
         driveType,
         makeId,
         modelId,
+        makeName,
+        modelName,
+        makeLogo,
         isNew,
         saveFilterStatus,
       ];
