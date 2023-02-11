@@ -2,28 +2,74 @@
 
 part of 'announcement_list_bloc.dart';
 
-@freezed
-class AnnouncementListEvent with _$AnnouncementListEvent {
-  factory AnnouncementListEvent.getAnnouncementList(bool? isNew) =
-      _GetAnnouncementList;
+abstract class AnnouncementListEvent {
+  const AnnouncementListEvent();
+}
 
-  factory AnnouncementListEvent.setRegions(List<Region> regions) = _GetRegions;
+class GetAnnouncementList extends AnnouncementListEvent {
+  final bool? isNew;
 
-  factory AnnouncementListEvent.getMinMaxPriceYear() = _GetMinMaxPriceYear;
+  const GetAnnouncementList({this.isNew});
+}
 
-  factory AnnouncementListEvent.setFilter({
-    int? makeId,
-    int? modelId,
-    Currency? currency,
-    GearboxTypeEntity? gearboxType,
-    BodyTypeEntity? bodyType,
-    DriveTypeEntity? driveType,
-    RangeValues? yearValues,
-    RangeValues? priceValues,
-    bool? isFilter,
-  }) = _SetFilter;
+class GetMoreAnnouncementList extends AnnouncementListEvent {
+  final bool? isNew;
 
-  factory AnnouncementListEvent.clearFilter() = _ClearFilter;
+  const GetMoreAnnouncementList({this.isNew});
+}
 
-  factory AnnouncementListEvent.saveHistory() = _SaveHistory;
+class SetRegions extends AnnouncementListEvent {
+  final bool? isNew;
+  final List<Region> regions;
+
+  const SetRegions({
+    required this.regions,
+    this.isNew,
+  });
+}
+
+class GetMinMaxPriceYear extends AnnouncementListEvent {
+  const GetMinMaxPriceYear();
+}
+
+class SetFilter extends AnnouncementListEvent {
+  final int? makeId;
+  final int? modelId;
+  final Currency? currency;
+  final GearboxTypeEntity? gearboxType;
+  final BodyTypeEntity? bodyType;
+  final DriveTypeEntity? driveType;
+  final RangeValues? yearValues;
+  final RangeValues? priceValues;
+  final bool? isFilter;
+  final bool? isNew;
+
+  const SetFilter({
+    this.makeId,
+    this.modelId,
+    this.currency,
+    this.gearboxType,
+    this.bodyType,
+    this.driveType,
+    this.yearValues,
+    this.priceValues,
+    this.isFilter,
+    this.isNew,
+  });
+}
+
+class ClearFilter extends AnnouncementListEvent {
+  final bool? isNew;
+
+  const ClearFilter(this.isNew);
+}
+
+class SaveHistory extends AnnouncementListEvent {
+  const SaveHistory();
+}
+
+class ChangeSaveFilterStatus extends AnnouncementListEvent {
+  final FormzStatus status;
+
+  const ChangeSaveFilterStatus(this.status);
 }

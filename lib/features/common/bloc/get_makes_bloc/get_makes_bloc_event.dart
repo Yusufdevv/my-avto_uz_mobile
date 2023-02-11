@@ -13,9 +13,6 @@ class GetMakesBlocEvent with _$GetMakesBlocEvent {
   factory GetMakesBlocEvent.changeControlleStatus() = _ChangeControlleStatus;
 
   factory GetMakesBlocEvent.selectedCarItems({
-    required int id,
-    required String name,
-    required String imageUrl,
     required MakeEntity makeEntity,
   }) = _SelectedCarItems;
 

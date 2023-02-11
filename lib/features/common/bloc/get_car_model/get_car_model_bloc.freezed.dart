@@ -21,7 +21,7 @@ mixin _$GetCarModelEvent {
     required TResult Function(int getId) getCarModel,
     required TResult Function(int id) getMakeId,
     required TResult Function(String naem) getSerched,
-    required TResult Function(int id, String name, MakeEntity model)
+    required TResult Function(MakeEntity model, int selectedId)
         selectedModelItem,
     required TResult Function() confirmModel,
     required TResult Function() revertModel,
@@ -32,7 +32,7 @@ mixin _$GetCarModelEvent {
     TResult? Function(int getId)? getCarModel,
     TResult? Function(int id)? getMakeId,
     TResult? Function(String naem)? getSerched,
-    TResult? Function(int id, String name, MakeEntity model)? selectedModelItem,
+    TResult? Function(MakeEntity model, int selectedId)? selectedModelItem,
     TResult? Function()? confirmModel,
     TResult? Function()? revertModel,
   }) =>
@@ -42,7 +42,7 @@ mixin _$GetCarModelEvent {
     TResult Function(int getId)? getCarModel,
     TResult Function(int id)? getMakeId,
     TResult Function(String naem)? getSerched,
-    TResult Function(int id, String name, MakeEntity model)? selectedModelItem,
+    TResult Function(MakeEntity model, int selectedId)? selectedModelItem,
     TResult Function()? confirmModel,
     TResult Function()? revertModel,
     required TResult orElse(),
@@ -166,7 +166,7 @@ class _$_GetCarModel implements _GetCarModel {
     required TResult Function(int getId) getCarModel,
     required TResult Function(int id) getMakeId,
     required TResult Function(String naem) getSerched,
-    required TResult Function(int id, String name, MakeEntity model)
+    required TResult Function(MakeEntity model, int selectedId)
         selectedModelItem,
     required TResult Function() confirmModel,
     required TResult Function() revertModel,
@@ -180,7 +180,7 @@ class _$_GetCarModel implements _GetCarModel {
     TResult? Function(int getId)? getCarModel,
     TResult? Function(int id)? getMakeId,
     TResult? Function(String naem)? getSerched,
-    TResult? Function(int id, String name, MakeEntity model)? selectedModelItem,
+    TResult? Function(MakeEntity model, int selectedId)? selectedModelItem,
     TResult? Function()? confirmModel,
     TResult? Function()? revertModel,
   }) {
@@ -193,7 +193,7 @@ class _$_GetCarModel implements _GetCarModel {
     TResult Function(int getId)? getCarModel,
     TResult Function(int id)? getMakeId,
     TResult Function(String naem)? getSerched,
-    TResult Function(int id, String name, MakeEntity model)? selectedModelItem,
+    TResult Function(MakeEntity model, int selectedId)? selectedModelItem,
     TResult Function()? confirmModel,
     TResult Function()? revertModel,
     required TResult orElse(),
@@ -324,7 +324,7 @@ class _$_GetMakeId implements _GetMakeId {
     required TResult Function(int getId) getCarModel,
     required TResult Function(int id) getMakeId,
     required TResult Function(String naem) getSerched,
-    required TResult Function(int id, String name, MakeEntity model)
+    required TResult Function(MakeEntity model, int selectedId)
         selectedModelItem,
     required TResult Function() confirmModel,
     required TResult Function() revertModel,
@@ -338,7 +338,7 @@ class _$_GetMakeId implements _GetMakeId {
     TResult? Function(int getId)? getCarModel,
     TResult? Function(int id)? getMakeId,
     TResult? Function(String naem)? getSerched,
-    TResult? Function(int id, String name, MakeEntity model)? selectedModelItem,
+    TResult? Function(MakeEntity model, int selectedId)? selectedModelItem,
     TResult? Function()? confirmModel,
     TResult? Function()? revertModel,
   }) {
@@ -351,7 +351,7 @@ class _$_GetMakeId implements _GetMakeId {
     TResult Function(int getId)? getCarModel,
     TResult Function(int id)? getMakeId,
     TResult Function(String naem)? getSerched,
-    TResult Function(int id, String name, MakeEntity model)? selectedModelItem,
+    TResult Function(MakeEntity model, int selectedId)? selectedModelItem,
     TResult Function()? confirmModel,
     TResult Function()? revertModel,
     required TResult orElse(),
@@ -482,7 +482,7 @@ class _$_GetSerched implements _GetSerched {
     required TResult Function(int getId) getCarModel,
     required TResult Function(int id) getMakeId,
     required TResult Function(String naem) getSerched,
-    required TResult Function(int id, String name, MakeEntity model)
+    required TResult Function(MakeEntity model, int selectedId)
         selectedModelItem,
     required TResult Function() confirmModel,
     required TResult Function() revertModel,
@@ -496,7 +496,7 @@ class _$_GetSerched implements _GetSerched {
     TResult? Function(int getId)? getCarModel,
     TResult? Function(int id)? getMakeId,
     TResult? Function(String naem)? getSerched,
-    TResult? Function(int id, String name, MakeEntity model)? selectedModelItem,
+    TResult? Function(MakeEntity model, int selectedId)? selectedModelItem,
     TResult? Function()? confirmModel,
     TResult? Function()? revertModel,
   }) {
@@ -509,7 +509,7 @@ class _$_GetSerched implements _GetSerched {
     TResult Function(int getId)? getCarModel,
     TResult Function(int id)? getMakeId,
     TResult Function(String naem)? getSerched,
-    TResult Function(int id, String name, MakeEntity model)? selectedModelItem,
+    TResult Function(MakeEntity model, int selectedId)? selectedModelItem,
     TResult Function()? confirmModel,
     TResult Function()? revertModel,
     required TResult orElse(),
@@ -579,7 +579,7 @@ abstract class _$$_SelectedModelItemCopyWith<$Res> {
           $Res Function(_$_SelectedModelItem) then) =
       __$$_SelectedModelItemCopyWithImpl<$Res>;
   @useResult
-  $Res call({int id, String name, MakeEntity model});
+  $Res call({MakeEntity model, int selectedId});
 }
 
 /// @nodoc
@@ -593,23 +593,18 @@ class __$$_SelectedModelItemCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? name = null,
     Object? model = null,
+    Object? selectedId = null,
   }) {
     return _then(_$_SelectedModelItem(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
       model: null == model
           ? _value.model
           : model // ignore: cast_nullable_to_non_nullable
               as MakeEntity,
+      selectedId: null == selectedId
+          ? _value.selectedId
+          : selectedId // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -617,19 +612,16 @@ class __$$_SelectedModelItemCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_SelectedModelItem implements _SelectedModelItem {
-  _$_SelectedModelItem(
-      {required this.id, required this.name, required this.model});
+  _$_SelectedModelItem({required this.model, required this.selectedId});
 
   @override
-  final int id;
-  @override
-  final String name;
-  @override
   final MakeEntity model;
+  @override
+  final int selectedId;
 
   @override
   String toString() {
-    return 'GetCarModelEvent.selectedModelItem(id: $id, name: $name, model: $model)';
+    return 'GetCarModelEvent.selectedModelItem(model: $model, selectedId: $selectedId)';
   }
 
   @override
@@ -637,13 +629,13 @@ class _$_SelectedModelItem implements _SelectedModelItem {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SelectedModelItem &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.model, model) || other.model == model));
+            (identical(other.model, model) || other.model == model) &&
+            (identical(other.selectedId, selectedId) ||
+                other.selectedId == selectedId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, model);
+  int get hashCode => Object.hash(runtimeType, model, selectedId);
 
   @JsonKey(ignore: true)
   @override
@@ -658,12 +650,12 @@ class _$_SelectedModelItem implements _SelectedModelItem {
     required TResult Function(int getId) getCarModel,
     required TResult Function(int id) getMakeId,
     required TResult Function(String naem) getSerched,
-    required TResult Function(int id, String name, MakeEntity model)
+    required TResult Function(MakeEntity model, int selectedId)
         selectedModelItem,
     required TResult Function() confirmModel,
     required TResult Function() revertModel,
   }) {
-    return selectedModelItem(id, name, model);
+    return selectedModelItem(model, selectedId);
   }
 
   @override
@@ -672,11 +664,11 @@ class _$_SelectedModelItem implements _SelectedModelItem {
     TResult? Function(int getId)? getCarModel,
     TResult? Function(int id)? getMakeId,
     TResult? Function(String naem)? getSerched,
-    TResult? Function(int id, String name, MakeEntity model)? selectedModelItem,
+    TResult? Function(MakeEntity model, int selectedId)? selectedModelItem,
     TResult? Function()? confirmModel,
     TResult? Function()? revertModel,
   }) {
-    return selectedModelItem?.call(id, name, model);
+    return selectedModelItem?.call(model, selectedId);
   }
 
   @override
@@ -685,13 +677,13 @@ class _$_SelectedModelItem implements _SelectedModelItem {
     TResult Function(int getId)? getCarModel,
     TResult Function(int id)? getMakeId,
     TResult Function(String naem)? getSerched,
-    TResult Function(int id, String name, MakeEntity model)? selectedModelItem,
+    TResult Function(MakeEntity model, int selectedId)? selectedModelItem,
     TResult Function()? confirmModel,
     TResult Function()? revertModel,
     required TResult orElse(),
   }) {
     if (selectedModelItem != null) {
-      return selectedModelItem(id, name, model);
+      return selectedModelItem(model, selectedId);
     }
     return orElse();
   }
@@ -742,13 +734,11 @@ class _$_SelectedModelItem implements _SelectedModelItem {
 
 abstract class _SelectedModelItem implements GetCarModelEvent {
   factory _SelectedModelItem(
-      {required final int id,
-      required final String name,
-      required final MakeEntity model}) = _$_SelectedModelItem;
+      {required final MakeEntity model,
+      required final int selectedId}) = _$_SelectedModelItem;
 
-  int get id;
-  String get name;
   MakeEntity get model;
+  int get selectedId;
   @JsonKey(ignore: true)
   _$$_SelectedModelItemCopyWith<_$_SelectedModelItem> get copyWith =>
       throw _privateConstructorUsedError;
@@ -795,7 +785,7 @@ class _$_ConfirmModel implements _ConfirmModel {
     required TResult Function(int getId) getCarModel,
     required TResult Function(int id) getMakeId,
     required TResult Function(String naem) getSerched,
-    required TResult Function(int id, String name, MakeEntity model)
+    required TResult Function(MakeEntity model, int selectedId)
         selectedModelItem,
     required TResult Function() confirmModel,
     required TResult Function() revertModel,
@@ -809,7 +799,7 @@ class _$_ConfirmModel implements _ConfirmModel {
     TResult? Function(int getId)? getCarModel,
     TResult? Function(int id)? getMakeId,
     TResult? Function(String naem)? getSerched,
-    TResult? Function(int id, String name, MakeEntity model)? selectedModelItem,
+    TResult? Function(MakeEntity model, int selectedId)? selectedModelItem,
     TResult? Function()? confirmModel,
     TResult? Function()? revertModel,
   }) {
@@ -822,7 +812,7 @@ class _$_ConfirmModel implements _ConfirmModel {
     TResult Function(int getId)? getCarModel,
     TResult Function(int id)? getMakeId,
     TResult Function(String naem)? getSerched,
-    TResult Function(int id, String name, MakeEntity model)? selectedModelItem,
+    TResult Function(MakeEntity model, int selectedId)? selectedModelItem,
     TResult Function()? confirmModel,
     TResult Function()? revertModel,
     required TResult orElse(),
@@ -922,7 +912,7 @@ class _$_RevertModel implements _RevertModel {
     required TResult Function(int getId) getCarModel,
     required TResult Function(int id) getMakeId,
     required TResult Function(String naem) getSerched,
-    required TResult Function(int id, String name, MakeEntity model)
+    required TResult Function(MakeEntity model, int selectedId)
         selectedModelItem,
     required TResult Function() confirmModel,
     required TResult Function() revertModel,
@@ -936,7 +926,7 @@ class _$_RevertModel implements _RevertModel {
     TResult? Function(int getId)? getCarModel,
     TResult? Function(int id)? getMakeId,
     TResult? Function(String naem)? getSerched,
-    TResult? Function(int id, String name, MakeEntity model)? selectedModelItem,
+    TResult? Function(MakeEntity model, int selectedId)? selectedModelItem,
     TResult? Function()? confirmModel,
     TResult? Function()? revertModel,
   }) {
@@ -949,7 +939,7 @@ class _$_RevertModel implements _RevertModel {
     TResult Function(int getId)? getCarModel,
     TResult Function(int id)? getMakeId,
     TResult Function(String naem)? getSerched,
-    TResult Function(int id, String name, MakeEntity model)? selectedModelItem,
+    TResult Function(MakeEntity model, int selectedId)? selectedModelItem,
     TResult Function()? confirmModel,
     TResult Function()? revertModel,
     required TResult orElse(),

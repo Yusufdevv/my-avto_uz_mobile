@@ -9,9 +9,7 @@ import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/domain/entities/types/modification_type.dart';
 import 'package:auto/features/ad/domain/entities/years/years.dart';
-import 'package:auto/features/ads/data/models/search_history_model.dart';
 import 'package:auto/features/common/entities/makes_entity.dart';
-import 'package:auto/features/comparison/domain/entities/announcement_list_entity.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
@@ -94,10 +92,4 @@ abstract class AdRepository {
   Future<Either<Failure, void>> createAnnouncement({
     required FormData announcementFormData,
   });
-
-  Future<Either<Failure, GenericPagination<AnnouncementListEntity>>>
-      getAnnouncementList(Map<String, dynamic> params);
-
-  Future<Either<Failure, void>> filterHistory(
-      {required SearchHistoryModel model});
 }

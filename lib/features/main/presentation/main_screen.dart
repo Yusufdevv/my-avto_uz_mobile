@@ -1,7 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ads/presentation/pages/ads_screen.dart';
 import 'package:auto/features/commercial/presentation/commercial_screen.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
@@ -190,34 +189,45 @@ class _MainScreenState extends State<MainScreen> {
                           Navigator.of(context, rootNavigator: true)
                               .push(fade(
                                   page: ChooseCarBrandComparison(
-                        selectedMake: state.selectedMake,
-                        selectedModel: state.selectedModel,
+                        selectedMakeId: state.makeId,
+                        selectedModelId: state.modelId,
                       )))
                               .then((value) {
                         if (value != null) {
-                          final selectedMake = value[0] as MakeEntity;
-                          final selectedModel = value[1] as MakeEntity;
+                          final result = value as Map<String, dynamic>;
+                          final makeId = result['makeId'];
+                          final modelId = result['modelId'];
+                          final modelName = result['modelName'];
+                          final makeName = result['makeName'];
+                          final makeLogo = result['makeLogo'];
                           mainBloc
                             ..add(GetMakeModelEvent(
-                                selectedMake: selectedMake,
-                                selectedModel: selectedModel))
+                              makeId: makeId,
+                              modelId: modelId,
+                              modelName: modelName,
+                              makeLogo: makeLogo,
+                              makeName: makeName,
+                            ))
                             ..add(GetAnnouncement());
                         } else {
                           mainBloc.add(const GetMakeModelEvent(
-                              selectedMake: MakeEntity(),
-                              selectedModel: MakeEntity()));
+                              makeId: -1,
+                              modelId: -1,
+                              modelName: '',
+                              makeName: '',
+                              makeLogo: ''));
                         }
                       }),
                       onTapShow: () {
                         Navigator.of(context, rootNavigator: true).push(fade(
                             page: AdsScreen(
-                          makeId: state.selectedMake?.id,
-                          modelId: state.selectedModel?.id,
+                          makeId: state.makeId,
+                          modelId: state.modelId,
                         )));
                       },
-                      imageUrl: state.selectedMake?.logo ?? '',
+                      imageUrl: state.makeLogo ?? '',
                       title:
-                          '${state.selectedMake?.name ?? ''} ${state.selectedModel?.name ?? ''}',
+                          '${state.makeName ?? ''} ${state.modelName ?? ''}',
                       count: state.announcementCount,
                       isCheck: true,
                     ),
@@ -235,8 +245,8 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                     TopBrands(
                       onTap: (selectedMake) {
-                        Navigator.of(context, rootNavigator: true)
-                            .push(fade(page: AdsScreen(makeId: selectedMake.id)));
+                        Navigator.of(context, rootNavigator: true).push(
+                            fade(page: AdsScreen(makeId: selectedMake.id)));
                       },
                     ),
                     const TopAds(),

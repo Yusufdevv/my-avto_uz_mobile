@@ -1,8 +1,15 @@
 part of 'filter_bloc.dart';
 
-abstract class FilterEvent {}
+abstract class FilterEvent {
+  const FilterEvent();
+}
 
-class FilterClearEvent extends FilterEvent {}
+class FilterClearEvent extends FilterEvent {
+  final RangeValues? yearValues;
+  final RangeValues? priceValues;
+
+  const FilterClearEvent({this.yearValues, this.priceValues});
+}
 
 class FilterSelectEvent extends FilterEvent {
   List<Region>? regions;
@@ -24,4 +31,10 @@ class FilterSelectEvent extends FilterEvent {
     this.yearValues,
     this.currency,
   });
+}
+
+class FilterChangeCurrencyEvent extends FilterEvent {
+  final Currency currency;
+
+  const FilterChangeCurrencyEvent(this.currency);
 }

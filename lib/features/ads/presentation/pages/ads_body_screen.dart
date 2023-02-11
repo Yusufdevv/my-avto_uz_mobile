@@ -14,10 +14,12 @@ import 'package:formz/formz.dart';
 class AdsBodyScreen extends StatefulWidget {
   final bool? isNew;
   final AnnouncementListBloc announcementListBloc;
+  final bool? isComparison;
 
   const AdsBodyScreen({
     required this.announcementListBloc,
     this.isNew,
+    this.isComparison,
     Key? key,
   }) : super(key: key);
 
@@ -28,8 +30,7 @@ class AdsBodyScreen extends StatefulWidget {
 class _AdsBodyScreenState extends State<AdsBodyScreen> {
   @override
   void initState() {
-    widget.announcementListBloc
-        .add(AnnouncementListEvent.getAnnouncementList(widget.isNew));
+    widget.announcementListBloc.add(GetAnnouncementList(isNew: widget.isNew));
     super.initState();
   }
 
@@ -62,6 +63,7 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                         },
                         behavior: HitTestBehavior.opaque,
                         child: InfoContainer(
+                          isComparison: widget.isComparison,
                           index: index,
                           phone: state.announcementList[index].userType ==
                                   'owner'
@@ -108,7 +110,7 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                     fetchMoreFunction: () {
                       if (!state.status.isSubmissionInProgress) {
                         widget.announcementListBloc
-                            .add(AnnouncementListEvent.getAnnouncementList(widget.isNew));
+                            .add(GetMoreAnnouncementList(isNew: widget.isNew));
                       }
                     },
                     hasMoreToFetch: state.next,
