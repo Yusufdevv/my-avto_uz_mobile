@@ -57,13 +57,11 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
     scrollController = ScrollController();
     controllerScroll = ScrollController();
     if (context.read<GetMakesBloc>().state.makes.isNotEmpty &&
-        widget.selectedMake!.name.isNotEmpty) {
+        widget.selectedMakeId!=null) {
       //! tanlangan itemga borish uchun
       final index = context.read<GetMakesBloc>().state.makes.indexWhere(
-          (element) => element.name
-              .toLowerCase()
-              .contains(widget.selectedMake!.name.toLowerCase()));
-      Future.delayed(  Duration(seconds: 1), () {
+          (element) => element.id == widget.selectedMakeId);
+      Future.delayed(const  Duration(seconds: 1), () {
         scrollController.animateTo(index.toDouble() * 54,
             duration: const Duration(milliseconds: 1000), curve: Curves.ease);
       });
