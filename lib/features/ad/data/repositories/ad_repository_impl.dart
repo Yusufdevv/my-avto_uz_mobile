@@ -14,9 +14,7 @@ import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/domain/entities/types/modification_type.dart';
 import 'package:auto/features/ad/domain/entities/years/years.dart';
 import 'package:auto/features/ad/domain/repositories/ad_repository.dart';
-import 'package:auto/features/ads/data/models/search_history_model.dart';
 import 'package:auto/features/common/entities/makes_entity.dart';
-import 'package:auto/features/comparison/domain/entities/announcement_list_entity.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:dio/dio.dart';
 
@@ -323,24 +321,6 @@ class AdRepositoryImpl extends AdRepository {
   }
 
   @override
-  Future<Either<Failure, GenericPagination<AnnouncementListEntity>>>
-      getAnnouncementList(Map<String, dynamic> params) async {
-    try {
-      final result = await remoteDataSource.getAnnouncementList(params);
-      return Right(result);
-    } on DioException {
-      return Left(DioFailure());
-    } on ParsingException catch (e) {
-      return Left(ParsingFailure(errorMessage: e.errorMessage));
-    } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
-    }
-  }
-
-  @override
   Future<Either<Failure, String>> sendCode({required String phone}) async {
     try {
       final result = await remoteDataSource.sendCode(phone: phone);
@@ -419,19 +399,4 @@ class AdRepositoryImpl extends AdRepository {
     }
   }
 
-  @override
-  Future<Either<Failure, void>> filterHistory(
-      {required SearchHistoryModel model}) async {
-    try {
-      final result = await remoteDataSource.filterHistory(model: model);
-      return Right(result);
-    } on DioException {
-      return Left(DioFailure());
-    } on ParsingException catch (e) {
-      return Left(ParsingFailure(errorMessage: e.errorMessage));
-    } on ServerException catch (e) {
-      return Left(ServerFailure(
-          errorMessage: e.errorMessage, statusCode: e.statusCode));
-    }
-  }
 }

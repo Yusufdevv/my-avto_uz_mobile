@@ -2,12 +2,12 @@ import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
+import 'package:auto/features/ads/data/models/query_data_model.dart';
 import 'package:auto/features/ads/data/models/search_history_model.dart';
-import 'package:auto/features/ads/domain/entities/search_history_entity.dart';
-import 'package:auto/features/ads/domain/usecases/filter_history_usecase.dart';
+import 'package:auto/features/ads/domain/usecases/get_announcement_list_usecase.dart';
 import 'package:auto/features/ads/domain/usecases/get_min_max_price_use_case.dart';
+import 'package:auto/features/ads/domain/usecases/save_filter_history_usecase.dart';
 import 'package:auto/features/common/models/region.dart';
-import 'package:auto/features/common/usecases/announcement_list_usecase.dart';
 import 'package:auto/features/comparison/domain/entities/announcement_list_entity.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -20,8 +20,9 @@ part 'announcement_list_state.dart';
 
 class AnnouncementListBloc
     extends Bloc<AnnouncementListEvent, AnnouncementListState> {
-  AnnouncementListUseCase useCase = AnnouncementListUseCase();
-  FilterHistoryUseCase filterHistoryUseCase = FilterHistoryUseCase();
+  GetAnnouncementListUseCase useCase = GetAnnouncementListUseCase();
+  SaveFilterHistoryUseCase saveFilterHistoryUseCase =
+      SaveFilterHistoryUseCase();
   GetMinMaxPriceYearUseCase minMaxPriceYearUseCase =
       GetMinMaxPriceYearUseCase();
 
@@ -34,9 +35,9 @@ class AnnouncementListBloc
       final result = await useCase.call({
         'make': state.makeId,
         'model': state.modelId,
-        'body_type': state.bodyType,
-        'drive_type': state.driveType,
-        'gearbox_type': state.gearboxType,
+        'body_type': state.bodyType?.id,
+        'drive_type': state.driveType?.id,
+        'gearbox_type': state.gearboxType?.id,
         'is_new': event.isNew,
         'region__in': getRegionsId(state.regions),
         'price_from': state.priceValues?.start,
@@ -64,9 +65,9 @@ class AnnouncementListBloc
       final result = await useCase.call({
         'make': state.makeId,
         'model': state.modelId,
-        'body_type': state.bodyType,
-        'drive_type': state.driveType,
-        'gearbox_type': state.gearboxType,
+        'body_type': state.bodyType?.id,
+        'drive_type': state.driveType?.id,
+        'gearbox_type': state.gearboxType?.id,
         'is_new': event.isNew,
         'region__in': getRegionsId(state.regions),
         'price_from': state.priceValues?.start,
@@ -119,6 +120,7 @@ class AnnouncementListBloc
         yearValues: event.yearValues,
         priceValues: event.priceValues,
         isFilter: event.isFilter,
+        historySaved: event.makeId != null && event.modelId != null,
       ));
       add(GetAnnouncementList(isNew: event.isNew));
     });
@@ -138,6 +140,31 @@ class AnnouncementListBloc
     on<SetRegions>((event, emit) {
       emit(state.copyWith(regions: event.regions));
       add(GetAnnouncementList(isNew: event.isNew));
+    });
+    on<ChangeSaveFilterStatus>((event, emit) {
+      emit(state.copyWith(saveFilterStatus: event.status));
+    });
+    on<SaveHistory>((event, emit) async {
+      final saveFilterModel = SaveFilterModel(
+          make: state.makeId,
+          model: [state.modelId],
+          queryData: QueryDataModel(
+            bodyType: state.bodyType?.id,
+            driveType: state.driveType?.id,
+            gearboxType: state.gearboxType?.id,
+            regionIn: getRegionsId(state.regions),
+            priceFrom: state.priceValues?.start.toInt(),
+            priceTo: state.priceValues?.end.toInt(),
+            yearFrom: state.yearValues?.start.toInt(),
+            yearTo: state.yearValues?.start.toInt(),
+          ));
+      final result = await saveFilterHistoryUseCase.call(saveFilterModel);
+      if (result.isRight) {
+        emit(state.copyWith(
+          historySaved: true,
+          saveFilterModel: saveFilterModel,
+        ));
+      }
     });
   }
 

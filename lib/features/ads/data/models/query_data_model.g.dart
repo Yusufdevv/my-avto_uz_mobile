@@ -8,16 +8,16 @@ part of 'query_data_model.dart';
 
 QueryDataModel _$QueryDataModelFromJson(Map<String, dynamic> json) =>
     QueryDataModel(
-      bodyType: json['body_type'] as int? ?? 0,
-      driveType: json['drive_type'] as int? ?? 0,
-      gearboxType: json['gearbox_type'] as int? ?? 0,
-      engineType: json['engine_type'] as int? ?? 0,
+      bodyType: json['body_type'] as int?,
+      driveType: json['drive_type'] as int?,
+      gearboxType: json['gearbox_type'] as int?,
+      engineType: json['engine_type'] as int?,
       isNew: json['is_new'] as bool?,
-      priceFrom: json['price_from'] as int? ?? 0,
-      priceTo: json['price_to'] as int? ?? 0,
-      regionIn: json['region_in'] as String? ?? '',
-      yearFrom: json['year_from'] as int? ?? 0,
-      yearTo: json['year_to'] as int? ?? 0,
+      priceFrom: json['price_from'] as int?,
+      priceTo: json['price_to'] as int?,
+      regionIn: json['region_in'] as String?,
+      yearFrom: json['year_from'] as int?,
+      yearTo: json['year_to'] as int?,
     );
 
 Map<String, dynamic> _$QueryDataModelToJson(QueryDataModel instance) =>

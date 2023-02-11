@@ -67,3 +67,9 @@ class ClearFilter extends AnnouncementListEvent {
 class SaveHistory extends AnnouncementListEvent {
   const SaveHistory();
 }
+
+class ChangeSaveFilterStatus extends AnnouncementListEvent {
+  final FormzStatus status;
+
+  const ChangeSaveFilterStatus(this.status);
+}

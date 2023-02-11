@@ -5,12 +5,12 @@ class AnnouncementListState extends Equatable {
   final int selected;
   final bool next;
   final String search;
-  final SearchHistoryModel searchModel;
   final int count;
   final List<Region> regions;
   final bool isFilter;
+  final bool historySaved;
   final List<AnnouncementListEntity> announcementList;
-  final SearchHistoryEntity searchHistory;
+  final SaveFilterModel saveFilterModel;
   final RangeValues? yearValues;
   final RangeValues? priceValues;
   final Currency currency;
@@ -20,18 +20,19 @@ class AnnouncementListState extends Equatable {
   final int? makeId;
   final int? modelId;
   final bool? isNew;
+  final FormzStatus saveFilterStatus;
 
   const AnnouncementListState({
     this.status = FormzStatus.pure,
     this.selected = 0,
     this.next = false,
     this.search = '',
-    this.searchModel = const SearchHistoryModel(),
     this.count = 0,
     this.regions = const [],
+    this.historySaved = false,
     this.isFilter = false,
     this.announcementList = const [],
-    this.searchHistory = const SearchHistoryEntity(),
+    this.saveFilterModel = const SaveFilterModel(),
     this.yearValues,
     this.priceValues,
     this.currency = Currency.usd,
@@ -41,6 +42,7 @@ class AnnouncementListState extends Equatable {
     this.makeId,
     this.modelId,
     this.isNew,
+    this.saveFilterStatus = FormzStatus.pure,
   });
 
   AnnouncementListState copyWith({
@@ -48,12 +50,12 @@ class AnnouncementListState extends Equatable {
     int? selected,
     bool? next,
     String? search,
-    SearchHistoryModel? searchModel,
     int? count,
     List<Region>? regions,
     bool? isFilter,
+    bool? historySaved,
     List<AnnouncementListEntity>? announcementList,
-    SearchHistoryEntity? searchHistory,
+    SaveFilterModel? saveFilterModel,
     RangeValues? yearValues,
     RangeValues? priceValues,
     Currency? currency,
@@ -63,18 +65,19 @@ class AnnouncementListState extends Equatable {
     int? makeId,
     int? modelId,
     bool? isNew,
+    FormzStatus? saveFilterStatus,
   }) =>
       AnnouncementListState(
         status: status ?? this.status,
         selected: selected ?? this.selected,
         next: next ?? this.next,
         search: search ?? this.search,
-        searchModel: searchModel ?? this.searchModel,
         count: count ?? this.count,
         regions: regions ?? this.regions,
         isFilter: isFilter ?? this.isFilter,
+        historySaved: historySaved ?? this.historySaved,
         announcementList: announcementList ?? this.announcementList,
-        searchHistory: searchHistory ?? this.searchHistory,
+        saveFilterModel: saveFilterModel ?? this.saveFilterModel,
         yearValues: yearValues ?? this.yearValues,
         priceValues: priceValues ?? this.priceValues,
         currency: currency ?? this.currency,
@@ -84,6 +87,7 @@ class AnnouncementListState extends Equatable {
         makeId: makeId ?? this.makeId,
         modelId: modelId ?? this.modelId,
         isNew: isNew ?? this.isNew,
+        saveFilterStatus: saveFilterStatus ?? this.saveFilterStatus,
       );
 
   @override
@@ -92,12 +96,12 @@ class AnnouncementListState extends Equatable {
         selected,
         next,
         search,
-        searchModel,
         count,
         regions,
         isFilter,
+        historySaved,
         announcementList,
-        searchHistory,
+        saveFilterModel,
         yearValues,
         priceValues,
         currency,
@@ -107,5 +111,6 @@ class AnnouncementListState extends Equatable {
         makeId,
         modelId,
         isNew,
+        saveFilterStatus,
       ];
 }
