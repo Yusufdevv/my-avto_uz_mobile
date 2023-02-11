@@ -92,11 +92,8 @@ class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
 
     on<_SelectedCarItems>((event, emit) {
       emit(state.copyWith(
-          selectId: event.id,
-          name: event.name,
-          imageUrl: event.imageUrl,
-          selectedMake: event.makeEntity,
-          ischeck: event.id == -1 ? false : true));
+          selectId: event.makeEntity.id,
+          selectedMake: event.makeEntity));
     });
 
     on<_ConfirmCarOption>((event, emit) {

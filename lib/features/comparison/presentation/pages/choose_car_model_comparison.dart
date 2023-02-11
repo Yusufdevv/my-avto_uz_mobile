@@ -4,7 +4,6 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/presentation/pages/choose_model/widgets/model_items.dart';
 import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
-import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/comparison/presentation/widgets/comparison_search_bar.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -18,10 +17,11 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class ChooseCarModelComparison extends StatefulWidget {
   final BuildContext parentContext;
-  final MakeEntity? selectedModel;
+  final int? selectedModelId;
+  final MakeEntity? selectedMake;
 
   const ChooseCarModelComparison(
-      {required this.parentContext, this.selectedModel, Key? key})
+      {required this.parentContext, this.selectedModelId,this.selectedMake ,Key? key})
       : super(key: key);
 
   @override
@@ -34,14 +34,13 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
 
   @override
   void initState() {
-    id = context.read<GetMakesBloc>().state.selectId;
     searchController = TextEditingController();
     context.read<GetCarModelBloc>().add(GetCarModelEvent.getSerched(''));
     context.read<GetCarModelBloc>().add(GetCarModelEvent.selectedModelItem(
-          id: widget.selectedModel?.id ?? -1,
-          name: widget.selectedModel?.name ?? '',
-          model: widget.selectedModel ?? const MakeEntity(),
+        selectedId: widget.selectedModelId ?? -1,
+          model:const MakeEntity(),
         ));
+    id = widget.selectedMake?.id ?? -1;
     context.read<GetCarModelBloc>().add(GetCarModelEvent.getCarModel(id));
     super.initState();
   }
@@ -91,7 +90,7 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                               ),
                             ),
                             actions: [
-                              // ! x button
+                              ///  x button
                               Padding(
                                 padding: const EdgeInsets.only(right: 16),
                                 child: InkWell(
@@ -99,21 +98,9 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                                     context
                                         .read<GetCarModelBloc>()
                                         .add(GetCarModelEvent.selectedModelItem(
-                                          id: -1,
-                                          name: '',
+                                      selectedId: -1,
                                           model: const MakeEntity(),
                                         ));
-                                    context
-                                        .read<GetMakesBloc>()
-                                        .add(GetMakesBlocEvent.selectedCarItems(
-                                          id: -1,
-                                          name: '',
-                                          imageUrl: '',
-                                          makeEntity: const MakeEntity(),
-                                        ));
-                                    context
-                                        .read<GetMakesBloc>()
-                                        .add(GetMakesBlocEvent.getIndex(''));
                                     Navigator.of(context).pop();
                                     Navigator.of(widget.parentContext).pop();
                                   },
@@ -166,9 +153,7 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                                   onTap: () {
                                     context.read<GetCarModelBloc>().add(
                                           GetCarModelEvent.selectedModelItem(
-                                            id: state.model.results[index].id,
-                                            name:
-                                                state.model.results[index].name,
+                                            selectedId: state.model.results[index].id,
                                             model: state.model.results[index],
                                           ),
                                         );
@@ -190,24 +175,20 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                           onTap: () {
                             if (state.selectedModel.id != -1) {
                               Navigator.pop(context);
-                              Navigator.of(widget.parentContext).pop([
-                                context.read<GetMakesBloc>().state.selectedMake,
-                                state.selectedModel
-                              ]);
+                              Navigator.of(widget.parentContext).pop(
+                              {
+                                'makeId' : widget.selectedMake?.id,
+                                'modelId' : state.selectedModel.id,
+                                'modelName': state.selectedModel.name,
+                                'makeName': widget.selectedMake?.name,
+                                'makeLogo': widget.selectedMake?.logo,
+                              }
+                              );
                               context
                                   .read<GetCarModelBloc>()
                                   .add(GetCarModelEvent.selectedModelItem(
-                                    id: -1,
-                                    name: '',
+                                    selectedId: -1,
                                     model: const MakeEntity(),
-                                  ));
-                              context
-                                  .read<GetMakesBloc>()
-                                  .add(GetMakesBlocEvent.selectedCarItems(
-                                    id: -1,
-                                    name: '',
-                                    imageUrl: '',
-                                    makeEntity: const MakeEntity(),
                                   ));
                             }
                           },

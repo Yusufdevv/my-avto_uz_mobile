@@ -23,11 +23,11 @@ import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class ChooseCarBrandComparison extends StatefulWidget {
-  final MakeEntity? selectedMake;
-  final MakeEntity? selectedModel;
+  final int? selectedMakeId;
+  final int? selectedModelId;
   const ChooseCarBrandComparison({
-    this.selectedMake,
-    this.selectedModel,
+    this.selectedMakeId,
+    this.selectedModelId,
     Key? key,
   }) : super(key: key);
 
@@ -51,12 +51,7 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
     topBrandBloc = TopBrandBloc(GetTopBrandUseCase())
       ..add(TopBrandEvent.getBrand());
     // context.read<GetMakesBloc>().add(GetMakesBlocEvent.getSerched(''));
-    context.read<GetMakesBloc>().add(GetMakesBlocEvent.selectedCarItems(
-          id: widget.selectedMake?.id ?? -1,
-          name: widget.selectedMake?.name ?? '',
-          imageUrl: widget.selectedMake?.logo ?? '',
-          makeEntity: widget.selectedMake ?? const MakeEntity(),
-        ));
+    context.read<GetMakesBloc>().add(GetMakesBlocEvent.changeSelected(widget.selectedMakeId ?? -1));
     context.read<GetMakesBloc>().add(GetMakesBlocEvent.getMakes());
     scrollingBloc = ScrollingBloc();
     scrollController = ScrollController();
@@ -106,9 +101,6 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                             context
                                 .read<GetMakesBloc>()
                                 .add(GetMakesBlocEvent.selectedCarItems(
-                                  id: -1,
-                                  name: '',
-                                  imageUrl: '',
                                   makeEntity: const MakeEntity(),
                                 ));
                             context
@@ -134,7 +126,7 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                           ),
                         ),
                         actions: [
-                          //! x button
+                          /// x button
                           Padding(
                             padding: const EdgeInsets.only(right: 16),
                             child: GestureDetector(
@@ -142,9 +134,6 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                                 context
                                     .read<GetMakesBloc>()
                                     .add(GetMakesBlocEvent.selectedCarItems(
-                                      id: -1,
-                                      name: '',
-                                      imageUrl: '',
                                       makeEntity: const MakeEntity(),
                                     ));
                                 context
@@ -195,9 +184,6 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                             onTap: (selectedMake) {
                               context.read<GetMakesBloc>().add(
                                     GetMakesBlocEvent.selectedCarItems(
-                                      id: selectedMake.id,
-                                      name: selectedMake.name,
-                                      imageUrl: selectedMake.logo,
                                       makeEntity: selectedMake,
                                     ),
                                   );
@@ -205,7 +191,7 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                                 fade(
                                   page: ChooseCarModelComparison(
                                       parentContext: context,
-                                      selectedModel: widget.selectedModel),
+                                      selectedModelId: widget.selectedModelId),
                                 ),
                               );
                             },
@@ -247,9 +233,6 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                               onTap: () {
                                 context.read<GetMakesBloc>().add(
                                       GetMakesBlocEvent.selectedCarItems(
-                                        id: state.makes[index].id,
-                                        name: state.makes[index].name,
-                                        imageUrl: state.makes[index].logo,
                                         makeEntity: state.makes[index],
                                       ),
                                     );
@@ -273,7 +256,8 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                               fade(
                                   page: ChooseCarModelComparison(
                                       parentContext: context,
-                                      selectedModel: widget.selectedModel)));
+                                      selectedMake: state.selectedMake,
+                                      selectedModelId: widget.selectedModelId)));
                         }
                       },
                       isDisabled: state.selectedMake.id == -1,

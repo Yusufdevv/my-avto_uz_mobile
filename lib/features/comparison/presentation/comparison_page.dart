@@ -1,7 +1,4 @@
 import 'package:auto/core/singletons/service_locator.dart';
-import 'package:auto/features/ad/domain/entities/types/make.dart';
-import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
-import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/comparison/data/repositories/comparison_cars_repo_impl.dart';
 import 'package:auto/features/comparison/domain/usecases/comparison_cars_use_case.dart';
@@ -47,12 +44,6 @@ class _ComparisonPageState extends State<ComparisonPage> {
             .headline1!
             .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
         onTapBack: () {
-          context
-              .read<GetCarModelBloc>()
-              .add(GetCarModelEvent.selectedModelItem(id: -1, name: '',model:const MakeEntity()));
-          context.read<GetMakesBloc>().add(
-              GetMakesBlocEvent.selectedCarItems(
-                  id: -1, name: '', imageUrl: '', makeEntity:const MakeEntity()));
           Navigator.pop(context);
         },
       ),

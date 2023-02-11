@@ -1,4 +1,3 @@
-import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/common/usecases/announcement_list_usecase.dart';
 import 'package:auto/features/main/domain/entities/story_entity.dart';
 import 'package:auto/features/main/domain/usecases/get_stories_use_case.dart';
@@ -14,6 +13,7 @@ part 'main_state.dart';
 class MainBloc extends Bloc<MainEvent, MainState> {
   GetStoriesUseCase getStoriesUseCase = GetStoriesUseCase();
   AnnouncementListUseCase announcementListUseCase = AnnouncementListUseCase();
+
   MainBloc() : super(const MainState()) {
     on<InitialEvent>(_onInit);
     on<ChangeStatusEvent>(_onChangeStatus);
@@ -32,14 +32,19 @@ class MainBloc extends Bloc<MainEvent, MainState> {
 
   void _onGetMakeModel(GetMakeModelEvent event, Emitter<MainState> emit) {
     emit(state.copWith(
-        selectedMake: event.selectedMake, selectedModel: event.selectedModel));
+      makeId: event.makeId,
+      modelId: event.modelId,
+       modelName:event.modelName,
+       makeName:event.makeName,
+       makeLogo:event.makeLogo,
+    ));
   }
 
   Future _onGetAnnouncement(
       GetAnnouncement event, Emitter<MainState> emit) async {
     final result = await announcementListUseCase.call({
-      'make': state.selectedMake?.id ?? '',
-      'model': state.selectedModel?.id ?? '',
+      'make': state.makeId ?? '',
+      'model': state.modelId ?? '',
     });
     if (result.isRight) {
       emit(state.copWith(announcementCount: result.right.count));
