@@ -91,7 +91,7 @@ class _MainScreenState extends State<MainScreen> {
           backgroundColor: Colors.transparent,
           useRootNavigator: true,
           context: context,
-          builder: (context) => SoonBottomsheet(onTap: () {}),
+          builder: (context) => const SoonBottomsheet(),
         );
       },
       () {
@@ -103,7 +103,7 @@ class _MainScreenState extends State<MainScreen> {
           backgroundColor: Colors.transparent,
           useRootNavigator: true,
           context: context,
-          builder: (context) => SoonBottomsheet(onTap: () {}),
+          builder: (context) => const SoonBottomsheet(),
         );
       },
       () {
@@ -111,7 +111,7 @@ class _MainScreenState extends State<MainScreen> {
           backgroundColor: Colors.transparent,
           useRootNavigator: true,
           context: context,
-          builder: (context) => SoonBottomsheet(onTap: () {}),
+          builder: (context) => const SoonBottomsheet(),
         );
       },
       () {
