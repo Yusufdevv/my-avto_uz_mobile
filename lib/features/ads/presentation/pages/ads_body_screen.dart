@@ -28,8 +28,7 @@ class AdsBodyScreen extends StatefulWidget {
 class _AdsBodyScreenState extends State<AdsBodyScreen> {
   @override
   void initState() {
-    widget.announcementListBloc
-        .add(AnnouncementListEvent.getAnnouncementList(widget.isNew));
+    widget.announcementListBloc.add(GetAnnouncementList(isNew: widget.isNew));
     super.initState();
   }
 
@@ -108,7 +107,7 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                     fetchMoreFunction: () {
                       if (!state.status.isSubmissionInProgress) {
                         widget.announcementListBloc
-                            .add(AnnouncementListEvent.getAnnouncementList(widget.isNew));
+                            .add(GetMoreAnnouncementList(isNew: widget.isNew));
                       }
                     },
                     hasMoreToFetch: state.next,

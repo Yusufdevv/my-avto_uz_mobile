@@ -19,7 +19,7 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
   final BodyTypeEntity? bodyType;
   final DriveTypeEntity? carDriveType;
   final GearboxTypeEntity? gearboxType;
-  final bool ischek;
+  final bool isCheck;
   final RangeValues? yearValues;
   final RangeValues? priceValues;
   GetMinMaxPriceYearUseCase minMaxPriceYearUseCase =
@@ -33,7 +33,7 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
     this.gearboxType,
     this.yearValues,
     this.priceValues,
-    this.ischek = false,
+    this.isCheck = false,
   }) : super(FilterState(
           bodyType: bodyType,
           carDriveType: carDriveType,
@@ -42,36 +42,37 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
           regions: regions ?? <Region>[],
           yearValues: yearValues ?? RangeValues(1960, DateTime.now().year + 0),
           priceValues: priceValues ?? const RangeValues(1000, 500000),
-          ischeck: ischek,
+          isCheck: isCheck,
         )) {
     on<FilterClearEvent>((event, emit) => emit(FilterState(
-          ischeck: false,
-          regions: const <Region>[],
-          yearValues: RangeValues(1960, DateTime.now().year + 0),
-          priceValues: const RangeValues(1000, 500000),
+          isCheck: false,
+          regions: const [],
+          yearValues:
+              event.yearValues ?? RangeValues(1960, DateTime.now().year + 0),
+          priceValues: event.priceValues ?? const RangeValues(1000, 500000),
         )));
     on<FilterSelectEvent>((event, emit) async {
-      final result = await minMaxPriceYearUseCase.call(state.currency.value);
-      RangeValues? yearValues;
-      RangeValues? priceValues;
-      if (result.isRight) {
-        yearValues = RangeValues(
-            result.right.minYear.toDouble(), result.right.maxYear.toDouble());
-        priceValues = RangeValues(double.parse(result.right.minPrice),
-            double.parse(result.right.maxPrice));
-      } else {
-        priceValues = event.priceValues;
-        yearValues = event.yearValues;
-      }
       emit(state.copyWith(
         bodyType: event.bodyType,
         carDriveType: event.carDriveType,
         gearboxType: event.gearboxType,
         maker: event.maker,
-        priceValues: priceValues,
-        yearValues: yearValues,
+        priceValues: event.priceValues,
+        yearValues: event.yearValues,
         regions: event.regions,
-        ischeck: true,
+        isCheck: true,
+      ));
+    });
+    on<FilterChangeCurrencyEvent>((event, emit) async {
+      final result = await minMaxPriceYearUseCase.call(state.currency.value);
+      RangeValues? priceValues;
+      if (result.isRight) {
+        priceValues = RangeValues(double.parse(result.right.minPrice),
+            double.parse(result.right.maxPrice));
+      }
+      emit(state.copyWith(
+        priceValues: priceValues,
+        currency: event.currency,
       ));
     });
   }

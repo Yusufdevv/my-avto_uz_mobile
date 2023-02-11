@@ -23,6 +23,7 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
     required this.tabController,
     required this.onSelectMakeModel,
     required this.bloc,
+    required this.isNew,
   });
 
   final Size size;
@@ -30,6 +31,7 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
   final TabController tabController;
   final Function(int makeId, int modelId) onSelectMakeModel;
   final AnnouncementListBloc bloc;
+  final bool? isNew;
 
   @override
   Widget build(
@@ -65,37 +67,30 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                   final res = await Navigator.of(context).push(
                     fade(
                       page: FilterParameters(
-                        bloc: context.read<AnnouncementListBloc>(),
                         bodyType: state.bodyType,
                         gearboxType: state.gearboxType,
                         carDriveType: state.driveType,
                         yearValues: state.yearValues,
                         priceValues: state.priceValues,
                         currency: state.currency,
-                        ischek: state.isFilter,
+                        isCheck: state.isFilter,
                       ),
                     ),
                   );
                   if (res is Map<String, dynamic>) {
-                    bloc
-                      ..add(
-                        AnnouncementListEvent.setFilter(
-                          bodyType: res['bodyType'],
-                          gearboxType: res['gearboxType'],
-                          driveType: res['carDriveType'],
-                          yearValues: res['yearValues'],
-                          priceValues: res['priceValues'],
-                          currency: res['currency'],
-                          isFilter: res['isFilter'],
-                        ),
-                      )
-                      ..add(AnnouncementListEvent.getAnnouncementList(null));
+                    bloc.add(SetFilter(
+                      bodyType: res['bodyType'],
+                      gearboxType: res['gearboxType'],
+                      driveType: res['carDriveType'],
+                      yearValues: res['yearValues'],
+                      priceValues: res['priceValues'],
+                      currency: res['currency'],
+                      isFilter: res['isFilter'],
+                    ));
                   }
                 },
                 onTapClear1: () {
-                  bloc
-                    ..add(AnnouncementListEvent.clearFilter())
-                    ..add(AnnouncementListEvent.getAnnouncementList(null));
+                  bloc.add(ClearFilter(isNew));
                 },
                 isFilter: state.isFilter,
                 name: state.regions.isNotEmpty ? state.regions[0].title : '',
@@ -111,15 +106,11 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                       list: context.read<RegionsBloc>().state.regions,
                     ),
                   ).then((value) {
-                    bloc
-                      ..add(AnnouncementListEvent.setRegions(value ?? []))
-                      ..add(AnnouncementListEvent.getAnnouncementList(null));
+                    bloc.add(SetRegions(regions: value ?? [], isNew: isNew));
                   });
                 },
                 onTapClear2: () {
-                  bloc
-                    ..add(AnnouncementListEvent.setRegions([]))
-                    ..add(AnnouncementListEvent.getAnnouncementList(null));
+                  bloc.add(SetRegions(regions: [], isNew: isNew));
                 },
               ),
             ],

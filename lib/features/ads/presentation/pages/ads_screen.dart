@@ -67,11 +67,11 @@ class _AdsScreenState extends State<AdsScreen>
     }
     announcementListBloc = AnnouncementListBloc();
     announcementListBloc
-      ..add(AnnouncementListEvent.setFilter(
+      ..add(SetFilter(
         makeId: widget.makeId,
         modelId: widget.modelId,
       ))
-      ..add(AnnouncementListEvent.getMinMaxPriceYear());
+      ..add(const GetMinMaxPriceYear());
     super.initState();
   }
 
@@ -149,12 +149,12 @@ class _AdsScreenState extends State<AdsScreen>
                     ),
                     SliverPersistentHeader(
                       delegate: AdsSliverWidget(
+                        isNew: state.isNew,
                         size: MediaQuery.of(context).size,
                         theme: Theme.of(context).extension<ThemedColors>()!,
                         tabController: tabController,
                         onSelectMakeModel: (makeId, modelId) {
-                          announcementListBloc
-                              .add(AnnouncementListEvent.setFilter(
+                          announcementListBloc.add(SetFilter(
                             makeId: makeId,
                             modelId: modelId,
                           ));
@@ -185,9 +185,9 @@ class _AdsScreenState extends State<AdsScreen>
               ),
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.startFloat,
-              floatingActionButton: state.isHistory
-                  ? const SizedBox()
-                  : WScaleAnimation(
+              floatingActionButton: state.makeId != null &&
+                      state.modelId != null
+                  ? WScaleAnimation(
                       onTap: () {
                         context.read<ShowPopUpBloc>().add(ShowPopUp(
                               message: LocaleKeys.search_history_saved.tr(),
@@ -269,7 +269,8 @@ class _AdsScreenState extends State<AdsScreen>
                           ),
                         ),
                       ),
-                    ),
+                    )
+                  : const SizedBox(),
             ),
           ),
         ),

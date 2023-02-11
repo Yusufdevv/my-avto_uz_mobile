@@ -5,7 +5,6 @@ import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
-import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/common/widgets/range_slider.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -26,8 +25,7 @@ class FilterParameters extends StatefulWidget {
   final Currency? currency;
   final RangeValues? yearValues;
   final RangeValues? priceValues;
-  final bool? ischek;
-  final AnnouncementListBloc? bloc;
+  final bool? isCheck;
 
   const FilterParameters({
     super.key,
@@ -36,9 +34,8 @@ class FilterParameters extends StatefulWidget {
     this.gearboxType,
     this.yearValues,
     this.priceValues,
-    this.bloc,
     this.currency,
-    this.ischek,
+    this.isCheck,
   });
 
   @override
@@ -56,7 +53,7 @@ class _FilterParametersState extends State<FilterParameters> {
       gearboxType: widget.gearboxType,
       priceValues: widget.priceValues,
       yearValues: widget.yearValues,
-      ischek: widget.ischek ?? false,
+      isCheck: widget.isCheck ?? false,
     );
     super.initState();
   }
@@ -72,10 +69,10 @@ class _FilterParametersState extends State<FilterParameters> {
               extraActions: [
                 TextButton(
                   onPressed: () {
-                    widget.bloc!.add(AnnouncementListEvent.clearFilter());
-                    widget.bloc!
-                        .add(AnnouncementListEvent.getAnnouncementList(null));
-                    filterBloc.add(FilterClearEvent());
+                    filterBloc.add(FilterClearEvent(
+                      yearValues: widget.yearValues,
+                      priceValues: widget.priceValues,
+                    ));
                   },
                   child: Text(
                     LocaleKeys.reset.tr(),
@@ -175,8 +172,8 @@ class _FilterParametersState extends State<FilterParameters> {
                     children: [
                       WButton(
                         onTap: () {
-                          filterBloc
-                              .add(FilterSelectEvent(currency: Currency.usd));
+                          filterBloc.add(
+                              const FilterChangeCurrencyEvent(Currency.usd));
                         },
                         height: 36,
                         width: MediaQuery.of(context).size.width * 0.45,
@@ -198,8 +195,8 @@ class _FilterParametersState extends State<FilterParameters> {
                       ),
                       WButton(
                         onTap: () {
-                          filterBloc
-                              .add(FilterSelectEvent(currency: Currency.uzs));
+                          filterBloc.add(
+                              const FilterChangeCurrencyEvent(Currency.uzs));
                         },
                         height: 36,
                         width: MediaQuery.of(context).size.width * 0.45,
@@ -228,9 +225,8 @@ class _FilterParametersState extends State<FilterParameters> {
                       yearValues: value,
                     )),
                     title: LocaleKeys.year_of_issue.tr(),
-                    endValue: widget.bloc?.state.yearValues.end ??
-                        DateTime.now().year + 0,
-                    startValue: widget.bloc?.state.yearValues.start ?? 1960,
+                    endValue: widget.yearValues?.end ?? DateTime.now().year + 0,
+                    startValue: widget.yearValues?.start ?? 1960,
                   ),
                   const SizedBox(height: 16),
                   WRangeSlider(
@@ -239,8 +235,8 @@ class _FilterParametersState extends State<FilterParameters> {
                       priceValues: value,
                     )),
                     title: LocaleKeys.price.tr(),
-                    endValue: widget.bloc?.state.priceValues.end ?? 500000,
-                    startValue: widget.bloc?.state.priceValues.start ?? 1000,
+                    endValue: widget.priceValues?.end ?? 500000,
+                    startValue: widget.priceValues?.start ?? 1000,
                     isForPrice: true,
                     description:
                         state.currency == Currency.uzs ? 'сум' : 'у.е.',
@@ -254,7 +250,7 @@ class _FilterParametersState extends State<FilterParameters> {
                       'yearValues': state.yearValues,
                       'priceValues': state.priceValues,
                       'currency': state.currency,
-                      'isFilter': state.ischeck,
+                      'isFilter': true,
                     }),
                     text: LocaleKeys.show.tr(),
                   ),

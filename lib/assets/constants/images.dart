@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 class AppImages {
   static const flagUzb = 'assets/images/global/flag_uzb.png';
   static const flagUzb2 = 'assets/images/global/flagUzb2.png';
