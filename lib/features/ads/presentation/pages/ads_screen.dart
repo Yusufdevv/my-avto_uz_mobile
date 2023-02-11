@@ -22,11 +22,13 @@ class AdsScreen extends StatefulWidget {
   const AdsScreen({
     this.makeId,
     this.modelId,
+    this.isComparison,
     Key? key,
   }) : super(key: key);
 
   final int? makeId;
   final int? modelId;
+  final bool? isComparison;
 
   @override
   State<AdsScreen> createState() => _AdsScreenState();
@@ -168,14 +170,17 @@ class _AdsScreenState extends State<AdsScreen>
                     controller: tabController,
                     children: [
                       AdsBodyScreen(
+                        isComparison: true,
                         isNew: null,
                         announcementListBloc: announcementListBloc,
                       ),
                       AdsBodyScreen(
+                        isComparison: true,
                         isNew: true,
                         announcementListBloc: announcementListBloc,
                       ),
                       AdsBodyScreen(
+                        isComparison: true,
                         isNew: false,
                         announcementListBloc: announcementListBloc,
                       ),

@@ -14,10 +14,12 @@ import 'package:formz/formz.dart';
 class AdsBodyScreen extends StatefulWidget {
   final bool? isNew;
   final AnnouncementListBloc announcementListBloc;
+  final bool? isComparison;
 
   const AdsBodyScreen({
     required this.announcementListBloc,
     this.isNew,
+    this.isComparison,
     Key? key,
   }) : super(key: key);
 
@@ -61,6 +63,7 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                         },
                         behavior: HitTestBehavior.opaque,
                         child: InfoContainer(
+                          isComparison: widget.isComparison,
                           index: index,
                           phone: state.announcementList[index].userType ==
                                   'owner'

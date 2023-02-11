@@ -42,6 +42,7 @@ class InfoContainer extends StatefulWidget {
     this.gallery,
     this.initialLike,
     this.phone,
+    this.isComparison,
   });
 
   final String? avatarPicture;
@@ -65,6 +66,7 @@ class InfoContainer extends StatefulWidget {
   final VoidCallback onTapComparsion;
   final VoidCallback onTapFavorites;
   final bool? initialLike;
+  final bool? isComparison;
   final bool initialComparsions;
   final int id;
 
