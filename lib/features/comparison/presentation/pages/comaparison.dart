@@ -161,6 +161,7 @@ class _ComparisonState extends State<Comparison> {
                           Navigator.of(context, rootNavigator: true)
                               .push(fade(
                                   page: AdsScreen(
+                                     isComparison: true,
                             makeId: selectedMake.id,
                             modelId: selectedModel.id,
                           )))
