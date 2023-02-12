@@ -504,6 +504,9 @@
   "in_hot" : "Yangilari \n",
   "in_hot_one_line" : "Yangilari",
   "close_ad" : "E'lonni tugatish",
-  "milage_photo": "Фото датчика"
-
+  "milage_photo": "Фото датчика",
+  "remove_from_comparison" : "Taqqoslashdan o'chirish",
+  "add_to_comparison" : "Taqqoslashga qo'shish",
+  "go_to_comparison" : "Taqqoslashga borish",
+  "added_x_auto" : "{} ta qo'shildi"
 }

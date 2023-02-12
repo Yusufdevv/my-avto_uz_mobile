@@ -521,7 +521,11 @@ class CodegenLoader extends AssetLoader{
   "in_hot": "В горячие\n ",
   "in_hot_one_line": "В горячие",
   "close_ad": "Завершить объявление",
-  "milage_photo": "Фото датчика"
+  "milage_photo": "Фото датчика",
+  "remove_from_comparison": "Убрать из сравнение",
+  "add_to_comparison": "Добавить в сравнения",
+  "go_to_comparison": "Перейти к сравнению",
+  "added_x_auto": "добавлено {} авто"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -1029,7 +1033,11 @@ static const Map<String,dynamic> uz = {
   "in_hot": "Yangilari \n",
   "in_hot_one_line": "Yangilari",
   "close_ad": "E'lonni tugatish",
-  "milage_photo": "Фото датчика"
+  "milage_photo": "Фото датчика",
+  "remove_from_comparison": "Taqqoslashdan o'chirish",
+  "add_to_comparison": "Taqqoslashga qo'shish",
+  "go_to_comparison": "Taqqoslashga borish",
+  "added_x_auto": "{} ta qo'shildi"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }

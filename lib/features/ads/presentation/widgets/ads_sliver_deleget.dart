@@ -6,7 +6,7 @@ import 'package:auto/features/commercial/presentation/widgets/commercial_tab.dar
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/models/region.dart';
-import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
+import 'package:auto/features/comparison/presentation/pages/choose_car_brand_page.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -53,7 +53,7 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                     final res = await Navigator.push(
                         context,
                         fade(
-                            page: ChooseCarBrandComparison(
+                            page: ChooseCarBrandPage(
                           selectedMakeId: state.makeId,
                           selectedModelId: state.modelId,
                         )));

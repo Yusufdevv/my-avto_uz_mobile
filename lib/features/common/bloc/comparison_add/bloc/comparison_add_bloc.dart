@@ -1,5 +1,5 @@
 import 'package:auto/features/comparison/domain/usecases/comparison_add_use_case.dart';
-import 'package:auto/features/comparison/domain/usecases/delete_comparison.dart';
+import 'package:auto/features/comparison/domain/usecases/delete_comparison_usecase.dart';
 import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -17,7 +17,8 @@ class ComparisonAddBloc extends Bloc<ComparisonAddEvent, ComparisonAddState> {
       emit(state.copyWith(addStatus: FormzStatus.submissionInProgress));
       final result = await addUseCase(event.id);
       if (result.isRight) {
-        emit(state.copyWith(addStatus: FormzStatus.submissionSuccess));
+        emit(state.copyWith(
+            addStatus: FormzStatus.submissionSuccess, count: state.count + 1));
       } else {
         emit(state.copyWith(addStatus: FormzStatus.submissionFailure));
       }
@@ -27,9 +28,15 @@ class ComparisonAddBloc extends Bloc<ComparisonAddEvent, ComparisonAddState> {
       final result = await deleteUseCase(event.id);
       if (result.isRight) {
         emit(state.copyWith(removeStatus: FormzStatus.submissionSuccess));
+        if (state.count > 0) {
+          emit(state.copyWith(count: state.count - 1));
+        }
       } else {
         emit(state.copyWith(removeStatus: FormzStatus.submissionFailure));
       }
+    });
+    on<_ClearCountComparison>((event, emit) async {
+      emit(state.copyWith(count: 0));
     });
   }
 }

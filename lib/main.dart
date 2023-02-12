@@ -26,7 +26,7 @@ import 'package:auto/features/common/repository/auth.dart';
 import 'package:auto/features/common/usecases/add_wishlist_usecase.dart';
 import 'package:auto/features/comparison/data/repositories/comparison_cars_repo_impl.dart';
 import 'package:auto/features/comparison/domain/usecases/comparison_add_use_case.dart';
-import 'package:auto/features/comparison/domain/usecases/delete_comparison.dart';
+import 'package:auto/features/comparison/domain/usecases/delete_comparison_usecase.dart';
 import 'package:auto/features/login/domain/usecases/register_user.dart';
 import 'package:auto/features/login/domain/usecases/send_code.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';

@@ -18,12 +18,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
-class ChooseCarModelComparison extends StatefulWidget {
+class ChooseCarModelPage extends StatefulWidget {
   final BuildContext parentContext;
   final int? selectedModelId;
   final MakeEntity? selectedMake;
 
-  const ChooseCarModelComparison(
+  const ChooseCarModelPage(
       {required this.parentContext,
       this.selectedModelId,
       this.selectedMake,
@@ -31,10 +31,10 @@ class ChooseCarModelComparison extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<ChooseCarModelComparison> createState() => _ChooseCarModelComparison();
+  State<ChooseCarModelPage> createState() => _ChooseCarModelComparison();
 }
 
-class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
+class _ChooseCarModelComparison extends State<ChooseCarModelPage> {
   late TextEditingController _searchController;
   late GetCarModelBloc _getCarModelBloc;
   late int id;

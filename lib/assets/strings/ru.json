@@ -505,5 +505,9 @@
   "in_hot" : "В горячие\n ",
   "in_hot_one_line" : "В горячие",
   "close_ad" : "Завершить объявление",
-  "milage_photo": "Фото датчика"
+  "milage_photo": "Фото датчика",
+  "remove_from_comparison" : "Убрать из сравнение",
+  "add_to_comparison" : "Добавить в сравнения",
+  "go_to_comparison" : "Перейти к сравнению",
+  "added_x_auto" : "добавлено {} авто"
 }

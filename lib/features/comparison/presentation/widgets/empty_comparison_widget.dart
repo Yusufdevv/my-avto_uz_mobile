@@ -8,7 +8,10 @@ import 'package:flutter/material.dart';
 
 class EmptyComparison extends StatelessWidget {
   final VoidCallback onTap;
-  const EmptyComparison({Key? key, required this.onTap}) : super(key: key);
+  const EmptyComparison({
+    required this.onTap,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Column(
@@ -54,7 +57,7 @@ class EmptyComparison extends StatelessWidget {
             child: WButton(
               onTap: onTap,
               color: purple,
-              text: LocaleKeys.add_advert.tr(),
+              text: LocaleKeys.add_car.tr(),
             ),
           )
         ],

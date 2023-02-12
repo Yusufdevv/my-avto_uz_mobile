@@ -14,12 +14,12 @@ import 'package:formz/formz.dart';
 class AdsBodyScreen extends StatefulWidget {
   final bool? isNew;
   final AnnouncementListBloc announcementListBloc;
-  final bool? isComparison;
+  final bool isFromComparison;
 
   const AdsBodyScreen({
     required this.announcementListBloc,
     this.isNew,
-    this.isComparison,
+    this.isFromComparison = false,
     Key? key,
   }) : super(key: key);
 
@@ -57,13 +57,16 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                       padding: const EdgeInsets.only(bottom: 12),
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.of(context, rootNavigator: true).push(fade(
-                              page: CarSingleScreen(
-                                  id: state.announcementList[index].id)));
+                          if (!widget.isFromComparison) {
+                            Navigator.of(context, rootNavigator: true).push(
+                                fade(
+                                    page: CarSingleScreen(
+                                        id: state.announcementList[index].id)));
+                          }
                         },
                         behavior: HitTestBehavior.opaque,
                         child: InfoContainer(
-                          isComparison: widget.isComparison,
+                          isFromComparison: widget.isFromComparison,
                           index: index,
                           phone: state.announcementList[index].userType ==
                                   'owner'
@@ -114,7 +117,7 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                       }
                     },
                     hasMoreToFetch: state.next,
-                    errorWidget: const Text('Error'),
+                    errorWidget: const SizedBox(),
                   ),
                 );
               } else {

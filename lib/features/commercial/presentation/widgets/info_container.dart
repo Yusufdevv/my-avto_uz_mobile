@@ -2,6 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/commercial/presentation/widgets/button_add_to_comparison.dart';
 import 'package:auto/features/commercial/presentation/widgets/custom_chip.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -42,7 +43,7 @@ class InfoContainer extends StatefulWidget {
     this.gallery,
     this.initialLike,
     this.phone,
-    this.isComparison,
+    this.isFromComparison = false,
   });
 
   final String? avatarPicture;
@@ -66,7 +67,7 @@ class InfoContainer extends StatefulWidget {
   final VoidCallback onTapComparsion;
   final VoidCallback onTapFavorites;
   final bool? initialLike;
-  final bool? isComparison;
+  final bool isFromComparison;
   final bool initialComparsions;
   final int id;
 
@@ -242,74 +243,110 @@ class _InfoContainerState extends State<InfoContainer> {
                   ),
                 ),
                 const SizedBox(width: 8),
-                RichText(
-                  text: TextSpan(
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TextSpan(
-                        text: '${widget.owner}\n',
+                      Text(
+                        '${widget.owner}',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: Theme.of(context)
                             .textTheme
-                            .headline2!
-                            .copyWith(fontSize: 14),
+                            .subtitle1!
+                            .copyWith(fontWeight: FontWeight.w700),
                       ),
-                      TextSpan(
-                        text: widget.ownerType == 'owner'
-                            ? LocaleKeys.private_person.tr()
-                            : LocaleKeys.autosalon.tr(),
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText1!
-                            .copyWith(color: purple),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            widget.ownerType == 'owner'
+                                ? LocaleKeys.private_person.tr()
+                                : LocaleKeys.autosalon.tr(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1!
+                                .copyWith(color: purple),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          if (widget.isFromComparison)
+                            Padding(
+                              padding: const EdgeInsets.only(right: 16),
+                              child: Text(
+                                '${widget.location} • ${widget.publishTime}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(color: grey),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                        ],
                       ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
             const SizedBox(height: 12),
-            Divider(
-              color: Theme.of(context)
-                  .extension<ThemedColors>()!
-                  .solitude2ToNightRider,
-              thickness: 1,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 16),
-              child: Row(
+            if (widget.isFromComparison)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 4, right: 16),
+                child: ButtonAddToComparison(
+                    isAddedToComparison: widget.initialComparsions,
+                    id: widget.id),
+              )
+            else
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    '${widget.location}  •  ${widget.publishTime}',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1!
-                        .copyWith(color: grey),
+                  Divider(
+                    color: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .solitude2ToNightRider,
+                    thickness: 1,
                   ),
-                  const Spacer(),
-                  AddComparisonItem(
-                    id: widget.id,
-                    initialLike: widget.initialComparsions,
-                  ),
-                  const SizedBox(width: 8),
-                  AddWishlistItem(
-                    onTap: () {
-                      if (!isLiked) {
-                        context.read<WishlistAddBloc>().add(
-                            WishlistAddEvent.addWishlist(
-                                widget.id, widget.index));
-                        isLiked = true;
-                      } else {
-                        context.read<WishlistAddBloc>().add(
-                            WishlistAddEvent.removeWishlist(
-                                widget.id, widget.index));
-                        isLiked = false;
-                      }
-                      setState(() {});
-                    },
-                    initialLike: isLiked,
-                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 16),
+                    child: Row(
+                      children: [
+                        Text(
+                          '${widget.location} • ${widget.publishTime}',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(color: grey),
+                        ),
+                        const Spacer(),
+                        AddComparisonItem(
+                          id: widget.id,
+                          initialLike: widget.initialComparsions,
+                        ),
+                        const SizedBox(width: 8),
+                        AddWishlistItem(
+                          onTap: () {
+                            if (!isLiked) {
+                              context.read<WishlistAddBloc>().add(
+                                  WishlistAddEvent.addWishlist(
+                                      widget.id, widget.index));
+                              isLiked = true;
+                            } else {
+                              context.read<WishlistAddBloc>().add(
+                                  WishlistAddEvent.removeWishlist(
+                                      widget.id, widget.index));
+                              isLiked = false;
+                            }
+                            setState(() {});
+                          },
+                          initialLike: isLiked,
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
-            )
           ],
         ),
       );

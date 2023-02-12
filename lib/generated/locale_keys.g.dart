@@ -508,5 +508,9 @@ abstract class  LocaleKeys {
   static const in_hot_one_line = 'in_hot_one_line';
   static const close_ad = 'close_ad';
   static const milage_photo = 'milage_photo';
+  static const remove_from_comparison = 'remove_from_comparison';
+  static const add_to_comparison = 'add_to_comparison';
+  static const go_to_comparison = 'go_to_comparison';
+  static const added_x_auto = 'added_x_auto';
 
 }

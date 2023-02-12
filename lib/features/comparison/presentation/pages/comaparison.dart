@@ -2,10 +2,11 @@
 
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ads/presentation/pages/ads_screen.dart';
+import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
 import 'package:auto/features/comparison/domain/entities/complectation_entity.dart';
 import 'package:auto/features/comparison/domain/entities/complectation_parameters_entity.dart';
 import 'package:auto/features/comparison/presentation/bloc/comparison-bloc/comparison_bloc.dart';
-import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
+import 'package:auto/features/comparison/presentation/pages/choose_car_brand_page.dart';
 import 'package:auto/features/comparison/presentation/widgets/engin_info_widget.dart';
 import 'package:auto/features/comparison/presentation/widgets/characteristics_parameters_widget.dart';
 import 'package:auto/features/comparison/presentation/widgets/comparison_sliver_delegate.dart';
@@ -147,7 +148,7 @@ class _ComparisonState extends State<Comparison> {
                       ///
                       Navigator.of(context)
                           .push(
-                        fade(page: const ChooseCarBrandComparison()),
+                        fade(page: const ChooseCarBrandPage()),
                       )
                           .then((value) {
                         if (value != null) {
@@ -157,12 +158,15 @@ class _ComparisonState extends State<Comparison> {
                           Navigator.of(context, rootNavigator: true)
                               .push(fade(
                                   page: AdsScreen(
-                            isComparison: true,
+                            isFromComparison: true,
                             makeId: makeId,
                             modelId: modelId,
                           )))
                               .then((value) {
                             widget.comparisonBloc.add(GetComparableCars());
+                            context
+                                .read<ComparisonAddBloc>()
+                                .add(ComparisonAddEvent.clearCountComparison());
                           });
                         }
                       });

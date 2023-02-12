@@ -4,7 +4,7 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ads/presentation/pages/ads_screen.dart';
 import 'package:auto/features/commercial/presentation/commercial_screen.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
-import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
+import 'package:auto/features/comparison/presentation/pages/choose_car_brand_page.dart';
 import 'package:auto/features/main/domain/entities/service_entity.dart';
 import 'package:auto/features/main/domain/usecases/get_top_ads.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
@@ -188,7 +188,7 @@ class _MainScreenState extends State<MainScreen> {
                       onTapSelect: () =>
                           Navigator.of(context, rootNavigator: true)
                               .push(fade(
-                                  page: ChooseCarBrandComparison(
+                                  page: ChooseCarBrandPage(
                         selectedMakeId: state.makeId,
                         selectedModelId: state.modelId,
                       )))
