@@ -205,7 +205,8 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                                   ),
                                   TextSpan(
                                     text:
-                                        '${widget.callFrom} - ${widget.callTo}',
+                                        '${widget.callFrom.length > 3 ? widget.callFrom.substring(0, widget.callFrom.length - 3) : ''} - '
+                                        '${widget.callFrom.length > 3 ? widget.callTo.substring(0, widget.callTo.length - 3) : ''}',
                                     style: Theme.of(context)
                                         .textTheme
                                         .headline2!
@@ -327,12 +328,12 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                 ],
               ),
               const SizedBox(height: 16),
-                Divider(
-                    color: Theme.of(context)
-                        .extension<ThemedColors>()
-                        ?.solitude2ToNightRider,
-                    height: 1,
-                    thickness: 1),
+              Divider(
+                  color: Theme.of(context)
+                      .extension<ThemedColors>()
+                      ?.solitude2ToNightRider,
+                  height: 1,
+                  thickness: 1),
               Padding(
                 padding: const EdgeInsets.only(right: 16, top: 8),
                 child: Row(

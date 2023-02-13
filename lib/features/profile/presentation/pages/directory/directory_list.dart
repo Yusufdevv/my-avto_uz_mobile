@@ -39,20 +39,20 @@ class _DirectoryListState extends State<DirectoryList> {
                       itemBuilder: (context, index) {
                         final item = directories[index];
                         return DirectoryCard(
-                          slug: item.slug!,
-                          region: item.region!,
-                          dealerType: item.category!.name!,
-                          dealerName: item.name!,
+                          slug: item.slug ?? '',
+                          region: item.region ?? '',
+                          dealerType: item.category?.name ?? '',
+                          dealerName: item.name ?? '',
                           phoneNumber: '',
                           dealerInfo: '',
-                          dealerImageUrl: item.avatar!,
+                          dealerImageUrl: item.avatar ?? '',
                           quantityOfCars: 0,
-                          latitude: item.latitude!,
-                          longitude: item.longitude!,
+                          latitude: (item.latitude ?? 0).toDouble(),
+                          longitude: (item.longitude ?? 0).toDouble(),
                           contractCode: '',
                           contractNumber: '',
-                          contactTo: item.contactTo!,
-                          contactFrom: item.contactFrom!,
+                          contactTo: item.contactTo ?? '',
+                          contactFrom: item.contactFrom ?? '',
                         );
                       },
                       separatorBuilder: (context, index) =>
