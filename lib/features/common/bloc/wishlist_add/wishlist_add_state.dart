@@ -8,5 +8,6 @@ class WishlistAddState with _$WishlistAddState {
     @Default(FormzStatus.pure) FormzStatus removeStatus,
     @Default(-1) int index,
     @Default(-1) int id,
+    @Default({}) Map<int, bool> map,
   }) = _WishlistAddState;
 }

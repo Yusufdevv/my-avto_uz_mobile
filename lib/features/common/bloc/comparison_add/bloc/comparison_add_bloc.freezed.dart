@@ -21,6 +21,7 @@ mixin _$ComparisonAddEvent {
     required TResult Function(int id) postComparisonCars,
     required TResult Function(int id) deleteComparison,
     required TResult Function() clearCountComparison,
+    required TResult Function(int id, bool value) addToMapComparison,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -28,6 +29,7 @@ mixin _$ComparisonAddEvent {
     TResult? Function(int id)? postComparisonCars,
     TResult? Function(int id)? deleteComparison,
     TResult? Function()? clearCountComparison,
+    TResult? Function(int id, bool value)? addToMapComparison,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,6 +37,7 @@ mixin _$ComparisonAddEvent {
     TResult Function(int id)? postComparisonCars,
     TResult Function(int id)? deleteComparison,
     TResult Function()? clearCountComparison,
+    TResult Function(int id, bool value)? addToMapComparison,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -43,6 +46,7 @@ mixin _$ComparisonAddEvent {
     required TResult Function(_PostComparisonCars value) postComparisonCars,
     required TResult Function(_DeleteComparison value) deleteComparison,
     required TResult Function(_ClearCountComparison value) clearCountComparison,
+    required TResult Function(_AddToMapComparison value) addToMapComparison,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -50,6 +54,7 @@ mixin _$ComparisonAddEvent {
     TResult? Function(_PostComparisonCars value)? postComparisonCars,
     TResult? Function(_DeleteComparison value)? deleteComparison,
     TResult? Function(_ClearCountComparison value)? clearCountComparison,
+    TResult? Function(_AddToMapComparison value)? addToMapComparison,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -57,6 +62,7 @@ mixin _$ComparisonAddEvent {
     TResult Function(_PostComparisonCars value)? postComparisonCars,
     TResult Function(_DeleteComparison value)? deleteComparison,
     TResult Function(_ClearCountComparison value)? clearCountComparison,
+    TResult Function(_AddToMapComparison value)? addToMapComparison,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -148,6 +154,7 @@ class _$_PostComparisonCars implements _PostComparisonCars {
     required TResult Function(int id) postComparisonCars,
     required TResult Function(int id) deleteComparison,
     required TResult Function() clearCountComparison,
+    required TResult Function(int id, bool value) addToMapComparison,
   }) {
     return postComparisonCars(id);
   }
@@ -158,6 +165,7 @@ class _$_PostComparisonCars implements _PostComparisonCars {
     TResult? Function(int id)? postComparisonCars,
     TResult? Function(int id)? deleteComparison,
     TResult? Function()? clearCountComparison,
+    TResult? Function(int id, bool value)? addToMapComparison,
   }) {
     return postComparisonCars?.call(id);
   }
@@ -168,6 +176,7 @@ class _$_PostComparisonCars implements _PostComparisonCars {
     TResult Function(int id)? postComparisonCars,
     TResult Function(int id)? deleteComparison,
     TResult Function()? clearCountComparison,
+    TResult Function(int id, bool value)? addToMapComparison,
     required TResult orElse(),
   }) {
     if (postComparisonCars != null) {
@@ -182,6 +191,7 @@ class _$_PostComparisonCars implements _PostComparisonCars {
     required TResult Function(_PostComparisonCars value) postComparisonCars,
     required TResult Function(_DeleteComparison value) deleteComparison,
     required TResult Function(_ClearCountComparison value) clearCountComparison,
+    required TResult Function(_AddToMapComparison value) addToMapComparison,
   }) {
     return postComparisonCars(this);
   }
@@ -192,6 +202,7 @@ class _$_PostComparisonCars implements _PostComparisonCars {
     TResult? Function(_PostComparisonCars value)? postComparisonCars,
     TResult? Function(_DeleteComparison value)? deleteComparison,
     TResult? Function(_ClearCountComparison value)? clearCountComparison,
+    TResult? Function(_AddToMapComparison value)? addToMapComparison,
   }) {
     return postComparisonCars?.call(this);
   }
@@ -202,6 +213,7 @@ class _$_PostComparisonCars implements _PostComparisonCars {
     TResult Function(_PostComparisonCars value)? postComparisonCars,
     TResult Function(_DeleteComparison value)? deleteComparison,
     TResult Function(_ClearCountComparison value)? clearCountComparison,
+    TResult Function(_AddToMapComparison value)? addToMapComparison,
     required TResult orElse(),
   }) {
     if (postComparisonCars != null) {
@@ -287,6 +299,7 @@ class _$_DeleteComparison implements _DeleteComparison {
     required TResult Function(int id) postComparisonCars,
     required TResult Function(int id) deleteComparison,
     required TResult Function() clearCountComparison,
+    required TResult Function(int id, bool value) addToMapComparison,
   }) {
     return deleteComparison(id);
   }
@@ -297,6 +310,7 @@ class _$_DeleteComparison implements _DeleteComparison {
     TResult? Function(int id)? postComparisonCars,
     TResult? Function(int id)? deleteComparison,
     TResult? Function()? clearCountComparison,
+    TResult? Function(int id, bool value)? addToMapComparison,
   }) {
     return deleteComparison?.call(id);
   }
@@ -307,6 +321,7 @@ class _$_DeleteComparison implements _DeleteComparison {
     TResult Function(int id)? postComparisonCars,
     TResult Function(int id)? deleteComparison,
     TResult Function()? clearCountComparison,
+    TResult Function(int id, bool value)? addToMapComparison,
     required TResult orElse(),
   }) {
     if (deleteComparison != null) {
@@ -321,6 +336,7 @@ class _$_DeleteComparison implements _DeleteComparison {
     required TResult Function(_PostComparisonCars value) postComparisonCars,
     required TResult Function(_DeleteComparison value) deleteComparison,
     required TResult Function(_ClearCountComparison value) clearCountComparison,
+    required TResult Function(_AddToMapComparison value) addToMapComparison,
   }) {
     return deleteComparison(this);
   }
@@ -331,6 +347,7 @@ class _$_DeleteComparison implements _DeleteComparison {
     TResult? Function(_PostComparisonCars value)? postComparisonCars,
     TResult? Function(_DeleteComparison value)? deleteComparison,
     TResult? Function(_ClearCountComparison value)? clearCountComparison,
+    TResult? Function(_AddToMapComparison value)? addToMapComparison,
   }) {
     return deleteComparison?.call(this);
   }
@@ -341,6 +358,7 @@ class _$_DeleteComparison implements _DeleteComparison {
     TResult Function(_PostComparisonCars value)? postComparisonCars,
     TResult Function(_DeleteComparison value)? deleteComparison,
     TResult Function(_ClearCountComparison value)? clearCountComparison,
+    TResult Function(_AddToMapComparison value)? addToMapComparison,
     required TResult orElse(),
   }) {
     if (deleteComparison != null) {
@@ -400,6 +418,7 @@ class _$_ClearCountComparison implements _ClearCountComparison {
     required TResult Function(int id) postComparisonCars,
     required TResult Function(int id) deleteComparison,
     required TResult Function() clearCountComparison,
+    required TResult Function(int id, bool value) addToMapComparison,
   }) {
     return clearCountComparison();
   }
@@ -410,6 +429,7 @@ class _$_ClearCountComparison implements _ClearCountComparison {
     TResult? Function(int id)? postComparisonCars,
     TResult? Function(int id)? deleteComparison,
     TResult? Function()? clearCountComparison,
+    TResult? Function(int id, bool value)? addToMapComparison,
   }) {
     return clearCountComparison?.call();
   }
@@ -420,6 +440,7 @@ class _$_ClearCountComparison implements _ClearCountComparison {
     TResult Function(int id)? postComparisonCars,
     TResult Function(int id)? deleteComparison,
     TResult Function()? clearCountComparison,
+    TResult Function(int id, bool value)? addToMapComparison,
     required TResult orElse(),
   }) {
     if (clearCountComparison != null) {
@@ -434,6 +455,7 @@ class _$_ClearCountComparison implements _ClearCountComparison {
     required TResult Function(_PostComparisonCars value) postComparisonCars,
     required TResult Function(_DeleteComparison value) deleteComparison,
     required TResult Function(_ClearCountComparison value) clearCountComparison,
+    required TResult Function(_AddToMapComparison value) addToMapComparison,
   }) {
     return clearCountComparison(this);
   }
@@ -444,6 +466,7 @@ class _$_ClearCountComparison implements _ClearCountComparison {
     TResult? Function(_PostComparisonCars value)? postComparisonCars,
     TResult? Function(_DeleteComparison value)? deleteComparison,
     TResult? Function(_ClearCountComparison value)? clearCountComparison,
+    TResult? Function(_AddToMapComparison value)? addToMapComparison,
   }) {
     return clearCountComparison?.call(this);
   }
@@ -454,6 +477,7 @@ class _$_ClearCountComparison implements _ClearCountComparison {
     TResult Function(_PostComparisonCars value)? postComparisonCars,
     TResult Function(_DeleteComparison value)? deleteComparison,
     TResult Function(_ClearCountComparison value)? clearCountComparison,
+    TResult Function(_AddToMapComparison value)? addToMapComparison,
     required TResult orElse(),
   }) {
     if (clearCountComparison != null) {
@@ -468,10 +492,168 @@ abstract class _ClearCountComparison implements ComparisonAddEvent {
 }
 
 /// @nodoc
+abstract class _$$_AddToMapComparisonCopyWith<$Res> {
+  factory _$$_AddToMapComparisonCopyWith(_$_AddToMapComparison value,
+          $Res Function(_$_AddToMapComparison) then) =
+      __$$_AddToMapComparisonCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int id, bool value});
+}
+
+/// @nodoc
+class __$$_AddToMapComparisonCopyWithImpl<$Res>
+    extends _$ComparisonAddEventCopyWithImpl<$Res, _$_AddToMapComparison>
+    implements _$$_AddToMapComparisonCopyWith<$Res> {
+  __$$_AddToMapComparisonCopyWithImpl(
+      _$_AddToMapComparison _value, $Res Function(_$_AddToMapComparison) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? value = null,
+  }) {
+    return _then(_$_AddToMapComparison(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      value: null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_AddToMapComparison implements _AddToMapComparison {
+  _$_AddToMapComparison({required this.id, required this.value});
+
+  @override
+  final int id;
+  @override
+  final bool value;
+
+  @override
+  String toString() {
+    return 'ComparisonAddEvent.addToMapComparison(id: $id, value: $value)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_AddToMapComparison &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.value, value) || other.value == value));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id, value);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_AddToMapComparisonCopyWith<_$_AddToMapComparison> get copyWith =>
+      __$$_AddToMapComparisonCopyWithImpl<_$_AddToMapComparison>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int id) postComparisonCars,
+    required TResult Function(int id) deleteComparison,
+    required TResult Function() clearCountComparison,
+    required TResult Function(int id, bool value) addToMapComparison,
+  }) {
+    return addToMapComparison(id, value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int id)? postComparisonCars,
+    TResult? Function(int id)? deleteComparison,
+    TResult? Function()? clearCountComparison,
+    TResult? Function(int id, bool value)? addToMapComparison,
+  }) {
+    return addToMapComparison?.call(id, value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int id)? postComparisonCars,
+    TResult Function(int id)? deleteComparison,
+    TResult Function()? clearCountComparison,
+    TResult Function(int id, bool value)? addToMapComparison,
+    required TResult orElse(),
+  }) {
+    if (addToMapComparison != null) {
+      return addToMapComparison(id, value);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_PostComparisonCars value) postComparisonCars,
+    required TResult Function(_DeleteComparison value) deleteComparison,
+    required TResult Function(_ClearCountComparison value) clearCountComparison,
+    required TResult Function(_AddToMapComparison value) addToMapComparison,
+  }) {
+    return addToMapComparison(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_PostComparisonCars value)? postComparisonCars,
+    TResult? Function(_DeleteComparison value)? deleteComparison,
+    TResult? Function(_ClearCountComparison value)? clearCountComparison,
+    TResult? Function(_AddToMapComparison value)? addToMapComparison,
+  }) {
+    return addToMapComparison?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_PostComparisonCars value)? postComparisonCars,
+    TResult Function(_DeleteComparison value)? deleteComparison,
+    TResult Function(_ClearCountComparison value)? clearCountComparison,
+    TResult Function(_AddToMapComparison value)? addToMapComparison,
+    required TResult orElse(),
+  }) {
+    if (addToMapComparison != null) {
+      return addToMapComparison(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _AddToMapComparison implements ComparisonAddEvent {
+  factory _AddToMapComparison(
+      {required final int id,
+      required final bool value}) = _$_AddToMapComparison;
+
+  int get id;
+  bool get value;
+  @JsonKey(ignore: true)
+  _$$_AddToMapComparisonCopyWith<_$_AddToMapComparison> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$ComparisonAddState {
   FormzStatus get addStatus => throw _privateConstructorUsedError;
   FormzStatus get removeStatus => throw _privateConstructorUsedError;
   int get count => throw _privateConstructorUsedError;
+  Map<int, bool> get map => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ComparisonAddStateCopyWith<ComparisonAddState> get copyWith =>
@@ -484,7 +666,11 @@ abstract class $ComparisonAddStateCopyWith<$Res> {
           ComparisonAddState value, $Res Function(ComparisonAddState) then) =
       _$ComparisonAddStateCopyWithImpl<$Res, ComparisonAddState>;
   @useResult
-  $Res call({FormzStatus addStatus, FormzStatus removeStatus, int count});
+  $Res call(
+      {FormzStatus addStatus,
+      FormzStatus removeStatus,
+      int count,
+      Map<int, bool> map});
 }
 
 /// @nodoc
@@ -503,6 +689,7 @@ class _$ComparisonAddStateCopyWithImpl<$Res, $Val extends ComparisonAddState>
     Object? addStatus = null,
     Object? removeStatus = null,
     Object? count = null,
+    Object? map = null,
   }) {
     return _then(_value.copyWith(
       addStatus: null == addStatus
@@ -517,6 +704,10 @@ class _$ComparisonAddStateCopyWithImpl<$Res, $Val extends ComparisonAddState>
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
+      map: null == map
+          ? _value.map
+          : map // ignore: cast_nullable_to_non_nullable
+              as Map<int, bool>,
     ) as $Val);
   }
 }
@@ -529,7 +720,11 @@ abstract class _$$_ComparisonAddStateCopyWith<$Res>
       __$$_ComparisonAddStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({FormzStatus addStatus, FormzStatus removeStatus, int count});
+  $Res call(
+      {FormzStatus addStatus,
+      FormzStatus removeStatus,
+      int count,
+      Map<int, bool> map});
 }
 
 /// @nodoc
@@ -546,6 +741,7 @@ class __$$_ComparisonAddStateCopyWithImpl<$Res>
     Object? addStatus = null,
     Object? removeStatus = null,
     Object? count = null,
+    Object? map = null,
   }) {
     return _then(_$_ComparisonAddState(
       addStatus: null == addStatus
@@ -560,6 +756,10 @@ class __$$_ComparisonAddStateCopyWithImpl<$Res>
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
+      map: null == map
+          ? _value._map
+          : map // ignore: cast_nullable_to_non_nullable
+              as Map<int, bool>,
     ));
   }
 }
@@ -570,7 +770,9 @@ class _$_ComparisonAddState implements _ComparisonAddState {
   _$_ComparisonAddState(
       {this.addStatus = FormzStatus.pure,
       this.removeStatus = FormzStatus.pure,
-      this.count = 0});
+      this.count = 0,
+      final Map<int, bool> map = const {}})
+      : _map = map;
 
   @override
   @JsonKey()
@@ -581,10 +783,18 @@ class _$_ComparisonAddState implements _ComparisonAddState {
   @override
   @JsonKey()
   final int count;
+  final Map<int, bool> _map;
+  @override
+  @JsonKey()
+  Map<int, bool> get map {
+    if (_map is EqualUnmodifiableMapView) return _map;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_map);
+  }
 
   @override
   String toString() {
-    return 'ComparisonAddState(addStatus: $addStatus, removeStatus: $removeStatus, count: $count)';
+    return 'ComparisonAddState(addStatus: $addStatus, removeStatus: $removeStatus, count: $count, map: $map)';
   }
 
   @override
@@ -596,11 +806,13 @@ class _$_ComparisonAddState implements _ComparisonAddState {
                 other.addStatus == addStatus) &&
             (identical(other.removeStatus, removeStatus) ||
                 other.removeStatus == removeStatus) &&
-            (identical(other.count, count) || other.count == count));
+            (identical(other.count, count) || other.count == count) &&
+            const DeepCollectionEquality().equals(other._map, _map));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, addStatus, removeStatus, count);
+  int get hashCode => Object.hash(runtimeType, addStatus, removeStatus, count,
+      const DeepCollectionEquality().hash(_map));
 
   @JsonKey(ignore: true)
   @override
@@ -614,7 +826,8 @@ abstract class _ComparisonAddState implements ComparisonAddState {
   factory _ComparisonAddState(
       {final FormzStatus addStatus,
       final FormzStatus removeStatus,
-      final int count}) = _$_ComparisonAddState;
+      final int count,
+      final Map<int, bool> map}) = _$_ComparisonAddState;
 
   @override
   FormzStatus get addStatus;
@@ -622,6 +835,8 @@ abstract class _ComparisonAddState implements ComparisonAddState {
   FormzStatus get removeStatus;
   @override
   int get count;
+  @override
+  Map<int, bool> get map;
   @override
   @JsonKey(ignore: true)
   _$$_ComparisonAddStateCopyWith<_$_ComparisonAddState> get copyWith =>

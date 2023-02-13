@@ -56,6 +56,11 @@ class WishlistAddBloc extends Bloc<WishlistAddEvent, WishlistAddState> {
       }
     });
     on<_ClearState>(_onClear);
+    on<_AddToMapFavorites>((event, emit) async {
+      final map = {...state.map};
+      map[event.id] = event.value;
+      emit(state.copyWith(map: map));
+    });
   }
 
   void _onClear(_ClearState event, Emitter<WishlistAddState> emit) {

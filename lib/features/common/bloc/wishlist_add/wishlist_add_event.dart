@@ -8,4 +8,6 @@ class WishlistAddEvent with _$WishlistAddEvent {
 
   factory WishlistAddEvent.clearState() = _ClearState;
   factory WishlistAddEvent.goToAdds(int  goToAds) = _GoToAds;
+  factory WishlistAddEvent.addToMapFavorites({required int id, required bool value}) = _AddToMapFavorites;
+
 }
