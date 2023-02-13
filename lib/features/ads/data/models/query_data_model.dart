@@ -1,3 +1,6 @@
+import 'package:auto/features/ad/domain/entities/types/body_type.dart';
+import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
+import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -18,10 +21,13 @@ class QueryDataModel extends Equatable {
     this.yearTo,
   });
 
-  final int? bodyType;
-  final int? driveType;
+  @BodyTypeEntityConverter()
+  final BodyTypeEntity? bodyType;
+  @DriveTypeEntityConverter()
+  final DriveTypeEntity? driveType;
   final int? engineType;
-  final int? gearboxType;
+  @GearboxTypeEntityConverter()
+  final GearboxTypeEntity? gearboxType;
   final String? regionIn;
   final bool? isNew;
   final int? priceFrom;

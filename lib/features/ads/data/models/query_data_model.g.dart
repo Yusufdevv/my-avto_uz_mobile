@@ -8,9 +8,12 @@ part of 'query_data_model.dart';
 
 QueryDataModel _$QueryDataModelFromJson(Map<String, dynamic> json) =>
     QueryDataModel(
-      bodyType: json['body_type'] as int?,
-      driveType: json['drive_type'] as int?,
-      gearboxType: json['gearbox_type'] as int?,
+      bodyType: const BodyTypeEntityConverter()
+          .fromJson(json['body_type'] as Map<String, dynamic>?),
+      driveType: const DriveTypeEntityConverter()
+          .fromJson(json['drive_type'] as Map<String, dynamic>?),
+      gearboxType: const GearboxTypeEntityConverter()
+          .fromJson(json['gearbox_type'] as Map<String, dynamic>?),
       engineType: json['engine_type'] as int?,
       isNew: json['is_new'] as bool?,
       priceFrom: json['price_from'] as int?,
@@ -22,10 +25,15 @@ QueryDataModel _$QueryDataModelFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$QueryDataModelToJson(QueryDataModel instance) =>
     <String, dynamic>{
-      'body_type': instance.bodyType,
-      'drive_type': instance.driveType,
+      'body_type': _$JsonConverterToJson<Map<String, dynamic>?, BodyTypeEntity>(
+          instance.bodyType, const BodyTypeEntityConverter().toJson),
+      'drive_type':
+          _$JsonConverterToJson<Map<String, dynamic>?, DriveTypeEntity>(
+              instance.driveType, const DriveTypeEntityConverter().toJson),
       'engine_type': instance.engineType,
-      'gearbox_type': instance.gearboxType,
+      'gearbox_type':
+          _$JsonConverterToJson<Map<String, dynamic>?, GearboxTypeEntity>(
+              instance.gearboxType, const GearboxTypeEntityConverter().toJson),
       'region_in': instance.regionIn,
       'is_new': instance.isNew,
       'price_from': instance.priceFrom,
@@ -33,3 +41,9 @@ Map<String, dynamic> _$QueryDataModelToJson(QueryDataModel instance) =>
       'year_from': instance.yearFrom,
       'year_to': instance.yearTo,
     };
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);

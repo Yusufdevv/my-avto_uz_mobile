@@ -4,12 +4,14 @@ import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/core/utils/either.dart';
+import 'package:auto/features/ads/data/models/search_history_model.dart';
 import 'package:auto/features/dealers/data/models/dealer_info_model.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:auto/features/profile/data/models/dir_category_model.dart';
 import 'package:auto/features/profile/data/models/directory_model.dart';
 import 'package:auto/features/profile/data/models/my_searches_model.dart';
 import 'package:auto/features/profile/data/models/notifications_model.dart';
+import 'package:auto/features/profile/domain/entities/my_searches_entity.dart';
 import 'package:dio/dio.dart';
 
 abstract class GetUserListDatasource {
@@ -19,7 +21,7 @@ abstract class GetUserListDatasource {
       String? next,
       String? moderationStatus});
   Future<GenericPagination<NotificationsModel>> getNotifications({int? filter, String? next});
-  Future<List<MySearchesModel>> getMySearches();
+  Future<GenericPagination<MySearchesModel>> getMySearches();
   Future<List<DirectoryModel>> getDirectories(
       String search, String regions, String categories);
   Future<List<DirCategoryModel>> getDirCategory();
@@ -102,7 +104,7 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
   }
 
   @override
-  Future<List<MySearchesModel>> getMySearches() async {
+  Future<GenericPagination<MySearchesModel>> getMySearches() async {
     try {
       final response = await dio.get(
         '/users/filter-history/list/',
@@ -111,10 +113,7 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
         }),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        return (response.data['results'] as List)
-            // ignore: unnecessary_lambdas
-            .map((e) => MySearchesModel.fromJson(e))
-            .toList();
+        return GenericPagination.fromJson(response.data, (p0) => MySearchesModel.fromJson(p0 as Map<String, dynamic>));
       }
       throw ServerException(
           statusCode: response.statusCode ?? 0,

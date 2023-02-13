@@ -9,6 +9,7 @@ class MainState extends Equatable {
   final String? makeName;
   final String? makeLogo;
   final int announcementCount;
+  final bool historySaved;
 
   const MainState({
     this.stories = const [],
@@ -19,6 +20,7 @@ class MainState extends Equatable {
     this.makeName,
     this.makeLogo,
     this.announcementCount = 0,
+    this.historySaved = true,
   });
 
   MainState copWith({
@@ -30,6 +32,7 @@ class MainState extends Equatable {
     String? makeName,
     String? makeLogo,
     int? announcementCount,
+    bool? historySaved,
   }) =>
       MainState(
           stories: stories ?? this.stories,
@@ -39,7 +42,8 @@ class MainState extends Equatable {
           modelName: modelName ?? this.modelName,
           makeName: makeName ?? this.makeName,
           makeLogo: makeLogo ?? this.makeLogo,
-          announcementCount: announcementCount ?? this.announcementCount);
+          historySaved: historySaved ?? this.historySaved,
+          announcementCount: announcementCount ?? this.announcementCount,);
 
   @override
   List<Object?> get props => [
@@ -51,5 +55,6 @@ class MainState extends Equatable {
         makeName,
         makeLogo,
         announcementCount,
+        historySaved,
       ];
 }

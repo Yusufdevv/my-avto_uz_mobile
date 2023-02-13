@@ -1,6 +1,11 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/const/constants.dart';
+import 'package:auto/features/ad/domain/entities/types/body_type.dart';
+import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
+import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
+import 'package:auto/features/ads/data/models/query_data_model.dart';
 import 'package:auto/features/ads/presentation/pages/ads_body_screen.dart';
 import 'package:auto/features/ads/presentation/widgets/ads_appbar_sliver_delegate.dart';
 import 'package:auto/features/ads/presentation/widgets/ads_sliver_deleget.dart';
@@ -24,19 +29,25 @@ class AdsScreen extends StatefulWidget {
   const AdsScreen({
     this.makeId,
     this.modelId,
+    this.historyId,
     this.makeName,
     this.modelName,
     this.makeLogo,
+    this.queryData,
     this.isFromComparison = false,
+    this.historySaved = true,
     Key? key,
   }) : super(key: key);
 
   final int? makeId;
   final int? modelId;
+  final String? historyId;
   final String? makeName;
   final String? modelName;
   final String? makeLogo;
+  final QueryDataModel? queryData;
   final bool isFromComparison;
+  final bool historySaved;
 
   @override
   State<AdsScreen> createState() => _AdsScreenState();
@@ -69,6 +80,7 @@ class _AdsScreenState extends State<AdsScreen>
       context.read<RegionsBloc>().add(RegionsEvent.getRegions());
     }
     announcementListBloc = AnnouncementListBloc();
+
     announcementListBloc
       ..add(SetMakeModel(
         makeId: widget.makeId,
@@ -76,8 +88,23 @@ class _AdsScreenState extends State<AdsScreen>
         makeName: widget.makeName,
         modelName: widget.modelName,
         makeLogo: widget.makeLogo,
+        historySaved: widget.historySaved,
+      ))
+      ..add(
+        SetFilter(
+        historyId: widget.historyId,
+        bodyType: widget.queryData?.bodyType ?? const BodyTypeEntity(),
+        gearboxType: widget.queryData?.gearboxType ?? const GearboxTypeEntity(),
+        driveType: widget.queryData?.driveType ?? const DriveTypeEntity(),
+        yearValues: RangeValues(widget.queryData?.yearFrom?.toDouble() ?? -1,
+            widget.queryData?.yearTo?.toDouble() ?? -1),
+        priceValues: RangeValues(widget.queryData?.priceFrom?.toDouble() ?? -1,
+            widget.queryData?.priceTo?.toDouble() ?? -1),
+        currency: Currency.uzs,
+        isFilter: false,
       ))
       ..add(const GetMinMaxPriceYear());
+
     super.initState();
   }
 

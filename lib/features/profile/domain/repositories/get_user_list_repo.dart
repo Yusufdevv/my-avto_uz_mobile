@@ -1,5 +1,5 @@
 import 'package:auto/core/exceptions/failures.dart';
-import 'package:auto/core/utils/either.dart';
+import 'package:auto/core/utils/either.dart'; 
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:auto/features/dealers/data/models/dealer_info_model.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
@@ -13,7 +13,7 @@ abstract class GetUserListRepository {
       getProfileFavoritesMyAds(
           {required String url, String? next, String? moderationStatus});
   Future<Either<Failure, GenericPagination<NotificationsEntity>>> getNotifications({int? filter, String? next});
-  Future<Either<Failure, List<MySearchesEntity>>> getMySearches();
+  Future<Either<Failure, GenericPagination<MySearchesEntity>>> getMySearches();
   Future<Either<Failure, NotificationsEntity>> getNotificationSingle(String id);
   Future<Either<Failure, List<DirectoryEntity>>> getDirectories(
       String search, String regions, String categories);

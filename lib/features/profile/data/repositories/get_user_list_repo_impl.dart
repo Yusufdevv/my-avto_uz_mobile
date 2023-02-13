@@ -2,6 +2,7 @@ import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/utils/either.dart';
+import 'package:auto/features/ads/data/models/search_history_model.dart';
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:auto/features/common/domain/model/auto_model.dart';
 import 'package:auto/features/dealers/data/models/dealer_info_model.dart';
@@ -89,7 +90,7 @@ class GetUserListRepoImpl extends GetUserListRepository {
   }
 
   @override
-  Future<Either<Failure, List<MySearchesEntity>>> getMySearches() async {
+  Future<Either<Failure, GenericPagination<MySearchesEntity>>> getMySearches() async {
     try {
       final result = await dataSource.getMySearches();
       return Right(result);

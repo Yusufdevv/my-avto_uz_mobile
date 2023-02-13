@@ -11,21 +11,25 @@ class SaveFilterModel extends Equatable {
     this.model,
     this.query,
     this.queryData,
+    this.id,
   });
 
   final int? make;
   final List<int?>? model;
   final String? query;
+  final String? id;
   final QueryDataModel? queryData;
 
   SaveFilterModel copyWith({
     int? make,
     List<int?>? model,
     String? query,
+    String? id,
     QueryDataModel? queryData,
   }) =>
       SaveFilterModel(
         make: make ?? this.make,
+        id: id ?? this.id,
         model: model ?? this.model,
         query: query ?? this.query,
         queryData: queryData ?? this.queryData,
@@ -37,5 +41,5 @@ class SaveFilterModel extends Equatable {
   Map<String, dynamic> toJson() => _$SaveFilterModelToJson(this);
 
   @override
-  List<Object?> get props => [make, model, query, queryData];
+  List<Object?> get props => [make, model, query, queryData, id];
 }

@@ -41,9 +41,10 @@ class SetFilter extends AnnouncementListEvent {
   final RangeValues? priceValues;
   final bool? isFilter;
   final bool? isNew;
-
+  final String? historyId;
   const SetFilter({
     this.currency,
+    this.historyId,
     this.gearboxType,
     this.bodyType,
     this.driveType,
@@ -77,6 +78,7 @@ class SetMakeModel extends AnnouncementListEvent {
   final String? modelName;
   final String? makeLogo;
   final bool? isNew;
+  final bool? historySaved;
 
   const SetMakeModel({
     this.makeId,
@@ -85,6 +87,7 @@ class SetMakeModel extends AnnouncementListEvent {
     this.modelName,
     this.makeLogo,
     this.isNew,
+    this.historySaved,
   });
 }
 

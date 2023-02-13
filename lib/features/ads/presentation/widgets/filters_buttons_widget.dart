@@ -46,7 +46,7 @@ class FilterButtonsWidget extends StatelessWidget {
               activeColor: orange,
               defaultTitle: LocaleKeys.options.tr(),
               onTap: onTapParams1,
-              onTapClear: onTapClear2,
+              onTapClear: onTapClear1,
             ),
             WFilterButton(
               size: size,
