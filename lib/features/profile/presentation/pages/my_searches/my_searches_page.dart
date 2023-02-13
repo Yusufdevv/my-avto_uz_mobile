@@ -118,24 +118,33 @@ class _MySearchesPageState extends State<MySearchesPage> {
                                         }
                                       } else {
                                         Navigator.push(
-                                            context,
-                                            fade(
-                                                page: AdsScreen(
-                                              makeId:
-                                                  mySearches[index].make?.id,
-                                              modelId: mySearches[index]
-                                                  .model
-                                                  ?.first
-                                                  ?.id,
-                                              makeName:
-                                                  mySearches[index].make?.name,
-                                              modelName: mySearches[index]
-                                                  .model
-                                                  ?.first
-                                                  ?.name,
-                                              makeLogo:
-                                                  mySearches[index].make?.logo,
-                                            )));
+                                          context,
+                                          fade(
+                                              page: AdsScreen(
+                                            historyId:
+                                                mySearches[index].id == null
+                                                    ? ''
+                                                    : mySearches[index]
+                                                        .id
+                                                        .toString(),
+                                            historySaved: true,
+                                            makeId: mySearches[index].make?.id,
+                                            modelId: mySearches[index]
+                                                .model
+                                                ?.first
+                                                ?.id,
+                                            makeName:
+                                                mySearches[index].make?.name,
+                                            modelName: mySearches[index]
+                                                .model
+                                                ?.first
+                                                ?.name,
+                                            makeLogo:
+                                                mySearches[index].make?.logo,
+                                            queryData:
+                                                mySearches[index].queryData,
+                                          )),
+                                        );
                                       }
                                     },
                                     item: item,

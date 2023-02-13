@@ -138,7 +138,7 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
     if (result.isRight) {
       emit(state.copyWith(
           myAdsStatus: FormzStatus.submissionSuccess,
-          mySearches: result.right));
+          mySearches: result.right.results));
     } else {
       emit(state.copyWith(myAdsStatus: FormzStatus.submissionFailure));
     }

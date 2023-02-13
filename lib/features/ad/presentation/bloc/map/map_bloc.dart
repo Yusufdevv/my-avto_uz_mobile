@@ -67,7 +67,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         getCurrentLocationStatus: FormzStatus.submissionInProgress));
     try {
       final position = await MyFunctions.determinePosition();
-      print('=================GET CURRENT LOCATION SUCCES=================');
       emit(state.copyWith(
           getCurrentLocationStatus: FormzStatus.submissionSuccess));
       event.onSuccess(position);
@@ -75,8 +74,8 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       event.onError(e.errorMessage);
       emit(state.copyWith(
           getCurrentLocationStatus: FormzStatus.submissionSuccess));
-    } catch (e) {
-      print('GET CURRENT POSITION FAILED');
+    // ignore: avoid_catches_without_on_clauses
+    } catch (e) { 
       event.onError(e.toString());
       emit(state.copyWith(
           getCurrentLocationStatus: FormzStatus.submissionSuccess));

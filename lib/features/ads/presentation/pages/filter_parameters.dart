@@ -47,6 +47,7 @@ class _FilterParametersState extends State<FilterParameters> {
 
   @override
   void initState() {
+    super.initState();
     filterBloc = FilterBloc(
       bodyType: widget.bodyType,
       carDriveType: widget.carDriveType,
@@ -55,7 +56,12 @@ class _FilterParametersState extends State<FilterParameters> {
       yearValues: widget.yearValues,
       isCheck: widget.isCheck ?? false,
     );
-    super.initState();
+  }
+
+  @override
+  void dispose() {
+    filterBloc.close();
+    super.dispose();
   }
 
   @override
@@ -185,7 +191,7 @@ class _FilterParametersState extends State<FilterParameters> {
                             ? Border.all(color: purple)
                             : null,
                         child: Text(
-                          'у.е. ',
+                          'у.е.',
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
@@ -243,15 +249,23 @@ class _FilterParametersState extends State<FilterParameters> {
                   ),
                   const Spacer(),
                   WButton(
-                    onTap: () => Navigator.of(context).pop({
-                      'bodyType': state.bodyType,
-                      'gearboxType': state.gearboxType,
-                      'carDriveType': state.carDriveType,
-                      'yearValues': state.yearValues,
-                      'priceValues': state.priceValues,
-                      'currency': state.currency,
-                      'isFilter': true,
-                    }),
+                    onTap: () {
+                      var isFilter = state.bodyType != widget.bodyType ||
+                          state.gearboxType != widget.gearboxType;
+                      isFilter = state.carDriveType != widget.carDriveType ||
+                          state.yearValues != widget.yearValues;
+                      isFilter = state.currency != widget.currency ||
+                          state.isCheck != widget.isCheck;
+                      Navigator.of(context).pop({
+                        'bodyType': state.bodyType,
+                        'gearboxType': state.gearboxType,
+                        'carDriveType': state.carDriveType,
+                        'yearValues': state.yearValues,
+                        'priceValues': state.priceValues,
+                        'currency': state.currency,
+                        'isFilter': isFilter,
+                      });
+                    },
                     text: LocaleKeys.show.tr(),
                   ),
                 ],

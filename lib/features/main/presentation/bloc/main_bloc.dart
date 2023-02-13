@@ -13,7 +13,8 @@ part 'main_state.dart';
 
 class MainBloc extends Bloc<MainEvent, MainState> {
   GetStoriesUseCase getStoriesUseCase = GetStoriesUseCase();
-  GetAnnouncementListUseCase announcementListUseCase = GetAnnouncementListUseCase();
+  GetAnnouncementListUseCase announcementListUseCase =
+      GetAnnouncementListUseCase();
   MainBloc() : super(const MainState()) {
     on<InitialEvent>(_onInit);
     on<ChangeStatusEvent>(_onChangeStatus);
@@ -32,12 +33,12 @@ class MainBloc extends Bloc<MainEvent, MainState> {
 
   void _onGetMakeModel(GetMakeModelEvent event, Emitter<MainState> emit) {
     emit(state.copWith(
-      makeId: event.makeId,
-      modelId: event.modelId,
-       modelName:event.modelName,
-       makeName:event.makeName,
-       makeLogo:event.makeLogo,
-    ));
+        makeId: event.makeId,
+        modelId: event.modelId,
+        modelName: event.modelName,
+        makeName: event.makeName,
+        makeLogo: event.makeLogo,
+        historySaved: event.historySaved));
   }
 
   Future _onGetAnnouncement(

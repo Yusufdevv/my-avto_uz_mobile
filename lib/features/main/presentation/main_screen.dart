@@ -202,12 +202,12 @@ class _MainScreenState extends State<MainScreen> {
                           final makeLogo = result['makeLogo'];
                           mainBloc
                             ..add(GetMakeModelEvent(
-                              makeId: makeId,
-                              modelId: modelId,
-                              modelName: modelName,
-                              makeLogo: makeLogo,
-                              makeName: makeName,
-                            ))
+                                makeId: makeId,
+                                modelId: modelId,
+                                modelName: modelName,
+                                makeLogo: makeLogo,
+                                makeName: makeName,
+                                historySaved: false))
                             ..add(GetAnnouncement());
                         } else {
                           mainBloc.add(const GetMakeModelEvent(
@@ -215,7 +215,8 @@ class _MainScreenState extends State<MainScreen> {
                               modelId: -1,
                               modelName: '',
                               makeName: '',
-                              makeLogo: ''));
+                              makeLogo: '',
+                              historySaved: true));
                         }
                       }),
                       onTapShow: () {
@@ -226,6 +227,7 @@ class _MainScreenState extends State<MainScreen> {
                           makeName: state.makeName,
                           modelName: state.modelName,
                           makeLogo: state.makeLogo,
+                          historySaved: state.historySaved,
                         )));
                       },
                       imageUrl: state.makeLogo ?? '',

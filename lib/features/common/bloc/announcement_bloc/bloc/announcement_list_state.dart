@@ -5,6 +5,7 @@ class AnnouncementListState extends Equatable {
   final int selected;
   final bool next;
   final String search;
+  final String historyId;
   final int count;
   final List<Region> regions;
   final bool isFilter;
@@ -31,6 +32,7 @@ class AnnouncementListState extends Equatable {
     this.selected = 0,
     this.next = false,
     this.search = '',
+    this.historyId = '',
     this.count = 0,
     this.regions = const [],
     this.historySaved = false,
@@ -58,6 +60,7 @@ class AnnouncementListState extends Equatable {
     int? selected,
     bool? next,
     String? search,
+    String? historyId,
     int? count,
     List<Region>? regions,
     bool? isFilter,
@@ -83,6 +86,7 @@ class AnnouncementListState extends Equatable {
         status: status ?? this.status,
         selected: selected ?? this.selected,
         next: next ?? this.next,
+        historyId: historyId?? this.historyId,
         search: search ?? this.search,
         count: count ?? this.count,
         regions: regions ?? this.regions,
@@ -132,5 +136,6 @@ class AnnouncementListState extends Equatable {
         isNew,
         saveFilterStatus,
         crossFadeState,
+        historyId,
       ];
 }

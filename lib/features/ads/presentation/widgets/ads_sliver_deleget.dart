@@ -58,6 +58,8 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                           selectedModelId: state.modelId,
                         )));
                     if (res is Map<String, dynamic>) {
+                      var historySaved = res['modelId'] == state.modelId;
+                      historySaved = res['makeId'] == state.makeId;
                       bloc.add(SetMakeModel(
                         makeId: res['makeId'],
                         modelId: res['modelId'],
@@ -65,6 +67,7 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                         modelName: res['modelName'],
                         makeLogo: res['makeLogo'],
                         isNew: isNew,
+                        historySaved: historySaved,
                       ));
                     }
                   }),
@@ -86,6 +89,7 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                     ),
                   );
                   if (res is Map<String, dynamic>) {
+                    print('======= ${res['isFilter']}');
                     bloc.add(SetFilter(
                       bodyType: res['bodyType'],
                       gearboxType: res['gearboxType'],
@@ -93,12 +97,15 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                       yearValues: res['yearValues'],
                       priceValues: res['priceValues'],
                       currency: res['currency'],
-                      isFilter: res['isFilter'],
+                      isFilter: res['isFilter'] || state.isFilter,
                     ));
+                    print('======= ${state.historySaved}');
                   }
                 },
                 onTapClear1: () {
-                  bloc.add(ClearFilter(isNew));
+                  if (state.isFilter) {
+                    bloc.add(ClearFilter(isNew));
+                  }
                 },
                 isFilter: state.isFilter,
                 name: state.regions.isNotEmpty ? state.regions[0].title : '',
@@ -114,7 +121,9 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                       list: context.read<RegionsBloc>().state.regions,
                     ),
                   ).then((value) {
-                    bloc.add(SetRegions(regions: value ?? [], isNew: isNew));
+                    if (value != state.regions) {
+                      bloc.add(SetRegions(regions: value ?? [], isNew: isNew));
+                    }
                   });
                 },
                 onTapClear2: () {

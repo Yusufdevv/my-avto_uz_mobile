@@ -3,11 +3,11 @@ import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 class GearboxTypeEntity extends Equatable {
-  @JsonKey(name: 'id', defaultValue: 0)
+  @JsonKey(name: 'id' )
   final int id;
-  @JsonKey(name: 'type', defaultValue: '')
+  @JsonKey(name: 'type' )
   final String type;
-  @JsonKey(name: 'logo', defaultValue: '')
+  @JsonKey(name: 'logo' )
   final String logo;
 
   const GearboxTypeEntity({

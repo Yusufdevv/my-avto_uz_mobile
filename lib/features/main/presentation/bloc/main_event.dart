@@ -25,6 +25,7 @@ class GetMakeModelEvent extends MainEvent {
   final String modelName;
   final String makeName;
   final String makeLogo;
+  final bool historySaved;
 
   const GetMakeModelEvent({
     required this.makeId,
@@ -32,10 +33,11 @@ class GetMakeModelEvent extends MainEvent {
     required this.modelName,
     required this.makeName,
     required this.makeLogo,
+    required this.historySaved,
   });
 
   @override
-  List<Object?> get props => [makeId, modelId, modelName, makeName, makeLogo];
+  List<Object?> get props => [makeId, modelId, modelName, makeName, makeLogo, historySaved];
 }
 
 class GetAnnouncement extends MainEvent {
