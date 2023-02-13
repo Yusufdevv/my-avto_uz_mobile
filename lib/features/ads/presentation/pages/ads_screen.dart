@@ -4,13 +4,12 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ads/presentation/pages/ads_body_screen.dart';
 import 'package:auto/features/ads/presentation/widgets/ads_appbar_sliver_delegate.dart';
 import 'package:auto/features/ads/presentation/widgets/ads_sliver_deleget.dart';
-import 'package:auto/features/ads/presentation/widgets/filter_bottom_sheet.dart';
 import 'package:auto/features/ads/presentation/widgets/button_go_to_comparison.dart';
+import 'package:auto/features/ads/presentation/widgets/filter_bottom_sheet.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
-import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/features/search/presentation/search_screen.dart';
@@ -48,21 +47,14 @@ class _AdsScreenState extends State<AdsScreen>
   late TabController tabController;
   SortSearchResultStatus? sortingValue = SortSearchResultStatus.cheapest;
   late ScrollController _scrollController;
-  CrossFadeState crossFadeState = CrossFadeState.showFirst;
   GlobalKey key = GlobalKey();
   double height = 140;
   late AnnouncementListBloc announcementListBloc;
 
   void _scrollListener() {
-    if (_isShrink) {
-      setState(() {
-        crossFadeState = CrossFadeState.showSecond;
-      });
-    } else {
-      setState(() {
-        crossFadeState = CrossFadeState.showFirst;
-      });
-    }
+    announcementListBloc.add(ChangeAppBarEvent(
+        crossFadeState:
+            _isShrink ? CrossFadeState.showSecond : CrossFadeState.showFirst));
   }
 
   bool get _isShrink =>
@@ -145,7 +137,7 @@ class _AdsScreenState extends State<AdsScreen>
                       ),
                       title: AdsAppBarTitle(
                         fadeDuration: fadeDuration,
-                        crossFadeState: crossFadeState,
+                        crossFadeState: state.crossFadeState,
                       ),
                       actions: [
                         WScaleAnimation(
@@ -222,26 +214,28 @@ class _AdsScreenState extends State<AdsScreen>
                           },
                           child: AnimatedContainer(
                             alignment:
-                                crossFadeState == CrossFadeState.showFirst
+                                state.crossFadeState == CrossFadeState.showFirst
                                     ? const Alignment(-.2, 0)
                                     : const Alignment(-.85, 0),
-                            width: crossFadeState == CrossFadeState.showFirst
-                                ? double.maxFinite
-                                : 44,
+                            width:
+                                state.crossFadeState == CrossFadeState.showFirst
+                                    ? double.maxFinite
+                                    : 44,
                             height: 44,
                             duration: fadeDuration,
                             child: Container(
                               decoration: BoxDecoration(
                                   color: orange,
                                   borderRadius: BorderRadius.circular(22)),
-                              width: crossFadeState == CrossFadeState.showFirst
+                              width: state.crossFadeState ==
+                                      CrossFadeState.showFirst
                                   ? 221
                                   : 44,
                               height: 44,
                               child: AnimatedCrossFade(
                                 alignment: Alignment.center,
                                 duration: fadeDuration,
-                                crossFadeState: crossFadeState,
+                                crossFadeState: state.crossFadeState,
                                 firstChild: Padding(
                                   padding: const EdgeInsets.only(top: 12),
                                   child: Row(

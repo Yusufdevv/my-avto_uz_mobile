@@ -24,6 +24,7 @@ class AnnouncementListState extends Equatable {
   final String? makeLogo;
   final bool? isNew;
   final FormzStatus saveFilterStatus;
+  final CrossFadeState crossFadeState;
 
   const AnnouncementListState({
     this.status = FormzStatus.pure,
@@ -49,6 +50,7 @@ class AnnouncementListState extends Equatable {
     this.makeLogo,
     this.isNew,
     this.saveFilterStatus = FormzStatus.pure,
+    this.crossFadeState = CrossFadeState.showFirst,
   });
 
   AnnouncementListState copyWith({
@@ -75,6 +77,7 @@ class AnnouncementListState extends Equatable {
     String? makeLogo,
     bool? isNew,
     FormzStatus? saveFilterStatus,
+    CrossFadeState? crossFadeState,
   }) =>
       AnnouncementListState(
         status: status ?? this.status,
@@ -100,6 +103,7 @@ class AnnouncementListState extends Equatable {
         makeLogo: makeLogo ?? this.makeLogo,
         isNew: isNew ?? this.isNew,
         saveFilterStatus: saveFilterStatus ?? this.saveFilterStatus,
+        crossFadeState: crossFadeState ?? this.crossFadeState,
       );
 
   @override
@@ -127,5 +131,6 @@ class AnnouncementListState extends Equatable {
         makeLogo,
         isNew,
         saveFilterStatus,
+        crossFadeState,
       ];
 }

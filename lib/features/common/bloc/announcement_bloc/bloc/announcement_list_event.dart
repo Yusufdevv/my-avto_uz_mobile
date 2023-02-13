@@ -87,3 +87,9 @@ class SetMakeModel extends AnnouncementListEvent {
     this.isNew,
   });
 }
+
+class ChangeAppBarEvent extends AnnouncementListEvent {
+  final CrossFadeState? crossFadeState;
+
+  const ChangeAppBarEvent({this.crossFadeState});
+}

@@ -180,6 +180,9 @@ class AnnouncementListBloc
         ));
       }
     });
+    on<ChangeAppBarEvent>((event, emit) {
+      emit(state.copyWith(crossFadeState: event.crossFadeState));
+    });
   }
 
   String getRegionsId(List<Region> list) {
