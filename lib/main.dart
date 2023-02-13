@@ -76,8 +76,8 @@ class _AppProviderState extends State<AppProvider> {
 
   @override
   void initState() {
-    bloc = InternetBloc();
     super.initState();
+    bloc = InternetBloc();
   }
 
   @override
