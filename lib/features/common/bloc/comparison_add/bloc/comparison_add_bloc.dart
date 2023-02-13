@@ -35,8 +35,15 @@ class ComparisonAddBloc extends Bloc<ComparisonAddEvent, ComparisonAddState> {
         emit(state.copyWith(removeStatus: FormzStatus.submissionFailure));
       }
     });
+
     on<_ClearCountComparison>((event, emit) async {
       emit(state.copyWith(count: 0));
+    });
+
+    on<_AddToMapComparison>((event, emit) async {
+      final map = {...state.map};
+      map[event.id] = event.value;
+      emit(state.copyWith(map: map));
     });
   }
 }

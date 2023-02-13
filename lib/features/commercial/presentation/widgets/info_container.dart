@@ -17,7 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class InfoContainer extends StatefulWidget {
+class InfoContainer extends StatelessWidget {
   const InfoContainer({
     required this.onTapComparsion,
     required this.onTapFavorites,
@@ -72,19 +72,6 @@ class InfoContainer extends StatefulWidget {
   final int id;
 
   @override
-  State<InfoContainer> createState() => _InfoContainerState();
-}
-
-class _InfoContainerState extends State<InfoContainer> {
-  bool isLiked = false;
-
-  @override
-  void initState() {
-    isLiked = widget.initialLike!;
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) => Container(
         width: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.only(top: 12, left: 16, bottom: 8),
@@ -97,24 +84,24 @@ class _InfoContainerState extends State<InfoContainer> {
               height: 201,
               child: PageView.builder(
                 pageSnapping: false,
-                itemCount: widget.gallery!.length + 1,
+                itemCount: gallery!.length + 1,
                 padEnds: false,
                 clipBehavior: Clip.antiAlias,
                 controller: PageController(viewportFraction: 0.75),
                 physics: const BouncingScrollPhysics(),
-                itemBuilder: (context, index) => index == widget.gallery!.length
+                itemBuilder: (context, index) => index == gallery!.length
                     ? WScaleAnimation(
                         onTap: () {
                           bottomSheetForCalling(
                             context,
-                            widget.phone ?? '',
+                            phone ?? '',
                           );
                         },
                         child: Container(
                           height: 201,
                           decoration: BoxDecoration(
-                            color: widget.ownerType == 'owner'
-                                ? widget.hasCallCard
+                            color: ownerType == 'owner'
+                                ? hasCallCard
                                     ? green
                                     : red
                                 : red,
@@ -126,12 +113,12 @@ class _InfoContainerState extends State<InfoContainer> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SvgPicture.asset(
-                                  widget.ownerType == 'owner'
+                                  ownerType == 'owner'
                                       ? AppIcons.phone
                                       : AppIcons.shopping,
                                   color: white),
                               Text(
-                                widget.ownerType == 'owner'
+                                ownerType == 'owner'
                                     ? LocaleKeys.call.tr()
                                     : LocaleKeys.buy.tr(),
                                 style: Theme.of(context)
@@ -148,7 +135,7 @@ class _InfoContainerState extends State<InfoContainer> {
                         width: 280,
                         padding: const EdgeInsets.only(right: 4),
                         child: CachedNetworkImage(
-                          imageUrl: widget.gallery?[index] ?? '',
+                          imageUrl: gallery?[index] ?? '',
                           fit: BoxFit.cover,
                           errorWidget: (context, url, error) => Image.asset(
                             AppImages.defaultPhoto,
@@ -158,9 +145,9 @@ class _InfoContainerState extends State<InfoContainer> {
                       ),
               ),
             ),
-            if (widget.sellType!.isNotEmpty)
+            if (sellType!.isNotEmpty)
               CustomChip(
-                label: widget.sellType!,
+                label: sellType!,
                 backgroundColor: Theme.of(context)
                     .extension<ThemedColors>()!
                     .seashellToCinnabar15,
@@ -175,21 +162,21 @@ class _InfoContainerState extends State<InfoContainer> {
               ),
             const SizedBox(height: 12),
             CarNameYearWidget(
-                carName: widget.carModel ?? '',
-                carYear: '${widget.year}',
-                isNew: widget.hasStatusInfo),
+                carName: carModel ?? '',
+                carYear: '$year',
+                isNew: hasStatusInfo),
             const SizedBox(height: 4),
             RichText(
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: widget.discountPrice!.isEmpty
-                        ? '${widget.price} ${widget.currency!.toUpperCase()}'
-                        : '${widget.discountPrice!} ${widget.currency!.toUpperCase()}',
+                    text: discountPrice!.isEmpty
+                        ? '$price ${currency!.toUpperCase()}'
+                        : '${discountPrice!} ${currency!.toUpperCase()}',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
-                      color: widget.hasDiscount
+                      color: hasDiscount
                           ? green
                           : Theme.of(context)
                               .extension<ThemedColors>()!
@@ -202,9 +189,9 @@ class _InfoContainerState extends State<InfoContainer> {
                   WidgetSpan(
                     alignment: PlaceholderAlignment.middle,
                     child: Visibility(
-                      visible: widget.hasDiscount,
+                      visible: hasDiscount,
                       child: Text(
-                        widget.discountPrice == null ? '' : widget.price!,
+                        discountPrice == null ? '' : price!,
                         style: Theme.of(context).textTheme.headline2!.copyWith(
                               decoration: TextDecoration.lineThrough,
                               color: grey,
@@ -217,7 +204,7 @@ class _InfoContainerState extends State<InfoContainer> {
             ),
             const SizedBox(height: 8),
             Text(
-              widget.subtitle ?? '',
+              subtitle ?? '',
               style: Theme.of(context).textTheme.headline2!.copyWith(
                     fontSize: 13,
                     color: grey,
@@ -233,7 +220,7 @@ class _InfoContainerState extends State<InfoContainer> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(50),
                     child: CachedNetworkImage(
-                      imageUrl: widget.avatarPicture!,
+                      imageUrl: avatarPicture!,
                       fit: BoxFit.cover,
                       errorWidget: (context, url, error) => Image.asset(
                         AppImages.defaultPhoto,
@@ -248,7 +235,7 @@ class _InfoContainerState extends State<InfoContainer> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '${widget.owner}',
+                        '$owner',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context)
@@ -260,7 +247,7 @@ class _InfoContainerState extends State<InfoContainer> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            widget.ownerType == 'owner'
+                            ownerType == 'owner'
                                 ? LocaleKeys.private_person.tr()
                                 : LocaleKeys.autosalon.tr(),
                             style: Theme.of(context)
@@ -270,11 +257,11 @@ class _InfoContainerState extends State<InfoContainer> {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          if (widget.isFromComparison)
+                          if (isFromComparison)
                             Padding(
                               padding: const EdgeInsets.only(right: 16),
                               child: Text(
-                                '${widget.location} • ${widget.publishTime}',
+                                '$location • $publishTime',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText1!
@@ -291,12 +278,12 @@ class _InfoContainerState extends State<InfoContainer> {
               ],
             ),
             const SizedBox(height: 12),
-            if (widget.isFromComparison)
+            if (isFromComparison)
               Padding(
                 padding: const EdgeInsets.only(bottom: 4, right: 16),
                 child: ButtonAddToComparison(
-                    isAddedToComparison: widget.initialComparsions,
-                    id: widget.id),
+                    isAddedToComparison: initialComparsions,
+                    id: id),
               )
             else
               Column(
@@ -313,7 +300,7 @@ class _InfoContainerState extends State<InfoContainer> {
                     child: Row(
                       children: [
                         Text(
-                          '${widget.location} • ${widget.publishTime}',
+                          '$location • $publishTime',
                           style: Theme.of(context)
                               .textTheme
                               .bodyText1!
@@ -321,26 +308,37 @@ class _InfoContainerState extends State<InfoContainer> {
                         ),
                         const Spacer(),
                         AddComparisonItem(
-                          id: widget.id,
-                          initialLike: widget.initialComparsions,
+                          id: id,
+                          initialLike: initialComparsions,
                         ),
                         const SizedBox(width: 8),
-                        AddWishlistItem(
-                          onTap: () {
-                            if (!isLiked) {
-                              context.read<WishlistAddBloc>().add(
-                                  WishlistAddEvent.addWishlist(
-                                      widget.id, widget.index));
-                              isLiked = true;
-                            } else {
-                              context.read<WishlistAddBloc>().add(
-                                  WishlistAddEvent.removeWishlist(
-                                      widget.id, widget.index));
-                              isLiked = false;
-                            }
-                            setState(() {});
+                        BlocConsumer<WishlistAddBloc, WishlistAddState>(
+                          listener: (context, state) {},
+                          builder: (context, state) {
+                            final isLiked = state.map[id] ??
+                                initialLike ??
+                                false;
+                            return AddWishlistItem(
+                              onTap: () {
+                                if (!isLiked) {
+                                  context.read<WishlistAddBloc>().add(
+                                      WishlistAddEvent.addWishlist(
+                                          id, index));
+                                  context.read<WishlistAddBloc>().add(
+                                      WishlistAddEvent.addToMapFavorites(
+                                          id: id, value: true));
+                                } else {
+                                  context.read<WishlistAddBloc>().add(
+                                      WishlistAddEvent.removeWishlist(
+                                          id, index));
+                                  context.read<WishlistAddBloc>().add(
+                                      WishlistAddEvent.addToMapFavorites(
+                                          id: id, value: false));
+                                }
+                              },
+                              initialLike: isLiked,
+                            );
                           },
-                          initialLike: isLiked,
                         ),
                       ],
                     ),

@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ButtonAddToComparison extends StatefulWidget {
+class ButtonAddToComparison extends StatelessWidget {
   const ButtonAddToComparison({
     required this.isAddedToComparison,
     required this.id,
@@ -19,42 +19,34 @@ class ButtonAddToComparison extends StatefulWidget {
   final int id;
 
   @override
-  State<ButtonAddToComparison> createState() => _ButtonAddToComparisonState();
-}
-
-class _ButtonAddToComparisonState extends State<ButtonAddToComparison> {
-  bool isAddedToComparison = false;
-
-  @override
-  void initState() {
-    isAddedToComparison = widget.isAddedToComparison;
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) =>
       BlocBuilder<ComparisonAddBloc, ComparisonAddState>(
-          builder: (context, state) => WButton(
+          builder: (context, state) {
+            final a = state.map[id] ?? isAddedToComparison;
+            return WButton(
                 onTap: () {
-                  if (isAddedToComparison) {
+                  if (a) {
                     context
                         .read<ComparisonAddBloc>()
-                        .add(ComparisonAddEvent.deleteComparison(widget.id));
-                    isAddedToComparison = false;
+                        .add(ComparisonAddEvent.deleteComparison(id));
+                    context.read<ComparisonAddBloc>().add(
+                        ComparisonAddEvent.addToMapComparison(
+                            id: id, value: false));
                   } else {
                     context
                         .read<ComparisonAddBloc>()
-                        .add(ComparisonAddEvent.postComparisonCars(widget.id));
-                    isAddedToComparison = true;
+                        .add(ComparisonAddEvent.postComparisonCars(id));
+                    context.read<ComparisonAddBloc>().add(
+                        ComparisonAddEvent.addToMapComparison(
+                            id: id, value: true));
                   }
-                  setState(() {});
                 },
                 padding: const EdgeInsets.only(left: 12, top: 10, bottom: 10),
-                color: isAddedToComparison
+                color: a
                     ? const Color(0xFFFBF2F1)
                     : const Color(0xFFF1F1F5),
                 child: Row(
-                  children: isAddedToComparison
+                  children: a
                       ? [
                           SvgPicture.asset(
                             AppIcons.close,
@@ -92,5 +84,6 @@ class _ButtonAddToComparisonState extends State<ButtonAddToComparison> {
                           )
                         ],
                 ),
-              ));
+              );
+          });
 }

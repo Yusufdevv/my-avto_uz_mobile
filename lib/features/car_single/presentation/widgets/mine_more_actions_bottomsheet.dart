@@ -156,7 +156,7 @@ class _MineMoreActionsState extends State<MineMoreActions> {
                     ),
                     child: AddComparisonItem(
                       id: widget.id,
-                      initialLike: widget.isCompare,
+                      initialLike: widget.isCompare ?? false,
                       isText: true,
                       isGreen: true,
                     ),
