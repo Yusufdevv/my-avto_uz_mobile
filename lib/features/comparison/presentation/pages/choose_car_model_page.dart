@@ -106,8 +106,8 @@ class _ChooseCarModelComparison extends State<ChooseCarModelPage> {
                               padding: const EdgeInsets.only(right: 16),
                               child: InkWell(
                                 onTap: () {
-                                  Navigator.of(context).pop();
-                                  Navigator.of(widget.parentContext).pop();
+                                  Navigator.of(context).pop('');
+                                  Navigator.of(widget.parentContext).pop('');
                                 },
                                 child: SvgPicture.asset(AppIcons.close),
                               ),

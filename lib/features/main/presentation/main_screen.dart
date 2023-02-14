@@ -194,29 +194,33 @@ class _MainScreenState extends State<MainScreen> {
                       )))
                               .then((value) {
                         if (value != null) {
-                          final result = value as Map<String, dynamic>;
-                          final makeId = result['makeId'];
-                          final modelId = result['modelId'];
-                          final modelName = result['modelName'];
-                          final makeName = result['makeName'];
-                          final makeLogo = result['makeLogo'];
-                          mainBloc
-                            ..add(GetMakeModelEvent(
-                                makeId: makeId,
-                                modelId: modelId,
-                                modelName: modelName,
-                                makeLogo: makeLogo,
-                                makeName: makeName,
-                                historySaved: false))
-                            ..add(GetAnnouncement());
-                        } else {
-                          mainBloc.add(const GetMakeModelEvent(
-                              makeId: -1,
-                              modelId: -1,
-                              modelName: '',
-                              makeName: '',
-                              makeLogo: '',
-                              historySaved: true));
+                          if (value is Map<String, dynamic>) {
+                            final result = value as Map<String, dynamic>;
+                            final makeId = result['makeId'];
+                            final modelId = result['modelId'];
+                            final modelName = result['modelName'];
+                            final makeName = result['makeName'];
+                            final makeLogo = result['makeLogo'];
+                            mainBloc
+                              ..add(GetMakeModelEvent(
+                                  makeId: makeId,
+                                  modelId: modelId,
+                                  modelName: modelName,
+                                  makeLogo: makeLogo,
+                                  makeName: makeName,
+                                  historySaved: false))
+                              ..add(GetAnnouncement());
+                          } else {
+                            mainBloc
+                              ..add(const GetMakeModelEvent(
+                                  makeId: -1,
+                                  modelId: -1,
+                                  modelName: '',
+                                  makeName: '',
+                                  makeLogo: '',
+                                  historySaved: true))
+                              ..add(GetAnnouncement());
+                          }
                         }
                       }),
                       onTapShow: () {

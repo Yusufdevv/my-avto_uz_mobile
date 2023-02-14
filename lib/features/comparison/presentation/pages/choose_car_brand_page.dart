@@ -135,7 +135,7 @@ class _ChooseCarBrandPageState extends State<ChooseCarBrandPage> {
                             /// x button
                             GestureDetector(
                               onTap: () {
-                                Navigator.of(context).pop();
+                                Navigator.of(context).pop('');
                               },
                               behavior: HitTestBehavior.opaque,
                               child: Padding(
