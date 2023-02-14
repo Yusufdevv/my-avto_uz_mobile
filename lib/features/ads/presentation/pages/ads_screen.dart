@@ -132,10 +132,11 @@ class _AdsScreenState extends State<AdsScreen>
               announcementListBloc
                   .add(const ChangeSaveFilterStatus(FormzStatus.pure));
               //!mysearches ni sonini oshirish uchun ishlatilgan, mySearchesCount nechta qo'shishni bildiradi
-              if(state.historyId.isEmpty)
-              context.read<ProfileBloc>().add(
+              if(state.historyId.isEmpty) {
+                context.read<ProfileBloc>().add(
                   ChangeCountDataEvent(
                       adding: true, mySearchesCount: 1));
+              }
             }
           },
           builder: (context, state) => CustomScreen(
