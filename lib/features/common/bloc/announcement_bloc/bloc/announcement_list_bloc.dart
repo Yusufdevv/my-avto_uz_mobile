@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
@@ -32,6 +34,7 @@ class AnnouncementListBloc
         status: FormzStatus.submissionInProgress,
         isNew: event.isNew,
       ));
+      log('==== price start${state.priceValues?.start}');
       final result = await useCase.call({
         'make': state.makeId == -1 ? '' : state.makeId,
         'model': state.modelId == -1 ? '' : state.modelId,
@@ -43,11 +46,10 @@ class AnnouncementListBloc
         'region__in': getRegionsId(state.regions),
         'price_from':
             state.priceValues?.start == -1 ? '' : state.priceValues?.start,
-        'price_to':
-            state.priceValues?.end == -1 ? '' : state.priceValues?.start,
+        'price_to': state.priceValues?.end == -1 ? '' : state.priceValues?.end,
         'year_from':
             state.yearValues?.start == -1 ? '' : state.yearValues?.start,
-        'year_to': state.yearValues?.end == -1 ? '' : state.yearValues?.start,
+        'year_to': state.yearValues?.end == -1 ? '' : state.yearValues?.end,
         'limit': 10,
         'offset': 0,
       });
@@ -77,11 +79,10 @@ class AnnouncementListBloc
         'region__in': getRegionsId(state.regions),
         'price_from':
             state.priceValues?.start == -1 ? '' : state.priceValues?.start,
-        'price_to':
-            state.priceValues?.end == -1 ? '' : state.priceValues?.start,
+        'price_to': state.priceValues?.end == -1 ? '' : state.priceValues?.end,
         'year_from':
             state.yearValues?.start == -1 ? '' : state.yearValues?.start,
-        'year_to': state.yearValues?.end == -1 ? '' : state.yearValues?.start,
+        'year_to': state.yearValues?.end == -1 ? '' : state.yearValues?.end,
         'limit': 10,
         'offset': state.announcementList.length,
       });

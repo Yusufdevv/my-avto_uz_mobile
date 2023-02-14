@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_bool_literals_in_conditional_expressions
 
+import 'dart:developer';
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
@@ -49,13 +51,13 @@ class _FilterParametersState extends State<FilterParameters> {
   void initState() {
     super.initState();
     filterBloc = FilterBloc(
-      bodyType: widget.bodyType,
-      carDriveType: widget.carDriveType,
-      gearboxType: widget.gearboxType,
-      priceValues: widget.priceValues,
-      yearValues: widget.yearValues,
-      isCheck: widget.isCheck ?? false,
-    );
+        bodyType: widget.bodyType,
+        carDriveType: widget.carDriveType,
+        gearboxType: widget.gearboxType,
+        priceValues: widget.priceValues,
+        yearValues: widget.yearValues,
+        isCheck: widget.isCheck ?? false,
+        currency: widget.currency);
   }
 
   @override
@@ -256,6 +258,7 @@ class _FilterParametersState extends State<FilterParameters> {
                           state.yearValues != widget.yearValues;
                       isFilter = state.currency != widget.currency ||
                           state.isCheck != widget.isCheck;
+                      log('======= $isFilter');
                       Navigator.of(context).pop({
                         'bodyType': state.bodyType,
                         'gearboxType': state.gearboxType,
