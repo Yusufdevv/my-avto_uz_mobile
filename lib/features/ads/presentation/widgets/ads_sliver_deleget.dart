@@ -1,5 +1,4 @@
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
@@ -25,19 +24,6 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
     required this.tabController,
     required this.bloc,
     required this.isNew,
-    required this.makeName,
-    required this.modelName,
-    required this.makeLogo,
-    required this.makeId,
-    required this.modelId,
-    required this.bodyType,
-    required this.gearboxType,
-    required this.driveType,
-    required this.yearValues,
-    required this.priceValues,
-    required this.currency,
-    required this.isFilter,
-    required this.regions,
   });
 
   final Size size;
@@ -45,119 +31,109 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
   final TabController tabController;
   final AnnouncementListBloc bloc;
   final bool? isNew;
-  final String makeName;
-  final String modelName;
-  final String makeLogo;
-  final int? makeId;
-  final int? modelId;
-  final BodyTypeEntity? bodyType;
-  final GearboxTypeEntity? gearboxType;
-  final DriveTypeEntity? driveType;
-  final RangeValues? yearValues;
-  final RangeValues? priceValues;
-  final Currency currency;
-  final bool isFilter;
-  final List<Region> regions;
 
   @override
   Widget build(
           BuildContext context, double shrinkOffset, bool overlapsContent) =>
-      Column(
-        children: [
-          CommercialTab(
-            tabController: tabController,
-            tabLabels: [
-              LocaleKeys.all.tr(),
-              LocaleKeys.news.tr(),
-              LocaleKeys.with_Mileage.tr()
+      BlocProvider.value(
+        value: bloc,
+        child: BlocBuilder<AnnouncementListBloc, AnnouncementListState>(
+          builder: (context, state) => Column(
+            children: [
+              CommercialTab(
+                tabController: tabController,
+                tabLabels: [
+                  LocaleKeys.all.tr(),
+                  LocaleKeys.news.tr(),
+                  LocaleKeys.with_Mileage.tr()
+                ],
+              ),
+              CommercialCarModelItem(
+                  title: state.makeName ?? '',
+                  subtitle: state.modelName ?? '',
+                  imageUrl: state.makeLogo ?? '',
+                  onTap: () async {
+                    final res = await Navigator.push(
+                        context,
+                        fade(
+                            page: ChooseCarBrandPage(
+                          selectedMakeId: state.makeId,
+                          selectedModelId: state.modelId,
+                        )));
+                    if (res is Map<String, dynamic>) {
+                      var historySaved = res['modelId'] == state.modelId;
+                      historySaved = res['makeId'] == state.makeId;
+                      bloc.add(SetMakeModel(
+                        makeId: res['makeId'],
+                        modelId: res['modelId'],
+                        makeName: res['makeName'],
+                        modelName: res['modelName'],
+                        makeLogo: res['makeLogo'],
+                        isNew: isNew,
+                        historySaved: historySaved,
+                      ));
+                    }
+                  }),
+              FilterButtonsWidget(
+                size: size,
+                theme: theme,
+                onTapParams1: () async {
+                  final res = await Navigator.of(context).push(
+                    fade(
+                      page: FilterParameters(
+                        bodyType: state.bodyType,
+                        gearboxType: state.gearboxType,
+                        carDriveType: state.driveType,
+                        yearValues: state.yearValues,
+                        priceValues: state.priceValues,
+                        currency: state.currency,
+                        isCheck: state.isFilter,
+                      ),
+                    ),
+                  );
+                  if (res is Map<String, dynamic>) {
+                    bloc.add(SetFilter(
+                      bodyType: res['bodyType'] ?? const BodyTypeEntity(),
+                      gearboxType: res['gearboxType'] ?? const GearboxTypeEntity(),
+                      driveType: res['carDriveType'] ?? const DriveTypeEntity(),
+                      yearValues: res['yearValues'],
+                      priceValues: res['priceValues'],
+                      currency: res['currency'],
+                      isFilter: res['isFilter'] || state.isFilter,
+                    ));
+                  }
+                },
+                onTapClear1: () {
+                  if (state.isFilter) {
+                    bloc.add(ClearFilter(isNew));
+                  }
+                },
+                isFilter: state.isFilter,
+                name: state.regions.isNotEmpty ? state.regions[0].title : '',
+                regions: state.regions,
+                onTapParams2: () async {
+                  await showModalBottomSheet<List<Region>>(
+                    isDismissible: false,
+                    context: context,
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    builder: (c) => RentChooseRegionBottomSheet(
+                      checkedRegions: state.regions.asMap(),
+                      list: context.read<RegionsBloc>().state.regions,
+                    ),
+                  ).then((value) {
+                    if (value != state.regions) {
+                      bloc.add(SetRegions(regions: value ?? [], isNew: isNew));
+                    }
+                  });
+                },
+                onTapClear2: () {
+                  bloc.add(SetRegions(regions: [], isNew: isNew));
+                },
+              ),
             ],
           ),
-          CommercialCarModelItem(
-              title: makeName,
-              subtitle: modelName,
-              imageUrl: makeLogo,
-              onTap: () async {
-                final res = await Navigator.push(
-                    context,
-                    fade(
-                        page: ChooseCarBrandPage(
-                      selectedMakeId: makeId,
-                      selectedModelId: modelId,
-                    )));
-                if (res is Map<String, dynamic>) {
-                  var historySaved = res['modelId'] == modelId;
-                  historySaved = res['makeId'] == makeId;
-                  bloc.add(SetMakeModel(
-                    makeId: res['makeId'],
-                    modelId: res['modelId'],
-                    makeName: res['makeName'],
-                    modelName: res['modelName'],
-                    makeLogo: res['makeLogo'],
-                    isNew: isNew,
-                    historySaved: historySaved,
-                  ));
-                }
-              }),
-          FilterButtonsWidget(
-            size: size,
-            theme: theme,
-            onTapParams1: () async {
-              final res = await Navigator.of(context).push(
-                fade(
-                  page: FilterParameters(
-                    bodyType: bodyType,
-                    gearboxType: gearboxType,
-                    carDriveType: driveType,
-                    yearValues: yearValues,
-                    priceValues: priceValues,
-                    currency: currency,
-                    isCheck: isFilter,
-                  ),
-                ),
-              );
-              if (res is Map<String, dynamic>) {
-                bloc.add(SetFilter(
-                  bodyType: res['bodyType'],
-                  gearboxType: res['gearboxType'],
-                  driveType: res['carDriveType'],
-                  yearValues: res['yearValues'],
-                  priceValues: res['priceValues'],
-                  currency: res['currency'],
-                  isFilter: res['isFilter'] || isFilter,
-                ));
-              }
-            },
-            onTapClear1: () {
-              if (isFilter) {
-                bloc.add(ClearFilter(isNew));
-              }
-            },
-            isFilter: isFilter,
-            name: regions.isNotEmpty
-                ? regions[0].title
-                : '',
-            regions: regions,
-            onTapParams2: () async {
-              await showModalBottomSheet<List<Region>>(
-                isDismissible: false,
-                context: context,
-                isScrollControlled: true,
-                backgroundColor: Colors.transparent,
-                builder: (c) => RentChooseRegionBottomSheet(
-                  checkedRegions: regions.asMap(),
-                  list: context.read<RegionsBloc>().state.regions,
-                ),
-              ).then((value) {
-                if (value != regions) {
-                  bloc.add(SetRegions(regions: value ?? [], isNew: isNew));
-                }
-              });
-            },
-            onTapClear2: () {
-              bloc.add(SetRegions(regions: [], isNew: isNew));
-            },
-          ),
-        ],
+        ),
       );
 
   @override

@@ -51,14 +51,13 @@ class _FilterParametersState extends State<FilterParameters> {
   void initState() {
     super.initState();
     filterBloc = FilterBloc(
-      bodyType: widget.bodyType,
-      carDriveType: widget.carDriveType,
-      gearboxType: widget.gearboxType,
-      priceValues: widget.priceValues,
-      yearValues: widget.yearValues,
-      isCheck: widget.isCheck ?? false,
-      currency: widget.currency,
-    );
+        bodyType: widget.bodyType,
+        carDriveType: widget.carDriveType,
+        gearboxType: widget.gearboxType,
+        priceValues: widget.priceValues,
+        yearValues: widget.yearValues,
+        isCheck: widget.isCheck ?? false,
+        currency: widget.currency);
   }
 
   @override
