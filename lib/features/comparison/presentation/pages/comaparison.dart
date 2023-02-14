@@ -163,7 +163,9 @@ class _ComparisonState extends State<Comparison> {
                             modelId: modelId,
                           )))
                               .then((value) {
-                            widget.comparisonBloc.add(GetComparableCars());
+                            if (value is bool && value) {
+                              widget.comparisonBloc.add(GetComparableCars());
+                            }
                             context
                                 .read<ComparisonAddBloc>()
                                 .add(ComparisonAddEvent.clearCountComparison());

@@ -41,8 +41,12 @@ class ComparisonAddBloc extends Bloc<ComparisonAddEvent, ComparisonAddState> {
     });
 
     on<_AddToMapComparison>((event, emit) async {
+      print('======= id bef ${state.map[event.id]}');
+      print('=======ev bef ${event.value}');
+
       final map = {...state.map};
       map[event.id] = event.value;
+
       emit(state.copyWith(map: map));
     });
   }
