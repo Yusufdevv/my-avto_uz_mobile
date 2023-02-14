@@ -33,8 +33,8 @@ class AnnouncementListBloc
         isNew: event.isNew,
       ));
       final result = await useCase.call({
-        'make': state.makeId,
-        'model': state.modelId,
+        'make': state.makeId == -1 ? '' : state.makeId,
+        'model': state.modelId == -1 ? '' : state.modelId,
         'body_type': state.bodyType?.id == -1 ? '' : state.bodyType?.id,
         'drive_type': state.driveType?.id == -1 ? '' : state.driveType?.id,
         'gearbox_type':
@@ -67,8 +67,8 @@ class AnnouncementListBloc
     on<GetMoreAnnouncementList>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await useCase.call({
-        'make': state.makeId,
-        'model': state.modelId,
+        'make': state.makeId == -1 ? '' : state.makeId,
+        'model': state.modelId == -1 ? '' : state.modelId,
         'body_type': state.bodyType?.id == -1 ? '' : state.bodyType?.id,
         'drive_type': state.driveType?.id == -1 ? '' : state.driveType?.id,
         'gearbox_type':
