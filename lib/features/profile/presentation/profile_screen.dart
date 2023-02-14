@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/notification_button.dart';
 import 'package:auto/features/comparison/presentation/comparison_page.dart';
@@ -38,6 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       Timer(
         const Duration(milliseconds: 500),
         () async {
+          log('Timer is end and goin to Myadds go to:  ${context.read<WishlistAddBloc>().state.goToAds}');
           if (context.read<WishlistAddBloc>().state.goToAds == 1) {
             await Navigator.of(context)
                 .push(fade(page: const MyAdsPage()))
@@ -93,7 +95,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               // else if (state.status.isSubmissionFailure) {
               //   return const SizedBox();
               // }
-              else if (state.status.isSubmissionSuccess ||
+              // else
+              if (state.status.isSubmissionSuccess ||
                   state.status.isSubmissionFailure) {
                 profileData = state.profileEntity;
                 // ignore: prefer_final_locals
@@ -233,7 +236,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 );
               }
-              return const Center(child: CupertinoActivityIndicator());
+              return const Center(child: Text('xatolik'));
             },
           ),
         ),
