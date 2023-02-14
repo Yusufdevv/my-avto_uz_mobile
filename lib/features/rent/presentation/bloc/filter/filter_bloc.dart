@@ -45,7 +45,7 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
           yearValues: yearValues ?? RangeValues(1960, DateTime.now().year + 0),
           priceValues: priceValues ?? const RangeValues(1000, 500000),
           isCheck: isCheck,
-          currency: currency ?? Currency.usd,
+          currency: currency,
           priceStart: priceValues?.start,
           priceEnd: priceValues?.end,
         )) {
@@ -57,7 +57,7 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
           priceValues: event.priceValues ?? const RangeValues(1000, 500000),
           priceStart: priceValues?.start,
           priceEnd: priceValues?.end,
-          currency: currency ?? Currency.usd,
+          currency: Currency.none,
           bodyType: null,
           carDriveType: null,
           gearboxType: null,
@@ -75,18 +75,21 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
       ));
     });
     on<FilterChangeCurrencyEvent>((event, emit) async {
-      final result = await minMaxPriceYearUseCase.call(state.currency.value);
-      RangeValues? priceValues;
-      if (result.isRight) {
-        priceValues = RangeValues(double.parse(result.right.minPrice),
-            double.parse(result.right.maxPrice));
+      if (state.currency != Currency.euro) {
+        final result =
+            await minMaxPriceYearUseCase.call(state.currency?.value ?? '');
+        RangeValues? priceValues;
+        if (result.isRight) {
+          priceValues = RangeValues(double.parse(result.right.minPrice),
+              double.parse(result.right.maxPrice));
+        }
+        emit(state.copyWith(
+          priceValues: priceValues,
+          priceStart: priceValues?.start,
+          priceEnd: priceValues?.end,
+          currency: event.currency,
+        ));
       }
-      emit(state.copyWith(
-        priceValues: priceValues,
-        priceStart: priceValues?.start,
-        priceEnd: priceValues?.end,
-        currency: event.currency,
-      ));
     });
   }
 }

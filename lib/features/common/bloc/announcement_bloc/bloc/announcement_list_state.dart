@@ -14,7 +14,7 @@ class AnnouncementListState extends Equatable {
   final SaveFilterModel saveFilterModel;
   final RangeValues? yearValues;
   final RangeValues? priceValues;
-  final Currency currency;
+  final Currency? currency;
   final GearboxTypeEntity? gearboxType;
   final BodyTypeEntity? bodyType;
   final DriveTypeEntity? driveType;
@@ -41,7 +41,7 @@ class AnnouncementListState extends Equatable {
     this.saveFilterModel = const SaveFilterModel(),
     this.yearValues,
     this.priceValues,
-    this.currency = Currency.usd,
+    this.currency = Currency.euro,
     this.gearboxType,
     this.bodyType,
     this.driveType,

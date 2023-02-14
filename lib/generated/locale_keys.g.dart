@@ -513,5 +513,6 @@ abstract class  LocaleKeys {
   static const go_to_comparison = 'go_to_comparison';
   static const added_x_auto = 'added_x_auto';
   static const your_ad_edited_successfully = 'your_ad_edited_successfully';
+  static const sum = 'sum';
 
 }

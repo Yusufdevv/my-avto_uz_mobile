@@ -6,7 +6,7 @@ class FilterState extends Equatable {
   final BodyTypeEntity? bodyType;
   final DriveTypeEntity? carDriveType;
   final GearboxTypeEntity? gearboxType;
-  final Currency currency;
+  final Currency? currency;
   final RangeValues yearValues;
   final RangeValues priceValues;
   final bool isCheck;
@@ -24,7 +24,7 @@ class FilterState extends Equatable {
     this.bodyType,
     this.carDriveType,
     this.gearboxType,
-    this.currency = Currency.usd,
+    this.currency=Currency.none,
   });
 
   FilterState copyWith({
