@@ -101,7 +101,6 @@ class _AdsScreenState extends State<AdsScreen>
         priceValues: RangeValues(widget.queryData?.priceFrom?.toDouble() ?? -1,
             widget.queryData?.priceTo?.toDouble() ?? -1),
         currency: Currency.uzs,
-        isFilter: false,
       ))
       ..add(const GetMinMaxPriceYear());
 

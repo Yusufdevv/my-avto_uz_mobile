@@ -44,7 +44,7 @@ class DioSettings {
       responseBody: kDebugMode,
       responseHeader: kDebugMode,
       error: kDebugMode,
-      logPrint: (object) =>  dev.log(object.toString()),
+      // logPrint: (object) =>  dev.log(object.toString()),
     ))
     ..interceptors.add(Chuck(
       navigatorKey: AppConstants.navigatorKey,

@@ -118,12 +118,6 @@ class AnnouncementListBloc
       if (state.currency != event.currency && event.currency != null) {
         add(const GetMinMaxPriceYear());
       }
-      print('=======h ${state.historySaved}');
-      print('=======mk ${state.makeId}');
-      print('=======md ${state.modelId}');
-      print('=======ev isf ${!event.isFilter!}');
-      print(
-          '=======shart ${(state.makeId == null || state.makeId == null) && !event.isFilter!}');
 
       emit(state.copyWith(
         currency: event.currency ?? state.currency,
@@ -135,9 +129,9 @@ class AnnouncementListBloc
         isFilter: event.isFilter,
         historyId: event.historyId ?? state.historyId,
         // ignore: avoid_bool_literals_in_conditional_expressions
-        historySaved: (state.makeId != null) && !event.isFilter!,
+        historySaved:
+            event.isFilter == null ? state.historySaved : !event.isFilter!,
       ));
-      print('=======ev ${state.historySaved}');
 
       add(GetAnnouncementList(isNew: event.isNew));
     });

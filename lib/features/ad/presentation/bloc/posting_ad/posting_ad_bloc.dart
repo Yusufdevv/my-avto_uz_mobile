@@ -207,7 +207,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       PostingAdAddEventForEveryPage event, Emitter<PostingAdState> emit) {
     switch (event.page) {
       case 0:
-        add(PostingAdMakesEvent());
+        if (state.makes.isEmpty) add(PostingAdMakesEvent());
         break;
       case 1:
         add(PostingAdModelEvent());

@@ -11,6 +11,7 @@ import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
@@ -54,7 +55,7 @@ class _MileageScreenState extends State<MileageScreen> {
           child: Scaffold(
             body: BlocConsumer<MileageImageBloc, MileageImageState>(
               listener: (context, state) {
-               if(state.image != null&& state.image!.isNotEmpty) {
+                if (state.image != null && state.image!.isNotEmpty) {
                   widget.onImageChange(state.image!);
                 }
                 if (state.toastMessage != null &&
@@ -96,7 +97,8 @@ class _MileageScreenState extends State<MileageScreen> {
                               .copyWith(
                                   fontSize: 16, fontWeight: FontWeight.w400),
                           textInputFormatters: [
-                            ThousandsSeparatorInputFormatter()
+                            FilteringTextInputFormatter.digitsOnly,
+                            ThousandsSeparatorInputFormatter(),
                           ],
                           maxLength: 12,
                           hideCounterText: true,
@@ -106,7 +108,7 @@ class _MileageScreenState extends State<MileageScreen> {
                           title: LocaleKeys.Mileage.tr(),
                           hintText: '0 km',
                           borderRadius: 12,
-                          keyBoardType: TextInputType.number,
+                          keyBoardType: TextInputType.phone,
                           controller: mileageController,
                           fillColor: Theme.of(context)
                               .extension<WTextFieldStyle>()!
