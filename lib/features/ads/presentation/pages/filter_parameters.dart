@@ -231,8 +231,8 @@ class _FilterParametersState extends State<FilterParameters> {
                       yearValues: value,
                     )),
                     title: LocaleKeys.year_of_issue.tr(),
-                    endValue: widget.yearValues?.end ?? DateTime.now().year + 0,
-                    startValue: widget.yearValues?.start ?? 1960,
+                    endValue: state.yearValues.end,
+                    startValue: state.yearValues.start,
                   ),
                   const SizedBox(height: 16),
                   WRangeSlider(
@@ -241,8 +241,8 @@ class _FilterParametersState extends State<FilterParameters> {
                       priceValues: value,
                     )),
                     title: LocaleKeys.price.tr(),
-                    endValue: widget.priceValues?.end ?? 500000,
-                    startValue: widget.priceValues?.start ?? 1000,
+                    endValue: state.priceValues.end,
+                    startValue: state.priceValues.start,
                     isForPrice: true,
                     description:
                         state.currency == Currency.uzs ? 'сум' : 'у.е.',
