@@ -54,7 +54,7 @@ class MainFavorites extends StatelessWidget {
                             itemBuilder: (context, index) => Builder(
                                 builder: (context) => AdsItem(
                                       id: favorites[index].id,
-                                      name: favorites[index].make.name,
+                                      name: '${favorites[index].make.name} ${favorites[index].model.name} ${favorites[index].generation.name}',
                                       price: favorites[index].price.toString(),
                                       location: favorites[index].region.title,
                                       description: favorites[index].description,

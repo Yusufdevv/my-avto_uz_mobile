@@ -1,5 +1,4 @@
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/profile/domain/entities/dealer_type_entity.dart';
@@ -69,7 +68,7 @@ class _FavouritePageState extends State<FavouritePage> {
                               bloc: bloc,
                                 animation: animation,
                                 gallery: item.gallery,
-                                carModelName: item.model.name,
+                                carModelName: '${item.make.name} ${item.model.name} ${item.generation.name}',
                                 carYear: item.year,
                                 contactPhone: item.contactPhone,
                                 description: item.description,

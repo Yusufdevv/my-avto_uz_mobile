@@ -75,7 +75,7 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                                   .announcementList[index].dealer.phoneNumber,
                           avatarPicture:
                               state.announcementList[index].user.avatar,
-                          carModel: state.announcementList[index].model,
+                          carModel: '${state.announcementList[index].make} ${state.announcementList[index].model} ${state.announcementList[index].generation}',
                           hasDiscount:
                               state.announcementList[index].discount != 0,
                           location: state.announcementList[index].region,
@@ -102,8 +102,12 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                           initialLike:
                               state.announcementList[index].isWishlisted,
                           id: state.announcementList[index].id,
-                          onTapComparsion: () {},
-                          onTapFavorites: () {},
+                          onTapComparsion: () {
+                            /// tegma, ichkarida AddComparisonItemda function-i yozilgan
+                          },
+                          onTapFavorites: () {
+                            /// tegma, ichkarida AddWishlistItemda function-i yozilgan
+                          },
                           initialComparsions:
                               state.announcementList[index].isComparison,
                         ),

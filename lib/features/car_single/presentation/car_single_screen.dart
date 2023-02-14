@@ -185,7 +185,9 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                         slug: state.singleEntity.user.slug)));
                               }
                             },
-                            onCompare: () {},
+                            onCompare: () {
+                              /// tegma, ichkarida AddComparisonItemda function-i yozilgan
+                            },
                             isMine: state.singleEntity.isMine,
                             status: state.soldStatus,
                             onSold: () {
@@ -240,7 +242,9 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                   ? 'USD'
                                   : 'UZS',
                               onVin: () {},
-                              onComparison: () {},
+                              onComparison: () {
+                                /// tegma, ichkarida AddComparisonItemda function-i yozilgan
+                              },
                               onShare: () {
                                 Share.share(
                                     'https://panel.avto.uz/api/v1/car/announcement/${state.singleEntity.id}/detail/');
