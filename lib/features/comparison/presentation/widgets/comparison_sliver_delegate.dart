@@ -178,6 +178,11 @@ class ComparisonSliverDelegete extends SliverPersistentHeaderDelegate {
                                                   item.order,
                                                 ),
                                               );
+                                          context.read<ComparisonAddBloc>().add(
+                                              ComparisonAddEvent
+                                                  .addToMapComparison(
+                                                      id: item.announcement.id,
+                                                      value: false));
                                         },
                                         id: item.id,
                                         animation: animation,

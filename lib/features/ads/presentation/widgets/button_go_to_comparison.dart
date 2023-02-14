@@ -32,9 +32,10 @@ class ButtonGoToComparison extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) => WButton(
           onTap: () {
-            Navigator.pop(context, [
-              if (state.count > 0) true else false,
-            ]);
+            Navigator.pop(
+              context,
+              state.count > 0,
+            );
           },
           padding: const EdgeInsets.all(12),
           child: Row(
