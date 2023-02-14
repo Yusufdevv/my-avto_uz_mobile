@@ -54,11 +54,12 @@ void main() async {
   runApp(
     EasyLocalization(
         supportedLocales: const [
-          Locale('ru'),
           Locale('uz'),
+          Locale('ru'),
         ],
         path: 'lib/assets/strings',
         fallbackLocale: const Locale('uz'),
+        startLocale: const Locale('uz'),
         assetLoader: const CodegenLoader(),
         child: const AppProvider()),
   );

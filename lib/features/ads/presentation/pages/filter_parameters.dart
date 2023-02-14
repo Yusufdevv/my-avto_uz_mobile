@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_bool_literals_in_conditional_expressions
 
+import 'dart:developer';
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
@@ -49,13 +51,13 @@ class _FilterParametersState extends State<FilterParameters> {
   void initState() {
     super.initState();
     filterBloc = FilterBloc(
-      bodyType: widget.bodyType,
-      carDriveType: widget.carDriveType,
-      gearboxType: widget.gearboxType,
-      priceValues: widget.priceValues,
-      yearValues: widget.yearValues,
-      isCheck: widget.isCheck ?? false,
-    );
+        bodyType: widget.bodyType,
+        carDriveType: widget.carDriveType,
+        gearboxType: widget.gearboxType,
+        priceValues: widget.priceValues,
+        yearValues: widget.yearValues,
+        isCheck: widget.isCheck ?? false,
+        currency: widget.currency);
   }
 
   @override
@@ -231,8 +233,8 @@ class _FilterParametersState extends State<FilterParameters> {
                       yearValues: value,
                     )),
                     title: LocaleKeys.year_of_issue.tr(),
-                    endValue: widget.yearValues?.end ?? DateTime.now().year + 0,
-                    startValue: widget.yearValues?.start ?? 1960,
+                    endValue: state.yearValues.end,
+                    startValue: state.yearValues.start,
                   ),
                   const SizedBox(height: 16),
                   WRangeSlider(
@@ -241,8 +243,8 @@ class _FilterParametersState extends State<FilterParameters> {
                       priceValues: value,
                     )),
                     title: LocaleKeys.price.tr(),
-                    endValue: widget.priceValues?.end ?? 500000,
-                    startValue: widget.priceValues?.start ?? 1000,
+                    endValue: state.priceValues.end,
+                    startValue: state.priceValues.start,
                     isForPrice: true,
                     description:
                         state.currency == Currency.uzs ? 'сум' : 'у.е.',
@@ -256,6 +258,7 @@ class _FilterParametersState extends State<FilterParameters> {
                           state.yearValues != widget.yearValues;
                       isFilter = state.currency != widget.currency ||
                           state.isCheck != widget.isCheck;
+                      log('======= $isFilter');
                       Navigator.of(context).pop({
                         'bodyType': state.bodyType,
                         'gearboxType': state.gearboxType,
