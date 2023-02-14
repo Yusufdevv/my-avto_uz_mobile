@@ -321,8 +321,8 @@ class _MapScreenState extends State<MapScreen>
       placeMarks.add(
         PlacemarkMapObject(
           opacity: 1,
-          mapId: MapObjectId(point.latitude.toString()),
-          point: Point(latitude: point.latitude, longitude: point.longitude),
+          mapId: MapObjectId(mapModel.latitude.toString()),
+          point: Point(latitude: mapModel.latitude, longitude: mapModel.longitude),
           onTap: (object, point) {
             mapOrganizationBloc.add(MapOrganizationEvent.getAddressOfDealler(
                 lat: point.latitude, long: point.longitude));
@@ -374,7 +374,7 @@ class _MapScreenState extends State<MapScreen>
             PlacemarkIconStyle(
               image: BitmapDescriptor.fromBytes(
                 await MyFunctions.getBytesFromCanvas(
-                    image: AppImages.audi,
+                    image: AppIcons.dealersLocIcon,
                     width: 170,
                     height: 410,
                     placeCount: cluster.placemarks.length,
