@@ -10,12 +10,16 @@ class FilterState extends Equatable {
   final RangeValues yearValues;
   final RangeValues priceValues;
   final bool isCheck;
+  final double? priceStart;
+  final double? priceEnd;
 
   const FilterState({
     required this.priceValues,
     required this.yearValues,
     required this.regions,
     required this.isCheck,
+    this.priceStart,
+    this.priceEnd,
     this.maker,
     this.bodyType,
     this.carDriveType,
@@ -33,6 +37,8 @@ class FilterState extends Equatable {
     RangeValues? priceValues,
     Currency? currency,
     bool? isCheck,
+    double? priceStart,
+    double? priceEnd,
   }) =>
       FilterState(
         regions: regions ?? this.regions,
@@ -44,6 +50,8 @@ class FilterState extends Equatable {
         priceValues: priceValues ?? this.priceValues,
         currency: currency ?? this.currency,
         isCheck: isCheck ?? this.isCheck,
+        priceStart: priceStart ?? this.priceStart,
+        priceEnd: priceEnd ?? this.priceEnd,
       );
 
   @override
@@ -56,6 +64,8 @@ class FilterState extends Equatable {
         yearValues,
         priceValues,
         currency,
-        isCheck
+        isCheck,
+        priceStart,
+        priceEnd,
       ];
 }

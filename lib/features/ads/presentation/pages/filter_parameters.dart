@@ -241,8 +241,8 @@ class _FilterParametersState extends State<FilterParameters> {
                       priceValues: value,
                     )),
                     title: LocaleKeys.price.tr(),
-                    endValue: state.priceValues.end,
-                    startValue: state.priceValues.start,
+                    endValue: state.priceEnd ?? 0,
+                    startValue: state.priceStart ?? 1,
                     isForPrice: true,
                     description:
                         state.currency == Currency.uzs ? 'сум' : 'у.е.',

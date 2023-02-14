@@ -43,6 +43,8 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
           yearValues: yearValues ?? RangeValues(1960, DateTime.now().year + 0),
           priceValues: priceValues ?? const RangeValues(1000, 500000),
           isCheck: isCheck,
+          priceStart: priceValues?.start,
+          priceEnd: priceValues?.end,
         )) {
     on<FilterClearEvent>((event, emit) => emit(FilterState(
           isCheck: false,
@@ -50,6 +52,9 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
           yearValues:
               event.yearValues ?? RangeValues(1960, DateTime.now().year + 0),
           priceValues: event.priceValues ?? const RangeValues(1000, 500000),
+          priceStart: priceValues?.start,
+          priceEnd: priceValues?.end,
+          currency: Currency.usd,
         )));
     on<FilterSelectEvent>((event, emit) async {
       emit(state.copyWith(
@@ -72,6 +77,8 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
       }
       emit(state.copyWith(
         priceValues: priceValues,
+        priceStart: priceValues?.start,
+        priceEnd: priceValues?.end,
         currency: event.currency,
       ));
     });
