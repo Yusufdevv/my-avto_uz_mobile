@@ -90,8 +90,7 @@ class _AdsScreenState extends State<AdsScreen>
         makeLogo: widget.makeLogo,
         historySaved: widget.historySaved,
       ))
-      ..add(
-        SetFilter(
+      ..add(SetFilter(
         historyId: widget.historyId,
         bodyType: widget.queryData?.bodyType ?? const BodyTypeEntity(),
         gearboxType: widget.queryData?.gearboxType ?? const GearboxTypeEntity(),
@@ -131,10 +130,9 @@ class _AdsScreenState extends State<AdsScreen>
               announcementListBloc
                   .add(const ChangeSaveFilterStatus(FormzStatus.pure));
               //!mysearches ni sonini oshirish uchun ishlatilgan, mySearchesCount nechta qo'shishni bildiradi
-              if(state.historyId.isEmpty) {
+              if (state.historyId.isEmpty) {
                 context.read<ProfileBloc>().add(
-                  ChangeCountDataEvent(
-                      adding: true, mySearchesCount: 1));
+                    ChangeCountDataEvent(adding: true, mySearchesCount: 1));
               }
             }
           },
@@ -204,6 +202,19 @@ class _AdsScreenState extends State<AdsScreen>
                         theme: Theme.of(context).extension<ThemedColors>()!,
                         tabController: tabController,
                         bloc: announcementListBloc,
+                        makeName: state.makeName ?? '',
+                        modelName: state.modelName ?? '',
+                        makeLogo: state.makeLogo ?? '',
+                        makeId: state.makeId,
+                        modelId: state.modelId,
+                        bodyType: state.bodyType,
+                        gearboxType: state.gearboxType,
+                        driveType: state.driveType,
+                        yearValues: state.yearValues,
+                        priceValues: state.priceValues,
+                        currency: state.currency,
+                        regions: state.regions,
+                        isFilter: state.isFilter,
                       ),
                     ),
                   ],

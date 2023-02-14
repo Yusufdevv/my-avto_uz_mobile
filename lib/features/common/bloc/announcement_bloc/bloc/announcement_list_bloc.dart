@@ -119,7 +119,7 @@ class AnnouncementListBloc
       if (state.currency != event.currency && event.currency != null) {
         add(const GetMinMaxPriceYear());
       }
-
+      print('state.bodyType:1 ${event.bodyType}');
       emit(state.copyWith(
         currency: event.currency ?? state.currency,
         gearboxType: event.gearboxType,
