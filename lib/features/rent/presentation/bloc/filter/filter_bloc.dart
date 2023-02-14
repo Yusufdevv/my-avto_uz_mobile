@@ -58,6 +58,9 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
           priceStart: priceValues?.start,
           priceEnd: priceValues?.end,
           currency: currency ?? Currency.usd,
+          bodyType: null,
+          carDriveType: null,
+          gearboxType: null,
         )));
     on<FilterSelectEvent>((event, emit) async {
       emit(state.copyWith(
