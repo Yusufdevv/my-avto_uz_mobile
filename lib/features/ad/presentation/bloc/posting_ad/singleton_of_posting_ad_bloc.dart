@@ -47,6 +47,7 @@ class PASingleton {
           v.rentWithPurchaseConditions.isNotEmpty && (v.rentToBuy ?? false),
       'rent_with_purchase':
           v.rentWithPurchaseConditions.map((e) => e.toApi()).toList(),
+          
     };
     if (v.milageImage != null && v.milageImage!.isNotEmpty) {
       final milageImage = await MultipartFile.fromFile(v.milageImage!);
@@ -83,8 +84,11 @@ class PASingleton {
     return announcementFormData;
   }
 
-  static Map<String, dynamic> getMiniPrice(PostingAdState state) =>
-      {'make': state.make, 'model': state.model, 'currency': state.currency};
+  static Map<String, dynamic> getMiniPrice(PostingAdState state) => {
+        'make': state.make!.id,
+        'model': state.model!.id,
+        'currency': state.currency
+      };
 
   static PostingAdState initUserFromApi(UserModel user, PostingAdState state) =>
       state.copyWith(
@@ -247,7 +251,6 @@ class PASingleton {
         nameController: event.nameController,
         eventMakeScrrollIndex: _getMakeLetterIndex(event, state.makes),
         description: event.description,
-
       );
 
   static int? _getMakeLetterIndex(

@@ -24,12 +24,7 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class ContactScreen extends StatefulWidget {
-
-
-  const ContactScreen(
-      {
-      Key? key})
-      : super(key: key);
+  const ContactScreen({Key? key}) : super(key: key);
 
   @override
   State<ContactScreen> createState() => _ContactScreenState();
@@ -184,6 +179,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                 }
                                 return null;
                               },
+                              keyBoardType: TextInputType.emailAddress,
                               borderColor: Theme.of(context)
                                   .extension<WTextFieldStyle>()!
                                   .borderColor,
@@ -229,16 +225,19 @@ class _ContactScreenState extends State<ContactScreen> {
                                     left: 16, right: 8, top: 13.5),
                                 child: Text(
                                   '+998',
-                                  style: postingAdState.phoneController.text.isEmpty? Theme.of(context)
-                                      .textTheme
-                                      .headline2!
-                                      .copyWith(fontWeight: FontWeight.w400):Theme.of(context)
-                                      .textTheme
-                                      .headline1!
-                                      .copyWith(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                                  style: postingAdState
+                                          .phoneController.text.isEmpty
+                                      ? Theme.of(context)
+                                          .textTheme
+                                          .headline2!
+                                          .copyWith(fontWeight: FontWeight.w400)
+                                      : Theme.of(context)
+                                          .textTheme
+                                          .headline1!
+                                          .copyWith(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                          ),
                                 ),
                               ),
                               hintText: '_ _  _ _ _  _ _  _ _',
@@ -332,7 +331,8 @@ class _ContactScreenState extends State<ContactScreen> {
                                                         .add(ShowPopUp(
                                                             message: value
                                                                 .toString(),
-                                                           status: PopStatus.error,
+                                                            status:
+                                                                PopStatus.error,
                                                             dismissible:
                                                                 false));
                                                   }

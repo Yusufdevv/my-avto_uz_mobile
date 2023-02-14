@@ -273,7 +273,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                     return Scaffold(
                         body: Center(
                             child: Padding(
-                                padding: EdgeInsets.all(20),
+                                padding:const EdgeInsets.all(20),
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -426,10 +426,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                               PriceScreen(initialPrice: state.price ?? ''),
                               //18
                               MileageScreen(
-                                  onImageChange: (image) {
-                                    print(
-                                        '=> => => =>     POSTING ADD PAGE: ${image}    <= <= <= <=');
-
+                                  onImageChange: (image) { 
                                     postingAdBloc.add(PostingAdChooseEvent(
                                         milageImage: image));
                                   },

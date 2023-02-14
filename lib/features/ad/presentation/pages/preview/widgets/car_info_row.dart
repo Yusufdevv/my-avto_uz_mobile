@@ -1,3 +1,4 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:flutter/material.dart';
 
 class CarInfoRow extends StatelessWidget {
@@ -31,10 +32,10 @@ class CarInfoRow extends StatelessWidget {
             Expanded(
               flex: 20,
               child: Text(info,
-                  style: Theme.of(context)
-                      .textTheme
-                      .caption!
-                      .copyWith(fontSize: 14, fontWeight: FontWeight.w400)),
+                  style: Theme.of(context).textTheme.caption!.copyWith(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: greyText)),
             ),
           ],
         ),

@@ -1,4 +1,3 @@
-import 'package:auto/features/ad/data/models/modification_type.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/preview/widgets/car_info_row.dart';
 import 'package:auto/features/ad/presentation/pages/preview/widgets/car_model_price_text.dart';
@@ -34,12 +33,16 @@ class PreviewScreen extends StatelessWidget {
                       ImageViewer(
                           images: [...state.gallery, ...state.panaramaGallery]),
                       const SizedBox(height: 12),
-                      CarModelText(text: state.model?.name ?? 'null'),
+                      CarModelText(
+                          text:
+                              '${state.make?.name ?? ''} ${state.model?.name ?? ''} ${state.generations.first.name}'),
                       CarPriceText(text: '${state.price}'),
                       const SizedBox(height: 12),
                       DateAndViewsRow(date: state.purchasedDate!),
                       const SizedBox(height: 8),
-                      IdRow(id: state.id ?? ''),
+                      //
+                      if (state.id != null) IdRow(id: state.id ?? ''),
+                      //
                       Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 16, vertical: 16),
@@ -50,13 +53,13 @@ class PreviewScreen extends StatelessWidget {
                           title: LocaleKeys.years_of_issue.tr(),
                           info: state.yearEntity == null
                               ? ''
-                              : '${state.yearEntity!.yearBegin}'),
+                              : '${state.yearEntity?.yearBegin}'),
                       CarInfoRow(
                           title: LocaleKeys.Mileage.tr(),
                           info: state.mileage ?? '0'),
                       CarInfoRow(
                           title: LocaleKeys.body.tr(),
-                          info: state.bodyType?.type ?? 'null'),
+                          info: state.bodyType?.type ?? ''),
                       CarInfoRow(
                         title: LocaleKeys.color.tr(),
                         info: '${state.colorName}',

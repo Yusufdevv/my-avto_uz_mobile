@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:auto/features/ad/presentation/pages/preview/widgets/image_indicator.dart';
+import 'package:auto/features/car_single/presentation/widgets/more_container.dart';
 import 'package:flutter/material.dart';
 
 class ImageViewer extends StatefulWidget {
@@ -77,20 +78,39 @@ class _ImageViewerState extends State<ImageViewer> {
                             widget.images[index],
                             fit: BoxFit.cover,
                           )
-                        : Image.file(File(widget.images[index]),fit: BoxFit.cover,),
+                        : Image.file(
+                            File(widget.images[index]),
+                            fit: BoxFit.cover,
+                          ),
                   ),
                 ),
               ),
             ),
-            Positioned(
-              left: 16,
-              right: 16,
-              bottom: 12,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: buildIndicator(),
+            if (widget.images.length > 1)
+              Positioned(
+                bottom: 12,
+                left: 14,
+                right: 14,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 20,
+                      child: Row(
+                        children: List.generate(
+                          widget.images.length,
+                          (index) => MoreContainer(
+                            itemQuantity: widget.images.length,
+                            color: index == currentIndex
+                                ? Colors.white
+                                : const Color(0xFFB5B5BE),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
           ],
         ),
       );

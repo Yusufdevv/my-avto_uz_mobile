@@ -154,6 +154,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         emailController: TextEditingController(),
         nameController: TextEditingController(),
         searchController: TextEditingController(),
+        makes: state.makes,
       ),
     );
     add(PostingAdMakesEvent());
@@ -234,7 +235,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         add(PostingAdModificationsEvent());
         break;
       case 16:
-        add(PostingAdGetRegionsEvent());
+        if (state.regions.isEmpty) add(PostingAdGetRegionsEvent());
         break;
       case 17:
         add(PostingAdGetMinimumPriceEvent());

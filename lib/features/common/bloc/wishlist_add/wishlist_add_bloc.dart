@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto/features/common/usecases/add_wishlist_usecase.dart';
 import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';
@@ -16,6 +18,7 @@ class WishlistAddBloc extends Bloc<WishlistAddEvent, WishlistAddState> {
   WishlistAddBloc({required this.useCase, required this.removeWishlistUseCase})
       : super(WishlistAddState()) {
     on<_GoToAds>((event, emit) async {
+      log('=======gotoads ${event.goToAds}');
       emit(state.copyWith(goToAds: event.goToAds));
     });
     on<_AddWishlist>((event, emit) async {

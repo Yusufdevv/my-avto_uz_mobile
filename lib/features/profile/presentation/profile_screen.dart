@@ -35,22 +35,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void initState() {
-    if (mounted) {
-      Timer(
-        const Duration(milliseconds: 500),
-        () async {
-          log('Timer is end and goin to Myadds go to:  ${context.read<WishlistAddBloc>().state.goToAds}');
-          if (context.read<WishlistAddBloc>().state.goToAds == 1) {
-            await Navigator.of(context)
-                .push(fade(page: const MyAdsPage()))
-                .then((value) => context
-                    .read<WishlistAddBloc>()
-                    .add(WishlistAddEvent.goToAdds(-1)));
-          }
-        },
-      );
-    }
-
     imageBloc = ImageBloc();
     super.initState();
   }
@@ -90,12 +74,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
             builder: (context, state) {
               if (state.status.isSubmissionInProgress ||
                   stateWish.goToAds == 1) {
+                Timer(
+                  const Duration(milliseconds: 500),
+                  () async {
+                    if (context.read<WishlistAddBloc>().state.goToAds == 1) {
+                      await Navigator.of(context)
+                          .push(fade(page: const MyAdsPage()))
+                          .then((value) => context
+                              .read<WishlistAddBloc>()
+                              .add(WishlistAddEvent.goToAdds(-1)));
+                    }
+                  },
+                );
                 return const Center(child: CupertinoActivityIndicator());
               }
-              // else if (state.status.isSubmissionFailure) {
-              //   return const SizedBox();
-              // }
-              // else
               if (state.status.isSubmissionSuccess ||
                   state.status.isSubmissionFailure) {
                 profileData = state.profileEntity;

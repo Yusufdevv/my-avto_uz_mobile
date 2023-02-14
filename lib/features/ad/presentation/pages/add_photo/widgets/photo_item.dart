@@ -3,7 +3,6 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/pages/add_photo/widgets/image_item.dart';
 import 'package:auto/features/ad/presentation/pages/add_photo/widgets/plus_circle.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PhotoItem extends StatefulWidget {

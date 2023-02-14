@@ -6,11 +6,9 @@ import 'package:auto/features/ad/presentation/pages/add_photo/widgets/add_photo_
 import 'package:auto/features/ad/presentation/pages/add_photo/widgets/photo_item.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
-import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:auto/generated/locale_keys.g.dart';
-import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -100,52 +98,45 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                       context.read<PostingAdBloc>().add(PostingAdChooseEvent(
                           panaramaGallery: state.panaramaImages));
                     },
-                    builder: (context, state) => Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        PhotoItem(
-                          images: state.images,
-                          onTap: () async {
-                            await showModalBottomSheet<ImageSource>(
-                                    backgroundColor: Colors.transparent,
-                                    context: context,
-                                    useRootNavigator: true,
-                                    builder: (context) =>
-                                        CameraBottomSheet(imageBloc: imageBloc))
-                                .then((value) {
-                              if (value != null) {
-                                imageBloc.add(PickImage(source: value));
-                              }
-                            });
-                          },
-                        ),
-                        const SizedBox(height: 16),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Text(
-                            '${LocaleKeys.photo.tr()} 360°',
-                            style: Theme.of(context)
-                                .textTheme
-                                .subtitle1!
-                                .copyWith(color: grey),
+                    builder: (context, state) => SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          PhotoItem(
+                            images: state.images,
+                            onTap: () async {
+                              await showModalBottomSheet<ImageSource>(
+                                  backgroundColor: Colors.transparent,
+                                  context: context,
+                                  useRootNavigator: true,
+                                  builder: (context) => CameraBottomSheet(
+                                      imageBloc: imageBloc)).then((value) {
+                                if (value != null) {
+                                  imageBloc.add(PickImage(source: value));
+                                }
+                              });
+                            },
                           ),
-                        ),
-                        PhotoItem(
-                          images: state.panaramaImages,
-                          onTap: () async {
-                            print('object');
-                            imageBloc.add(PickPanaramaImageEvent());
-                          },
-                        ),
-                        // WButton(
-                        //     text: 'print',
-                        //     onTap: () {
-                        //       String str = '9823452374';
-                        //
-                        //       print(
-                        //           '=====> ${MyFunctions.getThousandsSeperatedPrice('1241234523425')}');
-                        //     }),
-                      ],
+                          const SizedBox(height: 16),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: Text(
+                              '${LocaleKeys.photo.tr()} 360°',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .subtitle1!
+                                  .copyWith(color: grey),
+                            ),
+                          ),
+                          PhotoItem(
+                            images: state.panaramaImages,
+                            onTap: () async {
+                              imageBloc.add(PickPanaramaImageEvent());
+                            },
+                          ),
+                          const SizedBox(height: 64)
+                        ],
+                      ),
                     ),
                   ),
                 ),
