@@ -59,6 +59,7 @@ void main() async {
         ],
         path: 'lib/assets/strings',
         fallbackLocale: const Locale('uz'),
+        startLocale: const Locale('uz'),
         assetLoader: const CodegenLoader(),
         child: const AppProvider()),
   );

@@ -22,6 +22,7 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
   final bool isCheck;
   final RangeValues? yearValues;
   final RangeValues? priceValues;
+  final Currency? currency;
   GetMinMaxPriceYearUseCase minMaxPriceYearUseCase =
       GetMinMaxPriceYearUseCase();
 
@@ -33,6 +34,7 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
     this.gearboxType,
     this.yearValues,
     this.priceValues,
+    this.currency,
     this.isCheck = false,
   }) : super(FilterState(
           bodyType: bodyType,
@@ -43,6 +45,7 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
           yearValues: yearValues ?? RangeValues(1960, DateTime.now().year + 0),
           priceValues: priceValues ?? const RangeValues(1000, 500000),
           isCheck: isCheck,
+          currency: currency ?? Currency.usd
         )) {
     on<FilterClearEvent>((event, emit) => emit(FilterState(
           isCheck: false,
