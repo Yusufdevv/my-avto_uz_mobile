@@ -222,8 +222,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                     context.read<ShowPopUpBloc>().add(
                           ShowPopUp(
                             message: widget.announcementId == null
-                                ? state.toastMessage!
-                                : 'Your ad edited successfully!',
+                                ? state.toastMessage ?? ''
+                                : LocaleKeys.your_ad_edited_successfully.tr(),
                             status: PopStatus.success,
                             dismissible: false,
                           ),

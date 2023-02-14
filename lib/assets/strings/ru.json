@@ -509,5 +509,6 @@
   "remove_from_comparison" : "Убрать из сравнение",
   "add_to_comparison" : "Добавить в сравнения",
   "go_to_comparison" : "Перейти к сравнению",
-  "added_x_auto" : "добавлено {} авто"
+  "added_x_auto" : "добавлено {} авто",
+  "your_ad_edited_successfully" : "Ваше объявление успешно отредактировано!"
 }

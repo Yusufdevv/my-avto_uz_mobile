@@ -508,5 +508,6 @@
   "remove_from_comparison" : "Taqqoslashdan o'chirish",
   "add_to_comparison" : "Taqqoslashga qo'shish",
   "go_to_comparison" : "Taqqoslashga borish",
-  "added_x_auto" : "{} ta qo'shildi"
+  "added_x_auto" : "{} ta qo'shildi",
+  "your_ad_edited_successfully" : "Reklamangiz muvaffaqiyatli tahrirlandi!"
 }
