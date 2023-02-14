@@ -75,21 +75,19 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
       ));
     });
     on<FilterChangeCurrencyEvent>((event, emit) async {
-      if (state.currency != Currency.euro) {
-        final result =
-            await minMaxPriceYearUseCase.call(state.currency?.value ?? '');
-        RangeValues? priceValues;
-        if (result.isRight) {
-          priceValues = RangeValues(double.parse(result.right.minPrice),
-              double.parse(result.right.maxPrice));
-        }
-        emit(state.copyWith(
-          priceValues: priceValues,
-          priceStart: priceValues?.start,
-          priceEnd: priceValues?.end,
-          currency: event.currency,
-        ));
+      final result =
+          await minMaxPriceYearUseCase.call(state.currency?.value ?? '');
+      RangeValues? priceValues;
+      if (result.isRight) {
+        priceValues = RangeValues(double.parse(result.right.minPrice),
+            double.parse(result.right.maxPrice));
       }
+      emit(state.copyWith(
+        priceValues: priceValues,
+        priceStart: priceValues?.start,
+        priceEnd: priceValues?.end,
+        currency: event.currency,
+      ));
     });
   }
 }

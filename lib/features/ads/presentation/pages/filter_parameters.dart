@@ -62,12 +62,6 @@ class _FilterParametersState extends State<FilterParameters> {
   }
 
   @override
-  void dispose() {
-    filterBloc.close();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) => BlocProvider.value(
         value: filterBloc,
         child: BlocBuilder<FilterBloc, FilterState>(
@@ -205,7 +199,7 @@ class _FilterParametersState extends State<FilterParameters> {
                       WButton(
                         onTap: () {
                           filterBloc.add(
-                              const FilterChangeCurrencyEvent(Currency.none));
+                              const FilterChangeCurrencyEvent(Currency.uzs));
                         },
                         height: 36,
                         width: MediaQuery.of(context).size.width * 0.45,

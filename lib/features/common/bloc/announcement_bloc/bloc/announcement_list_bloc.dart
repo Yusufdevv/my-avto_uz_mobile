@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
@@ -118,7 +116,6 @@ class AnnouncementListBloc
       }
     });
     on<GetMinMaxPriceYear>((event, emit) async {
-      if (state.currency != Currency.euro) {
         final result =
             await minMaxPriceYearUseCase.call(state.currency?.value ?? '');
         if (result.isRight) {
@@ -131,7 +128,6 @@ class AnnouncementListBloc
             ),
           );
         }
-      }
     });
     on<SetFilter>((event, emit) {
       if (state.currency != event.currency) {
