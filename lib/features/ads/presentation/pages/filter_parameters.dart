@@ -51,13 +51,14 @@ class _FilterParametersState extends State<FilterParameters> {
   void initState() {
     super.initState();
     filterBloc = FilterBloc(
-        bodyType: widget.bodyType,
-        carDriveType: widget.carDriveType,
-        gearboxType: widget.gearboxType,
-        priceValues: widget.priceValues,
-        yearValues: widget.yearValues,
-        isCheck: widget.isCheck ?? false,
-        currency: widget.currency);
+      bodyType: widget.bodyType,
+      carDriveType: widget.carDriveType,
+      gearboxType: widget.gearboxType,
+      priceValues: widget.priceValues,
+      yearValues: widget.yearValues,
+      isCheck: widget.isCheck ?? false,
+      currency: widget.currency,
+    );
   }
 
   @override
@@ -204,7 +205,7 @@ class _FilterParametersState extends State<FilterParameters> {
                       WButton(
                         onTap: () {
                           filterBloc.add(
-                              const FilterChangeCurrencyEvent(Currency.uzs));
+                              const FilterChangeCurrencyEvent(Currency.none));
                         },
                         height: 36,
                         width: MediaQuery.of(context).size.width * 0.45,
@@ -216,7 +217,7 @@ class _FilterParametersState extends State<FilterParameters> {
                             ? Border.all(color: purple)
                             : null,
                         child: Text(
-                          'сум',
+                          LocaleKeys.sum.tr(),
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
@@ -246,8 +247,9 @@ class _FilterParametersState extends State<FilterParameters> {
                     endValue: state.priceEnd ?? 0,
                     startValue: state.priceStart ?? 1,
                     isForPrice: true,
-                    description:
-                        state.currency == Currency.uzs ? 'сум' : 'у.е.',
+                    description: state.currency == Currency.uzs
+                        ? LocaleKeys.sum.tr()
+                        : 'у.е.',
                   ),
                   const Spacer(),
                   WButton(

@@ -98,20 +98,20 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     ),
                   ),
                   const Spacer(),
-                  if (currentIndex != 2)
-                    WScaleAnimation(
-                        onTap: () {
-                          Navigator.of(context)
-                              .pushReplacement(fade(page: const LoginScreen()));
-                        },
-                        child: Text(
-                          LocaleKeys.skip.tr(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline1!
-                              .copyWith(
-                                  fontSize: 15, fontWeight: FontWeight.w400),
-                        )),
+                  // if (currentIndex != 2)
+                  //   WScaleAnimation(
+                  //       onTap: () {
+                  //         Navigator.of(context)
+                  //             .pushReplacement(fade(page: const LoginScreen()));
+                  //       },
+                  //       child: Text(
+                  //         LocaleKeys.skip.tr(),
+                  //         style: Theme.of(context)
+                  //             .textTheme
+                  //             .headline1!
+                  //             .copyWith(
+                  //                 fontSize: 15, fontWeight: FontWeight.w400),
+                  //       )),
                 ],
               ),
             ),

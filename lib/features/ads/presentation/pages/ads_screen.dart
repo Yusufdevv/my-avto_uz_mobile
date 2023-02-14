@@ -90,8 +90,7 @@ class _AdsScreenState extends State<AdsScreen>
         makeLogo: widget.makeLogo,
         historySaved: widget.historySaved,
       ))
-      ..add(
-        SetFilter(
+      ..add(SetFilter(
         historyId: widget.historyId,
         bodyType: widget.queryData?.bodyType ?? const BodyTypeEntity(),
         gearboxType: widget.queryData?.gearboxType ?? const GearboxTypeEntity(),
@@ -100,7 +99,6 @@ class _AdsScreenState extends State<AdsScreen>
             widget.queryData?.yearTo?.toDouble() ?? -1),
         priceValues: RangeValues(widget.queryData?.priceFrom?.toDouble() ?? -1,
             widget.queryData?.priceTo?.toDouble() ?? -1),
-        currency: Currency.uzs,
       ))
       ..add(const GetMinMaxPriceYear());
 
@@ -131,10 +129,9 @@ class _AdsScreenState extends State<AdsScreen>
               announcementListBloc
                   .add(const ChangeSaveFilterStatus(FormzStatus.pure));
               //!mysearches ni sonini oshirish uchun ishlatilgan, mySearchesCount nechta qo'shishni bildiradi
-              if(state.historyId.isEmpty) {
+              if (state.historyId.isEmpty) {
                 context.read<ProfileBloc>().add(
-                  ChangeCountDataEvent(
-                      adding: true, mySearchesCount: 1));
+                    ChangeCountDataEvent(adding: true, mySearchesCount: 1));
               }
             }
           },
