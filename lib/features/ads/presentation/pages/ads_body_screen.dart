@@ -75,7 +75,8 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                                   .announcementList[index].dealer.phoneNumber,
                           avatarPicture:
                               state.announcementList[index].user.avatar,
-                          carModel: '${state.announcementList[index].make} ${state.announcementList[index].model} ${state.announcementList[index].generation}',
+                          carModel:
+                              '${state.announcementList[index].make} ${state.announcementList[index].model} ${state.announcementList[index].generation}',
                           hasDiscount:
                               state.announcementList[index].discount != 0,
                           location: state.announcementList[index].region,
@@ -115,10 +116,8 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                     ),
                     itemCount: state.announcementList.length,
                     fetchMoreFunction: () {
-                      if (!state.status.isSubmissionInProgress) {
-                        widget.announcementListBloc
-                            .add(GetMoreAnnouncementList(isNew: widget.isNew));
-                      }
+                      widget.announcementListBloc
+                          .add(GetMoreAnnouncementList(isNew: widget.isNew));
                     },
                     hasMoreToFetch: state.next,
                     errorWidget: const SizedBox(),

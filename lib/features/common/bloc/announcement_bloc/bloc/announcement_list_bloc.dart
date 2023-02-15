@@ -42,12 +42,26 @@ class AnnouncementListBloc
             state.gearboxType?.id == -1 ? '' : state.gearboxType?.id,
         'is_new': event.isNew,
         'region__in': getRegionsId(state.regions),
-        'price_from':
-            state.priceValues?.start == -1 ? '' : state.priceValues?.start,
-        'price_to': state.priceValues?.end == -1 ? '' : state.priceValues?.end,
-        'year_from':
-            state.yearValues?.start == -1 ? '' : state.yearValues?.start,
-        'year_to': state.yearValues?.end == -1 ? '' : state.yearValues?.end,
+        'price_from': state.priceValues?.start == -1
+            ? ''
+            : state.priceValues?.start == 0.0
+                ? ''
+                : state.priceValues?.start,
+        'price_to': state.priceValues?.end == -1
+            ? ''
+            : state.priceValues?.end == 0.0
+                ? ''
+                : state.priceValues?.end,
+        'year_from': state.yearValues?.start == -1
+            ? ''
+            : state.yearValues?.start == 0.0
+                ? ''
+                : state.yearValues?.start,
+        'year_to': state.yearValues?.end == -1
+            ? ''
+            : state.yearValues?.end == 0.0
+                ? ''
+                : state.yearValues?.end,
         'limit': 10,
         'offset': 0,
         'currency': state.currency?.value
@@ -66,8 +80,6 @@ class AnnouncementListBloc
       }
     });
     on<GetMoreAnnouncementList>((event, emit) async {
-      emit(state.copyWith(status: FormzStatus.submissionInProgress));
-
       final result = await useCase.call({
         'make': state.makeId == -1 ? '' : state.makeId,
         'model': state.modelId == -1 ? '' : state.modelId,
@@ -77,12 +89,26 @@ class AnnouncementListBloc
             state.gearboxType?.id == -1 ? '' : state.gearboxType?.id,
         'is_new': event.isNew,
         'region__in': getRegionsId(state.regions),
-        'price_from':
-            state.priceValues?.start == -1 ? '' : state.priceValues?.start,
-        'price_to': state.priceValues?.end == -1 ? '' : state.priceValues?.end,
-        'year_from':
-            state.yearValues?.start == -1 ? '' : state.yearValues?.start,
-        'year_to': state.yearValues?.end == -1 ? '' : state.yearValues?.end,
+        'price_from': state.priceValues?.start == -1
+            ? ''
+            : state.priceValues?.start == 0.0
+                ? ''
+                : state.priceValues?.start,
+        'price_to': state.priceValues?.end == -1
+            ? ''
+            : state.priceValues?.end == 0.0
+                ? ''
+                : state.priceValues?.end,
+        'year_from': state.yearValues?.start == -1
+            ? ''
+            : state.yearValues?.start == 0.0
+                ? ''
+                : state.yearValues?.start,
+        'year_to': state.yearValues?.end == -1
+            ? ''
+            : state.yearValues?.end == 0.0
+                ? ''
+                : state.yearValues?.end,
         'limit': 10,
         'offset': state.announcementList.length,
         'currency': state.currency?.value
@@ -94,7 +120,6 @@ class AnnouncementListBloc
               ...state.announcementList,
               ...result.right.results
             ],
-            status: FormzStatus.submissionSuccess,
             count: result.right.count,
             next: result.right.next != null,
           ),
