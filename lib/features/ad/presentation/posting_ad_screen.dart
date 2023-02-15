@@ -42,9 +42,11 @@ import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class PostingAdScreen extends StatefulWidget {
+  final bool? isHaveToClearStae;
   final BuildContext parentContext;
 
-  const PostingAdScreen({required this.parentContext, Key? key})
+  const PostingAdScreen(
+      {required this.parentContext,   this.isHaveToClearStae, Key? key})
       : super(key: key);
 
   @override
@@ -195,6 +197,11 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                         message: '', status: PopStatus.success));
                   }
                 }, builder: (context, state) {
+                  if (state.status == FormzStatus.pure) {
+                    if (widget?.isHaveToClearStae ?? false) {
+                      postingAdBloc.add(PostingAdClearStateEvent());
+                    }
+                  }
                   if (state.getAnnouncementToEditStatus ==
                       FormzStatus.submissionFailure) {
                     return Scaffold(
@@ -349,8 +356,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                       postingAdBloc.add(
                                           PostingAdOnRentWithPurchaseConditionChangedEvent(
                                               condition: condition)),
-                                  onPriceChanged: (price) => postingAdBloc.add(
-                                      PostingAdChooseEvent(price: price)),
+                                  onPriceChanged: (price) => postingAdBloc
+                                      .add(PostingAdChooseEvent(price: price)),
                                   initialPrice: state.price ?? '',
                                   conditions: state
                                       .rentWithPurchaseConditions.entries

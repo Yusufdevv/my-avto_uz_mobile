@@ -159,7 +159,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       PostingAdState(
         getAnnouncementToEditStatus: FormzStatus.pure,
         popStatus: PopStatus.success,
-        status: FormzStatus.pure,
+        status: FormzStatus.submissionSuccess,
         phoneController: TextEditingController(),
         emailController: TextEditingController(),
         nameController: TextEditingController(),
