@@ -228,8 +228,8 @@ class _FilterParametersState extends State<FilterParameters> {
                       yearValues: value,
                     )),
                     title: LocaleKeys.year_of_issue.tr(),
-                    endValue: widget.yearValues?.end ?? DateTime.now().year + 0,
-                    startValue: widget.yearValues?.start ?? 1960,
+                    endValue: state.yearEnd ?? 0,
+                    startValue: state.yearStart ?? 0,
                   ),
                   const SizedBox(height: 16),
                   WRangeSlider(

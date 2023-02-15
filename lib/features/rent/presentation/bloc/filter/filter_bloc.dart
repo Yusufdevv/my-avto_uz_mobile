@@ -77,15 +77,21 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
     on<FilterChangeCurrencyEvent>((event, emit) async {
       final result = await minMaxPriceYearUseCase.call(event.currency.value);
       RangeValues? priceValues;
+      RangeValues? yearValues;
       if (result.isRight) {
         priceValues = RangeValues(double.parse(result.right.minPrice),
             double.parse(result.right.maxPrice));
+        yearValues = RangeValues(
+            result.right.minYear.toDouble(), result.right.maxYear.toDouble());
       }
       emit(state.copyWith(
         priceValues: priceValues,
         priceStart: priceValues?.start,
         priceEnd: priceValues?.end,
         currency: event.currency,
+        yearValues: yearValues,
+        yearEnd: yearValues?.end,
+        yearStart: yearValues?.start,
       ));
     });
   }
