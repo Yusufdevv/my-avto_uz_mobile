@@ -335,7 +335,27 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                 },
                               ),
                               //17
-                              PriceScreen(initialPrice: state.price ?? ''),
+                              PriceScreen(
+                                  currency: state.currency,
+                                  minimumPrice: state.minimumPrice,
+                                  price: state.price ?? '',
+                                  rentToBuy: state.rentToBuy ?? false,
+                                  onCurrencyChanged: (currency) =>
+                                      postingAdBloc.add(PostingAdChooseEvent(
+                                          currency: currency)),
+                                  onSwitchChanged: (v) => postingAdBloc
+                                      .add(PostingAdChooseEvent(rentToBuy: v)),
+                                  onConditionChanged: (condition) =>
+                                      postingAdBloc.add(
+                                          PostingAdOnRentWithPurchaseConditionChangedEvent(
+                                              condition: condition)),
+                                  onPriceChanged: (price) => postingAdBloc.add(
+                                      PostingAdChooseEvent(price: price)),
+                                  initialPrice: state.price ?? '',
+                                  conditions: state
+                                      .rentWithPurchaseConditions.entries
+                                      .map((e) => e.value)
+                                      .toList()),
                               //18
                               MileageScreen(
                                   onImageChange: (image) {

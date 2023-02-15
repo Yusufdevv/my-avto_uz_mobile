@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/pages/map_screen/map_screen_posting_ad.dart';
+import 'package:auto/features/ad/presentation/pages/price/price_screen.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -15,7 +16,6 @@ import 'package:auto/features/edit_ad/presentation/pages/equipment/equipment_scr
 import 'package:auto/features/edit_ad/presentation/pages/inspection_place/inspection_place_screen.dart';
 import 'package:auto/features/edit_ad/presentation/pages/mileage/mileage_screen.dart';
 import 'package:auto/features/edit_ad/presentation/pages/preview/preview_screen.dart';
-import 'package:auto/features/edit_ad/presentation/pages/price/price_screen.dart';
 import 'package:auto/features/edit_ad/presentation/pages/pts/pts_screen.dart';
 import 'package:auto/features/edit_ad/presentation/widgets/edit_ad_appbar.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
@@ -235,18 +235,14 @@ class _EditAdScreenState extends State<EditAdScreen>
                             ),
                             // 7
                             PriceScreen(
-                                onPriceChanged: (price) => context
-                                    .read<EditAdBloc>()
+                                onPriceChanged: (price) => editAdBloc
                                     .add(EditAdChooseEvent(price: price)),
-                                onConditionChanged: (condition) => context
-                                    .read<EditAdBloc>()
+                                onConditionChanged: (condition) => editAdBloc
                                     .add(EditAdOnRentWithPurchaseEvent(
                                         condition: condition)),
-                                onSwitchChanged: (v) => context
-                                    .read<EditAdBloc>()
+                                onSwitchChanged: (v) => editAdBloc
                                     .add(EditAdChooseEvent(rentToBuy: v)),
-                                onCurrencyChanged: (v) => context
-                                    .read<EditAdBloc>()
+                                onCurrencyChanged: (v) => editAdBloc
                                     .add(EditAdChooseEvent(currency: v)),
                                 rentToBuy: state.rentToBuy ?? false,
                                 price: state.price ?? '',
