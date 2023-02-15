@@ -1,8 +1,8 @@
 import 'package:auto/features/ad/domain/entities/types/modification_type.dart';
+import 'package:auto/features/common/domain/entity/car_generation_entity.dart';
 import 'package:auto/features/rent/data/models/rent_car_model.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_bodytype_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_category_entity.dart';
-import 'package:auto/features/rent/domain/entities/rent_car_generation_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_make_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_models_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_type_entity.dart';
@@ -19,8 +19,8 @@ class RentCarEntity extends Equatable {
   final RentCarMakeEntity make;
   @RentCarModelsConverter()
   final RentCarModelsEntity model;
-  @RentCarGenerationConverter()
-  final RentCarGenerationEntity generation;
+  @CarGenerationConverter()
+  final CarGenerationEntity generation;
   @RentCarBodyTypeConverter()
   final RentCarBodyTypeEntity bodyType;
   final int year;
@@ -47,7 +47,7 @@ class RentCarEntity extends Equatable {
     this.category = const RentCarCategoryEntity(),
     this.make = const RentCarMakeEntity(),
     this.model = const RentCarModelsEntity(),
-    this.generation = const RentCarGenerationEntity(),
+    this.generation = const  CarGenerationEntity(),
     this.bodyType = const RentCarBodyTypeEntity(),
     this.year = 0,
     this.driveType = const RentCarBodyTypeEntity(),

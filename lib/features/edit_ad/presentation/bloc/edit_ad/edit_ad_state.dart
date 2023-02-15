@@ -4,7 +4,6 @@ class EditAdState extends Equatable {
   final PopStatus popStatus;
   final FormzStatus status;
   final FormzStatus getDistrictsStatus;
-  final FormzStatus getMakesStatus;
   final FormzStatus createStatus;
 
   final FormzStatus getAnnouncementToEditStatus;
@@ -12,41 +11,28 @@ class EditAdState extends Equatable {
   final TextEditingController phoneController;
   final TextEditingController emailController;
   final TextEditingController nameController;
-  final TextEditingController searchController;
   final ModificationTypeEntity? modification;
-  final List<ModificationTypeEntity> modifications;
   final GearboxTypeEntity? gearbox;
-  final List<GearboxTypeEntity> gearBoxes;
   final int? driveTypeId;
-  final List<DriveTypeEntity> driveTypes;
   final int? engineId;
-  final List<EngineTypeEntity> engines;
   final MakeEntity? model;
-  final List<MakeEntity> models;
   final MakeEntity? make;
-  final List<MakeEntity> makes;
-  final List<MakeEntity> topMakes;
-  final int? generationId;
-  final List<GenerationEntity> generations;
+  final CarGenerationEntity? generationEntity;
   final BodyTypeEntity? bodyType;
-  final List<BodyTypeEntity> bodyTypes;
   final int? regionId;
   final List<Region> regions;
   final List<DistrictEntity> districts;
 
   final YearsEntity? yearEntity;
-  final List<YearsEntity>? years;
   final int? districtId;
   final List<String> gallery;
   final List<String> panaramaGallery;
-  final List<RentWithPurchaseEntity> rentWithPurchaseConditions;
+  final Map<int, RentWithPurchaseEntity> rentWithPurchaseConditions;
   final Map<DamagedParts, DamageType> damagedParts;
   final UserModel? userModel;
   final Uint8List? mapPointBytes;
   final num minimumPrice;
-  final int? makeLetterIndex;
   final String? milageImage;
-  final String? letter;
   final String? ownerName;
   final String? ownerEmail;
   final String? ownerPhone;
@@ -59,13 +45,10 @@ class EditAdState extends Equatable {
   final String? price;
   final String currency;
   final String? mileage;
-  final String? gasBalloonType;
   final String? callTimeFrom;
   final String? callTimeTo;
   final String? toastMessage;
   final String? locationUrl;
-  final bool hasAppBarShadow;
-  final bool isSortByLetter;
   final bool notRegisteredInUzbekistan;
   final bool isCallTimed;
   final bool showOwnerContacts;
@@ -77,46 +60,31 @@ class EditAdState extends Equatable {
   const EditAdState({
     required this.status,
     required this.getAnnouncementToEditStatus,
-    required this.searchController,
     required this.phoneController,
     required this.emailController,
     required this.nameController,
     required this.popStatus,
     this.id,
-    this.makeLetterIndex,
     this.minimumPrice = 0,
     this.modification,
-    this.modifications = const <ModificationTypeEntity>[],
     this.gearbox,
-    this.gearBoxes = const <GearboxTypeEntity>[],
     this.driveTypeId,
-    this.driveTypes = const <DriveTypeEntity>[],
     this.make,
-    this.makes = const <MakeEntity>[],
     this.engineId,
-    this.engines = const <EngineTypeEntity>[],
-    this.topMakes = const <MakeEntity>[],
     this.model,
-    this.models = const <MakeEntity>[],
-    this.generationId,
-    this.generations = const <GenerationEntity>[],
+    this.generationEntity,
     this.bodyType,
-    this.bodyTypes = const <BodyTypeEntity>[],
     this.yearEntity,
-    this.years = const <YearsEntity>[],
     this.gallery = const <String>[],
     this.panaramaGallery = const <String>[],
-    this.rentWithPurchaseConditions = const <RentWithPurchaseEntity>[],
+    this.rentWithPurchaseConditions = const <int, RentWithPurchaseEntity>{},
     this.regions = const <Region>[],
     this.damagedParts = const <DamagedParts, DamageType>{},
-    this.letter,
     this.colorName,
     this.licenceType,
     this.ownerStep,
     this.purchasedDate,
     this.description,
-    this.isSortByLetter = false,
-    this.hasAppBarShadow = true,
     this.notRegisteredInUzbekistan = false,
     this.showExactAddress = false,
     this.ownerName,
@@ -127,7 +95,6 @@ class EditAdState extends Equatable {
     this.price,
     this.currency = 'usd',
     this.mileage,
-    this.gasBalloonType,
     this.callTimeFrom,
     this.callTimeTo,
     this.isCallTimed = false,
@@ -139,7 +106,6 @@ class EditAdState extends Equatable {
     this.districts = const <DistrictEntity>[],
     this.getDistrictsStatus = FormzStatus.pure,
     this.createStatus = FormzStatus.pure,
-    this.getMakesStatus = FormzStatus.pure,
     this.toastMessage,
     this.userModel,
     this.locationUrl,
@@ -160,45 +126,31 @@ class EditAdState extends Equatable {
     TextEditingController? phoneController,
     TextEditingController? emailController,
     TextEditingController? nameController,
-    TextEditingController? searchController,
     Map<DamagedParts, DamageType>? damagedParts,
-    List<RentWithPurchaseEntity>? rentWithPurchaseConditions,
+      Map<int,RentWithPurchaseEntity>? rentWithPurchaseConditions,
     int? districtId,
     int? regionId,
     FormzStatus? status,
     FormzStatus? getDistrictsStatus,
     FormzStatus? createStatus,
-    FormzStatus? getMakesStatus,
     FormzStatus? getAnnouncementToEditStatus,
     PopStatus? popStatus,
     ModificationTypeEntity? modification,
-    List<ModificationTypeEntity>? modifications,
     GearboxTypeEntity? gearbox,
-    List<GearboxTypeEntity>? gearBoxes,
     int? driveTypeId,
-    List<DriveTypeEntity>? driveTypes,
     int? engineId,
-    List<EngineTypeEntity>? engines,
     MakeEntity? model,
-    List<MakeEntity>? models,
-    int? generationId,
-    List<GenerationEntity>? generations,
+    CarGenerationEntity? generationEntity,
     BodyTypeEntity? bodyType,
-    List<BodyTypeEntity>? bodyTypes,
     MakeEntity? make,
-    List<MakeEntity>? makes,
     List<Region>? regions,
-    List<MakeEntity>? topMakes,
     List<DistrictEntity>? districts,
     List<String>? gallery,
     List<String>? panaramaGallery,
     YearsEntity? yearEntity,
-    List<YearsEntity>? years,
     UserModel? userModel,
-    int? eventMakeScrrollIndex,
     num? minimumPrice,
     String? milageImage,
-    String? eventLetter,
     String? colorName,
     String? licenceType,
     String? ownerStep,
@@ -221,7 +173,6 @@ class EditAdState extends Equatable {
     bool? hasAppBarShadow,
     bool? notRegisteredInUzbekistan,
     bool? isCallTimed,
-    bool isSortByLetter = false,
     bool? showOwnerContacts,
     bool? isContactsVerified,
     bool? rentToBuy,
@@ -236,13 +187,9 @@ class EditAdState extends Equatable {
       popStatus: popStatus ?? this.popStatus,
       milageImage: milageImage ?? this.milageImage,
       modification: modification ?? this.modification,
-      modifications: modifications ?? this.modifications,
-      getMakesStatus: getMakesStatus ?? this.getMakesStatus,
-      searchController: searchController ?? this.searchController,
       panaramaGallery: panaramaGallery ?? this.panaramaGallery,
       createStatus: createStatus ?? this.createStatus,
       mapPointBytes: mapPointBytes ?? this.mapPointBytes,
-      makeLetterIndex: eventMakeScrrollIndex,
       yearEntity: yearEntity ?? this.yearEntity,
       locationUrl: locationUrl ?? this.locationUrl,
       phoneController: phoneController ?? this.phoneController,
@@ -260,25 +207,13 @@ class EditAdState extends Equatable {
       city: city ?? this.city,
       regionId: regionId ?? this.regionId,
       gearbox: gearbox ?? this.gearbox,
-      gearBoxes: gearBoxes ?? this.gearBoxes,
       driveTypeId: driveTypeId ?? this.driveTypeId,
-      driveTypes: driveTypes ?? this.driveTypes,
       engineId: engineId ?? this.engineId,
-      engines: engines ?? this.engines,
-      models: models ?? this.models,
-      generationId: generationId ?? this.generationId,
-      generations: generations ?? this.generations,
+      generationEntity: generationEntity ?? this.generationEntity,
       bodyType: bodyType ?? this.bodyType,
-      topMakes: topMakes ?? this.topMakes,
-      makes: makes ?? this.makes,
       status: status ?? this.status,
-      bodyTypes: bodyTypes ?? this.bodyTypes,
-      years: years ?? this.years,
-      hasAppBarShadow: hasAppBarShadow ?? this.hasAppBarShadow,
-      isSortByLetter: isSortByLetter,
       model: model ?? this.model,
       make: make ?? this.make,
-      letter: eventLetter,
       colorName: colorName ?? this.colorName,
       licenceType: licenceType ?? this.licenceType,
       ownerStep: ownerStep ?? this.ownerStep,
@@ -291,7 +226,6 @@ class EditAdState extends Equatable {
       ownerPhone: ownerPhone ?? this.ownerPhone,
       mileage: mileage ?? this.mileage,
       currency: currency ?? this.currency,
-      gasBalloonType: gasBalloonType ?? this.gasBalloonType,
       price: price ?? this.price,
       callTimeFrom: callTimeFrom ?? this.callTimeFrom,
       callTimeTo: callTimeTo ?? this.callTimeTo,
@@ -316,14 +250,10 @@ class EditAdState extends Equatable {
         popStatus,
         milageImage,
         modification,
-        modifications,
-        getMakesStatus,
-        searchController,
         panaramaGallery,
         createStatus,
         mapPointBytes,
         id,
-        makeLetterIndex,
         locationUrl,
         phoneController,
         emailController,
@@ -346,22 +276,13 @@ class EditAdState extends Equatable {
         city,
         regionId,
         gearbox,
-        gearBoxes,
         driveTypeId,
-        driveTypes,
         engineId,
-        engines,
-        generations,
         model,
-        isSortByLetter,
         make,
-        letter,
-        hasAppBarShadow,
-        years,
         yearEntity,
-        bodyTypes,
         status,
-        generationId,
+        generationEntity,
         colorName,
         licenceType,
         ownerStep,
@@ -375,13 +296,13 @@ class EditAdState extends Equatable {
         price,
         currency,
         mileage,
-        gasBalloonType,
         isCallTimed,
         showOwnerContacts,
         isContactsVerified,
       ];
 
-  bool labelLargeStatus(int page) => EASingleton.labelLargeStatus(page, this);
+  bool labelLargeStatus(int page) =>
+      EASingleton.nextButtonIsDisabled(page, this);
 
   Region get getSelectedRegion {
     final v = regions.firstWhere((e) => e.id == regionId,

@@ -44,9 +44,9 @@ class PASingleton {
       'registered_in_uzbekistan': !v.notRegisteredInUzbekistan,
       'is_new': v.isWithoutMileage,
       'is_rent_with_purchase':
-          v.rentWithPurchaseConditions.isNotEmpty && (v.rentToBuy ?? false),
+           v.rentWithPurchaseConditions.isNotEmpty  && (v.rentToBuy ?? false),
       'rent_with_purchase':
-          v.rentWithPurchaseConditions.map((e) => e.toApi()).toList(),
+          v.rentWithPurchaseConditions.entries.map((e) => e.value.toApi()).toList(),
           
     };
     if (v.milageImage != null && v.milageImage!.isNotEmpty) {
@@ -212,7 +212,6 @@ class PASingleton {
         locationUrl: event.locationUrl,
         toastMessage: event.toastMessage,
         damagedParts: event.damagedParts,
-        rentWithPurchaseConditions: event.rentWithPurchaseConditions,
         gallery: event.gallery,
         showExactAddress: event.showExactAddress,
         isWithoutMileage: event.isWithoutMileage,
@@ -332,7 +331,7 @@ class PASingleton {
     }
   }
 
-  static bool buttonStatus(int page, PostingAdState state) {
+  static bool nextButtonIsDisabled(int page, PostingAdState state) {
     switch (page) {
       //make
       case 0:
@@ -388,7 +387,7 @@ class PASingleton {
         return !state.isContactsVerified;
 // InspectionPlaceScreen
       case 16:
-        return state.regionId == null;
+        return !(state.regionId != null || state.mapPointBytes !=null);
 
       // PriceScreen
       case 17:

@@ -39,7 +39,8 @@ class PostingAdState extends Equatable {
   final int? districtId;
   final List<String> gallery;
   final List<String> panaramaGallery;
-  final List<RentWithPurchaseEntity> rentWithPurchaseConditions;
+  final Map<int, RentWithPurchaseEntity> rentWithPurchaseConditions;
+
   final Map<DamagedParts, DamageType> damagedParts;
   final UserModel? userModel;
   final Uint8List? mapPointBytes;
@@ -106,7 +107,7 @@ class PostingAdState extends Equatable {
     this.years = const <YearsEntity>[],
     this.gallery = const <String>[],
     this.panaramaGallery = const <String>[],
-    this.rentWithPurchaseConditions = const <RentWithPurchaseEntity>[],
+    this.rentWithPurchaseConditions = const <int, RentWithPurchaseEntity>{},
     this.regions = const <Region>[],
     this.damagedParts = const <DamagedParts, DamageType>{},
     this.letter,
@@ -162,7 +163,7 @@ class PostingAdState extends Equatable {
     TextEditingController? nameController,
     TextEditingController? searchController,
     Map<DamagedParts, DamageType>? damagedParts,
-    List<RentWithPurchaseEntity>? rentWithPurchaseConditions,
+    Map<int, RentWithPurchaseEntity>? rentWithPurchaseConditions,
     int? districtId,
     int? regionId,
     FormzStatus? status,
@@ -381,7 +382,7 @@ class PostingAdState extends Equatable {
         isContactsVerified,
       ];
 
-  bool buttonStatus(int page) => PASingleton.buttonStatus(page, this);
+  bool buttonStatus(int page) => PASingleton.nextButtonIsDisabled(page, this);
 
   Region get getSelectedRegion {
     final v = regions.firstWhere((e) => e.id == regionId,

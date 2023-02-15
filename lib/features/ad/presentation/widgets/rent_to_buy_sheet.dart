@@ -6,6 +6,7 @@ import 'package:auto/features/ad/domain/entities/rent_with_purchase/rent_with_pu
 import 'package:auto/features/ad/presentation/bloc/rent_to_buy/rent_to_buy_bloc.dart';
 import 'package:auto/features/car_single/presentation/widgets/orange_button.dart';
 import 'package:auto/generated/locale_keys.g.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,8 +15,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class RentToBuySheet extends StatefulWidget {
+  final int idForNewCondition;
   final int price;
-  const RentToBuySheet({required this.price, super.key});
+  final RentWithPurchaseEntity? entityForEdit;
+
+  const RentToBuySheet(
+      {required this.price,
+      required this.idForNewCondition,
+      this.entityForEdit,
+      super.key});
 
   @override
   State<RentToBuySheet> createState() => _RentToBuySheetState();
@@ -24,10 +32,11 @@ class RentToBuySheet extends StatefulWidget {
 class _RentToBuySheetState extends State<RentToBuySheet> {
   late RentToBuyBloc rentToBuyBloc;
   late GlobalKey<FormState> _formKey;
+
   @override
   void initState() {
     _formKey = GlobalKey<FormState>();
-    rentToBuyBloc = RentToBuyBloc();
+    rentToBuyBloc = RentToBuyBloc(widget.entityForEdit);
     super.initState();
   }
 
@@ -168,9 +177,11 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                                             fontSize: 13,
                                           )),
                                   TextSpan(
-                                      text: '  ≥ ${state.minimumSumma}',
-                                      style:
-                                          Theme.of(context).textTheme.headlineSmall)
+                                      text:
+                                          '  ≥ ${MyFunctions.getFormatCost('${state.minimumSumma}')}',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall)
                                 ],
                               ),
                             ),
@@ -185,10 +196,12 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                                   switch (state.step) {
                                     case 1:
                                       rentToBuyBloc.add(RentToBuyEvent(
+                                          controller: TextEditingController(
+                                              text: MyFunctions.getFormatCost(
+                                                  '${(state.entityForEdit?.rentalPeriod ?? 0) > 0 ? (state.entityForEdit?.rentalPeriod ?? 0) : ''}')),
                                           title: '',
-                                              // '${LocaleKeys.rent_period.tr()} (${LocaleKeys.for_month.tr()})',
+                                          // '${LocaleKeys.rent_period.tr()} (${LocaleKeys.for_month.tr()})',
                                           step: state.step + 1,
-                                          controller: TextEditingController(),
                                           prepayment: state.controller.text
                                               .replaceAll(' ', '')));
                                       break;
@@ -200,15 +213,19 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                                         final rentalPeriod = int.tryParse(state
                                                 .controller.text
                                                 .replaceAll(' ', '')) ??
-                                            0; 
+                                            0;
                                         final mini = widget.price > 0
                                             ? (widget.price - prePayment) ~/
                                                 rentalPeriod
                                             : 0;
                                         rentToBuyBloc.add(RentToBuyEvent(
+                                            controller: TextEditingController(
+                                                text: MyFunctions.getFormatCost(
+                                                    state.entityForEdit
+                                                            ?.monthlyPayment ??
+                                                        '')),
                                             rentalPeriod: state.controller.text
                                                 .replaceAll(' ', ''),
-                                            controller: TextEditingController(),
                                             title: LocaleKeys.monthly_pay.tr(),
                                             step: state.step + 1,
                                             minimumMonthlyPay: mini));
@@ -220,6 +237,8 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                                 } else {
                                   Navigator.of(context).pop(
                                     RentWithPurchaseEntity(
+                                        id: state.entityForEdit?.id ??
+                                            widget.idForNewCondition,
                                         monthlyPayment: state.controller.text
                                             .replaceAll(' ', ''),
                                         prepayment: state.prepayment!,
@@ -246,6 +265,7 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                   )),
         ),
       );
+
   UnderlineInputBorder _border() => UnderlineInputBorder(
       borderSide: BorderSide(
           color: Theme.of(context)

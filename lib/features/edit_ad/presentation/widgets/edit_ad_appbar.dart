@@ -9,19 +9,16 @@ class EditAdAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback onTapCancel;
   final String title;
   final TextStyle? titleStyle;
-  final bool hasShadow;
   final int currentTabIndex;
 
   ///Default is 20
   final double backlabelLargeSize;
-  final String reverseTitle;
   final int tabLength;
+
   const EditAdAppBar({
     required this.onTapCancel,
     required this.currentTabIndex,
     required this.tabLength,
-    required this.reverseTitle,
-    required this.hasShadow,
     required this.title,
     required this.onTapBack,
     this.backlabelLargeSize = 20,
@@ -40,15 +37,13 @@ class EditAdAppBar extends StatelessWidget implements PreferredSizeWidget {
             height: (52) + MediaQuery.of(context).padding.top,
             padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
             decoration: BoxDecoration(
-              boxShadow: hasShadow
-                  ? [
-                      BoxShadow(
-                        offset: const Offset(0, 8),
-                        blurRadius: 11,
-                        color: dark.withOpacity(0.04),
-                      ),
-                    ]
-                  : null,
+              boxShadow: [
+                BoxShadow(
+                  offset: const Offset(0, 8),
+                  blurRadius: 11,
+                  color: dark.withOpacity(0.04),
+                ),
+              ],
               color: white,
             ),
             child: Padding(
@@ -67,9 +62,9 @@ class EditAdAppBar extends StatelessWidget implements PreferredSizeWidget {
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          reverseTitle.length > 25
-                              ? '${reverseTitle.substring(0, 24)}..'
-                              : reverseTitle,
+                          title.length > 25
+                              ? '${title.substring(0, 24)}..'
+                              : title,
                           style: Theme.of(context)
                               .textTheme
                               .displayLarge!
@@ -91,7 +86,7 @@ class EditAdAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
           CompletionBar(
-            visibile: hasShadow,
+            visibile: true,
             screenWidth: MediaQuery.of(context).size.width,
             totalSteps: tabLength,
             currentStep: currentTabIndex + 1,

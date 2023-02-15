@@ -9,7 +9,7 @@ import 'package:auto/features/ad/presentation/pages/damage/widgets/situation_ite
 import 'package:auto/features/ad/presentation/pages/damage/widgets/situation_with_title.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/ad/presentation/widgets/damage_type_sheet.dart';
-import 'package:auto/features/edit_ad/presentation/bloc/posting_ad/edit_ad_bloc.dart';
+import 'package:auto/features/edit_ad/presentation/bloc/edit_ad/edit_ad_bloc.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';

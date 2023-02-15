@@ -3,7 +3,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/edit_ad/presentation/bloc/add_photo/image_bloc.dart';
-import 'package:auto/features/edit_ad/presentation/bloc/posting_ad/edit_ad_bloc.dart';
+import 'package:auto/features/edit_ad/presentation/bloc/edit_ad/edit_ad_bloc.dart';
 import 'package:auto/features/edit_ad/presentation/pages/add_photo/widgets/add_photo_instructions_screen.dart';
 import 'package:auto/features/edit_ad/presentation/pages/add_photo/widgets/photo_item.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';

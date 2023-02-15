@@ -14,56 +14,58 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
 
 class PostingAdSubmitBox extends StatelessWidget {
+
   final VoidCallback onTab;
 
   const PostingAdSubmitBox({
+
     required this.onTab,
     super.key,
   }) : super();
 
   @override
   Widget build(BuildContext context) => BlocBuilder<MapBloc, MapState>(
-  builder: (context, state) => Container(
-        width: MediaQuery.of(context).size.width,
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-                offset: const Offset(0, -8),
-                blurRadius: 24,
-                spreadRadius: 0,
-                color: profileContainers.withOpacity(.05)),
-            BoxShadow(
-                offset: const Offset(0, 1),
-                blurRadius: 24,
-                spreadRadius: 0,
-                color: profileContainers.withOpacity(.08))
-          ],
-          color: white,
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            MapPointName(
-                isWaiting:state.getPointNameStatus ==
-                    FormzStatus.submissionInProgress,
-                name: state.address),
-            const SizedBox(height: 24),
-            WButton(
 
-              isDisabled: state.address?.isEmpty ?? true,
-              onTap: (state.address?.isNotEmpty ?? false)
-                  ? onTab
-                  : () {
-                      Navigator.of(context).pop();
-                    },
-              color: orange,
-              disabledColor: disabledButton,
-              text: LocaleKeys.confirm.tr(),
-            ),
-          ],
+        builder: (context, state) => Container(
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                  offset: const Offset(0, -8),
+                  blurRadius: 24,
+                  spreadRadius: 0,
+                  color: profileContainers.withOpacity(.05)),
+              BoxShadow(
+                  offset: const Offset(0, 1),
+                  blurRadius: 24,
+                  spreadRadius: 0,
+                  color: profileContainers.withOpacity(.08))
+            ],
+            color: white,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              MapPointName(
+                  isWaiting: state.getPointNameStatus ==
+                      FormzStatus.submissionInProgress,
+                  name: state.address),
+              const SizedBox(height: 24),
+              WButton(
+                isDisabled: state.address?.isEmpty ?? true,
+                onTap: (state.address?.isNotEmpty ?? false)
+                    ? onTab
+                    : () {
+                        Navigator.of(context).pop();
+                      },
+                color: orange,
+                disabledColor: disabledButton,
+                text: LocaleKeys.confirm.tr(),
+              ),
+            ],
+          ),
         ),
-      ),
-);
+      );
 }

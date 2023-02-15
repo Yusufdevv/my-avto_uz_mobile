@@ -14,6 +14,7 @@ import 'package:auto/features/common/widgets/switcher_row_as_button_also.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/generated/locale_keys.g.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,6 +24,7 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class PriceScreen extends StatefulWidget {
   final String initialPrice;
+
   const PriceScreen({required this.initialPrice, Key? key}) : super(key: key);
 
   @override
@@ -157,7 +159,7 @@ class _PriceScreenState extends State<PriceScreen> {
                                     .copyWith(color: grey),
                               ),
                               Text(
-                                '≈ ${state.minimumPrice} ${state.currency}',
+                                '≈ ${MyFunctions.getFormatCost('${state.minimumPrice}')} ${state.currency}',
                                 style: Theme.of(context)
                                     .textTheme
                                     .displayLarge!
@@ -186,6 +188,8 @@ class _PriceScreenState extends State<PriceScreen> {
                                   isDismissible: false,
                                   context: context,
                                   builder: (context) => RentToBuySheet(
+                                      idForNewCondition: state
+                                          .rentWithPurchaseConditions.length,
                                       price: int.tryParse(state.price
                                                   ?.replaceAll(' ', '') ??
                                               '0') ??
@@ -193,22 +197,17 @@ class _PriceScreenState extends State<PriceScreen> {
                                 (value) {
                                   if (value != null) {
                                     context.read<PostingAdBloc>().add(
-                                          PostingAdChooseEvent(
-                                            rentToBuy: true,
-                                            rentWithPurchaseConditions: [
-                                              value,
-                                              ...state
-                                                  .rentWithPurchaseConditions
-                                            ],
-                                          ),
+                                          PostingAdOnRentWithPurchaseConditionChangedEvent(
+                                              condition: value),
                                         );
                                   }
                                 },
                               );
                             } else {
                               context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                  message: 'Avval narhni kiriting',
-                                   status: PopStatus.error,));
+                                    message: 'Avval narhni kiriting',
+                                    status: PopStatus.error,
+                                  ));
                             }
                           }
                         },
@@ -223,11 +222,38 @@ class _PriceScreenState extends State<PriceScreen> {
                       ),
                       if ((state.rentToBuy ?? false) &&
                           state.rentWithPurchaseConditions.isNotEmpty) ...{
-                        ...state.rentWithPurchaseConditions
+                        ...state.rentWithPurchaseConditions.entries
                             .map((e) => RentToSaleDetailsBox(
-                                  monthlyPayment: e.monthlyPayment,
-                                  prePayment: e.prepayment,
-                                  rentalPeriod: e.rentalPeriod,
+                                  onTap: () {
+                                    showModalBottomSheet<
+                                            RentWithPurchaseEntity>(
+                                        useRootNavigator: true,
+                                        isScrollControlled: true,
+                                        backgroundColor: Colors.transparent,
+                                        isDismissible: false,
+                                        context: context,
+                                        builder: (context) => RentToBuySheet(
+                                            idForNewCondition: state
+                                                .rentWithPurchaseConditions
+                                                .length,
+                                            entityForEdit: e.value,
+                                            price: int.tryParse(state.price
+                                                        ?.replaceAll(' ', '') ??
+                                                    '0') ??
+                                                0)).then(
+                                      (value) {
+                                        if (value != null) {
+                                          context.read<PostingAdBloc>().add(
+                                                PostingAdOnRentWithPurchaseConditionChangedEvent(
+                                                    condition: value),
+                                              );
+                                        }
+                                      },
+                                    );
+                                  },
+                                  monthlyPayment: e.value.monthlyPayment,
+                                  prePayment: e.value.prepayment,
+                                  rentalPeriod: e.value.rentalPeriod,
                                 ))
                             .toList(),
                         WScaleAnimation(
@@ -239,6 +265,8 @@ class _PriceScreenState extends State<PriceScreen> {
                                 isDismissible: false,
                                 context: context,
                                 builder: (context) => RentToBuySheet(
+                                      idForNewCondition: state
+                                          .rentWithPurchaseConditions.length,
                                       price: int.tryParse(state.price
                                                   ?.replaceAll(' ', '') ??
                                               '0') ??
@@ -246,12 +274,9 @@ class _PriceScreenState extends State<PriceScreen> {
                                     )).then((value) {
                               if (value != null) {
                                 context.read<PostingAdBloc>().add(
-                                        PostingAdChooseEvent(
-                                            rentToBuy: true,
-                                            rentWithPurchaseConditions: [
-                                          value,
-                                          ...state.rentWithPurchaseConditions
-                                        ]));
+                                      PostingAdOnRentWithPurchaseConditionChangedEvent(
+                                          condition: value),
+                                    );
                               }
                             });
                           },
