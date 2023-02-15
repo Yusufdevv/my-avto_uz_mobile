@@ -407,7 +407,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
         solitude2ToNightRider: solitude2ToNightRider ?? this.solitude2ToNightRider,
         snowToBlack: snowToBlack ?? this.snowToBlack,
         whiteWithOpacity90ToNero: whiteWithOpacity90ToNero ?? this.whiteWithOpacity90ToNero,
-        solitudeTo1Black: solitude1ToBlack ?? this.solitudeTo1Black,
+        solitudeTo1Black: solitude1ToBlack ?? solitudeTo1Black,
         whiteLilacToNightRider: whiteLilacToNightRider ?? this.whiteLilacToNightRider,
         midnightExpressToGreySuit: midnightExpressToGreySuit ?? this.midnightExpressToGreySuit,
         solitude2ToNero: solitude2ToNero ?? this.solitude2ToNero,

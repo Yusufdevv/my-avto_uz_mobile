@@ -357,12 +357,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                           physics: const BouncingScrollPhysics(),
                           controller: _makesController,
                           padding: const EdgeInsets.only(bottom: 66),
-                          itemBuilder: (context, index) {
-
-                            if(index == 0 ){
-                              print('==============  logo: ${state.makes[index].logo}');
-                            }
-                            return  ChangeCarItems(
+                          itemBuilder: (context, index) => ChangeCarItems(
                             hasBorder: (state.makes.length - 1) != index,
                             onTap: () {
                               context.read<PostingAdBloc>().add(
@@ -378,7 +373,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                             imageUrl: state.makes[index].logo,
                             name: state.makes[index].name,
                             text: state.searchController.text,
-                          );},
+                          ),
                           itemCount: state.makes.length,
                         ),
                 ),

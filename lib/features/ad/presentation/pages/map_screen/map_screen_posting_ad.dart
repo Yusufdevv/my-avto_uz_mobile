@@ -122,9 +122,9 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                       },
                       mapObjects: _mapObjects,
                       onMapCreated: (controller) async {
-                        var lat = StorageRepository.getDouble('lat',
+                        final lat = StorageRepository.getDouble('lat',
                             defValue: 41.310990);
-                        var long = StorageRepository.getDouble('long',
+                        final long = StorageRepository.getDouble('long',
                             defValue: 69.281997);
                         mapBloc.add(GetPointName(long: long, lat: lat));
                         _mapController = controller;
