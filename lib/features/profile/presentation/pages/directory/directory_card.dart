@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/pages/directory/directory_single_page.dart';
@@ -53,7 +54,8 @@ class _DirectoryCardState extends State<DirectoryCard> {
         onTap: () {
           Navigator.of(context)
               .push(fade(page: DirectorySinglePage(slug: widget.slug)));
-        }, behavior: HitTestBehavior.opaque,
+        },
+        behavior: HitTestBehavior.opaque,
         child: Container(
           decoration: BoxDecoration(
               color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
@@ -66,45 +68,10 @@ class _DirectoryCardState extends State<DirectoryCard> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  Container(
-                    height: 64,
-                    width: 64,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(color: dividerColor)),
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.circular(32),
-                        child: CachedNetworkImage(
-                            imageUrl: widget.dealerImageUrl,
-                            fit: BoxFit.cover)),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(widget.dealerName,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline1!
-                                .copyWith(fontSize: 16),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1),
-                        const SizedBox(height: 2),
-                        Text(widget.dealerType,
-                            style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: purple),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1)
-                      ],
-                    ),
-                  )
-                ],
-              ),
+              ItemImageNameWidget(
+                  dealerImageUrl: widget.dealerImageUrl,
+                  dealerName: widget.dealerName,
+                  dealerType: widget.dealerType),
               const SizedBox(height: 16),
               Row(
                 children: [
@@ -133,5 +100,64 @@ class _DirectoryCardState extends State<DirectoryCard> {
             ],
           ),
         ),
+      );
+}
+
+class ItemImageNameWidget extends StatelessWidget {
+  const ItemImageNameWidget({
+    required this.dealerImageUrl,
+    required this.dealerName,
+    required this.dealerType,
+    Key? key,
+  }) : super(key: key);
+
+  final String dealerImageUrl;
+  final String dealerName;
+  final String dealerType;
+
+  @override
+  Widget build(BuildContext context) => Row(
+        children: [
+          Container(
+            height: 64,
+            width: 64,
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: dividerColor)),
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(32),
+                child: CachedNetworkImage(
+                  imageUrl: dealerImageUrl,
+                  fit: BoxFit.cover,
+                  errorWidget: (context, url, error) => Image.asset(
+                    AppImages.carPlaceHolder,
+                    fit: BoxFit.cover,
+                  ),
+                )),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(dealerName,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline1!
+                        .copyWith(fontSize: 16),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1),
+                const SizedBox(height: 2),
+                Text(dealerType,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1!
+                        .copyWith(color: purple),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1)
+              ],
+            ),
+          )
+        ],
       );
 }

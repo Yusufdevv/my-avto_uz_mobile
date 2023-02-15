@@ -1,6 +1,7 @@
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/features/common/usecases/yandex_get_address_use_case.dart';
 import 'package:auto/features/dealers/data/models/map_model.dart';
+import 'package:auto/features/dealers/domain/entities/map_entity.dart';
 import 'package:auto/features/dealers/domain/entities/map_parameter.dart';
 import 'package:auto/features/dealers/domain/usecases/get_directories_map_point_usecase.dart';
 import 'package:auto/features/dealers/domain/usecases/get_map_dealers.dart';
@@ -35,7 +36,9 @@ class MapOrganizationBloc
         print('ADRESS   ADRESS   ADRESS   ADRESS   $address');
       }
       emit(state.copyWith(
-          address: address, status: FormzStatus.submissionSuccess));
+          address: address,
+          status: FormzStatus.submissionSuccess,
+          currentDealer: event.currentDealer));
     });
     on<_GetDealers>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
@@ -72,8 +75,9 @@ class MapOrganizationBloc
     on<_ChangeRadius>((event, emit) {
       emit(state.copyWith(radius: event.radius));
     });
+    //! bu event hech qayerda ishlatilmagan, yana bir tekshirib delete qilsa bo'ladi
     on<_ChangeLatLong>((event, emit) {
-      add(_GetAddressOfDealler(lat: event.lat, long: event.long));
+      // add(_GetAddressOfDealler(lat: event.lat, long: event.long, currentDealer:const MapEntity()));
       if (event.radius != null) {
         emit(state.copyWith(
             lat: event.lat, long: event.long, radius: event.radius!));
@@ -89,7 +93,6 @@ class MapOrganizationBloc
         final position = await MyFunctions.determinePosition();
         print('DETERMINED POSITION');
         emit(state.copyWith(
-
             getCurrentLocationStatus: FormzStatus.submissionSuccess));
         event.onSuccess(position);
       } on ParsingException catch (e) {

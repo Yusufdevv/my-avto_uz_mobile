@@ -41,7 +41,7 @@ class SetFilter extends AnnouncementListEvent {
   final RangeValues? priceValues;
   final bool? isFilter;
   final bool? isNew;
-  final String? historyId;
+  final int? historyId;
   const SetFilter({
     this.currency,
     this.historyId,

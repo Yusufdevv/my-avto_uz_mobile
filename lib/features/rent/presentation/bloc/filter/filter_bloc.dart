@@ -75,8 +75,7 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
       ));
     });
     on<FilterChangeCurrencyEvent>((event, emit) async {
-      final result =
-          await minMaxPriceYearUseCase.call(state.currency?.value ?? '');
+      final result = await minMaxPriceYearUseCase.call(event.currency.value);
       RangeValues? priceValues;
       if (result.isRight) {
         priceValues = RangeValues(double.parse(result.right.minPrice),

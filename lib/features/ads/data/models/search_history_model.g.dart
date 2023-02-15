@@ -14,7 +14,7 @@ SaveFilterModel _$SaveFilterModelFromJson(Map<String, dynamic> json) =>
       queryData: json['query_data'] == null
           ? null
           : QueryDataModel.fromJson(json['query_data'] as Map<String, dynamic>),
-      id: json['id'] as String?,
+      id: json['id'] as int?,
     );
 
 Map<String, dynamic> _$SaveFilterModelToJson(SaveFilterModel instance) =>

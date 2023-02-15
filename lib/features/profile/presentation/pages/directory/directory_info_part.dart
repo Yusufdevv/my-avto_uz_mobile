@@ -2,7 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/features/dealers/presentation/widgets/dealer_single_info_part.dart';
+import 'package:auto/features/dealers/presentation/widgets/dealer_info_widget.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -65,15 +65,16 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
                 color: orange, fontSize: 16, fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 20),
-          Info(
+          DeaelerInfoWidget(
               text:
-                  '${LocaleKeys.every_day.tr()}, ${widget.contactFrom} - ${widget.contactTo}',
+                  '${LocaleKeys.every_day.tr()}, ${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}',
               icon: AppIcons.clock),
           const SizedBox(height: 16),
           if (widget.address != '')
             Padding(
               padding: const EdgeInsets.only(bottom: 16),
-              child: Info(icon: AppIcons.location1, text: widget.address),
+              child: DeaelerInfoWidget(
+                  icon: AppIcons.location1, text: widget.address),
             ),
           if (widget.latitude > 1 && widget.longitude > 1)
             Column(
@@ -125,7 +126,8 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
               ],
             ),
           const SizedBox(height: 16),
-          Info(icon: AppIcons.tablerInfo, text: widget.description),
+          DeaelerInfoWidget(
+              icon: AppIcons.tablerInfo, text: widget.description),
           const SizedBox(height: 16),
           if (!isSelected)
             WScaleAnimation(

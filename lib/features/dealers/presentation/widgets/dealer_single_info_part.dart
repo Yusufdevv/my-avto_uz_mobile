@@ -3,6 +3,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/dealers/presentation/blocs/dealer_single_bloc/dealer_single_bloc.dart';
+import 'package:auto/features/dealers/presentation/widgets/dealer_info_widget.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -72,14 +73,14 @@ class _DealerSingleInfoPartState extends State<DealerSingleInfoPart> {
                       color: orange, fontSize: 16, fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(height: 16),
-                Info(
+                DeaelerInfoWidget(
                   icon: AppIcons.vehicleCar,
                   text: widget.quantityOfCars == 0
                       ? LocaleKeys.no_cars.tr()
                       : '${widget.quantityOfCars} ${LocaleKeys.carses.tr()}',
                 ),
                 const SizedBox(height: 16),
-                Info(
+                DeaelerInfoWidget(
                     text:
                         '${LocaleKeys.every_day.tr()}, ${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}',
                     icon: AppIcons.clock),
@@ -137,7 +138,7 @@ class _DealerSingleInfoPartState extends State<DealerSingleInfoPart> {
                 if (widget.contact.isNotEmpty)
                   Padding(
                     padding: const EdgeInsets.only(top: 16),
-                    child: Info(
+                    child: DeaelerInfoWidget(
                       onTap: () {
                         launchUrl(Uri.parse('tel: ${widget.contact}'));
                       },
@@ -148,48 +149,10 @@ class _DealerSingleInfoPartState extends State<DealerSingleInfoPart> {
                 if (widget.additionalInfo != '')
                   Padding(
                     padding: const EdgeInsets.only(top: 16),
-                    child: Info(
+                    child: DeaelerInfoWidget(
                         icon: AppIcons.tablerInfo, text: widget.additionalInfo),
                   ),
               ],
             )),
-      );
-}
-
-class Info extends StatelessWidget {
-  final String icon;
-  final String text;
-  final VoidCallback? onTap;
-  const Info({
-    required this.icon,
-    required this.text,
-    this.onTap,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) => Row(
-        children: [
-          SvgPicture.asset(icon),
-          const SizedBox(width: 8),
-          Expanded(
-            child: GestureDetector(
-              onTap: onTap,
-              child: Text(
-                text,
-                maxLines: 4,
-                style: icon == AppIcons.tablerPhone
-                    ? const TextStyle(
-                        fontSize: 14, fontWeight: FontWeight.w600, color: blue)
-                    : TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14,
-                        color: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .midnightExpressToGreySuit),
-              ),
-            ),
-          ),
-        ],
       );
 }

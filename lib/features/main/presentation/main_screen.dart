@@ -195,7 +195,7 @@ class _MainScreenState extends State<MainScreen> {
                               .then((value) {
                         if (value != null) {
                           if (value is Map<String, dynamic>) {
-                            final result = value as Map<String, dynamic>;
+                            final result = value;
                             final makeId = result['makeId'];
                             final modelId = result['modelId'];
                             final modelName = result['modelName'];

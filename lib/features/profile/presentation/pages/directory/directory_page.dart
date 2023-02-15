@@ -21,6 +21,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
+
 class DirectoryPage extends StatefulWidget {
   const DirectoryPage({Key? key}) : super(key: key);
 
@@ -141,7 +142,7 @@ class _DirectoryPageState extends State<DirectoryPage> {
                         physics: NeverScrollableScrollPhysics(),
                         children: [
                           DirectoryList(),
-                          MapScreen(isDirectoryPage: true),
+                          MapScreen(isFromDirectoryPage: true),
                         ],
                       ),
                     ),

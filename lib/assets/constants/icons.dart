@@ -41,6 +41,7 @@ class AppIcons {
   static const filter = 'assets/icons/global/filter.svg';
   static const vehicleCar = 'assets/icons/global/vehicle_car.svg';
   static const clock = 'assets/icons/global/clock.svg';
+  static const clockGrey = 'assets/icons/global/clock_grey.svg';
   static const ticked = 'assets/icons/global/tick.svg';
   static const tablerInfo = 'assets/icons/global/tabler_info_circle.svg';
   static const tablerPhone = 'assets/icons/global/tabler_phone.svg';

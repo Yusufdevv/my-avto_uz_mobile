@@ -121,12 +121,7 @@ class _MySearchesPageState extends State<MySearchesPage> {
                                           context,
                                           fade(
                                               page: AdsScreen(
-                                            historyId:
-                                                mySearches[index].id == null
-                                                    ? ''
-                                                    : mySearches[index]
-                                                        .id
-                                                        .toString(),
+                                            historyId: mySearches[index].id,
                                             historySaved: true,
                                             makeId: mySearches[index].make?.id,
                                             modelId: mySearches[index]

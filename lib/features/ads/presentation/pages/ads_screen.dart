@@ -41,7 +41,7 @@ class AdsScreen extends StatefulWidget {
 
   final int? makeId;
   final int? modelId;
-  final String? historyId;
+  final int? historyId;
   final String? makeName;
   final String? modelName;
   final String? makeLogo;
@@ -80,7 +80,14 @@ class _AdsScreenState extends State<AdsScreen>
       context.read<RegionsBloc>().add(RegionsEvent.getRegions());
     }
     announcementListBloc = AnnouncementListBloc();
-
+    Currency currency;
+    if (widget.queryData?.currency == 'uzs') {
+      currency = Currency.uzs;
+    } else if (widget.queryData?.currency == 'usd') {
+      currency = Currency.usd;
+    } else {
+      currency = Currency.none;
+    }
     announcementListBloc
       ..add(SetMakeModel(
         makeId: widget.makeId,
@@ -91,15 +98,17 @@ class _AdsScreenState extends State<AdsScreen>
         historySaved: widget.historySaved,
       ))
       ..add(SetFilter(
-        historyId: widget.historyId,
-        bodyType: widget.queryData?.bodyType ?? const BodyTypeEntity(),
-        gearboxType: widget.queryData?.gearboxType ?? const GearboxTypeEntity(),
-        driveType: widget.queryData?.driveType ?? const DriveTypeEntity(),
-        yearValues: RangeValues(widget.queryData?.yearFrom?.toDouble() ?? -1,
-            widget.queryData?.yearTo?.toDouble() ?? -1),
-        priceValues: RangeValues(widget.queryData?.priceFrom?.toDouble() ?? -1,
-            widget.queryData?.priceTo?.toDouble() ?? -1),
-      ))
+          historyId: widget.historyId,
+          bodyType: widget.queryData?.bodyType ?? const BodyTypeEntity(),
+          gearboxType:
+              widget.queryData?.gearboxType ?? const GearboxTypeEntity(),
+          driveType: widget.queryData?.driveType ?? const DriveTypeEntity(),
+          yearValues: RangeValues(widget.queryData?.yearFrom?.toDouble() ?? -1,
+              widget.queryData?.yearTo?.toDouble() ?? -1),
+          priceValues: RangeValues(
+              widget.queryData?.priceFrom?.toDouble() ?? -1,
+              widget.queryData?.priceTo?.toDouble() ?? -1),
+          currency: currency))
       ..add(const GetMinMaxPriceYear());
 
     super.initState();
@@ -129,7 +138,7 @@ class _AdsScreenState extends State<AdsScreen>
               announcementListBloc
                   .add(const ChangeSaveFilterStatus(FormzStatus.pure));
               //!mysearches ni sonini oshirish uchun ishlatilgan, mySearchesCount nechta qo'shishni bildiradi
-              if (state.historyId.isEmpty) {
+              if (state.historyId!=null) {
                 context.read<ProfileBloc>().add(
                     ChangeCountDataEvent(adding: true, mySearchesCount: 1));
               }

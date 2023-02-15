@@ -32,13 +32,7 @@ class AnnouncementListBloc
         status: FormzStatus.submissionInProgress,
         isNew: event.isNew,
       ));
-      String currency;
 
-      if (state.currency == Currency.euro) {
-        currency = '';
-      } else {
-        currency = state.currency!.value;
-      }
       final result = await useCase.call({
         'make': state.makeId == -1 ? '' : state.makeId,
         'model': state.modelId == -1 ? '' : state.modelId,
@@ -56,7 +50,7 @@ class AnnouncementListBloc
         'year_to': state.yearValues?.end == -1 ? '' : state.yearValues?.end,
         'limit': 10,
         'offset': 0,
-        'currency': currency
+        'currency': state.currency?.value
       });
       if (result.isRight) {
         emit(
@@ -73,13 +67,7 @@ class AnnouncementListBloc
     });
     on<GetMoreAnnouncementList>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
-      String currency;
 
-      if (state.currency == Currency.euro) {
-        currency = '';
-      } else {
-        currency = state.currency!.value;
-      }
       final result = await useCase.call({
         'make': state.makeId == -1 ? '' : state.makeId,
         'model': state.modelId == -1 ? '' : state.modelId,
@@ -97,7 +85,7 @@ class AnnouncementListBloc
         'year_to': state.yearValues?.end == -1 ? '' : state.yearValues?.end,
         'limit': 10,
         'offset': state.announcementList.length,
-        'currency': currency
+        'currency': state.currency?.value
       });
       if (result.isRight) {
         emit(
@@ -116,24 +104,23 @@ class AnnouncementListBloc
       }
     });
     on<GetMinMaxPriceYear>((event, emit) async {
-        final result =
-            await minMaxPriceYearUseCase.call(state.currency?.value ?? '');
-        if (result.isRight) {
-          emit(
-            state.copyWith(
-              yearValues: RangeValues(result.right.minYear.toDouble(),
-                  result.right.maxYear.toDouble()),
-              priceValues: RangeValues(double.parse(result.right.minPrice),
-                  double.parse(result.right.maxPrice)),
-            ),
-          );
-        }
+      final result =
+          await minMaxPriceYearUseCase.call(state.currency?.value ?? '');
+      if (result.isRight) {
+        emit(
+          state.copyWith(
+            yearValues: RangeValues(result.right.minYear.toDouble(),
+                result.right.maxYear.toDouble()),
+            priceValues: RangeValues(double.parse(result.right.minPrice),
+                double.parse(result.right.maxPrice)),
+          ),
+        );
+      }
     });
     on<SetFilter>((event, emit) {
       if (state.currency != event.currency) {
         add(const GetMinMaxPriceYear());
       }
-      print('state.bodyType:1 ${event.bodyType}');
       emit(state.copyWith(
         currency: event.currency,
         gearboxType: event.gearboxType,
@@ -162,9 +149,7 @@ class AnnouncementListBloc
       add(GetAnnouncementList(isNew: event.isNew));
     });
     on<ClearFilter>((event, emit) {
-      if (state.currency != Currency.euro) {
-        add(const GetMinMaxPriceYear());
-      }
+      add(const GetMinMaxPriceYear());
       emit(state.copyWith(
         currency: Currency.euro,
         gearboxType: const GearboxTypeEntity(),
@@ -188,10 +173,10 @@ class AnnouncementListBloc
           model: [state.modelId],
           query:
               'make=${state.makeId ?? ''}&model=${state.modelId ?? ''}&body_type=${state.bodyType?.id == -1 ? '' : state.bodyType?.id}'
-              '&drive_type=${state.driveType?.id == -1 ? '' : state.driveType?.id}&gearbox_type=${state.gearboxType?.id == -1 ? '' : state.gearboxType?.id}&is_new=${state.isNew}'
+              '&drive_type=${state.driveType?.id == -1 ? '' : state.driveType?.id}&gearbox_type=${state.gearboxType?.id == -1 ? '' : state.gearboxType?.id}&is_new=${state.isNew ?? ''}'
               '&region__in=${getRegionsId(state.regions)}&price_from=${state.priceValues?.start.toInt() == -1 ? '' : state.priceValues?.start.toInt()}'
               '&price_to${state.priceValues?.end.toInt() == -1 ? '' : state.priceValues?.end.toInt()}&year_from=${state.yearValues?.start.toInt() == -1 ? '' : state.yearValues?.start.toInt()}'
-              '&year_to=${state.yearValues?.end.toInt() == -1 ? '' : state.yearValues?.end.toInt()}',
+              '&year_to=${state.yearValues?.end.toInt() == -1 ? '' : state.yearValues?.end.toInt()}&currency=${state.currency?.value}',
           queryData: QueryDataModel(
             bodyType: state.bodyType,
             driveType: state.driveType,
@@ -201,6 +186,7 @@ class AnnouncementListBloc
             priceTo: state.priceValues?.end.toInt(),
             yearFrom: state.yearValues?.start.toInt(),
             yearTo: state.yearValues?.start.toInt(),
+            currency: state.currency?.value,
           ));
       final result = await saveFilterHistoryUseCase.call(saveFilterModel);
       if (result.isRight) {
@@ -216,6 +202,9 @@ class AnnouncementListBloc
   }
 
   String getRegionsId(List<Region> list) {
+    if (list.isEmpty) {
+      return '';
+    }
     final ids = StringBuffer();
     for (final value in list) {
       ids.write('${value.id},');

@@ -19,6 +19,7 @@ class QueryDataModel extends Equatable {
     this.regionIn,
     this.yearFrom,
     this.yearTo,
+    this.currency,
   });
 
   @BodyTypeEntityConverter()
@@ -29,6 +30,7 @@ class QueryDataModel extends Equatable {
   @GearboxTypeEntityConverter()
   final GearboxTypeEntity? gearboxType;
   final String? regionIn;
+  final String? currency;
   final bool? isNew;
   final int? priceFrom;
   final int? priceTo;
@@ -52,5 +54,6 @@ class QueryDataModel extends Equatable {
         priceTo,
         yearFrom,
         yearTo,
+        currency
       ];
 }

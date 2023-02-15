@@ -1,6 +1,5 @@
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/profile/domain/entities/profile_data_entity.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/features/profile/presentation/pages/notification/notifiactions_page.dart';
 import 'package:flutter/material.dart';

@@ -21,6 +21,7 @@ QueryDataModel _$QueryDataModelFromJson(Map<String, dynamic> json) =>
       regionIn: json['region_in'] as String?,
       yearFrom: json['year_from'] as int?,
       yearTo: json['year_to'] as int?,
+      currency: json['currency'] as String?,
     );
 
 Map<String, dynamic> _$QueryDataModelToJson(QueryDataModel instance) =>
@@ -35,6 +36,7 @@ Map<String, dynamic> _$QueryDataModelToJson(QueryDataModel instance) =>
           _$JsonConverterToJson<Map<String, dynamic>?, GearboxTypeEntity>(
               instance.gearboxType, const GearboxTypeEntityConverter().toJson),
       'region_in': instance.regionIn,
+      'currency': instance.currency,
       'is_new': instance.isNew,
       'price_from': instance.priceFrom,
       'price_to': instance.priceTo,

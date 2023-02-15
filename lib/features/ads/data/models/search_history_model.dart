@@ -17,14 +17,14 @@ class SaveFilterModel extends Equatable {
   final int? make;
   final List<int?>? model;
   final String? query;
-  final String? id;
+  final int? id;
   final QueryDataModel? queryData;
 
   SaveFilterModel copyWith({
     int? make,
     List<int?>? model,
     String? query,
-    String? id,
+    int? id,
     QueryDataModel? queryData,
   }) =>
       SaveFilterModel(
