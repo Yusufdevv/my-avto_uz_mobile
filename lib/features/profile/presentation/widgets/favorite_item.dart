@@ -337,58 +337,6 @@ class _FavoriteItemState extends State<FavoriteItem> {
                     ),
                   ],
                 ),
-                // Row(
-                //   children: [
-                //     SizedBox(
-                //       height: 36,
-                //       width: 36,
-                //       child: CachedNetworkImage(
-                //           imageBuilder: (context, imageProvider) => Container(
-                //                 decoration: BoxDecoration(
-                //                   borderRadius: BorderRadius.circular(150),
-                //                   image: DecorationImage(
-                //                       image: imageProvider, fit: BoxFit.cover),
-                //                 ),
-                //               ),
-                //           errorWidget: (context, url, error) => Container(
-                //                 decoration: BoxDecoration(
-                //                   image: const DecorationImage(
-                //                       image: AssetImage(
-                //                         AppImages.defaultPhoto,
-                //                       ),
-                //                       fit: BoxFit.cover),
-                //                   borderRadius: BorderRadius.circular(150),
-                //                   color: warmerGrey,
-                //                 ),
-                //               ),
-                //           imageUrl: widget.userImage,
-                //           fit: BoxFit.cover),
-                //     ),
-                //     const SizedBox(width: 8),
-                //     RichText(
-                //       text: TextSpan(
-                //         children: [
-                //           TextSpan(
-                //             text: '${widget.userFullName}\n',
-                //             style: Theme.of(context)
-                //                 .textTheme
-                //                 .headline2
-                //                 ?.copyWith(fontSize: 14),
-                //           ),
-                //           TextSpan(
-                // text: widget.userType == 'owner'
-                //     ? LocaleKeys.private_person.tr()
-                //     : LocaleKeys.autosalon.tr(),
-                //             style: Theme.of(context)
-                //                 .textTheme
-                //                 .bodyText1
-                //                 ?.copyWith(color: purple),
-                //           ),
-                //         ],
-                //       ),
-                //     )
-                //   ],
-                // ),
                 const SizedBox(height: 16),
                 Divider(
                     color: Theme.of(context)
