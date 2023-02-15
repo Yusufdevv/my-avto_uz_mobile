@@ -90,9 +90,9 @@ class GetUserListRepoImpl extends GetUserListRepository {
   }
 
   @override
-  Future<Either<Failure, GenericPagination<MySearchesEntity>>> getMySearches() async {
+  Future<Either<Failure, GenericPagination<MySearchesEntity>>> getMySearches(String next) async {
     try {
-      final result = await dataSource.getMySearches();
+      final result = await dataSource.getMySearches(next);
       return Right(result);
     } on ServerException catch (error) {
       return Left(ServerFailure(

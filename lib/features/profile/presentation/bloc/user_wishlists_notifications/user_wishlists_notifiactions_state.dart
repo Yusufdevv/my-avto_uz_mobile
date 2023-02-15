@@ -6,7 +6,11 @@ class UserWishListsState extends Equatable {
   final List<AutoEntity> myAds;
   final int count;
   final String nextMyAds;
+  final String nextFavorites;
+  final String nextMySearches;
   final bool moreFetchMyAds;
+  final bool moreFetchFavorites;
+  final bool moreFetchMySearches;
   final String nextNotifications;
   final bool moreFetchNotifications;
   final List<NotificationsEntity> notifications;
@@ -28,6 +32,10 @@ class UserWishListsState extends Equatable {
     required this.moreFetchMyAds,
     required this.nextNotifications,
     required this.moreFetchNotifications,
+    required this.moreFetchFavorites,
+    required this.moreFetchMySearches,
+    required this.nextFavorites,
+    required this.nextMySearches,
   });
 
   UserWishListsState copyWith({
@@ -40,7 +48,11 @@ class UserWishListsState extends Equatable {
     FormzStatus? myAdsStatus,
     int? count,
     String? nextMyAds,
+    String? nextFavorites,
+    String? nextMySearches,
     bool? moreFetchMyAds,
+    bool? moreFetchFavorites,
+    bool? moreFetchMySearches,
     String? nextNotifications,
     bool? moreFetchNotifications,
   }) =>
@@ -54,9 +66,14 @@ class UserWishListsState extends Equatable {
         myAdsStatus: myAdsStatus ?? this.myAdsStatus,
         count: count ?? this.count,
         nextMyAds: nextMyAds ?? this.nextMyAds,
+        nextFavorites: nextFavorites ?? this.nextFavorites,
+        nextMySearches: nextMySearches ?? this.nextMySearches,
+        moreFetchMySearches: moreFetchMySearches ?? this.moreFetchMySearches,
+        moreFetchFavorites: moreFetchFavorites ?? this.moreFetchFavorites,
         moreFetchMyAds: moreFetchMyAds ?? this.moreFetchMyAds,
         nextNotifications: nextNotifications ?? this.nextNotifications,
-        moreFetchNotifications: moreFetchNotifications ?? this.moreFetchNotifications,
+        moreFetchNotifications:
+            moreFetchNotifications ?? this.moreFetchNotifications,
       );
 
   @override
@@ -71,7 +88,11 @@ class UserWishListsState extends Equatable {
         count,
         moreFetchMyAds,
         nextMyAds,
-        moreFetchNotifications, 
-        nextNotifications
+        moreFetchNotifications,
+        nextNotifications,
+        nextFavorites,
+        nextMySearches,
+        moreFetchFavorites,
+        moreFetchMySearches
       ];
 }

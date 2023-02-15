@@ -92,15 +92,20 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                     ),
                   );
                   if (res is Map<String, dynamic>) {
+                    var historySaved = !res['isFilter'];
+
+                    historySaved = state.makeId == null;
                     bloc.add(SetFilter(
-                      bodyType: res['bodyType'] ?? const BodyTypeEntity(),
-                      gearboxType: res['gearboxType'] ?? const GearboxTypeEntity(),
-                      driveType: res['carDriveType'] ?? const DriveTypeEntity(),
-                      yearValues: res['yearValues'],
-                      priceValues: res['priceValues'],
-                      currency: res['currency'],
-                      isFilter: res['isFilter'] || state.isFilter,
-                    ));
+                        bodyType: res['bodyType'] ?? const BodyTypeEntity(),
+                        gearboxType:
+                            res['gearboxType'] ?? const GearboxTypeEntity(),
+                        driveType:
+                            res['carDriveType'] ?? const DriveTypeEntity(),
+                        yearValues: res['yearValues'],
+                        priceValues: res['priceValues'],
+                        currency: res['currency'],
+                        isFilter: res['isFilter'],
+                        historySaved: historySaved));
                   }
                 },
                 onTapClear1: () {

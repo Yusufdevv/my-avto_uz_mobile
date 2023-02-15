@@ -131,8 +131,7 @@ class AnnouncementListBloc
         isFilter: event.isFilter,
         historyId: event.historyId ?? state.historyId,
         // ignore: avoid_bool_literals_in_conditional_expressions
-        historySaved:
-            event.isFilter == null ? state.historySaved : !event.isFilter!,
+        historySaved: event.historySaved,
       ));
 
       add(GetAnnouncementList(isNew: event.isNew));
@@ -156,6 +155,8 @@ class AnnouncementListBloc
         bodyType: const BodyTypeEntity(),
         driveType: const DriveTypeEntity(),
         isFilter: false,
+        historySaved: true,
+        //! history saved -- param ni x qilganda caselarni ko'rish kerak
       ));
       add(GetAnnouncementList(isNew: event.isNew));
     });

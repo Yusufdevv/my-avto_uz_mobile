@@ -214,14 +214,15 @@ class _FavoriteItemState extends State<FavoriteItem> {
                                           .headline2
                                           ?.copyWith(color: greyText),
                                     ),
-                                    TextSpan(
-                                      text:
-                                          '${widget.callFrom.substring(0, 5)} - ${widget.callTo.substring(0, 5)}',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline2
-                                          ?.copyWith(color: secondary),
-                                    ),
+                                    if (widget.callFrom.length > 4)
+                                      TextSpan(
+                                        text:
+                                            '${widget.callFrom.substring(0, 5)} - ${widget.callTo.substring(0, 5)}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline2
+                                            ?.copyWith(color: secondary),
+                                      ),
                                   ],
                                 ),
                                 textAlign: TextAlign.center,
@@ -289,53 +290,105 @@ class _FavoriteItemState extends State<FavoriteItem> {
                     SizedBox(
                       height: 36,
                       width: 36,
-                      child: CachedNetworkImage(
-                          imageBuilder: (context, imageProvider) => Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(150),
-                                  image: DecorationImage(
-                                      image: imageProvider, fit: BoxFit.cover),
-                                ),
-                              ),
-                          errorWidget: (context, url, error) => Container(
-                                decoration: BoxDecoration(
-                                  image: const DecorationImage(
-                                      image: AssetImage(
-                                        AppImages.defaultPhoto,
-                                      ),
-                                      fit: BoxFit.cover),
-                                  borderRadius: BorderRadius.circular(150),
-                                  color: warmerGrey,
-                                ),
-                              ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: CachedNetworkImage(
                           imageUrl: widget.userImage,
-                          fit: BoxFit.cover),
+                          fit: BoxFit.cover,
+                          errorWidget: (context, url, error) => Image.asset(
+                            AppImages.defaultPhoto,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
                     ),
                     const SizedBox(width: 8),
-                    RichText(
-                      text: TextSpan(
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          TextSpan(
-                            text: '${widget.userFullName}\n',
+                          Text(
+                            widget.userFullName,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                             style: Theme.of(context)
                                 .textTheme
-                                .headline2
-                                ?.copyWith(fontSize: 14),
+                                .subtitle1!
+                                .copyWith(fontWeight: FontWeight.w700),
                           ),
-                          TextSpan(
-                            text: widget.userType == 'owner'
-                                ? LocaleKeys.private_person.tr()
-                                : LocaleKeys.autosalon.tr(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText1
-                                ?.copyWith(color: purple),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                widget.userType == 'owner'
+                                    ? LocaleKeys.private_person.tr()
+                                    : LocaleKeys.autosalon.tr(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(color: purple),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
+                // Row(
+                //   children: [
+                //     SizedBox(
+                //       height: 36,
+                //       width: 36,
+                //       child: CachedNetworkImage(
+                //           imageBuilder: (context, imageProvider) => Container(
+                //                 decoration: BoxDecoration(
+                //                   borderRadius: BorderRadius.circular(150),
+                //                   image: DecorationImage(
+                //                       image: imageProvider, fit: BoxFit.cover),
+                //                 ),
+                //               ),
+                //           errorWidget: (context, url, error) => Container(
+                //                 decoration: BoxDecoration(
+                //                   image: const DecorationImage(
+                //                       image: AssetImage(
+                //                         AppImages.defaultPhoto,
+                //                       ),
+                //                       fit: BoxFit.cover),
+                //                   borderRadius: BorderRadius.circular(150),
+                //                   color: warmerGrey,
+                //                 ),
+                //               ),
+                //           imageUrl: widget.userImage,
+                //           fit: BoxFit.cover),
+                //     ),
+                //     const SizedBox(width: 8),
+                //     RichText(
+                //       text: TextSpan(
+                //         children: [
+                //           TextSpan(
+                //             text: '${widget.userFullName}\n',
+                //             style: Theme.of(context)
+                //                 .textTheme
+                //                 .headline2
+                //                 ?.copyWith(fontSize: 14),
+                //           ),
+                //           TextSpan(
+                // text: widget.userType == 'owner'
+                //     ? LocaleKeys.private_person.tr()
+                //     : LocaleKeys.autosalon.tr(),
+                //             style: Theme.of(context)
+                //                 .textTheme
+                //                 .bodyText1
+                //                 ?.copyWith(color: purple),
+                //           ),
+                //         ],
+                //       ),
+                //     )
+                //   ],
+                // ),
                 const SizedBox(height: 16),
                 Divider(
                     color: Theme.of(context)

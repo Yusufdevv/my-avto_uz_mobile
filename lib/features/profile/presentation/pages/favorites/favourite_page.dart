@@ -55,8 +55,18 @@ class _FavouritePageState extends State<FavouritePage> {
                   ? AnimatedList(
                       physics: const BouncingScrollPhysics(),
                       key: listkey,
-                      initialItemCount: state.favorites.length,
+                      initialItemCount: state.favorites.length + 1,
                       itemBuilder: (context, index, animation) {
+                        print('======= ${index}');
+                        if (index == state.favorites.length) {
+                          if (state.moreFetchFavorites) {
+                            bloc.add(GetMoreUserFavoritesEvent());
+                            return const Center(
+                                child: CupertinoActivityIndicator());
+                          } else {
+                            return const SizedBox();
+                          }
+                        }
                         final item = state.favorites[index];
                         final dealer = item.dealer != null
                             ? DealerFavEntity.fromJson(item.dealer)
@@ -65,10 +75,11 @@ class _FavouritePageState extends State<FavouritePage> {
                             padding: EdgeInsets.only(
                                 top: index == 0 ? 16 : 0, bottom: 12),
                             child: FavoriteItem(
-                              bloc: bloc,
+                                bloc: bloc,
                                 animation: animation,
                                 gallery: item.gallery,
-                                carModelName: '${item.make.name} ${item.model.name} ${item.generation.name}',
+                                carModelName:
+                                    '${item.make.name} ${item.model.name} ${item.generation.name}',
                                 carYear: item.year,
                                 contactPhone: item.contactPhone,
                                 description: item.description,
@@ -105,15 +116,14 @@ class _FavouritePageState extends State<FavouritePage> {
                                   listkey.currentState?.removeItem(
                                       index,
                                       (context, animation) => FavoriteItem(
-                                        bloc: bloc,
+                                            bloc: bloc,
                                             animation: animation,
                                             gallery: item.gallery,
                                             carModelName: item.model.name,
                                             carYear: item.year,
                                             contactPhone: item.contactPhone,
                                             description: item.description,
-                                            districtTitle:
-                                                item.district.title,
+                                            districtTitle: item.district.title,
                                             isNew: item.isNew,
                                             isWishlisted: item.isWishlisted,
                                             price: item.price,
@@ -123,15 +133,12 @@ class _FavouritePageState extends State<FavouritePage> {
                                                 item.userType == 'owner'
                                                     ? item.user.fullName
                                                     : dealer.name ?? '',
-                                            userImage:
-                                                item.userType == 'owner'
-                                                    ? item.user.image
-                                                    : dealer.avatar ?? '',
+                                            userImage: item.userType == 'owner'
+                                                ? item.user.image
+                                                : dealer.avatar ?? '',
                                             userType: item.userType,
-                                            hasComparison:
-                                                item.isComparison,
-                                            callFrom: item.userType ==
-                                                    'owner'
+                                            hasComparison: item.isComparison,
+                                            callFrom: item.userType == 'owner'
                                                 ? item.contactAvailableFrom
                                                 : dealer.contactFrom ?? '',
                                             callTo: item.userType == 'owner'
@@ -141,8 +148,8 @@ class _FavouritePageState extends State<FavouritePage> {
                                             id: item.id,
                                             index: index,
                                           ),
-                                      duration: const Duration(
-                                          milliseconds: 600));
+                                      duration:
+                                          const Duration(milliseconds: 600));
                                 }));
                       })
                   : Center(
