@@ -65,7 +65,7 @@ class _ComparisonPageState extends State<ComparisonPage> {
                                   page:
                                       const AdsScreen(isFromComparison: true)))
                           .then((value) {
-                        if (value is bool && value) {
+                        if (context.read<ComparisonAddBloc>().state.count > 0) {
                           bloc.add(GetComparableCars());
                         }
                         context
