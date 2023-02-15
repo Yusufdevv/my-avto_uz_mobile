@@ -90,7 +90,7 @@ class CarNameWidget extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
               child: Text(
                 fullname,
-                style: Theme.of(context).textTheme.headline4!.copyWith(
+                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                       color: dark,
                     ),
               ),
@@ -106,7 +106,7 @@ class CarNameWidget extends StatelessWidget {
                 children: [
                   Text(
                     price,
-                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
                           fontSize: 24,
                           fontWeight: FontWeight.w700,
                           color: dark,
@@ -117,7 +117,7 @@ class CarNameWidget extends StatelessWidget {
                   ),
                   Text(
                     currency,
-                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
                           fontSize: 24,
                           fontWeight: FontWeight.w700,
                           color: dark,

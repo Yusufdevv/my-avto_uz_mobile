@@ -20,18 +20,18 @@ class DarkThemeColors {
   static const primaryColor = _cinnabar;
   static const whiteToEclipse = _eclipse;
 
-  static const headline1 = _white;
-  static const headline2 = _white;
-  static const headline3 = _mediumSlateBlue;
-  static const headline4 = _white;
-  static const headline5 = _fuzzyWuzzyBrown;
-  static const headline6 = _solitude;
+  static const displayLarge = _white;
+  static const displayMedium = _white;
+  static const displaySmall = _mediumSlateBlue;
+  static const headlineMedium = _white;
+  static const headlineSmall = _fuzzyWuzzyBrown;
+  static const titleLarge = _solitude;
   static const headline7 = _white;
-  static const bodyText1 = _solitude;
-  static const bodyText2 = _dodgerBlue;
-  static const subTitle1 = _white;
-  static const subTitle2 = _blackOpacity;
-  static const caption = _whiteOpacity;
+  static const bodyLarge = _solitude;
+  static const bodyMedium = _dodgerBlue;
+  static const titleMedium = _white;
+  static const titleSmall = _blackOpacity;
+  static const bodySmall = _whiteOpacity;
   static const button = _cinnabar;
   static const surface = _white;
 

@@ -24,7 +24,7 @@ class EquipmentTile extends StatelessWidget {
             ),
             Text(
               title,
-              style: Theme.of(context).textTheme.caption!.copyWith(
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
                   color:
                       Theme.of(context).extension<ThemedColors>()!.darkToGrey),
             )

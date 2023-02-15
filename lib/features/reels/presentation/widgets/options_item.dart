@@ -115,7 +115,7 @@ class _OptionsItemState extends State<OptionsItem>
                       '$countLike',
                       style: Theme.of(context)
                           .textTheme
-                          .headline4!
+                          .headlineMedium!
                           .copyWith(fontSize: 12),
                     ),
                   ],
@@ -135,7 +135,7 @@ class _OptionsItemState extends State<OptionsItem>
                       '$countShare',
                       style: Theme.of(context)
                           .textTheme
-                          .headline4!
+                          .headlineMedium!
                           .copyWith(fontSize: 12),
                     ),
                   ],

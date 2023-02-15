@@ -62,7 +62,7 @@ color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
                 ),
                 labelStyle: Theme.of(context)
                     .textTheme
-                    .subtitle1!
+                    .titleMedium!
                     .copyWith(fontSize: 13),
                 labelColor:
                     Theme.of(context).extension<ThemedColors>()!.blackToWhite,
@@ -146,7 +146,7 @@ color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
               ),
               controller: tabController,
               labelStyle:
-                  Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 13),
+                  Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 13),
               labelColor:
                   Theme.of(context).extension<ThemedColors>()!.blackToWhite,
               unselectedLabelColor:

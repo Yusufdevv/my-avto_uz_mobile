@@ -55,7 +55,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                             LocaleKeys.description_dont_do.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .headline6!
+                                .titleLarge!
                                 .copyWith(
                                     fontSize: 14,
                                     color: Theme.of(context)
@@ -94,7 +94,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                             height: 125,
                             textStyle: Theme.of(context)
                                 .textTheme
-                                .headline1!
+                                .displayLarge!
                                 .copyWith(
                                     fontSize: 16, fontWeight: FontWeight.w400),
                           ),
@@ -117,7 +117,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                                   LocaleKeys.ne_rastomojen.tr(),
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline6!
+                                      .titleLarge!
                                       .copyWith(color: greyText),
                                 ),
                               ],

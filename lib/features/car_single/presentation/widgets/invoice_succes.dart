@@ -29,14 +29,14 @@ class InvoiceSucces extends StatelessWidget {
                 ),
                 Text(
                   LocaleKeys.service_connected_successfully.tr(),
-                  style: Theme.of(context).textTheme.headline1,
+                  style: Theme.of(context).textTheme.displayLarge,
                 ),
                 const Spacer(),
                 OrangeButton(
                     shadowColor: white,
                     color: orange,
                     content: Text(LocaleKeys.back_to_ad.tr(),
-                        style: Theme.of(context).textTheme.headline4!.copyWith(
+                        style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                             fontSize: 14, fontWeight: FontWeight.w600)),
                     onTap: () {
                       // Navigator.of(context)

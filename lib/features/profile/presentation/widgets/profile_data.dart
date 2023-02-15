@@ -77,7 +77,7 @@ class ProfileDataWidget extends StatelessWidget {
                               maxLines: 1,
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline1!
+                                  .displayLarge!
                                   .copyWith(fontSize: 18)),
                         ),
                       ],
@@ -87,7 +87,7 @@ class ProfileDataWidget extends StatelessWidget {
                       subTitle,
                       style: Theme.of(context)
                           .textTheme
-                          .headline6!
+                          .titleLarge!
                           .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
                     )
                   ],

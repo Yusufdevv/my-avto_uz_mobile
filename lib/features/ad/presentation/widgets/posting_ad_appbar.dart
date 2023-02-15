@@ -85,7 +85,7 @@ class PostingAdAppBar extends StatelessWidget implements PreferredSizeWidget {
                                     style: titleStyle ??
                                         Theme.of(context)
                                             .textTheme
-                                            .headline2!
+                                            .displayMedium!
                                             .copyWith(
                                                 fontWeight: FontWeight.w600),
                                   ),
@@ -118,7 +118,7 @@ class PostingAdAppBar extends StatelessWidget implements PreferredSizeWidget {
                                           : reverseTitle,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline1!
+                                          .displayLarge!
                                           .copyWith(),
                                     ),
                                   ],

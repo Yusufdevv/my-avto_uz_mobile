@@ -66,7 +66,7 @@ class _EquipmentCardState extends State<EquipmentCard>
             Text(
               widget.complectation,
               style:
-                  Theme.of(context).textTheme.headline1!.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 18),
             ),
             const SizedBox(
               height: 12,
@@ -118,7 +118,7 @@ class _EquipmentCardState extends State<EquipmentCard>
                             LocaleKeys.show_all_dealers.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .headline3!
+                                .displaySmall!
                                 .copyWith(
                                     fontSize: 14, fontWeight: FontWeight.w600),
                           ),

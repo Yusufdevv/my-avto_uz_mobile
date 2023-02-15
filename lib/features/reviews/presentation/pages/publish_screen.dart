@@ -64,7 +64,7 @@ class _PublishScreenState extends State<PublishScreen> {
                     style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w400,
-                      color: LightThemeColors.headline5,
+                      color: LightThemeColors.headlineSmall,
                     ),
                   ),
                 ),

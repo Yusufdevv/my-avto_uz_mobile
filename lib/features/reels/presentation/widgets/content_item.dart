@@ -95,7 +95,7 @@ class _ContentItemState extends State<ContentItem> {
                 widget.reel.title,
                 style: Theme.of(context)
                     .textTheme
-                    .headline4!
+                    .headlineMedium!
                     .copyWith(fontSize: 20),
               ),
               const SizedBox(height: 10),
@@ -127,7 +127,7 @@ class _ContentItemState extends State<ContentItem> {
                     widget.reel.dealer.name,
                     style: Theme.of(context)
                         .textTheme
-                        .subtitle1!
+                        .titleMedium!
                         .copyWith(color: white.withOpacity(.7)),
                   ),
                 ],

@@ -44,7 +44,7 @@ class _DamageTypeChooseSheetState extends State<DamageTypeChooseSheet> {
                   Expanded(
                     child: Text(
                       'Состояние кузова',
-                      style: Theme.of(context).textTheme.headline1,
+                      style: Theme.of(context).textTheme.displayLarge,
                     ),
                   ),
                   GestureDetector(
@@ -67,7 +67,7 @@ class _DamageTypeChooseSheetState extends State<DamageTypeChooseSheet> {
                 widget.title,
                 style: Theme.of(context)
                     .textTheme
-                    .headline1!
+                    .displayLarge!
                     .copyWith(fontSize: 13, fontWeight: FontWeight.w600),
               ),
             ),
@@ -99,11 +99,11 @@ class _DamageTypeChooseSheetState extends State<DamageTypeChooseSheet> {
                               style: DamageType.values[index] == selected
                                   ? Theme.of(context)
                                       .textTheme
-                                      .subtitle1!
+                                      .titleMedium!
                                       .copyWith(fontSize: 16)
                                   : Theme.of(context)
                                       .textTheme
-                                      .headline6!
+                                      .titleLarge!
                                       .copyWith(color: LightThemeColors.smoky),
                             ),
                             const Spacer(),
@@ -120,7 +120,7 @@ class _DamageTypeChooseSheetState extends State<DamageTypeChooseSheet> {
               color: orange,
               text: 'Сохранить',
               textStyle:
-                  Theme.of(context).textTheme.subtitle1!.copyWith(color: white),
+                  Theme.of(context).textTheme.titleMedium!.copyWith(color: white),
               margin: EdgeInsets.only(
                 bottom: MediaQuery.of(context).padding.bottom + 20,
                 top: 20,

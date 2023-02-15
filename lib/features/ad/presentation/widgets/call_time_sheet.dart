@@ -56,7 +56,7 @@ class _CallTimeSheetState extends State<CallTimeSheet> {
               children: [
                 Text(
                   'Выберите время',
-                  style: Theme.of(context).textTheme.headline1,
+                  style: Theme.of(context).textTheme.displayLarge,
                 ),
                 GestureDetector(
                       behavior: HitTestBehavior.opaque,
@@ -107,7 +107,7 @@ class _CallTimeSheetState extends State<CallTimeSheet> {
               },
               content: Text(
                 LocaleKeys.confirm.tr(),
-                style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
                       color: white,
                     ),
               ),

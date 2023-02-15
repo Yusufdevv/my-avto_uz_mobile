@@ -38,7 +38,7 @@ class _SmsPinCodeFieldsState extends State<SmsPinCodeFields> {
         autoFocus: true,
         textStyle: Theme.of(context)
             .textTheme
-            .headline1!
+            .displayLarge!
             .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
         length: 6,
         animationType: AnimationType.scale,

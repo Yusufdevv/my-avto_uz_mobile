@@ -128,7 +128,7 @@ class PriceStatisticItem extends StatelessWidget {
                             LocaleKeys.excellent.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .headline1!
+                                .displayLarge!
                                 .copyWith(
                                     fontSize: 16, fontWeight: FontWeight.w600),
                             textAlign: TextAlign.center,
@@ -142,7 +142,7 @@ class PriceStatisticItem extends StatelessWidget {
                             LocaleKeys.optimal.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .headline1!
+                                .displayLarge!
                                 .copyWith(
                                     fontSize: 16, fontWeight: FontWeight.w600),
                             textAlign: TextAlign.center,
@@ -155,7 +155,7 @@ class PriceStatisticItem extends StatelessWidget {
                           child: Text(
                             LocaleKeys.overpriced.tr(),
                             style:
-                                Theme.of(context).textTheme.headline1!.copyWith(
+                                Theme.of(context).textTheme.displayLarge!.copyWith(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -175,7 +175,7 @@ class PriceStatisticItem extends StatelessWidget {
                   children: [
                     Text(
                       '$price USD',
-                      style: Theme.of(context).textTheme.headline1!.copyWith(
+                      style: Theme.of(context).textTheme.displayLarge!.copyWith(
                             color: dark,
                             fontSize: 12,
                             fontWeight: FontWeight.w700,

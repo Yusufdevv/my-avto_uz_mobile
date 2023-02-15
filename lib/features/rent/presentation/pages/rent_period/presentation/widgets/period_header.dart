@@ -38,7 +38,7 @@ class PeriodHeader extends StatelessWidget {
                   LocaleKeys.receipt.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText1!
+                      .bodyLarge!
                       .copyWith(fontSize: 13),
                 ),
                 const SizedBox(
@@ -50,7 +50,7 @@ class PeriodHeader extends StatelessWidget {
                       startDate,
                       style: Theme.of(context)
                           .textTheme
-                          .headline1!
+                          .displayLarge!
                           .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
                     ),
                     const SizedBox(
@@ -60,7 +60,7 @@ class PeriodHeader extends StatelessWidget {
                       startHour,
                       style: Theme.of(context)
                           .textTheme
-                          .bodyText1!
+                          .bodyLarge!
                           .copyWith(fontSize: 13),
                     )
                   ],
@@ -75,7 +75,7 @@ class PeriodHeader extends StatelessWidget {
                   LocaleKeys.receipt.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText1!
+                      .bodyLarge!
                       .copyWith(fontSize: 13),
                 ),
                 const SizedBox(
@@ -87,7 +87,7 @@ class PeriodHeader extends StatelessWidget {
                       endDate,
                       style: Theme.of(context)
                           .textTheme
-                          .headline1!
+                          .displayLarge!
                           .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
                     ),
                     const SizedBox(
@@ -97,7 +97,7 @@ class PeriodHeader extends StatelessWidget {
                       endHour,
                       style: Theme.of(context)
                           .textTheme
-                          .bodyText1!
+                          .bodyLarge!
                           .copyWith(fontSize: 13),
                     ),
                   ],

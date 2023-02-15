@@ -26,12 +26,8 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
     on<PickPanaramaImageEvent>((event, emit) async {
       final permission =
           await MyFunctions.getPhotosPermission(Platform.isAndroid);
-      print('=> => => =>     permidssion is $permission    <= <= <= <=');
-
       if (permission.isGranted) {
         final image = await imagePicker.pickImage(source: ImageSource.gallery);
-        print(
-            '=> => => => picked panarama image path    ${image?.path}    <= <= <= <=');
         if (image != null) {
           emit(state
               .copyWith(panaramaImages: [image.path, ...state.panaramaImages]));

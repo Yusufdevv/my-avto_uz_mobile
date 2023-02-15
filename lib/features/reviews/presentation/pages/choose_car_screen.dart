@@ -61,7 +61,7 @@ class _ChooseCarScreenState extends State<ChooseCarScreen> {
                       ),
                       Text(
                         LocaleKeys.choose_brand_auto.tr(),
-                        style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                        style: Theme.of(context).textTheme.titleMedium!.copyWith(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
                             ),

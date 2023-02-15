@@ -97,7 +97,7 @@ class _DealerCardState extends State<DealerCard> {
                         width: 200,
                         child: Text(widget.dealerName,
                             style:
-                                Theme.of(context).textTheme.headline1!.copyWith(
+                                Theme.of(context).textTheme.displayLarge!.copyWith(
                                       fontSize: 16,
                                     ),
                             overflow: TextOverflow.ellipsis,
@@ -129,7 +129,7 @@ class _DealerCardState extends State<DealerCard> {
                           : '${widget.quantityOfCars} ${LocaleKeys.carses.tr()}',
                       style: Theme.of(context)
                           .textTheme
-                          .headline1!
+                          .displayLarge!
                           .copyWith(fontSize: 14, fontWeight: FontWeight.w400)),
                 ],
               ),
@@ -142,7 +142,7 @@ class _DealerCardState extends State<DealerCard> {
                       '${LocaleKeys.every_day.tr()}, ${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}',
                       style: Theme.of(context)
                           .textTheme
-                          .headline1!
+                          .displayLarge!
                           .copyWith(fontSize: 14, fontWeight: FontWeight.w400))
                 ],
               ),
@@ -174,7 +174,7 @@ class _DealerCardState extends State<DealerCard> {
                               widget.contractCode,
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline1!
+                                  .displayLarge!
                                   .copyWith(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600),
@@ -188,7 +188,7 @@ class _DealerCardState extends State<DealerCard> {
                                 ]),
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline1!
+                                    .displayLarge!
                                     .copyWith(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600),
@@ -219,7 +219,7 @@ class _DealerCardState extends State<DealerCard> {
                               LocaleKeys.show_contact.tr(),
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline4!
+                                  .headlineMedium!
                                   .copyWith(
                                     fontSize: 14,
                                   ),

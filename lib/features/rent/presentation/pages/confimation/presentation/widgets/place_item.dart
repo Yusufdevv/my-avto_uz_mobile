@@ -28,7 +28,7 @@ class PlaceItem extends StatelessWidget {
         Text(
           LocaleKeys.dayly_milleage.tr(),
           style:
-          Theme.of(context).textTheme.headline1!.copyWith(fontSize: 14),
+          Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 14),
         ),
         const SizedBox(
           height: 12,
@@ -39,7 +39,7 @@ class PlaceItem extends StatelessWidget {
               'Ташкент',
               style: Theme.of(context)
                   .textTheme
-                  .headline6!
+                  .titleLarge!
                   .copyWith(color: greyText, fontSize: 12),
             ),
             const Spacer(),
@@ -57,14 +57,14 @@ class PlaceItem extends StatelessWidget {
               'Ташкент и таш. область',
               style: Theme.of(context)
                   .textTheme
-                  .headline6!
+                  .titleLarge!
                   .copyWith(color: greyText, fontSize: 12),
             ),
             Text(
               '130 тыс.' + LocaleKeys.per_day.tr(),
               style: Theme.of(context)
                   .textTheme
-                  .bodyText1!
+                  .bodyLarge!
                   .copyWith(color: grey),
             ),
             const Spacer(),
@@ -83,14 +83,14 @@ class PlaceItem extends StatelessWidget {
               'Узбекистан',
               style: Theme.of(context)
                   .textTheme
-                  .headline6!
+                  .titleLarge!
                   .copyWith(color: greyText, fontSize: 12),
             ),
             Text(
               '200 тыс.' + LocaleKeys.per_day.tr(),
               style: Theme.of(context)
                   .textTheme
-                  .bodyText1!
+                  .bodyLarge!
                   .copyWith(color: grey),
             ),
             const Spacer(),

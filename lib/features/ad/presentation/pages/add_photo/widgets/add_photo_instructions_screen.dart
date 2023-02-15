@@ -90,7 +90,7 @@ class _PhotoInstructionsScreenState extends State<PhotoInstructionsScreen> {
                         child: Text(
                           state.instructions[state.step].description,
                           style:
-                              Theme.of(context).textTheme.headline1!.copyWith(
+                              Theme.of(context).textTheme.displayLarge!.copyWith(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w400,
                                   ),
@@ -115,7 +115,7 @@ class _PhotoInstructionsScreenState extends State<PhotoInstructionsScreen> {
                                     height: 20),
                                 Text(
                                   'Назад',
-                                  style: Theme.of(context).textTheme.headline4,
+                                  style: Theme.of(context).textTheme.headlineMedium,
                                 ),
                                 const SizedBox()
                               ],
@@ -136,7 +136,7 @@ class _PhotoInstructionsScreenState extends State<PhotoInstructionsScreen> {
                                 const SizedBox(),
                                 Text(
                                   LocaleKeys.further.tr(),
-                                  style: Theme.of(context).textTheme.headline4,
+                                  style: Theme.of(context).textTheme.headlineMedium,
                                 ),
                                 SvgPicture.asset(AppIcons.arrowRight,
                                     height: 20),

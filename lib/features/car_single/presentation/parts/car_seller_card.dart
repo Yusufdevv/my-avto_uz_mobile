@@ -44,7 +44,7 @@ class CarSellerCard extends StatelessWidget {
                     LocaleKeys.auto_seller.tr(),
                     style: Theme.of(context)
                         .textTheme
-                        .headline1!
+                        .displayLarge!
                         .copyWith(fontWeight: FontWeight.w700, fontSize: 18),
                   ),
                   const SizedBox(height: 16),
@@ -77,7 +77,7 @@ class CarSellerCard extends StatelessWidget {
                               maxLines: 1,
                               style: Theme.of(context)
                                   .textTheme
-                                  .subtitle1!
+                                  .titleMedium!
                                   .copyWith(
                                     fontSize: 16,
                                   ),
@@ -90,7 +90,7 @@ class CarSellerCard extends StatelessWidget {
                                 : LocaleKeys.autosalon.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .headline2!
+                                .displayMedium!
                                 .copyWith(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 12,
@@ -123,7 +123,7 @@ class CarSellerCard extends StatelessWidget {
                                   LocaleKeys.participation_in_accident.tr(),
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline1!
+                                      .displayLarge!
                                       .copyWith(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 12),
@@ -155,7 +155,7 @@ class CarSellerCard extends StatelessWidget {
                                           LocaleKeys.found.tr(),
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline1!
+                                              .displayLarge!
                                               .copyWith(
                                                   fontWeight: FontWeight.w400,
                                                   fontSize: 14,
@@ -188,7 +188,7 @@ class CarSellerCard extends StatelessWidget {
                                           LocaleKeys.not_found.tr(),
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline1!
+                                              .displayLarge!
                                               .copyWith(
                                                   fontWeight: FontWeight.w400,
                                                   fontSize: 14,

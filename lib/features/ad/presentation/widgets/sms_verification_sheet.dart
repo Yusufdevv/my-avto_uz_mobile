@@ -80,7 +80,7 @@ class _SmsVerificationSheetState extends State<SmsVerificationSheet> {
                     children: [
                       Text(
                         LocaleKeys.confim_number.tr(),
-                        style: Theme.of(context).textTheme.headline1,
+                        style: Theme.of(context).textTheme.displayLarge,
                       ),
                       GestureDetector(
                         onTap: () {
@@ -105,7 +105,7 @@ class _SmsVerificationSheetState extends State<SmsVerificationSheet> {
                     LocaleKeys.enter_password_sms.tr(),
                     style: Theme.of(context)
                         .textTheme
-                        .caption!
+                        .bodySmall!
                         .copyWith(fontWeight: FontWeight.w400, fontSize: 13),
                   ),
                   const SizedBox(
@@ -139,11 +139,11 @@ class _SmsVerificationSheetState extends State<SmsVerificationSheet> {
                     enableActiveFill: false,
                     textStyle: Theme.of(context)
                         .textTheme
-                        .headline1!
+                        .displayLarge!
                         .copyWith(fontSize: 18),
                     hintStyle: Theme.of(context)
                         .textTheme
-                        .bodyText2!
+                        .bodyMedium!
                         .copyWith(fontSize: 4),
                     appContext: context,
                     showCursor: true,
@@ -154,7 +154,7 @@ class _SmsVerificationSheetState extends State<SmsVerificationSheet> {
                     children: [
                       Text(LocaleKeys.send_via_password.tr(),
                           style:
-                              Theme.of(context).textTheme.headline6!.copyWith(
+                              Theme.of(context).textTheme.titleLarge!.copyWith(
                                     fontSize: 14,
                                   )),
                       const SizedBox(

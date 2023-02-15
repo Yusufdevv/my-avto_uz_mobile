@@ -23,7 +23,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class ProfileEditPage extends StatefulWidget {
@@ -210,8 +209,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                         backgroundColor: Colors.transparent,
                                         context: context,
                                         useRootNavigator: true,
-                                        builder: (context) => CameraBottomSheet(
-                                            imageBloc: widget.imageBloc)).then(
+                                        builder: (context) => const CameraBottomSheet()).then(
                                         (value) {
                                       if (value != null) {
                                         widget.imageBloc
@@ -278,7 +276,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                       Text(LocaleKeys.change_photo.tr(),
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline2!
+                                              .displayMedium!
                                               .copyWith(color: blue)),
                                     ],
                                   )),

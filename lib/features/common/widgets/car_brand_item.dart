@@ -70,7 +70,7 @@ class CarBrandItem extends StatelessWidget {
                   overflow: TextOverflow.visible,
                   style: Theme.of(context)
                       .textTheme
-                      .headline1!
+                      .displayLarge!
                       .copyWith(fontSize: 10, fontWeight: FontWeight.w600),
                 ),
               ),

@@ -123,7 +123,7 @@ class InfoContainer extends StatelessWidget {
                                     : LocaleKeys.buy.tr(),
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline4!
+                                    .headlineMedium!
                                     .copyWith(fontSize: 24),
                               )
                             ],
@@ -154,7 +154,7 @@ class InfoContainer extends StatelessWidget {
                 labelPadding:
                     const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                 margin: const EdgeInsets.only(top: 8),
-                labelStyle: Theme.of(context).textTheme.subtitle1!.copyWith(
+                labelStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
                       color: orange,
                       fontSize: 12,
                     ),
@@ -192,7 +192,7 @@ class InfoContainer extends StatelessWidget {
                       visible: hasDiscount,
                       child: Text(
                         discountPrice == null ? '' : price!,
-                        style: Theme.of(context).textTheme.headline2!.copyWith(
+                        style: Theme.of(context).textTheme.displayMedium!.copyWith(
                               decoration: TextDecoration.lineThrough,
                               color: grey,
                             ),
@@ -205,7 +205,7 @@ class InfoContainer extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               subtitle ?? '',
-              style: Theme.of(context).textTheme.headline2!.copyWith(
+              style: Theme.of(context).textTheme.displayMedium!.copyWith(
                     fontSize: 13,
                     color: grey,
                   ),
@@ -240,7 +240,7 @@ class InfoContainer extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context)
                             .textTheme
-                            .subtitle1!
+                            .titleMedium!
                             .copyWith(fontWeight: FontWeight.w700),
                       ),
                       Row(
@@ -252,7 +252,7 @@ class InfoContainer extends StatelessWidget {
                                 : LocaleKeys.autosalon.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText1!
+                                .bodyLarge!
                                 .copyWith(color: purple),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -264,7 +264,7 @@ class InfoContainer extends StatelessWidget {
                                 '$location • $publishTime',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText1!
+                                    .bodyLarge!
                                     .copyWith(color: grey),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -303,7 +303,7 @@ class InfoContainer extends StatelessWidget {
                           '$location • $publishTime',
                           style: Theme.of(context)
                               .textTheme
-                              .bodyText1!
+                              .bodyLarge!
                               .copyWith(color: grey),
                         ),
                         const Spacer(),

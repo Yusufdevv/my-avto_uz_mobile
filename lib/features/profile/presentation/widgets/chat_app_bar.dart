@@ -37,14 +37,14 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                   LocaleKeys.help_desk.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .headline1!
+                      .displayLarge!
                       .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
                 Text(
                   '24/7',
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText1!
+                      .bodyLarge!
                       .copyWith(color: hoursGreen),
                 ),
               ],

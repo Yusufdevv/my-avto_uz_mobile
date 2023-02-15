@@ -90,7 +90,7 @@ class _RegistrationLeaseScreenState extends State<RegistrationLeaseScreen> {
                             '+998',
                             style: Theme.of(context)
                                 .textTheme
-                                .headline1!
+                                .displayLarge!
                                 .copyWith(
                                     fontSize: 14, fontWeight: FontWeight.w600),
                           ),

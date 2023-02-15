@@ -83,7 +83,7 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
                       LocaleKeys.clear.tr(),
                       style: Theme.of(context)
                           .textTheme
-                          .subtitle1!
+                          .titleMedium!
                           .copyWith(color: blue),
                     ),
                   ),

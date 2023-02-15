@@ -54,7 +54,7 @@ class MoreBottomSheet extends StatelessWidget {
                 ),
                 Text(
                   LocaleKeys.actions_single.tr(),
-                  style: Theme.of(context).textTheme.headline1!.copyWith(
+                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
                         fontSize: 20,
                         fontWeight: FontWeight.w700,
                       ),
@@ -109,7 +109,7 @@ class MoreBottomSheet extends StatelessWidget {
                           Text(
                             LocaleKeys.report_vin.tr(),
                             style:
-                                Theme.of(context).textTheme.headline1!.copyWith(
+                                Theme.of(context).textTheme.displayLarge!.copyWith(
                                       color: const Color(
                                         0xff171725,
                                       ),
@@ -153,7 +153,7 @@ class MoreBottomSheet extends StatelessWidget {
                               LocaleKeys.share.tr(),
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline1!
+                                  .displayLarge!
                                   .copyWith(
                                     color: const Color(
                                       0xff171725,

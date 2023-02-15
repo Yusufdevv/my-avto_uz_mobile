@@ -47,7 +47,7 @@ class _AddPhotoItemState extends State<AddPhotoItem> {
                 Row(
                   children: [
                     Text(LocaleKeys.photo.tr(),
-                        style: Theme.of(context).textTheme.headline1),
+                        style: Theme.of(context).textTheme.displayLarge),
                     const Spacer(),
                     WScaleAnimation(
                         child: Padding(
@@ -76,7 +76,7 @@ class _AddPhotoItemState extends State<AddPhotoItem> {
                           LocaleKeys.camera.tr(),
                           style: Theme.of(context)
                               .textTheme
-                              .headline1!
+                              .displayLarge!
                               .copyWith(
                                   fontSize: 16, fontWeight: FontWeight.w600),
                         )
@@ -102,7 +102,7 @@ class _AddPhotoItemState extends State<AddPhotoItem> {
                           LocaleKeys.choose_photo.tr(),
                           style: Theme.of(context)
                               .textTheme
-                              .headline1!
+                              .displayLarge!
                               .copyWith(
                                   fontSize: 16, fontWeight: FontWeight.w600),
                         )
@@ -140,7 +140,7 @@ class _AddPhotoItemState extends State<AddPhotoItem> {
                   LocaleKeys.photo.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .headline1!
+                      .displayLarge!
                       .copyWith(fontWeight: FontWeight.w400, fontSize: 14),
                 ),
               ),
@@ -193,7 +193,7 @@ class _AddPhotoItemState extends State<AddPhotoItem> {
                             : LocaleKeys.change_photo.tr(),
                         textStyle: Theme.of(context)
                             .textTheme
-                            .bodyText1
+                            .bodyLarge
                             ?.copyWith(color: grey),
                         textColor: grey,
                         color: solitude,

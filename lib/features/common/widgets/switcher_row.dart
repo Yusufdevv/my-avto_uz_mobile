@@ -20,7 +20,7 @@ class SwitcherRow extends StatelessWidget {
             title,
             style: Theme.of(context)
                 .textTheme
-                .headline6!
+                .titleLarge!
                 .copyWith(color: greyText),
           ),
           WCupertinoSwitch(width: 40, isSwitched: value, onChange: onChanged),

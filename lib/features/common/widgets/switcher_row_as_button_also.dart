@@ -31,7 +31,7 @@ class SwitcherRowAsButtonAlso extends StatelessWidget {
               title.length > 36?'${title.substring(0,35)}..':title,
               style: Theme.of(context)
                   .textTheme
-                  .headline6!
+                  .titleLarge!
                   .copyWith(color: greyText),
             ),
             AnimatedContainer(

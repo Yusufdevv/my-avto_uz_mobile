@@ -45,7 +45,7 @@ class SegmentedControl extends SliverPersistentHeaderDelegate {
                   LocaleKeys.list.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .headline1!
+                      .displayLarge!
                       .copyWith(fontSize: 13),
                 ),
               ),
@@ -54,7 +54,7 @@ class SegmentedControl extends SliverPersistentHeaderDelegate {
                   LocaleKeys.on_map.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .headline1!
+                      .displayLarge!
                       .copyWith(fontSize: 13),
                 ),
               ),

@@ -47,7 +47,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                     const SizedBox(height: 12),
                     Text(
                       LocaleKeys.loading_data.tr(),
-                      style: Theme.of(context).textTheme.headline6!.copyWith(
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
                           ),
@@ -109,8 +109,8 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                                   backgroundColor: Colors.transparent,
                                   context: context,
                                   useRootNavigator: true,
-                                  builder: (context) => CameraBottomSheet(
-                                      imageBloc: imageBloc)).then((value) {
+                                  builder: (context) =>
+                                      const CameraBottomSheet()).then((value) {
                                 if (value != null) {
                                   imageBloc.add(PickImage(source: value));
                                 }
@@ -124,7 +124,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                               '${LocaleKeys.photo.tr()} 360°',
                               style: Theme.of(context)
                                   .textTheme
-                                  .subtitle1!
+                                  .titleMedium!
                                   .copyWith(color: grey),
                             ),
                           ),

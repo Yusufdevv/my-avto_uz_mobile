@@ -56,7 +56,7 @@ class ReviewMainContainer extends StatelessWidget {
                     carName,
                     style: Theme.of(context)
                         .textTheme
-                        .headline2!
+                        .displayMedium!
                         .copyWith(fontSize: 13),
                   ),
                   const Spacer(),
@@ -66,7 +66,7 @@ class ReviewMainContainer extends StatelessWidget {
                     reviewCount.toString(),
                     style: Theme.of(context)
                         .textTheme
-                        .headline1!
+                        .displayLarge!
                         .copyWith(fontSize: 14),
                   )
                 ],
@@ -78,12 +78,12 @@ class ReviewMainContainer extends StatelessWidget {
                       text: description,
                       style: Theme.of(context)
                           .textTheme
-                          .headline1!
+                          .displayLarge!
                           .copyWith(fontSize: 16),
                     ),
                     TextSpan(
                       text: subtitle,
-                      style: Theme.of(context).textTheme.headline1!.copyWith(
+                      style: Theme.of(context).textTheme.displayLarge!.copyWith(
                             fontSize: 13,
                             fontWeight: FontWeight.w400,
                           ),
@@ -96,7 +96,7 @@ class ReviewMainContainer extends StatelessWidget {
                 children: [
                   Text(
                     '$publishTime',
-                    style: Theme.of(context).textTheme.headline2,
+                    style: Theme.of(context).textTheme.displayMedium,
                   ),
                   const Spacer(),
                   SvgPicture.asset(AppIcons.messageRectangle),
@@ -105,7 +105,7 @@ class ReviewMainContainer extends StatelessWidget {
                     '$commentCounts',
                     style: Theme.of(context)
                         .textTheme
-                        .headline6!
+                        .titleLarge!
                         .copyWith(fontSize: 14),
                   ),
                   const VerticalDivider(color: black, thickness: 1, width: 16),
@@ -115,7 +115,7 @@ class ReviewMainContainer extends StatelessWidget {
                     viewCounts.toString(),
                     style: Theme.of(context)
                         .textTheme
-                        .headline6!
+                        .titleLarge!
                         .copyWith(fontSize: 14),
                   )
                 ],

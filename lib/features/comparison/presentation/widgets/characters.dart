@@ -38,11 +38,11 @@ class _AzListState extends State<CharactersList> {
               style: widget.letter == state.selectChar
                   ? Theme.of(context)
                       .textTheme
-                      .headline6!
+                      .titleLarge!
                       .copyWith(color: greyText)
                   : Theme.of(context)
                       .textTheme
-                      .headline6!
+                      .titleLarge!
                       .copyWith(color: warmerGrey),
             ),
           ),

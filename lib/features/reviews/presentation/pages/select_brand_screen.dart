@@ -123,7 +123,7 @@ class _SelectBrandScreenState extends State<SelectBrandScreen> {
                           Text(
                             LocaleKeys.choose_brand.tr(),
                             style:
-                                Theme.of(context).textTheme.subtitle1!.copyWith(
+                                Theme.of(context).textTheme.titleMedium!.copyWith(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600,
                                     ),

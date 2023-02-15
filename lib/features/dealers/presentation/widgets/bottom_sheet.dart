@@ -37,7 +37,7 @@ class _BottomSheetContentState extends State<BottomSheetContent> {
                 Expanded(
                     child: Text(
                   widget.markOrRegion,
-                  style: Theme.of(context).textTheme.headline1,
+                  style: Theme.of(context).textTheme.displayLarge,
                 )),
                 GestureDetector(
                   onTap: () {
@@ -60,7 +60,7 @@ class _BottomSheetContentState extends State<BottomSheetContent> {
               LocaleKeys.all_marks.tr(),
               style: Theme.of(context)
                   .textTheme
-                  .headline1
+                  .displayLarge
                   ?.copyWith(fontSize: 14, fontWeight: FontWeight.w400),
             ),
           ),
@@ -101,7 +101,7 @@ class _BottomSheetContentState extends State<BottomSheetContent> {
                               marks[index].title,
                               style: Theme.of(context)
                                   .textTheme
-                                  .subtitle1
+                                  .titleMedium
                                   ?.copyWith(fontSize: 16),
                             )),
                             if (currentValue != marks[index].id) ...{

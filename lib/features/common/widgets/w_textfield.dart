@@ -184,13 +184,13 @@ class _WTextFieldState extends State<WTextField>
                       Text(
                         widget.title,
                         style: widget.titleTextStyle ??
-                            Theme.of(context).textTheme.headline2!.copyWith(
+                            Theme.of(context).textTheme.displayMedium!.copyWith(
                                   fontWeight: FontWeight.w600,
                                 ),
                       ),
                       Text(
                         ' ${widget.hintNextToTitle}',
-                        style: Theme.of(context).textTheme.button!.copyWith(
+                        style: Theme.of(context).textTheme.labelLarge!.copyWith(
                               fontSize: 15,
                               fontWeight: FontWeight.w500,
                             ),
@@ -248,7 +248,7 @@ class _WTextFieldState extends State<WTextField>
                       style: widget.textStyle ??
                           Theme.of(context)
                               .textTheme
-                              .headline2!
+                              .displayMedium!
                               .copyWith(fontWeight: FontWeight.w400),
                       decoration: InputDecoration(
                         suffix: widget.suffix != null
@@ -270,7 +270,7 @@ class _WTextFieldState extends State<WTextField>
                             : null,
                         hintText: widget.hintText,
                         hintStyle: widget.hintTextStyle ??
-                            Theme.of(context).textTheme.subtitle2!.copyWith(
+                            Theme.of(context).textTheme.titleSmall!.copyWith(
                                 color: Theme.of(context).hintColor,
                                 fontWeight: FontWeight.w400),
                         filled: widget.filled,
@@ -367,7 +367,7 @@ class _WTextFieldState extends State<WTextField>
                           style: widget.prefixStyle ??
                               Theme.of(context)
                                   .textTheme
-                                  .headline1!
+                                  .displayLarge!
                                   .copyWith(fontSize: 15),
                         ),
                       ),

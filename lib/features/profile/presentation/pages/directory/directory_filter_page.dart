@@ -41,12 +41,12 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
       appBar: WAppBar(
         boxShadow: const [],
         titleStyle:
-            Theme.of(context).textTheme.headline1!.copyWith(fontSize: 16),
+            Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 16),
         extraActions: [
           Text(LocaleKeys.filter.tr(),
               style: Theme.of(context)
                   .textTheme
-                  .headline1!
+                  .displayLarge!
                   .copyWith(fontSize: 16, fontWeight: FontWeight.w600)),
           const Spacer(
             flex: 30,
@@ -62,7 +62,7 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
                 LocaleKeys.clear.tr(),
                 style: Theme.of(context)
                     .textTheme
-                    .subtitle1!
+                    .titleMedium!
                     .copyWith(color: blue),
               ),
             ),

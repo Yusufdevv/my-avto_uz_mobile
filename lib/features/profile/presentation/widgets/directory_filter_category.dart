@@ -96,7 +96,7 @@ class _DirectoryFilterCategoryState extends State<DirectoryFilterCategory> {
                                 maxLines: 1,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline6
+                                    .titleLarge
                                     ?.copyWith(height: 1.3, color: nero)),
                           ),
                         ],
@@ -137,7 +137,7 @@ class _DirectoryFilterCategoryState extends State<DirectoryFilterCategory> {
                                         item.carPlaceCount.toString(),
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline2
+                                            .displayMedium
                                             ?.copyWith(
                                                 color: context
                                                         .read<DirectoryBloc>()

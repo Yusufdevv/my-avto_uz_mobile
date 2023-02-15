@@ -40,7 +40,7 @@ class _InvoicePageState extends State<InvoicePage> {
             children: [
               Text(
                 'Продлить на 7 дней',
-                style: Theme.of(context).textTheme.headline1,
+                style: Theme.of(context).textTheme.displayLarge,
               ),
               const SizedBox(
                 height: 16,
@@ -59,14 +59,14 @@ class _InvoicePageState extends State<InvoicePage> {
                         children: [
                           Text(
                             'Продлить на 7 дней',
-                            style: Theme.of(context).textTheme.headline2,
+                            style: Theme.of(context).textTheme.displayMedium,
                           ),
                           const Spacer(),
                           Text(
                             '15 000 UZS',
                             style: Theme.of(context)
                                 .textTheme
-                                .headline1!
+                                .displayLarge!
                                 .copyWith(fontSize: 14),
                           ),
                         ],
@@ -85,14 +85,14 @@ class _InvoicePageState extends State<InvoicePage> {
                         children: [
                           Text(
                             LocaleKeys.end_of_term.tr(),
-                            style: Theme.of(context).textTheme.headline2,
+                            style: Theme.of(context).textTheme.displayMedium,
                           ),
                           const Spacer(),
                           Text(
                             '18.11.2022',
                             style: Theme.of(context)
                                 .textTheme
-                                .headline1!
+                                .displayLarge!
                                 .copyWith(fontSize: 14),
                           ),
                         ],
@@ -135,14 +135,14 @@ class _InvoicePageState extends State<InvoicePage> {
                         children: [
                           Text(
                             LocaleKeys.total.tr(),
-                            style: Theme.of(context).textTheme.headline2,
+                            style: Theme.of(context).textTheme.displayMedium,
                           ),
                           const Spacer(),
                           Text(
                             '15 000 UZS',
                             style: Theme.of(context)
                                 .textTheme
-                                .headline1!
+                                .displayLarge!
                                 .copyWith(fontSize: 14),
                           ),
                         ],
@@ -158,7 +158,7 @@ class _InvoicePageState extends State<InvoicePage> {
                 LocaleKeys.payment_method.tr(),
                 style: Theme.of(context)
                     .textTheme
-                    .headline2!
+                    .displayMedium!
                     .copyWith(fontSize: 14),
               ),
               const SizedBox(
@@ -258,7 +258,7 @@ class _InvoicePageState extends State<InvoicePage> {
                     content: Text(LocaleKeys.confirm.tr(),
                         style: Theme.of(context)
                             .textTheme
-                            .headline4!
+                            .headlineMedium!
                             .copyWith(fontSize: 14)),
                     onTap: () {
                       Navigator.of(context)

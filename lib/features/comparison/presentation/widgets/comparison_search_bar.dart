@@ -31,7 +31,7 @@ class ComparisonSearchBar extends SliverPersistentHeaderDelegate {
               .whiteSmoke2ToNightRider,
           textStyle: Theme.of(context)
               .textTheme
-              .subtitle1!
+              .titleMedium!
               .copyWith(fontSize: 16, fontWeight: FontWeight.w400),
           focusColor: Theme.of(context)
               .extension<ThemedColors>()!

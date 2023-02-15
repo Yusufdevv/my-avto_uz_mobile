@@ -139,7 +139,7 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
                         style: titleStyle ??
                             Theme.of(context)
                                 .textTheme
-                                .headline1!
+                                .displayLarge!
                                 .copyWith(fontSize: 16),
                       ),
                     ),
@@ -173,7 +173,7 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
                         child: Text(
                           title ?? '',
                           style: titleStyle ??
-                              Theme.of(context).textTheme.subtitle1!.copyWith(
+                              Theme.of(context).textTheme.titleMedium!.copyWith(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
                                   ),

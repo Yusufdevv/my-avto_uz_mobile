@@ -36,7 +36,7 @@ class MainFavorites extends StatelessWidget {
                     LocaleKeys.favorites.tr(),
                     style: Theme.of(context)
                         .textTheme
-                        .headline1
+                        .displayLarge
                         ?.copyWith(fontSize: 18),
                   ),
                 ),

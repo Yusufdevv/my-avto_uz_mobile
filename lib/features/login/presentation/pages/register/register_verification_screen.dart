@@ -96,7 +96,7 @@ class _RegisterVerificationScreenState
                               '+998 ${widget.phone}',
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline6!
+                                  .titleLarge!
                                   .copyWith(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 14),
@@ -155,12 +155,12 @@ class _RegisterVerificationScreenState
                         enableActiveFill: false,
                         textStyle: Theme.of(context)
                             .textTheme
-                            .headline1!
+                            .displayLarge!
                             .copyWith(
                                 fontSize: 24, fontWeight: FontWeight.w400),
                         hintStyle: Theme.of(context)
                             .textTheme
-                            .bodyText2!
+                            .bodyMedium!
                             .copyWith(fontSize: 4),
                         appContext: context,
                         showCursor: true,
@@ -170,7 +170,7 @@ class _RegisterVerificationScreenState
                           Text(LocaleKeys.send_via_password.tr(),
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline6!
+                                  .titleLarge!
                                   .copyWith(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w400)),

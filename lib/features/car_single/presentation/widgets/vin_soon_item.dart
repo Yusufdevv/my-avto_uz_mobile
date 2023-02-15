@@ -42,7 +42,7 @@ class VinSoonItem extends StatelessWidget {
               ),
               child: Text(
                 LocaleKeys.soon.tr(),
-                style: Theme.of(context).textTheme.headline1!.copyWith(
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(
                       color: white,
                       fontWeight: FontWeight.w600,
                       fontSize: 12,
@@ -61,7 +61,7 @@ class VinSoonItem extends StatelessWidget {
                         LocaleKeys.VIN_check_report.tr(),
                         style: Theme.of(context)
                             .textTheme
-                            .headline1!
+                            .displayLarge!
                             .copyWith(fontSize: 18),
                       ),
                       const SizedBox(
@@ -71,7 +71,7 @@ class VinSoonItem extends StatelessWidget {
                         LocaleKeys.vin_check_text.tr(),
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.headline2,
+                        style: Theme.of(context).textTheme.displayMedium,
                       ),
                       SizedBox(
                         height: 20,

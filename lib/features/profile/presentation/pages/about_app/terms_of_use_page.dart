@@ -35,7 +35,7 @@ class TermsOfUsePage extends StatelessWidget {
                         ),
                         child: Text(
                           state.termsOfUseEntity.title!,
-                          style: Theme.of(context).textTheme.headline1,
+                          style: Theme.of(context).textTheme.displayLarge,
                         ),
                       ),
                     SizedBox(height: SizeConfig.v(16)),

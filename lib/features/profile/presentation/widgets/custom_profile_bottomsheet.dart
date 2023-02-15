@@ -40,13 +40,13 @@ class CustomProfileBottomsheet extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             Text(title,
-                style: Theme.of(context).textTheme.headline1,
+                style: Theme.of(context).textTheme.displayLarge,
                 textAlign: TextAlign.center),
             const SizedBox(height: 8),
             Text(subTitle,
                 style: Theme.of(context)
                     .textTheme
-                    .headline2!
+                    .displayMedium!
                     .copyWith(fontWeight: FontWeight.w400, fontSize: 16),
                 textAlign: TextAlign.center),
             SizedBox(height: betweenHeight.toDouble()),

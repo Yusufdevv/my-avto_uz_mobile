@@ -54,7 +54,7 @@ class _HourPickerWidgetState extends State<HourPickerWidget> {
               alignment: const Alignment(0, -.1),
               child: Text(
                 widget.title,
-                style: Theme.of(context).textTheme.caption!.copyWith(
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
                     fontSize: 16, fontWeight: FontWeight.w400, height: 1.3),
               ),
             ),
@@ -74,7 +74,7 @@ class _HourPickerWidgetState extends State<HourPickerWidget> {
                 childCount: values.length,
                 itemBuilder: (context, index) => Text(
                   values[index],
-                  style: Theme.of(context).textTheme.headline2!.copyWith(
+                  style: Theme.of(context).textTheme.displayMedium!.copyWith(
                       fontSize: 19,
                       color: index == currentIndex ? orange : null,
                       fontWeight:

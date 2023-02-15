@@ -77,20 +77,20 @@ class _RentPeriodScreenState extends State<RentPeriodScreen> {
                 initialSelectedRange:
                     PickerDateRange(DateTime.now(), DateTime.now()),
                 monthCellStyle: DateRangePickerMonthCellStyle(
-                  textStyle: Theme.of(context).textTheme.subtitle1!.copyWith(
+                  textStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
                       color: Theme.of(context)
                           .extension<ThemedColors>()!
                           .darkToWhite),
                   disabledDatesTextStyle: Theme.of(context)
                       .textTheme
-                      .subtitle1!
+                      .titleMedium!
                       .copyWith(
                           color: Theme.of(context)
                               .extension<ThemedColors>()!
                               .ghostToGreySuit),
                   todayTextStyle: Theme.of(context)
                       .textTheme
-                      .subtitle1!
+                      .titleMedium!
                       .copyWith(
                           color: Theme.of(context)
                               .extension<ThemedColors>()!
@@ -101,7 +101,7 @@ class _RentPeriodScreenState extends State<RentPeriodScreen> {
                 selectionColor: purple,
                 selectionTextStyle: Theme.of(context)
                     .textTheme
-                    .headline3!
+                    .displaySmall!
                     .copyWith(fontWeight: FontWeight.w600, fontSize: 16),
                 selectionShape: DateRangePickerSelectionShape.rectangle,
                 rangeSelectionColor: Theme.of(context)
@@ -115,7 +115,7 @@ class _RentPeriodScreenState extends State<RentPeriodScreen> {
                     .lavenderBlueToCharcoal,
                 rangeTextStyle: Theme.of(context)
                     .textTheme
-                    .headline3!
+                    .displaySmall!
                     .copyWith(fontWeight: FontWeight.w600, fontSize: 16),
                 onSelectionChanged: _onSelectionChanged,
                 controller: _controller,
@@ -130,7 +130,7 @@ class _RentPeriodScreenState extends State<RentPeriodScreen> {
                       padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),
                       child: Text(
                         LocaleKeys.start.tr(),
-                        style: Theme.of(context).textTheme.headline1!.copyWith(
+                        style: Theme.of(context).textTheme.displayLarge!.copyWith(
                             fontSize: 13, fontWeight: FontWeight.w400),
                       ),
                     ),
@@ -172,7 +172,7 @@ class _RentPeriodScreenState extends State<RentPeriodScreen> {
                             list[hour.floor()],
                             style: Theme.of(context)
                                 .textTheme
-                                .headline1!
+                                .displayLarge!
                                 .copyWith(
                                     fontWeight: FontWeight.w400, fontSize: 13),
                           ),
@@ -184,7 +184,7 @@ class _RentPeriodScreenState extends State<RentPeriodScreen> {
                       padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
                       child: Text(
                         LocaleKeys.end.tr(),
-                        style: Theme.of(context).textTheme.headline1!.copyWith(
+                        style: Theme.of(context).textTheme.displayLarge!.copyWith(
                             fontSize: 13, fontWeight: FontWeight.w400),
                       ),
                     ),
@@ -225,7 +225,7 @@ class _RentPeriodScreenState extends State<RentPeriodScreen> {
                             list[endHour.floor()],
                             style: Theme.of(context)
                                 .textTheme
-                                .headline1!
+                                .displayLarge!
                                 .copyWith(
                                     fontWeight: FontWeight.w400, fontSize: 13),
                           ),

@@ -24,7 +24,7 @@ class CharacteristicBox extends StatelessWidget {
           children: [
             Text(
               title,
-              style: Theme.of(context).textTheme.headline1!.copyWith(
+              style: Theme.of(context).textTheme.displayLarge!.copyWith(
                     fontWeight: FontWeight.w400,
                     fontSize: 11,
                     color: grey,
@@ -35,7 +35,7 @@ class CharacteristicBox extends StatelessWidget {
             ),
             Text(
               value,
-              style: Theme.of(context).textTheme.headline2!.copyWith(
+              style: Theme.of(context).textTheme.displayMedium!.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: 14,
                     color: dark,

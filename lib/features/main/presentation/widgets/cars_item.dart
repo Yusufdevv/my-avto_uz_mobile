@@ -53,7 +53,7 @@ class ChangeCarsItem extends StatelessWidget {
                       Text(entity.title,
                           style: Theme.of(context)
                               .textTheme
-                              .headline1!
+                              .displayLarge!
                               .copyWith(
                                   fontSize: 16, fontWeight: FontWeight.w400)),
                     ],

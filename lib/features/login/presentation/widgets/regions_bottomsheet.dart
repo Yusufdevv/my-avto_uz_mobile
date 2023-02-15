@@ -27,7 +27,7 @@ Future<Region> showRegionsBottomSheet(
                     children: [
                       Text(
                         list[index].title,
-                        style: Theme.of(context).textTheme.headline1!.copyWith(
+                        style: Theme.of(context).textTheme.displayLarge!.copyWith(
                             fontWeight: FontWeight.w600, fontSize: 16),
                       ),
                     ],

@@ -73,14 +73,14 @@ class MySearchItem extends StatelessWidget {
                       Text(item.make?.name ?? '',
                           style: Theme.of(context)
                               .textTheme
-                              .headline6
+                              .titleLarge
                               ?.copyWith(color: dark)),
                     SizedBox(height: SizeConfig.v(2)),
                     if (item.make?.name != null && item.model?[0]?.name != null)
                       Text('${item.make?.name} • ${item.model?[0]?.name}',
                           style: Theme.of(context)
                               .textTheme
-                              .headline2
+                              .displayMedium
                               ?.copyWith(color: greyText)),
                   ],
                 ),

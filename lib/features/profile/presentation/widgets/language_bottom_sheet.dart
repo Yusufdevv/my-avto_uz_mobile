@@ -58,7 +58,7 @@ class LanguageBottomSheetState extends State<LanguageBottomSheet> {
               children: [
                 Text(
                   LocaleKeys.language.tr(),
-                  style: Theme.of(context).textTheme.headline1,
+                  style: Theme.of(context).textTheme.displayLarge,
                 ),
                 const Spacer(),
                 WScaleAnimation(
@@ -110,7 +110,7 @@ class LanguageBottomSheetState extends State<LanguageBottomSheet> {
                 LocaleKeys.confirm.tr(),
                 style: Theme.of(context)
                     .textTheme
-                    .headline4!
+                    .headlineMedium!
                     .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
               ),
             ),

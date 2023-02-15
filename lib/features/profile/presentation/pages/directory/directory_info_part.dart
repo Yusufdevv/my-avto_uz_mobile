@@ -144,7 +144,7 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
                 child: Text(LocaleKeys.show_contact.tr(),
                     style: Theme.of(context)
                         .textTheme
-                        .headline4!
+                        .headlineMedium!
                         .copyWith(fontSize: 14, height: 1.3)),
               ),
             )
@@ -159,7 +159,7 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
                       Text(MyFunctions.phoneFormat(widget.phone),
                           style: Theme.of(context)
                               .textTheme
-                              .headline1!
+                              .displayLarge!
                               .copyWith(
                                   fontSize: 16, fontWeight: FontWeight.w600)),
                     ],
@@ -178,7 +178,7 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
                     child: Text(LocaleKeys.call.tr(),
                         style: Theme.of(context)
                             .textTheme
-                            .headline4!
+                            .headlineMedium!
                             .copyWith(fontSize: 14, height: 1.3)),
                   ),
                 ),

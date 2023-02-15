@@ -11,7 +11,7 @@ Widget features(String text) => Container(
           Text(
             text,
             style: const TextStyle(
-              color: LightThemeColors.headline1,
+              color: LightThemeColors.displayLarge,
               fontSize: 16,
               fontWeight: FontWeight.w400,
             ),

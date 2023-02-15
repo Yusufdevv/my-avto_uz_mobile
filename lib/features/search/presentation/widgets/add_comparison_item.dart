@@ -76,7 +76,7 @@ class AddComparisonItem extends StatelessWidget {
                     if (isGreen)
                       Text(
                         LocaleKeys.compare.tr(),
-                        style: Theme.of(context).textTheme.headline6!.copyWith(
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
                               fontSize: 12,
                               color:a ? orange : dark,
                             ),
@@ -84,7 +84,7 @@ class AddComparisonItem extends StatelessWidget {
                     else
                       Text(
                         LocaleKeys.compare.tr(),
-                        style: Theme.of(context).textTheme.headline6!.copyWith(
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
                               fontSize: 12,
                               color:a
                                   ? orange

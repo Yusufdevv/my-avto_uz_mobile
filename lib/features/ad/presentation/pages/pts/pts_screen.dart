@@ -62,7 +62,7 @@ class _PtsScreenState extends State<PtsScreen> {
                         LocaleKeys.document_type.tr(),
                         style: Theme.of(context)
                             .textTheme
-                            .headline6!
+                            .titleLarge!
                             .copyWith(color: greyText),
                       ),
                       const SizedBox(height: 8),
@@ -88,7 +88,7 @@ class _PtsScreenState extends State<PtsScreen> {
                         LocaleKeys.what_kind_owner.tr(),
                         style: Theme.of(context)
                             .textTheme
-                            .headline6!
+                            .titleLarge!
                             .copyWith(color: greyText),
                       ),
                       const SizedBox(height: 8),
@@ -112,7 +112,7 @@ class _PtsScreenState extends State<PtsScreen> {
                         LocaleKeys.when_car_was_buing.tr(),
                         style: Theme.of(context)
                             .textTheme
-                            .headline6!
+                            .titleLarge!
                             .copyWith(color: greyText),
                       ),
                       const SizedBox(
@@ -133,7 +133,7 @@ class _PtsScreenState extends State<PtsScreen> {
                                 state.purchasedDate!.isNotEmpty
                             ? Theme.of(context)
                                 .textTheme
-                                .headline1!
+                                .displayLarge!
                                 .copyWith(fontSize: 16)
                             : null,
                         title: state.purchasedDate != null &&

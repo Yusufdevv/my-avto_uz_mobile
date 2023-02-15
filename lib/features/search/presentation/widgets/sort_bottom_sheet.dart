@@ -44,7 +44,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                 Expanded(
                   child: Text(
                     widget.title,
-                    style: Theme.of(context).textTheme.headline1,
+                    style: Theme.of(context).textTheme.displayLarge,
                   ),
                 ),
                 GestureDetector(
@@ -90,11 +90,11 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                                           groupValue
                                       ? Theme.of(context)
                                           .textTheme
-                                          .subtitle1!
+                                          .titleMedium!
                                           .copyWith(fontSize: 16)
                                       : Theme.of(context)
                                           .textTheme
-                                          .headline6!
+                                          .titleLarge!
                                           .copyWith(
                                               color: LightThemeColors.smoky),
                                 ),
@@ -137,7 +137,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                   text: LocaleKeys.apply.tr(),
                   textStyle: Theme.of(context)
                       .textTheme
-                      .subtitle1!
+                      .titleMedium!
                       .copyWith(color: white),
                   margin: EdgeInsets.only(
                     bottom: MediaQuery.of(context).padding.bottom + 20,

@@ -110,7 +110,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               '+998',
                               style: Theme.of(context)
                                   .textTheme
-                                  .subtitle1!
+                                  .titleMedium!
                                   .copyWith(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w400),
@@ -120,7 +120,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         hintText: '00 000 00 00',
                         hintTextStyle: Theme.of(context)
                             .textTheme
-                            .subtitle1!
+                            .titleMedium!
                             .copyWith(
                                 fontSize: 14,
                                 color: warmerGrey,
@@ -129,7 +129,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         textInputFormatters: [phoneFormatter],
                         textStyle: Theme.of(context)
                             .textTheme
-                            .subtitle1!
+                            .titleMedium!
                             .copyWith(
                                 fontSize: 14, fontWeight: FontWeight.w400),
                       ),

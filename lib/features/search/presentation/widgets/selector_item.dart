@@ -30,7 +30,7 @@ class SelectorItem extends StatelessWidget {
             title,
             style: Theme.of(context)
                 .textTheme
-                .headline2!
+                .displayMedium!
                 .copyWith(fontWeight: FontWeight.w400, color: grey),
           ),
           const SizedBox(height: 8),
@@ -57,7 +57,7 @@ class SelectorItem extends StatelessWidget {
                             hintText,
                             style: Theme.of(context)
                                 .textTheme
-                                .subtitle1!
+                                .titleMedium!
                                 .copyWith(color: hasArrowDown ? grey : black),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,

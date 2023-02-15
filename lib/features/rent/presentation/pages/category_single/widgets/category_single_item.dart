@@ -55,7 +55,7 @@ class CategorySingleItem extends StatelessWidget {
                     '${rentListEntity.rentCar.model.name}',
                 style: Theme.of(context)
                     .textTheme
-                    .headline1!
+                    .displayLarge!
                     .copyWith(fontSize: 12, fontWeight: FontWeight.w600),
               ),
             ],

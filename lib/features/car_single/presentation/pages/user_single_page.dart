@@ -225,7 +225,7 @@ class _UserSinglePageState extends State<UserSinglePage> {
                                     LocaleKeys.user_ads.tr(),
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline5
+                                        .headlineSmall
                                         ?.copyWith(fontSize: 16),
                                   ),
                                 ),

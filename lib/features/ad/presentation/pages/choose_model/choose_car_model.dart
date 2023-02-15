@@ -49,7 +49,7 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                           ),
                           child: Text(
                             LocaleKeys.choose_model.tr(),
-                            style: Theme.of(context).textTheme.headline1,
+                            style: Theme.of(context).textTheme.displayLarge,
                           ),
                         ),
                       ),
@@ -80,7 +80,7 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                           controller: searchController,
                           textStyle: Theme.of(context)
                               .textTheme
-                              .headline1!
+                              .displayLarge!
                               .copyWith(
                                   fontWeight: FontWeight.w400, fontSize: 16),
                         ),
@@ -123,7 +123,7 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                                   LocaleKeys.popular.tr(),
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline1!
+                                      .displayLarge!
                                       .copyWith(
                                           fontWeight: FontWeight.w600,
                                           color: purple),

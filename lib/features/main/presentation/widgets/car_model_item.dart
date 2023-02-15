@@ -85,7 +85,7 @@ class CarModelItem extends StatelessWidget {
                     title.trim().isEmpty
                         ? LocaleKeys.choose_brand_model.tr()
                         : title,
-                    style: Theme.of(context).textTheme.headline6!.copyWith(
+                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
                         fontSize: 14,
                         color: Theme.of(context)
                             .extension<ThemedColors>()!
@@ -115,7 +115,7 @@ class CarModelItem extends StatelessWidget {
                           MyFunctions.getThousandsSeparatedPrice('$count')
                         ])
                       : LocaleKeys.no_offers.tr(),
-              textStyle: Theme.of(context).textTheme.headline6!.copyWith(
+              textStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
                   fontSize: 14,
                   color: Theme.of(context)
                       .extension<ThemedColors>()!

@@ -26,7 +26,7 @@ class StatisticsTile extends StatelessWidget {
             ),
             Text(
               carStatistic.valueText,
-              style: Theme.of(context).textTheme.headline1!.copyWith(
+              style: Theme.of(context).textTheme.displayLarge!.copyWith(
                   fontWeight: FontWeight.w600, fontSize: 12, color: suvaGray),
             )
           ],

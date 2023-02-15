@@ -167,7 +167,7 @@ class _FilterParametersState extends State<FilterParameters> {
                   ),
                   Text(
                     LocaleKeys.select_currency.tr(),
-                    style: Theme.of(context).textTheme.headline2,
+                    style: Theme.of(context).textTheme.displayMedium,
                   ),
                   const SizedBox(height: 8),
                   Row(

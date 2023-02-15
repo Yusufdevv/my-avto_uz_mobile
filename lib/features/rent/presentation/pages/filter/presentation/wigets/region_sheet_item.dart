@@ -28,7 +28,7 @@ class RegionSheetItem extends StatelessWidget {
               title,
               style: Theme.of(context)
                   .textTheme
-                  .headline1!
+                  .displayLarge!
                   .copyWith(fontWeight: FontWeight.w600, fontSize: 16),
             ),
            RegionCheckBox(

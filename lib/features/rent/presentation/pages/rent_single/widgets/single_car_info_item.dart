@@ -21,7 +21,7 @@ class SingleCarInfoItemm extends StatelessWidget {
             Text(
               LocaleKeys.about_car.tr(),
               style:
-                  Theme.of(context).textTheme.headline1!.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 18),
             ),
             const SizedBox(
               height: 8,
@@ -39,7 +39,7 @@ class SingleCarInfoItemm extends StatelessWidget {
               title: LocaleKeys.complectation.tr(),
               description: rentCarEntity.type.name,
               textStyle:
-                  Theme.of(context).textTheme.subtitle2!.copyWith(color: blue),
+                  Theme.of(context).textTheme.titleSmall!.copyWith(color: blue),
             ),
             InfoItem(
                 title: LocaleKeys.engine_volume_l.tr(),

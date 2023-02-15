@@ -26,7 +26,7 @@ class CarActionsBox extends StatelessWidget {
             ),
             Text(
               carStatistic.valueText,
-              style: Theme.of(context).textTheme.headline1!.copyWith(
+              style: Theme.of(context).textTheme.displayLarge!.copyWith(
                   fontWeight: FontWeight.w600,
                   fontSize: 12,
                   color: const Color(0xff696974)),

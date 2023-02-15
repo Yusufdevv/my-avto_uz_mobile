@@ -58,7 +58,7 @@ class SelectModelInfo extends StatelessWidget {
                 style: titleStyle ??
                     Theme.of(context)
                         .textTheme
-                        .subtitle2!
+                        .titleSmall!
                         .copyWith(color: white),
               ),
               const Spacer(),

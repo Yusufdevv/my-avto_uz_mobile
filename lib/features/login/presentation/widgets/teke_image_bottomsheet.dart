@@ -28,7 +28,7 @@ class TakeImageBottomSheet extends StatelessWidget {
             children: [
               Text(
                 LocaleKeys.photo.tr(),
-                style: Theme.of(context).textTheme.headline1!.copyWith(),
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(),
               ),
               const Spacer(),
               WScaleAnimation(
@@ -49,7 +49,7 @@ class TakeImageBottomSheet extends StatelessWidget {
               const SizedBox(width: 8),
               Text(
                 LocaleKeys.camera.tr(),
-                style: Theme.of(context).textTheme.headline1!.copyWith(),
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(),
               )
             ],
           ),
@@ -62,7 +62,7 @@ class TakeImageBottomSheet extends StatelessWidget {
               const SizedBox(width: 8),
               Text(
                 LocaleKeys.choose_photo.tr(),
-                style: Theme.of(context).textTheme.headline1!.copyWith(),
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(),
               )
             ],
           ),

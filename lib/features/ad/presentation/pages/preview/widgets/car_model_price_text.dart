@@ -1,8 +1,4 @@
-import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class CarPriceText extends StatelessWidget {
   final String text;
@@ -16,7 +12,7 @@ class CarPriceText extends StatelessWidget {
             Text(
               '$text UZS',
               style:
-                  Theme.of(context).textTheme.headline1!.copyWith(fontSize: 24),
+                  Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 24),
             ),
             const SizedBox(
               width: 12,

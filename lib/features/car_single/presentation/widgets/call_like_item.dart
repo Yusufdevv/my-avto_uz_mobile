@@ -34,7 +34,7 @@ class CallLikeItem extends StatelessWidget {
               ),
               Text(
                 number,
-                style: Theme.of(context).textTheme.headline1!.copyWith(
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
                       color: const Color(
@@ -47,7 +47,7 @@ class CallLikeItem extends StatelessWidget {
           Text(
             text,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headline1!.copyWith(
+            style: Theme.of(context).textTheme.displayLarge!.copyWith(
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
                   color: const Color(

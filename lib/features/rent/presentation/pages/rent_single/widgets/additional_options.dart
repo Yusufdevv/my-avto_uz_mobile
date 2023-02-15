@@ -34,7 +34,7 @@ class _AdditionalOptionsState extends State<AdditionalOptions> {
             Text(
               LocaleKeys.additional_options.tr(),
               style:
-                  Theme.of(context).textTheme.headline1!.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 18),
             ),
             const SizedBox(
               height: 8,

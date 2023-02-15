@@ -13,12 +13,12 @@ class TitleTextFieldTop extends StatelessWidget {
           padding: const EdgeInsets.only(top: 20, bottom: 8),
           child: Row(
             children: [
-              Text(title, style: Theme.of(context).textTheme.headline2),
+              Text(title, style: Theme.of(context).textTheme.displayMedium),
               if (isRequired)
                 Text('*',
                     style: Theme.of(context)
                         .textTheme
-                        .headline2
+                        .displayMedium
                         ?.copyWith(color: orange)),
             ],
           ),

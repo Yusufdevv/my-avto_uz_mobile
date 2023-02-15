@@ -38,7 +38,7 @@ class DealerTime extends StatelessWidget {
                 children: [
                   Text(
                     LocaleKeys.avialable_hours.tr(),
-                    style: Theme.of(context).textTheme.headline1,
+                    style: Theme.of(context).textTheme.displayLarge,
                   ),
                   const Spacer(),
                   GestureDetector(
@@ -68,7 +68,7 @@ class DealerTime extends StatelessWidget {
                     LocaleKeys.the_user_is_only_available_in.tr(),
                     style: Theme.of(context)
                         .textTheme
-                        .headline2!
+                        .displayMedium!
                         .copyWith(color: profileContainers),
                   ),
                   Container(
@@ -83,7 +83,7 @@ class DealerTime extends StatelessWidget {
                     ),
                     child: Text(
                       '${LocaleKeys.from.tr()} $timeFrom' ' - ${LocaleKeys.to.tr()} $timeTo',
-                      style: Theme.of(context).textTheme.headline2!.copyWith(
+                      style: Theme.of(context).textTheme.displayMedium!.copyWith(
                           fontWeight: FontWeight.w400,
                           fontSize: 12,
                           color: orange),
@@ -100,7 +100,7 @@ class DealerTime extends StatelessWidget {
                     },
                     content: Text(
                       LocaleKeys.understandably.tr(),
-                      style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
                             color: white,
                           ),
                     ),

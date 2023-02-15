@@ -27,13 +27,13 @@ class ReSendPart extends StatelessWidget {
           LocaleKeys.inappropriate_conditions_or_offers.tr(),
           style: Theme.of(context)
               .textTheme
-              .headline4
+              .headlineMedium
               ?.copyWith(height: 1.3, color: dark),
         ),
         const SizedBox(height: 10),
         Text(
           LocaleKeys.the_ad_offers_services_or_products_that.tr(),
-          style: Theme.of(context).textTheme.headline2?.copyWith(color: dark),
+          style: Theme.of(context).textTheme.displayMedium?.copyWith(color: dark),
         ),
         const SizedBox(height: 12),
         WButton(
@@ -50,7 +50,7 @@ class ReSendPart extends StatelessWidget {
                 LocaleKeys.resend.tr(),
                 style: Theme.of(context)
                     .textTheme
-                    .headline5
+                    .headlineSmall
                     ?.copyWith(color: yellowSea, fontSize: 15, height: 1.3),
               )
             ],

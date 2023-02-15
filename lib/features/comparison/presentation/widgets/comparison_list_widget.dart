@@ -26,7 +26,7 @@ class ComparsionList extends StatelessWidget {
         height: 54,
         child: Text(
           info,
-          style: Theme.of(context).textTheme.headline1!.copyWith(
+          style: Theme.of(context).textTheme.displayLarge!.copyWith(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
               ),

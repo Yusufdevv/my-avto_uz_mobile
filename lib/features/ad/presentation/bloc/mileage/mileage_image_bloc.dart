@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:auto/utils/my_functions.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -20,7 +19,6 @@ class MileageImageBloc extends Bloc<MileageImageEvent, MileageImageState> {
     on<PickMileageImage>((event, emit) async {
       final permission =
           await MyFunctions.getCameraPermission(Platform.isAndroid);
-print('permission in mialge image bloc: ${permission.name}');
       if (permission.isGranted) {
         final image = await imagePicker.pickImage(source: ImageSource.camera);
         if (image != null) {

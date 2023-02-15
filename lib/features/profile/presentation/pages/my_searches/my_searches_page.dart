@@ -85,7 +85,7 @@ class _MySearchesPageState extends State<MySearchesPage> {
                                       LocaleKeys.cancell.tr(),
                                       style: Theme.of(context)
                                           .textTheme
-                                          .subtitle1
+                                          .titleMedium
                                           ?.copyWith(color: red, height: 1.3),
                                     )
                                   : SvgPicture.asset(AppIcons.delete,

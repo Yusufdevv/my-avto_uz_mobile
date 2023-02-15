@@ -29,7 +29,7 @@ class AllRationItem extends StatelessWidget {
             Text(
               LocaleKeys.overal_score.tr(),
               style:
-                  Theme.of(context).textTheme.headline1!.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 18),
             ),
             const SizedBox(
               height: 8,
@@ -58,7 +58,7 @@ class AllRationItem extends StatelessWidget {
                   '57 ${LocaleKeys.models.tr()}9${LocaleKeys.reviews.tr()}',
                   style: Theme.of(context)
                       .textTheme
-                      .subtitle1!
+                      .titleMedium!
                       .copyWith(color: grey),
                 )
               ],
@@ -80,14 +80,14 @@ class AllRationItem extends StatelessWidget {
                       text: LocaleKeys.pluses.tr(),
                       style: Theme.of(context)
                           .textTheme
-                          .headline6!
+                          .titleLarge!
                           .copyWith(color: green),
                       children: [
                         TextSpan(
                           text: ' (30)',
                           style: Theme.of(context)
                               .textTheme
-                              .headline1!
+                              .displayLarge!
                               .copyWith(fontSize: 16, color: grey),
                         ),
                       ]),
@@ -100,14 +100,14 @@ class AllRationItem extends StatelessWidget {
                       text: LocaleKeys.minuses.tr(),
                       style: Theme.of(context)
                           .textTheme
-                          .headline6!
+                          .titleLarge!
                           .copyWith(color: red),
                       children: [
                         TextSpan(
                           text: ' (5)',
                           style: Theme.of(context)
                               .textTheme
-                              .headline1!
+                              .displayLarge!
                               .copyWith(fontSize: 16, color: grey),
                         ),
                       ]),

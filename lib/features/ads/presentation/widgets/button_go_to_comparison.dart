@@ -44,13 +44,13 @@ class ButtonGoToComparison extends StatelessWidget {
               Text(LocaleKeys.go_to_comparison.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .subtitle1
+                      .titleMedium
                       ?.copyWith(color: white)),
               const Spacer(),
               Text(LocaleKeys.added_x_auto.tr(args: ['${state.count}']),
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText1
+                      .bodyLarge
                       ?.copyWith(color: white.withOpacity(0.72))),
               const SizedBox(width: 4),
               SvgPicture.asset(AppIcons.chevronRight)

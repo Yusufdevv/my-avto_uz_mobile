@@ -114,14 +114,14 @@ class _SendPhoneNumberPageState extends State<SendPhoneNumberPage> {
                           LocaleKeys.recovery_password.tr(),
                           style: Theme.of(context)
                               .textTheme
-                              .headline1!
+                              .displayLarge!
                               .copyWith(
                                   fontSize: 18, fontWeight: FontWeight.w700),
                         ),
                         const SizedBox(height: 4),
                         Text(
                           LocaleKeys.check_number.tr(),
-                          style: Theme.of(context).textTheme.headline2,
+                          style: Theme.of(context).textTheme.displayMedium,
                         ),
                         const SizedBox(height: 36),
                         ZTextFormField(
@@ -146,7 +146,7 @@ class _SendPhoneNumberPageState extends State<SendPhoneNumberPage> {
                                 '+998',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .subtitle1!
+                                    .titleMedium!
                                     .copyWith(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400),
@@ -155,7 +155,7 @@ class _SendPhoneNumberPageState extends State<SendPhoneNumberPage> {
                           ),
                           hintTextStyle: Theme.of(context)
                               .textTheme
-                              .subtitle1!
+                              .titleMedium!
                               .copyWith(
                                   fontSize: 14,
                                   color: warmerGrey,
@@ -165,7 +165,7 @@ class _SendPhoneNumberPageState extends State<SendPhoneNumberPage> {
                           textInputFormatters: [phoneFormatter],
                           textStyle: Theme.of(context)
                               .textTheme
-                              .subtitle1!
+                              .titleMedium!
                               .copyWith(
                                   fontSize: 14, fontWeight: FontWeight.w400),
                         ),

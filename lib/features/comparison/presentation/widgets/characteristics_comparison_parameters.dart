@@ -63,7 +63,7 @@ class CharacteristicsComparisonWidget extends StatelessWidget {
                     '2016',
                     style: Theme.of(context)
                         .textTheme
-                        .headline1!
+                        .displayLarge!
                         .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
                   ),
                 ),
@@ -72,7 +72,7 @@ class CharacteristicsComparisonWidget extends StatelessWidget {
                 else
                   Text(
                     '2016',
-                    style: Theme.of(context).textTheme.headline1!.copyWith(
+                    style: Theme.of(context).textTheme.displayLarge!.copyWith(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                         ),

@@ -64,7 +64,7 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                                 '(${state.step}/3)',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline5!
+                                    .headlineSmall!
                                     .copyWith(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w700,
@@ -73,7 +73,7 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                               const SizedBox(width: 8),
                               Text(
                                 state.title,
-                                style: Theme.of(context).textTheme.headline1,
+                                style: Theme.of(context).textTheme.displayLarge,
                               ),
                               const Spacer(),
                               GestureDetector(
@@ -139,7 +139,7 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                               cursorColor: white,
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline1!
+                                  .displayLarge!
                                   .copyWith(
                                       fontSize: 24,
                                       fontWeight: FontWeight.w400),
@@ -163,14 +163,14 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                                       text: 'Минимальная сумма должна быть',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline2!
+                                          .displayMedium!
                                           .copyWith(
                                             fontSize: 13,
                                           )),
                                   TextSpan(
                                       text: '  ≥ ${state.minimumSumma}',
                                       style:
-                                          Theme.of(context).textTheme.headline5)
+                                          Theme.of(context).textTheme.headlineSmall)
                                 ],
                               ),
                             ),
@@ -234,7 +234,7 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                               LocaleKeys.continuee,
                               style: Theme.of(context)
                                   .textTheme
-                                  .subtitle1!
+                                  .titleMedium!
                                   .copyWith(
                                     color: white,
                                   ),

@@ -36,7 +36,7 @@ class DetailsItem extends StatelessWidget {
             Text(
               LocaleKeys.order_details.tr(),
               style:
-                  Theme.of(context).textTheme.headline1!.copyWith(fontSize: 14),
+                  Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 14),
             ),
             const SizedBox(
               height: 12,
@@ -48,14 +48,14 @@ class DetailsItem extends StatelessWidget {
             //       LocaleKeys.receipt.tr(),
             //       style: Theme.of(context)
             //           .textTheme
-            //           .bodyText1!
+            //           .bodyLarge!
             //           .copyWith(color: grey),
             //     ),
             //     Text(
             //       receiptingAddress,
             //       style: Theme.of(context)
             //           .textTheme
-            //           .headline6!
+            //           .titleLarge!
             //           .copyWith(color: greyText, fontSize: 12),
             //     ),
             //   ],
@@ -70,14 +70,14 @@ class DetailsItem extends StatelessWidget {
             //       LocaleKeys.returner.tr(),
             //       style: Theme.of(context)
             //           .textTheme
-            //           .bodyText1!
+            //           .bodyLarge!
             //           .copyWith(color: grey),
             //     ),
             //     Text(
             //       returnigAddress,
             //       style: Theme.of(context)
             //           .textTheme
-            //           .headline6!
+            //           .titleLarge!
             //           .copyWith(color: greyText, fontSize: 12),
             //     ),
             //   ],
@@ -92,14 +92,14 @@ class DetailsItem extends StatelessWidget {
                   LocaleKeys.rent_periodic.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText1!
+                      .bodyLarge!
                       .copyWith(color: grey),
                 ),
                 Text(
                   '$fromDate - $toDate',
                   style: Theme.of(context)
                       .textTheme
-                      .headline6!
+                      .titleLarge!
                       .copyWith(color: greyText, fontSize: 12),
                 ),
               ],

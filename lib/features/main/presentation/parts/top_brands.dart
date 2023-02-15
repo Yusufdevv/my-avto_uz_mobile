@@ -34,7 +34,7 @@ class TopBrands extends StatelessWidget {
                     child: Text(LocaleKeys.top_marks.tr(),
                         style: Theme.of(context)
                             .textTheme
-                            .headline1!
+                            .displayLarge!
                             .copyWith(fontSize: 18))),
               Container(
                 color: white,

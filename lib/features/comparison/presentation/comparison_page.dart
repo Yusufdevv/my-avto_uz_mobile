@@ -43,7 +43,7 @@ class _ComparisonPageState extends State<ComparisonPage> {
             title: LocaleKeys.car_comparison.tr(),
             titleStyle: Theme.of(context)
                 .textTheme
-                .headline1!
+                .displayLarge!
                 .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
             onTapBack: () {
               Navigator.pop(context);

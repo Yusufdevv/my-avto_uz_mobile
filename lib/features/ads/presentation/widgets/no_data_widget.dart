@@ -24,7 +24,7 @@ class NoDataWidget extends StatelessWidget {
             Text(
                LocaleKeys.no_results.tr(),
               style:
-                  Theme.of(context).textTheme.headline1!.copyWith(fontSize: 16),
+                  Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 16),
             ),
             const SizedBox(height: 8),
             Text(
@@ -32,7 +32,7 @@ class NoDataWidget extends StatelessWidget {
               textAlign: TextAlign.center,
               style: Theme.of(context)
                   .textTheme
-                  .bodyText1!
+                  .bodyLarge!
                   .copyWith(fontSize: 14, color: greyText),
             ),
           ],

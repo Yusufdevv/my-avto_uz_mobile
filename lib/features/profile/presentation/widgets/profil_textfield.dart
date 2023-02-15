@@ -33,14 +33,14 @@ class _ProfilTextFieldState extends State<ProfilTextField> {
         disabledColor: Theme.of(context).scaffoldBackgroundColor,
         textStyle: Theme.of(context)
             .textTheme
-            .headline1!
+            .displayLarge!
             .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
         borderRadius: SizeConfig.h(12),
         hintText:widget.hintText,
         suffix: widget.suffix,
         hintTextStyle: Theme.of(context)
             .textTheme
-            .headline1!
+            .displayLarge!
             .copyWith(fontWeight: FontWeight.w600, fontSize: 14),
         onChanged: (tmp) {
           widget.onChanged(tmp);

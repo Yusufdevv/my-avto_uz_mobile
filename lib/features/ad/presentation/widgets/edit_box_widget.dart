@@ -25,7 +25,7 @@ class EditBoxWidget extends StatelessWidget {
               text,
               style: Theme.of(context)
                   .textTheme
-                  .headline6!
+                  .titleLarge!
                   .copyWith(fontWeight: FontWeight.w400, fontSize: 14),
             ),
             const SizedBox(width: 12),

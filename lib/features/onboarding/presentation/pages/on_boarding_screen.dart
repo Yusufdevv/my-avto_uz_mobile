@@ -108,7 +108,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   //         LocaleKeys.skip.tr(),
                   //         style: Theme.of(context)
                   //             .textTheme
-                  //             .headline1!
+                  //             .displayLarge!
                   //             .copyWith(
                   //                 fontSize: 15, fontWeight: FontWeight.w400),
                   //       )),
