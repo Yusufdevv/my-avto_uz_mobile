@@ -51,14 +51,14 @@ class CarPriceBottom extends StatelessWidget {
                 children: [
                   Text(
                     MyFunctions.getFormatCost(price),
-                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
                         fontWeight: FontWeight.w700,
                         fontSize: 24,
                         color: const Color(0xff171725)),
                   ),
                   Text(
                     ' $currency',
-                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
                         fontWeight: FontWeight.w700,
                         fontSize: 24,
                         color: const Color(0xff171725)),
@@ -96,7 +96,7 @@ class CarPriceBottom extends StatelessWidget {
                   children: [
                     Text(
                       LocaleKeys.optimal_price.tr(),
-                      style: Theme.of(context).textTheme.headline2!.copyWith(
+                      style: Theme.of(context).textTheme.displayMedium!.copyWith(
                           fontWeight: FontWeight.w400,
                           fontSize: 12,
                           color: Colors.white),
@@ -164,7 +164,7 @@ class CarPriceBottom extends StatelessWidget {
                     const SizedBox(width: 4),
                     Text(
                       LocaleKeys.how_the_average_price_is_calculated.tr(),
-                      style: Theme.of(context).textTheme.headline1!.copyWith(
+                      style: Theme.of(context).textTheme.displayLarge!.copyWith(
                           fontWeight: FontWeight.w600,
                           fontSize: 14,
                           color: dark),

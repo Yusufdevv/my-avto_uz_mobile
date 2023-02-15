@@ -64,7 +64,7 @@ class _SingleCategoryScreenState extends State<SingleCategoryScreen> {
                   ),
                   Text(
                     widget.categoryName,
-                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),

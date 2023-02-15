@@ -48,7 +48,7 @@ class ReviewCarBrandItem extends StatelessWidget {
             //   maxLines: 2,
             //   style: Theme.of(context)
             //       .textTheme
-            //       .headline1!
+            //       .displayLarge!
             //       .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
             // )
           ],

@@ -55,7 +55,7 @@ class _SingleMarkAnnouncementsState extends State<SingleMarkAnnouncements> {
               Text(widget.carMark,
                   style: Theme.of(context)
                       .textTheme
-                      .headline1!
+                      .displayLarge!
                       .copyWith(fontSize: 16, fontWeight: FontWeight.w600)),
               const Spacer(
                 flex: 120,

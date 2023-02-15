@@ -106,7 +106,7 @@ class _ReviewSingleCarScreenState extends State<ReviewSingleCarScreen> {
           ],
           title: 'Отзыв',
           titleStyle:
-              Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 16),
+              Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 16),
         ),
         body: SingleChildScrollView(
           physics: const ClampingScrollPhysics(),
@@ -147,9 +147,9 @@ class _ReviewSingleCarScreenState extends State<ReviewSingleCarScreen> {
                     right: 17,
                     child: AnimatedCrossFade(
                       firstChild: Text('$currentState/24',
-                          style: Theme.of(context).textTheme.bodyText1),
+                          style: Theme.of(context).textTheme.bodyLarge),
                       secondChild: Text('${currentState + 1}/24',
-                          style: Theme.of(context).textTheme.bodyText1),
+                          style: Theme.of(context).textTheme.bodyLarge),
                       crossFadeState: CrossFadeState.showFirst,
                       duration: const Duration(milliseconds: 500),
                     ),
@@ -163,12 +163,12 @@ class _ReviewSingleCarScreenState extends State<ReviewSingleCarScreen> {
                     children: [
                       TextSpan(
                           text: widget.reviewName,
-                          style: Theme.of(context).textTheme.headline1),
+                          style: Theme.of(context).textTheme.displayLarge),
                       TextSpan(
                           text: widget.publishDate,
                           style: Theme.of(context)
                               .textTheme
-                              .headline2!
+                              .displayMedium!
                               .copyWith(fontSize: 13)),
                     ],
                   ),
@@ -188,12 +188,12 @@ class _ReviewSingleCarScreenState extends State<ReviewSingleCarScreen> {
                         children: [
                           TextSpan(
                               text: '${widget.owner}\n',
-                              style: Theme.of(context).textTheme.subtitle1),
+                              style: Theme.of(context).textTheme.titleMedium),
                           TextSpan(
                             text: widget.lastOnline,
                             style: Theme.of(context)
                                 .textTheme
-                                .headline6!
+                                .titleLarge!
                                 .copyWith(fontSize: 12),
                           ),
                         ],
@@ -219,7 +219,7 @@ class _ReviewSingleCarScreenState extends State<ReviewSingleCarScreen> {
                             text: widget.shortDescription,
                             style: Theme.of(context)
                                 .textTheme
-                                .headline2!
+                                .displayMedium!
                                 .copyWith(fontSize: 13),
                           ),
                           WidgetSpan(
@@ -228,7 +228,7 @@ class _ReviewSingleCarScreenState extends State<ReviewSingleCarScreen> {
                                 'Больше',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline2!
+                                    .displayMedium!
                                     .copyWith(
                                       color: orange,
                                       fontSize: 13,
@@ -247,7 +247,7 @@ class _ReviewSingleCarScreenState extends State<ReviewSingleCarScreen> {
                 secondChild: WScaleAnimation(
                   child: Text(
                     widget.fullDescription,
-                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
                           color: orange,
                           fontSize: 13,
                         ),

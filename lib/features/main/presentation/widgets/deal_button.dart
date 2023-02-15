@@ -57,7 +57,7 @@ class DealButton extends StatelessWidget {
                     LocaleKeys.deals_of_day.tr(),
                     style: Theme.of(context)
                         .textTheme
-                        .headline4!
+                        .headlineMedium!
                         .copyWith(fontSize: 14),
                   ),
                 ],

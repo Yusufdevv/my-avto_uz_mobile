@@ -62,7 +62,7 @@ class ScrolledBottomSheet extends StatelessWidget {
                         if (isSubScreen) const SizedBox(width: 4),
                         Text(
                           title,
-                          style: Theme.of(context).textTheme.headline1,
+                          style: Theme.of(context).textTheme.displayLarge,
                         ),
                         if (!isSubScreen)
                           WScaleAnimation(

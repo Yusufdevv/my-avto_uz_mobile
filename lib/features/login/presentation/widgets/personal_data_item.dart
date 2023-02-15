@@ -33,13 +33,13 @@ class PersonalDataItemm extends StatelessWidget {
                       text: title,
                       style: Theme.of(context)
                           .textTheme
-                          .headline1!
+                          .displayLarge!
                           .copyWith(fontSize: 16, fontWeight: FontWeight.w400),
                     ),
                     if (isRequired) ...{
                       TextSpan(
                         text: '*',
-                        style: Theme.of(context).textTheme.headline1!.copyWith(
+                        style: Theme.of(context).textTheme.displayLarge!.copyWith(
                               fontWeight: FontWeight.w400,
                               fontSize: 14,
                               color: orange,
@@ -59,14 +59,14 @@ class PersonalDataItemm extends StatelessWidget {
                   hintText: hintText,
                   hintTextStyle: Theme.of(context)
                       .textTheme
-                      .subtitle1!
+                      .titleMedium!
                       .copyWith(
                           fontSize: 14,
                           color: warmerGrey,
                           fontWeight: FontWeight.w400),
                   textStyle: Theme.of(context)
                       .textTheme
-                      .subtitle1!
+                      .titleMedium!
                       .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                 )),
           ],

@@ -28,7 +28,7 @@ class RentToSaleDetailsBox extends StatelessWidget {
                   'Условия 1',
                   style: Theme.of(context)
                       .textTheme
-                      .headline1!
+                      .displayLarge!
                       .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
                 Padding(
@@ -75,14 +75,14 @@ class TextInRow extends StatelessWidget {
         children: [
           Text(
             title,
-            style: Theme.of(context).textTheme.headline2,
+            style: Theme.of(context).textTheme.displayMedium,
           ),
           const Spacer(),
           Text(
             info,
             style: Theme.of(context)
                 .textTheme
-                .headline1!
+                .displayLarge!
                 .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
           ),
           const SizedBox(width: 12),

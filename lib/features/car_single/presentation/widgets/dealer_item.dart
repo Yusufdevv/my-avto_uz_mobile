@@ -65,7 +65,7 @@ class DealerItem extends StatelessWidget {
                 children: [
                   Text(
                     name,
-                    style: Theme.of(context).textTheme.headline1!.copyWith(
+                    style: Theme.of(context).textTheme.displayLarge!.copyWith(
                         color: const Color(0xff171725),
                         fontSize: 14,
                         fontWeight: FontWeight.w600),
@@ -75,7 +75,7 @@ class DealerItem extends StatelessWidget {
                   ),
                   Text(
                     position,
-                    style: Theme.of(context).textTheme.headline1!.copyWith(
+                    style: Theme.of(context).textTheme.displayLarge!.copyWith(
                         color: const Color(0xff92929D),
                         fontSize: 12,
                         fontWeight: FontWeight.w400),

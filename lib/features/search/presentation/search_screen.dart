@@ -143,7 +143,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             keyBoardType: TextInputType.name,
                             textStyle: Theme.of(context)
                                 .textTheme
-                                .subtitle1!
+                                .titleMedium!
                                 .copyWith(
                                     fontSize: 16, fontWeight: FontWeight.w400),
                             textInputAction: TextInputAction.search,

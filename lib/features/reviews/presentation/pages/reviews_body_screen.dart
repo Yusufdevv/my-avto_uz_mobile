@@ -102,7 +102,7 @@ class _ReviewsBodyScreenState extends State<ReviewsBodyScreen> {
                       Text('${widget.reviewCount} отзыва',
                           style: Theme.of(context)
                               .textTheme
-                              .subtitle1!
+                              .titleMedium!
                               .copyWith(fontSize: 13)),
                       const Spacer(),
                       GestureDetector(
@@ -119,7 +119,7 @@ class _ReviewsBodyScreenState extends State<ReviewsBodyScreen> {
                                 : 'Сначала отрица...',
                             style: Theme.of(context)
                                 .textTheme
-                                .subtitle1!
+                                .titleMedium!
                                 .copyWith(
                                     fontSize: 13, fontWeight: FontWeight.w400),
                           ),

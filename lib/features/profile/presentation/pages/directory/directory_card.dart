@@ -88,7 +88,7 @@ class _DirectoryCardState extends State<DirectoryCard> {
                         Text(widget.dealerName,
                             style: Theme.of(context)
                                 .textTheme
-                                .headline1!
+                                .displayLarge!
                                 .copyWith(fontSize: 16),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1),
@@ -113,7 +113,7 @@ class _DirectoryCardState extends State<DirectoryCard> {
                   Text(widget.region,
                       style: Theme.of(context)
                           .textTheme
-                          .headline1!
+                          .displayLarge!
                           .copyWith(fontSize: 14, fontWeight: FontWeight.w400))
                 ],
               ),
@@ -126,7 +126,7 @@ class _DirectoryCardState extends State<DirectoryCard> {
                       '${LocaleKeys.every_day.tr()}, ${widget.contactFrom} - ${widget.contactTo}',
                       style: Theme.of(context)
                           .textTheme
-                          .headline1!
+                          .displayLarge!
                           .copyWith(fontSize: 14, fontWeight: FontWeight.w400))
                 ],
               ),

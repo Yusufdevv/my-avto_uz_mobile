@@ -113,7 +113,7 @@ class _AddedCarState extends State<AddedCar> {
                         child: Text(
                           widget.carSalary,
                           style:
-                              Theme.of(context).textTheme.headline1!.copyWith(
+                              Theme.of(context).textTheme.displayLarge!.copyWith(
                                     fontSize: 13,
                                     fontWeight: FontWeight.w700,
                                   ),
@@ -124,7 +124,7 @@ class _AddedCarState extends State<AddedCar> {
                         child: Text(
                           widget.carName,
                           style:
-                              Theme.of(context).textTheme.headline1!.copyWith(
+                              Theme.of(context).textTheme.displayLarge!.copyWith(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
                                   ),

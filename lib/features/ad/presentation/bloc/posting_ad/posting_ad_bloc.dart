@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/ad/const/constants.dart';
+import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
 import 'package:auto/features/ad/domain/entities/generation/generation.dart';
 import 'package:auto/features/ad/domain/entities/rent_with_purchase/rent_with_purchase_entity.dart';
@@ -24,6 +26,7 @@ import 'package:auto/features/ad/domain/usecases/get_map_screenshot_usecase.dart
 import 'package:auto/features/ad/domain/usecases/get_modification_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_years.dart';
 import 'package:auto/features/ad/domain/usecases/minimum_price_usecase.dart';
+import 'package:auto/features/car_single/data/repository/car_single_repository_impl.dart';
 import 'package:auto/features/car_single/domain/entities/car_single_entity.dart';
 import 'package:auto/features/car_single/domain/entities/damaged_parts_entity.dart';
 import 'package:auto/features/car_single/domain/usecases/get_ads_usecase.dart';
@@ -53,47 +56,42 @@ part 'posting_ad_state.dart';
 part 'singleton_of_posting_ad_bloc.dart';
 
 class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
-  final GetModificationTypeUseCase modificationUseCase;
-  final GetMapScreenShotUseCase screenShotUseCase;
-  final GetYearsUseCase getYearsUseCase;
-  final CreateAnnouncementUseCase createUseCase;
-  final AuthRepository userRepository;
-  final VerifyCodeUseCase verifyCodeUseCase;
-  final ContactsUseCase contactsUseCase;
-  final GetMinimumPriceUseCase minimumPriceUseCase;
-  final GetCarSingleUseCase announcementUseCase;
-  final GetRegionsUseCase regionsUseCase;
-  final GetDistrictsUseCase districtUseCase;
-  final GetGearBoxessUseCase gearboxUseCase;
-  final GetDriveTypeUseCase driveTypeUseCase;
-  final GetEngineTypeUseCase engineUseCase;
-  final GetCarModelUseCase modelsUseCase;
-  final GetGenerationUseCase generationUseCase;
-  final GetMakesUseCase makeUseCase;
-  final GetTopBrandUseCase topMakesUseCase;
-  final GetBodyTypeUseCase bodyTypesUseCase;
+  final GetModificationTypeUseCase modificationUseCase =
+      GetModificationTypeUseCase();
+  final GetMapScreenShotUseCase screenShotUseCase =
+      GetMapScreenShotUseCase(repository: serviceLocator<AdRepositoryImpl>());
+  final GetYearsUseCase getYearsUseCase =
+      GetYearsUseCase(repository: serviceLocator<AdRepositoryImpl>());
+  final CreateAnnouncementUseCase createUseCase =
+      CreateAnnouncementUseCase(repository: serviceLocator<AdRepositoryImpl>());
+  final AuthRepository userRepository = AuthRepository();
+  final VerifyCodeUseCase verifyCodeUseCase = VerifyCodeUseCase();
+  final ContactsUseCase contactsUseCase =
+      ContactsUseCase(repository: serviceLocator<AdRepositoryImpl>());
+  final GetMinimumPriceUseCase minimumPriceUseCase =
+      GetMinimumPriceUseCase(repository: serviceLocator<AdRepositoryImpl>());
+  final GetCarSingleUseCase announcementUseCase = GetCarSingleUseCase(
+      repository: serviceLocator<CarSingleRepositoryImpl>());
+  final GetRegionsUseCase regionsUseCase = GetRegionsUseCase();
+  final GetDistrictsUseCase districtUseCase = GetDistrictsUseCase();
+  final GetGearBoxessUseCase gearboxUseCase =
+      GetGearBoxessUseCase(repository: serviceLocator<AdRepositoryImpl>());
+  final GetDriveTypeUseCase driveTypeUseCase =
+      GetDriveTypeUseCase(repository: serviceLocator<AdRepositoryImpl>());
+  final GetEngineTypeUseCase engineUseCase =
+      GetEngineTypeUseCase(repository: serviceLocator<AdRepositoryImpl>());
+  final GetCarModelUseCase modelsUseCase =
+      GetCarModelUseCase(repository: serviceLocator<AdRepositoryImpl>());
+  final GetGenerationUseCase generationUseCase =
+      GetGenerationUseCase(repository: serviceLocator<AdRepositoryImpl>());
+  final GetMakesUseCase makeUseCase =
+      GetMakesUseCase(repository: serviceLocator<AdRepositoryImpl>());
+  final GetTopBrandUseCase topMakesUseCase = GetTopBrandUseCase();
+  final GetBodyTypeUseCase bodyTypesUseCase =
+      GetBodyTypeUseCase(repository: serviceLocator<AdRepositoryImpl>());
 
-  PostingAdBloc({
-    required this.modificationUseCase,
-    required this.screenShotUseCase,
-    required this.getYearsUseCase,
-    required this.userRepository,
-    required this.verifyCodeUseCase,
-    required this.contactsUseCase,
-    required this.minimumPriceUseCase,
-    required this.announcementUseCase,
-    required this.regionsUseCase,
-    required this.districtUseCase,
-    required this.makeUseCase,
-    required this.topMakesUseCase,
-    required this.generationUseCase,
-    required this.modelsUseCase,
-    required this.engineUseCase,
-    required this.driveTypeUseCase,
-    required this.gearboxUseCase,
-    required this.bodyTypesUseCase,
-    required this.createUseCase,
-  }) : super(PostingAdState(
+  PostingAdBloc()
+      : super(PostingAdState(
             getAnnouncementToEditStatus: FormzStatus.pure,
             popStatus: PopStatus.success,
             colorName: LocaleKeys.white.tr(),
@@ -499,7 +497,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await modelsUseCase.call(state.make!.id, name: event.name);
     if (result.isRight) {
-      final models = result.right.results;
       emit(
         state.copyWith(
           status: FormzStatus.submissionSuccess,

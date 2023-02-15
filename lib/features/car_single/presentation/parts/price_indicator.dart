@@ -40,7 +40,7 @@ class PriceIndicator extends StatelessWidget {
                           LocaleKeys.see_price_statustic.tr(),
                           style: Theme.of(context)
                               .textTheme
-                              .headline1!
+                              .displayLarge!
                               .copyWith(fontWeight: FontWeight.w600, fontSize: 14, color: profileContainers),
                         )
                       ],
@@ -67,12 +67,12 @@ class PriceIndicator extends StatelessWidget {
               ),
               Text(
                 LocaleKeys.excellent.tr(),
-                style: Theme.of(context).textTheme.headline2,
+                style: Theme.of(context).textTheme.displayMedium,
               ),
               const Spacer(),
-              Text(LocaleKeys.optimal.tr(), style: Theme.of(context).textTheme.headline2),
+              Text(LocaleKeys.optimal.tr(), style: Theme.of(context).textTheme.displayMedium),
               const Spacer(),
-              Text(LocaleKeys.overpriced.tr(), style: Theme.of(context).textTheme.headline2),
+              Text(LocaleKeys.overpriced.tr(), style: Theme.of(context).textTheme.displayMedium),
               const SizedBox(
                 width: 15,
               ),

@@ -80,7 +80,7 @@ class AdsItem extends StatelessWidget {
               child: Text(name,
                   style: Theme.of(context)
                       .textTheme
-                      .headline3
+                      .displaySmall
                       ?.copyWith(fontWeight: FontWeight.w600, fontSize: 12)),
             ),
             Padding(
@@ -89,7 +89,7 @@ class AdsItem extends StatelessWidget {
                   '${MyFunctions.getFormatCost(price)} ${currency.toUpperCase()}',
                   style: Theme.of(context)
                       .textTheme
-                      .headline1
+                      .displayLarge
                       ?.copyWith(fontSize: 16, fontWeight: FontWeight.w700)),
             ),
             const SizedBox(height: 8),
@@ -98,7 +98,7 @@ class AdsItem extends StatelessWidget {
               child: Text(description.isNotEmpty ? description : ' \n ',
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: Theme.of(context)
                           .extension<ThemedColors>()
                           ?.greySuitToWhite60)),
@@ -125,7 +125,7 @@ class AdsItem extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context)
                               .textTheme
-                              .headline6
+                              .titleLarge
                               ?.copyWith(
                                   fontSize: 12,
                                   color: Theme.of(context)

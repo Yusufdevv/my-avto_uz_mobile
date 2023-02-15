@@ -165,8 +165,8 @@ class PASingleton {
           logo: v.bodyType.logo ?? '',
           id: v.bodyType.id,
           type: v.bodyType.type),
-      callTimeFrom: v.contactAvailableFrom.trim().substring(0, 5),
-      callTimeTo: v.contactAvailableTo.trim().substring(0, 5),
+      callTimeFrom: v.contactAvailableFrom.trim().length > 5 ? v.contactAvailableFrom.trim().substring(0, 5) : null,
+      callTimeTo: v.contactAvailableTo.trim().length > 5 ? v.contactAvailableTo.trim().substring(0, 5) : null,
       isCallTimed: v.contactAvailableFrom.isNotEmpty &&
           v.contactAvailableFrom.isNotEmpty,
       colorName: v.color,

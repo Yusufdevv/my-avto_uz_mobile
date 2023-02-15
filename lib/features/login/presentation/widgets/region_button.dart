@@ -69,7 +69,7 @@ class _RegionButtonState extends State<RegionButton> {
                       LocaleKeys.region.tr(),
                       style: Theme.of(context)
                           .textTheme
-                          .headline1!
+                          .displayLarge!
                           .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                     ),
                   ),
@@ -89,14 +89,14 @@ class _RegionButtonState extends State<RegionButton> {
                             style: currentRegion.isEmpty
                                 ? Theme.of(context)
                                     .textTheme
-                                    .subtitle1!
+                                    .titleMedium!
                                     .copyWith(
                                         fontSize: 14,
                                         color: warmerGrey,
                                         fontWeight: FontWeight.w400)
                                 : Theme.of(context)
                                     .textTheme
-                                    .headline2
+                                    .displayMedium
                                     ?.copyWith(color: dark),
                           ),
                           SvgPicture.asset(AppIcons.chevronRight,

@@ -50,7 +50,7 @@ class _OnBoardingBottomState extends State<OnBoardingBottom> {
                       LocaleKeys.hello.tr(),
                       style: Theme.of(context)
                           .textTheme
-                          .bodyText1!
+                          .bodyLarge!
                           .copyWith(fontSize: 13, color: darkGray),
                     ),
                     const SizedBox(
@@ -67,7 +67,7 @@ class _OnBoardingBottomState extends State<OnBoardingBottom> {
                       text: LocaleKeys.build_plans.tr(),
                       style: Theme.of(context)
                           .textTheme
-                          .caption!
+                          .bodySmall!
                           .copyWith(fontSize: 32, fontWeight: FontWeight.w700),
                       children: [
                         WidgetSpan(
@@ -111,13 +111,13 @@ class _OnBoardingBottomState extends State<OnBoardingBottom> {
                               style: index == 0
                                   ? Theme.of(context)
                                       .textTheme
-                                      .bodyText1!
+                                      .bodyLarge!
                                       .copyWith(
                                           fontWeight: FontWeight.w600,
                                           color: white)
                                   : Theme.of(context)
                                       .textTheme
-                                      .bodyText1!
+                                      .bodyLarge!
                                       .copyWith(
                                           fontWeight: FontWeight.w600,
                                           color: Theme.of(context)
@@ -159,13 +159,13 @@ class _OnBoardingBottomState extends State<OnBoardingBottom> {
                               style: index == 1
                                   ? Theme.of(context)
                                       .textTheme
-                                      .bodyText1!
+                                      .bodyLarge!
                                       .copyWith(
                                           fontWeight: FontWeight.w600,
                                           color: white)
                                   : Theme.of(context)
                                       .textTheme
-                                      .bodyText1!
+                                      .bodyLarge!
                                       .copyWith(
                                           fontWeight: FontWeight.w600,
                                           color: Theme.of(context)

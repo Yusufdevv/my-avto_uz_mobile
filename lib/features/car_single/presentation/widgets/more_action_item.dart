@@ -50,7 +50,7 @@ class MoreActionItem extends StatelessWidget {
                 ),
                 Text(
                   text,
-                  style: Theme.of(context).textTheme.headline1!.copyWith(
+                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
                         color: const Color(
                           0xff171725,
                         ),

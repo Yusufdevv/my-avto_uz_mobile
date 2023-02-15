@@ -30,7 +30,7 @@ class BusySheet extends StatelessWidget {
           //       LocaleKeys.Complain.tr(),
           //       style: Theme.of(context)
           //           .textTheme
-          //           .headline1!
+          //           .displayLarge!
           //           .copyWith(fontWeight: FontWeight.w400, color: red),
           //     ),
           //     onPressed: () {
@@ -55,7 +55,7 @@ class BusySheet extends StatelessWidget {
                 LocaleKeys.copy_url.tr(),
                 style: Theme.of(context)
                     .textTheme
-                    .headline4!
+                    .headlineMedium!
                     .copyWith(fontWeight: FontWeight.w400, fontSize: 20),
               ),
               onPressed: () async {
@@ -72,7 +72,7 @@ class BusySheet extends StatelessWidget {
               color: blackRussian,
               textStyle: Theme.of(context)
                   .textTheme
-                  .headline4!
+                  .headlineMedium!
                   .copyWith(fontWeight: FontWeight.w400, fontSize: 20),
               onTap: () {
                 Navigator.pop(context);

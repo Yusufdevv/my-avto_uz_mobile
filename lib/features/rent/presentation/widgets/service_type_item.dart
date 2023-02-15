@@ -58,9 +58,9 @@ class _ServiceTypeItemState extends State<ServiceTypeItem> {
                 style: widget.isSelect
                     ? Theme.of(context)
                         .textTheme
-                        .subtitle1!
+                        .titleMedium!
                         .copyWith(color: orange)
-                    : Theme.of(context).textTheme.subtitle1,
+                    : Theme.of(context).textTheme.titleMedium,
               )
             ],
           ),

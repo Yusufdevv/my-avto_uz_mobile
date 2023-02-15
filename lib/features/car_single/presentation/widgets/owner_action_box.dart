@@ -36,7 +36,7 @@ class OwnerActionBox extends StatelessWidget {
               entity.title,
               textAlign: TextAlign.center,
               maxLines: 2,
-              style: Theme.of(context).textTheme.headline1!.copyWith(
+              style: Theme.of(context).textTheme.displayLarge!.copyWith(
                   fontSize: 11, fontWeight: FontWeight.w400, color: dark),
             )
           ],

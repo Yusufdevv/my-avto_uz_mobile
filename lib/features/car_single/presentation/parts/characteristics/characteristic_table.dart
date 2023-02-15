@@ -32,7 +32,7 @@ class _CharacteristicTableState extends State<CharacteristicTable> {
                 widget.title,
                 style: Theme.of(context)
                     .textTheme
-                    .headline1!
+                    .displayLarge!
                     .copyWith(fontWeight: FontWeight.w700, fontSize: 18),
               ),
             ),

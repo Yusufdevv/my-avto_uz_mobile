@@ -21,7 +21,7 @@ class InfoItem extends StatelessWidget {
             Text(
               title,
               style:
-                  Theme.of(context).textTheme.headline2!.copyWith(color: grey),
+                  Theme.of(context).textTheme.displayMedium!.copyWith(color: grey),
             ),
             Expanded(
               child: Container(
@@ -38,7 +38,7 @@ class InfoItem extends StatelessWidget {
                 style: textStyle ??
                     Theme.of(context)
                         .textTheme
-                        .subtitle2!
+                        .titleSmall!
                         .copyWith(color: greyText),
               ),
             )

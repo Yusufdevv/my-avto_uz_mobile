@@ -28,7 +28,7 @@ class LoaderBox extends StatelessWidget {
         children: [
           Text(
             title,
-            style: Theme.of(context).textTheme.headline2!.copyWith(
+            style: Theme.of(context).textTheme.displayMedium!.copyWith(
                 fontWeight: FontWeight.w600,
                 color: Theme.of(context)
                     .extension<ThemedColors>()!
@@ -55,9 +55,9 @@ class LoaderBox extends StatelessWidget {
                         Text(
                           hintText,
                           style: isActive
-                              ? Theme.of(context).textTheme.headline1!.copyWith(
+                              ? Theme.of(context).textTheme.displayLarge!.copyWith(
                                   fontSize: 14, fontWeight: FontWeight.w600)
-                              : Theme.of(context).textTheme.headline6!.copyWith(
+                              : Theme.of(context).textTheme.titleLarge!.copyWith(
                                   fontWeight: FontWeight.w400,
                                   color: Theme.of(context)
                                       .extension<ThemedColors>()!

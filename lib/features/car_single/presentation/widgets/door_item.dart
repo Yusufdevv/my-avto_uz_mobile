@@ -42,12 +42,12 @@ class DoorItem extends StatelessWidget {
                           title,
                           style: Theme.of(context)
                               .textTheme
-                              .bodyText1!
+                              .bodyLarge!
                               .copyWith(color: grey),
                         ),
                         Text(
                           subtitle,
-                          style: Theme.of(context).textTheme.subtitle1,
+                          style: Theme.of(context).textTheme.titleMedium,
                         ),
                       ],
                     )
@@ -69,12 +69,12 @@ class DoorItem extends StatelessWidget {
                           title2,
                           style: Theme.of(context)
                               .textTheme
-                              .bodyText1!
+                              .bodyLarge!
                               .copyWith(color: grey),
                         ),
                         Text(
                           subtitle2,
-                          style: Theme.of(context).textTheme.subtitle1,
+                          style: Theme.of(context).textTheme.titleMedium,
                         ),
                       ],
                     ),

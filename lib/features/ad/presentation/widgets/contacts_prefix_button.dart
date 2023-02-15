@@ -56,7 +56,7 @@ class ContactsPrefixButton extends StatelessWidget {
                   LocaleKeys.confirm.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .subtitle1!
+                      .titleMedium!
                       .copyWith(color: white),
                 ),
         ),

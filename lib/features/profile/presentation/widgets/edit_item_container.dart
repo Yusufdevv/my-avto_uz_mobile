@@ -42,7 +42,7 @@ class EditItemContainer extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context)
                     .textTheme
-                    .subtitle1!
+                    .titleMedium!
                     .copyWith(color: region.isEmpty ? grey : dark),
               ),
             ),

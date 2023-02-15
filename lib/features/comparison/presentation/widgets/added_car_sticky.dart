@@ -55,7 +55,7 @@ class StickyAdderCar extends StatelessWidget {
                     carSalary,
                     style: Theme.of(context)
                         .textTheme
-                        .headline1!
+                        .displayLarge!
                         .copyWith(fontWeight: FontWeight.w600, fontSize: 12),
                   ),
                   const SizedBox(height: 2),
@@ -65,7 +65,7 @@ class StickyAdderCar extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context)
                         .textTheme
-                        .headline1!
+                        .displayLarge!
                         .copyWith(fontWeight: FontWeight.w400, fontSize: 12),
                   ),
                 ],

@@ -125,14 +125,14 @@ class _LoginNewPasswordPageState extends State<LoginNewPasswordPage> {
                             controller: newPasswordController,
                             hintTextStyle: Theme.of(context)
                                 .textTheme
-                                .subtitle1!
+                                .titleMedium!
                                 .copyWith(
                                     fontSize: 14,
                                     color: warmerGrey,
                                     fontWeight: FontWeight.w400),
                             textStyle: Theme.of(context)
                                 .textTheme
-                                .subtitle1!
+                                .titleMedium!
                                 .copyWith(
                                     fontSize: 14, fontWeight: FontWeight.w400),
                           ),
@@ -146,14 +146,14 @@ class _LoginNewPasswordPageState extends State<LoginNewPasswordPage> {
                             controller: confirmPasswordController,
                             hintTextStyle: Theme.of(context)
                                 .textTheme
-                                .subtitle1!
+                                .titleMedium!
                                 .copyWith(
                                     fontSize: 14,
                                     color: warmerGrey,
                                     fontWeight: FontWeight.w400),
                             textStyle: Theme.of(context)
                                 .textTheme
-                                .subtitle1!
+                                .titleMedium!
                                 .copyWith(
                                     fontSize: 14, fontWeight: FontWeight.w400),
                           ),

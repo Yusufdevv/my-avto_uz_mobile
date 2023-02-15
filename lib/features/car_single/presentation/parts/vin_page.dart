@@ -73,7 +73,7 @@ class VinPage extends StatelessWidget {
               ),
               Text(
                 'Автомобиль не находился в залоге',
-                style: Theme.of(context).textTheme.subtitle2,
+                style: Theme.of(context).textTheme.titleSmall,
               ),
               const SizedBox(
                 height: 20,
@@ -83,7 +83,7 @@ class VinPage extends StatelessWidget {
               ),
               Text(
                 'Ограничения на регистрационные и другие действия не обнаружены',
-                style: Theme.of(context).textTheme.subtitle2,
+                style: Theme.of(context).textTheme.titleSmall,
               ),
               const SizedBox(
                 height: 10,
@@ -93,7 +93,7 @@ class VinPage extends StatelessWidget {
               ),
               Text(
                 'Сведения о нахождении в розыске не обнаружены',
-                style: Theme.of(context).textTheme.subtitle2,
+                style: Theme.of(context).textTheme.titleSmall,
               ),
             ],
           ),

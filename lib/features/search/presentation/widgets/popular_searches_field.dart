@@ -45,7 +45,7 @@ class _PopularSearchesFieldState extends State<PopularSearchesField> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(widget.title,
-                      style: Theme.of(context).textTheme.headline2!.copyWith(
+                      style: Theme.of(context).textTheme.displayMedium!.copyWith(
                           fontSize: 13,
                           color: LightThemeColors.darkGreyToWhite)),
                   if (widget.hasClearButtonInTitle)
@@ -64,7 +64,7 @@ class _PopularSearchesFieldState extends State<PopularSearchesField> {
                         child: Text(LocaleKeys.clear.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .headline2!
+                                .displayMedium!
                                 .copyWith(fontSize: 13, color: blue)))
                   else
                     const SizedBox(),
@@ -95,7 +95,7 @@ class _PopularSearchesFieldState extends State<PopularSearchesField> {
                       Expanded(
                         child: Text(
                           widget.elements[index],
-                          style: Theme.of(context).textTheme.subtitle1,
+                          style: Theme.of(context).textTheme.titleMedium,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),

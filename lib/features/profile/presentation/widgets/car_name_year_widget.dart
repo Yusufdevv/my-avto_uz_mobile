@@ -24,7 +24,7 @@ class CarNameYearWidget extends StatelessWidget {
         text: TextSpan(children: [
       TextSpan(
         text:  carName,
-        style: Theme.of(context).textTheme.headline2!.copyWith(
+        style: Theme.of(context).textTheme.displayMedium!.copyWith(
             color: dark, fontSize: 16, fontWeight: FontWeight.w400),
       ),
       WidgetSpan(

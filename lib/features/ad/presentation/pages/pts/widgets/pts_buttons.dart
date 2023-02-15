@@ -42,11 +42,11 @@ class PtsButtons extends StatelessWidget {
             style: isSelected
                 ? Theme.of(context)
                     .textTheme
-                    .headline1!
+                    .displayLarge!
                     .copyWith(fontSize: 14, fontWeight: FontWeight.w600)
                 : Theme.of(context)
                     .textTheme
-                    .subtitle1!
+                    .titleMedium!
                     .copyWith(color: greyText),
           ),
         ),

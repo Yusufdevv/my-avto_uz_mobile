@@ -30,7 +30,7 @@ class SignInWithSocials extends StatelessWidget {
               ),
               Text(
                 LocaleKeys.another_ways.tr(),
-                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     fontSize: 14, color: DarkThemeColors.navBarUnselected),
               ),
               const SizedBox(

@@ -161,7 +161,7 @@ class _ZTextFormFieldState extends State<ZTextFormField>
             cursorWidth: 1,
             onEditingComplete: widget.onEditCompleted,
             style: widget.textStyle ??
-                Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 14),
+                Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 14),
             decoration: InputDecoration(
               focusColor: widget.focusColor,
               focusedBorder: const UnderlineInputBorder(
@@ -181,7 +181,7 @@ class _ZTextFormFieldState extends State<ZTextFormField>
               prefixIcon: widget.prefixIcon,
               hintText: widget.hintText,
               hintStyle: widget.hintTextStyle ??
-                  Theme.of(context).textTheme.headline6!.copyWith(fontSize: 14),
+                  Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 14),
             ),
           ),
           Positioned(

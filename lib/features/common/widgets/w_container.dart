@@ -68,7 +68,7 @@ class WContainer extends StatelessWidget {
                 child: Text(
                   label!,
                   style: labelStyle ??
-                      Theme.of(context).textTheme.headline3!.copyWith(
+                      Theme.of(context).textTheme.displaySmall!.copyWith(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                       ),
@@ -98,7 +98,7 @@ class WContainer extends StatelessWidget {
                         child: Text(
                           title,
                           style: titleStyle ??
-                              Theme.of(context).textTheme.headline6!.copyWith(
+                              Theme.of(context).textTheme.titleLarge!.copyWith(
                                 fontWeight: FontWeight.w400,
                                 color: warmerGrey
                               ),
@@ -113,7 +113,7 @@ class WContainer extends StatelessWidget {
                     Text(
                       hint ?? '',
                       style: hintStyle ??
-                          Theme.of(context).textTheme.bodyText2!.copyWith(
+                          Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
                           ),

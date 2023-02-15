@@ -57,13 +57,13 @@ class NotificationSinglePage extends StatelessWidget {
                                 '#${notification.category?.name} • ${MyFunctions.getAutoPublishDate(notification.createdAt!)}',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText1
+                                    .bodyLarge
                                     ?.copyWith(color: greyText, fontSize: 13)),
                             SizedBox(height: SizeConfig.v(8)),
                             if (notification.title != null)
                               Text(
                                 notification.title!,
-                                style: Theme.of(context).textTheme.headline1,
+                                style: Theme.of(context).textTheme.displayLarge,
                               ),
                             SizedBox(height: SizeConfig.v(6)),
                             const Divider(height: 12),

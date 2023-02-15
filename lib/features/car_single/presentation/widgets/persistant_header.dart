@@ -78,9 +78,9 @@ class DescriptionHeader extends SliverPersistentHeaderDelegate {
             unselectedLabelColor: Colors.black,
             unselectedLabelStyle: Theme.of(context)
                 .textTheme
-                .headline1
+                .displayLarge
                 ?.copyWith(fontSize: 13, fontWeight: FontWeight.w500),
-            labelStyle: Theme.of(context).textTheme.headline1!.copyWith(
+            labelStyle: Theme.of(context).textTheme.displayLarge!.copyWith(
                   fontSize: 13,
                   fontWeight: FontWeight.w600,
                 ),

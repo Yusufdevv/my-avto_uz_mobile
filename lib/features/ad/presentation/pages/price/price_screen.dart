@@ -56,7 +56,7 @@ class _PriceScreenState extends State<PriceScreen> {
                       WTextField(
                         textStyle: Theme.of(context)
                             .textTheme
-                            .headline1!
+                            .displayLarge!
                             .copyWith(
                                 fontSize: 16, fontWeight: FontWeight.w400),
                         textInputFormatters: [
@@ -119,7 +119,7 @@ class _PriceScreenState extends State<PriceScreen> {
                                   state.currency,
                                   style: Theme.of(context)
                                       .textTheme
-                                      .subtitle1!
+                                      .titleMedium!
                                       .copyWith(color: greyText),
                                 ),
                                 const SizedBox(width: 4),
@@ -153,14 +153,14 @@ class _PriceScreenState extends State<PriceScreen> {
                                 LocaleKeys.price_starting_from.tr(),
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline2!
+                                    .displayMedium!
                                     .copyWith(color: grey),
                               ),
                               Text(
                                 '≈ ${state.minimumPrice} ${state.currency}',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline1!
+                                    .displayLarge!
                                     .copyWith(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 14),
@@ -263,7 +263,7 @@ class _PriceScreenState extends State<PriceScreen> {
                                 LocaleKeys.add_rent_condition.tr(),
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline3!
+                                    .displaySmall!
                                     .copyWith(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w600),

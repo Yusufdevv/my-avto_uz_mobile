@@ -71,7 +71,7 @@ class DayLikeCallItem extends StatelessWidget {
                 text: TextSpan(children: [
                   TextSpan(
                     text: LocaleKeys.u_t_e_o_t_a_p_l.tr(),
-                    style: Theme.of(context).textTheme.headline1!.copyWith(
+                    style: Theme.of(context).textTheme.displayLarge!.copyWith(
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
                         height: 1.4,
@@ -79,7 +79,7 @@ class DayLikeCallItem extends StatelessWidget {
                   ),
                   TextSpan(
                     text: '$leftDays ${LocaleKeys.dayss.tr()}',
-                    style: Theme.of(context).textTheme.headline1!.copyWith(
+                    style: Theme.of(context).textTheme.displayLarge!.copyWith(
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
                         height: 1.4,

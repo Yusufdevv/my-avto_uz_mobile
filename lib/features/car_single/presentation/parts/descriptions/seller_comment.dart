@@ -30,7 +30,7 @@ class SellerComment extends StatelessWidget {
           children: [
             Text(
               LocaleKeys.sellers_comment.tr(),
-              style: Theme.of(context).textTheme.headline1!.copyWith(
+              style: Theme.of(context).textTheme.displayLarge!.copyWith(
                     fontWeight: FontWeight.w700,
                     fontSize: 18,
                   ),
@@ -40,7 +40,7 @@ class SellerComment extends StatelessWidget {
             ),
             Text(
               comment,
-              style: Theme.of(context).textTheme.headline1!.copyWith(
+              style: Theme.of(context).textTheme.displayLarge!.copyWith(
                   fontWeight: FontWeight.w400,
                   fontSize: 14,
                   color: profileContainers),

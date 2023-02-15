@@ -54,7 +54,7 @@ class WFilterButton extends StatelessWidget {
                 name.isEmpty ? defaultTitle : name,
                 style: Theme.of(context)
                     .textTheme
-                    .subtitle1!
+                    .titleMedium!
                     .copyWith(color: claerA ? activeColor : null),
                 overflow: TextOverflow.ellipsis,
               ),

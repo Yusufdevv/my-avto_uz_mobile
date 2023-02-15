@@ -44,11 +44,11 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
           hoverColor: const Color(0xFFFAFAFB),
           hintStyle: Theme.of(context)
               .textTheme
-              .headline2!
+              .displayMedium!
               .copyWith(fontSize: 14, fontWeight: FontWeight.w600, color: grey),
           labelStyle: Theme.of(context)
               .textTheme
-              .headline1!
+              .displayLarge!
               .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
           hintText: widget.hintText,
           contentPadding: const EdgeInsets.only(top: 13, bottom: 13, left: 16),

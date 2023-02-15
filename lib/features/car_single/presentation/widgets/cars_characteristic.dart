@@ -196,7 +196,7 @@ class _CarCharacteristicItemState extends State<CarCharacteristicItem>
             //     children: [
             //       Text(
             //         LocaleKeys.all_params.tr(),
-            //         style: Theme.of(context).textTheme.headline3!.copyWith(
+            //         style: Theme.of(context).textTheme.displaySmall!.copyWith(
             //               fontSize: 14,
             //               fontWeight: FontWeight.w600,
             //             ),

@@ -85,7 +85,7 @@ class _SelectedCarInfoState extends State<SelectedCarInfo> {
                     'Общая оценка',
                     style: Theme.of(context)
                         .textTheme
-                        .headline1!
+                        .displayLarge!
                         .copyWith(fontSize: 16),
                   ),
                   const SizedBox(width: 12),
@@ -95,14 +95,14 @@ class _SelectedCarInfoState extends State<SelectedCarInfo> {
                     '${widget.avgRating}',
                     style: Theme.of(context)
                         .textTheme
-                        .headline1!
+                        .displayLarge!
                         .copyWith(fontSize: 16),
                   ),
                 ],
               ),
               subtitle: Text(
                 'По ${widget.reviewCount} отзывам',
-                style: Theme.of(context).textTheme.headline1!.copyWith(
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(
                       fontSize: 13,
                       fontWeight: FontWeight.w400,
                       color: grey,
@@ -163,7 +163,7 @@ class _SelectedCarInfoState extends State<SelectedCarInfo> {
                               'Плюсы и минусы',
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline1!
+                                  .displayLarge!
                                   .copyWith(fontSize: 16),
                             ),
                             const SizedBox(width: 8),
@@ -178,7 +178,7 @@ class _SelectedCarInfoState extends State<SelectedCarInfo> {
                                 text: '${widget.pluses.length}',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline1!
+                                    .displayLarge!
                                     .copyWith(
                                       fontSize: 13,
                                       fontWeight: FontWeight.w400,
@@ -189,7 +189,7 @@ class _SelectedCarInfoState extends State<SelectedCarInfo> {
                                 text: '/',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline1!
+                                    .displayLarge!
                                     .copyWith(
                                       fontSize: 13,
                                       fontWeight: FontWeight.w400,
@@ -200,7 +200,7 @@ class _SelectedCarInfoState extends State<SelectedCarInfo> {
                                 text: '${widget.minuses.length}',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline1!
+                                    .displayLarge!
                                     .copyWith(
                                       fontSize: 13,
                                       fontWeight: FontWeight.w400,

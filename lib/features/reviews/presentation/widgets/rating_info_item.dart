@@ -35,7 +35,7 @@ class RatingInfoItem extends StatelessWidget {
               title,
               style: Theme.of(context)
                   .textTheme
-                  .subtitle1!
+                  .titleMedium!
                   .copyWith(fontWeight: FontWeight.w400),
             ),
             const Spacer(),

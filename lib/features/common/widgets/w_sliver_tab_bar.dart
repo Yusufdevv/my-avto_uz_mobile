@@ -66,12 +66,12 @@ class WSliverTabBar extends StatelessWidget {
               labelColor: black,
               labelStyle: Theme.of(context)
                   .textTheme
-                  .subtitle1!
+                  .titleMedium!
                   .copyWith(fontSize: 13, fontWeight: FontWeight.w500),
               unselectedLabelColor: black,
               unselectedLabelStyle: Theme.of(context)
                   .textTheme
-                  .subtitle1!
+                  .titleMedium!
                   .copyWith(fontSize: 13, fontWeight: FontWeight.w500),
               tabs: [
                 Tab(text: leftText),

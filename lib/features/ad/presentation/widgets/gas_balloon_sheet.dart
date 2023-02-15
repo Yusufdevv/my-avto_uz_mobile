@@ -35,7 +35,7 @@ class _SelectGasBalloonTypeSheetState extends State<SelectGasBalloonTypeSheet> {
               children: [
                 Text(
                   'Газобаллонное оборудование',
-                  style: Theme.of(context).textTheme.headline1,
+                  style: Theme.of(context).textTheme.displayLarge,
                 ),
                 GestureDetector(
                       behavior: HitTestBehavior.opaque,
@@ -72,7 +72,7 @@ class _SelectGasBalloonTypeSheetState extends State<SelectGasBalloonTypeSheet> {
                           values[0],
                           style: Theme.of(context)
                               .textTheme
-                              .headline1!
+                              .displayLarge!
                               .copyWith(
                                   fontWeight: FontWeight.w600, fontSize: 16),
                         ),
@@ -102,7 +102,7 @@ class _SelectGasBalloonTypeSheetState extends State<SelectGasBalloonTypeSheet> {
                           values[1],
                           style: Theme.of(context)
                               .textTheme
-                              .headline1!
+                              .displayLarge!
                               .copyWith(
                                   fontWeight: FontWeight.w600, fontSize: 16),
                         ),
@@ -120,7 +120,7 @@ class _SelectGasBalloonTypeSheetState extends State<SelectGasBalloonTypeSheet> {
                   text: 'Применить',
                   textStyle: Theme.of(context)
                       .textTheme
-                      .subtitle1!
+                      .titleMedium!
                       .copyWith(color: white),
                   margin: EdgeInsets.only(
                     bottom: MediaQuery.of(context).padding.bottom + 20,

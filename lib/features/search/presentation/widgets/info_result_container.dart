@@ -95,7 +95,7 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
               color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
               boxShadow: [
                 BoxShadow(
-                  color: LightThemeColors.subTitle1.withOpacity(0.1),
+                  color: LightThemeColors.titleMedium.withOpacity(0.1),
                   offset: const Offset(0, 4),
                   blurRadius: 16,
                 ),
@@ -164,7 +164,7 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                               LocaleKeys.call.tr(),
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline4!
+                                  .headlineMedium!
                                   .copyWith(fontSize: 24),
                             )
                           ],
@@ -193,14 +193,14 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                                     text: LocaleKeys.call_not_available.tr(),
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline1!
+                                        .displayLarge!
                                         .copyWith(fontWeight: FontWeight.w600),
                                   ),
                                   TextSpan(
                                     text: LocaleKeys.please_call_during.tr(),
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline2!
+                                        .displayMedium!
                                         .copyWith(color: greyText),
                                   ),
                                   TextSpan(
@@ -209,7 +209,7 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                                         '${widget.callFrom.length > 3 ? widget.callTo.substring(0, widget.callTo.length - 3) : ''}',
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline2!
+                                        .displayMedium!
                                         .copyWith(color: secondary),
                                   ),
                                 ],
@@ -231,7 +231,7 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                   labelPadding:
                       const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                   margin: const EdgeInsets.only(top: 8, bottom: 12),
-                  labelStyle: Theme.of(context).textTheme.subtitle1!.copyWith(
+                  labelStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
                         color: orange,
                         fontSize: 12,
                       ),
@@ -250,14 +250,14 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                         : '${widget.price.floor()} ${widget.currency.toUpperCase()}',
                     style: Theme.of(context)
                         .textTheme
-                        .headline5
+                        .headlineSmall
                         ?.copyWith(color: green, fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(width: 4),
                   if (widget.discount > 0.0)
                     Text(
                       '${widget.price.floor()} ${widget.currency.toUpperCase()}',
-                      style: Theme.of(context).textTheme.headline2?.copyWith(
+                      style: Theme.of(context).textTheme.displayMedium?.copyWith(
                           decoration: TextDecoration.lineThrough, color: grey),
                     )
                 ],
@@ -267,7 +267,7 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                 widget.description,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.headline2!.copyWith(
+                style: Theme.of(context).textTheme.displayMedium!.copyWith(
                       fontSize: 13,
                       color: grey,
                     ),
@@ -310,7 +310,7 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                           text: '${widget.userFullName}\n',
                           style: Theme.of(context)
                               .textTheme
-                              .headline2!
+                              .displayMedium!
                               .copyWith(fontSize: 14),
                         ),
                         TextSpan(
@@ -319,7 +319,7 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                               : LocaleKeys.autosalon.tr(),
                           style: Theme.of(context)
                               .textTheme
-                              .bodyText1!
+                              .bodyLarge!
                               .copyWith(color: purple),
                         ),
                       ],
@@ -344,7 +344,7 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                         '${widget.districtTitle} • ${MyFunctions.getAutoPublishDate(widget.publishedAt)}',
                         style: Theme.of(context)
                             .textTheme
-                            .bodyText1!
+                            .bodyLarge!
                             .copyWith(color: grey),
                       ),
                     ),

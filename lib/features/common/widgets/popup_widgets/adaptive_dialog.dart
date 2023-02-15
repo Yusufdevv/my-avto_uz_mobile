@@ -27,14 +27,14 @@ class AdaptiveDialog extends StatelessWidget {
         backgroundColor: Colors.white,
         title: Text(
           title,
-          style: Theme.of(context).textTheme.headline1!.copyWith(
+          style: Theme.of(context).textTheme.displayLarge!.copyWith(
                 fontWeight: FontWeight.w600,
                 fontSize: 17,
               ),
         ),
         content: Text(
           bodyText,
-          style: Theme.of(context).textTheme.headline1!.copyWith(
+          style: Theme.of(context).textTheme.displayLarge!.copyWith(
                 fontWeight: FontWeight.w400,
                 fontSize: 13,
               ),
@@ -53,7 +53,7 @@ class AdaptiveDialog extends StatelessWidget {
                   child: Center(
                     child: Text(
                       LocaleKeys.cancel.tr(),
-                      style: Theme.of(context).textTheme.headline1!.copyWith(
+                      style: Theme.of(context).textTheme.displayLarge!.copyWith(
                             fontWeight: FontWeight.w600,
                             fontSize: 17,
                             color: blue,
@@ -70,7 +70,7 @@ class AdaptiveDialog extends StatelessWidget {
                     child: Center(
                         child: Text(
                       positiveButtonTitle ?? 'Leave',
-                      style: Theme.of(context).textTheme.headline1!.copyWith(
+                      style: Theme.of(context).textTheme.displayLarge!.copyWith(
                           fontSize: 17,
                           fontWeight: FontWeight.w600,
                           color: red),
@@ -87,14 +87,14 @@ class AdaptiveDialog extends StatelessWidget {
       return CupertinoAlertDialog(
         title: Text(
           title,
-          style: Theme.of(context).textTheme.headline1!.copyWith(
+          style: Theme.of(context).textTheme.displayLarge!.copyWith(
                 fontWeight: FontWeight.w600,
                 fontSize: 17,
               ),
         ),
         content: Text(
           bodyText,
-          style: Theme.of(context).textTheme.headline1!.copyWith(
+          style: Theme.of(context).textTheme.displayLarge!.copyWith(
                 fontWeight: FontWeight.w400,
                 fontSize: 13,
               ),
@@ -109,7 +109,7 @@ class AdaptiveDialog extends StatelessWidget {
                 child: Center(
                     child: Text(
                   LocaleKeys.cancel.tr(),
-                  style: Theme.of(context).textTheme.headline1!.copyWith(
+                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
                       fontWeight: FontWeight.w600, fontSize: 17, color: blue),
                 ))),
           ),
@@ -120,7 +120,7 @@ class AdaptiveDialog extends StatelessWidget {
                 child: Center(
                     child: Text(
                   positiveButtonTitle ?? 'Continue',
-                  style: Theme.of(context).textTheme.headline1!.copyWith(
+                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
                       fontSize: 17, fontWeight: FontWeight.w600, color: red),
                 ))),
           )

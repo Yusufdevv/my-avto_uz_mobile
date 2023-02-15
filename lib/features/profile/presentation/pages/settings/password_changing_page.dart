@@ -30,13 +30,13 @@ class PasswordChangingPage extends StatelessWidget {
                   LocaleKeys.change_password.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .headline1!
+                      .displayLarge!
                       .copyWith(fontSize: 24),
                 ),
                 SizedBox(height: SizeConfig.v(4)),
                 Text(
                   LocaleKeys.need_code_from_sms.tr(),
-                  style: Theme.of(context).textTheme.headline2,
+                  style: Theme.of(context).textTheme.displayMedium,
                 ),
                 Container(
                     margin: EdgeInsets.only(top: SizeConfig.v(64)),

@@ -58,7 +58,7 @@ class ButtonAddToComparison extends StatelessWidget {
                       LocaleKeys.remove_from_comparison.tr(),
                       style: Theme.of(context)
                           .textTheme
-                          .subtitle1
+                          .titleMedium
                           ?.copyWith(height: 1.4, color: red),
                     ),
                   ]
@@ -76,7 +76,7 @@ class ButtonAddToComparison extends StatelessWidget {
                       LocaleKeys.add_to_comparison.tr(),
                       style: Theme.of(context)
                           .textTheme
-                          .subtitle1
+                          .titleMedium
                           ?.copyWith(height: 1.4, color: greyText),
                     )
                   ],

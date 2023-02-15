@@ -12,7 +12,6 @@ import 'package:auto/features/dealers/presentation/widgets/dealer_selector_item.
 import 'package:auto/features/dealers/presentation/widgets/filter_radio.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_maker.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
-import 'package:auto/features/search/presentation/widgets/selector_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -71,12 +70,12 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
                     offset: const Offset(0, -1), color: dark.withOpacity(0.08))
               ],
               titleStyle:
-                  Theme.of(context).textTheme.headline1!.copyWith(fontSize: 16),
+                  Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 16),
               extraActions: [
                 Text(LocaleKeys.filter.tr(),
                     style: Theme.of(context)
                         .textTheme
-                        .headline1!
+                        .displayLarge!
                         .copyWith(fontSize: 16, fontWeight: FontWeight.w600)),
                 const Spacer(
                   flex: 30,
@@ -94,7 +93,7 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
                       LocaleKeys.clear.tr(),
                       style: Theme.of(context)
                           .textTheme
-                          .subtitle1!
+                          .titleMedium!
                           .copyWith(color: blue),
                     ),
                   ),

@@ -39,7 +39,7 @@ class CarShowRatingField extends StatelessWidget {
                   'Общая оценка',
                   style: Theme.of(context)
                       .textTheme
-                      .headline1!
+                      .displayLarge!
                       .copyWith(fontSize: 16),
                 ),
                 const Spacer(),
@@ -49,7 +49,7 @@ class CarShowRatingField extends StatelessWidget {
                   '$overallRating',
                   style: Theme.of(context)
                       .textTheme
-                      .headline1!
+                      .displayLarge!
                       .copyWith(fontSize: 16),
                 ),
               ],
@@ -58,7 +58,7 @@ class CarShowRatingField extends StatelessWidget {
             Text(
               'Владеет от 6 месяцев до года',
               style:
-                  Theme.of(context).textTheme.headline2!.copyWith(fontSize: 13),
+                  Theme.of(context).textTheme.displayMedium!.copyWith(fontSize: 13),
             ),
             const Divider(color: border, thickness: 1),
             RatingInfos(

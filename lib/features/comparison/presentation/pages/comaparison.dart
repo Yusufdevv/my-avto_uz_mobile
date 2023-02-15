@@ -207,7 +207,7 @@ class _ComparisonState extends State<Comparison> {
                             LocaleKeys.characters.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .headline1!
+                                .displayLarge!
                                 .copyWith(fontSize: 18),
                           ),
                         ),

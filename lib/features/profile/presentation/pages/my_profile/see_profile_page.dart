@@ -107,14 +107,14 @@ class SeeProfilePage extends StatelessWidget {
                         child: Text(state.profileEntity.fullName ?? '',
                             style: Theme.of(context)
                                 .textTheme
-                                .headline1!
+                                .displayLarge!
                                 .copyWith(fontSize: 18)),
                       ),
                       Text(
                           '${state.profileEntity.usercountdata.announcementsCount} ${LocaleKeys.how_many_ads.tr()}',
                           style: Theme.of(context)
                               .textTheme
-                              .headline2!
+                              .displayMedium!
                               .copyWith(
                                   fontWeight: FontWeight.w600, color: grey)),
                       TextSpacer(
@@ -141,7 +141,7 @@ class SeeProfilePage extends StatelessWidget {
                               Text(LocaleKeys.exit_from_account.tr(),
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline3!
+                                      .displaySmall!
                                       .copyWith(color: red))
                             ],
                           ),

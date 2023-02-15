@@ -89,27 +89,27 @@ class _RatingBottomsheetState extends State<RatingBottomsheet> {
               children: [
                 rateContainer(
                   _currentPage >= 0
-                      ? LightThemeColors.headline5
+                      ? LightThemeColors.headlineSmall
                       : LightThemeColors.solitudeToDarkGray95,
                 ),
                 rateContainer(
                   _currentPage >= 1
-                      ? LightThemeColors.headline5
+                      ? LightThemeColors.headlineSmall
                       : LightThemeColors.solitudeToDarkGray95,
                 ),
                 rateContainer(
                   _currentPage >= 2
-                      ? LightThemeColors.headline5
+                      ? LightThemeColors.headlineSmall
                       : LightThemeColors.solitudeToDarkGray95,
                 ),
                 rateContainer(
                   _currentPage >= 3
-                      ? LightThemeColors.headline5
+                      ? LightThemeColors.headlineSmall
                       : LightThemeColors.solitudeToDarkGray95,
                 ),
                 rateContainer(
                   _currentPage >= 4
-                      ? LightThemeColors.headline5
+                      ? LightThemeColors.headlineSmall
                       : LightThemeColors.solitudeToDarkGray95,
                 ),
               ],

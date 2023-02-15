@@ -14,14 +14,14 @@ class VinPageItem extends StatelessWidget {
           children: [
             Text(
               description,
-              style: Theme.of(context).textTheme.headline2,
+              style: Theme.of(context).textTheme.displayMedium,
             ),
             const Expanded(
               child: Divider(),
             ),
             Text(
               data,
-              style: Theme.of(context).textTheme.subtitle2,
+              style: Theme.of(context).textTheme.titleSmall,
             )
           ],
         ),

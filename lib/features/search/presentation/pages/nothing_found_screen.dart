@@ -31,7 +31,7 @@ class NothingFoundScreen extends StatelessWidget {
               Text(
                 LocaleKeys.no_results.tr(),
                 style:
-                    Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 16),
+                    Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 16),
               ),
               const SizedBox(height: 8),
               Text(
@@ -41,7 +41,7 @@ class NothingFoundScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
-                    .headline2!
+                    .displayMedium!
                     .copyWith(color: greyText),
               ),
             ],

@@ -68,7 +68,7 @@ class StackedOnBoardingWidget extends StatelessWidget {
                           LocaleKeys.possibility_to_rent.tr(),
                           style: Theme.of(context)
                               .textTheme
-                              .headline6!
+                              .titleLarge!
                               .copyWith(color: white, fontSize: 10),
                         ),
                         const SizedBox(width: 2),
@@ -139,7 +139,7 @@ class StackedOnBoardingWidget extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             style: Theme.of(context)
                                 .textTheme
-                                .headline6!
+                                .titleLarge!
                                 .copyWith(color: white, fontSize: 10),
                           ),
                         )
@@ -208,7 +208,7 @@ class StackedOnBoardingWidget extends StatelessWidget {
                             maxLines: 3,
                             style: Theme.of(context)
                                 .textTheme
-                                .headline6!
+                                .titleLarge!
                                 .copyWith(color: white, fontSize: 10),
                           ),
                         )

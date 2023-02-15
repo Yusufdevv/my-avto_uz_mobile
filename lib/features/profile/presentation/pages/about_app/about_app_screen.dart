@@ -93,7 +93,7 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
                             .darkToGrey),
                     SizedBox(width: SizeConfig.h(8)),
                     Text(LocaleKeys.terms_use.tr(),
-                        style: Theme.of(context).textTheme.headline1!.copyWith(
+                        style: Theme.of(context).textTheme.displayLarge!.copyWith(
                             fontSize: 15, fontWeight: FontWeight.w600))
                   ],
                 ),
@@ -128,7 +128,7 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
                 child: Text(
                     '${LocaleKeys.version.tr()} ${_packageInfo.version}',
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline2)),
+                    style: Theme.of(context).textTheme.displayMedium)),
           ],
         ),
       );

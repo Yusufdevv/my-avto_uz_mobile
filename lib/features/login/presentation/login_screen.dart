@@ -86,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   LocaleKeys.enter_to_account.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .headline1!
+                      .displayLarge!
                       .copyWith(fontSize: 18),
                 ),
                 const SizedBox(height: 4),
@@ -97,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       LocaleKeys.d_y_h_account.tr(),
                       style: Theme.of(context)
                           .textTheme
-                          .headline6!
+                          .titleLarge!
                           .copyWith(fontSize: 13, fontWeight: FontWeight.w400),
                     ),
                     const SizedBox(width: 4),
@@ -109,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       child: Text(
                         LocaleKeys.register.tr(),
-                        style: Theme.of(context).textTheme.headline3!.copyWith(
+                        style: Theme.of(context).textTheme.displaySmall!.copyWith(
                             fontWeight: FontWeight.w600, fontSize: 13),
                       ),
                     )
@@ -132,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Text('+998',
                           style: Theme.of(context)
                               .textTheme
-                              .subtitle1!
+                              .titleMedium!
                               .copyWith(
                                   fontSize: 14, fontWeight: FontWeight.w400)),
                     ],
@@ -140,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   hintText: '00 000 00 00',
                   hintTextStyle: Theme.of(context)
                       .textTheme
-                      .subtitle1!
+                      .titleMedium!
                       .copyWith(
                           fontSize: 14,
                           color: warmerGrey,
@@ -149,7 +149,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   textInputFormatters: [phoneFormatter],
                   textStyle: Theme.of(context)
                       .textTheme
-                      .subtitle1!
+                      .titleMedium!
                       .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                 ),
                 const SizedBox(height: 16),
@@ -163,14 +163,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   isObscure: true,
                   hintTextStyle: Theme.of(context)
                       .textTheme
-                      .subtitle1!
+                      .titleMedium!
                       .copyWith(
                           fontSize: 14,
                           color: warmerGrey,
                           fontWeight: FontWeight.w400),
                   textStyle: Theme.of(context)
                       .textTheme
-                      .subtitle1!
+                      .titleMedium!
                       .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                 ),
                 const SizedBox(height: 16),
@@ -184,7 +184,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     LocaleKeys.forgot_password.tr(),
                     style: Theme.of(context)
                         .textTheme
-                        .headline3!
+                        .displaySmall!
                         .copyWith(fontSize: 13, fontWeight: FontWeight.w600),
                   ),
                 ),
@@ -242,7 +242,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                     child: Text(
                       LocaleKeys.another_ways.tr(),
-                      style: Theme.of(context).textTheme.headline6!.copyWith(
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
                             fontWeight: FontWeight.w400,
                             fontSize: 12,
                           ),

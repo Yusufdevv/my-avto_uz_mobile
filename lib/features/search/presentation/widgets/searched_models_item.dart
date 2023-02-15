@@ -2,7 +2,6 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_highlighted_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -71,11 +70,11 @@ class SearchedModelsItem extends StatelessWidget {
                             LightThemeColors.tangerineYellowToMediumSlateBlue,
                         textStyle: Theme.of(context)
                             .textTheme
-                            .subtitle1!
+                            .titleMedium!
                             .copyWith(fontSize: 13),
                         textStyleHighlight: Theme.of(context)
                             .textTheme
-                            .subtitle1!
+                            .titleMedium!
                             .copyWith(fontSize: 13),
                         textAlign: TextAlign.start,
                       ),
@@ -83,7 +82,7 @@ class SearchedModelsItem extends StatelessWidget {
                         vehicleType,
                         style: Theme.of(context)
                             .textTheme
-                            .headline2!
+                            .displayMedium!
                             .copyWith(fontSize: 12),
                       )
                     ],

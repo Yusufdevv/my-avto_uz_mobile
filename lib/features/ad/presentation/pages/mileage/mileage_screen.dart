@@ -93,7 +93,7 @@ class _MileageScreenState extends State<MileageScreen> {
                         WTextField(
                           textStyle: Theme.of(context)
                               .textTheme
-                              .headline1!
+                              .displayLarge!
                               .copyWith(
                                   fontSize: 16, fontWeight: FontWeight.w400),
                           textInputFormatters: [
@@ -128,7 +128,7 @@ class _MileageScreenState extends State<MileageScreen> {
                         LocaleKeys.milage_photo.tr(),
                         style: Theme.of(context)
                             .textTheme
-                            .subtitle1!
+                            .titleMedium!
                             .copyWith(color: grey),
                       ),
                       const SizedBox(height: 8),

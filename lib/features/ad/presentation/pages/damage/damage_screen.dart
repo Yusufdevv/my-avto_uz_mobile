@@ -96,7 +96,7 @@ class _DamageScreenState extends State<DamageScreen>
                 children: [
                   Text(
                     LocaleKeys.mark_all_the_colored_and_damaged_parts.tr(),
-                    style: Theme.of(context).textTheme.headline6!.copyWith(
+                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
                         fontSize: 14,
                         color: Theme.of(context)
                             .extension<ThemedColors>()!
@@ -105,13 +105,14 @@ class _DamageScreenState extends State<DamageScreen>
                   const SizedBox(height: 32),
                   DamageCarsItem(
                     onPressed: _showChoosDamageTypeSheet,
+                    damagedParts: state.damagedParts,
                   ),
                   // DOOR
                   CustomTabBar(
                       title: LocaleKeys.door.tr(),
                       tabController: doorController,
                       firstTab: LocaleKeys.left.tr(),
-                      secondTab:LocaleKeys.right.tr()),
+                      secondTab: LocaleKeys.right.tr()),
                   SizedBox(
                     height: 150,
                     child: TabBarView(
@@ -192,7 +193,7 @@ class _DamageScreenState extends State<DamageScreen>
 
                   // FENDER
                   CustomTabBar(
-                      title:LocaleKeys.fender.tr(),
+                      title: LocaleKeys.fender.tr(),
                       tabController: wingController,
                       firstTab: LocaleKeys.back.tr(),
                       secondTab: LocaleKeys.front.tr()),

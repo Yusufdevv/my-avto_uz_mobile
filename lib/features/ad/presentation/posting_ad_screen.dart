@@ -2,20 +2,6 @@ import 'dart:async';
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/core/singletons/service_locator.dart';
-import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
-import 'package:auto/features/ad/domain/usecases/contacts_usecase.dart';
-import 'package:auto/features/ad/domain/usecases/create_announcement.dart';
-import 'package:auto/features/ad/domain/usecases/get_body_type.dart';
-import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
-import 'package:auto/features/ad/domain/usecases/get_drive_type.dart';
-import 'package:auto/features/ad/domain/usecases/get_engine_type.dart';
-import 'package:auto/features/ad/domain/usecases/get_generation.dart';
-import 'package:auto/features/ad/domain/usecases/get_makes.dart';
-import 'package:auto/features/ad/domain/usecases/get_map_screenshot_usecase.dart';
-import 'package:auto/features/ad/domain/usecases/get_modification_type.dart';
-import 'package:auto/features/ad/domain/usecases/get_years.dart';
-import 'package:auto/features/ad/domain/usecases/minimum_price_usecase.dart';
 import 'package:auto/features/ad/presentation/bloc/bloc/choose_make_anime_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/add_photo/add_photo_screen.dart';
@@ -40,21 +26,13 @@ import 'package:auto/features/ad/presentation/pages/price/price_screen.dart';
 import 'package:auto/features/ad/presentation/pages/pts/pts_screen.dart';
 import 'package:auto/features/ad/presentation/pages/year_of_issue/year_issue_screen.dart';
 import 'package:auto/features/ad/presentation/widgets/posting_ad_appbar.dart';
-import 'package:auto/features/car_single/data/repository/car_single_repository_impl.dart';
-import 'package:auto/features/car_single/domain/usecases/get_ads_usecase.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
-import 'package:auto/features/common/repository/auth.dart';
-import 'package:auto/features/common/usecases/get_districts_usecase.dart';
-import 'package:auto/features/common/usecases/get_regions_usecase.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/login/domain/usecases/verify_code.dart';
-import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
-import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -65,10 +43,8 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class PostingAdScreen extends StatefulWidget {
   final BuildContext parentContext;
-  final int? announcementId;
 
-  const PostingAdScreen(
-      {required this.parentContext, this.announcementId, Key? key})
+  const PostingAdScreen({required this.parentContext, Key? key})
       : super(key: key);
 
   @override
@@ -115,52 +91,9 @@ class _PostingAdScreenState extends State<PostingAdScreen>
     );
     globalKey = GlobalKey();
 
-    postingAdBloc = PostingAdBloc(
-      modificationUseCase: GetModificationTypeUseCase(
-          repository: serviceLocator<AdRepositoryImpl>()),
-      screenShotUseCase: GetMapScreenShotUseCase(
-          repository: serviceLocator<AdRepositoryImpl>()),
-      getYearsUseCase:
-          GetYearsUseCase(repository: serviceLocator<AdRepositoryImpl>()),
-      userRepository: AuthRepository(),
-      contactsUseCase:
-          ContactsUseCase(repository: serviceLocator<AdRepositoryImpl>()),
-      verifyCodeUseCase: VerifyCodeUseCase(),
-      minimumPriceUseCase: GetMinimumPriceUseCase(
-          repository: serviceLocator<AdRepositoryImpl>()),
-      announcementUseCase: GetCarSingleUseCase(
-          repository: serviceLocator<CarSingleRepositoryImpl>()),
-      districtUseCase: GetDistrictsUseCase(),
-      regionsUseCase: GetRegionsUseCase(),
-      createUseCase: CreateAnnouncementUseCase(
-          repository: serviceLocator<AdRepositoryImpl>()),
-      bodyTypesUseCase:
-          GetBodyTypeUseCase(repository: serviceLocator<AdRepositoryImpl>()),
-      gearboxUseCase:
-          GetGearBoxessUseCase(repository: serviceLocator<AdRepositoryImpl>()),
-      driveTypeUseCase:
-          GetDriveTypeUseCase(repository: serviceLocator<AdRepositoryImpl>()),
-      engineUseCase:
-          GetEngineTypeUseCase(repository: serviceLocator<AdRepositoryImpl>()),
-      modelsUseCase:
-          GetCarModelUseCase(repository: serviceLocator<AdRepositoryImpl>()),
-      generationUseCase:
-          GetGenerationUseCase(repository: serviceLocator<AdRepositoryImpl>()),
-      topMakesUseCase: GetTopBrandUseCase(),
-      makeUseCase:
-          GetMakesUseCase(repository: serviceLocator<AdRepositoryImpl>()),
-    );
-    if (widget.announcementId == null) {
-      currentTabIndex = initialPage;
-      postingAdBloc.add(PostingAdMakesEvent());
-    } else {
-      currentTabIndex = 10;
-      initialPage = 10;
-
-      postingAdBloc
-          .add(PostingAdGetAnnouncementEvent(id: widget.announcementId!));
-    }
-
+    postingAdBloc = PostingAdBloc();
+    currentTabIndex = initialPage;
+    postingAdBloc.add(PostingAdMakesEvent());
     pageController = PageController(initialPage: initialPage);
     super.initState();
   }
@@ -199,7 +132,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
           HomeTabControllerProvider.of(widget.parentContext)
               .controller
               .animateTo(0);
-          return Future.value(widget.announcementId != null);
+          return Future.value(false);
         },
         child: KeyboardDismisser(
           child: CustomScreen(
@@ -221,9 +154,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                     FocusScope.of(context).unfocus();
                     context.read<ShowPopUpBloc>().add(
                           ShowPopUp(
-                            message: widget.announcementId == null
-                                ? state.toastMessage ?? ''
-                                : LocaleKeys.your_ad_edited_successfully.tr(),
+                            message: state.toastMessage ?? '',
                             status: PopStatus.success,
                             dismissible: false,
                           ),
@@ -231,16 +162,15 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                     await Future.delayed(const Duration(milliseconds: 1000));
                     hidePopUp();
 
-                    if (widget.announcementId == null) {
-                      context
-                          .read<WishlistAddBloc>()
-                          .add(WishlistAddEvent.goToAdds(1));
-                      context.read<ProfileBloc>().add(
-                          ChangeCountDataEvent(adding: true, myAdsCount: 1));
-                      HomeTabControllerProvider.of(widget.parentContext)
-                          .controller
-                          .animateTo(4);
-                    }
+                    context
+                        .read<WishlistAddBloc>()
+                        .add(WishlistAddEvent.goToAdds(1));
+                    context
+                        .read<ProfileBloc>()
+                        .add(ChangeCountDataEvent(adding: true, myAdsCount: 1));
+                    HomeTabControllerProvider.of(widget.parentContext)
+                        .controller
+                        .animateTo(4);
 
                     currentTabIndex = 0;
                     await Future.delayed(const Duration(milliseconds: 500));
@@ -249,9 +179,6 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                         curve: Curves.linear);
                     postingAdBloc.add(PostingAdClearStateEvent());
                     setState(() {});
-                    if (widget.announcementId != null) {
-                      Navigator.pop(context);
-                    }
                     return;
                   }
 
@@ -273,7 +200,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                     return Scaffold(
                         body: Center(
                             child: Padding(
-                                padding:const EdgeInsets.all(20),
+                                padding: const EdgeInsets.all(20),
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -283,7 +210,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                         textAlign: TextAlign.center,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline1!
+                                            .displayLarge!
                                             .copyWith(fontSize: 24),
                                       ),
                                       const SizedBox(height: 20),
@@ -299,8 +226,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                       appBar: PreferredSize(
                         preferredSize: const Size.fromHeight(54),
                         child: PostingAdAppBar(
-                          hasBackButton: !(widget.announcementId != null &&
-                              currentTabIndex == 10),
+                          hasBackButton: true,
                           currentTabIndex: currentTabIndex,
                           reversScaleAnimation: animeState.reversScaleAnimation,
                           reverseTitle: LocaleKeys.choose_brand_auto.tr(),
@@ -310,27 +236,13 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                           onTapBack: () {
                             hidePopUp();
                             if (currentTabIndex != 0) {
-                              if (widget.announcementId != null) {
-                                if (currentTabIndex > 10) {
-                                  --currentTabIndex;
-                                  postingAdBloc.add(
-                                      PostingAdAddEventForEveryPage(
-                                          page: currentTabIndex));
-                                  pageController.animateToPage(currentTabIndex,
-                                      duration:
-                                          const Duration(milliseconds: 150),
-                                      curve: Curves.linear);
-                                  setState(() {});
-                                }
-                              } else {
-                                --currentTabIndex;
-                                postingAdBloc.add(PostingAdAddEventForEveryPage(
-                                    page: currentTabIndex));
-                                pageController.animateToPage(currentTabIndex,
-                                    duration: const Duration(milliseconds: 150),
-                                    curve: Curves.linear);
-                                setState(() {});
-                              }
+                              --currentTabIndex;
+                              postingAdBloc.add(PostingAdAddEventForEveryPage(
+                                  page: currentTabIndex));
+                              pageController.animateToPage(currentTabIndex,
+                                  duration: const Duration(milliseconds: 150),
+                                  curve: Curves.linear);
+                              setState(() {});
                             } else {
                               HomeTabControllerProvider.of(widget.parentContext)
                                   .controller
@@ -426,7 +338,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                               PriceScreen(initialPrice: state.price ?? ''),
                               //18
                               MileageScreen(
-                                  onImageChange: (image) { 
+                                  onImageChange: (image) {
                                     postingAdBloc.add(PostingAdChooseEvent(
                                         milageImage: image));
                                   },

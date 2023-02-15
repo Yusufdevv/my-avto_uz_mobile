@@ -85,7 +85,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                   LocaleKeys.change_password.tr(),
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline1!
+                                      .displayLarge!
                                       .copyWith(
                                           fontSize: 15,
                                           fontWeight: FontWeight.w600),
@@ -147,7 +147,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                   LocaleKeys.language.tr(),
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline1!
+                                      .displayLarge!
                                       .copyWith(
                                           fontSize: 15,
                                           fontWeight: FontWeight.w600),
@@ -155,7 +155,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 const Spacer(),
                                 Text(LocaleKeys.dev_language.tr(),
                                     style:
-                                        Theme.of(context).textTheme.headline2),
+                                        Theme.of(context).textTheme.displayMedium),
                                 SizedBox(width: SizeConfig.h(12)),
                                 SvgPicture.asset(
                                   AppIcons.chevronRightBlack,

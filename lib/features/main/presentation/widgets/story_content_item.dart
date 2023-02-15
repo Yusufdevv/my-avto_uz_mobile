@@ -55,7 +55,6 @@ class _StoryContentItemState extends State<StoryContentItem>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    print('state:1 $state');
     switch (state) {
       case AppLifecycleState.resumed:
         _onLongPress(isStopped: false);
@@ -150,7 +149,7 @@ class _StoryContentItemState extends State<StoryContentItem>
                     widget.story.items[itemIndex].title,
                     style: Theme.of(context)
                         .textTheme
-                        .headline4!
+                        .headlineMedium!
                         .copyWith(fontWeight: FontWeight.w600),
                   ),
                 ),
@@ -161,7 +160,7 @@ class _StoryContentItemState extends State<StoryContentItem>
                     widget.story.items[itemIndex].description,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         fontWeight: FontWeight.w400, color: dividerColor),
                   ),
                 ),
@@ -240,7 +239,7 @@ class _StoryContentItemState extends State<StoryContentItem>
                     widget.story.name,
                     style: Theme.of(context)
                         .textTheme
-                        .headline4!
+                        .headlineMedium!
                         .copyWith(fontSize: 16),
                   ),
                 ),

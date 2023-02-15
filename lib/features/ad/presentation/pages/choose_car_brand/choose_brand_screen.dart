@@ -205,7 +205,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                             LocaleKeys.choose_brand_auto.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .headline1!
+                                .displayLarge!
                                 .copyWith(
                                     color: _headerTextTweenColor
                                         .evaluate(animeState.scaleAnimation)),
@@ -245,7 +245,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                             hasClearButton: true,
                             textStyle: Theme.of(context)
                                 .textTheme
-                                .headline1!
+                                .displayLarge!
                                 .copyWith(
                                     fontWeight: FontWeight.w400, fontSize: 16),
                             onClear: () {
@@ -346,7 +346,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                                 LocaleKeys.loading_data.tr(),
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline6!
+                                    .titleLarge!
                                     .copyWith(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w400,

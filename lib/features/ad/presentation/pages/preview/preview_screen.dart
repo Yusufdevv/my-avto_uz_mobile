@@ -27,7 +27,7 @@ class PreviewScreen extends StatelessWidget {
                             top: 16, left: 16, bottom: 12),
                         child: Text(
                           LocaleKeys.final_review.tr(),
-                          style: Theme.of(context).textTheme.headline1,
+                          style: Theme.of(context).textTheme.displayLarge,
                         ),
                       ),
                       ImageViewer(

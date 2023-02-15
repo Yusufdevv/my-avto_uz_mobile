@@ -93,7 +93,7 @@ class MyReviewsItem extends StatelessWidget {
                             label: statusText,
                             labelStyle: Theme.of(context)
                                 .textTheme
-                                .headline4!
+                                .headlineMedium!
                                 .copyWith(
                                     fontWeight: FontWeight.w400, fontSize: 12),
                             leading: SvgPicture.asset(statusIcon, color: white),
@@ -107,7 +107,7 @@ class MyReviewsItem extends StatelessWidget {
                           label: statusText,
                           labelStyle: Theme.of(context)
                               .textTheme
-                              .headline4!
+                              .headlineMedium!
                               .copyWith(
                                   fontWeight: FontWeight.w400, fontSize: 12),
                           leading: SvgPicture.asset(statusIcon, color: white),
@@ -123,7 +123,7 @@ class MyReviewsItem extends StatelessWidget {
                     carName,
                     style: Theme.of(context)
                         .textTheme
-                        .headline2!
+                        .displayMedium!
                         .copyWith(fontSize: 13),
                   ),
                   const Spacer(),
@@ -133,7 +133,7 @@ class MyReviewsItem extends StatelessWidget {
                     rating.toString(),
                     style: Theme.of(context)
                         .textTheme
-                        .headline1!
+                        .displayLarge!
                         .copyWith(fontSize: 17),
                   ),
                 ],
@@ -143,7 +143,7 @@ class MyReviewsItem extends StatelessWidget {
                 reviewTitle,
                 style: Theme.of(context)
                     .textTheme
-                    .headline1!
+                    .displayLarge!
                     .copyWith(fontSize: 16),
               ),
               const SizedBox(height: 16),
@@ -161,7 +161,7 @@ class MyReviewsItem extends StatelessWidget {
                       ],
                       textStyle: Theme.of(context)
                           .textTheme
-                          .headline1!
+                          .displayLarge!
                           .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
                       border: Border.all(color: border, width: 1),
                       color: white,
@@ -182,7 +182,7 @@ class MyReviewsItem extends StatelessWidget {
                       ],
                       textStyle: Theme.of(context)
                           .textTheme
-                          .headline1!
+                          .displayLarge!
                           .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
                       border: Border.all(color: border, width: 1),
                       borderRadius: 8,
@@ -197,7 +197,7 @@ class MyReviewsItem extends StatelessWidget {
                 children: [
                   Text(
                     date,
-                    style: Theme.of(context).textTheme.headline2,
+                    style: Theme.of(context).textTheme.displayMedium,
                   ),
                   const Spacer(),
                   if (hasCommented)
@@ -210,7 +210,7 @@ class MyReviewsItem extends StatelessWidget {
                       '$commentsCount',
                       style: Theme.of(context)
                           .textTheme
-                          .headline6!
+                          .titleLarge!
                           .copyWith(fontSize: 14),
                     )
                   else
@@ -229,7 +229,7 @@ class MyReviewsItem extends StatelessWidget {
                       '$viewsCount',
                       style: Theme.of(context)
                           .textTheme
-                          .headline6!
+                          .titleLarge!
                           .copyWith(fontSize: 14),
                     )
                   else

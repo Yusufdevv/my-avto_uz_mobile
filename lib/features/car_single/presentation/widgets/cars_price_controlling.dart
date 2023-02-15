@@ -21,7 +21,7 @@ class CarsPrice extends StatelessWidget {
           children: [
             Text(
               date,
-              style: Theme.of(context).textTheme.headline2!.copyWith(
+              style: Theme.of(context).textTheme.displayMedium!.copyWith(
                   fontWeight: FontWeight.w400, fontSize: 14, color: grey),
             ),
             const SizedBox(height: 2),
@@ -32,14 +32,14 @@ class CarsPrice extends StatelessWidget {
                   price,
                   style: Theme.of(context)
                       .textTheme
-                      .headline4!
+                      .headlineMedium!
                       .copyWith(color: profileContainers),
                 ),
                 Text(
                   totalPrice,
                   style: Theme.of(context)
                       .textTheme
-                      .headline4!
+                      .headlineMedium!
                       .copyWith(color: textColor),
                 ),
               ],

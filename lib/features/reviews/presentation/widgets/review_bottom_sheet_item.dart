@@ -38,7 +38,7 @@ class ReviewBottomSheetItem extends StatelessWidget {
                 const SizedBox(width: 12),
                 Text(
                   title,
-                  style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
                       ),

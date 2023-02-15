@@ -46,7 +46,7 @@ class AdsAppBarTitle extends StatelessWidget {
                         '${context.read<GetMakesBloc>().state.name}  ${context.read<GetCarModelBloc>().state.name}',
                         style: Theme.of(context)
                             .textTheme
-                            .headline1!
+                            .displayLarge!
                             .copyWith(fontSize: 16),
                       )
                     else
@@ -54,13 +54,13 @@ class AdsAppBarTitle extends StatelessWidget {
                         LocaleKeys.choose_brand_model.tr(),
                         style: Theme.of(context)
                             .textTheme
-                            .headline1!
+                            .displayLarge!
                             .copyWith(fontSize: 16),
                       ),
                     if (context.read<GetMakesBloc>().state.name.isNotEmpty)
                       Text(
                         '${context.read<AnnouncementListBloc>().state.count} ${LocaleKeys.offers.tr()}',
-                        style: Theme.of(context).textTheme.headline2!.copyWith(
+                        style: Theme.of(context).textTheme.displayMedium!.copyWith(
                               color: grey,
                             ),
                       )

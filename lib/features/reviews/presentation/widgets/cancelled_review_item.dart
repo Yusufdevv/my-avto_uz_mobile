@@ -82,7 +82,7 @@ class CancelledReviewItem extends StatelessWidget {
                           label: 'Заблокирован',
                           labelStyle: Theme.of(context)
                               .textTheme
-                              .headline4!
+                              .headlineMedium!
                               .copyWith(
                                   fontWeight: FontWeight.w400, fontSize: 12),
                           leading:
@@ -97,7 +97,7 @@ class CancelledReviewItem extends StatelessWidget {
                         label: 'Заблокирован',
                         labelStyle: Theme.of(context)
                             .textTheme
-                            .headline4!
+                            .headlineMedium!
                             .copyWith(
                                 fontWeight: FontWeight.w400, fontSize: 12),
                         leading: SvgPicture.asset(AppIcons.lock, color: white),
@@ -113,7 +113,7 @@ class CancelledReviewItem extends StatelessWidget {
                   carName,
                   style: Theme.of(context)
                       .textTheme
-                      .headline2!
+                      .displayMedium!
                       .copyWith(fontSize: 13),
                 ),
                 const Spacer(),
@@ -123,7 +123,7 @@ class CancelledReviewItem extends StatelessWidget {
                   '$rating',
                   style: Theme.of(context)
                       .textTheme
-                      .headline1!
+                      .displayLarge!
                       .copyWith(fontSize: 17),
                 ),
               ],
@@ -132,7 +132,7 @@ class CancelledReviewItem extends StatelessWidget {
             Text(
               reviewTitle,
               style:
-                  Theme.of(context).textTheme.headline1!.copyWith(fontSize: 16),
+                  Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 16),
             ),
             const SizedBox(height: 8),
             Row(
@@ -147,7 +147,7 @@ class CancelledReviewItem extends StatelessWidget {
                   'Причины блокировки',
                   style: Theme.of(context)
                       .textTheme
-                      .headline2!
+                      .displayMedium!
                       .copyWith(color: red, fontSize: 13),
                 )
               ],
@@ -157,7 +157,7 @@ class CancelledReviewItem extends StatelessWidget {
               cancellationReason,
               style: Theme.of(context)
                   .textTheme
-                  .subtitle1!
+                  .titleMedium!
                   .copyWith(fontWeight: FontWeight.w400, fontSize: 13),
             ),
             const SizedBox(height: 16),
@@ -175,7 +175,7 @@ class CancelledReviewItem extends StatelessWidget {
                     ],
                     textStyle: Theme.of(context)
                         .textTheme
-                        .headline1!
+                        .displayLarge!
                         .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
                     border: Border.all(color: border, width: 1),
                     color: white,
@@ -196,7 +196,7 @@ class CancelledReviewItem extends StatelessWidget {
                     ],
                     textStyle: Theme.of(context)
                         .textTheme
-                        .headline1!
+                        .displayLarge!
                         .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
                     border: Border.all(color: border, width: 1),
                     borderRadius: 8,
@@ -211,7 +211,7 @@ class CancelledReviewItem extends StatelessWidget {
               children: [
                 Text(
                   date,
-                  style: Theme.of(context).textTheme.headline2,
+                  style: Theme.of(context).textTheme.displayMedium,
                 ),
                 const Spacer(),
                 SvgPicture.asset(AppIcons.messageRectangle),
@@ -220,7 +220,7 @@ class CancelledReviewItem extends StatelessWidget {
                   '$commentsCount',
                   style: Theme.of(context)
                       .textTheme
-                      .headline6!
+                      .titleLarge!
                       .copyWith(fontSize: 14),
                 ),
                 const VerticalDivider(color: black, thickness: 1, width: 16),
@@ -230,7 +230,7 @@ class CancelledReviewItem extends StatelessWidget {
                   '$viewsCount',
                   style: Theme.of(context)
                       .textTheme
-                      .headline6!
+                      .titleLarge!
                       .copyWith(fontSize: 14),
                 )
               ],

@@ -49,7 +49,7 @@ class BaseOnBoarding extends StatelessWidget {
                   LocaleKeys.another_ways.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText1!
+                      .bodyLarge!
                       .copyWith(color: greyText),
                 ),
                 const SizedBox(width: 4),

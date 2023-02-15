@@ -26,7 +26,7 @@ class MyAdCarDescPart extends StatelessWidget {
                     text: TextSpan(children: [
                   TextSpan(
                     text: item.absoluteCarName,
-                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
                         color: dark, fontSize: 16, fontWeight: FontWeight.w400),
                   ),
                   WidgetSpan(
@@ -73,14 +73,14 @@ class MyAdCarDescPart extends StatelessWidget {
                     : '${item.price.floor()} ${item.currency.toUpperCase()}',
                 style: Theme.of(context)
                     .textTheme
-                    .headline5!
+                    .headlineSmall!
                     .copyWith(color: green, fontWeight: FontWeight.w600),
               ),
               const SizedBox(width: 4),
               if (item.discount > 0.0)
                 Text(
                   '${item.price.floor()} ${item.currency.toUpperCase()}',
-                  style: Theme.of(context).textTheme.headline2!.copyWith(
+                  style: Theme.of(context).textTheme.displayMedium!.copyWith(
                       decoration: TextDecoration.lineThrough, color: grey),
                 )
             ],
@@ -92,7 +92,7 @@ class MyAdCarDescPart extends StatelessWidget {
               maxLines: 2,
               style: Theme.of(context)
                   .textTheme
-                  .headline2!
+                  .displayMedium!
                   .copyWith(fontSize: 13)),
         ],
       );

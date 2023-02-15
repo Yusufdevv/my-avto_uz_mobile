@@ -18,7 +18,7 @@ class MyReviewsScreen extends StatelessWidget {
             title: 'Мои отзывы',
             titleStyle: Theme.of(context)
                 .textTheme
-                .headline1!
+                .displayLarge!
                 .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
           ),
           // floatingActionButton: WButton(

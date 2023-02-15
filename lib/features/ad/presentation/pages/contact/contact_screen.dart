@@ -150,7 +150,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                   .fillColor,
                               textStyle: Theme.of(context)
                                   .textTheme
-                                  .headline1!
+                                  .displayLarge!
                                   .copyWith(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,
@@ -191,7 +191,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                   .fillColor,
                               textStyle: Theme.of(context)
                                   .textTheme
-                                  .headline1!
+                                  .displayLarge!
                                   .copyWith(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,
@@ -229,11 +229,11 @@ class _ContactScreenState extends State<ContactScreen> {
                                           .phoneController.text.isEmpty
                                       ? Theme.of(context)
                                           .textTheme
-                                          .headline2!
+                                          .displayMedium!
                                           .copyWith(fontWeight: FontWeight.w400)
                                       : Theme.of(context)
                                           .textTheme
-                                          .headline1!
+                                          .displayLarge!
                                           .copyWith(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w400,
@@ -343,7 +343,7 @@ class _ContactScreenState extends State<ContactScreen> {
                               suffixPadding: const EdgeInsets.all(5),
                               textStyle: Theme.of(context)
                                   .textTheme
-                                  .headline1!
+                                  .displayLarge!
                                   .copyWith(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w400,
@@ -398,7 +398,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                 LocaleKeys.incognito_mode.tr(),
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline2!
+                                    .displayMedium!
                                     .copyWith(color: grey),
                               ),
                             )

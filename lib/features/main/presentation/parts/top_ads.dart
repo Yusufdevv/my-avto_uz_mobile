@@ -25,7 +25,7 @@ class TopAds extends StatelessWidget {
                 child: Text(LocaleKeys.best_offers.tr(),
                     style: Theme.of(context)
                         .textTheme
-                        .headline1
+                        .displayLarge
                         ?.copyWith(fontSize: 18)),
               ),
               SizedBox(

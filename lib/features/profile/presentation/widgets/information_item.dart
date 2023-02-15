@@ -46,13 +46,13 @@ class InformationGrid extends StatelessWidget {
                 listData[index],
                 style: Theme.of(context)
                     .textTheme
-                    .headline1!
+                    .displayLarge!
                     .copyWith(fontSize: 16),
               ),
               Text(subTitle[index],
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText1!
+                      .bodyLarge!
                       .copyWith(color: grey)),
             ],
           ),

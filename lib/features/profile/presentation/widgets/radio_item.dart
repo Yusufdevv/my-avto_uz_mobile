@@ -51,7 +51,7 @@ class RadioItem extends StatelessWidget {
                           title,
                           style: Theme.of(context)
                               .textTheme
-                              .headline1!
+                              .displayLarge!
                               .copyWith(
                                   fontSize: 16, fontWeight: FontWeight.w400),
                         ),
@@ -62,7 +62,7 @@ class RadioItem extends StatelessWidget {
                       title,
                       style: Theme.of(context)
                           .textTheme
-                          .headline1!
+                          .displayLarge!
                           .copyWith(fontSize: 16, fontWeight: FontWeight.w400),
                     ),
                   const SizedBox(width: 4),

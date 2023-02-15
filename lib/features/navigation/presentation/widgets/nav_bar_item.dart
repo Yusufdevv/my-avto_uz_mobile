@@ -86,11 +86,11 @@ class NavItemWidget extends StatelessWidget {
                 style: currentIndex == navBar.id
                     ? Theme.of(context)
                         .textTheme
-                        .headline1!
+                        .displayLarge!
                         .copyWith(fontSize: 12, fontWeight: FontWeight.w400)
                     : Theme.of(context)
                         .textTheme
-                        .bodyText1!
+                        .bodyLarge!
                         .copyWith(color: greyText),
               ),
             ),

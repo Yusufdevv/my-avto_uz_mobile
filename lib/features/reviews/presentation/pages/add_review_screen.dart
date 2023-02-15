@@ -92,13 +92,13 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                             children: [
                               TextSpan(
                                 text: 'Автомобиль\n',
-                                style: Theme.of(context).textTheme.headline1,
+                                style: Theme.of(context).textTheme.displayLarge,
                               ),
                               TextSpan(
                                 text: 'Заполнено $completed из 13',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline2!
+                                    .displayMedium!
                                     .copyWith(fontSize: 13),
                               ),
                             ],
@@ -125,7 +125,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                           .push(fade(page: const PublicationMyReview()));
                     },
                     text: LocaleKeys.further.tr(),
-                    textStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    textStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                         color: isButtonActive ? white : dividerColor),

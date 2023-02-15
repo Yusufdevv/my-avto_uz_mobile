@@ -79,7 +79,7 @@ class StoryItem extends StatelessWidget {
                       title,
                       style: Theme.of(context)
                           .textTheme
-                          .headline4!
+                          .headlineMedium!
                           .copyWith(fontSize: 10),
                     ),
                   ),

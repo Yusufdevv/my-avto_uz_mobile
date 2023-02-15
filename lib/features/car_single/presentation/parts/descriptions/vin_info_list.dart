@@ -28,7 +28,7 @@
 //               LocaleKeys.VIN_check_report.tr(),
 //               style: Theme.of(context)
 //                   .textTheme
-//                   .headline1!
+//                   .displayLarge!
 //                   .copyWith(fontWeight: FontWeight.w700, fontSize: 18),
 //             ),
 //             const SizedBox(
@@ -49,7 +49,7 @@
 //             // const SizedBox(
 //             //   height: 10,
 //             // ),
-//             // WButton(
+//             // WlabelLarge(
 //             //   text: LocaleKeys.buy_full_report.tr(),
 //             //   textColor: Colors.white,
 //             //   onTap: () {},
@@ -60,7 +60,7 @@
 //             // const SizedBox(
 //             //   height: 8,
 //             // ),
-//             // WButton(
+//             // WlabelLarge(
 //             //   text: LocaleKeys.show_free_report.tr(),
 //             //   textColor: grey,
 //             //   onTap: () {},

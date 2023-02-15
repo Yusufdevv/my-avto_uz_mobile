@@ -35,7 +35,7 @@ class CarCharacteristicImage extends StatelessWidget {
           Text(
             LocaleKeys.auto_characters.tr(),
             style:
-                Theme.of(context).textTheme.headline1!.copyWith(fontSize: 18),
+                Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 18),
           ),
           Row(
             children: [
@@ -45,7 +45,7 @@ class CarCharacteristicImage extends StatelessWidget {
                 LocaleKeys.checked_by_autouz.tr(),
                 style: Theme.of(context)
                     .textTheme
-                    .headline1!
+                    .displayLarge!
                     .copyWith(fontSize: 12, fontWeight: FontWeight.w600),
               ),
             ],

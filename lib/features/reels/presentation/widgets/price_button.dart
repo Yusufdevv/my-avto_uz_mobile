@@ -41,7 +41,7 @@ class PriceButton extends StatelessWidget {
                 Text(
                   '${MyFunctions.getFormatCost((double.parse(price) - double.parse(discount)).toString())} '
                   '${currency.toUpperCase()}',
-                  style: Theme.of(context).textTheme.headline5!.copyWith(
+                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                         decoration: TextDecoration.lineThrough,
                         color: black.withOpacity(.5),
                       ),
@@ -54,7 +54,7 @@ class PriceButton extends StatelessWidget {
                       '${currency.toUpperCase()}',
                       style: Theme.of(context)
                           .textTheme
-                          .headline4!
+                          .headlineMedium!
                           .copyWith(fontSize: 24, color: dark),
                     ),
                     const SizedBox(
@@ -75,7 +75,7 @@ class PriceButton extends StatelessWidget {
                               '-${(double.parse(discount) / double.parse(discount)) * 100}%',
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline4!
+                                  .headlineMedium!
                                   .copyWith(
                                       fontSize: 8, fontWeight: FontWeight.w600),
                             ),
@@ -110,7 +110,7 @@ class PriceButton extends StatelessWidget {
                 '${currency.toUpperCase()}',
                 style: Theme.of(context)
                     .textTheme
-                    .headline4!
+                    .headlineMedium!
                     .copyWith(fontSize: 24),
               ),
               const SizedBox(

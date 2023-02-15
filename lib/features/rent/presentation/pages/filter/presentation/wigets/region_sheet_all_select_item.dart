@@ -29,7 +29,7 @@ class RegionSelectAllItem extends StatelessWidget {
                 LocaleKeys.all_regions.tr(),
                 style: Theme.of(context)
                     .textTheme
-                    .headline1!
+                    .displayLarge!
                     .copyWith(fontWeight: FontWeight.w400, fontSize: 16),
               ),
               if (isAllChecked)

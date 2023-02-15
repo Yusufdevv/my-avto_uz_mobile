@@ -85,7 +85,7 @@ class _CheckReviewStatusState extends State<CheckReviewStatus> {
           //                     'Удаление будет безворзвратным и\nвосстановление отзыва будет\nневозможным.',
           //                     style: Theme.of(context)
           //                         .textTheme
-          //                         .headline2!
+          //                         .displayMedium!
           //                         .copyWith(fontSize: 16),
           //                     textAlign: TextAlign.center,
           //                   ),
@@ -100,7 +100,7 @@ class _CheckReviewStatusState extends State<CheckReviewStatus> {
           //                           text: 'Нет',
           //                           textStyle: Theme.of(context)
           //                               .textTheme
-          //                               .subtitle1!
+          //                               .titleMedium!
           //                               .copyWith(color: darkGray),
           //                           color: border,
           //                           height: 44,
@@ -115,7 +115,7 @@ class _CheckReviewStatusState extends State<CheckReviewStatus> {
           //                           height: 44,
           //                           textStyle: Theme.of(context)
           //                               .textTheme
-          //                               .subtitle1!
+          //                               .titleMedium!
           //                               .copyWith(color: red),
           //                         ),
           //                       ),

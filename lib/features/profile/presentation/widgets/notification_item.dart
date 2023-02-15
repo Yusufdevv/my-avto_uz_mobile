@@ -74,14 +74,14 @@ class NotificationItem extends StatelessWidget {
                       Text(category,
                           style: Theme.of(context)
                               .textTheme
-                              .bodyText1
+                              .bodyLarge
                               ?.copyWith(color: greyText)),
                       SizedBox(height: SizeConfig.v(8)),
                       Text(
                         title,
                         style: Theme.of(context)
                             .textTheme
-                            .subtitle1
+                            .titleMedium
                             ?.copyWith(color: dark),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,

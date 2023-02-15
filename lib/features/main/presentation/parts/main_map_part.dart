@@ -48,7 +48,7 @@ class MainMapPart extends StatelessWidget {
                       color: purple, height: 15, width: 13),
                   const SizedBox(width: 12),
                   Text(LocaleKeys.show_all_dealers.tr(),
-                      style: Theme.of(context).textTheme.subtitle1),
+                      style: Theme.of(context).textTheme.titleMedium),
                 ],
               ),
             ),

@@ -34,7 +34,7 @@ class CreateAdButton extends StatelessWidget {
             Text(LocaleKeys.create_add.tr(),
                 style: Theme.of(context)
                     .textTheme
-                    .subtitle1
+                    .titleMedium
                     ?.copyWith(color: white))
           ],
         ),
