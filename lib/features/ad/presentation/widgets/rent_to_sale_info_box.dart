@@ -1,5 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -7,7 +9,9 @@ class RentToSaleDetailsBox extends StatelessWidget {
   final String prePayment;
   final String monthlyPayment;
   final int rentalPeriod;
+  final VoidCallback onTap;
   const RentToSaleDetailsBox({
+    required this.onTap,
     required this.monthlyPayment,
     required this.prePayment,
     required this.rentalPeriod,
@@ -31,9 +35,12 @@ class RentToSaleDetailsBox extends StatelessWidget {
                       .displayLarge!
                       .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
-                Padding(
-                    padding: const EdgeInsets.only(left: 8, top: 8, right: 12),
-                    child: SvgPicture.asset(AppIcons.editProfile))
+                WScaleAnimation(
+                  onTap: onTap,
+                  child: Padding(
+                      padding: const EdgeInsets.only(left: 8, top: 8, right: 12),
+                      child: SvgPicture.asset(AppIcons.editProfile)),
+                )
               ],
             ),
             const SizedBox(height: 16),
@@ -79,7 +86,7 @@ class TextInRow extends StatelessWidget {
           ),
           const Spacer(),
           Text(
-            info,
+            MyFunctions.getFormatCost(info),
             style: Theme.of(context)
                 .textTheme
                 .displayLarge!

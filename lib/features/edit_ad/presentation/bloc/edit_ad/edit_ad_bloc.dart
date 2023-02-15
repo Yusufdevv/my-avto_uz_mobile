@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/usecases/usecase.dart';
@@ -31,6 +32,7 @@ import 'package:auto/features/car_single/domain/entities/car_single_entity.dart'
 import 'package:auto/features/car_single/domain/entities/damaged_parts_entity.dart';
 import 'package:auto/features/car_single/domain/usecases/get_ads_usecase.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
+import 'package:auto/features/common/domain/entity/car_generation_entity.dart';
 import 'package:auto/features/common/domain/model/user.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/repository/auth.dart';
@@ -92,24 +94,16 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
 
   EditAdBloc()
       : super(EditAdState(
-            getAnnouncementToEditStatus: FormzStatus.pure,
-            popStatus: PopStatus.success,
-            colorName: LocaleKeys.white.tr(),
-            status: FormzStatus.pure,
-            phoneController: TextEditingController(),
-            emailController: TextEditingController(),
-            nameController: TextEditingController(),
-            searchController: TextEditingController())) {
+          getAnnouncementToEditStatus: FormzStatus.pure,
+          popStatus: PopStatus.success,
+          colorName: LocaleKeys.white.tr(),
+          status: FormzStatus.pure,
+          phoneController: TextEditingController(),
+          emailController: TextEditingController(),
+          nameController: TextEditingController(),
+        )) {
     on<EditAdChooseEvent>(_choose);
-    on<EditAdMakesEvent>(_makes);
-    on<EditAdTopMakesEvent>(_topMakes);
     on<EditAdChangeAppBarShadowEvent>(_changeAppBarShadow);
-    on<EditAdGenerationsEvent>(_generations);
-    on<EditAdModelEvent>(_models);
-    on<EditAdEnginesEvent>(_engines);
-    on<EditAdDriveTypesEvent>(_driveTypes);
-    on<EditAdGearBoxesEvent>(_gearBoxes);
-    on<EditAdBodyTypesEvent>(_bodyTypes);
     // CREATE
     on<EditAdCreateEvent>(_create);
     on<EditAdDamageEvent>(_damage);
@@ -120,25 +114,21 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
     on<EditAdSendCodeEvent>(_sendCode);
     on<EditAdGetUserDataEvent>(_getUser);
     on<EditAdClearControllersEvent>(_clearControllers);
-    on<EditAdGetYearsEvent>(_getYears);
     on<EditAdGetMapScreenShotEvent>(_screenShot);
     on<EditAdAddEventForEveryPage>(_addEvent);
-    on<EditAdSearchMakesEvent>(_searchMake);
-    on<EditAdModificationsEvent>(_modification);
     on<EditAdClearStateEvent>(_clearState);
-    on<EditAdSerchControllerClearEvent>(_clearSearchController);
     on<EditAdShowToastEvent>(_showToast);
+    on<EditAdOnRentWithPurchaseEvent>(_onRentWithPurchaseConditionChanged);
+  }
+  FutureOr<void> _onRentWithPurchaseConditionChanged(EditAdOnRentWithPurchaseEvent event, Emitter<EditAdState> emit){
+    final conditions = state.rentWithPurchaseConditions.map(MapEntry.new);
+    conditions[event.condition.id]=event.condition;
+    emit(state.copyWith(rentWithPurchaseConditions: conditions));
   }
 
   FutureOr<void> _showToast(
       EditAdShowToastEvent event, Emitter<EditAdState> emit) {
     emit(state.copyWith(toastMessage: event.message, popStatus: event.status));
-  }
-
-  FutureOr<void> _clearSearchController(
-      EditAdSerchControllerClearEvent event, Emitter<EditAdState> emit) {
-    add(EditAdMakesEvent());
-    emit(state.copyWith(searchController: TextEditingController()));
   }
 
   FutureOr<void> _clearState(
@@ -151,91 +141,17 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
         phoneController: TextEditingController(),
         emailController: TextEditingController(),
         nameController: TextEditingController(),
-        searchController: TextEditingController(),
-        makes: state.makes,
       ),
     );
-    add(EditAdMakesEvent());
-  }
-
-  FutureOr<void> _modification(
-      EditAdModificationsEvent event, Emitter<EditAdState> emit) async {
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    final result = await modificationUseCase.call(ModificationTypeParams(
-        bodyTypeId: state.bodyType!.id,
-        driveTypeId: state.driveTypeId!,
-        engineTypeId: state.engineId!,
-        gearBoxTypeTypeId: state.gearbox!.id,
-        generationId: state.generationId!,
-        next: ''));
-    if (result.isRight) {
-      emit(
-        state.copyWith(
-          status: FormzStatus.submissionSuccess,
-          modifications: result.right.results,
-          modification: result.right.results.isNotEmpty
-              ? result.right.results.first
-              : null,
-        ),
-      );
-    } else {
-      emit(
-        state.copyWith(
-            status: FormzStatus.submissionFailure,
-            toastMessage: MyFunctions.getErrorMessage(result.left)),
-      );
-    }
-  }
-
-  FutureOr<void> _searchMake(
-      EditAdSearchMakesEvent event, Emitter<EditAdState> emit) async {
-    emit(state.copyWith(getMakesStatus: FormzStatus.submissionInProgress));
-    final result = await makeUseCase.call(event.name);
-    if (result.isRight) {
-      emit(state.copyWith(
-          getMakesStatus: FormzStatus.submissionSuccess,
-          makes: result.right.results));
-    } else {
-      emit(state.copyWith(
-          getMakesStatus: FormzStatus.submissionFailure,
-          toastMessage: MyFunctions.getErrorMessage(result.left)));
-    }
   }
 
   FutureOr<void> _addEvent(
       EditAdAddEventForEveryPage event, Emitter<EditAdState> emit) {
     switch (event.page) {
-      case 0:
-        if (state.makes.isEmpty) add(EditAdMakesEvent());
-        break;
-      case 1:
-        add(EditAdModelEvent());
-        break;
-      case 2:
-        add(EditAdGetYearsEvent());
-        break;
-      case 3:
-        add(EditAdGenerationsEvent(modelId: state.model!.id));
-        break;
-      case 4:
-        add(EditAdBodyTypesEvent());
-        break;
-      case 5:
-        add(EditAdEnginesEvent());
-        break;
       case 6:
-        add(EditAdDriveTypesEvent());
-        break;
-      case 7:
-        add(EditAdGearBoxesEvent());
-        break;
-      case 8:
-        add(EditAdModificationsEvent());
-        break;
-      case 16:
         if (state.regions.isEmpty) add(EditAdGetRegionsEvent());
         break;
-      case 17:
+      case 7:
         add(EditAdGetMinimumPriceEvent());
         break;
     }
@@ -254,26 +170,6 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
     if (result.isRight) {
       emit(state.copyWith(
           status: FormzStatus.submissionSuccess, mapPointBytes: result.right));
-    } else {
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
-    }
-  }
-
-  FutureOr<void> _getYears(
-      EditAdGetYearsEvent event, Emitter<EditAdState> emit) async {
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    final result =
-        await getYearsUseCase.call(YearsParams(modelId: state.model!.id));
-    if (result.isRight) {
-      emit(
-        state.copyWith(
-          status: FormzStatus.submissionSuccess,
-          years: result.right.results,
-          yearEntity: result.right.results.isNotEmpty
-              ? result.right.results.first
-              : null,
-        ),
-      );
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
@@ -301,8 +197,10 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
     } else {
       emit(
         state.copyWith(
-            status: FormzStatus.submissionFailure,
-            toastMessage: MyFunctions.getErrorMessage(result.left)),
+          status: FormzStatus.submissionFailure,
+          toastMessage: MyFunctions.getErrorMessage(result.left),
+          popStatus: PopStatus.error,
+        ),
       );
     }
   }
@@ -320,7 +218,7 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
     } else {
       emit(state.copyWith(
           status: FormzStatus.submissionFailure,
-          toastMessage: MyFunctions.getErrorMessage(result.left)));
+          toastMessage: MyFunctions.getErrorMessage(result.left), popStatus: PopStatus.error,));
     }
   }
 
@@ -350,7 +248,7 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
     } else {
       emit(state.copyWith(
           getAnnouncementToEditStatus: FormzStatus.submissionFailure,
-          toastMessage: MyFunctions.getErrorMessage(result.left)));
+          toastMessage: MyFunctions.getErrorMessage(result.left), popStatus: PopStatus.error,));
     }
   }
 
@@ -368,7 +266,7 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
     } else {
       emit(state.copyWith(
           getDistrictsStatus: FormzStatus.submissionFailure,
-          toastMessage: MyFunctions.getErrorMessage(result.left)));
+          toastMessage: MyFunctions.getErrorMessage(result.left), popStatus: PopStatus.error,));
     }
   }
 
@@ -387,7 +285,7 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
     } else {
       emit(state.copyWith(
           status: FormzStatus.submissionFailure,
-          toastMessage: MyFunctions.getErrorMessage(result.left)));
+          toastMessage: MyFunctions.getErrorMessage(result.left), popStatus: PopStatus.error,));
     }
   }
 
@@ -404,164 +302,15 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
     if (result.isRight) {
       emit(state.copyWith(
           createStatus: FormzStatus.submissionSuccess,
-          toastMessage: 'Your ad created successfully!'));
+          toastMessage: 'Your ad created successfully!', popStatus: PopStatus.success,),
+       );
     } else {
       emit(state.copyWith(
           createStatus: FormzStatus.submissionFailure,
-          toastMessage: MyFunctions.getErrorMessage(result.left)));
-    }
-  }
-
-  FutureOr<void> _bodyTypes(
-      EditAdBodyTypesEvent event, Emitter<EditAdState> emit) async {
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    final result = await bodyTypesUseCase
-        .call(BodyTypeParams(generationId: state.generationId!));
-
-    if (result.isRight) {
-      final bodies = result.right.results;
-      emit(
-        state.copyWith(
-            status: FormzStatus.submissionSuccess,
-            bodyTypes: result.right.results,
-            bodyType: bodies.isNotEmpty ? bodies.first : null),
-      );
-    } else {
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
-    }
-  }
-
-  FutureOr<void> _gearBoxes(
-      EditAdGearBoxesEvent event, Emitter<EditAdState> emit) async {
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    final result = await gearboxUseCase.call(NoParams());
-    if (result.isRight) {
-      final gearBoxes = result.right.results;
-      emit(
-        state.copyWith(
-            status: FormzStatus.submissionSuccess,
-            gearBoxes: gearBoxes,
-            gearbox: gearBoxes.isNotEmpty ? gearBoxes.first : null),
-      );
-    } else {
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
-    }
-  }
-
-  FutureOr<void> _driveTypes(
-      EditAdDriveTypesEvent event, Emitter<EditAdState> emit) async {
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    final result = await driveTypeUseCase.call(DriveTypeParams(
-        generationId: state.generationId!,
-        bodyTypeId: state.bodyType!.id,
-        engineTypeId: state.engineId!));
-    if (result.isRight) {
-      final driveTypes = result.right.results;
-      emit(
-        state.copyWith(
-          status: FormzStatus.submissionSuccess,
-          driveTypes: driveTypes,
-          driveTypeId: driveTypes.isNotEmpty ? driveTypes.first.id : null,
-        ),
-      );
-    } else {
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
-    }
-  }
-
-  FutureOr<void> _engines(
-      EditAdEnginesEvent event, Emitter<EditAdState> emit) async {
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    final result = await engineUseCase.call(EngineTypeParams(
-      bodyTypeId: state.bodyType!.id,
-      generationId: state.generationId!,
-    ));
-
-    if (result.isRight) {
-      final engines = result.right.results;
-      emit(
-        state.copyWith(
-          status: FormzStatus.submissionSuccess,
-          engines: engines,
-          engineId: engines.isNotEmpty ? engines.first.id : null,
-        ),
-      );
-    } else {
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
-    }
-  }
-
-  FutureOr<void> _models(
-      EditAdModelEvent event, Emitter<EditAdState> emit) async {
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    final result = await modelsUseCase.call(state.make!.id, name: event.name);
-    if (result.isRight) {
-      emit(
-        state.copyWith(
-          status: FormzStatus.submissionSuccess,
-          models: result.right.results,
-        ),
-      );
-    } else {
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
-    }
-  }
-
-  FutureOr<void> _generations(
-      EditAdGenerationsEvent event, Emitter<EditAdState> emit) async {
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    final result = await generationUseCase.call(GenerationParams(
-        modelId: state.model!.id, year: state.yearEntity!.yearBegin));
-    if (result.isRight) {
-      final generations = result.right.results;
-      emit(state.copyWith(
-          generations: generations,
-          status: FormzStatus.submissionSuccess,
-          generationId: generations.isNotEmpty ? generations.first.id : null));
-    } else {
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
-    }
-  }
-
-  FutureOr<void> _topMakes(
-      EditAdTopMakesEvent event, Emitter<EditAdState> emit) async {
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
-
-    final result = await topMakesUseCase.call(event.name);
-    if (result.isRight) {
-      emit(state.copyWith(
-        status: FormzStatus.submissionSuccess,
-        topMakes: result.right.results,
+          toastMessage: MyFunctions.getErrorMessage(result.left),
+        popStatus: PopStatus.error,
       ));
-    } else {
-      emit(
-        state.copyWith(
-          status: FormzStatus.submissionFailure,
-        ),
-      );
     }
-  }
-
-  FutureOr<void> _makes(
-      EditAdMakesEvent event, Emitter<EditAdState> emit) async {
-    emit(state.copyWith(getMakesStatus: FormzStatus.submissionInProgress));
-
-    final result = await makeUseCase.call(null);
-    if (result.isRight) {
-      emit(
-        state.copyWith(
-          getMakesStatus: FormzStatus.submissionSuccess,
-          makes: result.right.results,
-        ),
-      );
-    } else {
-      emit(
-        state.copyWith(
-          getMakesStatus: FormzStatus.submissionFailure,
-        ),
-      );
-    }
-    add(EditAdTopMakesEvent());
   }
 
   void _changeAppBarShadow(

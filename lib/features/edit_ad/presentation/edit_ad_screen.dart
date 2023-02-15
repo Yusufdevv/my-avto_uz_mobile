@@ -2,17 +2,17 @@ import 'dart:async';
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/presentation/pages/map_screen/map_screen_posting_ad.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/edit_ad/presentation/bloc/posting_ad/edit_ad_bloc.dart';
+import 'package:auto/features/edit_ad/presentation/bloc/edit_ad/edit_ad_bloc.dart';
 import 'package:auto/features/edit_ad/presentation/pages/add_photo/add_photo_screen.dart';
 import 'package:auto/features/edit_ad/presentation/pages/contact/contact_screen.dart';
 import 'package:auto/features/edit_ad/presentation/pages/damage/damage_screen.dart';
 import 'package:auto/features/edit_ad/presentation/pages/description/description_screen.dart';
 import 'package:auto/features/edit_ad/presentation/pages/equipment/equipment_screen.dart';
 import 'package:auto/features/edit_ad/presentation/pages/inspection_place/inspection_place_screen.dart';
-import 'package:auto/features/edit_ad/presentation/pages/map_screen/map_screen_posting_ad.dart';
 import 'package:auto/features/edit_ad/presentation/pages/mileage/mileage_screen.dart';
 import 'package:auto/features/edit_ad/presentation/pages/preview/preview_screen.dart';
 import 'package:auto/features/edit_ad/presentation/pages/price/price_screen.dart';
@@ -57,16 +57,6 @@ class _EditAdScreenState extends State<EditAdScreen>
   }
 
   List<String> tabs = [
-    LocaleKeys.car_make.tr(),
-    LocaleKeys.car_model.tr(),
-    LocaleKeys.year_of_issue.tr(),
-    LocaleKeys.generation.tr(),
-    LocaleKeys.body.tr(),
-    LocaleKeys.motor.tr(),
-    LocaleKeys.drive_unit.tr(),
-    LocaleKeys.drive_gearbox.tr(),
-    LocaleKeys.modification.tr(),
-    LocaleKeys.car_color.tr(),
     LocaleKeys.photographation.tr(),
     LocaleKeys.pts.tr(),
     LocaleKeys.description.tr(),
@@ -178,9 +168,7 @@ class _EditAdScreenState extends State<EditAdScreen>
                       preferredSize: const Size.fromHeight(54),
                       child: EditAdAppBar(
                         currentTabIndex: currentTabIndex,
-                        reverseTitle: LocaleKeys.choose_brand_auto.tr(),
                         tabLength: tabLength,
-                        hasShadow: state.hasAppBarShadow,
                         onTapBack: () {
                           hidePopUp();
                           if (currentTabIndex != 0) {
@@ -195,7 +183,9 @@ class _EditAdScreenState extends State<EditAdScreen>
                             Navigator.pop(context);
                           }
                         },
-                        onTapCancel: hidePopUp,
+                        onTapCancel: () {
+                          Navigator.pop(context);
+                        },
                         title: currentTabIndex == 0
                             ? LocaleKeys.get_back.tr()
                             : tabs[currentTabIndex - 1],
@@ -207,20 +197,20 @@ class _EditAdScreenState extends State<EditAdScreen>
                           controller: pageController,
                           physics: const NeverScrollableScrollPhysics(),
                           children: [
-                            //10
+                            // 0
                             const AddPhotoScreen(),
-                            //11
+                            // 1
                             const PtsScreen(),
-                            //12
+                            // 2
                             DescriptionScreen(
                                 initialText: state.description ?? ''),
-                            //13
+                            // 3
                             const EquipmentScreen(),
-                            //14
+                            // 4
                             const DamageScreen(),
-                            //15
+                            // 5
                             const ContactScreen(),
-                            //16
+                            // 6
                             InspectionPlaceScreen(
                               onToMapPressed: () {
                                 hidePopUp();
@@ -243,9 +233,31 @@ class _EditAdScreenState extends State<EditAdScreen>
                                 );
                               },
                             ),
-                            //17
-                            PriceScreen(initialPrice: state.price ?? ''),
-                            //18
+                            // 7
+                            PriceScreen(
+                                onPriceChanged: (price) => context
+                                    .read<EditAdBloc>()
+                                    .add(EditAdChooseEvent(price: price)),
+                                onConditionChanged: (condition) => context
+                                    .read<EditAdBloc>()
+                                    .add(EditAdOnRentWithPurchaseEvent(
+                                        condition: condition)),
+                                onSwitchChanged: (v) => context
+                                    .read<EditAdBloc>()
+                                    .add(EditAdChooseEvent(rentToBuy: v)),
+                                onCurrencyChanged: (v) => context
+                                    .read<EditAdBloc>()
+                                    .add(EditAdChooseEvent(currency: v)),
+                                rentToBuy: state.rentToBuy ?? false,
+                                price: state.price ?? '',
+                                minimumPrice: state.minimumPrice ?? 0.0,
+                                currency: state.currency,
+                                initialPrice: state.price ?? '',
+                                conditions: state
+                                    .rentWithPurchaseConditions.entries
+                                    .map((e) => e.value)
+                                    .toList()),
+                            // 8
                             MileageScreen(
                                 onImageChange: (image) {
                                   editAdBloc.add(
@@ -253,9 +265,8 @@ class _EditAdScreenState extends State<EditAdScreen>
                                 },
                                 initialMileageImage: state.milageImage,
                                 initialMileage: state.mileage ?? ''),
-                            // //19
-                            // const StsScreen(),
-                            //19
+
+                            // 9
                             const PreviewScreen(),
                           ],
                         ),
@@ -307,7 +318,7 @@ class _EditAdScreenState extends State<EditAdScreen>
                                 hidePopUp();
                                 editAdBloc.add(EditAdCreateEvent());
                               },
-                              text: LocaleKeys.start_free_week.tr(),
+                              text: LocaleKeys.confirmation.tr(),
                               shadow: [
                                 BoxShadow(
                                   offset: const Offset(0, 4),

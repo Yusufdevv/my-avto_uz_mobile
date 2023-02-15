@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/usecases/usecase.dart';
@@ -128,6 +129,17 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdClearStateEvent>(_clearState);
     on<PostingAdSerchControllerClearEvent>(_clearSearchController);
     on<PostingAdShowToastEvent>(_showToast);
+    on<PostingAdOnRentWithPurchaseConditionChangedEvent>(
+        _onRentWithPurchaseCondition);
+  }
+
+  FutureOr<void> _onRentWithPurchaseCondition(
+      PostingAdOnRentWithPurchaseConditionChangedEvent event,
+      Emitter<PostingAdState> emit) {
+
+    final map = state.rentWithPurchaseConditions.map(MapEntry.new);
+    map[event.condition.id] = event.condition;
+    emit(state.copyWith(rentWithPurchaseConditions: map));
   }
 
   FutureOr<void> _showToast(
@@ -181,8 +193,10 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     } else {
       emit(
         state.copyWith(
-            status: FormzStatus.submissionFailure,
-            toastMessage: MyFunctions.getErrorMessage(result.left)),
+          status: FormzStatus.submissionFailure,
+          toastMessage: MyFunctions.getErrorMessage(result.left),
+          popStatus: PopStatus.error,
+        ),
       );
     }
   }
@@ -197,8 +211,10 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
           makes: result.right.results));
     } else {
       emit(state.copyWith(
-          getMakesStatus: FormzStatus.submissionFailure,
-          toastMessage: MyFunctions.getErrorMessage(result.left)));
+        getMakesStatus: FormzStatus.submissionFailure,
+        toastMessage: MyFunctions.getErrorMessage(result.left),
+        popStatus: PopStatus.error,
+      ));
     }
   }
 
@@ -301,8 +317,10 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     } else {
       emit(
         state.copyWith(
-            status: FormzStatus.submissionFailure,
-            toastMessage: MyFunctions.getErrorMessage(result.left)),
+          status: FormzStatus.submissionFailure,
+          toastMessage: MyFunctions.getErrorMessage(result.left),
+          popStatus: PopStatus.error,
+        ),
       );
     }
   }
@@ -319,8 +337,10 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
           status: FormzStatus.submissionSuccess, session: result.right));
     } else {
       emit(state.copyWith(
-          status: FormzStatus.submissionFailure,
-          toastMessage: MyFunctions.getErrorMessage(result.left)));
+        status: FormzStatus.submissionFailure,
+        toastMessage: MyFunctions.getErrorMessage(result.left),
+        popStatus: PopStatus.error,
+      ));
     }
   }
 
@@ -349,8 +369,10 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       emit(stateForEdit);
     } else {
       emit(state.copyWith(
-          getAnnouncementToEditStatus: FormzStatus.submissionFailure,
-          toastMessage: MyFunctions.getErrorMessage(result.left)));
+        getAnnouncementToEditStatus: FormzStatus.submissionFailure,
+        toastMessage: MyFunctions.getErrorMessage(result.left),
+        popStatus: PopStatus.error,
+      ));
     }
   }
 
@@ -367,8 +389,10 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       );
     } else {
       emit(state.copyWith(
-          getDistrictsStatus: FormzStatus.submissionFailure,
-          toastMessage: MyFunctions.getErrorMessage(result.left)));
+        getDistrictsStatus: FormzStatus.submissionFailure,
+        toastMessage: MyFunctions.getErrorMessage(result.left),
+        popStatus: PopStatus.error,
+      ));
     }
   }
 
@@ -386,8 +410,10 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       );
     } else {
       emit(state.copyWith(
-          status: FormzStatus.submissionFailure,
-          toastMessage: MyFunctions.getErrorMessage(result.left)));
+        status: FormzStatus.submissionFailure,
+        toastMessage: MyFunctions.getErrorMessage(result.left),
+        popStatus: PopStatus.error,
+      ));
     }
   }
 
@@ -404,12 +430,16 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     final result = await createUseCase.call(await PASingleton.create(state));
     if (result.isRight) {
       emit(state.copyWith(
-          createStatus: FormzStatus.submissionSuccess,
-          toastMessage: 'Your ad created successfully!'));
+        createStatus: FormzStatus.submissionSuccess,
+        toastMessage: 'Your ad created successfully!',
+        popStatus: PopStatus.success,
+      ));
     } else {
       emit(state.copyWith(
-          createStatus: FormzStatus.submissionFailure,
-          toastMessage: MyFunctions.getErrorMessage(result.left)));
+        createStatus: FormzStatus.submissionFailure,
+        toastMessage: MyFunctions.getErrorMessage(result.left),
+        popStatus: PopStatus.error,
+      ));
     }
   }
 

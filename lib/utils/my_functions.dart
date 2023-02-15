@@ -214,6 +214,7 @@ class MyFunctions {
       40000 / pow(2, zoom) > 1 ? 40000 / pow(2, zoom) : 1;
 
   static String getFormatCost(String cost) {
+    if (cost.isEmpty) return '';
     var oldCost = cost;
     if (cost.contains('.')) {
       final arr = cost.split('.');

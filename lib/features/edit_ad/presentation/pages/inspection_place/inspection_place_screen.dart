@@ -10,7 +10,7 @@ import 'package:auto/features/ad/presentation/widgets/loader_box.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/widgets/switcher_row_as_button_also.dart';
-import 'package:auto/features/edit_ad/presentation/bloc/posting_ad/edit_ad_bloc.dart';
+import 'package:auto/features/edit_ad/presentation/bloc/edit_ad/edit_ad_bloc.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';

@@ -52,9 +52,9 @@ CarSingleModel _$CarSingleModelFromJson(Map<String, dynamic> json) =>
           : const GearboxTypeEntityConverter()
               .fromJson(json['gearbox_type'] as Map<String, dynamic>?),
       generation: json['generation'] == null
-          ? const RentCarGenerationEntity()
-          : const RentCarGenerationConverter()
-              .fromJson(json['generation'] as Map<String, dynamic>?),
+          ? const CarGenerationEntity()
+          : const CarGenerationConverter()
+              .fromJson(json['generation'] as Map<String, dynamic>),
       isMine: json['is_mine'] as bool? ?? false,
       isNew: json['is_new'] as bool? ?? false,
       isRegisteredLocally: json['is_registered_locally'] as bool? ?? false,
@@ -113,8 +113,7 @@ Map<String, dynamic> _$CarSingleModelToJson(CarSingleModel instance) =>
       'year': instance.year,
       'distance_traveled': instance.distanceTraveled,
       'color': instance.color,
-      'generation':
-          const RentCarGenerationConverter().toJson(instance.generation),
+      'generation': const CarGenerationConverter().toJson(instance.generation),
       'body_type': const RentCarBodyTypeConverter().toJson(instance.bodyType),
       'drive_type':
           const RentCarDriveTypeConverter().toJson(instance.driveType),

@@ -8,14 +8,10 @@ class EditAdShowToastEvent extends EditAdEvent{
   EditAdShowToastEvent({required this.message,required this.status});
 }
 
-class EditAdSerchControllerClearEvent extends EditAdEvent {}
 
 class EditAdClearStateEvent extends EditAdEvent {}
 
-class EditAdModificationsEvent extends EditAdEvent {
-  final String? name;
-  EditAdModificationsEvent({this.name});
-}
+
 
 class EditAdAddEventForEveryPage extends EditAdEvent {
   final int page;
@@ -30,7 +26,6 @@ class EditAdGetMapScreenShotEvent extends EditAdEvent {
       {required this.lat, required this.long, required this.zoomLevel});
 }
 
-class EditAdGetYearsEvent extends EditAdEvent {}
 
 class EditAdClearControllersEvent extends EditAdEvent {}
 
@@ -66,42 +61,20 @@ class EditAdGetDistritsEvent extends EditAdEvent {
 
 class EditAdCreateEvent extends EditAdEvent {}
 
-class EditAdBodyTypesEvent extends EditAdEvent {}
 
-class EditAdGearBoxesEvent extends EditAdEvent {}
 
-class EditAdModelEvent extends EditAdEvent {
-  final String? name;
-  EditAdModelEvent({this.name});
+class EditAdOnRentWithPurchaseEvent extends EditAdEvent{
+  final RentWithPurchaseEntity condition;
+  EditAdOnRentWithPurchaseEvent({required this.condition});
 }
 
-class EditAdDriveTypesEvent extends EditAdEvent {
-  EditAdDriveTypesEvent();
-}
 
-class EditAdEnginesEvent extends EditAdEvent {
-  EditAdEnginesEvent();
-}
 
-class EditAdSearchMakesEvent extends EditAdEvent {
-  final String? name;
-  EditAdSearchMakesEvent({this.name});
-}
 
-class EditAdMakesEvent extends EditAdEvent {
-  EditAdMakesEvent();
-}
 
-class EditAdTopMakesEvent extends EditAdEvent {
-  final String? name;
-  EditAdTopMakesEvent({this.name});
-}
 
-class EditAdGenerationsEvent extends EditAdEvent {
-  final int modelId;
 
-  EditAdGenerationsEvent({required this.modelId});
-}
+
 
 class EditAdChooseEvent extends EditAdEvent {
   final TextEditingController? phoneController;
@@ -113,11 +86,10 @@ class EditAdChooseEvent extends EditAdEvent {
   final int? regionId;
   final List<YearsEntity>? years;
   final int? districtId;
-  final List<RentWithPurchaseEntity>? rentWithPurchaseConditions;
   final Map<DamagedParts, DamageType>? damagedParts;
   final ModificationTypeEntity? modification;
   final MakeEntity? model;
-  final int? generationId;
+  final CarGenerationEntity? generationEntity;
 
   final int? popularTypeId;
   final MakeEntity? make;
@@ -128,7 +100,6 @@ class EditAdChooseEvent extends EditAdEvent {
   final YearsEntity? yearEntity;
   final Uint8List? bodyBytes;
   final String? milageImage;
-  final String? letter;
   final String? colorName;
   final String? typeDocument;
   final String? ownerStep;
@@ -173,16 +144,14 @@ class EditAdChooseEvent extends EditAdEvent {
     this.where,
     this.damagedParts,
     this.isNew,
-    this.rentWithPurchaseConditions,
     this.gallery,
     this.showExactAddress,
     this.districtId,
     this.driveTypeId,
-    this.generationId,
+    this.generationEntity,
     this.bodyType,
     this.years,
     this.model,
-    this.letter,
     this.make,
     this.popularTypeId,
     this.engineId,

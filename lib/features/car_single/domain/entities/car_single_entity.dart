@@ -6,8 +6,8 @@ import 'package:auto/features/car_single/domain/entities/damaged_parts_entity.da
 import 'package:auto/features/car_single/domain/entities/drive_type_entity.dart';
 import 'package:auto/features/car_single/domain/entities/engine_type_entity.dart';
 import 'package:auto/features/car_single/domain/entities/price_analytics_entity.dart';
+import 'package:auto/features/common/domain/entity/car_generation_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_bodytype_entity.dart';
-import 'package:auto/features/rent/domain/entities/rent_car_generation_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_make_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_models_entity.dart';
 import 'package:equatable/equatable.dart';
@@ -34,8 +34,8 @@ class CarSingleEntity extends Equatable {
   final int distanceTraveled;
   @JsonKey(defaultValue: '')
   final String color;
-  @RentCarGenerationConverter()
-  final RentCarGenerationEntity generation;
+  @CarGenerationConverter()
+  final CarGenerationEntity generation;
   @RentCarBodyTypeConverter()
   final RentCarBodyTypeEntity bodyType;
   @RentCarDriveTypeConverter()
@@ -138,7 +138,7 @@ class CarSingleEntity extends Equatable {
     this.year = 0,
     this.distanceTraveled = 0,
     this.color = '',
-    this.generation = const RentCarGenerationEntity(),
+    this.generation = const CarGenerationEntity(),
     this.bodyType = const RentCarBodyTypeEntity(),
     this.driveType = const RentCarDriveTypeEntity(),
     this.engineType = const RentCarEngineTypeEntity(),

@@ -11,7 +11,7 @@ class EASingleton {
     var announcementFields = <String, dynamic>{
       'make': v.make?.id,
       'model': v.model?.id,
-      'generation': v.generationId,
+      'generation': v.generationEntity!.id,
       'body_type': v.bodyType!.id,
       'drive_type': v.driveTypeId,
       'engine_type': v.engineId,
@@ -46,8 +46,7 @@ class EASingleton {
       'is_rent_with_purchase':
           v.rentWithPurchaseConditions.isNotEmpty && (v.rentToBuy ?? false),
       'rent_with_purchase':
-          v.rentWithPurchaseConditions.map((e) => e.toApi()).toList(),
-          
+          v.rentWithPurchaseConditions.entries.map((e) => e.value.toApi()).toList(),
     };
     if (v.milageImage != null && v.milageImage!.isNotEmpty) {
       final milageImage = await MultipartFile.fromFile(v.milageImage!);
@@ -105,20 +104,18 @@ class EASingleton {
         userModel: user,
       );
 
-  static EditAdState initUserFromState(EditAdState state) =>
-      state.copyWith(
-          phoneController: TextEditingController(
-              text: MyFunctions.phoneFormat(
-                  state.userModel!.phoneNumber.substring(4))),
-          emailController: TextEditingController(text: state.userModel!.email),
-          nameController:
-              TextEditingController(text: state.userModel!.fullName),
-          ownerEmail: state.userModel?.email,
-          ownerName: state.userModel?.fullName,
-          ownerPhone: state.userModel?.phoneNumber.substring(4),
-          showOwnerContacts: true,
-          isContactsVerified: true,
-          status: FormzStatus.submissionSuccess);
+  static EditAdState initUserFromState(EditAdState state) => state.copyWith(
+      phoneController: TextEditingController(
+          text: MyFunctions.phoneFormat(
+              state.userModel!.phoneNumber.substring(4))),
+      emailController: TextEditingController(text: state.userModel!.email),
+      nameController: TextEditingController(text: state.userModel!.fullName),
+      ownerEmail: state.userModel?.email,
+      ownerName: state.userModel?.fullName,
+      ownerPhone: state.userModel?.phoneNumber.substring(4),
+      showOwnerContacts: true,
+      isContactsVerified: true,
+      status: FormzStatus.submissionSuccess);
 
   static Map<DamagedParts, DamageType> damagedPartAdopter(
       List<DamagedPartsEntity> damages) {
@@ -148,6 +145,7 @@ class EASingleton {
         gallery.add(path);
       }
     }
+    log('STATE FOR EDIT : ${v.year}');
 
     return EditAdState(
       getAnnouncementToEditStatus: FormzStatus.submissionSuccess,
@@ -155,7 +153,6 @@ class EASingleton {
       gallery: gallery,
       popStatus: PopStatus.success,
       isContactsVerified: true,
-      searchController: TextEditingController(),
       phoneController: TextEditingController(text: phone ?? v.user.phoneNumber),
       emailController: TextEditingController(text: v.contactEmail),
       nameController: TextEditingController(
@@ -165,8 +162,12 @@ class EASingleton {
           logo: v.bodyType.logo ?? '',
           id: v.bodyType.id,
           type: v.bodyType.type),
-      callTimeFrom: v.contactAvailableFrom.trim().length > 5 ? v.contactAvailableFrom.trim().substring(0, 5) : null,
-      callTimeTo: v.contactAvailableTo.trim().length > 5 ? v.contactAvailableTo.trim().substring(0, 5) : null,
+      callTimeFrom: v.contactAvailableFrom.trim().length > 5
+          ? v.contactAvailableFrom.trim().substring(0, 5)
+          : null,
+      callTimeTo: v.contactAvailableTo.trim().length > 5
+          ? v.contactAvailableTo.trim().substring(0, 5)
+          : null,
       isCallTimed: v.contactAvailableFrom.isNotEmpty &&
           v.contactAvailableFrom.isNotEmpty,
       colorName: v.color,
@@ -176,7 +177,7 @@ class EASingleton {
       driveTypeId: v.driveType.id,
       engineId: v.engineType.id,
       gearbox: v.gearboxType,
-      generationId: v.gearboxType.id,
+      generationEntity: v.generation,
       isWithoutMileage: !(v.distanceTraveled > 0),
       make:
           MakeEntity(id: v.make.id, logo: v.make.logo ?? '', name: v.make.name),
@@ -200,19 +201,16 @@ class EASingleton {
     );
   }
 
-  static EditAdState choose(
-          EditAdState state, EditAdChooseEvent event) =>
+  static EditAdState choose(EditAdState state, EditAdChooseEvent event) =>
       state.copyWith(
         milageImage: event.milageImage,
         modification: event.modification,
         panaramaGallery: event.panaramaGallery,
         mapPointBytes: event.bodyBytes,
-        years: event.years,
         yearEntity: event.yearEntity,
         locationUrl: event.locationUrl,
         toastMessage: event.toastMessage,
         damagedParts: event.damagedParts,
-        rentWithPurchaseConditions: event.rentWithPurchaseConditions,
         gallery: event.gallery,
         showExactAddress: event.showExactAddress,
         isWithoutMileage: event.isWithoutMileage,
@@ -229,11 +227,9 @@ class EASingleton {
         gearbox: event.gearbox,
         driveTypeId: event.driveTypeId,
         engineId: event.engineId,
-        generationId: event.generationId,
+        generationEntity: event.generationEntity,
         bodyType: event.bodyType,
-        isSortByLetter: event.letter != state.letter,
         model: event.model,
-        eventLetter: event.letter,
         make: event.make,
         purchasedDate: event.purchasedDate,
         notRegisteredInUzbekistan: event.isRastamojen,
@@ -249,21 +245,8 @@ class EASingleton {
         phoneController: event.phoneController,
         emailController: event.emailController,
         nameController: event.nameController,
-        eventMakeScrrollIndex: _getMakeLetterIndex(event, state.makes),
         description: event.description,
       );
-
-  static int? _getMakeLetterIndex(
-      EditAdChooseEvent event, List<MakeEntity> makes) {
-    if (event.letter == null) return null;
-
-    final i = makes.indexWhere(
-        (element) => element.name.toUpperCase().startsWith(event.letter!));
-
-    if (i > -1) return i;
-
-    return null;
-  }
 
   static DamageType? _getDamageType(String type) {
     switch (type) {
@@ -332,69 +315,38 @@ class EASingleton {
     }
   }
 
-  static bool labelLargeStatus(int page, EditAdState state) {
+  static bool nextButtonIsDisabled(int page, EditAdState state) {
     switch (page) {
-      //make
-      case 0:
-        return state.make == null;
-// model
-      case 1:
-        return state.model == null;
-      // year
-      case 2:
-        return state.yearEntity == null;
-      // generation
-      case 3:
-        return state.generationId == null;
-
-      // body type
-      case 4:
-        return state.bodyType == null;
-      // engine
-      case 5:
-        return state.engineId == null;
-      // drive type
-      case 6:
-        return state.driveTypeId == null;
-      // gearbox
-      case 7:
-        return state.gearbox == null;
-      // ModificationScreen
-      case 8:
-        return state.modification == null;
-      // ColorsScreen
-      case 9:
-        return false;
       // AddPhotoScreen
-      case 10:
+      case 0:
         // return false;
         return [...state.gallery, ...state.panaramaGallery].isEmpty;
       // PtsScreen
-      case 11:
+      case 1:
         return state.ownerStep == null ||
             state.licenceType == null ||
             state.purchasedDate == null;
       //  DescriptionScreen
-      case 12:
+      case 2:
         return false;
       //  EquipmentScreen
-      case 13:
+      case 3:
         return false;
       // DamageScreen
-      case 14:
+      case 4:
         return state.damagedParts.isEmpty;
       // ContactsScreen
-      case 15:
+      case 5:
         return !state.isContactsVerified;
 // InspectionPlaceScreen
-      case 16:
-        return state.regionId == null;
+      case 6:
+        return !(state.regionId != null || state.mapPointBytes != null);
 
       // PriceScreen
-      case 17:
+      case 7:
         return state.price == null;
       // MileageScreen
-      case 18:
+      case 8:
         final milage =
             int.tryParse(state.mileage?.replaceAll(' ', '') ?? '0') ?? 0;
 
@@ -403,7 +355,7 @@ class EASingleton {
             state.milageImage != null);
         return v;
       // PreviewScreen
-      case 19:
+      case 9:
         return false;
     }
 

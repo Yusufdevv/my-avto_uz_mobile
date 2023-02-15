@@ -96,6 +96,10 @@ class PostingAdTopMakesEvent extends PostingAdEvent {
   final String? name;
   PostingAdTopMakesEvent({this.name});
 }
+class PostingAdOnRentWithPurchaseConditionChangedEvent extends PostingAdEvent{
+  final RentWithPurchaseEntity condition;
+  PostingAdOnRentWithPurchaseConditionChangedEvent({required this.condition});
+}
 
 class PostingAdGenerationsEvent extends PostingAdEvent {
   final int modelId;
@@ -113,7 +117,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final int? regionId;
   final List<YearsEntity>? years;
   final int? districtId;
-  final List<RentWithPurchaseEntity>? rentWithPurchaseConditions;
+
   final Map<DamagedParts, DamageType>? damagedParts;
   final ModificationTypeEntity? modification;
   final MakeEntity? model;
@@ -173,7 +177,6 @@ class PostingAdChooseEvent extends PostingAdEvent {
     this.where,
     this.damagedParts,
     this.isNew,
-    this.rentWithPurchaseConditions,
     this.gallery,
     this.showExactAddress,
     this.districtId,

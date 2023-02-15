@@ -4,7 +4,7 @@ import 'package:auto/features/ad/presentation/pages/preview/widgets/car_model_te
 import 'package:auto/features/ad/presentation/pages/preview/widgets/date_and_views_row.dart';
 import 'package:auto/features/ad/presentation/pages/preview/widgets/id_row.dart';
 import 'package:auto/features/ad/presentation/pages/preview/widgets/image_viewer.dart';
-import 'package:auto/features/edit_ad/presentation/bloc/posting_ad/edit_ad_bloc.dart';
+import 'package:auto/features/edit_ad/presentation/bloc/edit_ad/edit_ad_bloc.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +35,7 @@ class PreviewScreen extends StatelessWidget {
                       const SizedBox(height: 12),
                       CarModelText(
                           text:
-                              '${state.make?.name ?? ''} ${state.model?.name ?? ''} ${state.generations.first.name}'),
+                              '${state.make?.name ?? ''} ${state.model?.name ?? ''} '),
                       CarPriceText(text: '${state.price}'),
                       const SizedBox(height: 12),
                       DateAndViewsRow(date: state.purchasedDate!),
@@ -64,13 +64,15 @@ class PreviewScreen extends StatelessWidget {
                         title: LocaleKeys.color.tr(),
                         info: '${state.colorName}',
                       ),
-                      CarInfoRow(
-                          title: LocaleKeys.complectation.tr(),
-                          info: 'really soon'),
-                      CarInfoRow(
-                        title: LocaleKeys.engine_volume_l.tr(),
-                        info: state.modification?.volume ?? '',
-                      ),
+                      // CarInfoRow(
+                      //     title: LocaleKeys.complectation.tr(),
+                      //     info: 'really soon'),
+                      if (state.modification?.volume.isNotEmpty ?? false) ...{
+                        CarInfoRow(
+                          title: LocaleKeys.engine_volume_l.tr(),
+                          info: state.modification?.volume ?? '',
+                        ),
+                      },
                       CarInfoRow(
                         title: LocaleKeys.Transmission.tr(),
                         info: state.gearbox?.type ?? '',

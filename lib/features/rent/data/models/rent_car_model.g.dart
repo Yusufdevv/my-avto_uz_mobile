@@ -40,9 +40,9 @@ RentCarModel _$RentCarModelFromJson(Map<String, dynamic> json) => RentCarModel(
           : const RentCarBodyTypeConverter()
               .fromJson(json['body_type'] as Map<String, dynamic>?),
       generation: json['generation'] == null
-          ? const RentCarGenerationEntity()
-          : const RentCarGenerationConverter()
-              .fromJson(json['generation'] as Map<String, dynamic>?),
+          ? const CarGenerationEntity()
+          : const CarGenerationConverter()
+              .fromJson(json['generation'] as Map<String, dynamic>),
       model: json['model'] == null
           ? const RentCarModelsEntity()
           : const RentCarModelsConverter()
@@ -69,8 +69,7 @@ Map<String, dynamic> _$RentCarModelToJson(RentCarModel instance) =>
       'category': const RentCarCategoryConverter().toJson(instance.category),
       'make': const RentCarMakeConverter().toJson(instance.make),
       'model': const RentCarModelsConverter().toJson(instance.model),
-      'generation':
-          const RentCarGenerationConverter().toJson(instance.generation),
+      'generation': const CarGenerationConverter().toJson(instance.generation),
       'body_type': const RentCarBodyTypeConverter().toJson(instance.bodyType),
       'year': instance.year,
       'drive_type': const RentCarBodyTypeConverter().toJson(instance.driveType),

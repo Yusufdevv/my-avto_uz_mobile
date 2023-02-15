@@ -6,7 +6,7 @@ import 'package:auto/features/ad/presentation/pages/pts/widgets/pts_buttons.dart
 import 'package:auto/features/ad/presentation/pages/pts/widgets/show_cupertino_date_picker.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/common/widgets/w_container.dart';
-import 'package:auto/features/edit_ad/presentation/bloc/posting_ad/edit_ad_bloc.dart';
+import 'package:auto/features/edit_ad/presentation/bloc/edit_ad/edit_ad_bloc.dart';
 import 'package:auto/features/edit_ad/presentation/bloc/pts/date_picker_bloc.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';

@@ -1,6 +1,7 @@
 part of 'rent_to_buy_bloc.dart';
 
 class RentToBuyState extends Equatable {
+  final RentWithPurchaseEntity? entityForEdit;
   final FocusNode focusNode;
   final String title;
   final int? minimumSumma;
@@ -16,6 +17,7 @@ class RentToBuyState extends Equatable {
     required this.controller,
     required this.focusNode,
     this.rentalPeriod,
+    this.entityForEdit,
     this.monthlyPayment,
     this.prepayment,
     this.minimumSumma,
@@ -34,6 +36,7 @@ class RentToBuyState extends Equatable {
     FocusNode? focusNode,
   }) =>
       RentToBuyState(
+        entityForEdit: entityForEdit,
         focusNode: focusNode ?? this.focusNode,
         controller: controller ?? this.controller,
         title: title,
@@ -54,5 +57,6 @@ class RentToBuyState extends Equatable {
         minimumSumma,
         title,
         controller,
+        entityForEdit,
       ];
 }
