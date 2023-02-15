@@ -3,7 +3,7 @@
 const String CACHED_DRAFT_ANNOUNCEMENT = 'draft_announcement';
 
 enum DamagedParts {
-  rightFrontDoor('rigth_front_door'),  
+  rightFrontDoor('rigth_front_door'),
   rightRearDoor('right_rear_door'),
   leftFrontDoor('left_front_door'),
   leftRearDoor('left_rear_door'),
@@ -41,6 +41,18 @@ enum Currency {
   none('');
 
   const Currency(this.value);
+
+  final String value;
+}
+
+enum SortStatus {
+  cheapest('-price'),
+  expensive('price'),
+  oldest('created_at'),
+  newest('-created_at'),
+  none('');
+
+  const SortStatus(this.value);
 
   final String value;
 }

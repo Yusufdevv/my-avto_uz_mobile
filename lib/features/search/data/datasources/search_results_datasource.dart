@@ -9,7 +9,7 @@ import 'package:dio/dio.dart';
 
 // ignore: one_member_abstracts
 abstract class SearchResultsDatasource {
-  Future<GenericPagination<AutoModel>> getSearchResults(String? searchedText);
+  Future<GenericPagination<AutoModel>> getSearchResults(Map<String, dynamic> params);
 }
 
 class SearchResultsDatasourceImpl extends SearchResultsDatasource {
@@ -19,10 +19,10 @@ class SearchResultsDatasourceImpl extends SearchResultsDatasource {
 
   @override
   Future<GenericPagination<AutoModel>> getSearchResults(
-      String? searchedText) async {
+      Map<String, dynamic> params) async {
     try {
       final response = await _dio.get('es/AnnouncementElasticSearch/',
-          queryParameters: {'search': searchedText},
+          queryParameters: params,
           options: Options(headers: {
             'Authorization': 'Bearer ${StorageRepository.getString('token')}'
           }));

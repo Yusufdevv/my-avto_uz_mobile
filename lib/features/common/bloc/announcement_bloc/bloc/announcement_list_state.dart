@@ -15,6 +15,7 @@ class AnnouncementListState extends Equatable {
   final RangeValues? yearValues;
   final RangeValues? priceValues;
   final Currency? currency;
+  final SortStatus? sortStatus;
   final GearboxTypeEntity? gearboxType;
   final BodyTypeEntity? bodyType;
   final DriveTypeEntity? driveType;
@@ -42,6 +43,7 @@ class AnnouncementListState extends Equatable {
     this.yearValues,
     this.priceValues,
     this.currency = Currency.none,
+    this.sortStatus = SortStatus.none,
     this.gearboxType,
     this.bodyType,
     this.driveType,
@@ -70,6 +72,7 @@ class AnnouncementListState extends Equatable {
     RangeValues? yearValues,
     RangeValues? priceValues,
     Currency? currency,
+    SortStatus? sortResult,
     GearboxTypeEntity? gearboxType,
     BodyTypeEntity? bodyType,
     DriveTypeEntity? driveType,
@@ -108,6 +111,7 @@ class AnnouncementListState extends Equatable {
         isNew: isNew ?? this.isNew,
         saveFilterStatus: saveFilterStatus ?? this.saveFilterStatus,
         crossFadeState: crossFadeState ?? this.crossFadeState,
+        sortStatus: sortResult ?? this.sortStatus,
       );
 
   @override
@@ -137,5 +141,6 @@ class AnnouncementListState extends Equatable {
         saveFilterStatus,
         crossFadeState,
         historyId,
+        sortStatus,
       ];
 }

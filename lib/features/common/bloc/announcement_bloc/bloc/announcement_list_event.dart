@@ -28,6 +28,14 @@ class SetRegions extends AnnouncementListEvent {
   });
 }
 
+class SetSort extends AnnouncementListEvent {
+  final SortStatus? sortResult;
+
+  const SetSort({
+    required this.sortResult,
+  });
+}
+
 class GetMinMaxPriceYear extends AnnouncementListEvent {
   const GetMinMaxPriceYear();
 }

@@ -7,12 +7,11 @@ import 'package:auto/features/search/data/repositories/search_repository.dart';
 import 'package:auto/features/search/domain/repositories/search_repository_repository.dart';
 
 class GetSearchResultsUseCase
-    extends UseCase<GenericPagination<AutoModel>, String> {
+    extends UseCase<GenericPagination<AutoModel>, Map<String, dynamic>> {
   final SearchRepository repo = SearchRepositoryImpl() ;
    GetSearchResultsUseCase();
 
   @override
-  Future<Either<Failure, GenericPagination<AutoModel>>> call(
-          String? params) async =>
+  Future<Either<Failure, GenericPagination<AutoModel>>> call(Map<String, dynamic> params) async =>
      await  repo.getSearchResults(params);
 }

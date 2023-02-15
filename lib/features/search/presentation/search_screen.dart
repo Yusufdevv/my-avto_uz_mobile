@@ -3,18 +3,21 @@ import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/storage.dart';
+import 'package:auto/features/ad/const/constants.dart';
+import 'package:auto/features/ads/presentation/widgets/filter_bottom_sheet.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
-import 'package:auto/features/pagination/presentation/paginator.dart'; 
+import 'package:auto/features/pagination/presentation/paginator.dart';
+import 'package:auto/features/profile/domain/entities/dealer_type_entity.dart';
 import 'package:auto/features/search/presentation/bloc/search_results/search_bloc.dart';
 import 'package:auto/features/search/presentation/bloc/user_searches_bloc/user_searches_bloc.dart';
 import 'package:auto/features/search/presentation/pages/last_popular_searches_screen.dart';
 import 'package:auto/features/search/presentation/pages/loading_screen.dart';
 import 'package:auto/features/search/presentation/pages/nothing_found_screen.dart';
+import 'package:auto/features/search/presentation/widgets/info_result_container.dart';
 import 'package:auto/features/search/presentation/widgets/search_item_shimmer.dart';
 import 'package:auto/features/search/presentation/widgets/searched_models_item.dart';
 import 'package:auto/features/search/presentation/widgets/sort_bottom_sheet.dart';
-import 'package:auto/features/search/presentation/widgets/sort_results_card.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +40,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   FocusNode focusNode = FocusNode();
   bool isFocused = false;
-  SortSearchResultStatus sortingValue = SortSearchResultStatus.cheapest;
+  SortStatus sortingValue = SortStatus.cheapest;
   SearchControllerStatus textControllerStatus = SearchControllerStatus.initial;
 
   @override
@@ -76,230 +79,269 @@ class _SearchScreenState extends State<SearchScreen> {
             BlocProvider(create: (context) => userSearchesBloc),
           ],
           child: SafeArea(
-            child: Scaffold(
-              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              appBar: PreferredSize(
-                preferredSize: const Size.fromHeight(76),
-                child: Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .whiteToDark,
-                    boxShadow: [
-                      BoxShadow(
-                        color: black.withOpacity(0.1),
-                        offset: const Offset(0, 8),
-                        blurRadius: 24,
-                      ),
-                      BoxShadow(
-                        color: black.withOpacity(0.1),
-                        offset: const Offset(0, -1),
-                        blurRadius: 0,
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Focus(
-                          focusNode: focusNode,
-                          onFocusChange: (value) {
-                            isFocused = value;
-                            if (!value) {
-                              if (searchController.text.isEmpty) {
-                                textControllerStatus =
-                                    SearchControllerStatus.initial;
+            child: BlocConsumer<SearchBloc, SearchState>(
+              listener: (context, state) {},
+              builder: (context, state) => Scaffold(
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                appBar: PreferredSize(
+                  preferredSize: const Size.fromHeight(76),
+                  child: Container(
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .whiteToDark,
+                      boxShadow: [
+                        BoxShadow(
+                          color: black.withOpacity(0.1),
+                          offset: const Offset(0, 8),
+                          blurRadius: 24,
+                        ),
+                        BoxShadow(
+                          color: black.withOpacity(0.1),
+                          offset: const Offset(0, -1),
+                          blurRadius: 0,
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: Focus(
+                            focusNode: focusNode,
+                            onFocusChange: (value) {
+                              print('=======onfocus ${value}');
+
+                              isFocused = value;
+                              if (!value) {
+                                if (searchController.text.isEmpty) {
+                                  textControllerStatus =
+                                      SearchControllerStatus.initial;
+                                } else {
+                                  searchBloc.add(SearchEvent.getResults(
+                                      searchText: searchController.text));
+                                  textControllerStatus =
+                                      SearchControllerStatus.completed;
+                                }
                               } else {
-                                searchBloc.add(SearchEvent.getResults(
-                                    searchText: searchController.text));
                                 textControllerStatus =
-                                    SearchControllerStatus.completed;
+                                    SearchControllerStatus.typing;
+                                searchBloc.add(SearchEvent.getSuggestions(
+                                    search: searchController.text));
                               }
-                            } else {
-                              textControllerStatus =
-                                  SearchControllerStatus.typing;
-                              searchBloc.add(SearchEvent.getSuggestions(
-                                  search: searchController.text));
-                            }
-                            setState(() {});
-                          },
-                          child: WTextField(
-                            height: 44,
-                            fillColor: Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .whiteSmoke2ToNightRider,
-                            onChanged: (value) {
-                              searchBloc.add(SearchEvent.getSuggestions(
-                                  search: searchController.text));
                               setState(() {});
                             },
-                            onFieldSubmitted: (v) {
-                              if (searchController.text.isNotEmpty) {
-                                addSearchToStorage(searchController.text);
-                              }
-                            },
-                            keyBoardType: TextInputType.name,
-                            textStyle: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(
-                                    fontSize: 16, fontWeight: FontWeight.w400),
-                            textInputAction: TextInputAction.search,
-                            borderColor: purple,
-                            focusColor: Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .whiteSmoke2ToNightRider,
-                            enabledBorderColor: Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .whiteSmoke2ToNightRider,
-                            margin: const EdgeInsets.only(left: 16, top: 16),
-                            borderRadius: 12,
-                            controller: searchController,
-                            hasSearch: true,
-                            hintText: LocaleKeys.model_brand.tr(),
-                            hasClearButton: true,
+                            child: WTextField(
+                              height: 44,
+                              fillColor: Theme.of(context)
+                                  .extension<ThemedColors>()!
+                                  .whiteSmoke2ToNightRider,
+                              onChanged: (value) {
+                                print('======= onchanged');
+
+                                searchBloc.add(SearchEvent.getSuggestions(
+                                    search: searchController.text));
+                                setState(() {});
+                              },
+                              onFieldSubmitted: (v) {
+                                if (searchController.text.isNotEmpty) {
+                                  addSearchToStorage(searchController.text);
+                                }
+                              },
+                              keyBoardType: TextInputType.name,
+                              textStyle: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium!
+                                  .copyWith(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400),
+                              textInputAction: TextInputAction.search,
+                              borderColor: purple,
+                              focusColor: Theme.of(context)
+                                  .extension<ThemedColors>()!
+                                  .whiteSmoke2ToNightRider,
+                              enabledBorderColor: Theme.of(context)
+                                  .extension<ThemedColors>()!
+                                  .whiteSmoke2ToNightRider,
+                              margin: const EdgeInsets.only(left: 16, top: 16),
+                              borderRadius: 12,
+                              controller: searchController,
+                              hasSearch: true,
+                              hintText: LocaleKeys.model_brand.tr(),
+                              hasClearButton: true,
+                            ),
                           ),
                         ),
-                      ),
-                      WButton(
-                        onTap: () => showModalBottomSheet(
-                          context: context,
-                          useRootNavigator: true,
-                          backgroundColor: LightThemeColors.appBarColor,
-                          shape: const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.vertical(top: Radius.circular(20)),
+                        WButton(
+                          onTap: () => filterBottomSheet(
+                            context,
+                            onChanged: (value) => searchBloc.add(
+                                SearchEvent.setSortStatus(sortStatus: value)),
+                            sortingValue: state.sortStatus,
                           ),
-                          clipBehavior: Clip.hardEdge,
-                          builder: (context) => SortBottomSheet(
-                            title: LocaleKeys.sorting.tr(),
-                            values: const [
-                              SortSearchResultsModel(
-                                title: LocaleKeys.descending,
-                                status: SortSearchResultStatus.cheapest,
-                              ),
-                              SortSearchResultsModel(
-                                title: LocaleKeys.ascending,
-                                status: SortSearchResultStatus.expensive,
-                              ),
-                              SortSearchResultsModel(
-                                title: LocaleKeys.oldOnesFirst,
-                                status: SortSearchResultStatus.oldest,
-                              ),
-                              SortSearchResultsModel(
-                                title: LocaleKeys.newOnesFirst,
-                                status: SortSearchResultStatus.newest,
-                              ),
-                            ],
-                            onChanged: (value) =>
-                                setState(() => sortingValue = value),
-                            defaultValue: sortingValue,
-                          ),
+                          width: 44,
+                          height: 44,
+                          borderRadius: 12,
+                          margin: const EdgeInsets.only(left: 10, right: 16),
+                          color: lavender,
+                          child: SvgPicture.asset(AppIcons.arrowsSort,
+                              height: 24,
+                              width: 24,
+                              fit: BoxFit.cover,
+                              color: purple),
                         ),
-                        width: 44,
-                        height: 44,
-                        borderRadius: 12,
-                        margin: const EdgeInsets.only(left: 10, right: 16),
-                        color: lavender,
-                        child: SvgPicture.asset(AppIcons.arrowsSort,
-                            height: 24,
-                            width: 24,
-                            fit: BoxFit.cover,
-                            color: purple),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              body: BlocBuilder<SearchBloc, SearchState>(
-                builder: (context, state) => textControllerStatus ==
-                        SearchControllerStatus.typing
-                    ? searchController.text.isEmpty
-                        ? const SizedBox()
-                        : searchController.text.isNotEmpty &&
-                                state.suggestions.isEmpty
-                            ? const NothingFoundScreen()
-                            : Padding(
-                                padding: const EdgeInsets.only(top: 16),
-                                child: Paginator(
-                                  fetchMoreFunction: () {},
-                                  hasMoreToFetch:
-                                      state.suggestionsFetchMore ?? false,
-                                  paginatorStatus: state.suggestionsStatus,
-                                  separatorBuilder: (context, index) =>
-                                      (index != state.suggestionsCount - 1)
-                                          ? const Divider(height: 1)
-                                          : const SizedBox(),
-                                  errorWidget: const SizedBox(),
-                                  padding: EdgeInsets.zero,
-                                  itemCount: state.suggestionsCount,
-                                  itemBuilder: (context, index) =>
-                                      SearchedModelsItem(
-                                    imageUrl: state
-                                        .suggestions[index].source.carMake.logo,
-                                    vehicleType: state
-                                        .suggestions[index].source.vehicleType,
-                                    fullText: state.suggestions[index].source
-                                        .absoluteCarName,
-                                    searchText: searchController.text,
-                                    onTap: () {
-                                      searchController
-                                        ..text = state.suggestions[index].text
-                                        ..selection =
-                                            TextSelection.fromPosition(
-                                          TextPosition(
-                                              offset:
-                                                  searchController.text.length),
-                                        );
-                                      searchBloc.add(
-                                        SearchEvent.getResults(
-                                            searchText: searchController.text),
-                                      );
-                                      addSearchToStorage(searchController.text);
-                                      focusNode.unfocus();
-                                      setState(() {});
-                                    },
-                                  ),
-                                ),
-                              )
-                    : textControllerStatus == SearchControllerStatus.completed
-                        ? state.status != FormzStatus.submissionSuccess
-                            ? const LoadingScreen()
-                            : state.searchResults.isEmpty
-                                ? const Center(
-                                    child: NothingFoundScreen(),
-                                  )
-                                : Paginator(
-                                    hasMoreToFetch: state.moreFetch,
-                                    fetchMoreFunction: () {
-                                      searchBloc
-                                          .add(SearchEvent.getMoreResults());
-                                    },
-                                    itemCount: state.count,
-                                    paginatorStatus: state.status,
-                                    errorWidget: const SearchItemShimmer(
-                                        slideImageCount: 2),
+                body: Builder(
+                  builder: (context) => textControllerStatus ==
+                          SearchControllerStatus.typing
+                      ? searchController.text.isEmpty
+                          ? const SizedBox()
+                          : searchController.text.isNotEmpty &&
+                                  state.suggestions.isEmpty
+                              ? const NothingFoundScreen()
+                              : Padding(
+                                  padding: const EdgeInsets.only(top: 16),
+                                  child: Paginator(
+                                    fetchMoreFunction: () {},
+                                    hasMoreToFetch:
+                                        state.suggestionsFetchMore ?? false,
+                                    paginatorStatus: state.suggestionsStatus,
                                     separatorBuilder: (context, index) =>
-                                        Divider(
-                                      height: 12,
-                                      thickness: 0,
-                                      color: Theme.of(context)
-                                          .extension<ThemedColors>()!
-                                          .borderGreyToDark,
-                                    ),
+                                        (index != state.suggestionsCount - 1)
+                                            ? const Divider(height: 1)
+                                            : const SizedBox(),
+                                    errorWidget: const SizedBox(),
+                                    padding: EdgeInsets.zero,
+                                    itemCount: state.suggestionsCount,
                                     itemBuilder: (context, index) =>
-                                        SortResultsCard(
-                                      searchResults: state.searchResults,
-                                      index: index,
-                                      status: sortingValue,
+                                        SearchedModelsItem(
+                                      imageUrl: state.suggestions[index].source
+                                          .carMake.logo,
+                                      vehicleType: state.suggestions[index]
+                                          .source.vehicleType,
+                                      fullText: state.suggestions[index].source
+                                          .absoluteCarName,
+                                      searchText: searchController.text,
+                                      onTap: () {
+                                        searchController
+                                          ..text = state.suggestions[index].text
+                                          ..selection =
+                                              TextSelection.fromPosition(
+                                            TextPosition(
+                                                offset: searchController
+                                                    .text.length),
+                                          );
+                                        searchBloc.add(
+                                          SearchEvent.getResults(
+                                              searchText:
+                                                  searchController.text),
+                                        );
+                                        addSearchToStorage(
+                                            searchController.text);
+                                        focusNode.unfocus();
+                                        // setState(() {});
+                                      },
                                     ),
-                                  )
-                        : LastPopularSearchesScreen(
-                            searchController: searchController,
-                            focusNode: focusNode,
-                          ),
+                                  ),
+                                )
+                      : textControllerStatus == SearchControllerStatus.completed
+                          ? state.status != FormzStatus.submissionSuccess
+                              ? const LoadingScreen()
+                              : state.searchResults.isEmpty
+                                  ? const Center(
+                                      child: NothingFoundScreen(),
+                                    )
+                                  : Paginator(
+                                      hasMoreToFetch: state.moreFetch,
+                                      fetchMoreFunction: () {
+                                        searchBloc.add(
+                                            SearchEvent.getMoreResults(
+                                                searchText:
+                                                    searchController.text));
+                                      },
+                                      itemCount: state.searchResults.length,
+                                      paginatorStatus: state.status,
+                                      errorWidget: const SearchItemShimmer(
+                                          slideImageCount: 2),
+                                      separatorBuilder: (context, index) =>
+                                          Divider(
+                                            height: 12,
+                                            thickness: 0,
+                                            color: Theme.of(context)
+                                                .extension<ThemedColors>()!
+                                                .borderGreyToDark,
+                                          ),
+                                      itemBuilder: (context, index) =>
+                                          InfoResultContainer(
+                                            currency: state
+                                                .searchResults[index].currency,
+                                            discount: state
+                                                .searchResults[index].discount,
+                                            callFrom: state.searchResults[index]
+                                                .contactAvailableFrom,
+                                            callTo: state.searchResults[index]
+                                                .contactAvailableTo,
+                                            gallery: state
+                                                .searchResults[index].gallery,
+                                            carModelName: state
+                                                .searchResults[index]
+                                                .model
+                                                .name,
+                                            carYear:
+                                                state.searchResults[index].year,
+                                            contactPhone: state
+                                                .searchResults[index]
+                                                .contactPhone,
+                                            description: state
+                                                .searchResults[index]
+                                                .description,
+                                            districtTitle: state
+                                                .searchResults[index]
+                                                .district
+                                                .title,
+                                            isNew: state
+                                                .searchResults[index].isNew,
+                                            isWishlisted: state
+                                                .searchResults[index]
+                                                .isWishlisted,
+                                            price: state
+                                                .searchResults[index].price,
+                                            publishedAt: state
+                                                .searchResults[index]
+                                                .publishedAt,
+                                            userFullName: state
+                                                .searchResults[index]
+                                                .user
+                                                .fullName,
+                                            userImage: state
+                                                        .searchResults[index]
+                                                        .userType !=
+                                                    'owner'
+                                                ? DealerFavEntity.fromJson(state
+                                                            .searchResults[
+                                                                index]
+                                                            .dealer)
+                                                        .avatar ??
+                                                    ''
+                                                : state.searchResults[index]
+                                                    .user.image,
+                                            userType: state
+                                                .searchResults[index].userType,
+                                            hasComparison: state
+                                                .searchResults[index]
+                                                .isComparison,
+                                            id: state.searchResults[index].id,
+                                            index: index,
+                                          ))
+                          : LastPopularSearchesScreen(
+                              searchController: searchController,
+                              focusNode: focusNode,
+                            ),
+                ),
               ),
             ),
           ),
@@ -331,7 +373,7 @@ void addSearchToStorage(String text) {
 
 class SortSearchResultsModel {
   final String title;
-  final SortSearchResultStatus status;
+  final SortStatus status;
 
   const SortSearchResultsModel({required this.title, required this.status});
 }

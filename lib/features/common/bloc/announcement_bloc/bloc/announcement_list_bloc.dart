@@ -64,7 +64,8 @@ class AnnouncementListBloc
                 : state.yearValues?.end,
         'limit': 10,
         'offset': 0,
-        'currency': state.currency?.value
+        'currency': state.currency?.value,
+        'ordering': state.sortStatus?.value,
       });
       if (result.isRight) {
         emit(
@@ -111,7 +112,8 @@ class AnnouncementListBloc
                 : state.yearValues?.end,
         'limit': 10,
         'offset': state.announcementList.length,
-        'currency': state.currency?.value
+        'currency': state.currency?.value,
+        'ordering': state.sortStatus?.value,
       });
       if (result.isRight) {
         emit(
@@ -185,9 +187,15 @@ class AnnouncementListBloc
       ));
       add(GetAnnouncementList(isNew: event.isNew));
     });
+    //! setregion
     on<SetRegions>((event, emit) {
       emit(state.copyWith(regions: event.regions));
       add(GetAnnouncementList(isNew: event.isNew));
+    });
+    //!setsort
+    on<SetSort>((event, emit) {
+      emit(state.copyWith(sortResult: event.sortResult));
+      add(GetAnnouncementList(isNew: state.isNew));
     });
     on<ChangeSaveFilterStatus>((event, emit) {
       emit(state.copyWith(saveFilterStatus: event.status));

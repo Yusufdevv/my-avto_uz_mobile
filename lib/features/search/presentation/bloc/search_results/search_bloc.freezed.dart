@@ -19,37 +19,40 @@ mixin _$SearchEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String searchText) getResults,
-    required TResult Function() getMoreResults,
+    required TResult Function(String searchText) getMoreResults,
     required TResult Function(String search) getSuggestions,
     required TResult Function() setSuggestions,
     required TResult Function(String text) saveLocaleSuggestion,
     required TResult Function(String text) deleteLocaleSuggestion,
     required TResult Function(String text) selectSearchSuggestion,
     required TResult Function() changeStatus,
+    required TResult Function(SortStatus sortStatus) setSortStatus,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String searchText)? getResults,
-    TResult? Function()? getMoreResults,
+    TResult? Function(String searchText)? getMoreResults,
     TResult? Function(String search)? getSuggestions,
     TResult? Function()? setSuggestions,
     TResult? Function(String text)? saveLocaleSuggestion,
     TResult? Function(String text)? deleteLocaleSuggestion,
     TResult? Function(String text)? selectSearchSuggestion,
     TResult? Function()? changeStatus,
+    TResult? Function(SortStatus sortStatus)? setSortStatus,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String searchText)? getResults,
-    TResult Function()? getMoreResults,
+    TResult Function(String searchText)? getMoreResults,
     TResult Function(String search)? getSuggestions,
     TResult Function()? setSuggestions,
     TResult Function(String text)? saveLocaleSuggestion,
     TResult Function(String text)? deleteLocaleSuggestion,
     TResult Function(String text)? selectSearchSuggestion,
     TResult Function()? changeStatus,
+    TResult Function(SortStatus sortStatus)? setSortStatus,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -65,6 +68,7 @@ mixin _$SearchEvent {
     required TResult Function(_SelectLocaleSuggestion value)
         selectSearchSuggestion,
     required TResult Function(_ChangeStatus value) changeStatus,
+    required TResult Function(_SetSortStatus value) setSortStatus,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -77,6 +81,7 @@ mixin _$SearchEvent {
     TResult? Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult? Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult? Function(_ChangeStatus value)? changeStatus,
+    TResult? Function(_SetSortStatus value)? setSortStatus,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -89,6 +94,7 @@ mixin _$SearchEvent {
     TResult Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult Function(_ChangeStatus value)? changeStatus,
+    TResult Function(_SetSortStatus value)? setSortStatus,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -178,13 +184,14 @@ class _$_GetResults implements _GetResults {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String searchText) getResults,
-    required TResult Function() getMoreResults,
+    required TResult Function(String searchText) getMoreResults,
     required TResult Function(String search) getSuggestions,
     required TResult Function() setSuggestions,
     required TResult Function(String text) saveLocaleSuggestion,
     required TResult Function(String text) deleteLocaleSuggestion,
     required TResult Function(String text) selectSearchSuggestion,
     required TResult Function() changeStatus,
+    required TResult Function(SortStatus sortStatus) setSortStatus,
   }) {
     return getResults(searchText);
   }
@@ -193,13 +200,14 @@ class _$_GetResults implements _GetResults {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String searchText)? getResults,
-    TResult? Function()? getMoreResults,
+    TResult? Function(String searchText)? getMoreResults,
     TResult? Function(String search)? getSuggestions,
     TResult? Function()? setSuggestions,
     TResult? Function(String text)? saveLocaleSuggestion,
     TResult? Function(String text)? deleteLocaleSuggestion,
     TResult? Function(String text)? selectSearchSuggestion,
     TResult? Function()? changeStatus,
+    TResult? Function(SortStatus sortStatus)? setSortStatus,
   }) {
     return getResults?.call(searchText);
   }
@@ -208,13 +216,14 @@ class _$_GetResults implements _GetResults {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String searchText)? getResults,
-    TResult Function()? getMoreResults,
+    TResult Function(String searchText)? getMoreResults,
     TResult Function(String search)? getSuggestions,
     TResult Function()? setSuggestions,
     TResult Function(String text)? saveLocaleSuggestion,
     TResult Function(String text)? deleteLocaleSuggestion,
     TResult Function(String text)? selectSearchSuggestion,
     TResult Function()? changeStatus,
+    TResult Function(SortStatus sortStatus)? setSortStatus,
     required TResult orElse(),
   }) {
     if (getResults != null) {
@@ -236,6 +245,7 @@ class _$_GetResults implements _GetResults {
     required TResult Function(_SelectLocaleSuggestion value)
         selectSearchSuggestion,
     required TResult Function(_ChangeStatus value) changeStatus,
+    required TResult Function(_SetSortStatus value) setSortStatus,
   }) {
     return getResults(this);
   }
@@ -251,6 +261,7 @@ class _$_GetResults implements _GetResults {
     TResult? Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult? Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult? Function(_ChangeStatus value)? changeStatus,
+    TResult? Function(_SetSortStatus value)? setSortStatus,
   }) {
     return getResults?.call(this);
   }
@@ -266,6 +277,7 @@ class _$_GetResults implements _GetResults {
     TResult Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult Function(_ChangeStatus value)? changeStatus,
+    TResult Function(_SetSortStatus value)? setSortStatus,
     required TResult orElse(),
   }) {
     if (getResults != null) {
@@ -289,6 +301,8 @@ abstract class _$$_GetMoreResultsCopyWith<$Res> {
   factory _$$_GetMoreResultsCopyWith(
           _$_GetMoreResults value, $Res Function(_$_GetMoreResults) then) =
       __$$_GetMoreResultsCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String searchText});
 }
 
 /// @nodoc
@@ -298,72 +312,100 @@ class __$$_GetMoreResultsCopyWithImpl<$Res>
   __$$_GetMoreResultsCopyWithImpl(
       _$_GetMoreResults _value, $Res Function(_$_GetMoreResults) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? searchText = null,
+  }) {
+    return _then(_$_GetMoreResults(
+      searchText: null == searchText
+          ? _value.searchText
+          : searchText // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_GetMoreResults implements _GetMoreResults {
-  _$_GetMoreResults();
+  _$_GetMoreResults({required this.searchText});
+
+  @override
+  final String searchText;
 
   @override
   String toString() {
-    return 'SearchEvent.getMoreResults()';
+    return 'SearchEvent.getMoreResults(searchText: $searchText)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_GetMoreResults);
+        (other.runtimeType == runtimeType &&
+            other is _$_GetMoreResults &&
+            (identical(other.searchText, searchText) ||
+                other.searchText == searchText));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, searchText);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_GetMoreResultsCopyWith<_$_GetMoreResults> get copyWith =>
+      __$$_GetMoreResultsCopyWithImpl<_$_GetMoreResults>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String searchText) getResults,
-    required TResult Function() getMoreResults,
+    required TResult Function(String searchText) getMoreResults,
     required TResult Function(String search) getSuggestions,
     required TResult Function() setSuggestions,
     required TResult Function(String text) saveLocaleSuggestion,
     required TResult Function(String text) deleteLocaleSuggestion,
     required TResult Function(String text) selectSearchSuggestion,
     required TResult Function() changeStatus,
+    required TResult Function(SortStatus sortStatus) setSortStatus,
   }) {
-    return getMoreResults();
+    return getMoreResults(searchText);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String searchText)? getResults,
-    TResult? Function()? getMoreResults,
+    TResult? Function(String searchText)? getMoreResults,
     TResult? Function(String search)? getSuggestions,
     TResult? Function()? setSuggestions,
     TResult? Function(String text)? saveLocaleSuggestion,
     TResult? Function(String text)? deleteLocaleSuggestion,
     TResult? Function(String text)? selectSearchSuggestion,
     TResult? Function()? changeStatus,
+    TResult? Function(SortStatus sortStatus)? setSortStatus,
   }) {
-    return getMoreResults?.call();
+    return getMoreResults?.call(searchText);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String searchText)? getResults,
-    TResult Function()? getMoreResults,
+    TResult Function(String searchText)? getMoreResults,
     TResult Function(String search)? getSuggestions,
     TResult Function()? setSuggestions,
     TResult Function(String text)? saveLocaleSuggestion,
     TResult Function(String text)? deleteLocaleSuggestion,
     TResult Function(String text)? selectSearchSuggestion,
     TResult Function()? changeStatus,
+    TResult Function(SortStatus sortStatus)? setSortStatus,
     required TResult orElse(),
   }) {
     if (getMoreResults != null) {
-      return getMoreResults();
+      return getMoreResults(searchText);
     }
     return orElse();
   }
@@ -381,6 +423,7 @@ class _$_GetMoreResults implements _GetMoreResults {
     required TResult Function(_SelectLocaleSuggestion value)
         selectSearchSuggestion,
     required TResult Function(_ChangeStatus value) changeStatus,
+    required TResult Function(_SetSortStatus value) setSortStatus,
   }) {
     return getMoreResults(this);
   }
@@ -396,6 +439,7 @@ class _$_GetMoreResults implements _GetMoreResults {
     TResult? Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult? Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult? Function(_ChangeStatus value)? changeStatus,
+    TResult? Function(_SetSortStatus value)? setSortStatus,
   }) {
     return getMoreResults?.call(this);
   }
@@ -411,6 +455,7 @@ class _$_GetMoreResults implements _GetMoreResults {
     TResult Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult Function(_ChangeStatus value)? changeStatus,
+    TResult Function(_SetSortStatus value)? setSortStatus,
     required TResult orElse(),
   }) {
     if (getMoreResults != null) {
@@ -421,7 +466,13 @@ class _$_GetMoreResults implements _GetMoreResults {
 }
 
 abstract class _GetMoreResults implements SearchEvent {
-  factory _GetMoreResults() = _$_GetMoreResults;
+  factory _GetMoreResults({required final String searchText}) =
+      _$_GetMoreResults;
+
+  String get searchText;
+  @JsonKey(ignore: true)
+  _$$_GetMoreResultsCopyWith<_$_GetMoreResults> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -489,13 +540,14 @@ class _$_GetSuggestions implements _GetSuggestions {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String searchText) getResults,
-    required TResult Function() getMoreResults,
+    required TResult Function(String searchText) getMoreResults,
     required TResult Function(String search) getSuggestions,
     required TResult Function() setSuggestions,
     required TResult Function(String text) saveLocaleSuggestion,
     required TResult Function(String text) deleteLocaleSuggestion,
     required TResult Function(String text) selectSearchSuggestion,
     required TResult Function() changeStatus,
+    required TResult Function(SortStatus sortStatus) setSortStatus,
   }) {
     return getSuggestions(search);
   }
@@ -504,13 +556,14 @@ class _$_GetSuggestions implements _GetSuggestions {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String searchText)? getResults,
-    TResult? Function()? getMoreResults,
+    TResult? Function(String searchText)? getMoreResults,
     TResult? Function(String search)? getSuggestions,
     TResult? Function()? setSuggestions,
     TResult? Function(String text)? saveLocaleSuggestion,
     TResult? Function(String text)? deleteLocaleSuggestion,
     TResult? Function(String text)? selectSearchSuggestion,
     TResult? Function()? changeStatus,
+    TResult? Function(SortStatus sortStatus)? setSortStatus,
   }) {
     return getSuggestions?.call(search);
   }
@@ -519,13 +572,14 @@ class _$_GetSuggestions implements _GetSuggestions {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String searchText)? getResults,
-    TResult Function()? getMoreResults,
+    TResult Function(String searchText)? getMoreResults,
     TResult Function(String search)? getSuggestions,
     TResult Function()? setSuggestions,
     TResult Function(String text)? saveLocaleSuggestion,
     TResult Function(String text)? deleteLocaleSuggestion,
     TResult Function(String text)? selectSearchSuggestion,
     TResult Function()? changeStatus,
+    TResult Function(SortStatus sortStatus)? setSortStatus,
     required TResult orElse(),
   }) {
     if (getSuggestions != null) {
@@ -547,6 +601,7 @@ class _$_GetSuggestions implements _GetSuggestions {
     required TResult Function(_SelectLocaleSuggestion value)
         selectSearchSuggestion,
     required TResult Function(_ChangeStatus value) changeStatus,
+    required TResult Function(_SetSortStatus value) setSortStatus,
   }) {
     return getSuggestions(this);
   }
@@ -562,6 +617,7 @@ class _$_GetSuggestions implements _GetSuggestions {
     TResult? Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult? Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult? Function(_ChangeStatus value)? changeStatus,
+    TResult? Function(_SetSortStatus value)? setSortStatus,
   }) {
     return getSuggestions?.call(this);
   }
@@ -577,6 +633,7 @@ class _$_GetSuggestions implements _GetSuggestions {
     TResult Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult Function(_ChangeStatus value)? changeStatus,
+    TResult Function(_SetSortStatus value)? setSortStatus,
     required TResult orElse(),
   }) {
     if (getSuggestions != null) {
@@ -634,13 +691,14 @@ class _$_SetSuggestions implements _SetSuggestions {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String searchText) getResults,
-    required TResult Function() getMoreResults,
+    required TResult Function(String searchText) getMoreResults,
     required TResult Function(String search) getSuggestions,
     required TResult Function() setSuggestions,
     required TResult Function(String text) saveLocaleSuggestion,
     required TResult Function(String text) deleteLocaleSuggestion,
     required TResult Function(String text) selectSearchSuggestion,
     required TResult Function() changeStatus,
+    required TResult Function(SortStatus sortStatus) setSortStatus,
   }) {
     return setSuggestions();
   }
@@ -649,13 +707,14 @@ class _$_SetSuggestions implements _SetSuggestions {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String searchText)? getResults,
-    TResult? Function()? getMoreResults,
+    TResult? Function(String searchText)? getMoreResults,
     TResult? Function(String search)? getSuggestions,
     TResult? Function()? setSuggestions,
     TResult? Function(String text)? saveLocaleSuggestion,
     TResult? Function(String text)? deleteLocaleSuggestion,
     TResult? Function(String text)? selectSearchSuggestion,
     TResult? Function()? changeStatus,
+    TResult? Function(SortStatus sortStatus)? setSortStatus,
   }) {
     return setSuggestions?.call();
   }
@@ -664,13 +723,14 @@ class _$_SetSuggestions implements _SetSuggestions {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String searchText)? getResults,
-    TResult Function()? getMoreResults,
+    TResult Function(String searchText)? getMoreResults,
     TResult Function(String search)? getSuggestions,
     TResult Function()? setSuggestions,
     TResult Function(String text)? saveLocaleSuggestion,
     TResult Function(String text)? deleteLocaleSuggestion,
     TResult Function(String text)? selectSearchSuggestion,
     TResult Function()? changeStatus,
+    TResult Function(SortStatus sortStatus)? setSortStatus,
     required TResult orElse(),
   }) {
     if (setSuggestions != null) {
@@ -692,6 +752,7 @@ class _$_SetSuggestions implements _SetSuggestions {
     required TResult Function(_SelectLocaleSuggestion value)
         selectSearchSuggestion,
     required TResult Function(_ChangeStatus value) changeStatus,
+    required TResult Function(_SetSortStatus value) setSortStatus,
   }) {
     return setSuggestions(this);
   }
@@ -707,6 +768,7 @@ class _$_SetSuggestions implements _SetSuggestions {
     TResult? Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult? Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult? Function(_ChangeStatus value)? changeStatus,
+    TResult? Function(_SetSortStatus value)? setSortStatus,
   }) {
     return setSuggestions?.call(this);
   }
@@ -722,6 +784,7 @@ class _$_SetSuggestions implements _SetSuggestions {
     TResult Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult Function(_ChangeStatus value)? changeStatus,
+    TResult Function(_SetSortStatus value)? setSortStatus,
     required TResult orElse(),
   }) {
     if (setSuggestions != null) {
@@ -801,13 +864,14 @@ class _$_SaveLocaleSuggestion implements _SaveLocaleSuggestion {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String searchText) getResults,
-    required TResult Function() getMoreResults,
+    required TResult Function(String searchText) getMoreResults,
     required TResult Function(String search) getSuggestions,
     required TResult Function() setSuggestions,
     required TResult Function(String text) saveLocaleSuggestion,
     required TResult Function(String text) deleteLocaleSuggestion,
     required TResult Function(String text) selectSearchSuggestion,
     required TResult Function() changeStatus,
+    required TResult Function(SortStatus sortStatus) setSortStatus,
   }) {
     return saveLocaleSuggestion(text);
   }
@@ -816,13 +880,14 @@ class _$_SaveLocaleSuggestion implements _SaveLocaleSuggestion {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String searchText)? getResults,
-    TResult? Function()? getMoreResults,
+    TResult? Function(String searchText)? getMoreResults,
     TResult? Function(String search)? getSuggestions,
     TResult? Function()? setSuggestions,
     TResult? Function(String text)? saveLocaleSuggestion,
     TResult? Function(String text)? deleteLocaleSuggestion,
     TResult? Function(String text)? selectSearchSuggestion,
     TResult? Function()? changeStatus,
+    TResult? Function(SortStatus sortStatus)? setSortStatus,
   }) {
     return saveLocaleSuggestion?.call(text);
   }
@@ -831,13 +896,14 @@ class _$_SaveLocaleSuggestion implements _SaveLocaleSuggestion {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String searchText)? getResults,
-    TResult Function()? getMoreResults,
+    TResult Function(String searchText)? getMoreResults,
     TResult Function(String search)? getSuggestions,
     TResult Function()? setSuggestions,
     TResult Function(String text)? saveLocaleSuggestion,
     TResult Function(String text)? deleteLocaleSuggestion,
     TResult Function(String text)? selectSearchSuggestion,
     TResult Function()? changeStatus,
+    TResult Function(SortStatus sortStatus)? setSortStatus,
     required TResult orElse(),
   }) {
     if (saveLocaleSuggestion != null) {
@@ -859,6 +925,7 @@ class _$_SaveLocaleSuggestion implements _SaveLocaleSuggestion {
     required TResult Function(_SelectLocaleSuggestion value)
         selectSearchSuggestion,
     required TResult Function(_ChangeStatus value) changeStatus,
+    required TResult Function(_SetSortStatus value) setSortStatus,
   }) {
     return saveLocaleSuggestion(this);
   }
@@ -874,6 +941,7 @@ class _$_SaveLocaleSuggestion implements _SaveLocaleSuggestion {
     TResult? Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult? Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult? Function(_ChangeStatus value)? changeStatus,
+    TResult? Function(_SetSortStatus value)? setSortStatus,
   }) {
     return saveLocaleSuggestion?.call(this);
   }
@@ -889,6 +957,7 @@ class _$_SaveLocaleSuggestion implements _SaveLocaleSuggestion {
     TResult Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult Function(_ChangeStatus value)? changeStatus,
+    TResult Function(_SetSortStatus value)? setSortStatus,
     required TResult orElse(),
   }) {
     if (saveLocaleSuggestion != null) {
@@ -974,13 +1043,14 @@ class _$_DeleteLocaleSuggestion implements _DeleteLocaleSuggestion {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String searchText) getResults,
-    required TResult Function() getMoreResults,
+    required TResult Function(String searchText) getMoreResults,
     required TResult Function(String search) getSuggestions,
     required TResult Function() setSuggestions,
     required TResult Function(String text) saveLocaleSuggestion,
     required TResult Function(String text) deleteLocaleSuggestion,
     required TResult Function(String text) selectSearchSuggestion,
     required TResult Function() changeStatus,
+    required TResult Function(SortStatus sortStatus) setSortStatus,
   }) {
     return deleteLocaleSuggestion(text);
   }
@@ -989,13 +1059,14 @@ class _$_DeleteLocaleSuggestion implements _DeleteLocaleSuggestion {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String searchText)? getResults,
-    TResult? Function()? getMoreResults,
+    TResult? Function(String searchText)? getMoreResults,
     TResult? Function(String search)? getSuggestions,
     TResult? Function()? setSuggestions,
     TResult? Function(String text)? saveLocaleSuggestion,
     TResult? Function(String text)? deleteLocaleSuggestion,
     TResult? Function(String text)? selectSearchSuggestion,
     TResult? Function()? changeStatus,
+    TResult? Function(SortStatus sortStatus)? setSortStatus,
   }) {
     return deleteLocaleSuggestion?.call(text);
   }
@@ -1004,13 +1075,14 @@ class _$_DeleteLocaleSuggestion implements _DeleteLocaleSuggestion {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String searchText)? getResults,
-    TResult Function()? getMoreResults,
+    TResult Function(String searchText)? getMoreResults,
     TResult Function(String search)? getSuggestions,
     TResult Function()? setSuggestions,
     TResult Function(String text)? saveLocaleSuggestion,
     TResult Function(String text)? deleteLocaleSuggestion,
     TResult Function(String text)? selectSearchSuggestion,
     TResult Function()? changeStatus,
+    TResult Function(SortStatus sortStatus)? setSortStatus,
     required TResult orElse(),
   }) {
     if (deleteLocaleSuggestion != null) {
@@ -1032,6 +1104,7 @@ class _$_DeleteLocaleSuggestion implements _DeleteLocaleSuggestion {
     required TResult Function(_SelectLocaleSuggestion value)
         selectSearchSuggestion,
     required TResult Function(_ChangeStatus value) changeStatus,
+    required TResult Function(_SetSortStatus value) setSortStatus,
   }) {
     return deleteLocaleSuggestion(this);
   }
@@ -1047,6 +1120,7 @@ class _$_DeleteLocaleSuggestion implements _DeleteLocaleSuggestion {
     TResult? Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult? Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult? Function(_ChangeStatus value)? changeStatus,
+    TResult? Function(_SetSortStatus value)? setSortStatus,
   }) {
     return deleteLocaleSuggestion?.call(this);
   }
@@ -1062,6 +1136,7 @@ class _$_DeleteLocaleSuggestion implements _DeleteLocaleSuggestion {
     TResult Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult Function(_ChangeStatus value)? changeStatus,
+    TResult Function(_SetSortStatus value)? setSortStatus,
     required TResult orElse(),
   }) {
     if (deleteLocaleSuggestion != null) {
@@ -1147,13 +1222,14 @@ class _$_SelectLocaleSuggestion implements _SelectLocaleSuggestion {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String searchText) getResults,
-    required TResult Function() getMoreResults,
+    required TResult Function(String searchText) getMoreResults,
     required TResult Function(String search) getSuggestions,
     required TResult Function() setSuggestions,
     required TResult Function(String text) saveLocaleSuggestion,
     required TResult Function(String text) deleteLocaleSuggestion,
     required TResult Function(String text) selectSearchSuggestion,
     required TResult Function() changeStatus,
+    required TResult Function(SortStatus sortStatus) setSortStatus,
   }) {
     return selectSearchSuggestion(text);
   }
@@ -1162,13 +1238,14 @@ class _$_SelectLocaleSuggestion implements _SelectLocaleSuggestion {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String searchText)? getResults,
-    TResult? Function()? getMoreResults,
+    TResult? Function(String searchText)? getMoreResults,
     TResult? Function(String search)? getSuggestions,
     TResult? Function()? setSuggestions,
     TResult? Function(String text)? saveLocaleSuggestion,
     TResult? Function(String text)? deleteLocaleSuggestion,
     TResult? Function(String text)? selectSearchSuggestion,
     TResult? Function()? changeStatus,
+    TResult? Function(SortStatus sortStatus)? setSortStatus,
   }) {
     return selectSearchSuggestion?.call(text);
   }
@@ -1177,13 +1254,14 @@ class _$_SelectLocaleSuggestion implements _SelectLocaleSuggestion {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String searchText)? getResults,
-    TResult Function()? getMoreResults,
+    TResult Function(String searchText)? getMoreResults,
     TResult Function(String search)? getSuggestions,
     TResult Function()? setSuggestions,
     TResult Function(String text)? saveLocaleSuggestion,
     TResult Function(String text)? deleteLocaleSuggestion,
     TResult Function(String text)? selectSearchSuggestion,
     TResult Function()? changeStatus,
+    TResult Function(SortStatus sortStatus)? setSortStatus,
     required TResult orElse(),
   }) {
     if (selectSearchSuggestion != null) {
@@ -1205,6 +1283,7 @@ class _$_SelectLocaleSuggestion implements _SelectLocaleSuggestion {
     required TResult Function(_SelectLocaleSuggestion value)
         selectSearchSuggestion,
     required TResult Function(_ChangeStatus value) changeStatus,
+    required TResult Function(_SetSortStatus value) setSortStatus,
   }) {
     return selectSearchSuggestion(this);
   }
@@ -1220,6 +1299,7 @@ class _$_SelectLocaleSuggestion implements _SelectLocaleSuggestion {
     TResult? Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult? Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult? Function(_ChangeStatus value)? changeStatus,
+    TResult? Function(_SetSortStatus value)? setSortStatus,
   }) {
     return selectSearchSuggestion?.call(this);
   }
@@ -1235,6 +1315,7 @@ class _$_SelectLocaleSuggestion implements _SelectLocaleSuggestion {
     TResult Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult Function(_ChangeStatus value)? changeStatus,
+    TResult Function(_SetSortStatus value)? setSortStatus,
     required TResult orElse(),
   }) {
     if (selectSearchSuggestion != null) {
@@ -1293,13 +1374,14 @@ class _$_ChangeStatus implements _ChangeStatus {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String searchText) getResults,
-    required TResult Function() getMoreResults,
+    required TResult Function(String searchText) getMoreResults,
     required TResult Function(String search) getSuggestions,
     required TResult Function() setSuggestions,
     required TResult Function(String text) saveLocaleSuggestion,
     required TResult Function(String text) deleteLocaleSuggestion,
     required TResult Function(String text) selectSearchSuggestion,
     required TResult Function() changeStatus,
+    required TResult Function(SortStatus sortStatus) setSortStatus,
   }) {
     return changeStatus();
   }
@@ -1308,13 +1390,14 @@ class _$_ChangeStatus implements _ChangeStatus {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String searchText)? getResults,
-    TResult? Function()? getMoreResults,
+    TResult? Function(String searchText)? getMoreResults,
     TResult? Function(String search)? getSuggestions,
     TResult? Function()? setSuggestions,
     TResult? Function(String text)? saveLocaleSuggestion,
     TResult? Function(String text)? deleteLocaleSuggestion,
     TResult? Function(String text)? selectSearchSuggestion,
     TResult? Function()? changeStatus,
+    TResult? Function(SortStatus sortStatus)? setSortStatus,
   }) {
     return changeStatus?.call();
   }
@@ -1323,13 +1406,14 @@ class _$_ChangeStatus implements _ChangeStatus {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String searchText)? getResults,
-    TResult Function()? getMoreResults,
+    TResult Function(String searchText)? getMoreResults,
     TResult Function(String search)? getSuggestions,
     TResult Function()? setSuggestions,
     TResult Function(String text)? saveLocaleSuggestion,
     TResult Function(String text)? deleteLocaleSuggestion,
     TResult Function(String text)? selectSearchSuggestion,
     TResult Function()? changeStatus,
+    TResult Function(SortStatus sortStatus)? setSortStatus,
     required TResult orElse(),
   }) {
     if (changeStatus != null) {
@@ -1351,6 +1435,7 @@ class _$_ChangeStatus implements _ChangeStatus {
     required TResult Function(_SelectLocaleSuggestion value)
         selectSearchSuggestion,
     required TResult Function(_ChangeStatus value) changeStatus,
+    required TResult Function(_SetSortStatus value) setSortStatus,
   }) {
     return changeStatus(this);
   }
@@ -1366,6 +1451,7 @@ class _$_ChangeStatus implements _ChangeStatus {
     TResult? Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult? Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult? Function(_ChangeStatus value)? changeStatus,
+    TResult? Function(_SetSortStatus value)? setSortStatus,
   }) {
     return changeStatus?.call(this);
   }
@@ -1381,6 +1467,7 @@ class _$_ChangeStatus implements _ChangeStatus {
     TResult Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult Function(_ChangeStatus value)? changeStatus,
+    TResult Function(_SetSortStatus value)? setSortStatus,
     required TResult orElse(),
   }) {
     if (changeStatus != null) {
@@ -1395,17 +1482,198 @@ abstract class _ChangeStatus implements SearchEvent {
 }
 
 /// @nodoc
+abstract class _$$_SetSortStatusCopyWith<$Res> {
+  factory _$$_SetSortStatusCopyWith(
+          _$_SetSortStatus value, $Res Function(_$_SetSortStatus) then) =
+      __$$_SetSortStatusCopyWithImpl<$Res>;
+  @useResult
+  $Res call({SortStatus sortStatus});
+}
+
+/// @nodoc
+class __$$_SetSortStatusCopyWithImpl<$Res>
+    extends _$SearchEventCopyWithImpl<$Res, _$_SetSortStatus>
+    implements _$$_SetSortStatusCopyWith<$Res> {
+  __$$_SetSortStatusCopyWithImpl(
+      _$_SetSortStatus _value, $Res Function(_$_SetSortStatus) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? sortStatus = null,
+  }) {
+    return _then(_$_SetSortStatus(
+      sortStatus: null == sortStatus
+          ? _value.sortStatus
+          : sortStatus // ignore: cast_nullable_to_non_nullable
+              as SortStatus,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_SetSortStatus implements _SetSortStatus {
+  _$_SetSortStatus({required this.sortStatus});
+
+  @override
+  final SortStatus sortStatus;
+
+  @override
+  String toString() {
+    return 'SearchEvent.setSortStatus(sortStatus: $sortStatus)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SetSortStatus &&
+            (identical(other.sortStatus, sortStatus) ||
+                other.sortStatus == sortStatus));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, sortStatus);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_SetSortStatusCopyWith<_$_SetSortStatus> get copyWith =>
+      __$$_SetSortStatusCopyWithImpl<_$_SetSortStatus>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String searchText) getResults,
+    required TResult Function(String searchText) getMoreResults,
+    required TResult Function(String search) getSuggestions,
+    required TResult Function() setSuggestions,
+    required TResult Function(String text) saveLocaleSuggestion,
+    required TResult Function(String text) deleteLocaleSuggestion,
+    required TResult Function(String text) selectSearchSuggestion,
+    required TResult Function() changeStatus,
+    required TResult Function(SortStatus sortStatus) setSortStatus,
+  }) {
+    return setSortStatus(sortStatus);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String searchText)? getResults,
+    TResult? Function(String searchText)? getMoreResults,
+    TResult? Function(String search)? getSuggestions,
+    TResult? Function()? setSuggestions,
+    TResult? Function(String text)? saveLocaleSuggestion,
+    TResult? Function(String text)? deleteLocaleSuggestion,
+    TResult? Function(String text)? selectSearchSuggestion,
+    TResult? Function()? changeStatus,
+    TResult? Function(SortStatus sortStatus)? setSortStatus,
+  }) {
+    return setSortStatus?.call(sortStatus);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String searchText)? getResults,
+    TResult Function(String searchText)? getMoreResults,
+    TResult Function(String search)? getSuggestions,
+    TResult Function()? setSuggestions,
+    TResult Function(String text)? saveLocaleSuggestion,
+    TResult Function(String text)? deleteLocaleSuggestion,
+    TResult Function(String text)? selectSearchSuggestion,
+    TResult Function()? changeStatus,
+    TResult Function(SortStatus sortStatus)? setSortStatus,
+    required TResult orElse(),
+  }) {
+    if (setSortStatus != null) {
+      return setSortStatus(sortStatus);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetResults value) getResults,
+    required TResult Function(_GetMoreResults value) getMoreResults,
+    required TResult Function(_GetSuggestions value) getSuggestions,
+    required TResult Function(_SetSuggestions value) setSuggestions,
+    required TResult Function(_SaveLocaleSuggestion value) saveLocaleSuggestion,
+    required TResult Function(_DeleteLocaleSuggestion value)
+        deleteLocaleSuggestion,
+    required TResult Function(_SelectLocaleSuggestion value)
+        selectSearchSuggestion,
+    required TResult Function(_ChangeStatus value) changeStatus,
+    required TResult Function(_SetSortStatus value) setSortStatus,
+  }) {
+    return setSortStatus(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetResults value)? getResults,
+    TResult? Function(_GetMoreResults value)? getMoreResults,
+    TResult? Function(_GetSuggestions value)? getSuggestions,
+    TResult? Function(_SetSuggestions value)? setSuggestions,
+    TResult? Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
+    TResult? Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
+    TResult? Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
+    TResult? Function(_ChangeStatus value)? changeStatus,
+    TResult? Function(_SetSortStatus value)? setSortStatus,
+  }) {
+    return setSortStatus?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetResults value)? getResults,
+    TResult Function(_GetMoreResults value)? getMoreResults,
+    TResult Function(_GetSuggestions value)? getSuggestions,
+    TResult Function(_SetSuggestions value)? setSuggestions,
+    TResult Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
+    TResult Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
+    TResult Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
+    TResult Function(_ChangeStatus value)? changeStatus,
+    TResult Function(_SetSortStatus value)? setSortStatus,
+    required TResult orElse(),
+  }) {
+    if (setSortStatus != null) {
+      return setSortStatus(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SetSortStatus implements SearchEvent {
+  factory _SetSortStatus({required final SortStatus sortStatus}) =
+      _$_SetSortStatus;
+
+  SortStatus get sortStatus;
+  @JsonKey(ignore: true)
+  _$$_SetSortStatusCopyWith<_$_SetSortStatus> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$SearchState {
   List<AutoEntity> get searchResults => throw _privateConstructorUsedError;
   FormzStatus get status => throw _privateConstructorUsedError;
   FormzStatus get paginationStatus => throw _privateConstructorUsedError;
   String? get next => throw _privateConstructorUsedError;
+  String? get searchText => throw _privateConstructorUsedError;
   int get count => throw _privateConstructorUsedError;
   dynamic get moreFetch => throw _privateConstructorUsedError;
   List<OptionsEntity> get suggestions => throw _privateConstructorUsedError;
   int get suggestionsCount => throw _privateConstructorUsedError;
   bool? get suggestionsFetchMore => throw _privateConstructorUsedError;
   FormzStatus get suggestionsStatus => throw _privateConstructorUsedError;
+  SortStatus get sortStatus => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SearchStateCopyWith<SearchState> get copyWith =>
@@ -1423,12 +1691,14 @@ abstract class $SearchStateCopyWith<$Res> {
       FormzStatus status,
       FormzStatus paginationStatus,
       String? next,
+      String? searchText,
       int count,
       dynamic moreFetch,
       List<OptionsEntity> suggestions,
       int suggestionsCount,
       bool? suggestionsFetchMore,
-      FormzStatus suggestionsStatus});
+      FormzStatus suggestionsStatus,
+      SortStatus sortStatus});
 }
 
 /// @nodoc
@@ -1448,12 +1718,14 @@ class _$SearchStateCopyWithImpl<$Res, $Val extends SearchState>
     Object? status = null,
     Object? paginationStatus = null,
     Object? next = freezed,
+    Object? searchText = freezed,
     Object? count = null,
     Object? moreFetch = freezed,
     Object? suggestions = null,
     Object? suggestionsCount = null,
     Object? suggestionsFetchMore = freezed,
     Object? suggestionsStatus = null,
+    Object? sortStatus = null,
   }) {
     return _then(_value.copyWith(
       searchResults: null == searchResults
@@ -1471,6 +1743,10 @@ class _$SearchStateCopyWithImpl<$Res, $Val extends SearchState>
       next: freezed == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
+              as String?,
+      searchText: freezed == searchText
+          ? _value.searchText
+          : searchText // ignore: cast_nullable_to_non_nullable
               as String?,
       count: null == count
           ? _value.count
@@ -1496,6 +1772,10 @@ class _$SearchStateCopyWithImpl<$Res, $Val extends SearchState>
           ? _value.suggestionsStatus
           : suggestionsStatus // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
+      sortStatus: null == sortStatus
+          ? _value.sortStatus
+          : sortStatus // ignore: cast_nullable_to_non_nullable
+              as SortStatus,
     ) as $Val);
   }
 }
@@ -1513,12 +1793,14 @@ abstract class _$$_SearchStateCopyWith<$Res>
       FormzStatus status,
       FormzStatus paginationStatus,
       String? next,
+      String? searchText,
       int count,
       dynamic moreFetch,
       List<OptionsEntity> suggestions,
       int suggestionsCount,
       bool? suggestionsFetchMore,
-      FormzStatus suggestionsStatus});
+      FormzStatus suggestionsStatus,
+      SortStatus sortStatus});
 }
 
 /// @nodoc
@@ -1536,12 +1818,14 @@ class __$$_SearchStateCopyWithImpl<$Res>
     Object? status = null,
     Object? paginationStatus = null,
     Object? next = freezed,
+    Object? searchText = freezed,
     Object? count = null,
     Object? moreFetch = freezed,
     Object? suggestions = null,
     Object? suggestionsCount = null,
     Object? suggestionsFetchMore = freezed,
     Object? suggestionsStatus = null,
+    Object? sortStatus = null,
   }) {
     return _then(_$_SearchState(
       searchResults: null == searchResults
@@ -1559,6 +1843,10 @@ class __$$_SearchStateCopyWithImpl<$Res>
       next: freezed == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
+              as String?,
+      searchText: freezed == searchText
+          ? _value.searchText
+          : searchText // ignore: cast_nullable_to_non_nullable
               as String?,
       count: null == count
           ? _value.count
@@ -1581,6 +1869,10 @@ class __$$_SearchStateCopyWithImpl<$Res>
           ? _value.suggestionsStatus
           : suggestionsStatus // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
+      sortStatus: null == sortStatus
+          ? _value.sortStatus
+          : sortStatus // ignore: cast_nullable_to_non_nullable
+              as SortStatus,
     ));
   }
 }
@@ -1593,12 +1885,14 @@ class _$_SearchState implements _SearchState {
       this.status = FormzStatus.pure,
       this.paginationStatus = FormzStatus.pure,
       this.next = '',
+      this.searchText = '',
       this.count = 0,
       this.moreFetch = false,
       final List<OptionsEntity> suggestions = const [],
       this.suggestionsCount = 0,
       this.suggestionsFetchMore = false,
-      this.suggestionsStatus = FormzStatus.pure})
+      this.suggestionsStatus = FormzStatus.pure,
+      this.sortStatus = SortStatus.none})
       : _searchResults = searchResults,
         _suggestions = suggestions;
 
@@ -1620,6 +1914,9 @@ class _$_SearchState implements _SearchState {
   @override
   @JsonKey()
   final String? next;
+  @override
+  @JsonKey()
+  final String? searchText;
   @override
   @JsonKey()
   final int count;
@@ -1644,10 +1941,13 @@ class _$_SearchState implements _SearchState {
   @override
   @JsonKey()
   final FormzStatus suggestionsStatus;
+  @override
+  @JsonKey()
+  final SortStatus sortStatus;
 
   @override
   String toString() {
-    return 'SearchState(searchResults: $searchResults, status: $status, paginationStatus: $paginationStatus, next: $next, count: $count, moreFetch: $moreFetch, suggestions: $suggestions, suggestionsCount: $suggestionsCount, suggestionsFetchMore: $suggestionsFetchMore, suggestionsStatus: $suggestionsStatus)';
+    return 'SearchState(searchResults: $searchResults, status: $status, paginationStatus: $paginationStatus, next: $next, searchText: $searchText, count: $count, moreFetch: $moreFetch, suggestions: $suggestions, suggestionsCount: $suggestionsCount, suggestionsFetchMore: $suggestionsFetchMore, suggestionsStatus: $suggestionsStatus, sortStatus: $sortStatus)';
   }
 
   @override
@@ -1661,6 +1961,8 @@ class _$_SearchState implements _SearchState {
             (identical(other.paginationStatus, paginationStatus) ||
                 other.paginationStatus == paginationStatus) &&
             (identical(other.next, next) || other.next == next) &&
+            (identical(other.searchText, searchText) ||
+                other.searchText == searchText) &&
             (identical(other.count, count) || other.count == count) &&
             const DeepCollectionEquality().equals(other.moreFetch, moreFetch) &&
             const DeepCollectionEquality()
@@ -1670,7 +1972,9 @@ class _$_SearchState implements _SearchState {
             (identical(other.suggestionsFetchMore, suggestionsFetchMore) ||
                 other.suggestionsFetchMore == suggestionsFetchMore) &&
             (identical(other.suggestionsStatus, suggestionsStatus) ||
-                other.suggestionsStatus == suggestionsStatus));
+                other.suggestionsStatus == suggestionsStatus) &&
+            (identical(other.sortStatus, sortStatus) ||
+                other.sortStatus == sortStatus));
   }
 
   @override
@@ -1680,12 +1984,14 @@ class _$_SearchState implements _SearchState {
       status,
       paginationStatus,
       next,
+      searchText,
       count,
       const DeepCollectionEquality().hash(moreFetch),
       const DeepCollectionEquality().hash(_suggestions),
       suggestionsCount,
       suggestionsFetchMore,
-      suggestionsStatus);
+      suggestionsStatus,
+      sortStatus);
 
   @JsonKey(ignore: true)
   @override
@@ -1700,12 +2006,14 @@ abstract class _SearchState implements SearchState {
       final FormzStatus status,
       final FormzStatus paginationStatus,
       final String? next,
+      final String? searchText,
       final int count,
       final dynamic moreFetch,
       final List<OptionsEntity> suggestions,
       final int suggestionsCount,
       final bool? suggestionsFetchMore,
-      final FormzStatus suggestionsStatus}) = _$_SearchState;
+      final FormzStatus suggestionsStatus,
+      final SortStatus sortStatus}) = _$_SearchState;
 
   @override
   List<AutoEntity> get searchResults;
@@ -1715,6 +2023,8 @@ abstract class _SearchState implements SearchState {
   FormzStatus get paginationStatus;
   @override
   String? get next;
+  @override
+  String? get searchText;
   @override
   int get count;
   @override
@@ -1727,6 +2037,8 @@ abstract class _SearchState implements SearchState {
   bool? get suggestionsFetchMore;
   @override
   FormzStatus get suggestionsStatus;
+  @override
+  SortStatus get sortStatus;
   @override
   @JsonKey(ignore: true)
   _$$_SearchStateCopyWith<_$_SearchState> get copyWith =>

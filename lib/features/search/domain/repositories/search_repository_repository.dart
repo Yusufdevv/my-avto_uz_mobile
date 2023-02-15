@@ -5,5 +5,5 @@ import 'package:auto/features/pagination/models/generic_pagination.dart';
 
 // ignore: one_member_abstracts
 abstract class SearchRepository {
-  Future<Either<Failure, GenericPagination<AutoModel>>> getSearchResults(String? searchedText);
+  Future<Either<Failure, GenericPagination<AutoModel>>> getSearchResults(Map<String, dynamic> params);
 }

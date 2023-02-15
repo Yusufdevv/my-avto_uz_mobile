@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/light.dart';
+import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/search/presentation/search_screen.dart';
 import 'package:auto/features/search/presentation/widgets/sort_bottom_sheet.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -7,8 +8,8 @@ import 'package:flutter/material.dart';
 
 Future<dynamic> filterBottomSheet(
   BuildContext context, {
-  required Function(SortSearchResultStatus) onChanged,
-  SortSearchResultStatus? sortingValue,
+  required Function(SortStatus) onChanged,
+  SortStatus? sortingValue,
 }) =>
     showModalBottomSheet(
       context: context,
@@ -23,19 +24,19 @@ Future<dynamic> filterBottomSheet(
         values: const [
           SortSearchResultsModel(
             title: LocaleKeys.descending,
-            status: SortSearchResultStatus.cheapest,
+            status: SortStatus.cheapest,
           ),
           SortSearchResultsModel(
             title: LocaleKeys.ascending,
-            status: SortSearchResultStatus.expensive,
+            status: SortStatus.expensive,
           ),
           SortSearchResultsModel(
             title: LocaleKeys.oldOnesFirst,
-            status: SortSearchResultStatus.oldest,
+            status: SortStatus.oldest,
           ),
           SortSearchResultsModel(
             title: LocaleKeys.newOnesFirst,
-            status: SortSearchResultStatus.newest,
+            status: SortStatus.newest,
           ),
         ],
         onChanged: onChanged,

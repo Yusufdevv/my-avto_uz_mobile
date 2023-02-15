@@ -142,10 +142,8 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                           ),
                         ),
                       ),
-                    if (widget.callFrom.isNotEmpty &&
-                        widget.callTo.isNotEmpty &&
-                        MyFunctions.enableForCalling(
-                            callFrom: widget.callFrom, callTo: widget.callTo))
+                    if (MyFunctions.enableForCalling(
+                        callFrom: widget.callFrom, callTo: widget.callTo))
                       WButton(
                         onTap: () {
                           bottomSheetForCalling(context, widget.contactPhone);
@@ -203,15 +201,15 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                                         .displayMedium!
                                         .copyWith(color: greyText),
                                   ),
-                                  TextSpan(
-                                    text:
-                                        '${widget.callFrom.length > 3 ? widget.callFrom.substring(0, widget.callFrom.length - 3) : ''} - '
-                                        '${widget.callFrom.length > 3 ? widget.callTo.substring(0, widget.callTo.length - 3) : ''}',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displayMedium!
-                                        .copyWith(color: secondary),
-                                  ),
+                                  if (widget.callFrom.length > 4)
+                                    TextSpan(
+                                      text:
+                                          '${widget.callFrom.substring(0, 5)} - ${widget.callTo.substring(0, 5)}',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayMedium
+                                          ?.copyWith(color: secondary),
+                                    ),
                                 ],
                               ),
                               textAlign: TextAlign.center,
@@ -257,8 +255,12 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                   if (widget.discount > 0.0)
                     Text(
                       '${widget.price.floor()} ${widget.currency.toUpperCase()}',
-                      style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                          decoration: TextDecoration.lineThrough, color: grey),
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium
+                          ?.copyWith(
+                              decoration: TextDecoration.lineThrough,
+                              color: grey),
                     )
                 ],
               ),
@@ -275,56 +277,54 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
               const SizedBox(height: 12),
               Row(
                 children: [
-                  CachedNetworkImage(
-                    imageBuilder: (context, imageProvider) => Container(
-                      height: 36,
-                      width: 36,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(150),
-                        image: DecorationImage(
-                            image: imageProvider, fit: BoxFit.cover),
-                      ),
-                    ),
-                    errorWidget: (context, url, error) => Container(
-                      padding: const EdgeInsets.all(8),
-                      height: 36,
-                      width: 36,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(150),
-                        color: warmerGrey,
-                        border: Border.all(
-                          color: dividerColor,
-                          width: 1,
+                  SizedBox(
+                    height: 36,
+                    width: 36,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: CachedNetworkImage(
+                        imageUrl: widget.userImage,
+                        fit: BoxFit.cover,
+                        errorWidget: (context, url, error) => Image.asset(
+                          AppImages.defaultPhoto,
+                          fit: BoxFit.cover,
                         ),
                       ),
-                      child: SvgPicture.asset(AppIcons.userAvatar),
                     ),
-                    imageUrl: widget.userImage,
-                    fit: BoxFit.cover,
                   ),
                   const SizedBox(width: 8),
-                  RichText(
-                    text: TextSpan(
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        TextSpan(
-                          text: '${widget.userFullName}\n',
+                        Text(
+                          widget.userFullName,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: Theme.of(context)
                               .textTheme
-                              .displayMedium!
-                              .copyWith(fontSize: 14),
+                              .titleMedium!
+                              .copyWith(fontWeight: FontWeight.w700),
                         ),
-                        TextSpan(
-                          text: widget.userType == 'owner'
-                              ? LocaleKeys.private_person.tr()
-                              : LocaleKeys.autosalon.tr(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge!
-                              .copyWith(color: purple),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              widget.userType == 'owner'
+                                  ? LocaleKeys.private_person.tr()
+                                  : LocaleKeys.autosalon.tr(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(color: purple),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  )
+                  ),
                 ],
               ),
               const SizedBox(height: 16),

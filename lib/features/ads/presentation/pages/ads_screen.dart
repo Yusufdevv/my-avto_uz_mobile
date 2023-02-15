@@ -56,7 +56,6 @@ class AdsScreen extends StatefulWidget {
 class _AdsScreenState extends State<AdsScreen>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
-  SortSearchResultStatus? sortingValue = SortSearchResultStatus.cheapest;
   late ScrollController _scrollController;
   GlobalKey key = GlobalKey();
   double height = 140;
@@ -98,18 +97,16 @@ class _AdsScreenState extends State<AdsScreen>
         historySaved: widget.historySaved,
       ))
       ..add(SetFilter(
-          historyId: widget.historyId,
-          bodyType: widget.queryData?.bodyType ?? const BodyTypeEntity(),
-          gearboxType:
-              widget.queryData?.gearboxType ?? const GearboxTypeEntity(),
-          driveType: widget.queryData?.driveType ?? const DriveTypeEntity(),
-          yearValues: RangeValues(widget.queryData?.yearFrom?.toDouble() ?? -1,
-              widget.queryData?.yearTo?.toDouble() ?? -1),
-          priceValues: RangeValues(
-              widget.queryData?.priceFrom?.toDouble() ?? -1,
-              widget.queryData?.priceTo?.toDouble() ?? -1),
-          currency: currency,
-          ))
+        historyId: widget.historyId,
+        bodyType: widget.queryData?.bodyType ?? const BodyTypeEntity(),
+        gearboxType: widget.queryData?.gearboxType ?? const GearboxTypeEntity(),
+        driveType: widget.queryData?.driveType ?? const DriveTypeEntity(),
+        yearValues: RangeValues(widget.queryData?.yearFrom?.toDouble() ?? -1,
+            widget.queryData?.yearTo?.toDouble() ?? -1),
+        priceValues: RangeValues(widget.queryData?.priceFrom?.toDouble() ?? -1,
+            widget.queryData?.priceTo?.toDouble() ?? -1),
+        currency: currency,
+      ))
       ..add(const GetMinMaxPriceYear());
 
     super.initState();
@@ -139,7 +136,7 @@ class _AdsScreenState extends State<AdsScreen>
               announcementListBloc
                   .add(const ChangeSaveFilterStatus(FormzStatus.pure));
               //!mysearches ni sonini oshirish uchun ishlatilgan, mySearchesCount ga 1 ta qo'shishni bildiradi
-              if (state.historyId!=null) {
+              if (state.historyId != null) {
                 context.read<ProfileBloc>().add(
                     ChangeCountDataEvent(adding: true, mySearchesCount: 1));
               }
@@ -183,9 +180,9 @@ class _AdsScreenState extends State<AdsScreen>
                           onTap: () {
                             filterBottomSheet(
                               context,
-                              onChanged: (value) =>
-                                  setState(() => sortingValue = value),
-                              sortingValue: sortingValue,
+                              onChanged: (value) => announcementListBloc
+                                  .add(SetSort(sortResult: value)),
+                              sortingValue: state.sortStatus,
                             );
                           },
                           child: Container(
