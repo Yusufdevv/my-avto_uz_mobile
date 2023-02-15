@@ -5,6 +5,9 @@ class UserWishListsEvent {}
 class GetUserFavoritesEvent extends UserWishListsEvent {
   GetUserFavoritesEvent();
 }
+class GetMoreUserFavoritesEvent extends UserWishListsEvent {
+  GetMoreUserFavoritesEvent();
+}
 
 class GetUserMyAdsEvent extends UserWishListsEvent {
   final String moderationStatus;
@@ -18,6 +21,9 @@ class GetMoreUserMyAdsEvent extends UserWishListsEvent {
 }
 
 class GetMySearchesEvent extends UserWishListsEvent {}
+class GetMoreMySearchesEvent extends UserWishListsEvent {
+
+}
 
 class NotificationAllReadEvent extends UserWishListsEvent {}
 

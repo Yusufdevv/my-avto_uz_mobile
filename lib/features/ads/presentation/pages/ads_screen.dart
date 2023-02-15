@@ -108,7 +108,8 @@ class _AdsScreenState extends State<AdsScreen>
           priceValues: RangeValues(
               widget.queryData?.priceFrom?.toDouble() ?? -1,
               widget.queryData?.priceTo?.toDouble() ?? -1),
-          currency: currency))
+          currency: currency,
+          ))
       ..add(const GetMinMaxPriceYear());
 
     super.initState();
@@ -137,7 +138,7 @@ class _AdsScreenState extends State<AdsScreen>
                   ));
               announcementListBloc
                   .add(const ChangeSaveFilterStatus(FormzStatus.pure));
-              //!mysearches ni sonini oshirish uchun ishlatilgan, mySearchesCount nechta qo'shishni bildiradi
+              //!mysearches ni sonini oshirish uchun ishlatilgan, mySearchesCount ga 1 ta qo'shishni bildiradi
               if (state.historyId!=null) {
                 context.read<ProfileBloc>().add(
                     ChangeCountDataEvent(adding: true, mySearchesCount: 1));

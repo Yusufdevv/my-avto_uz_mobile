@@ -40,6 +40,7 @@ class SetFilter extends AnnouncementListEvent {
   final RangeValues? yearValues;
   final RangeValues? priceValues;
   final bool? isFilter;
+  final bool? historySaved;
   final bool? isNew;
   final int? historyId;
   const SetFilter({
@@ -51,6 +52,7 @@ class SetFilter extends AnnouncementListEvent {
     this.yearValues,
     this.priceValues,
     this.isFilter,
+    this.historySaved,
     this.isNew,
   });
 }

@@ -8,6 +8,7 @@ import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/pagination/presentation/paginator.dart';
 import 'package:auto/features/profile/domain/entities/my_searches_entity.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/features/profile/presentation/bloc/user_wishlists_notifications/user_wishlists_notification_bloc.dart';
@@ -97,8 +98,13 @@ class _MySearchesPageState extends State<MySearchesPage> {
                   body: Builder(builder: (context) {
                     if (st.myAdsStatus.isSubmissionSuccess) {
                       return mySearches.isNotEmpty
-                          ? ListView.builder(
-                              physics: const BouncingScrollPhysics(),
+                          ? Paginator(
+                              errorWidget: const SizedBox(),
+                              hasMoreToFetch: st.moreFetchMySearches,
+                              fetchMoreFunction: () {
+                                bloc.add(GetMoreMySearchesEvent());
+                              },
+                              paginatorStatus: st.myAdsStatus,
                               itemCount: mySearches.length,
                               itemBuilder: (context, index) {
                                 final item = mySearches[index];
