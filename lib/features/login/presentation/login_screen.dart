@@ -259,13 +259,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SocialMediaItem(
-                    // onTap: () {},
+                    onTap: () {},
                     icon: SvgPicture.asset(
                         Theme.of(context).extension<ThemedIcons>()!.google),
                   ),
                   const SizedBox(width: 24),
                   SocialMediaItem(
-                      // onTap: () {},
+                      onTap: () {},
                       icon: SvgPicture.asset(
                     AppIcons.apple,
                     color: Theme.of(context)
@@ -274,7 +274,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   )),
                   const SizedBox(width: 24),
                   SocialMediaItem(
-                    // onTap: () {},
+                    onTap: () {},
                     icon: SvgPicture.asset(
                       AppIcons.imkon,
                       color: Theme.of(context)

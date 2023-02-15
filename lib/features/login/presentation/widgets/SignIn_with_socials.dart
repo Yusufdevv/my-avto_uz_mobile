@@ -57,13 +57,14 @@ class SignInWithSocials extends StatelessWidget {
               //   width: 24,
               // ),
               SocialMediaItem(
+                onTap: (){},
                 icon: SvgPicture.asset(
                     Theme.of(context).extension<ThemedIcons>()!.google),
               ),
               const SizedBox(
                 width: 24,
               ),
-              SocialMediaItem(
+              SocialMediaItem(   onTap: (){},
                   icon: SvgPicture.asset(
                 AppIcons.apple,
                 color:
@@ -72,7 +73,7 @@ class SignInWithSocials extends StatelessWidget {
               const SizedBox(
                 width: 24,
               ),
-              SocialMediaItem(
+              SocialMediaItem(   onTap: (){},
                 icon: SvgPicture.asset(
                   AppIcons.imkon,
                   color: Theme.of(context)
