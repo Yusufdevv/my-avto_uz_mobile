@@ -6,7 +6,9 @@ import 'package:auto/features/commercial/presentation/widgets/info_container.dar
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/pagination/presentation/paginator.dart';
+import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -96,7 +98,7 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                                   ? ''
                                   : state.announcementList[index].discount
                                       .toString(),
-                          sellType: '',
+                          sellType: state.announcementList[index].isRentWithPurchase ? LocaleKeys.rent_to_buy.tr() : LocaleKeys.car_sale.tr(),
                           hasStatusInfo: state.announcementList[index].isNew,
                           gallery: state.announcementList[index].gallery,
                           currency: state.announcementList[index].currency,

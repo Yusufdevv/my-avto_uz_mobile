@@ -66,6 +66,8 @@ class CarsInMarksEntity extends Equatable {
   final DealerSingleEntity dealer;
   final bool isWishlisted;
   final bool isComparison;
+  final bool isRentWithPurchase;
+
 
   const CarsInMarksEntity({
     this.id = 0,
@@ -101,6 +103,7 @@ class CarsInMarksEntity extends Equatable {
     this.registeredInUzbekistan = false,
     this.userType = '',
     this.isNew = false,
+    this.isRentWithPurchase = false,
     this.price = '',
     this.discount = '',
     this.currency = '',
@@ -152,6 +155,7 @@ class CarsInMarksEntity extends Equatable {
         distanceTraveled,
         mileageImage,
         registrationVin,
+        isRentWithPurchase,
         registrationPlate,
         registrationCertificate,
         registrationSerialNumber,

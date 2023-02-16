@@ -59,7 +59,7 @@ class AboutCarPriceBottom extends StatelessWidget {
                 child: RichText(
                     text: TextSpan(children: [
                   TextSpan(
-                    text: LocaleKeys.we_compared_all_parameters.tr(),
+                    text: LocaleKeys.we_compared_all_same_auto.tr(),
                     style: Theme.of(context)
                         .textTheme
                         .displayMedium!

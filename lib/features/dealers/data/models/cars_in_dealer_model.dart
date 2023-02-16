@@ -18,6 +18,7 @@ class CarsInDealerModel extends CarsInDealerEntity {
     required super.description,
     required super.latitude,
     required super.longitude,
+    required super.isRentWithPurchase,
     required super.price,
     required super.locationUrl,
     required super.gallery,

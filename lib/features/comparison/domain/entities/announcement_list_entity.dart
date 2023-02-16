@@ -27,6 +27,7 @@ class AnnouncementListEntity {
     this.publishedAt = '',
     this.createdAt = '',
     this.isWishlisted = false,
+    this.isRentWithPurchase = false,
   });
 
   final int id;
@@ -44,6 +45,7 @@ class AnnouncementListEntity {
   final UserEntity user;
   final double price;
   final bool isComparison;
+  final bool isRentWithPurchase;
   final double? discount;
   final String contactAvailableFrom;
   final String contactAvailableTo;

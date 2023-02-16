@@ -2,9 +2,9 @@ import 'package:auto/features/car_single/domain/entities/car_user_entity.dart';
 import 'package:auto/features/common/domain/entity/car_make_entity.dart';
 import 'package:auto/features/common/domain/entity/car_model_entity.dart';
 import 'package:auto/features/dealers/domain/entities/cars_in_marks_entity.dart';
+import 'package:auto/features/dealers/domain/entities/dealer_single_entity.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:auto/features/dealers/domain/entities/dealer_single_entity.dart';
 
 part 'cars_in_marks_model.g.dart';
 
@@ -64,6 +64,7 @@ class CarsInMarksModel extends CarsInMarksEntity {
     required super.year,
     required super.isWishlisted,
     required super.isComparison,
+    required super.isRentWithPurchase,
   });
 
   factory CarsInMarksModel.fromJson(Map<String, dynamic> json) =>

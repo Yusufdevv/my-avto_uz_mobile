@@ -272,6 +272,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                           ),
                                       itemBuilder: (context, index) =>
                                           InfoResultContainer(
+                                            sellType: state
+                                                .searchResults[index].isRentWithPurchase ? LocaleKeys.rent_to_buy.tr() : LocaleKeys.car_sale.tr(),
                                             currency: state
                                                 .searchResults[index].currency,
                                             discount: state

@@ -62,6 +62,7 @@ class AutoEntity extends Equatable {
     this.registrationCertificate = '',
     this.registrationSerialNumber = '',
     this.isExpired = false,
+    this.isRentWithPurchase = false,
     this.stats = const StatsEntity(),
   });
 
@@ -118,6 +119,7 @@ class AutoEntity extends Equatable {
   final int viewsCount;
   bool isWishlisted;
   final bool isComparison;
+  final bool isRentWithPurchase;
   final double discount;
   final String contactAvailableFrom;
   final String contactAvailableTo;
@@ -177,6 +179,7 @@ class AutoEntity extends Equatable {
         registrationSerialNumber,
         registrationVin,
         stats,
+        isRentWithPurchase
       ];
 }
 
@@ -239,5 +242,6 @@ class AutoConverter
         registrationSerialNumber: object.registrationSerialNumber,
         registrationVin: object.registrationVin,
         stats: object.stats,
+        isRentWithPurchase :object.isRentWithPurchase,
       ).toJson();
 }

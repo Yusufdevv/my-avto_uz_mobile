@@ -7,6 +7,7 @@ import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+// ignore: must_be_immutable
 class CarsInDealerEntity extends Equatable {
   final int id;
   final int viewsCount;
@@ -66,6 +67,7 @@ class CarsInDealerEntity extends Equatable {
   final DealerSingleEntity dealer;
   bool isWishlisted;
   final bool isComparison;
+  final bool isRentWithPurchase;
 
   CarsInDealerEntity({
     this.id = 0,
@@ -101,6 +103,7 @@ class CarsInDealerEntity extends Equatable {
     this.registeredInUzbekistan = false,
     this.userType = '',
     this.isNew = false,
+    this.isRentWithPurchase = false,
     this.price = '',
     this.discount = '',
     this.currency = '',
@@ -133,6 +136,7 @@ class CarsInDealerEntity extends Equatable {
         gallery,
         year,
         absoluteCarName,
+        isRentWithPurchase,
         licenceType,
         ownership,
         purchaseDate,

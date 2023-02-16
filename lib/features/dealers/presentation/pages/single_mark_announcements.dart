@@ -6,7 +6,9 @@ import 'package:auto/features/dealers/data/repositories/cars_in_marks_repository
 import 'package:auto/features/dealers/domain/usecases/cars_in_marks_usecase.dart';
 import 'package:auto/features/dealers/presentation/blocs/cars_in_marks_bloc/cars_in_marks_bloc.dart';
 import 'package:auto/features/pagination/presentation/paginator.dart';
+import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -90,7 +92,7 @@ class _SingleMarkAnnouncementsState extends State<SingleMarkAnnouncements> {
                         year: item.year,
                         price: item.price,
                         discountPrice: item.price,
-                        sellType: '',
+                        sellType: item.isRentWithPurchase ? LocaleKeys.rent_to_buy.tr() : LocaleKeys.car_sale.tr(),
                         hasStatusInfo: item.isNew,
                         gallery: item.gallery,
                         currency: item.currency,

@@ -74,6 +74,9 @@ class _FavouritePageState extends State<FavouritePage> {
                             padding: EdgeInsets.only(
                                 top: index == 0 ? 16 : 0, bottom: 12),
                             child: FavoriteItem(
+                                sellType: item.isRentWithPurchase
+                                    ? LocaleKeys.rent_to_buy.tr()
+                                    : LocaleKeys.car_sale.tr(),
                                 bloc: bloc,
                                 animation: animation,
                                 gallery: item.gallery,
@@ -82,7 +85,7 @@ class _FavouritePageState extends State<FavouritePage> {
                                 carYear: item.year,
                                 contactPhone: item.contactPhone,
                                 description: item.description,
-                                districtTitle: item.district.title,
+                                districtTitle: item.region.title,
                                 isNew: item.isNew,
                                 isWishlisted: item.isWishlisted,
                                 price: item.price,
@@ -115,6 +118,9 @@ class _FavouritePageState extends State<FavouritePage> {
                                   listkey.currentState?.removeItem(
                                       index,
                                       (context, animation) => FavoriteItem(
+                                            sellType: item.isRentWithPurchase
+                                                ? LocaleKeys.rent_to_buy.tr()
+                                                : LocaleKeys.car_sale.tr(),
                                             bloc: bloc,
                                             animation: animation,
                                             gallery: item.gallery,
@@ -153,7 +159,8 @@ class _FavouritePageState extends State<FavouritePage> {
                       })
                   : Center(
                       child: EmptyItemBody(
-                          subtitle: LocaleKeys.you_dont_have_featured_listings.tr(),
+                          subtitle:
+                              LocaleKeys.you_dont_have_featured_listings.tr(),
                           image: AppIcons.carIcon),
                     );
             }

@@ -495,7 +495,6 @@ abstract class  LocaleKeys {
   static const minimal_summa_must_be = 'minimal_summa_must_be';
   static const monthly_pay = 'monthly_pay';
   static const map = 'map';
-  static const we_compared_all_parameters = 'we_compared_all_parameters';
   static const km = 'km';
   static const dayss = 'dayss';
   static const u_t_e_o_t_a_p_l = 'u_t_e_o_t_a_p_l';
@@ -516,5 +515,6 @@ abstract class  LocaleKeys {
   static const sum = 'sum';
   static const the_before_enter_price = 'the_before_enter_price';
   static const you_dont_have_featured_listings = 'you_dont_have_featured_listings';
+  static const rent_to_buy = 'rent_to_buy';
 
 }
