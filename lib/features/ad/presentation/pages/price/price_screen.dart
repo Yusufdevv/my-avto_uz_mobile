@@ -207,7 +207,12 @@ class _PriceScreenState extends State<PriceScreen> {
                                 builder: (context) => RentToBuySheet(
                                     idForNewCondition: widget.conditions.length,
                                     price: int.tryParse(
+<<<<<<< HEAD
                                             widget.price.replaceAll(' ', '')) ??
+=======
+                                            widget.price?.replaceAll(' ', '') ??
+                                                '0') ??
+>>>>>>> origin/posting_ad__price_controller
                                         0)).then(
                               (value) {
                                 if (value != null) {
@@ -217,7 +222,12 @@ class _PriceScreenState extends State<PriceScreen> {
                             );
                           } else {
                             context.read<ShowPopUpBloc>().add(ShowPopUp(
+<<<<<<< HEAD
                                   message: 'Avval narhni kiriting',
+=======
+                                  message:
+                                      LocaleKeys.the_before_enter_price.tr(),
+>>>>>>> origin/posting_ad__price_controller
                                   status: PopStatus.warning,
                                 ));
                           }
@@ -247,7 +257,12 @@ class _PriceScreenState extends State<PriceScreen> {
                                               widget.conditions.length,
                                           entityForEdit: entity,
                                           price: int.tryParse(widget.price
+<<<<<<< HEAD
                                                   .replaceAll(' ', '')) ??
+=======
+                                                      ?.replaceAll(' ', '') ??
+                                                  '0') ??
+>>>>>>> origin/posting_ad__price_controller
                                               0)).then(
                                     (value) {
                                       if (value != null) {
@@ -272,7 +287,12 @@ class _PriceScreenState extends State<PriceScreen> {
                               builder: (context) => RentToBuySheet(
                                     idForNewCondition: widget.conditions.length,
                                     price: int.tryParse(
+<<<<<<< HEAD
                                             widget.price.replaceAll(' ', '')) ??
+=======
+                                            widget.price?.replaceAll(' ', '') ??
+                                                '0') ??
+>>>>>>> origin/posting_ad__price_controller
                                         0,
                                   )).then((value) {
                             if (value != null) {

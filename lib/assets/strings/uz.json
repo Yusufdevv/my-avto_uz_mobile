@@ -510,5 +510,6 @@
   "go_to_comparison" : "Taqqoslashga borish",
   "added_x_auto" : "{} ta qo'shildi",
   "your_ad_edited_successfully" : "Reklamangiz muvaffaqiyatli tahrirlandi!",
-  "sum" : "so'm"
+  "sum" : "so'm",
+  "the_before_enter_price": "Avval narhni kiriting"
 }

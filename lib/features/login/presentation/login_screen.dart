@@ -268,6 +268,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(width: 24),
                   SocialMediaItem(
+<<<<<<< HEAD
                       onTap: () {},
                       icon: SvgPicture.asset(
                         AppIcons.apple,
@@ -275,6 +276,16 @@ class _LoginScreenState extends State<LoginScreen> {
                             .extension<ThemedColors>()!
                             .blackToWhite80,
                       )),
+=======
+                    onTap: () {},
+                    icon: SvgPicture.asset(
+                      AppIcons.apple,
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .blackToWhite80,
+                    ),
+                  ),
+>>>>>>> origin/posting_ad__price_controller
                   const SizedBox(width: 24),
                   SocialMediaItem(
                     onTap: () {},
