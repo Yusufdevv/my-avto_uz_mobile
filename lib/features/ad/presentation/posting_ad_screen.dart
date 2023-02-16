@@ -42,12 +42,14 @@ import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class PostingAdScreen extends StatefulWidget {
-  final bool? isHaveToClearStae;
+  final bool? isHaveToClearState;
   final BuildContext parentContext;
 
-  const PostingAdScreen(
-      {required this.parentContext, this.isHaveToClearStae, Key? key})
-      : super(key: key);
+  const PostingAdScreen({
+    required this.parentContext,
+    this.isHaveToClearState,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<PostingAdScreen> createState() => _PostingAdScreenState();
@@ -197,11 +199,6 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                         message: '', status: PopStatus.success));
                   }
                 }, builder: (context, state) {
-                  if (state.status == FormzStatus.pure) {
-                    if (widget.isHaveToClearStae ?? false) {
-                      postingAdBloc.add(PostingAdClearStateEvent());
-                    }
-                  }
                   if (state.getAnnouncementToEditStatus ==
                       FormzStatus.submissionFailure) {
                     return Scaffold(

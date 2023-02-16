@@ -274,7 +274,7 @@ class _EditAdScreenState extends State<EditAdScreen>
                             child: WButton(
                               disabledColor: disabledButton,
                               isDisabled:
-                                  state.labelLargeStatus(currentTabIndex),
+                                  state.buttonStatus(currentTabIndex),
                               onTap: () {
                                 hidePopUp();
                                 FocusScope.of(context).unfocus();
@@ -290,7 +290,7 @@ class _EditAdScreenState extends State<EditAdScreen>
                                 }
                               },
                               text: LocaleKeys.further.tr(),
-                              shadow: state.labelLargeStatus(currentTabIndex)
+                              shadow: state.buttonStatus(currentTabIndex)
                                   ? null
                                   : [
                                       BoxShadow(
