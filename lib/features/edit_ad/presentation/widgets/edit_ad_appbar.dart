@@ -12,7 +12,7 @@ class EditAdAppBar extends StatelessWidget implements PreferredSizeWidget {
   final int currentTabIndex;
 
   ///Default is 20
-  final double backlabelLargeSize;
+  final double backButtonSize;
   final int tabLength;
 
   const EditAdAppBar({
@@ -21,7 +21,7 @@ class EditAdAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.tabLength,
     required this.title,
     required this.onTapBack,
-    this.backlabelLargeSize = 20,
+    this.backButtonSize = 20,
     this.titleStyle,
     Key? key,
   }) : super(key: key);
