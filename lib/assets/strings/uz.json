@@ -42,7 +42,7 @@
   "cheaper_sc": "Arzonroq s.c:",
   "ratio": "Nisbat",
   "market_condition_on": "Bozor holati yoqilgan",
-  "how_the_average_price_is_calculated": "O'rtacha narx\nqanday hisoblanadi",
+  "how_the_average_price_is_calculated": "O'rtacha narx{middle}qanday hisoblanadi",
   "average_price": "O'rtacha narx:",
   "choose_car": "Avtomobil markasini tanlang",
   "search": "Qidirish",
