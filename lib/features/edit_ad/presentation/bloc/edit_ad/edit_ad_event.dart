@@ -2,16 +2,13 @@ part of 'edit_ad_bloc.dart';
 
 abstract class EditAdEvent {}
 
-class EditAdShowToastEvent extends EditAdEvent{
+class EditAdShowToastEvent extends EditAdEvent {
   final String message;
   final PopStatus status;
-  EditAdShowToastEvent({required this.message,required this.status});
+  EditAdShowToastEvent({required this.message, required this.status});
 }
 
-
 class EditAdClearStateEvent extends EditAdEvent {}
-
-
 
 class EditAdAddEventForEveryPage extends EditAdEvent {
   final int page;
@@ -25,7 +22,6 @@ class EditAdGetMapScreenShotEvent extends EditAdEvent {
   EditAdGetMapScreenShotEvent(
       {required this.lat, required this.long, required this.zoomLevel});
 }
-
 
 class EditAdClearControllersEvent extends EditAdEvent {}
 
@@ -61,20 +57,10 @@ class EditAdGetDistritsEvent extends EditAdEvent {
 
 class EditAdCreateEvent extends EditAdEvent {}
 
-
-
-class EditAdOnRentWithPurchaseEvent extends EditAdEvent{
+class EditAdOnRentWithPurchaseEvent extends EditAdEvent {
   final RentWithPurchaseEntity condition;
   EditAdOnRentWithPurchaseEvent({required this.condition});
 }
-
-
-
-
-
-
-
-
 
 class EditAdChooseEvent extends EditAdEvent {
   final TextEditingController? phoneController;

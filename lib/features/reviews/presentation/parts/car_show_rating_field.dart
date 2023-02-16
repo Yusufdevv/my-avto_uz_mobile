@@ -57,8 +57,10 @@ class CarShowRatingField extends StatelessWidget {
             const SizedBox(height: 4),
             Text(
               'Владеет от 6 месяцев до года',
-              style:
-                  Theme.of(context).textTheme.displayMedium!.copyWith(fontSize: 13),
+              style: Theme.of(context)
+                  .textTheme
+                  .displayMedium!
+                  .copyWith(fontSize: 13),
             ),
             const Divider(color: border, thickness: 1),
             RatingInfos(

@@ -6,15 +6,14 @@ import 'package:auto/features/dealers/data/datasource/dealer_single_datasource.d
 import 'package:auto/features/dealers/data/models/dealer_info_model.dart';
 import 'package:auto/features/dealers/domain/repositories/dealer_single_repository.dart';
 
-
 // ignore: one_member_abstracts
 
-
-class DealerSingleRepositoryImpl extends DealerSingleRepository{
-  final DealerSingleDataSource dataSource = serviceLocator<DealerSingleDataSource>();
+class DealerSingleRepositoryImpl extends DealerSingleRepository {
+  final DealerSingleDataSource dataSource =
+      serviceLocator<DealerSingleDataSource>();
 
   DealerSingleRepositoryImpl();
- @override
+  @override
   Future<Either<Failure, DealerSingleModel>> getDealerSingle(
       String params) async {
     try {
@@ -26,10 +25,10 @@ class DealerSingleRepositoryImpl extends DealerSingleRepository{
       );
     }
   }
-  
+
   @override
   Future<Either<Failure, bool>> watchContact({required int id}) async {
-     try {
+    try {
       final result = await dataSource.watchContact(id: id);
       return Right(result);
     } on ServerException catch (e) {

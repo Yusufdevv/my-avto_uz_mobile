@@ -147,7 +147,7 @@ class DarkThemeColors {
   static const whiteSmokeToBlack = _black;
   static const silverToNightRider = _nightRider;
   static const seashellToCinnabar15 = _cinnabar15;
-  static const dividerColor=_darkGrey;
+  static const dividerColor = _darkGrey;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
@@ -207,4 +207,4 @@ const _whiteSmoke12 = Color(0x1fe9e9e9);
 const _cocoaBrown = Color(0xff241815);
 const _charcoal1 = Color(0xff404040);
 const _cinnabar15 = Color(0x26EA5930);
-const _darkGrey=Color(0xffA0A0A0);
+const _darkGrey = Color(0xffA0A0A0);

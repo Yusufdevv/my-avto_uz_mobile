@@ -23,7 +23,8 @@ class ChangeCarsItem extends StatelessWidget {
   Widget build(BuildContext context) => GestureDetector(
         onTap: () {
           context.read<ChangeCarBloc>().add(SelectedChangeCarItemEvent(id: id));
-        }, behavior: HitTestBehavior.opaque,
+        },
+        behavior: HitTestBehavior.opaque,
         child: Container(
           padding: const EdgeInsets.only(left: 16),
           color: id == selectedId

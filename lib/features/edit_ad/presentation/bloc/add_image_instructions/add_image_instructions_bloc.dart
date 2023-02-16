@@ -18,7 +18,8 @@ class PhotoInstructionBloc
       : super(PhotoInstructionState(
             scrollController: ScrollController(),
             step: 0,
-            instructions: const [/*
+            instructions: const [
+              /*
               FotoInstructionEntity(
                 image: '',
                 description:
@@ -38,7 +39,8 @@ class PhotoInstructionBloc
                   image: '',
                   description:
                       '''Удостоверьтесь, что госномер хорошо виден на фото. Это поможет нам проверить объявление, а покупателям мы его не покажем.'''),
-            */],
+            */
+            ],
             status: FormzStatus.pure)) {
     on<PhotoInstructionChangeStepEvent>(_changeStep);
     on<PhotoInstructionMoveStepEvent>(_move);
@@ -50,7 +52,8 @@ class PhotoInstructionBloc
     final result = await useCase.call(NoParams());
     if (result.isRight) {
       emit(state.copyWith(
-          instructions: result.right.results, status: FormzStatus.submissionSuccess));
+          instructions: result.right.results,
+          status: FormzStatus.submissionSuccess));
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }

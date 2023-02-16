@@ -31,7 +31,7 @@ class RentState extends Equatable {
     required this.hasBabySeat,
     required this.rentCarIsClean,
     required this.rentCarIsFullFuel,
-   required  this.regions,
+    required this.regions,
     this.maker,
     this.bodyType,
     this.carDriveType,

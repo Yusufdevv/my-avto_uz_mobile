@@ -30,7 +30,8 @@ class _ImageInFullScreenState extends State<ImageInFullScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               GestureDetector(
-                onTap: () => Navigator.pop(context), behavior: HitTestBehavior.opaque,
+                onTap: () => Navigator.pop(context),
+                behavior: HitTestBehavior.opaque,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 12, left: 16),
                   child:
@@ -44,7 +45,7 @@ class _ImageInFullScreenState extends State<ImageInFullScreen> {
                 SizedBox(
                   height: MediaQuery.of(context).size.width,
                   child: PageView.builder(
-                    physics: const BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       controller: _pageController,
                       scrollDirection: Axis.horizontal,
                       onPageChanged: (value) => setState(() {

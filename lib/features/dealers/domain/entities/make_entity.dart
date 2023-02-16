@@ -17,11 +17,11 @@ class DealerMakeEntity extends Equatable {
 
   @override
   List<Object?> get props => [
-    id,
-    name,
-    slug,
-    logo,
-  ];
+        id,
+        name,
+        slug,
+        logo,
+      ];
 }
 
 class DealerMakeConverter

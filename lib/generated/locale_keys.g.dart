@@ -1,6 +1,6 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
-abstract class  LocaleKeys {
+abstract class LocaleKeys {
   static const price_of_similar_cars = 'price_of_similar_cars';
   static const see_price_statustic = 'see_price_statustic';
   static const report_vin = 'report_vin';
@@ -27,7 +27,8 @@ abstract class  LocaleKeys {
   static const optimal = 'optimal';
   static const excellent = 'excellent';
   static const overpriced = 'overpriced';
-  static const how_the_average_price_is_calculated = 'how_the_average_price_is_calculated';
+  static const how_the_average_price_is_calculated =
+      'how_the_average_price_is_calculated';
   static const average_price = 'average_price';
   static const ratio = 'ratio';
   static const market_condition_on = 'market_condition_on';
@@ -200,7 +201,8 @@ abstract class  LocaleKeys {
   static const add_email = 'add_email';
   static const vin_check_text = 'vin_check_text';
   static const confirm = 'confirm';
-  static const service_connected_successfully = 'service_connected_successfully';
+  static const service_connected_successfully =
+      'service_connected_successfully';
   static const back_to_ad = 'back_to_ad';
   static const payment_pending = 'payment_pending';
   static const refresh_the_page = 'refresh_the_page';
@@ -285,8 +287,10 @@ abstract class  LocaleKeys {
   static const rate_us = 'rate_us';
   static const in_appstore = 'in_appstore';
   static const in_playstore = 'in_playstore';
-  static const inappropriate_conditions_or_offers = 'inappropriate_conditions_or_offers';
-  static const the_ad_offers_services_or_products_that = 'the_ad_offers_services_or_products_that';
+  static const inappropriate_conditions_or_offers =
+      'inappropriate_conditions_or_offers';
+  static const the_ad_offers_services_or_products_that =
+      'the_ad_offers_services_or_products_that';
   static const rate = 'rate';
   static const resend = 'resend';
   static const washed_car = 'washed_car';
@@ -458,14 +462,16 @@ abstract class  LocaleKeys {
   static const car_make = 'car_make';
   static const gas_ballon_equipment = 'gas_ballon_equipment';
   static const car_color = 'car_color';
-  static const original_slash_electronniy_pts = 'original_slash_electronniy_pts';
+  static const original_slash_electronniy_pts =
+      'original_slash_electronniy_pts';
   static const duplicate = 'duplicate';
   static const first = 'first';
   static const second = 'second';
   static const third = 'third';
   static const fourth_or_more = 'fourth_or_more';
   static const body_state = 'body_state';
-  static const mark_all_the_colored_and_damaged_parts = 'mark_all_the_colored_and_damaged_parts';
+  static const mark_all_the_colored_and_damaged_parts =
+      'mark_all_the_colored_and_damaged_parts';
   static const door = 'door';
   static const left = 'left';
   static const right = 'right';
@@ -514,5 +520,4 @@ abstract class  LocaleKeys {
   static const added_x_auto = 'added_x_auto';
   static const your_ad_edited_successfully = 'your_ad_edited_successfully';
   static const sum = 'sum';
-
 }

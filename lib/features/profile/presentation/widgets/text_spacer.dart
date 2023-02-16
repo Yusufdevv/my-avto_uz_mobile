@@ -9,7 +9,7 @@ class TextSpacer extends StatelessWidget {
   const TextSpacer({
     required this.title,
     required this.value,
-    Key? key, 
+    Key? key,
     this.padding = EdgeInsets.zero,
   }) : super(key: key);
 

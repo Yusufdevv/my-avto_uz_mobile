@@ -3,24 +3,19 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/profile/presentation/widgets/custom_tab.dart';
 import 'package:flutter/material.dart';
 
-
-
 class ProfileTabBar extends SliverPersistentHeaderDelegate {
   final ValueChanged<int> onTap;
   final List<String> tabs;
   final int currentTab;
 
   const ProfileTabBar(
-      {
-      required this.onTap,
-      this.currentTab = 0,
-      this.tabs = const []});
+      {required this.onTap, this.currentTab = 0, this.tabs = const []});
 
   @override
   Widget build(
           BuildContext context, double shrinkOffset, bool overlapsContent) =>
       Container(
-color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+        color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
         // padding: const EdgeInsets.only(bottom: 12),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(6),
@@ -88,9 +83,9 @@ color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
   double get minExtent => 0;
 
   @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) => true;
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
+      true;
 }
-
 
 /*class ProfileTabBar extends StatelessWidget {
   final TabController tabController;

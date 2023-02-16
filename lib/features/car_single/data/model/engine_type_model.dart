@@ -10,7 +10,8 @@ class RentCarEngineTypeModel extends RentCarEngineTypeEntity {
     required super.type,
     required super.logo,
   });
-  factory RentCarEngineTypeModel.fromJson(Map<String, dynamic> json) => _$RentCarEngineTypeModelFromJson(json);
+  factory RentCarEngineTypeModel.fromJson(Map<String, dynamic> json) =>
+      _$RentCarEngineTypeModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$RentCarEngineTypeModelToJson(this);
 }

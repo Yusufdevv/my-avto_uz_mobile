@@ -1,6 +1,5 @@
 import 'package:auto/features/dealers/domain/entities/dealer_single_entity.dart';
 import 'package:auto/features/dealers/domain/usecases/dealer_single_usecase.dart';
-import 'package:auto/features/dealers/domain/usecases/dealer_single_watch_contact_usecase.dart';
 import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -26,7 +25,5 @@ class DealerSingleBloc extends Bloc<DealerSingleEvent, DealerSingleState> {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     });
-
-    
   }
 }

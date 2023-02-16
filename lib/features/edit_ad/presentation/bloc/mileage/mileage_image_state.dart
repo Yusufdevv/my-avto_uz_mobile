@@ -4,7 +4,6 @@ class MileageImageState extends Equatable {
   final String? image;
   final String? toastMessage;
 
-
   const MileageImageState({required this.image, this.toastMessage});
 
   MileageImageState copyWith({String? toastMessage, String? image}) =>
@@ -14,5 +13,5 @@ class MileageImageState extends Equatable {
       );
 
   @override
-  List<Object?> get props => [image,toastMessage];
+  List<Object?> get props => [image, toastMessage];
 }

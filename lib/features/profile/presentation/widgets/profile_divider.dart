@@ -5,10 +5,9 @@ class ProfileDivider extends StatelessWidget {
   const ProfileDivider({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) =>  Container(
-          margin: const EdgeInsets.symmetric(horizontal: 12),
-          height: 1,
-          color: Theme.of(context).extension<WTextFieldStyle>()!.borderColor,
-         
+  Widget build(BuildContext context) => Container(
+        margin: const EdgeInsets.symmetric(horizontal: 12),
+        height: 1,
+        color: Theme.of(context).extension<WTextFieldStyle>()!.borderColor,
       );
 }

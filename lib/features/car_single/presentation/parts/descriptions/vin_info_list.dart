@@ -10,7 +10,6 @@
 // class VinInfoList extends StatelessWidget {
 //   const VinInfoList({Key? key}) : super(key: key);
 
-
 //   @override
 //   Widget build(BuildContext context) => Container(
 //         decoration: BoxDecoration(

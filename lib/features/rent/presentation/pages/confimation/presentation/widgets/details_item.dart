@@ -35,8 +35,10 @@ class DetailsItem extends StatelessWidget {
           children: [
             Text(
               LocaleKeys.order_details.tr(),
-              style:
-                  Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 14),
+              style: Theme.of(context)
+                  .textTheme
+                  .displayLarge!
+                  .copyWith(fontSize: 14),
             ),
             const SizedBox(
               height: 12,

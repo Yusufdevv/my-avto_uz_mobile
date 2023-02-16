@@ -23,76 +23,72 @@ class AddComparisonItem extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) =>
-      BlocConsumer<ComparisonAddBloc, ComparisonAddState>(
-          listener: (context, state) {},
-          builder: (context, state) {
-            final a = state.map[id] ?? initialLike;
-            return WScaleAnimation(
-              onTap: () {
-                if (a) {
-                  context
-                      .read<ComparisonAddBloc>()
-                      .add(ComparisonAddEvent.deleteComparison(id));
-                  context.read<ComparisonAddBloc>().add(
-                      ComparisonAddEvent.addToMapComparison(
-                          id: id, value: false));
-                } else {
-                  context
-                      .read<ComparisonAddBloc>()
-                      .add(ComparisonAddEvent.postComparisonCars(id));
-                  context.read<ComparisonAddBloc>().add(
-                      ComparisonAddEvent.addToMapComparison(
-                          id: id, value: true));
-                }
-              },
-              child: Column(
-                children: [
-                  AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 300),
-                    transitionBuilder: (child, animation) => ScaleTransition(
-                      scale: animation,
-                      child: child,
-                    ),
-                    child:a
-                        ? SvgPicture.asset(
-                            AppIcons.scales,
-                            key: const ValueKey<int>(1),
-                            fit: BoxFit.cover,
-                            color: orange,
-                            height: 28,
-                            width: 28,
-                          )
-                        : SvgPicture.asset(
-                            AppIcons.scales,
-                            fit: BoxFit.cover,
-                            key: const ValueKey<int>(2),
-                            color: isGreen ? emerald : greyText,
-                            height: 28,
-                            width: 28,
-                          ),
-                  ),
-                  if (isText)
-                    if (isGreen)
-                      Text(
-                        LocaleKeys.compare.tr(),
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                              fontSize: 12,
-                              color:a ? orange : dark,
-                            ),
+  Widget build(BuildContext context) => BlocConsumer<ComparisonAddBloc,
+          ComparisonAddState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        final a = state.map[id] ?? initialLike;
+        return WScaleAnimation(
+          onTap: () {
+            if (a) {
+              context
+                  .read<ComparisonAddBloc>()
+                  .add(ComparisonAddEvent.deleteComparison(id));
+              context.read<ComparisonAddBloc>().add(
+                  ComparisonAddEvent.addToMapComparison(id: id, value: false));
+            } else {
+              context
+                  .read<ComparisonAddBloc>()
+                  .add(ComparisonAddEvent.postComparisonCars(id));
+              context.read<ComparisonAddBloc>().add(
+                  ComparisonAddEvent.addToMapComparison(id: id, value: true));
+            }
+          },
+          child: Column(
+            children: [
+              AnimatedSwitcher(
+                duration: const Duration(milliseconds: 300),
+                transitionBuilder: (child, animation) => ScaleTransition(
+                  scale: animation,
+                  child: child,
+                ),
+                child: a
+                    ? SvgPicture.asset(
+                        AppIcons.scales,
+                        key: const ValueKey<int>(1),
+                        fit: BoxFit.cover,
+                        color: orange,
+                        height: 28,
+                        width: 28,
                       )
-                    else
-                      Text(
-                        LocaleKeys.compare.tr(),
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                              fontSize: 12,
-                              color:a
-                                  ? orange
-                                  : const Color(0xff696974),
-                            ),
-                      )
-                ],
+                    : SvgPicture.asset(
+                        AppIcons.scales,
+                        fit: BoxFit.cover,
+                        key: const ValueKey<int>(2),
+                        color: isGreen ? emerald : greyText,
+                        height: 28,
+                        width: 28,
+                      ),
               ),
-            );
-          });
+              if (isText)
+                if (isGreen)
+                  Text(
+                    LocaleKeys.compare.tr(),
+                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                          fontSize: 12,
+                          color: a ? orange : dark,
+                        ),
+                  )
+                else
+                  Text(
+                    LocaleKeys.compare.tr(),
+                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                          fontSize: 12,
+                          color: a ? orange : const Color(0xff696974),
+                        ),
+                  )
+            ],
+          ),
+        );
+      });
 }

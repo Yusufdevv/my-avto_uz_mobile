@@ -1,4 +1,3 @@
-
 import 'package:auto/assets/colors/color.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';

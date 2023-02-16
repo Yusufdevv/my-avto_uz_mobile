@@ -58,12 +58,14 @@ class DealerSelectorItem extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium!
-                                .copyWith(color: hintText.isEmpty ? grey : black),
+                                .copyWith(
+                                    color: hintText.isEmpty ? grey : black),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                        SvgPicture.asset( AppIcons.chevronDownGrey ,
+                        SvgPicture.asset(
+                          AppIcons.chevronDownGrey,
                           color: greyText,
                         )
                       ],

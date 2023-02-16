@@ -7,7 +7,7 @@ part 'price_analytics_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class PriceAnalyticsModel extends PriceAnalyticsEntity {
-   const PriceAnalyticsModel(
+  const PriceAnalyticsModel(
       {required super.priceDifference,
       required super.percentage,
       required super.averagePrice});

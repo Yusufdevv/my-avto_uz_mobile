@@ -96,10 +96,13 @@ class CarPriceBottom extends StatelessWidget {
                   children: [
                     Text(
                       LocaleKeys.optimal_price.tr(),
-                      style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12,
-                          color: Colors.white),
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium!
+                          .copyWith(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12,
+                              color: Colors.white),
                     ),
                     RotatedBox(
                         quarterTurns: 1,

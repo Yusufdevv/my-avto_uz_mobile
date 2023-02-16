@@ -3,12 +3,10 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/ad/presentation/posting_ad_screen.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/main/presentation/widgets/choose_create_ad_mode_sheet.dart';
-import 'package:auto/features/profile/presentation/widgets/camera_bottom_sheet.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:image_picker/image_picker.dart';
 
 class CreateAdButton extends StatelessWidget {
   const CreateAdButton({
@@ -35,8 +33,6 @@ class CreateAdButton extends StatelessWidget {
               );
             }
           });
-
-
         },
         margin: const EdgeInsets.symmetric(horizontal: 16),
         padding: const EdgeInsets.symmetric(vertical: 12),

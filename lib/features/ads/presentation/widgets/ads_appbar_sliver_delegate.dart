@@ -60,9 +60,10 @@ class AdsAppBarTitle extends StatelessWidget {
                     if (context.read<GetMakesBloc>().state.name.isNotEmpty)
                       Text(
                         '${context.read<AnnouncementListBloc>().state.count} ${LocaleKeys.offers.tr()}',
-                        style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                              color: grey,
-                            ),
+                        style:
+                            Theme.of(context).textTheme.displayMedium!.copyWith(
+                                  color: grey,
+                                ),
                       )
                   ],
                 ),

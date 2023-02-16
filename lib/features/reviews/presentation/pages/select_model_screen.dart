@@ -47,7 +47,6 @@ class _SelectModelScreenState extends State<SelectModelScreen> {
     super.dispose();
   }
 
-
   final List<CarTypeEntity> carTypes = List.generate(
       12,
       (index) =>

@@ -15,7 +15,6 @@ class SelectModelInfo extends StatelessWidget {
       this.leading,
       this.suffixIconColor,
       this.verticalDivider,
-      
       super.key});
   final String title;
   final TextStyle? titleStyle;

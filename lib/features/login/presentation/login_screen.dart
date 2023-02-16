@@ -109,8 +109,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       child: Text(
                         LocaleKeys.register.tr(),
-                        style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                            fontWeight: FontWeight.w600, fontSize: 13),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displaySmall!
+                            .copyWith(
+                                fontWeight: FontWeight.w600, fontSize: 13),
                       ),
                     )
                   ],
@@ -267,11 +270,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   SocialMediaItem(
                       onTap: () {},
                       icon: SvgPicture.asset(
-                    AppIcons.apple,
-                    color: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .blackToWhite80,
-                  )),
+                        AppIcons.apple,
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .blackToWhite80,
+                      )),
                   const SizedBox(width: 24),
                   SocialMediaItem(
                     onTap: () {},

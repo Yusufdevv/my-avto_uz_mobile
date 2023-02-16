@@ -12,7 +12,8 @@ class MyReviewsDatasourceImpl implements MyReviewsDatasource {
   final Dio _dio;
   MyReviewsDatasourceImpl(this._dio);
   @override
-  Future<GenericPagination<AutoReviewModel>> getMyReviews({String? search}) async {
+  Future<GenericPagination<AutoReviewModel>> getMyReviews(
+      {String? search}) async {
     try {
       final response = await _dio.get(
         'review/my-reviews/',

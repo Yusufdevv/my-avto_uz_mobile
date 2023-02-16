@@ -57,7 +57,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       },
     );
   }
-  void _onChangeCountData(ChangeCountDataEvent event, Emitter<ProfileState> emit) {
+  void _onChangeCountData(
+      ChangeCountDataEvent event, Emitter<ProfileState> emit) {
     emit(state.copyWith(changeStatus: FormzStatus.submissionInProgress));
     // ignore: prefer_final_locals
     var profileData = state.profileEntity;
@@ -99,7 +100,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   Future<void> _onGetNoReadNotificationsEvent(
       GetNoReadNotificationsEvent event, Emitter<ProfileState> emit) async {
     emit(state.copyWith(changeStatus: FormzStatus.submissionInProgress));
-    final result = await getNotificationsUseCase.call(NotificationParams(filter: event.filter));
+    final result = await getNotificationsUseCase
+        .call(NotificationParams(filter: event.filter));
     if (result.isRight) {
       emit(state.copyWith(
           changeStatus: FormzStatus.submissionSuccess,

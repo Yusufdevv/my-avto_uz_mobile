@@ -69,9 +69,7 @@ class _ContactScreenState extends State<ContactScreen> {
             callTimeTo: value?[1].replaceAll(' ', ''),
             isCallTimed: true));
       } else {
-        context
-            .read<EditAdBloc>()
-            .add(EditAdChooseEvent(isCallTimed: false));
+        context.read<EditAdBloc>().add(EditAdChooseEvent(isCallTimed: false));
       }
     });
   }
@@ -358,8 +356,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                   if (postingAdState.callTimeFrom != null &&
                                       postingAdState.callTimeTo != null) {
                                     context.read<EditAdBloc>().add(
-                                        EditAdChooseEvent(
-                                            isCallTimed: true));
+                                        EditAdChooseEvent(isCallTimed: true));
                                     return;
                                   }
                                   _onAvailableHoursPressed(postingAdState);

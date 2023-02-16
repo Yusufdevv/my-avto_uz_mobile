@@ -8,10 +8,11 @@ import 'package:auto/features/search/domain/repositories/search_repository_repos
 
 class GetSearchResultsUseCase
     extends UseCase<GenericPagination<AutoModel>, Map<String, dynamic>> {
-  final SearchRepository repo = SearchRepositoryImpl() ;
-   GetSearchResultsUseCase();
+  final SearchRepository repo = SearchRepositoryImpl();
+  GetSearchResultsUseCase();
 
   @override
-  Future<Either<Failure, GenericPagination<AutoModel>>> call(Map<String, dynamic> params) async =>
-     await  repo.getSearchResults(params);
+  Future<Either<Failure, GenericPagination<AutoModel>>> call(
+          Map<String, dynamic> params) async =>
+      await repo.getSearchResults(params);
 }

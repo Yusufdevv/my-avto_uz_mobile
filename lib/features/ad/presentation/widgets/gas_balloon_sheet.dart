@@ -38,7 +38,7 @@ class _SelectGasBalloonTypeSheetState extends State<SelectGasBalloonTypeSheet> {
                   style: Theme.of(context).textTheme.displayLarge,
                 ),
                 GestureDetector(
-                      behavior: HitTestBehavior.opaque,
+                  behavior: HitTestBehavior.opaque,
                   onTap: () => Navigator.pop(context),
                   child: SvgPicture.asset(
                     AppIcons.close,
@@ -57,7 +57,7 @@ class _SelectGasBalloonTypeSheetState extends State<SelectGasBalloonTypeSheet> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 GestureDetector(
-                      behavior: HitTestBehavior.opaque,
+                  behavior: HitTestBehavior.opaque,
                   onTap: () => setState(() => selected = values[0]),
                   child: Container(
                     padding: const EdgeInsets.only(
@@ -84,7 +84,7 @@ class _SelectGasBalloonTypeSheetState extends State<SelectGasBalloonTypeSheet> {
                 ),
                 const Divider(height: 1),
                 GestureDetector(
-                      behavior: HitTestBehavior.opaque,
+                  behavior: HitTestBehavior.opaque,
                   onTap: () {
                     selected = values[1];
                     setState(() {});

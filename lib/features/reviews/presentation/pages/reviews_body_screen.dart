@@ -110,7 +110,8 @@ class _ReviewsBodyScreenState extends State<ReviewsBodyScreen> {
                           setState(() {
                             firstPositive = !firstPositive;
                           });
-                        }, behavior: HitTestBehavior.opaque,
+                        },
+                        behavior: HitTestBehavior.opaque,
                         child: AnimatedContainer(
                           duration: const Duration(milliseconds: 200),
                           child: Text(
@@ -179,7 +180,7 @@ class _ReviewsBodyScreenState extends State<ReviewsBodyScreen> {
                                       'Шумоизоляция',
                                       'Безопасность'
                                     ],
-                                    minuses:  [
+                                    minuses: [
                                       'Качество сборки',
                                       LocaleKeys.drive_gearbox.tr()
                                     ],

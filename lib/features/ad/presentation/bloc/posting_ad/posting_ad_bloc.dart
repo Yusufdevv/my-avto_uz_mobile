@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/usecases/usecase.dart';
@@ -136,7 +135,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   FutureOr<void> _onRentWithPurchaseCondition(
       PostingAdOnRentWithPurchaseConditionChangedEvent event,
       Emitter<PostingAdState> emit) {
-
     final map = state.rentWithPurchaseConditions.map(MapEntry.new);
     map[event.condition.id] = event.condition;
     emit(state.copyWith(rentWithPurchaseConditions: map));

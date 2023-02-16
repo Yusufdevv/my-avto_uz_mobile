@@ -70,12 +70,12 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       emit(state.copyWith(
           getCurrentLocationStatus: FormzStatus.submissionSuccess));
       event.onSuccess(position);
-    } on ParsingException catch(e){
+    } on ParsingException catch (e) {
       event.onError(e.errorMessage);
       emit(state.copyWith(
           getCurrentLocationStatus: FormzStatus.submissionSuccess));
-    // ignore: avoid_catches_without_on_clauses
-    } catch (e) { 
+      // ignore: avoid_catches_without_on_clauses
+    } catch (e) {
       event.onError(e.toString());
       emit(state.copyWith(
           getCurrentLocationStatus: FormzStatus.submissionSuccess));

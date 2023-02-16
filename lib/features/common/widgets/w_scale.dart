@@ -17,14 +17,16 @@ class WScaleAnimation extends StatefulWidget {
     this.isDisabled = false,
     this.duration = const Duration(milliseconds: 150),
     this.scaleValue = 0.95,
-  })  : assert(scaleValue <= 1 && scaleValue >= 0, 'Range error: Range should be between [0,1]'),
+  })  : assert(scaleValue <= 1 && scaleValue >= 0,
+            'Range error: Range should be between [0,1]'),
         super(key: key);
 
   @override
   _WScaleAnimationState createState() => _WScaleAnimationState();
 }
 
-class _WScaleAnimationState extends State<WScaleAnimation> with SingleTickerProviderStateMixin {
+class _WScaleAnimationState extends State<WScaleAnimation>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
 
@@ -54,30 +56,30 @@ class _WScaleAnimationState extends State<WScaleAnimation> with SingleTickerProv
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-    behavior: HitTestBehavior.opaque,
-    onTap: () {
-      if (!widget.isDisabled) {
-        widget.onTap();
-      }
-    },
-    onPanDown: (details) {
-      if (!widget.isDisabled) {
-        _controller.forward();
-      }
-    },
-    onPanCancel: () {
-      if (!widget.isDisabled) {
-        _controller.reverse();
-      }
-    },
-    onPanEnd: (details) {
-      if (!widget.isDisabled) {
-        _controller.reverse();
-      }
-    },
-    child: ScaleTransition(
-      scale: _scaleAnimation,
-      child: widget.child,
-    ),
-  );
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          if (!widget.isDisabled) {
+            widget.onTap();
+          }
+        },
+        onPanDown: (details) {
+          if (!widget.isDisabled) {
+            _controller.forward();
+          }
+        },
+        onPanCancel: () {
+          if (!widget.isDisabled) {
+            _controller.reverse();
+          }
+        },
+        onPanEnd: (details) {
+          if (!widget.isDisabled) {
+            _controller.reverse();
+          }
+        },
+        child: ScaleTransition(
+          scale: _scaleAnimation,
+          child: widget.child,
+        ),
+      );
 }

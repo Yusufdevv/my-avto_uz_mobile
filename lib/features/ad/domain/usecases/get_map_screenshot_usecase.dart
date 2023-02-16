@@ -1,5 +1,3 @@
-
-
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/core/utils/either.dart';
@@ -11,5 +9,6 @@ class GetMapScreenShotUseCase extends UseCase<Uint8List, Map<String, String>> {
   GetMapScreenShotUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, Uint8List>> call(Map<String, String> params) async => await repository.getMapScreenShot(params:params);
+  Future<Either<Failure, Uint8List>> call(Map<String, String> params) async =>
+      await repository.getMapScreenShot(params: params);
 }

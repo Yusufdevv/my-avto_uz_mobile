@@ -33,7 +33,6 @@ class RentGetMoreEvent extends RentEvent {
   RentGetMoreEvent({bool? isRefresh}) : super(isRefresh: isRefresh);
 }
 
-
 class RentSetParamFromFilterEvent extends RentEvent {
   List<Region>? regions;
   MakeEntity? maker;

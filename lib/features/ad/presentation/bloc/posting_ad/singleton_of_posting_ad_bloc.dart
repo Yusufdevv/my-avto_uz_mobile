@@ -44,10 +44,10 @@ class PASingleton {
       'registered_in_uzbekistan': !v.notRegisteredInUzbekistan,
       'is_new': v.isWithoutMileage,
       'is_rent_with_purchase':
-           v.rentWithPurchaseConditions.isNotEmpty  && (v.rentToBuy ?? false),
-      'rent_with_purchase':
-          v.rentWithPurchaseConditions.entries.map((e) => e.value.toApi()).toList(),
-          
+          v.rentWithPurchaseConditions.isNotEmpty && (v.rentToBuy ?? false),
+      'rent_with_purchase': v.rentWithPurchaseConditions.entries
+          .map((e) => e.value.toApi())
+          .toList(),
     };
     if (v.milageImage != null && v.milageImage!.isNotEmpty) {
       final milageImage = await MultipartFile.fromFile(v.milageImage!);
@@ -165,8 +165,12 @@ class PASingleton {
           logo: v.bodyType.logo ?? '',
           id: v.bodyType.id,
           type: v.bodyType.type),
-      callTimeFrom: v.contactAvailableFrom.trim().length > 5 ? v.contactAvailableFrom.trim().substring(0, 5) : null,
-      callTimeTo: v.contactAvailableTo.trim().length > 5 ? v.contactAvailableTo.trim().substring(0, 5) : null,
+      callTimeFrom: v.contactAvailableFrom.trim().length > 5
+          ? v.contactAvailableFrom.trim().substring(0, 5)
+          : null,
+      callTimeTo: v.contactAvailableTo.trim().length > 5
+          ? v.contactAvailableTo.trim().substring(0, 5)
+          : null,
       isCallTimed: v.contactAvailableFrom.isNotEmpty &&
           v.contactAvailableFrom.isNotEmpty,
       colorName: v.color,
@@ -387,7 +391,7 @@ class PASingleton {
         return !state.isContactsVerified;
 // InspectionPlaceScreen
       case 16:
-        return !(state.regionId != null || state.mapPointBytes !=null);
+        return !(state.regionId != null || state.mapPointBytes != null);
 
       // PriceScreen
       case 17:

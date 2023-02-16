@@ -15,7 +15,7 @@ abstract class PopularSearchesDataSource {
 
 class PopularSearchesSourceImpl extends PopularSearchesDataSource {
   final Dio _dio = serviceLocator<DioSettings>().dio;
-  PopularSearchesSourceImpl( );
+  PopularSearchesSourceImpl();
 
   @override
   Future<GenericPagination<PopularSearchModel>> getPopularSearches(

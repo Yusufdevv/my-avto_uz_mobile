@@ -33,8 +33,11 @@ class ProfileMenuTile extends StatelessWidget {
                     children: [
                       Text(
                         name,
-                        style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                            fontSize: 15, fontWeight: FontWeight.w600),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayLarge!
+                            .copyWith(
+                                fontSize: 15, fontWeight: FontWeight.w600),
                       ),
                     ],
                   ),

@@ -11,7 +11,7 @@ class InvoiceSucces extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar:  WAppBar(
+        appBar: WAppBar(
           hasBackButton: true,
           hasUnderline: true,
           title: LocaleKeys.service.tr(),
@@ -36,8 +36,11 @@ class InvoiceSucces extends StatelessWidget {
                     shadowColor: white,
                     color: orange,
                     content: Text(LocaleKeys.back_to_ad.tr(),
-                        style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                            fontSize: 14, fontWeight: FontWeight.w600)),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium!
+                            .copyWith(
+                                fontSize: 14, fontWeight: FontWeight.w600)),
                     onTap: () {
                       // Navigator.of(context)
                       //     .push(fade(page: const CarSingleScreen()));

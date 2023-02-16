@@ -44,9 +44,10 @@ class BottomItem extends StatefulWidget {
 }
 
 class _BottomItemState extends State<BottomItem>
-    with SingleTickerProviderStateMixin, 
-    // ignore: prefer_mixin
-    WidgetsBindingObserver {
+    with
+        SingleTickerProviderStateMixin,
+        // ignore: prefer_mixin
+        WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch (state) {
@@ -138,14 +139,17 @@ class _BottomItemState extends State<BottomItem>
           ),
           WScaleAnimation(
             onTap: () {
-             if(widget.usertype == 'owner')  {
-              Navigator.of(context)
-                      .push(fade(page:UserSinglePage(userId: widget.userId, announcementId: widget.id,)));
-             }
-             if(widget.usertype == 'dealer' && widget.slug.isNotEmpty)  {
-              Navigator.of(context)
-                      .push(fade(page: DealerSinglePage(slug: widget.slug)));
-             }
+              if (widget.usertype == 'owner') {
+                Navigator.of(context).push(fade(
+                    page: UserSinglePage(
+                  userId: widget.userId,
+                  announcementId: widget.id,
+                )));
+              }
+              if (widget.usertype == 'dealer' && widget.slug.isNotEmpty) {
+                Navigator.of(context)
+                    .push(fade(page: DealerSinglePage(slug: widget.slug)));
+              }
             },
             child: Container(
               height: 44,

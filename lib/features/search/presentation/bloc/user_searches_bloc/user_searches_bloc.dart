@@ -11,12 +11,10 @@ part 'user_searches_state.dart';
 part 'user_searches_bloc.freezed.dart';
 
 class UserSearchesBloc extends Bloc<UserSearchesEvent, UserSearchesState> {
-  final UserSearchesUseCase useCase = UserSearchesUseCase(
-             );
-  final PopularSearchesUseCase popularSearchesUseCase = PopularSearchesUseCase(
-            );
-  UserSearchesBloc( )
-      : super(UserSearchesState()) {
+  final UserSearchesUseCase useCase = UserSearchesUseCase();
+  final PopularSearchesUseCase popularSearchesUseCase =
+      PopularSearchesUseCase();
+  UserSearchesBloc() : super(UserSearchesState()) {
     on<_GetUserSearches>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await useCase.call(event.search);

@@ -93,8 +93,11 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
                             .darkToGrey),
                     SizedBox(width: SizeConfig.h(8)),
                     Text(LocaleKeys.terms_use.tr(),
-                        style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                            fontSize: 15, fontWeight: FontWeight.w600))
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayLarge!
+                            .copyWith(
+                                fontSize: 15, fontWeight: FontWeight.w600))
                   ],
                 ),
               ),

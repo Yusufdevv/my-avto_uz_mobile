@@ -14,8 +14,8 @@ class YesNoButton extends StatelessWidget {
           color: color,
           borderRadius: BorderRadius.circular(8),
         ),
-    child: Center(
-      child: text,
-    ),
+        child: Center(
+          child: text,
+        ),
       );
 }

@@ -122,11 +122,13 @@ class _SelectBrandScreenState extends State<SelectBrandScreen> {
                           ),
                           Text(
                             LocaleKeys.choose_brand.tr(),
-                            style:
-                                Theme.of(context).textTheme.titleMedium!.copyWith(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
                           ),
                           const Spacer(),
                           WScaleAnimation(

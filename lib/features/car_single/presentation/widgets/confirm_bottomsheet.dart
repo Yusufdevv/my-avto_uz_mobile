@@ -22,7 +22,6 @@ class ConfirmBottomSheet extends StatefulWidget {
 }
 
 class _ConfirmBottomSheetState extends State<ConfirmBottomSheet> {
-
   @override
   Widget build(BuildContext context) => Container(
         padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
@@ -39,7 +38,8 @@ class _ConfirmBottomSheetState extends State<ConfirmBottomSheet> {
             Align(
               alignment: Alignment.centerRight,
               child: GestureDetector(
-                  onTap: () => Navigator.pop(context),    behavior: HitTestBehavior.opaque,
+                  onTap: () => Navigator.pop(context),
+                  behavior: HitTestBehavior.opaque,
                   child:
                       SvgPicture.asset(AppIcons.close, height: 32, width: 32)),
             ),

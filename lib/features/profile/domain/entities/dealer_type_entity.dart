@@ -1,31 +1,32 @@
 class DealerFavEntity {
-    DealerFavEntity({
-        this.id,
-        this.name,
-        this.slug,
-        this.avatar,
-        this.description,
-        this.phoneNumber,
-        this.contactFrom,
-        this.contactTo,
-        this.longitude,
-        this.latitude,
-        this.carCount,
-    });
+  DealerFavEntity({
+    this.id,
+    this.name,
+    this.slug,
+    this.avatar,
+    this.description,
+    this.phoneNumber,
+    this.contactFrom,
+    this.contactTo,
+    this.longitude,
+    this.latitude,
+    this.carCount,
+  });
 
-    int? id;
-    String? name;
-    String? slug;
-    String? avatar;
-    String? description;
-    String? phoneNumber;
-    String? contactFrom;
-    String? contactTo;
-    double? longitude;
-    double? latitude;
-    int? carCount;
+  int? id;
+  String? name;
+  String? slug;
+  String? avatar;
+  String? description;
+  String? phoneNumber;
+  String? contactFrom;
+  String? contactTo;
+  double? longitude;
+  double? latitude;
+  int? carCount;
 
-    factory DealerFavEntity.fromJson(Map<String, dynamic> json) => DealerFavEntity(
+  factory DealerFavEntity.fromJson(Map<String, dynamic> json) =>
+      DealerFavEntity(
         id: json['id'],
         name: json['name'],
         slug: json['slug'],
@@ -37,9 +38,9 @@ class DealerFavEntity {
         longitude: json['longitude']?.toDouble(),
         latitude: json['latitude']?.toDouble(),
         carCount: json['car_count'],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
         'slug': slug,
@@ -51,5 +52,5 @@ class DealerFavEntity {
         'longitude': longitude,
         'latitude': latitude,
         'car_count': carCount,
-    };
+      };
 }

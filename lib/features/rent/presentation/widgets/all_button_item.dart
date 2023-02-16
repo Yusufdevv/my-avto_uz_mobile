@@ -25,7 +25,8 @@ class AllButtonItem extends StatelessWidget {
                   .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
             ),
             GestureDetector(
-              onTap: onTap, behavior: HitTestBehavior.opaque,
+              onTap: onTap,
+              behavior: HitTestBehavior.opaque,
               child: Row(
                 children: [
                   Text(

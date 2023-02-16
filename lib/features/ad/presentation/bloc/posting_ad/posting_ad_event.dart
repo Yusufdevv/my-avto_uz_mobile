@@ -2,10 +2,10 @@ part of 'posting_ad_bloc.dart';
 
 abstract class PostingAdEvent {}
 
-class PostingAdShowToastEvent extends PostingAdEvent{
+class PostingAdShowToastEvent extends PostingAdEvent {
   final String message;
   final PopStatus status;
-  PostingAdShowToastEvent({required this.message,required this.status});
+  PostingAdShowToastEvent({required this.message, required this.status});
 }
 
 class PostingAdSerchControllerClearEvent extends PostingAdEvent {}
@@ -96,7 +96,8 @@ class PostingAdTopMakesEvent extends PostingAdEvent {
   final String? name;
   PostingAdTopMakesEvent({this.name});
 }
-class PostingAdOnRentWithPurchaseConditionChangedEvent extends PostingAdEvent{
+
+class PostingAdOnRentWithPurchaseConditionChangedEvent extends PostingAdEvent {
   final RentWithPurchaseEntity condition;
   PostingAdOnRentWithPurchaseConditionChangedEvent({required this.condition});
 }

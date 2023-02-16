@@ -22,5 +22,6 @@ class CarModelConverter
 
   @override
   Map<String, dynamic>? toJson(CarModelEntity object) =>
-      CarModelModel(id: object.id, name: object.name, make: object.make).toJson();
+      CarModelModel(id: object.id, name: object.name, make: object.make)
+          .toJson();
 }

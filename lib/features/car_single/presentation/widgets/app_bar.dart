@@ -124,7 +124,7 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                       onTap: () {
                         Navigator.of(context, rootNavigator: true).push(fade(
                             page: PostingAdScreen(
-                               isHaveToClearStae: true,
+                          isHaveToClearStae: true,
                           parentContext: context,
                         )));
                       },

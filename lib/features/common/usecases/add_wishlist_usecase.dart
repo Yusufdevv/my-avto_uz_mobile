@@ -23,10 +23,11 @@ class RemoveWishlistUseCase extends UseCase<void, Params> {
   Future<Either<Failure, void>> call(Params params) async =>
       await repo.removeWishlist(params.id);
 }
+
 class Params extends Equatable {
   final int id;
 
- const Params({required this.id});
+  const Params({required this.id});
   @override
   List<Object?> get props => [];
 }

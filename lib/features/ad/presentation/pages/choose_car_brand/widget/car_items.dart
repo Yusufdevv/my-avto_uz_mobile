@@ -88,11 +88,13 @@ class ChangeCarItems extends StatelessWidget {
                               .displayLarge!
                               .copyWith(
                                   fontSize: 16, fontWeight: FontWeight.w600),
-                          textStyleHighlight:
-                              Theme.of(context).textTheme.displayLarge!.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                          textStyleHighlight: Theme.of(context)
+                              .textTheme
+                              .displayLarge!
+                              .copyWith(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
                         ),
                       ],
                     ),

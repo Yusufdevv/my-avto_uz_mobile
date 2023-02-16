@@ -1,4 +1,3 @@
-
 import 'package:auto/features/search/domain/entities/user_searches_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 

@@ -1,7 +1,8 @@
 part of 'dealer_filter_bloc.dart';
 
 abstract class DealerFilterEvent {}
-class  DealerFilterClearEvent  extends DealerFilterEvent  {}
+
+class DealerFilterClearEvent extends DealerFilterEvent {}
 
 class DealerFilterSelectEvent extends DealerFilterEvent {
   List<Region>? region;
@@ -11,5 +12,5 @@ class DealerFilterSelectEvent extends DealerFilterEvent {
     this.maker,
     this.region,
     this.carType,
-      });
+  });
 }

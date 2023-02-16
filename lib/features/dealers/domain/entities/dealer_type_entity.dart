@@ -13,9 +13,9 @@ class DealerTypeEntity extends Equatable {
 
   @override
   List<Object?> get props => [
-    id,
-    name,
-  ];
+        id,
+        name,
+      ];
 }
 
 class DealerTypeConverter

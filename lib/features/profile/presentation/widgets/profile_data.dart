@@ -61,7 +61,8 @@ class ProfileDataWidget extends StatelessWidget {
                               borderRadius: BorderRadius.circular(
                                 SizeConfig.h(24),
                               ),
-                              child: Image.asset(AppImages.defaultPhoto, fit: BoxFit.cover)))),
+                              child: Image.asset(AppImages.defaultPhoto,
+                                  fit: BoxFit.cover)))),
                 ),
               ),
               Expanded(

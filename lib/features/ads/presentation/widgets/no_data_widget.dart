@@ -22,9 +22,11 @@ class NoDataWidget extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             Text(
-               LocaleKeys.no_results.tr(),
-              style:
-                  Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 16),
+              LocaleKeys.no_results.tr(),
+              style: Theme.of(context)
+                  .textTheme
+                  .displayLarge!
+                  .copyWith(fontSize: 16),
             ),
             const SizedBox(height: 8),
             Text(

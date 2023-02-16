@@ -12,7 +12,7 @@ class PointNameShimmer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-             Shimmer.fromColors(
+            Shimmer.fromColors(
               baseColor: grey.withOpacity(0.5),
               highlightColor: grey.withOpacity(0.16),
               child: Container(

@@ -12,25 +12,25 @@ class ListOfAddedCars extends StatefulWidget {
 class _ListOfAddedCarsState extends State<ListOfAddedCars> {
   @override
   Widget build(BuildContext context) => SizedBox(
-      width:
-          ((MediaQuery.of(context).size.width - 28) / 2) * widget.list.length +
-              20,
-      child: ReorderableListView(
-        padding: const EdgeInsets.only(left: 6),
-        physics: const NeverScrollableScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        onReorder: (oldIndex, newIndex) {
-          setState(() {
-            if (oldIndex < newIndex) {
-              newIndex -= 1;
-            }
-            final AddedCar item = widget.list.removeAt(oldIndex);
-            widget.list.insert(newIndex, item);
-          });
-        },
-        children: [
-          ...List.generate(widget.list.length, (index) => widget.list[index]),
-        ],
-      ),
-    );
+        width: ((MediaQuery.of(context).size.width - 28) / 2) *
+                widget.list.length +
+            20,
+        child: ReorderableListView(
+          padding: const EdgeInsets.only(left: 6),
+          physics: const NeverScrollableScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+          onReorder: (oldIndex, newIndex) {
+            setState(() {
+              if (oldIndex < newIndex) {
+                newIndex -= 1;
+              }
+              final AddedCar item = widget.list.removeAt(oldIndex);
+              widget.list.insert(newIndex, item);
+            });
+          },
+          children: [
+            ...List.generate(widget.list.length, (index) => widget.list[index]),
+          ],
+        ),
+      );
 }

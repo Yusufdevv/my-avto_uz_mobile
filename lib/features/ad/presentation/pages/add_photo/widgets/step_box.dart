@@ -45,12 +45,18 @@ class StepBoxOfPhotoInstruction extends StatelessWidget {
                       Text(
                         '${index + 1}',
                         style: selected
-                            ? Theme.of(context).textTheme.displayLarge!.copyWith(
+                            ? Theme.of(context)
+                                .textTheme
+                                .displayLarge!
+                                .copyWith(
                                   color: purple,
                                   fontSize: 18,
                                   fontWeight: FontWeight.w800,
                                 )
-                            : Theme.of(context).textTheme.displayLarge!.copyWith(
+                            : Theme.of(context)
+                                .textTheme
+                                .displayLarge!
+                                .copyWith(
                                   color: Theme.of(context)
                                       .extension<ThemedColors>()!
                                       .ghostToGreySuit,

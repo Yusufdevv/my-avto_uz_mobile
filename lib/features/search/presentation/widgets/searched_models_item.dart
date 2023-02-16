@@ -31,7 +31,6 @@ class SearchedModelsItem extends StatelessWidget {
           child: Container(
             color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
             padding: const EdgeInsets.symmetric(horizontal: 16),
-           
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [

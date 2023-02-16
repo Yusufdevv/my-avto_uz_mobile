@@ -40,11 +40,13 @@ class UsercountdataEntity extends Equatable {
       ];
 }
 
-class UsercountdataEntityConverter extends JsonConverter<UsercountdataEntity, Map<String, dynamic>?> {
+class UsercountdataEntityConverter
+    extends JsonConverter<UsercountdataEntity, Map<String, dynamic>?> {
   const UsercountdataEntityConverter();
 
   @override
-  UsercountdataEntity fromJson(Map<String, dynamic>? json) => UsercountdataModel.fromJson(json ?? {});
+  UsercountdataEntity fromJson(Map<String, dynamic>? json) =>
+      UsercountdataModel.fromJson(json ?? {});
 
   @override
   Map<String, dynamic> toJson(UsercountdataEntity object) => {};

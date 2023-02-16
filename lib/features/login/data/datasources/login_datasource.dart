@@ -16,9 +16,7 @@ class LoginDataSourceImpl extends LoginDataSource {
         data: {'phone': '+998${phone.replaceAll(' ', '')}'});
     if (response.statusCode! >= 200 && response.statusCode! < 300) {
       return response.data['session'];
-    } else {
-
-    }
+    } else {}
 
     throw UnimplementedError();
   }

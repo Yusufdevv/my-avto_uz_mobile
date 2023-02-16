@@ -28,65 +28,65 @@ class _CurrencyChooseSheetState extends State<CurrencyChooseSheet> {
 
   @override
   Widget build(BuildContext context) => Container(
-      decoration: const BoxDecoration(
-        color: white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SheetHeader(
-              title: 'Валюта',
-              onCancelPressed: () {
-                Navigator.of(context).pop();
-              }),
-          const Divider(thickness: 1, color: border, height: 1),
-          SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Column(
-              children: [
-                ...List.generate(
-                  Currency.values.length,
-                  (index) => Column(
-                    children: [
-                      WScaleAnimation(
-                        onTap: () {
-                          selected = Currency.values[index].name;
-                          setState(() {});
-                        },
-                        child: RegionSheetItem(
-                          isMultiChoice: false,
-                          title: Currency.values[index].name,
-                          hasBorder: index == Currency.values.length - 1,
-                          isChecked: selected == Currency.values[index].name,
+        decoration: const BoxDecoration(
+          color: white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SheetHeader(
+                title: 'Валюта',
+                onCancelPressed: () {
+                  Navigator.of(context).pop();
+                }),
+            const Divider(thickness: 1, color: border, height: 1),
+            SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  ...List.generate(
+                    Currency.values.length,
+                    (index) => Column(
+                      children: [
+                        WScaleAnimation(
+                          onTap: () {
+                            selected = Currency.values[index].name;
+                            setState(() {});
+                          },
+                          child: RegionSheetItem(
+                            isMultiChoice: false,
+                            title: Currency.values[index].name,
+                            hasBorder: index == Currency.values.length - 1,
+                            isChecked: selected == Currency.values[index].name,
+                          ),
                         ),
-                      ),
-                      const Divider(
-                        thickness: 1,
-                        color: border,
-                        height: 1,
-                        indent: 16,
-                      )
-                    ],
+                        const Divider(
+                          thickness: 1,
+                          color: border,
+                          height: 1,
+                          indent: 16,
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 16,
-              right: 16,
-              bottom: 16,
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 16,
+                right: 16,
+                bottom: 16,
+              ),
+              child: WButton(
+                  onTap: () {
+                    Navigator.of(context).pop(selected);
+                  },
+                  color: orange,
+                  text: 'Применить'),
             ),
-            child: WButton(
-                onTap: () {
-                  Navigator.of(context).pop(selected);
-                },
-                color: orange,
-                text: 'Применить'),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
 }

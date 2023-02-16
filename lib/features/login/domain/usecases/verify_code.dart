@@ -7,7 +7,8 @@ class VerifyCodeUseCase extends UseCase<String, VerifyParam> {
   final GlobalRequestRepository repo = GlobalRequestRepository();
 
   @override
-  Future<Either<Failure, String>> call(VerifyParam params) => repo.postAndSingle(
+  Future<Either<Failure, String>> call(VerifyParam params) =>
+      repo.postAndSingle(
           endpoint: '/users/registration/sms-verification/verify/',
           sendToken: false,
           errorKey: 'detail',

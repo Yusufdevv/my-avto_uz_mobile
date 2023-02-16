@@ -5,7 +5,8 @@ Widget modelContainer(BuildContext context) => GestureDetector(
       onTap: () => Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const ChooseCarScreen()),
-      ), behavior: HitTestBehavior.opaque,
+      ),
+      behavior: HitTestBehavior.opaque,
       child: Container(
         margin: const EdgeInsets.only(left: 16, right: 16, top: 16),
         height: 54,

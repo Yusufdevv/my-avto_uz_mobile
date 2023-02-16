@@ -66,7 +66,6 @@ class DealerSingleEntity extends Equatable {
         dealerType,
         address,
         description,
-
       ];
 }
 

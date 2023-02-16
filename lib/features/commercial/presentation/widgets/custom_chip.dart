@@ -84,7 +84,8 @@ class CustomChip extends StatelessWidget {
                 ),
               ),
               GestureDetector(
-                onTap: trailingFunction ?? () {},    behavior: HitTestBehavior.opaque,
+                onTap: trailingFunction ?? () {},
+                behavior: HitTestBehavior.opaque,
                 child: Padding(
                   padding: trailing == null
                       ? EdgeInsets.zero

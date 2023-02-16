@@ -108,14 +108,16 @@ class MoreBottomSheet extends StatelessWidget {
                           ),
                           Text(
                             LocaleKeys.report_vin.tr(),
-                            style:
-                                Theme.of(context).textTheme.displayLarge!.copyWith(
-                                      color: const Color(
-                                        0xff171725,
-                                      ),
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 12,
-                                    ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayLarge!
+                                .copyWith(
+                                  color: const Color(
+                                    0xff171725,
+                                  ),
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 12,
+                                ),
                           ),
                         ],
                       ),

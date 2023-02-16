@@ -1,7 +1,6 @@
 import 'package:auto/utils/intepolate.dart';
 import 'package:flutter/material.dart';
 
-
 class StrokePaint extends CustomPainter {
   final double progress;
   final p1 = const Offset(4, 20);

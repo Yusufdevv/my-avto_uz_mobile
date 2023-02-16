@@ -192,10 +192,11 @@ class InfoContainer extends StatelessWidget {
                       visible: hasDiscount,
                       child: Text(
                         discountPrice == null ? '' : price!,
-                        style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                              decoration: TextDecoration.lineThrough,
-                              color: grey,
-                            ),
+                        style:
+                            Theme.of(context).textTheme.displayMedium!.copyWith(
+                                  decoration: TextDecoration.lineThrough,
+                                  color: grey,
+                                ),
                       ),
                     ),
                   ),
@@ -282,8 +283,7 @@ class InfoContainer extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 4, right: 16),
                 child: ButtonAddToComparison(
-                    isAddedToComparison: initialComparsions,
-                    id: id),
+                    isAddedToComparison: initialComparsions, id: id),
               )
             else
               Column(
@@ -315,15 +315,13 @@ class InfoContainer extends StatelessWidget {
                         BlocConsumer<WishlistAddBloc, WishlistAddState>(
                           listener: (context, state) {},
                           builder: (context, state) {
-                            final isLiked = state.map[id] ??
-                                initialLike ??
-                                false;
+                            final isLiked =
+                                state.map[id] ?? initialLike ?? false;
                             return AddWishlistItem(
                               onTap: () {
                                 if (!isLiked) {
                                   context.read<WishlistAddBloc>().add(
-                                      WishlistAddEvent.addWishlist(
-                                          id, index));
+                                      WishlistAddEvent.addWishlist(id, index));
                                   context.read<WishlistAddBloc>().add(
                                       WishlistAddEvent.addToMapFavorites(
                                           id: id, value: true));

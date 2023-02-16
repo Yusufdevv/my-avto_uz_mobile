@@ -32,7 +32,8 @@ class MarksInDealersBloc
     });
 
     on<_GetMoreResults>((event, emit) async {
-      final result = await marksInDealerUseCase.call(Params(slug: event.slug, next: state.next));
+      final result = await marksInDealerUseCase
+          .call(Params(slug: event.slug, next: state.next));
       if (result.isRight) {
         emit(
           state.copyWith(

@@ -11,7 +11,7 @@ abstract class MarksInDealerRepository {
       {required String slug, String? next});
 }
 
-class MarksInDealerRepositoryImpl extends MarksInDealerRepository{
+class MarksInDealerRepositoryImpl extends MarksInDealerRepository {
   final MarksInDealerDataSource dataSource;
 
   MarksInDealerRepositoryImpl({required this.dataSource});

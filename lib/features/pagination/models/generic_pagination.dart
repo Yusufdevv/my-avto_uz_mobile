@@ -13,7 +13,12 @@ class GenericPagination<T> {
   @JsonKey(name: 'count', defaultValue: 0)
   final int count;
 
-  GenericPagination({required this.next, required this.previous, required this.results, required this.count});
-  factory GenericPagination.fromJson(Map<String, dynamic> json, T Function(Object?) fetch) =>
+  GenericPagination(
+      {required this.next,
+      required this.previous,
+      required this.results,
+      required this.count});
+  factory GenericPagination.fromJson(
+          Map<String, dynamic> json, T Function(Object?) fetch) =>
       _$GenericPaginationFromJson(json, fetch);
 }

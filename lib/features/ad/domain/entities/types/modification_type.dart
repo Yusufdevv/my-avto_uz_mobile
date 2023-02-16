@@ -11,9 +11,9 @@ class ModificationTypeEntity extends Equatable {
   final String volume;
 
   const ModificationTypeEntity({
-     this.id = -1,
-     this.power='',
-     this.volume='',
+    this.id = -1,
+    this.power = '',
+    this.volume = '',
   });
 
   @override

@@ -25,7 +25,10 @@ class CarInfoRow extends StatelessWidget {
                       child: Container(
                           margin: const EdgeInsets.only(top: 13),
                           height: 1,
-                          color: Theme.of(context).textTheme.displayMedium!.color)),
+                          color: Theme.of(context)
+                              .textTheme
+                              .displayMedium!
+                              .color)),
                 ],
               ),
             ),

@@ -361,14 +361,14 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                             hasBorder: (state.makes.length - 1) != index,
                             onTap: () {
                               context.read<PostingAdBloc>().add(
-                                PostingAdChooseEvent(
-                                  make: state.makes[index],
-                                ),
-                              );
+                                    PostingAdChooseEvent(
+                                      make: state.makes[index],
+                                    ),
+                                  );
                             },
                             selectedId:
-                            context.watch<PostingAdBloc>().state.make?.id ??
-                                -1,
+                                context.watch<PostingAdBloc>().state.make?.id ??
+                                    -1,
                             id: state.makes[index].id,
                             imageUrl: state.makes[index].logo,
                             name: state.makes[index].name,

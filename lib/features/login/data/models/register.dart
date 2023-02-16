@@ -1,4 +1,3 @@
-import 'package:auto/features/common/domain/model/token_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -6,27 +5,38 @@ part 'register.g.dart';
 
 @JsonSerializable()
 class RegisterModel extends Equatable {
-  @JsonKey(name: 'full_name', )
+  @JsonKey(
+    name: 'full_name',
+  )
   final String fullName;
-  @JsonKey(name: 'region', )
+  @JsonKey(
+    name: 'region',
+  )
   final int region;
-  @JsonKey(name: 'phone_number', )
+  @JsonKey(
+    name: 'phone_number',
+  )
   final String phoneNumber;
-  @JsonKey(name: 'email', )
+  @JsonKey(
+    name: 'email',
+  )
   final String email;
-  @JsonKey(name: 'password', )
+  @JsonKey(
+    name: 'password',
+  )
   final String password;
-  @JsonKey(name: 'image', )
+  @JsonKey(
+    name: 'image',
+  )
   final String image;
 
-
   const RegisterModel(
-      { this.password='',
-       this.phoneNumber='',
-       this.email='',
-        this.image='',
-       this.fullName='',
-       this.region=0});
+      {this.password = '',
+      this.phoneNumber = '',
+      this.email = '',
+      this.image = '',
+      this.fullName = '',
+      this.region = 0});
 
   RegisterModel copyWith({
     String? fullName,
@@ -36,7 +46,8 @@ class RegisterModel extends Equatable {
     String? password,
     String? image,
   }) =>
-      RegisterModel(image: image??this.image,
+      RegisterModel(
+          image: image ?? this.image,
           password: password ?? this.password,
           phoneNumber: phoneNumber ?? this.phoneNumber,
           email: email ?? this.email,
@@ -49,11 +60,6 @@ class RegisterModel extends Equatable {
   Map<String, dynamic> toJson() => _$RegisterModelToJson(this);
 
   @override
-  List<Object?> get props => [
-    fullName,
-    region,
-    phoneNumber,
-    email,
-    password,image
-  ];
+  List<Object?> get props =>
+      [fullName, region, phoneNumber, email, password, image];
 }

@@ -1,4 +1,3 @@
-
 import 'package:auto/features/common/domain/entity/type_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'type_model.g.dart';

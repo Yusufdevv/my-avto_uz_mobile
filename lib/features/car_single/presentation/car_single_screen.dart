@@ -236,7 +236,8 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                               ),
                               date: state.singleEntity.publishedAt,
                               view: '${state.singleEntity.viewsCount}',
-                              todayViewedCount: '${state.singleEntity.todayViewedCount}',
+                              todayViewedCount:
+                                  '${state.singleEntity.todayViewedCount}',
                               id: '${state.singleEntity.id}',
                               currency: state.singleEntity.currency == 'usd'
                                   ? 'USD'

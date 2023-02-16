@@ -16,7 +16,8 @@ class NavigateCommentsButton extends StatelessWidget {
         child: WScaleAnimation(
           child: Text(
             'Комментарии ($commentsCount)',
-            style: Theme.of(context).textTheme.titleMedium!.copyWith(color: blue),
+            style:
+                Theme.of(context).textTheme.titleMedium!.copyWith(color: blue),
           ),
           onTap: () {},
         ),

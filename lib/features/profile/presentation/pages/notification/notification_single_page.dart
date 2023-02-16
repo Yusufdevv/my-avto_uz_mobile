@@ -12,12 +12,13 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:formz/formz.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
+
 class NotificationSinglePage extends StatelessWidget {
   const NotificationSinglePage({super.key});
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar:   WAppBar(
+        appBar: WAppBar(
           hasBackButton: true,
           title: LocaleKeys.notifications.tr(),
         ),
@@ -29,7 +30,7 @@ class NotificationSinglePage extends StatelessWidget {
             if (state.myAdsStatus.isSubmissionSuccess) {
               final notification = state.notificationSingle;
               return SingleChildScrollView(
-                physics:const BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 child: Padding(
                   padding: EdgeInsets.only(top: SizeConfig.v(16)),
                   child: Column(
@@ -87,7 +88,7 @@ class NotificationSinglePage extends StatelessWidget {
                 ),
               );
             }
-            return   Center(
+            return Center(
               child: Text(LocaleKeys.error.tr()),
             );
           },

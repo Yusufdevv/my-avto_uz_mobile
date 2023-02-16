@@ -170,17 +170,20 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                                             onError: (message) {
                                               var error = message;
                                               if (error
-                                                  .toLowerCase()
-                                                  .contains('dio')  || error
-                                              .toLowerCase()
-                                              .contains('type')) {
+                                                      .toLowerCase()
+                                                      .contains('dio') ||
+                                                  error
+                                                      .toLowerCase()
+                                                      .contains('type')) {
                                                 error = LocaleKeys.service_error
                                                     .tr();
                                               }
-                                              context.read<ShowPopUpBloc>().add(
-                                                  ShowPopUp(
-                                                      message: error,
-                                                     status: PopStatus.error,));
+                                              context
+                                                  .read<ShowPopUpBloc>()
+                                                  .add(ShowPopUp(
+                                                    message: error,
+                                                    status: PopStatus.error,
+                                                  ));
                                               setState(() {
                                                 isError = true;
                                               });
@@ -239,10 +242,12 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                                       setState(() {
                                         isError = true;
                                       });
-                                      context.read<ShowPopUpBloc>().add(
-                                          ShowPopUp(
-                                              message: message,
-                                              status: PopStatus.error,));
+                                      context
+                                          .read<ShowPopUpBloc>()
+                                          .add(ShowPopUp(
+                                            message: message,
+                                            status: PopStatus.error,
+                                          ));
                                     }));
                           }
                         },
