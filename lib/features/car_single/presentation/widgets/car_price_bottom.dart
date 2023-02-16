@@ -127,7 +127,7 @@ class CarPriceBottom extends StatelessWidget {
               date: LocaleKeys.ratio.tr(),
               price: LocaleKeys.cheaper_sc.tr(),
               totalPrice:
-                  LocaleKeys.on.tr(args: ['$ration $currency ($percent%)']),
+                  LocaleKeys.on.tr(args: ['${ration.ceil()} $currency ($percent%)']),
               // 'на $ration ($percent %)',
               textColor: const Color(0xff5ECC81),
             ),
@@ -137,7 +137,7 @@ class CarPriceBottom extends StatelessWidget {
             CarsPrice(
               date: '${LocaleKeys.market_condition_on.tr()} $date',
               price: LocaleKeys.average_price.tr(),
-              totalPrice: '≈ $middlePrice $currency',
+              totalPrice: '≈ ${middlePrice.ceil()} $currency',
               textColor: profileContainers,
             ),
             WScaleAnimation(
@@ -166,7 +166,7 @@ class CarPriceBottom extends StatelessWidget {
                     ),
                     const SizedBox(width: 4),
                     Text(
-                      LocaleKeys.how_the_average_price_is_calculated.tr(),
+                      LocaleKeys.how_the_average_price_is_calculated.tr(namedArgs: {'middle' : ' '}),
                       style: Theme.of(context).textTheme.displayLarge!.copyWith(
                           fontWeight: FontWeight.w600,
                           fontSize: 14,

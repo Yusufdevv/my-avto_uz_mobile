@@ -27,7 +27,7 @@ class AboutCarPriceBottom extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    LocaleKeys.how_the_average_price_is_calculated.tr(),
+                    LocaleKeys.how_the_average_price_is_calculated.tr(namedArgs: {'middle' : '\n'}),
                     style: Theme.of(context).textTheme.displayLarge,
                   ),
                   const Spacer(),
@@ -59,7 +59,7 @@ class AboutCarPriceBottom extends StatelessWidget {
                 child: RichText(
                     text: TextSpan(children: [
                   TextSpan(
-                    text: LocaleKeys.we_compared_all_same_auto.tr(),
+                    text: LocaleKeys.we_compared_all_parameters.tr(),
                     style: Theme.of(context)
                         .textTheme
                         .displayMedium!

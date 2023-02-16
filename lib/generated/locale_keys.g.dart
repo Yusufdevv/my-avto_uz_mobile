@@ -243,7 +243,7 @@ abstract class  LocaleKeys {
   static const paint_condition = 'paint_condition';
   static const position = 'position';
   static const how_price_is_calculated = 'how_price_is_calculated';
-  static const we_compared_all_same_auto = 'we_compared_all_same_auto';
+  static const we_compared_all_parameters = 'we_compared_all_parameters';
   static const by_parameters = 'by_parameters';
   static const drive_gearbox = 'drive_gearbox';
   static const modification = 'modification';
