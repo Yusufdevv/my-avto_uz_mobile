@@ -509,7 +509,6 @@ class CodegenLoader extends AssetLoader{
   "minimal_summa_must_be": "Минимальная сумма должна быть",
   "monthly_pay": "Ежемесячная оплата",
   "map": "Карта",
-  "we_compared_all_parameters": "Мы сравнили все похожие авто на ",
   "km": "км",
   "dayss": "дня",
   "u_t_e_o_t_a_p_l": "До окончания срока объявления осталось: ",
@@ -529,7 +528,8 @@ class CodegenLoader extends AssetLoader{
   "your_ad_edited_successfully": "Ваше объявление успешно отредактировано!",
   "sum": "сум",
   "the_before_enter_price": "Сначала введите цену",
-  "you_dont_have_featured_listings": "У вас нет избранных объявлений"
+  "you_dont_have_featured_listings": "У вас нет избранных объявлений",
+  "rent_to_buy": "Аренда c выкупом"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -990,7 +990,7 @@ static const Map<String,dynamic> uz = {
   "gas_ballon_equipment": "Gaz balon uskunasi",
   "car_color": "Avtomobil rangi",
   "original_slash_electronniy_pts": "Original / Elektron TVP",
-  "duplicat": "Nusxasi..",
+  "duplicate": "Nusxasi..",
   "first": "Birinchi",
   "second": "Ikkinchi",
   "third": "Uchinchi",
@@ -1045,7 +1045,8 @@ static const Map<String,dynamic> uz = {
   "your_ad_edited_successfully": "Reklamangiz muvaffaqiyatli tahrirlandi!",
   "sum": "so'm",
   "the_before_enter_price": "Avval narxni kiriting",
-  "you_dont_have_featured_listings": "Sizda tanlangan e'lonlar yoʻq"
+  "you_dont_have_featured_listings": "Sizda tanlangan e'lonlar yoʻq",
+  "rent_to_buy": "Аренда c выкупом"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }

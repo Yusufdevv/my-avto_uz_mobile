@@ -65,6 +65,7 @@ class AutoModel extends AutoEntity {
     required super.registrationSerialNumber,
     required super.registrationVin,
     required super.stats,
+    required super.isRentWithPurchase,
   });
 
   factory AutoModel.fromJson(Map<String, dynamic> json) =>

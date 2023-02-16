@@ -240,6 +240,7 @@ class _UserSinglePageState extends State<UserSinglePage> {
                                         padding:
                                             const EdgeInsets.only(bottom: 12),
                                         child: InfoResultContainer(
+                                          sellType: item.isRentWithPurchase ? LocaleKeys.rent_to_buy.tr() : LocaleKeys.car_sale.tr(),
                                           currency: item.currency,
                                           discount: item.discount ?? 0.0,
                                           callFrom: item.contactAvailableFrom,

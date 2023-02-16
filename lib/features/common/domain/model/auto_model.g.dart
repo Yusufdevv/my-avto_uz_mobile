@@ -99,6 +99,7 @@ AutoModel _$AutoModelFromJson(Map<String, dynamic> json) => AutoModel(
           ? const StatsEntity()
           : const StatsConverter()
               .fromJson(json['stats'] as Map<String, dynamic>?),
+      isRentWithPurchase: json['is_rent_with_purchase'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$AutoModelToJson(AutoModel instance) => <String, dynamic>{
@@ -144,6 +145,7 @@ Map<String, dynamic> _$AutoModelToJson(AutoModel instance) => <String, dynamic>{
       'views_count': instance.viewsCount,
       'is_wishlisted': instance.isWishlisted,
       'is_comparison': instance.isComparison,
+      'is_rent_with_purchase': instance.isRentWithPurchase,
       'discount': instance.discount,
       'contact_available_from': instance.contactAvailableFrom,
       'contact_available_to': instance.contactAvailableTo,

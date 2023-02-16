@@ -17,6 +17,7 @@ CarsInDealerModel _$CarsInDealerModelFromJson(Map<String, dynamic> json) =>
       description: json['description'] as String? ?? '',
       latitude: (json['latitude'] as num?)?.toDouble() ?? 0,
       longitude: (json['longitude'] as num?)?.toDouble() ?? 0,
+      isRentWithPurchase: json['is_rent_with_purchase'] as bool? ?? false,
       price: json['price'] as String? ?? '',
       locationUrl: json['location_url'] as String? ?? '',
       gallery: (json['gallery'] as List<dynamic>?)
@@ -139,4 +140,5 @@ Map<String, dynamic> _$CarsInDealerModelToJson(CarsInDealerModel instance) =>
       'dealer': const DealerCardConvert().toJson(instance.dealer),
       'is_wishlisted': instance.isWishlisted,
       'is_comparison': instance.isComparison,
+      'is_rent_with_purchase': instance.isRentWithPurchase,
     };

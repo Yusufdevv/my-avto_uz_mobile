@@ -512,5 +512,7 @@
   "your_ad_edited_successfully" : "Ваше объявление успешно отредактировано!",
   "sum" : "сум",
   "the_before_enter_price": "Сначала введите цену",
-  "you_dont_have_featured_listings": "У вас нет избранных объявлений"
+  "you_dont_have_featured_listings": "У вас нет избранных объявлений",
+  "rent_to_buy": "Аренда c выкупом"
+
 }
