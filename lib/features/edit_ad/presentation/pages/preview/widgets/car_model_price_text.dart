@@ -19,7 +19,7 @@ class CarPriceText extends StatelessWidget {
             const SizedBox(
               width: 12,
             ),
-            // WlabelLarge(
+            // WButton(
             //   onTap: () {},
             //   color: blue,
             //   borderRadius: 6,

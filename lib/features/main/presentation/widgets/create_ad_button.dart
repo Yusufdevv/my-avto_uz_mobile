@@ -3,6 +3,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/ad/presentation/posting_ad_screen.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/main/presentation/widgets/choose_create_ad_mode_sheet.dart';
+import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,10 @@ class CreateAdButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) => WButton(
         onTap: () {
+          HomeTabControllerProvider.of(context)
+              .controller
+              .animateTo(2);
+          return;
           showModalBottomSheet<int>(
                   backgroundColor: Colors.transparent,
                   context: context,
@@ -26,7 +31,7 @@ class CreateAdButton extends StatelessWidget {
               Navigator.of(context, rootNavigator: true).push(
                 MaterialPageRoute(
                   builder: (_) => PostingAdScreen(
-                    isHaveToClearStae: value == 0,
+                    isHaveToClearState: value == 0,
                     parentContext: context,
                   ),
                 ),

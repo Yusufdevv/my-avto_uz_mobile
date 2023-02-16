@@ -1040,7 +1040,7 @@ class CodegenLoader extends AssetLoader {
     "gas_ballon_equipment": "Gaz balon uskunasi",
     "car_color": "Avtomobil rangi",
     "original_slash_electronniy_pts": "Original / Elektron TVP",
-    "duplicat": "Nusxasi..",
+    "duplicate": "Nusxasi..",
     "first": "Birinchi",
     "second": "Ikkinchi",
     "third": "Uchinchi",

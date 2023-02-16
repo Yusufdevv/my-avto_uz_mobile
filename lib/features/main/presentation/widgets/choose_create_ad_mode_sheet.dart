@@ -19,7 +19,7 @@ class ChooseCreateAdModeSheet extends StatefulWidget {
 }
 
 class ChooseCreateAdModeSheetState extends State<ChooseCreateAdModeSheet> {
-  int selected = 0;
+  int? selected = 0;
 
   @override
   Widget build(BuildContext context) => Container(

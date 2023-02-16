@@ -3,13 +3,13 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:flutter/material.dart';
 
-class PtslabelLarges extends StatelessWidget {
+class PtsButtons extends StatelessWidget {
   final String id;
   final Function(String) onTap;
   final bool isSelected;
   final String text;
 
-  const PtslabelLarges(
+  const PtsButtons(
       {required this.onTap,
       required this.id,
       this.isSelected = false,
