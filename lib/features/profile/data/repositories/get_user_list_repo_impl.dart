@@ -16,7 +16,8 @@ import 'package:auto/features/profile/domain/repositories/get_user_list_repo.dar
 import 'package:dio/dio.dart';
 
 class GetUserListRepoImpl extends GetUserListRepository {
- final GetUserListDatasourceImpl dataSource = serviceLocator<GetUserListDatasourceImpl>();
+  final GetUserListDatasourceImpl dataSource =
+      serviceLocator<GetUserListDatasourceImpl>();
 
   GetUserListRepoImpl();
 
@@ -75,9 +76,11 @@ class GetUserListRepoImpl extends GetUserListRepository {
   }
 
   @override
-  Future<Either<Failure, GenericPagination<NotificationsEntity>>> getNotifications({int? filter, String? next}) async {
+  Future<Either<Failure, GenericPagination<NotificationsEntity>>>
+      getNotifications({int? filter, String? next}) async {
     try {
-      final result = await dataSource.getNotifications(filter :filter, next: next);
+      final result =
+          await dataSource.getNotifications(filter: filter, next: next);
       return Right(result);
     } on ServerException catch (error) {
       return Left(ServerFailure(
@@ -90,7 +93,8 @@ class GetUserListRepoImpl extends GetUserListRepository {
   }
 
   @override
-  Future<Either<Failure, GenericPagination<MySearchesEntity>>> getMySearches(String next) async {
+  Future<Either<Failure, GenericPagination<MySearchesEntity>>> getMySearches(
+      String next) async {
     try {
       final result = await dataSource.getMySearches(next);
       return Right(result);

@@ -18,7 +18,7 @@ class AdditionalServiceUseCase
       next: params.next,
       query: {},
     );
-    
+
     return response;
   }
 }

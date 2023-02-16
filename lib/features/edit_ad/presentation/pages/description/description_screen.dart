@@ -109,7 +109,6 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 WCheckBox(
-
                                     isChecked: state.notRegisteredInUzbekistan,
                                     checkBoxColor: purple),
                                 const SizedBox(width: 10),

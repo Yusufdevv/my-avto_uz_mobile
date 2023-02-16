@@ -36,7 +36,8 @@ class _ChatPageState extends State<ChatPage> {
         ),
       )
       ..loadHtmlString(htmlCode('phone', ''))
-      ..reload()..clearLocalStorage();
+      ..reload()
+      ..clearLocalStorage();
   }
 
   String htmlCode(String phone, String userName) {

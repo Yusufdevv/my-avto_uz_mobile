@@ -28,8 +28,10 @@ class AllRationItem extends StatelessWidget {
           children: [
             Text(
               LocaleKeys.overal_score.tr(),
-              style:
-                  Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 18),
+              style: Theme.of(context)
+                  .textTheme
+                  .displayLarge!
+                  .copyWith(fontSize: 18),
             ),
             const SizedBox(
               height: 8,

@@ -7,10 +7,11 @@ import 'package:auto/features/pagination/models/generic_pagination.dart';
 
 // ignore: one_member_abstracts
 abstract class CarsInMarksRepository {
-  Future<Either<Failure, GenericPagination<CarsInMarksModel>>> getCars(CarMarkParams params);
+  Future<Either<Failure, GenericPagination<CarsInMarksModel>>> getCars(
+      CarMarkParams params);
 }
 
-class CarsInMarksRepositoryImpl extends CarsInMarksRepository{
+class CarsInMarksRepositoryImpl extends CarsInMarksRepository {
   final CarsInMarksDataSource dataSource;
 
   CarsInMarksRepositoryImpl({required this.dataSource});

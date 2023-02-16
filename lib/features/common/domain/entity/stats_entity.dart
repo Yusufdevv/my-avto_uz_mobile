@@ -3,7 +3,10 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 class StatsEntity extends Equatable {
-  const StatsEntity({this.viewsCount = 0,this.wishlistCount = 0, this.viewedContactsCount = 0});
+  const StatsEntity(
+      {this.viewsCount = 0,
+      this.wishlistCount = 0,
+      this.viewedContactsCount = 0});
 
   final int viewsCount;
   final int wishlistCount;
@@ -21,6 +24,9 @@ class StatsConverter
   StatsEntity fromJson(Map<String, dynamic>? json) =>
       StatsModel.fromJson(json ?? {});
   @override
-  Map<String, dynamic>? toJson(StatsEntity object) =>
-      StatsModel(viewsCount: object.viewsCount, wishlistCount: object.wishlistCount, viewedContactsCount: object.viewedContactsCount, ).toJson();
+  Map<String, dynamic>? toJson(StatsEntity object) => StatsModel(
+        viewsCount: object.viewsCount,
+        wishlistCount: object.wishlistCount,
+        viewedContactsCount: object.viewedContactsCount,
+      ).toJson();
 }

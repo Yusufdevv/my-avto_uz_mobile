@@ -37,7 +37,8 @@ class GetMakeModelEvent extends MainEvent {
   });
 
   @override
-  List<Object?> get props => [makeId, modelId, modelName, makeName, makeLogo, historySaved];
+  List<Object?> get props =>
+      [makeId, modelId, modelName, makeName, makeLogo, historySaved];
 }
 
 class GetAnnouncement extends MainEvent {

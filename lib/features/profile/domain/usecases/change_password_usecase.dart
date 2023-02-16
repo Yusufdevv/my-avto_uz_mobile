@@ -7,9 +7,9 @@ import 'package:auto/features/profile/domain/repositories/profile_repository.dar
 import 'package:equatable/equatable.dart';
 
 class ChangePasswordUseCase extends UseCase<String, ChangePasswordParams> {
-  final ProfileRepository repository =  serviceLocator<ProfileRepositoryImpl>();
+  final ProfileRepository repository = serviceLocator<ProfileRepositoryImpl>();
 
-  ChangePasswordUseCase( );
+  ChangePasswordUseCase();
 
   @override
   Future<Either<Failure, String>> call(ChangePasswordParams params) async =>

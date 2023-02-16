@@ -12,15 +12,15 @@ class AddCarEvent extends ComparisonEvent {
       {required this.carMark,
       required this.carModel,
       required this.generation});
-      
-        @override
-        List<Object?> get props => [carModel, carMark, generation];
+
+  @override
+  List<Object?> get props => [carModel, carMark, generation];
 }
 
 class SetStickyEvent extends ComparisonEvent {
   final bool isSticky;
   const SetStickyEvent({required this.isSticky});
-  
+
   @override
   List<Object?> get props => [isSticky];
 }
@@ -33,7 +33,7 @@ class GetComparableCars extends ComparisonEvent {
 class GetCars extends ComparisonEvent {
   final int id;
   const GetCars({required this.id});
-  
+
   @override
   List<Object?> get props => [id];
 }
@@ -42,7 +42,8 @@ class GetMakeModelEvent extends ComparisonEvent {
   final MakeEntity selectedMake;
   final MakeEntity selectedModel;
 
-  const GetMakeModelEvent({required this.selectedMake, required this.selectedModel});
+  const GetMakeModelEvent(
+      {required this.selectedMake, required this.selectedModel});
 
   @override
   List<Object?> get props => [selectedMake, selectedModel];

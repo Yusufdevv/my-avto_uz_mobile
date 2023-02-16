@@ -127,7 +127,7 @@ class EditAdState extends Equatable {
     TextEditingController? emailController,
     TextEditingController? nameController,
     Map<DamagedParts, DamageType>? damagedParts,
-      Map<int,RentWithPurchaseEntity>? rentWithPurchaseConditions,
+    Map<int, RentWithPurchaseEntity>? rentWithPurchaseConditions,
     int? districtId,
     int? regionId,
     FormzStatus? status,

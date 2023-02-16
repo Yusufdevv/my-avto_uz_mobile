@@ -73,7 +73,7 @@ class _PhotoInstructionsScreenState extends State<PhotoInstructionsScreen> {
                         color: Colors.amber,
                         borderRadius: BorderRadius.circular(6)),
                     child: ClipRRect(
-                    borderRadius: BorderRadius.circular(6),
+                      borderRadius: BorderRadius.circular(6),
                       child: Image.network(
                         state.instructions[state.step].image,
                         fit: BoxFit.cover,
@@ -88,11 +88,13 @@ class _PhotoInstructionsScreenState extends State<PhotoInstructionsScreen> {
                         physics: const BouncingScrollPhysics(),
                         child: Text(
                           state.instructions[state.step].description,
-                          style:
-                              Theme.of(context).textTheme.displayLarge!.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayLarge!
+                              .copyWith(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                              ),
                         ),
                       ),
                     ),
@@ -114,7 +116,9 @@ class _PhotoInstructionsScreenState extends State<PhotoInstructionsScreen> {
                                     height: 20),
                                 Text(
                                   'Назад',
-                                  style: Theme.of(context).textTheme.headlineMedium,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineMedium,
                                 ),
                                 const SizedBox()
                               ],
@@ -135,7 +139,9 @@ class _PhotoInstructionsScreenState extends State<PhotoInstructionsScreen> {
                                 const SizedBox(),
                                 Text(
                                   LocaleKeys.further.tr(),
-                                  style: Theme.of(context).textTheme.headlineMedium,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineMedium,
                                 ),
                                 SvgPicture.asset(AppIcons.arrowRight,
                                     height: 20),

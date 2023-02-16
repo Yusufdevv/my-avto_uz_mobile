@@ -3,7 +3,8 @@ part of 'search_bloc.dart';
 @Freezed()
 class SearchEvent with _$SearchEvent {
   factory SearchEvent.getResults({required String searchText}) = _GetResults;
-  factory SearchEvent.getMoreResults({required String searchText}) = _GetMoreResults;
+  factory SearchEvent.getMoreResults({required String searchText}) =
+      _GetMoreResults;
 
   factory SearchEvent.getSuggestions({required String search}) =
       _GetSuggestions;
@@ -20,6 +21,6 @@ class SearchEvent with _$SearchEvent {
       _SelectLocaleSuggestion;
 
   factory SearchEvent.changeStatus() = _ChangeStatus;
-  factory SearchEvent.setSortStatus({required SortStatus sortStatus}) = _SetSortStatus;
-  
+  factory SearchEvent.setSortStatus({required SortStatus sortStatus}) =
+      _SetSortStatus;
 }

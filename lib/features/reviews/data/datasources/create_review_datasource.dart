@@ -5,14 +5,16 @@ import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:dio/dio.dart';
 
 abstract class CreateReviewDatasource {
-  Future<GenericPagination<AutoReviewModel>> createReview(AutoReviewModel model);
+  Future<GenericPagination<AutoReviewModel>> createReview(
+      AutoReviewModel model);
 }
 
 class CreateReviewDatasourceImpl implements CreateReviewDatasource {
   final Dio _dio;
   CreateReviewDatasourceImpl(this._dio);
   @override
-  Future<GenericPagination<AutoReviewModel>> createReview(AutoReviewModel model) async {
+  Future<GenericPagination<AutoReviewModel>> createReview(
+      AutoReviewModel model) async {
     try {
       final response = await _dio.post(
         'review/create/',

@@ -18,7 +18,7 @@ class ThemedIcons extends ThemeExtension<ThemedIcons> {
   ThemeExtension<ThemedIcons> copyWith(
           {String? imageUrl,
           String? check,
-            String? google,
+          String? google,
           String? filterIcon,
           String? autoUzLightDark}) =>
       ThemedIcons(

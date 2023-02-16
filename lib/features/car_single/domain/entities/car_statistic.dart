@@ -4,5 +4,5 @@ class CarStatistic {
   final String valueText;
 
   CarStatistic(
-      {required this.valueText, required this.icon,  this.titleText=''});
+      {required this.valueText, required this.icon, this.titleText = ''});
 }

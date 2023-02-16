@@ -6,6 +6,7 @@ import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
 class ReSendPart extends StatelessWidget {
   const ReSendPart({
     required this.item,
@@ -33,7 +34,8 @@ class ReSendPart extends StatelessWidget {
         const SizedBox(height: 10),
         Text(
           LocaleKeys.the_ad_offers_services_or_products_that.tr(),
-          style: Theme.of(context).textTheme.displayMedium?.copyWith(color: dark),
+          style:
+              Theme.of(context).textTheme.displayMedium?.copyWith(color: dark),
         ),
         const SizedBox(height: 12),
         WButton(

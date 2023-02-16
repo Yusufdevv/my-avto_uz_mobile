@@ -242,10 +242,11 @@ class _FavoriteItemState extends State<FavoriteItem> {
                     labelPadding:
                         const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                     margin: const EdgeInsets.only(top: 8, bottom: 12),
-                    labelStyle: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          color: orange,
-                          fontSize: 12,
-                        ),
+                    labelStyle:
+                        Theme.of(context).textTheme.titleMedium?.copyWith(
+                              color: orange,
+                              fontSize: 12,
+                            ),
                   ),
                 const SizedBox(height: 12),
                 CarNameYearWidget(
@@ -268,9 +269,12 @@ class _FavoriteItemState extends State<FavoriteItem> {
                     if (widget.discount > 0.0)
                       Text(
                         '${widget.price.floor()} ${widget.currency.toUpperCase()}',
-                        style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                            decoration: TextDecoration.lineThrough,
-                            color: grey),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium
+                            ?.copyWith(
+                                decoration: TextDecoration.lineThrough,
+                                color: grey),
                       )
                   ],
                 ),

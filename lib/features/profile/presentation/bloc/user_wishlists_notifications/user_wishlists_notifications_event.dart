@@ -5,6 +5,7 @@ class UserWishListsEvent {}
 class GetUserFavoritesEvent extends UserWishListsEvent {
   GetUserFavoritesEvent();
 }
+
 class GetMoreUserFavoritesEvent extends UserWishListsEvent {
   GetMoreUserFavoritesEvent();
 }
@@ -21,9 +22,8 @@ class GetMoreUserMyAdsEvent extends UserWishListsEvent {
 }
 
 class GetMySearchesEvent extends UserWishListsEvent {}
-class GetMoreMySearchesEvent extends UserWishListsEvent {
 
-}
+class GetMoreMySearchesEvent extends UserWishListsEvent {}
 
 class NotificationAllReadEvent extends UserWishListsEvent {}
 

@@ -13,7 +13,7 @@ import 'package:formz/formz.dart';
 
 // ignore: must_be_immutable
 class MainFavorites extends StatelessWidget {
-  MainFavorites({required this.parentContext,Key? key}) : super(key: key);
+  MainFavorites({required this.parentContext, Key? key}) : super(key: key);
   final BuildContext parentContext;
 
   late List<AutoEntity> favorites;
@@ -44,7 +44,9 @@ class MainFavorites extends StatelessWidget {
                   builder: (context, stateWish) => (state
                               .favoritesStatus.isSubmissionSuccess &&
                           state.favorites.isEmpty)
-                      ?   MainEmptyFavourite(parentContext: parentContext,)
+                      ? MainEmptyFavourite(
+                          parentContext: parentContext,
+                        )
                       : SizedBox(
                           height: 298,
                           child: Paginator(
@@ -54,7 +56,8 @@ class MainFavorites extends StatelessWidget {
                             itemBuilder: (context, index) => Builder(
                                 builder: (context) => AdsItem(
                                       id: favorites[index].id,
-                                      name: '${favorites[index].make.name} ${favorites[index].model.name} ${favorites[index].generation.name}',
+                                      name:
+                                          '${favorites[index].make.name} ${favorites[index].model.name} ${favorites[index].generation.name}',
                                       price: favorites[index].price.toString(),
                                       location: favorites[index].region.title,
                                       description: favorites[index].description,
@@ -96,10 +99,9 @@ class MainFavorites extends StatelessWidget {
                           ),
                         ),
                 ),
-                ],
+              ],
             ),
           );
         },
       );
 }
-

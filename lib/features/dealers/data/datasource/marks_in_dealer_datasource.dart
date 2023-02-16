@@ -9,11 +9,9 @@ class MarksInDealerDataSource {
   MarksInDealerDataSource(this._dio);
   Future<GenericPagination<MarksWithAdsModel>> getMarks(
       {required String slug, String? next}) async {
-        var query = <String, dynamic>{};
-    if(next!=null) {
-      query = {
-        'next': next
-      };
+    var query = <String, dynamic>{};
+    if (next != null) {
+      query = {'next': next};
     }
     try {
       final results = await _dio.get(

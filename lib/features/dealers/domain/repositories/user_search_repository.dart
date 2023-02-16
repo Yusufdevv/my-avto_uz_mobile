@@ -5,6 +5,6 @@ import 'package:auto/features/pagination/models/generic_pagination.dart';
 
 // ignore: one_member_abstracts
 abstract class UserSearchRepository {
-  Future<Either<Failure, GenericPagination<UserSearchDealerModel>>> getUserSearches(
-      String? search);
+  Future<Either<Failure, GenericPagination<UserSearchDealerModel>>>
+      getUserSearches(String? search);
 }

@@ -63,7 +63,8 @@ class _WCupertinoSwitchState extends State<WCupertinoSwitch> {
               widget.onChange(isSwitched);
             });
             widget.onChange(isSwitched);
-          },    behavior: HitTestBehavior.opaque,
+          },
+          behavior: HitTestBehavior.opaque,
           onHorizontalDragStart: (details) {
             setState(() {
               if (details.localPosition.dx < widget.height - 4) {
@@ -104,7 +105,11 @@ class _WCupertinoSwitchState extends State<WCupertinoSwitch> {
                 height: widget.height,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(widget.height / 2),
-                  color: isSwitched ? widget.activeColor : Theme.of(context).extension<ThemedColors>()!.stormGrey16ToStormGrey32,
+                  color: isSwitched
+                      ? widget.activeColor
+                      : Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .stormGrey16ToStormGrey32,
                 ),
               ),
               AnimatedPositioned(

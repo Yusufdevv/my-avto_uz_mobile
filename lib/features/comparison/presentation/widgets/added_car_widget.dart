@@ -112,22 +112,26 @@ class _AddedCarState extends State<AddedCar> {
                         ),
                         child: Text(
                           widget.carSalary,
-                          style:
-                              Theme.of(context).textTheme.displayLarge!.copyWith(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayLarge!
+                              .copyWith(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w700,
+                              ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Text(
                           widget.carName,
-                          style:
-                              Theme.of(context).textTheme.displayLarge!.copyWith(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayLarge!
+                              .copyWith(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                              ),
                         ),
                       ),
                     ],

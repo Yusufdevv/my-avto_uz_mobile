@@ -63,7 +63,7 @@ class AdsDataSource {
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return GenericPagination.fromJson(response.data,
-                (p0) => AnnouncementListModel.fromJson(p0 as Map<String, dynamic>));
+            (p0) => AnnouncementListModel.fromJson(p0 as Map<String, dynamic>));
       } else {
         throw ServerException(
           statusCode: response.statusCode!,
@@ -74,5 +74,4 @@ class AdsDataSource {
       throw const ServerException();
     }
   }
-
 }

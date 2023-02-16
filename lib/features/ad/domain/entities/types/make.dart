@@ -33,6 +33,10 @@ class MakeEntityConverter
       MakeModel.fromJson(json ?? {});
 
   @override
-  Map<String, dynamic> toJson(MakeEntity object) =>
-      MakeModel(id: object.id, name: object.name, logo: object.logo, slug: object.slug).toJson();
+  Map<String, dynamic> toJson(MakeEntity object) => MakeModel(
+          id: object.id,
+          name: object.name,
+          logo: object.logo,
+          slug: object.slug)
+      .toJson();
 }

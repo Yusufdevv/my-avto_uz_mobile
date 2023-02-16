@@ -21,5 +21,5 @@ class ShowPopUpState extends Equatable {
         showPopUp: showPopUp ?? this.showPopUp,
       );
   @override
-  List<Object?> get props => [showPopUp, message,status];
+  List<Object?> get props => [showPopUp, message, status];
 }

@@ -8,10 +8,10 @@ part 'user_search_dealer_event.dart';
 part 'user_search_dealer_state.dart';
 part 'user_search_dealer_bloc.freezed.dart';
 
-class UserSearchDealerBloc extends Bloc<UserSearchDealerEvent, UserSearchDealerState> {
+class UserSearchDealerBloc
+    extends Bloc<UserSearchDealerEvent, UserSearchDealerState> {
   final UserSearchUseCase useCase;
-  UserSearchDealerBloc(
-      {required this.useCase})
+  UserSearchDealerBloc({required this.useCase})
       : super(UserSearchDealerState()) {
     on<_GetUserSearches>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
@@ -46,4 +46,3 @@ class UserSearchDealerBloc extends Bloc<UserSearchDealerEvent, UserSearchDealerS
     // });
   }
 }
-

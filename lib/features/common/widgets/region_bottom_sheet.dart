@@ -50,7 +50,8 @@ class _ChooseRegionsheetState extends State<ChooseRegionsheet> {
                 GestureDetector(
                   onTap: () => setState(() {
                     allRegion = true;
-                  }),    behavior: HitTestBehavior.opaque,
+                  }),
+                  behavior: HitTestBehavior.opaque,
                   child: Container(
                     width: 20,
                     height: 20,
@@ -88,7 +89,8 @@ class _ChooseRegionsheetState extends State<ChooseRegionsheet> {
                   GestureDetector(
                     onTap: () => setState(() {
                       regionSelected = true;
-                    }),    behavior: HitTestBehavior.opaque,
+                    }),
+                    behavior: HitTestBehavior.opaque,
                     child: WCheckBox(
                       isChecked: allRegion ? true : regionSelected,
                       checkBoxColor: orange,

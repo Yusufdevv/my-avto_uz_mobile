@@ -42,7 +42,7 @@ class ScrolledBottomSheet extends StatelessWidget {
                     width: double.infinity,
                     decoration: BoxDecoration(
                         color: Theme.of(context).scaffoldBackgroundColor,
-                        borderRadius:const BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(20),
                           topRight: Radius.circular(20),
                         )),

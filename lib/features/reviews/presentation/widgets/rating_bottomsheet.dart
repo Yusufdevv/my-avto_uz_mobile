@@ -26,7 +26,8 @@ class _RatingBottomsheetState extends State<RatingBottomsheet> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             GestureDetector(
-              onTap: () => Navigator.pop(context), behavior: HitTestBehavior.opaque,
+              onTap: () => Navigator.pop(context),
+              behavior: HitTestBehavior.opaque,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

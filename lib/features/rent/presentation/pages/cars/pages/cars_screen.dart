@@ -29,7 +29,7 @@ class _CarsScreenState extends State<CarsScreen> {
           builder: (context, state) {
             if (state.status.isSubmissionInProgress) {
               return SizedBox(
-                height: MediaQuery.of(context).size.height*.8,
+                  height: MediaQuery.of(context).size.height * .8,
                   child: const Center(child: CupertinoActivityIndicator()));
             } else if (state.status.isSubmissionSuccess) {
               if (state.list.isNotEmpty) {

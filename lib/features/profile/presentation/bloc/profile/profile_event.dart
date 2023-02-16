@@ -17,7 +17,12 @@ class ChangeCountDataEvent extends ProfileEvent {
   final int? mySearchesCount;
   final int? myAdsCount;
 
-  ChangeCountDataEvent({required this.adding,   this.favoritesCount, this.mySearchesCount,this.myAdsCount,});
+  ChangeCountDataEvent({
+    required this.adding,
+    this.favoritesCount,
+    this.mySearchesCount,
+    this.myAdsCount,
+  });
 }
 
 class LoginUser extends ProfileEvent {

@@ -73,4 +73,3 @@ class CarDealerConverter
         carCount: object.carCount,
       ).toJson();
 }
-

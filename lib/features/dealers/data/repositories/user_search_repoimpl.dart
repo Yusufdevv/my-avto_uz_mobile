@@ -12,7 +12,8 @@ class UserSearchRepositoryImpl extends UserSearchRepository {
   UserSearchRepositoryImpl({required this.dataSource});
 
   @override
-  Future<Either<Failure, GenericPagination<UserSearchDealerModel>>> getUserSearches(String? search) async {
+  Future<Either<Failure, GenericPagination<UserSearchDealerModel>>>
+      getUserSearches(String? search) async {
     try {
       final result = await dataSource.getUserSearches(search);
       return Right(result);

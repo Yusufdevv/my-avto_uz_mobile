@@ -54,8 +54,11 @@ class MainEmptyFavourite extends StatelessWidget {
                     children: [
                       Text(
                         LocaleKeys.You_dont_have_favorites.tr(),
-                        style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                            fontSize: 14, fontWeight: FontWeight.w600),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayLarge!
+                            .copyWith(
+                                fontSize: 14, fontWeight: FontWeight.w600),
                       ),
                       const SizedBox(height: 4),
                       Text(LocaleKeys.Save_ads_hat_you_liked.tr(),
@@ -85,8 +88,10 @@ class MainEmptyFavourite extends StatelessWidget {
               color: Theme.of(context)
                   .extension<ThemedColors>()!
                   .cinnabar12ToCinnabar,
-              textStyle:
-                  Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 12),
+              textStyle: Theme.of(context)
+                  .textTheme
+                  .headlineSmall!
+                  .copyWith(fontSize: 12),
             ),
           ],
         ),

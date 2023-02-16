@@ -6,7 +6,7 @@ import 'package:auto/features/dealers/data/models/dealer_info_model.dart';
 import 'package:dio/dio.dart';
 
 class DealerSingleDataSource {
-  final Dio _dio =serviceLocator<DioSettings>().dio;
+  final Dio _dio = serviceLocator<DioSettings>().dio;
   DealerSingleDataSource();
   Future<DealerSingleModel> getDealerSingle({required String params}) async {
     try {

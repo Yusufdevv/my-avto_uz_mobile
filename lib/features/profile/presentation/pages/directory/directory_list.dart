@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
+
 class DirectoryList extends StatefulWidget {
   const DirectoryList({Key? key}) : super(key: key);
 
@@ -59,7 +60,7 @@ class _DirectoryListState extends State<DirectoryList> {
                           const SizedBox(height: 16),
                       itemCount: directories.length,
                     )
-                  :   Center(
+                  : Center(
                       child: EmptyItemBody(
                           title: LocaleKeys.no_dealer.tr(),
                           subtitle: '',

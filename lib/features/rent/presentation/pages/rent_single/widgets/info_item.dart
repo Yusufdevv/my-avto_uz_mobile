@@ -20,8 +20,10 @@ class InfoItem extends StatelessWidget {
           children: [
             Text(
               title,
-              style:
-                  Theme.of(context).textTheme.displayMedium!.copyWith(color: grey),
+              style: Theme.of(context)
+                  .textTheme
+                  .displayMedium!
+                  .copyWith(color: grey),
             ),
             Expanded(
               child: Container(

@@ -33,7 +33,6 @@ class ChooseCreateAdModeSheetState extends State<ChooseCreateAdModeSheet> {
           color: Theme.of(context).extension<ThemedColors>()!.whiteToBlack,
         ),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
-
           ListView.separated(
             separatorBuilder: (context, index) => Container(
               height: 1,
@@ -65,9 +64,13 @@ class ChooseCreateAdModeSheetState extends State<ChooseCreateAdModeSheet> {
                                   fontSize: 16, fontWeight: FontWeight.w600)),
                     ),
                     const SizedBox(width: 6),
-                    if(index == selected)...{
-                      SvgPicture.asset(AppIcons.check,color: orange,height: 14,),
-                    const   SizedBox(width: 16)
+                    if (index == selected) ...{
+                      SvgPicture.asset(
+                        AppIcons.check,
+                        color: orange,
+                        height: 14,
+                      ),
+                      const SizedBox(width: 16)
                     }
                   ],
                 ),

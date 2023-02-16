@@ -39,21 +39,21 @@ class MapEntity extends Equatable {
 
   @override
   List<Object?> get props => [
-    id,
-    name,
-    slug,
-    description,
-    phoneNumber,
-    avatar,
-    contactFrom,
-    contactTo,
-    locationUrl,
-    longitude,
-    latitude,
-    carCount,
-    district,
-    gallery,
-  ];
+        id,
+        name,
+        slug,
+        description,
+        phoneNumber,
+        avatar,
+        contactFrom,
+        contactTo,
+        locationUrl,
+        longitude,
+        latitude,
+        carCount,
+        district,
+        gallery,
+      ];
 }
 
 class DealerCardConvert

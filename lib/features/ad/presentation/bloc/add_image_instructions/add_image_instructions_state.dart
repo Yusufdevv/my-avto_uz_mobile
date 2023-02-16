@@ -15,7 +15,7 @@ class PhotoInstructionState extends Equatable {
   PhotoInstructionState copyWith(
           {int? step,
           FormzStatus? status,
-      List<FotoInstructionEntity>? instructions,
+          List<FotoInstructionEntity>? instructions,
           bool? isAnimate}) =>
       PhotoInstructionState(
         scrollController: scrollController,
@@ -24,6 +24,5 @@ class PhotoInstructionState extends Equatable {
         step: step ?? this.step,
       );
   @override
-  List<Object?> get props =>
-      [status, instructions, step,  scrollController];
+  List<Object?> get props => [status, instructions, step, scrollController];
 }

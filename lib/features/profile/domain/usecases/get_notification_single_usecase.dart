@@ -6,10 +6,12 @@ import 'package:auto/features/profile/data/repositories/get_user_list_repo_impl.
 import 'package:auto/features/profile/domain/entities/notifications_entity.dart';
 import 'package:auto/features/profile/domain/repositories/get_user_list_repo.dart';
 
-class GetNotificationSingleUseCase extends UseCase<NotificationsEntity, String> {
-  final GetUserListRepository repository = serviceLocator<GetUserListRepoImpl>();
+class GetNotificationSingleUseCase
+    extends UseCase<NotificationsEntity, String> {
+  final GetUserListRepository repository =
+      serviceLocator<GetUserListRepoImpl>();
 
-  GetNotificationSingleUseCase( );
+  GetNotificationSingleUseCase();
 
   @override
   Future<Either<Failure, NotificationsEntity>> call(String params) async =>

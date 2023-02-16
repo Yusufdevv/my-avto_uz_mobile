@@ -4,13 +4,14 @@ part 'image.g.dart';
 
 @JsonSerializable()
 class ImageModel {
-  @JsonKey(name: 'id',defaultValue: 0)
-  final int id ;
-  @JsonKey(name: 'img',defaultValue: '')
+  @JsonKey(name: 'id', defaultValue: 0)
+  final int id;
+  @JsonKey(name: 'img', defaultValue: '')
   final String image;
-  @JsonKey(name: 'img_size',defaultValue: 0)
+  @JsonKey(name: 'img_size', defaultValue: 0)
   final int imageSize;
-  ImageModel({this.id=0,this.image='',this.imageSize=0});
+  ImageModel({this.id = 0, this.image = '', this.imageSize = 0});
 
- factory ImageModel.fromJson(Map<String,dynamic> json)=>_$ImageModelFromJson(json);
+  factory ImageModel.fromJson(Map<String, dynamic> json) =>
+      _$ImageModelFromJson(json);
 }

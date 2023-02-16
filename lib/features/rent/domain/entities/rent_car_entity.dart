@@ -47,7 +47,7 @@ class RentCarEntity extends Equatable {
     this.category = const RentCarCategoryEntity(),
     this.make = const RentCarMakeEntity(),
     this.model = const RentCarModelsEntity(),
-    this.generation = const  CarGenerationEntity(),
+    this.generation = const CarGenerationEntity(),
     this.bodyType = const RentCarBodyTypeEntity(),
     this.year = 0,
     this.driveType = const RentCarBodyTypeEntity(),

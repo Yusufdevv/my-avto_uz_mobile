@@ -5,8 +5,7 @@ part 'options_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class OptionsModel extends OptionsEntity {
-  const OptionsModel(
-      {required super.source, required super.text});
+  const OptionsModel({required super.source, required super.text});
   factory OptionsModel.fromJson(Map<String, dynamic> json) =>
       _$OptionsModelFromJson(json);
   Map<String, dynamic> toJson() => _$OptionsModelToJson(this);

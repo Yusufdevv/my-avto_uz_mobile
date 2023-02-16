@@ -1,8 +1,8 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/features/ad/domain/entities/types/make.dart'; 
+import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/common/widgets/car_brand_item.dart';
 import 'package:auto/features/main/presentation/bloc/top_brand/top_brand_bloc.dart';
-import 'package:auto/features/main/presentation/widgets/brand_shimmer_item.dart'; 
+import 'package:auto/features/main/presentation/widgets/brand_shimmer_item.dart';
 import 'package:auto/features/pagination/presentation/paginator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';

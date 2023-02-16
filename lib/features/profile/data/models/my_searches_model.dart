@@ -23,6 +23,5 @@ class MySearchesModel extends MySearchesEntity {
           query: json['query'],
           queryData: json['query_data'] == null
               ? null
-              : QueryDataModel.fromJson(json['query_data'])
-              );
+              : QueryDataModel.fromJson(json['query_data']));
 }

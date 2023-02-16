@@ -134,7 +134,7 @@ class _AddingPhotoScreenState extends State<AddingPhotoScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                             const Spacer(),
+                              const Spacer(),
                               Text(
                                 LocaleKeys.further.tr(),
                                 style: Theme.of(context)

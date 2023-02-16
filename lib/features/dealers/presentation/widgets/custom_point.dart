@@ -14,30 +14,30 @@ class CustomPoint extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SizedBox(
-    width: 44 * scale,
-    height: 64 * scale,
-    child: Stack(
-      children: [
-        Image.asset(
-          AppIcons.dealersLocIcon,
-          width: 44 * scale,
-          height: 64 * scale,
-        ),
-        Positioned(
-          top: 7 * scale,
-          left: 7 * scale,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(30),
-            child: CachedNetworkImage(
-              width: 30 * scale,
-              height: 30 * scale,
-              imageUrl: url,
-              fit: BoxFit.cover,
-              errorWidget: (context, url, error) => Container(),
+        width: 44 * scale,
+        height: 64 * scale,
+        child: Stack(
+          children: [
+            Image.asset(
+              AppIcons.dealersLocIcon,
+              width: 44 * scale,
+              height: 64 * scale,
             ),
-          ),
-        )
-      ],
-    ),
-  );
+            Positioned(
+              top: 7 * scale,
+              left: 7 * scale,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(30),
+                child: CachedNetworkImage(
+                  width: 30 * scale,
+                  height: 30 * scale,
+                  imageUrl: url,
+                  fit: BoxFit.cover,
+                  errorWidget: (context, url, error) => Container(),
+                ),
+              ),
+            )
+          ],
+        ),
+      );
 }

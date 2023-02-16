@@ -28,7 +28,7 @@ class FilterState extends Equatable {
     this.bodyType,
     this.carDriveType,
     this.gearboxType,
-    this.currency=Currency.none,
+    this.currency = Currency.none,
   });
 
   FilterState copyWith({

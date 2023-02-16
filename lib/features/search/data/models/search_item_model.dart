@@ -10,7 +10,7 @@ part 'search_item_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class SearchItemModel extends AutoEntity {
-    SearchItemModel({
+  SearchItemModel({
     required super.year,
     required super.description,
     required super.gallery,

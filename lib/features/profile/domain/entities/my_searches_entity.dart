@@ -66,7 +66,6 @@ class Model {
       };
 }
 
-
 // class QueryData {
 //     QueryData({
 //         this.isNew,

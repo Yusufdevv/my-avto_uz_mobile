@@ -4,7 +4,10 @@ part 'stats_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class StatsModel extends StatsEntity {
-  const StatsModel({required super.viewsCount, required super.viewedContactsCount, required super.wishlistCount});
+  const StatsModel(
+      {required super.viewsCount,
+      required super.viewedContactsCount,
+      required super.wishlistCount});
   factory StatsModel.fromJson(Map<String, dynamic> json) =>
       _$StatsModelFromJson(json);
 

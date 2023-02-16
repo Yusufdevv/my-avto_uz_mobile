@@ -398,5 +398,4 @@ class AdRepositoryImpl extends AdRepository {
           errorMessage: e.errorMessage, statusCode: e.statusCode));
     }
   }
-
 }

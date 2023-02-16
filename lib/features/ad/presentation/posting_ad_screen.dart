@@ -46,7 +46,7 @@ class PostingAdScreen extends StatefulWidget {
   final BuildContext parentContext;
 
   const PostingAdScreen(
-      {required this.parentContext,   this.isHaveToClearStae, Key? key})
+      {required this.parentContext, this.isHaveToClearStae, Key? key})
       : super(key: key);
 
   @override

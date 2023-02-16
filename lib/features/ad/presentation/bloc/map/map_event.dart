@@ -5,7 +5,7 @@ abstract class MapEvent {}
 class GetPointName extends MapEvent {
   final double lat;
   final double long;
-  GetPointName({required this.long,required this.lat});
+  GetPointName({required this.long, required this.lat});
 }
 
 class MapGetCurrentLocationEvent extends MapEvent {
@@ -22,8 +22,5 @@ class MapChangeLatLongEvent extends MapEvent {
   final double long;
 
   int? radius;
-  MapChangeLatLongEvent(
-      {required this.lat,
-      required this.long,
-      this.radius});
+  MapChangeLatLongEvent({required this.lat, required this.long, this.radius});
 }

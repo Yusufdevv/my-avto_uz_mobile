@@ -55,7 +55,7 @@ class SituationItem extends StatelessWidget {
                   behavior: HitTestBehavior.opaque,
                   child: SvgPicture.asset(AppIcons.editProfile, height: 24),
                 ),
-               const SizedBox(width: 16)
+                const SizedBox(width: 16)
               ],
             ),
             const SizedBox(height: 12),

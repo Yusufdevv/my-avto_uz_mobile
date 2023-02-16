@@ -15,11 +15,10 @@ class EditProfileUseCase extends UseCase<ProfileEntity, EditProfileParams> {
   @override
   Future<Either<Failure, ProfileEntity>> call(EditProfileParams params) async =>
       await repository.editProfile(
-        image: params.image,
-        fullName: params.fullName,
-        region: params.region,
-        email: params.email
-      );
+          image: params.image,
+          fullName: params.fullName,
+          region: params.region,
+          email: params.email);
 }
 
 class EditProfileParams extends Equatable {

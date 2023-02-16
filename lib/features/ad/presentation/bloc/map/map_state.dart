@@ -16,7 +16,7 @@ class MapState extends Equatable {
     this.lat = 0,
     this.long = 0,
     this.radius = 0,
-    this.address ,
+    this.address,
   });
 
   MapState copyWith({
@@ -29,7 +29,7 @@ class MapState extends Equatable {
     String? address,
   }) =>
       MapState(
-        getPointNameStatus: getPointNameStatus??this.getPointNameStatus,
+        getPointNameStatus: getPointNameStatus ?? this.getPointNameStatus,
         lat: lat ?? this.lat,
         long: long ?? this.long,
         radius: radius ?? this.radius,
@@ -41,7 +41,7 @@ class MapState extends Equatable {
 
   @override
   List<Object?> get props => [
-    getPointNameStatus,
+        getPointNameStatus,
         status,
         getCurrentLocationStatus,
         radius,

@@ -4,6 +4,7 @@ import 'package:auto/features/car_single/domain/entities/elastic_search_entity.d
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'elastic_search_model.g.dart';
+
 @JsonSerializable(fieldRename: FieldRename.snake)
 class ElasticSearchModel extends ElasticSearchEntity {
   const ElasticSearchModel({

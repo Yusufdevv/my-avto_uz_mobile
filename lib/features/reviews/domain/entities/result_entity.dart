@@ -18,7 +18,7 @@ class ResultEntity extends Equatable {
     this.driveType = const TypeEntity(),
     this.engineType = const TypeEntity(),
     this.gearboxType = const TypeEntity(),
-    this.modificationType = const  ModificationTypeEntity(),
+    this.modificationType = const ModificationTypeEntity(),
     this.absoluteCarName = '',
     this.title = '',
     this.comment = '',

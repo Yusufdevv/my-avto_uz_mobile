@@ -89,13 +89,12 @@ class _ChooseDistrictSheetState extends State<ChooseDistrictSheet> {
               child: WButton(
                   onTap: () {
                     try {
-                       Navigator.of(context).pop(
-                        widget.districts.firstWhere((e) => e.id == selected)); 
-                    // ignore: avoid_catches_without_on_clauses
+                      Navigator.of(context).pop(
+                          widget.districts.firstWhere((e) => e.id == selected));
+                      // ignore: avoid_catches_without_on_clauses
                     } catch (e) {
-                        Navigator.of(context).pop(null);
+                      Navigator.of(context).pop(null);
                     }
-                  
                   },
                   color: orange,
                   text: 'Применить'),

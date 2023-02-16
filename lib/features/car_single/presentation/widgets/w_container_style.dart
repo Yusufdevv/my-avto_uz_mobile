@@ -16,11 +16,12 @@ class WContainerStyle extends ThemeExtension<WContainerStyle> {
     Color? fillColor,
     Color? borderColor,
     BoxShadow? boxShadow,
-  }) => WContainerStyle(
-      fillColor: fillColor ?? this.fillColor,
-      borderColor: borderColor ?? this.borderColor,
-      boxShadow: boxShadow ?? this.boxShadow,
-    );
+  }) =>
+      WContainerStyle(
+        fillColor: fillColor ?? this.fillColor,
+        borderColor: borderColor ?? this.borderColor,
+        boxShadow: boxShadow ?? this.boxShadow,
+      );
 
   @override
   ThemeExtension<WContainerStyle> lerp(

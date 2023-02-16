@@ -8,7 +8,7 @@ class DealerFilterState extends Equatable {
   const DealerFilterState({
     required this.carType,
     required this.region,
-   required this.maker ,
+    required this.maker,
   });
 
   DealerFilterState copyWith({

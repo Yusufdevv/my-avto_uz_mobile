@@ -20,11 +20,13 @@ class DamagedPartsEntity extends Equatable {
       ];
 }
 
-class DamagedPartsConverter<S> implements JsonConverter<DamagedPartsEntity, Map<String, dynamic>?> {
+class DamagedPartsConverter<S>
+    implements JsonConverter<DamagedPartsEntity, Map<String, dynamic>?> {
   const DamagedPartsConverter();
 
   @override
-  DamagedPartsEntity fromJson(Map<String, dynamic>? json) => DamagedPartsModel.fromJson(json ?? {});
+  DamagedPartsEntity fromJson(Map<String, dynamic>? json) =>
+      DamagedPartsModel.fromJson(json ?? {});
 
   @override
   Map<String, dynamic> toJson(DamagedPartsEntity object) => {};

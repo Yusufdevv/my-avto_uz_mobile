@@ -154,11 +154,13 @@ class PriceStatisticItem extends StatelessWidget {
                           alignment: Alignment.center,
                           child: Text(
                             LocaleKeys.overpriced.tr(),
-                            style:
-                                Theme.of(context).textTheme.displayLarge!.copyWith(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayLarge!
+                                .copyWith(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
                             textAlign: TextAlign.center,
                           ),
                         ),

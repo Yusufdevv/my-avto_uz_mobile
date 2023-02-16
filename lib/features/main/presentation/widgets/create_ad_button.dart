@@ -35,8 +35,6 @@ class CreateAdButton extends StatelessWidget {
               );
             }
           });
-
-
         },
         margin: const EdgeInsets.symmetric(horizontal: 16),
         padding: const EdgeInsets.symmetric(vertical: 12),

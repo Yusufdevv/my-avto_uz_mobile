@@ -14,7 +14,7 @@ part 'auto_model.g.dart';
 @JsonSerializable(fieldRename: FieldRename.snake)
 // ignore: must_be_immutable
 class AutoModel extends AutoEntity {
-    AutoModel({
+  AutoModel({
     required super.id,
     required super.bodyType,
     required super.driveType,

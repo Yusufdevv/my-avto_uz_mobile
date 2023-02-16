@@ -12,16 +12,16 @@ part 'rent_to_buy_state.dart';
 class RentToBuyBloc extends Bloc<RentToBuyEvent, RentToBuyState> {
   RentToBuyBloc(RentWithPurchaseEntity? entityForEdit)
       : super(RentToBuyState(
-    entityForEdit: entityForEdit,
+            entityForEdit: entityForEdit,
             focusNode: FocusNode(),
             step: 1,
             title: 'Предоплата',
-            controller:
-                TextEditingController(text: MyFunctions.getFormatCost(entityForEdit?.prepayment ?? '')))) {
+            controller: TextEditingController(
+                text: MyFunctions.getFormatCost(
+                    entityForEdit?.prepayment ?? '')))) {
     on<RentToBuyEvent>((event, emit) {
       emit(
         state.copyWith(
-
           focusNode: FocusNode()..requestFocus(),
           title: event.title,
           minimumSumma: event.minimumMonthlyPay,

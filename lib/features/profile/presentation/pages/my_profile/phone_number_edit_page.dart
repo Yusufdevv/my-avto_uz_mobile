@@ -130,8 +130,10 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
 
                               if (phoneNumber.length < 9) {
                                 context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                    message: LocaleKeys.phone_n_m_be_12_d.tr(),
-                                    status: PopStatus.error,));
+                                      message:
+                                          LocaleKeys.phone_n_m_be_12_d.tr(),
+                                      status: PopStatus.error,
+                                    ));
                               } else if (phoneNumber.length >= 9) {
                                 context
                                     .read<ChangePhoneNumberBloc>()
@@ -157,17 +159,20 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                                         onError: (message) {
                                           var error = message;
                                           if (error
-                                              .toLowerCase()
-                                              .contains('dio') || error
-                                              .toLowerCase()
-                                              .contains('type')) {
+                                                  .toLowerCase()
+                                                  .contains('dio') ||
+                                              error
+                                                  .toLowerCase()
+                                                  .contains('type')) {
                                             error =
                                                 LocaleKeys.service_error.tr();
                                           }
-                                          context.read<ShowPopUpBloc>().add(
-                                              ShowPopUp(
-                                                  message: error,
-                                                  status: PopStatus.error,));
+                                          context
+                                              .read<ShowPopUpBloc>()
+                                              .add(ShowPopUp(
+                                                message: error,
+                                                status: PopStatus.error,
+                                              ));
                                         }));
                               }
                             },

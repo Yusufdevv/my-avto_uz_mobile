@@ -206,11 +206,12 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                               child: WScaleAnimation(
                                   onTap: () {
                                     showModalBottomSheet(
-                                        backgroundColor: Colors.transparent,
-                                        context: context,
-                                        useRootNavigator: true,
-                                        builder: (context) => const CameraBottomSheet()).then(
-                                        (value) {
+                                            backgroundColor: Colors.transparent,
+                                            context: context,
+                                            useRootNavigator: true,
+                                            builder: (context) =>
+                                                const CameraBottomSheet())
+                                        .then((value) {
                                       if (value != null) {
                                         widget.imageBloc
                                             .add(GetImage(source: value));

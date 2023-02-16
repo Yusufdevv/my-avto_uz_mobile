@@ -7,7 +7,9 @@ class DriveTypeEntity extends Equatable {
   final int id;
   @JsonKey(name: 'type')
   final String type;
-  @JsonKey(name: 'logo',)
+  @JsonKey(
+    name: 'logo',
+  )
   final String logo;
 
   const DriveTypeEntity({

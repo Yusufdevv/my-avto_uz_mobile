@@ -5,9 +5,7 @@ class MapParameter extends Equatable {
   final double long;
   final int radius;
   const MapParameter(
-      {required this.lat,
-        required this.long,
-        required this.radius});
+      {required this.lat, required this.long, required this.radius});
 
   MapParameter copyWith({
     double? lat,
@@ -21,8 +19,10 @@ class MapParameter extends Equatable {
 
   @override
   List<Object?> get props => [
-    lat,long,radius,
-  ];
+        lat,
+        long,
+        radius,
+      ];
 
   @override
   String toString() => 'MapParameter(lat: $lat, long: $long, radius: $radius)';

@@ -69,8 +69,10 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
                 BoxShadow(
                     offset: const Offset(0, -1), color: dark.withOpacity(0.08))
               ],
-              titleStyle:
-                  Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 16),
+              titleStyle: Theme.of(context)
+                  .textTheme
+                  .displayLarge!
+                  .copyWith(fontSize: 16),
               extraActions: [
                 Text(LocaleKeys.filter.tr(),
                     style: Theme.of(context)

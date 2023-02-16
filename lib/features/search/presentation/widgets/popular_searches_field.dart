@@ -45,9 +45,12 @@ class _PopularSearchesFieldState extends State<PopularSearchesField> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(widget.title,
-                      style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                          fontSize: 13,
-                          color: LightThemeColors.darkGreyToWhite)),
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium!
+                          .copyWith(
+                              fontSize: 13,
+                              color: LightThemeColors.darkGreyToWhite)),
                   if (widget.hasClearButtonInTitle)
                     WButton(
                         scaleValue: 0.95,

@@ -6,7 +6,8 @@ import 'package:dio/dio.dart';
 
 // ignore: one_member_abstracts
 abstract class UserSearchDatasource {
-  Future<GenericPagination<UserSearchDealerModel>> getUserSearches(String? search);
+  Future<GenericPagination<UserSearchDealerModel>> getUserSearches(
+      String? search);
 // Future<>
 }
 
@@ -28,7 +29,7 @@ class UserSearchDatasourceImpl extends UserSearchDatasource {
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
         return GenericPagination.fromJson(response.data,
-                (p0) => UserSearchDealerModel.fromJson(p0 as Map<String, dynamic>));
+            (p0) => UserSearchDealerModel.fromJson(p0 as Map<String, dynamic>));
       } else {
         throw ServerException(
           statusCode: response.statusCode!,

@@ -6,12 +6,12 @@ import 'package:auto/features/common/repository/global_request_repository.dart';
 import 'package:auto/features/dealers/data/models/map_model.dart';
 import 'package:auto/features/dealers/domain/entities/map_parameter.dart';
 
-
 class GetMapDealersUseCase extends UseCase<List<MapModel>, String> {
   final GlobalRequestRepository repo = GlobalRequestRepository();
 
   @override
-  Future<Either<Failure, List<MapModel>>> call(String params, {MapParameter? param}) {
+  Future<Either<Failure, List<MapModel>>> call(String params,
+      {MapParameter? param}) {
     var query = <String, dynamic>{};
     if (params.isNotEmpty) {
       query.addAll({'search': params});

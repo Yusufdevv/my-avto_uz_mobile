@@ -61,8 +61,11 @@ class OnBoardingPageItems extends StatelessWidget {
                     ),
                     TextSpan(
                         text: secondText,
-                        style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                            fontSize: 36, fontWeight: FontWeight.w700)),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displaySmall!
+                            .copyWith(
+                                fontSize: 36, fontWeight: FontWeight.w700)),
                     TextSpan(
                       text: thirdText,
                       style: Theme.of(context)

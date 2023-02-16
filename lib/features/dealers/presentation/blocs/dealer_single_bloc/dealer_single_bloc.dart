@@ -26,7 +26,5 @@ class DealerSingleBloc extends Bloc<DealerSingleEvent, DealerSingleState> {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     });
-
-    
   }
 }

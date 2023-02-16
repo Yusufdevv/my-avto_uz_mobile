@@ -9,13 +9,14 @@ import 'package:dio/dio.dart';
 
 // ignore: one_member_abstracts
 abstract class SearchResultsDatasource {
-  Future<GenericPagination<AutoModel>> getSearchResults(Map<String, dynamic> params);
+  Future<GenericPagination<AutoModel>> getSearchResults(
+      Map<String, dynamic> params);
 }
 
 class SearchResultsDatasourceImpl extends SearchResultsDatasource {
-    final _dio = serviceLocator<DioSettings>().dio;
+  final _dio = serviceLocator<DioSettings>().dio;
 
-  SearchResultsDatasourceImpl( );
+  SearchResultsDatasourceImpl();
 
   @override
   Future<GenericPagination<AutoModel>> getSearchResults(

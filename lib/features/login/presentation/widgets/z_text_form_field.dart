@@ -181,7 +181,10 @@ class _ZTextFormFieldState extends State<ZTextFormField>
               prefixIcon: widget.prefixIcon,
               hintText: widget.hintText,
               hintStyle: widget.hintTextStyle ??
-                  Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 14),
+                  Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(fontSize: 14),
             ),
           ),
           Positioned(

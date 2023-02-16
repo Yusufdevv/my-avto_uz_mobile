@@ -2,7 +2,6 @@ import 'package:auto/features/dealers/domain/entities/dealer_card_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
 
-
 part 'dealer_card_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)

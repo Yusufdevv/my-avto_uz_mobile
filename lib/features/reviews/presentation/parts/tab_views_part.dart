@@ -30,10 +30,12 @@ class TabViewsPart extends StatelessWidget {
           minuses: entity[index].negatives,
           pluses: entity[index].positives,
           reviewCount: entity[index].commentsCount,
-          appearanceRating: entity[index].starAnswers[index].starCount.toDouble(),
+          appearanceRating:
+              entity[index].starAnswers[index].starCount.toDouble(),
           comfortRating: entity[index].starAnswers[index].starCount.toDouble(),
           drivingRating: entity[index].starAnswers[index].starCount.toDouble(),
-          reliabilityRating: entity[index].starAnswers[index].starCount.toDouble(),
+          reliabilityRating:
+              entity[index].starAnswers[index].starCount.toDouble(),
           securityRating: entity[index].starAnswers[index].starCount.toDouble(),
         ),
         itemCount: count,

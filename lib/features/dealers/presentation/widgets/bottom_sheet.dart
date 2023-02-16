@@ -42,7 +42,8 @@ class _BottomSheetContentState extends State<BottomSheetContent> {
                 GestureDetector(
                   onTap: () {
                     Navigator.pop(context);
-                  }, behavior: HitTestBehavior.opaque,
+                  },
+                  behavior: HitTestBehavior.opaque,
                   child: SvgPicture.asset(AppIcons.close),
                 ),
               ],

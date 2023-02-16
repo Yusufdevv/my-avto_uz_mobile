@@ -25,7 +25,6 @@ class AddWishlistDatasourceImpl extends AddWishlistDatasource {
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
-
       } else {
         throw ServerException(
           statusCode: response.statusCode!,

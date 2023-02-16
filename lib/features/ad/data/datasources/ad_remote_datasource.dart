@@ -92,7 +92,6 @@ abstract class AdRemoteDataSource {
   Future<void> createAnnouncement({
     required FormData announcementFormData,
   });
-
 }
 
 class AdRemoteDataSourceImpl extends AdRemoteDataSource {
@@ -495,7 +494,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
                 }
               : {},
         ),
-      ); 
+      );
       await Future.delayed(const Duration(milliseconds: 5000));
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return;

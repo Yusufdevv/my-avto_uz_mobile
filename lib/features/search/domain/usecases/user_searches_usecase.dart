@@ -6,11 +6,13 @@ import 'package:auto/features/search/data/models/user_searches_model.dart';
 import 'package:auto/features/search/data/repositories/user_searches_repository_impl.dart';
 import 'package:auto/features/search/domain/repositories/user_searches_repository.dart';
 
-class UserSearchesUseCase extends UseCase<GenericPagination<UserSearchesModel>, String> {
-  final UserSearchesRepository repo = UserSearchesRepositoryImpl( );
-  UserSearchesUseCase( );
+class UserSearchesUseCase
+    extends UseCase<GenericPagination<UserSearchesModel>, String> {
+  final UserSearchesRepository repo = UserSearchesRepositoryImpl();
+  UserSearchesUseCase();
 
   @override
-  Future<Either<Failure, GenericPagination<UserSearchesModel>>> call(String? params) async =>
+  Future<Either<Failure, GenericPagination<UserSearchesModel>>> call(
+          String? params) async =>
       await repo.getUserSearches(params);
 }

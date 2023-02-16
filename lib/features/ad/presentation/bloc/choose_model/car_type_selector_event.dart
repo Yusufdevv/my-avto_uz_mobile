@@ -14,8 +14,6 @@ class CarModelSelectorGetEvent extends CarModelSelectorEvent {
   CarModelSelectorGetEvent({this.searchPattern});
 }
 
-
-
 // class ConfirmCarTypeEvent extends CarTypeSelectorEvent{
 //   const ConfirmCarTypeEvent();
 //   @override

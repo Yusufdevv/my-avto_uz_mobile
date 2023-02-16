@@ -82,11 +82,15 @@ class DealerTime extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      '${LocaleKeys.from.tr()} $timeFrom' ' - ${LocaleKeys.to.tr()} $timeTo',
-                      style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12,
-                          color: orange),
+                      '${LocaleKeys.from.tr()} $timeFrom'
+                      ' - ${LocaleKeys.to.tr()} $timeTo',
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium!
+                          .copyWith(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12,
+                              color: orange),
                     ),
                   ),
                   const SizedBox(
