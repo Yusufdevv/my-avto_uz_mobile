@@ -97,9 +97,7 @@ class _ChooseCarBrandPageState extends State<ChooseCarBrandPage> {
             ),
           ],
           child: BlocBuilder<GetMakesBloc, GetMakesState>(
-            builder: (context, state) {
-              print('=======choose car brand build');
-              return Scaffold(
+            builder: (context, state) => Scaffold(
                 resizeToAvoidBottomInset: false,
                 body: Stack(
                   children: [
@@ -286,8 +284,7 @@ class _ChooseCarBrandPageState extends State<ChooseCarBrandPage> {
                     ),
                   ],
                 ),
-              );
-            },
+              ),
           ),
         ),
       );
