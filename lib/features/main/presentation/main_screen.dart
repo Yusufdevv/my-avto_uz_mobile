@@ -276,6 +276,18 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                     const MainMapPart(),
                     const CreateAdButton(),
+                    if (context
+                            .watch<MainBloc>()
+                            .state
+                            .statusStoriesGet
+                            .isSubmissionFailure &&
+                        context
+                            .watch<TopBrandBloc>()
+                            .state
+                            .status
+                            .isSubmissionFailure) ...{
+                      const SizedBox(height: 200),
+                    }
                   ],
                 ),
               ),
