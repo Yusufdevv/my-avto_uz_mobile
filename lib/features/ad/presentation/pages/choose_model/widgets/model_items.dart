@@ -62,7 +62,7 @@ class ModelItems extends StatelessWidget {
                                 fontSize: 16, fontWeight: FontWeight.w600),
                         textStyleHighlight:
                             Theme.of(context).textTheme.displayLarge!.copyWith(
-                                  fontSize: 14,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.w600,
                                 ),
                       ),

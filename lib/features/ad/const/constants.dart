@@ -37,7 +37,6 @@ enum DamageType {
 enum Currency {
   uzs('uzs'),
   usd('usd'),
-  euro('euro'),
   none('');
 
   const Currency(this.value);
