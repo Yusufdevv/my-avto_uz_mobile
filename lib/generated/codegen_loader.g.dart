@@ -174,7 +174,7 @@ class CodegenLoader extends AssetLoader{
   "photo": "Фото",
   "user_ads": "Объяления пользователя",
   "no_results": "Нет результатов",
-  "sorry_no_results": "К сожэалению, по вашему запросу результаты не найдены",
+  "sorry_no_results": "К сожалению, по вашему запросу результаты не найдены",
   "add_photo": "Добавить фото",
   "region": "Регион",
   "full_name": "ФИО",
@@ -527,8 +527,7 @@ class CodegenLoader extends AssetLoader{
   "go_to_comparison": "Перейти к сравнению",
   "added_x_auto": "добавлено {} авто",
   "your_ad_edited_successfully": "Ваше объявление успешно отредактировано!",
-  "sum": "сум",
-  "the_before_enter_price": "Avval narhni kiriting"
+  "sum": "сум"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -1042,8 +1041,7 @@ static const Map<String,dynamic> uz = {
   "go_to_comparison": "Taqqoslashga borish",
   "added_x_auto": "{} ta qo'shildi",
   "your_ad_edited_successfully": "Reklamangiz muvaffaqiyatli tahrirlandi!",
-  "sum": "so'm",
-  "the_before_enter_price": "Avval narhni kiriting"
+  "sum": "so'm"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }

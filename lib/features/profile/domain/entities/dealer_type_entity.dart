@@ -35,8 +35,8 @@ class DealerFavEntity {
         phoneNumber: json['phone_number'],
         contactFrom: json['contact_from'],
         contactTo: json['contact_to'],
-        longitude: json['longitude']?.toDouble(),
-        latitude: json['latitude']?.toDouble(),
+        longitude: (json['longitude'] as num?)?.toDouble() ?? 0,
+        latitude: (json['latitude'] as num?)?.toDouble() ?? 0,
         carCount: json['car_count'],
       );
 

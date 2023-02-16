@@ -87,6 +87,8 @@ class AdsItem extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                   '${MyFunctions.getFormatCost(price)} ${currency.toUpperCase()}',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: Theme.of(context)
                       .textTheme
                       .displayLarge
