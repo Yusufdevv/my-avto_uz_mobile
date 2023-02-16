@@ -43,7 +43,7 @@ class YandexSearchDataSource {
       final result = await dio.getUri(Uri.parse(req));
 
       return YandexSearchModel.fromJson(result.data);
-    // ignore: avoid_catches_without_on_clauses
+      // ignore: avoid_catches_without_on_clauses
     } catch (e) {
       throw const ServerException();
     }

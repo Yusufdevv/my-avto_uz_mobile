@@ -6,7 +6,8 @@ class RegisterEvent with _$RegisterEvent {
       {Function(String)? onSuccess, Function(String)? onError}) = _SendCode;
 
   factory RegisterEvent.registerVerifyCode(VerifyParam param,
-      {VoidCallback? onSuccess, Function(String text)? onError}) = _RegisterVerifyCode;
+      {VoidCallback? onSuccess,
+      Function(String text)? onError}) = _RegisterVerifyCode;
 
   factory RegisterEvent.setName(
       {required String fullName,

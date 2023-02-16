@@ -253,8 +253,12 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                     TopBrands(
                       onTap: (selectedMake) {
-                        Navigator.of(context, rootNavigator: true).push(
-                            fade(page: AdsScreen(makeId: selectedMake.id)));
+                        Navigator.of(context, rootNavigator: true).push(fade(
+                            page: AdsScreen(
+                          makeId: selectedMake.id,
+                          makeName: selectedMake.name,
+                          makeLogo: selectedMake.logo,
+                        )));
                       },
                     ),
                     const TopAds(),
@@ -276,6 +280,18 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                     const MainMapPart(),
                     const CreateAdButton(),
+                    if (context
+                            .watch<MainBloc>()
+                            .state
+                            .statusStoriesGet
+                            .isSubmissionFailure &&
+                        context
+                            .watch<TopBrandBloc>()
+                            .state
+                            .status
+                            .isSubmissionFailure) ...{
+                      const SizedBox(height: 200),
+                    }
                   ],
                 ),
               ),

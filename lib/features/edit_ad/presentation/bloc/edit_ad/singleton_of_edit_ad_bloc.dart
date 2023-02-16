@@ -45,8 +45,9 @@ class EASingleton {
       'is_new': v.isWithoutMileage,
       'is_rent_with_purchase':
           v.rentWithPurchaseConditions.isNotEmpty && (v.rentToBuy ?? false),
-      'rent_with_purchase':
-          v.rentWithPurchaseConditions.entries.map((e) => e.value.toApi()).toList(),
+      'rent_with_purchase': v.rentWithPurchaseConditions.entries
+          .map((e) => e.value.toApi())
+          .toList(),
     };
     if (v.milageImage != null && v.milageImage!.isNotEmpty) {
       final milageImage = await MultipartFile.fromFile(v.milageImage!);

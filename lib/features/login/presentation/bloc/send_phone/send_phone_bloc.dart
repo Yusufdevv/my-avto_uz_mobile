@@ -20,9 +20,8 @@ class SendPhoneBloc extends Bloc<SendPhoneEvent, SendPhoneState> {
             status: FormzStatus.submissionSuccess, session: result.right));
       } else {
         final error = (result.left as ServerFailure).errorMessage;
-       emit(state.copyWith(
-            status: FormzStatus.submissionCanceled,
-            toastMessage: error));
+        emit(state.copyWith(
+            status: FormzStatus.submissionCanceled, toastMessage: error));
       }
     });
   }

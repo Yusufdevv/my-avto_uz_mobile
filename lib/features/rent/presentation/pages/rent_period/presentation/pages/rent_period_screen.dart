@@ -35,7 +35,7 @@ class _RentPeriodScreenState extends State<RentPeriodScreen> {
     _endDate = DateFormat('d.MM.y')
         .format(today.add(const Duration(days: 3)))
         .toString();
-   
+
     super.initState();
   }
 
@@ -130,8 +130,11 @@ class _RentPeriodScreenState extends State<RentPeriodScreen> {
                       padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),
                       child: Text(
                         LocaleKeys.start.tr(),
-                        style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                            fontSize: 13, fontWeight: FontWeight.w400),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayLarge!
+                            .copyWith(
+                                fontSize: 13, fontWeight: FontWeight.w400),
                       ),
                     ),
                     Stack(
@@ -184,8 +187,11 @@ class _RentPeriodScreenState extends State<RentPeriodScreen> {
                       padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
                       child: Text(
                         LocaleKeys.end.tr(),
-                        style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                            fontSize: 13, fontWeight: FontWeight.w400),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayLarge!
+                            .copyWith(
+                                fontSize: 13, fontWeight: FontWeight.w400),
                       ),
                     ),
                     Stack(

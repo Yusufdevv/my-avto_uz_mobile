@@ -39,11 +39,12 @@ class PersonalDataItemm extends StatelessWidget {
                     if (isRequired) ...{
                       TextSpan(
                         text: '*',
-                        style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14,
-                              color: orange,
-                            ),
+                        style:
+                            Theme.of(context).textTheme.displayLarge!.copyWith(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14,
+                                  color: orange,
+                                ),
                       ),
                     }
                   ],

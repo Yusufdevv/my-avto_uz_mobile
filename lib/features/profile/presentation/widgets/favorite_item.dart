@@ -45,8 +45,8 @@ class FavoriteItem extends StatefulWidget {
       required this.index,
       required this.animation,
       required this.bloc,
+      required this.sellType,
       this.onTap,
-      this.sellType,
       super.key});
   final UserWishListsBloc bloc;
   final List<String> gallery;
@@ -68,7 +68,7 @@ class FavoriteItem extends StatefulWidget {
   final double discount;
   final String callFrom;
   final String callTo;
-  final String? sellType;
+  final String sellType;
   final Function()? onTap;
   final Animation<double> animation;
   final int index;
@@ -233,20 +233,21 @@ class _FavoriteItemState extends State<FavoriteItem> {
                     ],
                   ),
                 ),
-                if (widget.sellType != null)
-                  CustomChip(
-                    label: widget.sellType!,
-                    backgroundColor: Theme.of(context)
-                        .extension<ThemedColors>()
-                        ?.seashellToCinnabar15,
-                    labelPadding:
-                        const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                    margin: const EdgeInsets.only(top: 8, bottom: 12),
-                    labelStyle: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          color: orange,
-                          fontSize: 12,
-                        ),
-                  ),
+                if (widget.sellType.isNotEmpty)
+              CustomChip(
+                label: widget.sellType,
+                backgroundColor: Theme.of(context)
+                    .extension<ThemedColors>()!
+                    .seashellToCinnabar15,
+                labelPadding:
+                    const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                margin: const EdgeInsets.only(top: 8),
+                labelStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      color: orange,
+                      fontSize: 12,
+                    ),
+                borderRadius: 4,
+              ),
                 const SizedBox(height: 12),
                 CarNameYearWidget(
                     carName: widget.carModelName,
@@ -268,9 +269,12 @@ class _FavoriteItemState extends State<FavoriteItem> {
                     if (widget.discount > 0.0)
                       Text(
                         '${widget.price.floor()} ${widget.currency.toUpperCase()}',
-                        style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                            decoration: TextDecoration.lineThrough,
-                            color: grey),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium
+                            ?.copyWith(
+                                decoration: TextDecoration.lineThrough,
+                                color: grey),
                       )
                   ],
                 ),
@@ -313,7 +317,7 @@ class _FavoriteItemState extends State<FavoriteItem> {
                             overflow: TextOverflow.ellipsis,
                             style: Theme.of(context)
                                 .textTheme
-                                .subtitle1!
+                                .titleMedium!
                                 .copyWith(fontWeight: FontWeight.w700),
                           ),
                           Row(
@@ -325,7 +329,7 @@ class _FavoriteItemState extends State<FavoriteItem> {
                                     : LocaleKeys.autosalon.tr(),
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText1!
+                                    .bodyLarge!
                                     .copyWith(color: purple),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,

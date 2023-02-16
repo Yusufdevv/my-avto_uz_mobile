@@ -118,7 +118,8 @@ class DamageCarsItem extends StatelessWidget {
                     Positioned(
                       bottom: 16,
                       child: DamageButton(
-                          damageType: state.damagedParts[DamagedParts.rearBumper],
+                          damageType:
+                              state.damagedParts[DamagedParts.rearBumper],
                           onTap: () {
                             onPressed(DamagedParts.rearBumper);
                           }),

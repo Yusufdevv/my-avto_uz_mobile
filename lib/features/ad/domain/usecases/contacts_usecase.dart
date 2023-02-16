@@ -10,6 +10,4 @@ class ContactsUseCase extends UseCase<String, String> {
   @override
   Future<Either<Failure, String>> call(String params) =>
       repository.sendCode(phone: params);
-
-
 }

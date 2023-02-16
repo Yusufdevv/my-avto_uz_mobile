@@ -2,14 +2,14 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/car_single/presentation/bloc/user_single_bloc/user_single_bloc.dart';
-import 'package:auto/features/dealers/presentation/widgets/dealer_info_widget.dart'; 
+import 'package:auto/features/dealers/presentation/widgets/dealer_info_widget.dart';
 import 'package:auto/features/profile/presentation/pages/directory/directory_sliver_delegete.dart';
 import 'package:auto/features/search/presentation/widgets/info_result_container.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart'; 
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
@@ -240,6 +240,7 @@ class _UserSinglePageState extends State<UserSinglePage> {
                                         padding:
                                             const EdgeInsets.only(bottom: 12),
                                         child: InfoResultContainer(
+                                          sellType: item.isRentWithPurchase ? LocaleKeys.rent_to_buy.tr() : LocaleKeys.car_sale.tr(),
                                           currency: item.currency,
                                           discount: item.discount ?? 0.0,
                                           callFrom: item.contactAvailableFrom,

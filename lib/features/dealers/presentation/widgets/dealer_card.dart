@@ -96,10 +96,12 @@ class _DealerCardState extends State<DealerCard> {
                       SizedBox(
                         width: 200,
                         child: Text(widget.dealerName,
-                            style:
-                                Theme.of(context).textTheme.displayLarge!.copyWith(
-                                      fontSize: 16,
-                                    ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayLarge!
+                                .copyWith(
+                                  fontSize: 16,
+                                ),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1),
                       ),

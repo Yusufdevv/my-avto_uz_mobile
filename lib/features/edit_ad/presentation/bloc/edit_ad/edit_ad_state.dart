@@ -127,7 +127,7 @@ class EditAdState extends Equatable {
     TextEditingController? emailController,
     TextEditingController? nameController,
     Map<DamagedParts, DamageType>? damagedParts,
-      Map<int,RentWithPurchaseEntity>? rentWithPurchaseConditions,
+    Map<int, RentWithPurchaseEntity>? rentWithPurchaseConditions,
     int? districtId,
     int? regionId,
     FormzStatus? status,
@@ -301,8 +301,7 @@ class EditAdState extends Equatable {
         isContactsVerified,
       ];
 
-  bool labelLargeStatus(int page) =>
-      EASingleton.nextButtonIsDisabled(page, this);
+  bool buttonStatus(int page) => EASingleton.nextButtonIsDisabled(page, this);
 
   Region get getSelectedRegion {
     final v = regions.firstWhere((e) => e.id == regionId,

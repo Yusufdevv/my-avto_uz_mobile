@@ -234,7 +234,6 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                   Positioned(
                     bottom: 0,
                     child: PostingAdSubmitBox(
-
                       onTab: () {
                         if (state.lat == 0) return;
                         Navigator.of(context)

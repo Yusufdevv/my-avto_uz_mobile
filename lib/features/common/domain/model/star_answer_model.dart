@@ -8,7 +8,6 @@ class StarAnswerModel extends StarAnswerEntity {
   const StarAnswerModel({required super.question, required super.starCount});
   factory StarAnswerModel.fromJson(Map<String, dynamic> json) =>
       _$StarAnswerModelFromJson(json);
-      
 
   Map<String, dynamic> toJson() => _$StarAnswerModelToJson(this);
 }

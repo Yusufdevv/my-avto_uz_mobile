@@ -8,6 +8,6 @@ class MyReviewsState with _$MyReviewsState {
     @Default('') String previous,
     @Default('') String next,
     @Default(false) bool fetchMore,
-    @Default(0) int  count,
+    @Default(0) int count,
   }) = _MyReviewsState;
 }

@@ -15,6 +15,6 @@ class UsercountdataModel extends UsercountdataEntity {
     required super.wishListCount,
   });
 
-  factory UsercountdataModel.fromJson(Map<String, dynamic> json) => _$UsercountdataModelFromJson
-    (json);
+  factory UsercountdataModel.fromJson(Map<String, dynamic> json) =>
+      _$UsercountdataModelFromJson(json);
 }

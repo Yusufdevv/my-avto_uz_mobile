@@ -14,18 +14,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
 
 class PostingAdSubmitBox extends StatelessWidget {
-
   final VoidCallback onTab;
 
   const PostingAdSubmitBox({
-
     required this.onTab,
     super.key,
   }) : super();
 
   @override
   Widget build(BuildContext context) => BlocBuilder<MapBloc, MapState>(
-
         builder: (context, state) => Container(
           width: MediaQuery.of(context).size.width,
           padding: const EdgeInsets.all(16),

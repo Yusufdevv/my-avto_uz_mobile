@@ -6,8 +6,9 @@ import 'package:auto/features/dealers/data/models/dealer_info_model.dart';
 import 'package:auto/features/dealers/data/repositories/dealer_single_repository_impl.dart';
 
 class DealerSingleUseCase extends UseCase<DealerSingleModel, String> {
-  final DealerSingleRepositoryImpl dealerSingle = serviceLocator<DealerSingleRepositoryImpl>();
-  DealerSingleUseCase( );
+  final DealerSingleRepositoryImpl dealerSingle =
+      serviceLocator<DealerSingleRepositoryImpl>();
+  DealerSingleUseCase();
 
   @override
   Future<Either<Failure, DealerSingleModel>> call(String params) async =>

@@ -38,7 +38,8 @@ class _WLikeState extends State<WLike> {
           setState(() {
             isLiked = !isLiked;
           });
-        },    behavior: HitTestBehavior.opaque,
+        },
+        behavior: HitTestBehavior.opaque,
         child: AnimatedSwitcher(
           duration: const Duration(milliseconds: 300),
           transitionBuilder: (child, animation) => ScaleTransition(

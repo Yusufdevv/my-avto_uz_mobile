@@ -40,8 +40,8 @@ class _YearIssueScreennState extends State<YearIssueScreenn> {
                       child: YearItem(
                         beginYear: '${state.years![index].yearBegin}',
                         endYear: '${state.years![index].yearEnd}',
-                        isSelected:
-                            (state.yearEntity?.id ?? -1) == state.years![index].id,
+                        isSelected: (state.yearEntity?.id ?? -1) ==
+                            state.years![index].id,
                       ),
                     ),
                     itemCount: state.years?.length ?? 0,

@@ -54,27 +54,26 @@ class CancelledReviewItem extends StatelessWidget {
             Stack(
               children: hasImage
                   ? [
-                    Container(
-                          height: 200,
-                          foregroundDecoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: border, width: 1),
-                                    color: white.withOpacity(.72),
-                          ),
-                          width: double.maxFinite,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: CachedNetworkImage(
-                              placeholder: (context, url) => Image.asset(
-                                AppImages.carPlaceHolder,
-                                fit: BoxFit.cover,
-                              ),
-                              imageUrl: imageUrl,
+                      Container(
+                        height: 200,
+                        foregroundDecoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: border, width: 1),
+                          color: white.withOpacity(.72),
+                        ),
+                        width: double.maxFinite,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: CachedNetworkImage(
+                            placeholder: (context, url) => Image.asset(
+                              AppImages.carPlaceHolder,
                               fit: BoxFit.cover,
                             ),
+                            imageUrl: imageUrl,
+                            fit: BoxFit.cover,
                           ),
                         ),
-                     
+                      ),
                       Positioned(
                         top: 8,
                         left: 8,
@@ -131,8 +130,10 @@ class CancelledReviewItem extends StatelessWidget {
             const SizedBox(height: 12),
             Text(
               reviewTitle,
-              style:
-                  Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 16),
+              style: Theme.of(context)
+                  .textTheme
+                  .displayLarge!
+                  .copyWith(fontSize: 16),
             ),
             const SizedBox(height: 8),
             Row(

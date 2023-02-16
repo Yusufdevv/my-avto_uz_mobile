@@ -1,4 +1,3 @@
-
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/image_preload_shimmer.dart';

@@ -33,8 +33,10 @@ class _AdditionalOptionsState extends State<AdditionalOptions> {
           children: [
             Text(
               LocaleKeys.additional_options.tr(),
-              style:
-                  Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 18),
+              style: Theme.of(context)
+                  .textTheme
+                  .displayLarge!
+                  .copyWith(fontSize: 18),
             ),
             const SizedBox(
               height: 8,

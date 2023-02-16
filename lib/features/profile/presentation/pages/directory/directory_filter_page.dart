@@ -33,7 +33,7 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
     super.initState();
   }
 
-  List<Region> _checkedRegions = <Region>[]; 
+  List<Region> _checkedRegions = <Region>[];
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -99,7 +99,7 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
                             isScrollControlled: true,
                             backgroundColor: Colors.transparent,
                             builder: (c) => RentChooseRegionBottomSheet(
-                              checkedRegions: _checkedRegions.asMap(),
+                                checkedRegions: _checkedRegions.asMap(),
                                 list:
                                     context.read<RegionsBloc>().state.regions),
                           ).then((value) {
@@ -109,14 +109,15 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
                               context.read<DirectoryBloc>().add(
                                   DirectoryFilterEvent(
                                       regionId: regionsId, regions: regions));
-                                      _checkedRegions = value;
+                              _checkedRegions = value;
                             }
                           });
                         },
                         child: EditItemContainer(
                             isOtherPage: true,
                             icon: AppIcons.chevronRightBlack,
-                            region:  context.read<DirectoryBloc>().state.regions),
+                            region:
+                                context.read<DirectoryBloc>().state.regions),
                       ),
                       const SizedBox(height: 16),
                       //Категории

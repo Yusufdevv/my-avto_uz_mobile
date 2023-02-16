@@ -48,7 +48,6 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
       isShowingToast = false;
     }
   }
-  
 
   @override
   Widget build(BuildContext context) => WillPopScope(
@@ -56,7 +55,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
           hidePopUp();
           return true;
         },
-    child: KeyboardDismisser(
+        child: KeyboardDismisser(
           child: BlocBuilder<RegisterBloc, RegisterState>(
             builder: (context, state) => CustomScreen(
               child: Scaffold(
@@ -157,8 +156,9 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                               } else {
                                 context.read<ShowPopUpBloc>().add(
                                       ShowPopUp(
-                                        message: LocaleKeys.password_must_6.tr(),
-                                    status: PopStatus.error,
+                                        message:
+                                            LocaleKeys.password_must_6.tr(),
+                                        status: PopStatus.error,
                                         dismissible: false,
                                       ),
                                     );
@@ -188,5 +188,5 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
             ),
           ),
         ),
-  );
+      );
 }

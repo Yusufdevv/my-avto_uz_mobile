@@ -11,13 +11,15 @@ class CarPriceText extends StatelessWidget {
           children: [
             Text(
               '$text UZS',
-              style:
-                  Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 24),
+              style: Theme.of(context)
+                  .textTheme
+                  .displayLarge!
+                  .copyWith(fontSize: 24),
             ),
             const SizedBox(
               width: 12,
             ),
-            // WlabelLarge(
+            // WButton(
             //   onTap: () {},
             //   color: blue,
             //   borderRadius: 6,

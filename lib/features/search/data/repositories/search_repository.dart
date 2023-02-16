@@ -12,8 +12,8 @@ class SearchRepositoryImpl extends SearchRepository {
   SearchRepositoryImpl();
 
   @override
-  Future<Either<Failure, GenericPagination<AutoModel>>>
-      getSearchResults(Map<String, dynamic> params) async {
+  Future<Either<Failure, GenericPagination<AutoModel>>> getSearchResults(
+      Map<String, dynamic> params) async {
     try {
       final result = await dataSource.getSearchResults(params);
       return Right(result);

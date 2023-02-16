@@ -5,7 +5,8 @@ import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:auto/features/pagination/repository/pagination.dart';
 import 'package:auto/features/rent/data/models/rent_list_model.dart';
 
-class RentListUseCase extends UseCase<GenericPagination<RentListModel>, Params> {
+class RentListUseCase
+    extends UseCase<GenericPagination<RentListModel>, Params> {
   final PaginationRepository repo = PaginationRepository();
 
   @override

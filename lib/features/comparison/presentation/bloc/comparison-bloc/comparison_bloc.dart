@@ -41,11 +41,11 @@ class ComparisonBloc extends Bloc<ComparisonEvent, ComparisonState> {
       list.remove(item);
       emit(state.copyWith(cars: list));
     });
-    
+
     on<GetMakeModelEvent>(_onGetMakeModel);
   }
 
-   void _onGetMakeModel(GetMakeModelEvent event, Emitter<ComparisonState> emit) {
+  void _onGetMakeModel(GetMakeModelEvent event, Emitter<ComparisonState> emit) {
     emit(state.copyWith(
         selectedMake: event.selectedMake, selectedModel: event.selectedModel));
   }

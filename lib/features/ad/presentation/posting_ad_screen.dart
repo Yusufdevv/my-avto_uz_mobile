@@ -42,10 +42,14 @@ import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class PostingAdScreen extends StatefulWidget {
+  final bool? isHaveToClearState;
   final BuildContext parentContext;
 
-  const PostingAdScreen({required this.parentContext, Key? key})
-      : super(key: key);
+  const PostingAdScreen({
+    required this.parentContext,
+    this.isHaveToClearState,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<PostingAdScreen> createState() => _PostingAdScreenState();
@@ -349,8 +353,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                       postingAdBloc.add(
                                           PostingAdOnRentWithPurchaseConditionChangedEvent(
                                               condition: condition)),
-                                  onPriceChanged: (price) => postingAdBloc.add(
-                                      PostingAdChooseEvent(price: price)),
+                                  onPriceChanged: (price) => postingAdBloc
+                                      .add(PostingAdChooseEvent(price: price)),
                                   initialPrice: state.price ?? '',
                                   conditions: state
                                       .rentWithPurchaseConditions.entries

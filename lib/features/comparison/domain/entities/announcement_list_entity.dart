@@ -2,7 +2,7 @@ import 'package:auto/features/common/domain/entity/car_dealer_entity.dart';
 import 'package:auto/features/comparison/domain/entities/user_entity.dart';
 
 class AnnouncementListEntity {
- const AnnouncementListEntity({
+  const AnnouncementListEntity({
     this.id = 0,
     this.make = '',
     this.model = '',
@@ -27,6 +27,7 @@ class AnnouncementListEntity {
     this.publishedAt = '',
     this.createdAt = '',
     this.isWishlisted = false,
+    this.isRentWithPurchase = false,
   });
 
   final int id;
@@ -44,6 +45,7 @@ class AnnouncementListEntity {
   final UserEntity user;
   final double price;
   final bool isComparison;
+  final bool isRentWithPurchase;
   final double? discount;
   final String contactAvailableFrom;
   final String contactAvailableTo;

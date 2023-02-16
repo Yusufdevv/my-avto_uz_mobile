@@ -17,7 +17,6 @@ import 'package:auto/features/search/presentation/pages/nothing_found_screen.dar
 import 'package:auto/features/search/presentation/widgets/info_result_container.dart';
 import 'package:auto/features/search/presentation/widgets/search_item_shimmer.dart';
 import 'package:auto/features/search/presentation/widgets/searched_models_item.dart';
-import 'package:auto/features/search/presentation/widgets/sort_bottom_sheet.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -111,8 +110,6 @@ class _SearchScreenState extends State<SearchScreen> {
                           child: Focus(
                             focusNode: focusNode,
                             onFocusChange: (value) {
-                              print('=======onfocus ${value}');
-
                               isFocused = value;
                               if (!value) {
                                 if (searchController.text.isEmpty) {
@@ -138,8 +135,6 @@ class _SearchScreenState extends State<SearchScreen> {
                                   .extension<ThemedColors>()!
                                   .whiteSmoke2ToNightRider,
                               onChanged: (value) {
-                                print('======= onchanged');
-
                                 searchBloc.add(SearchEvent.getSuggestions(
                                     search: searchController.text));
                                 setState(() {});
@@ -277,6 +272,10 @@ class _SearchScreenState extends State<SearchScreen> {
                                           ),
                                       itemBuilder: (context, index) =>
                                           InfoResultContainer(
+                                            sellType: state.searchResults[index]
+                                                    .isRentWithPurchase
+                                                ? LocaleKeys.rent_to_buy.tr()
+                                                : LocaleKeys.car_sale.tr(),
                                             currency: state
                                                 .searchResults[index].currency,
                                             discount: state
@@ -287,10 +286,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                                 .contactAvailableTo,
                                             gallery: state
                                                 .searchResults[index].gallery,
-                                            carModelName: state
-                                                .searchResults[index]
-                                                .model
-                                                .name,
+                                            carModelName:
+                                                '${state.searchResults[index].make.name} ${state.searchResults[index].model.name} ${state.searchResults[index].generation}',
                                             carYear:
                                                 state.searchResults[index].year,
                                             contactPhone: state
@@ -301,7 +298,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                                 .description,
                                             districtTitle: state
                                                 .searchResults[index]
-                                                .district
+                                                .region
                                                 .title,
                                             isNew: state
                                                 .searchResults[index].isNew,
@@ -314,9 +311,24 @@ class _SearchScreenState extends State<SearchScreen> {
                                                 .searchResults[index]
                                                 .publishedAt,
                                             userFullName: state
-                                                .searchResults[index]
-                                                .user
-                                                .fullName,
+                                                        .searchResults[index]
+                                                        .userType !=
+                                                    'owner'
+                                                ? DealerFavEntity.fromJson(state
+                                                            .searchResults[
+                                                                index]
+                                                            .dealer)
+                                                        .name ??
+                                                    ''
+                                                : state
+                                                        .searchResults[index]
+                                                        .user
+                                                        .fullName
+                                                        .isNotEmpty
+                                                    ? state.searchResults[index]
+                                                        .user.fullName
+                                                    : state.searchResults[index]
+                                                        .contactName,
                                             userImage: state
                                                         .searchResults[index]
                                                         .userType !=

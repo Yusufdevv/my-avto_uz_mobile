@@ -19,7 +19,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
   SearchBloc() : super(SearchState()) {
     on<_GetResults>((event, emit) async {
-      emit(state.copyWith(status: FormzStatus.submissionInProgress, searchText: event.searchText));
+      emit(state.copyWith(
+          status: FormzStatus.submissionInProgress,
+          searchText: event.searchText));
 
       final result = await useCase.call({
         'search': event.searchText,

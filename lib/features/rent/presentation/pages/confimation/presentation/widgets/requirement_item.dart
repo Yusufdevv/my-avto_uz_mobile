@@ -29,8 +29,10 @@ class RequirementItem extends StatelessWidget {
           children: [
             Text(
               LocaleKeys.requirements.tr(),
-              style:
-                  Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 14),
+              style: Theme.of(context)
+                  .textTheme
+                  .displayLarge!
+                  .copyWith(fontSize: 14),
             ),
             const SizedBox(
               height: 12,

@@ -20,8 +20,10 @@ class SingleCarInfoItemm extends StatelessWidget {
           children: [
             Text(
               LocaleKeys.about_car.tr(),
-              style:
-                  Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 18),
+              style: Theme.of(context)
+                  .textTheme
+                  .displayLarge!
+                  .copyWith(fontSize: 18),
             ),
             const SizedBox(
               height: 8,
@@ -33,8 +35,11 @@ class SingleCarInfoItemm extends StatelessWidget {
                 title: LocaleKeys.Mileage.tr(),
                 description:
                     '${MyFunctions.getFormatCost(rentCarEntity.distanceTraveled.toString())} km'),
-            InfoItem(title: LocaleKeys.body.tr(), description: rentCarEntity.bodyType.type),
-            InfoItem(title: LocaleKeys.color.tr(), description: rentCarEntity.color),
+            InfoItem(
+                title: LocaleKeys.body.tr(),
+                description: rentCarEntity.bodyType.type),
+            InfoItem(
+                title: LocaleKeys.color.tr(), description: rentCarEntity.color),
             InfoItem(
               title: LocaleKeys.complectation.tr(),
               description: rentCarEntity.type.name,
@@ -48,9 +53,14 @@ class SingleCarInfoItemm extends StatelessWidget {
                 title: LocaleKeys.Transmission.tr(),
                 description: rentCarEntity.gearboxType.type),
             InfoItem(
-                title: LocaleKeys.conditioner.tr(),
-                description: rentCarEntity.hasAirConditioner ? LocaleKeys.have.tr(): LocaleKeys.no.tr(),),
-            InfoItem(title: LocaleKeys.drive_unit.tr(), description: rentCarEntity.driveType.type),
+              title: LocaleKeys.conditioner.tr(),
+              description: rentCarEntity.hasAirConditioner
+                  ? LocaleKeys.have.tr()
+                  : LocaleKeys.no.tr(),
+            ),
+            InfoItem(
+                title: LocaleKeys.drive_unit.tr(),
+                description: rentCarEntity.driveType.type),
           ],
         ),
       );

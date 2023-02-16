@@ -162,7 +162,6 @@ class _ComparisonState extends State<Comparison> {
                             makeId: makeId,
                             modelId: modelId,
                           )))
-                          
                               .then((value) {
                             if (context.read<ComparisonAddBloc>().state.count >
                                 0) {

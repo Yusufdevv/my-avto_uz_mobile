@@ -25,8 +25,4 @@ class ProfileModel extends ProfileEntity {
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) =>
       _$ProfileModelFromJson(json);
-
-
 }
-
-

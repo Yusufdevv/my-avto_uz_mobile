@@ -6,11 +6,8 @@ import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
-import 'package:auto/features/ad/domain/entities/generation/generation.dart';
 import 'package:auto/features/ad/domain/entities/rent_with_purchase/rent_with_purchase_entity.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
-import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
-import 'package:auto/features/ad/domain/entities/types/engine_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/domain/entities/types/modification_type.dart';
@@ -120,9 +117,10 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
     on<EditAdShowToastEvent>(_showToast);
     on<EditAdOnRentWithPurchaseEvent>(_onRentWithPurchaseConditionChanged);
   }
-  FutureOr<void> _onRentWithPurchaseConditionChanged(EditAdOnRentWithPurchaseEvent event, Emitter<EditAdState> emit){
+  FutureOr<void> _onRentWithPurchaseConditionChanged(
+      EditAdOnRentWithPurchaseEvent event, Emitter<EditAdState> emit) {
     final conditions = state.rentWithPurchaseConditions.map(MapEntry.new);
-    conditions[event.condition.id]=event.condition;
+    conditions[event.condition.id] = event.condition;
     emit(state.copyWith(rentWithPurchaseConditions: conditions));
   }
 
@@ -217,8 +215,10 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
           status: FormzStatus.submissionSuccess, session: result.right));
     } else {
       emit(state.copyWith(
-          status: FormzStatus.submissionFailure,
-          toastMessage: MyFunctions.getErrorMessage(result.left), popStatus: PopStatus.error,));
+        status: FormzStatus.submissionFailure,
+        toastMessage: MyFunctions.getErrorMessage(result.left),
+        popStatus: PopStatus.error,
+      ));
     }
   }
 
@@ -247,8 +247,10 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
       emit(stateForEdit);
     } else {
       emit(state.copyWith(
-          getAnnouncementToEditStatus: FormzStatus.submissionFailure,
-          toastMessage: MyFunctions.getErrorMessage(result.left), popStatus: PopStatus.error,));
+        getAnnouncementToEditStatus: FormzStatus.submissionFailure,
+        toastMessage: MyFunctions.getErrorMessage(result.left),
+        popStatus: PopStatus.error,
+      ));
     }
   }
 
@@ -265,8 +267,10 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
       );
     } else {
       emit(state.copyWith(
-          getDistrictsStatus: FormzStatus.submissionFailure,
-          toastMessage: MyFunctions.getErrorMessage(result.left), popStatus: PopStatus.error,));
+        getDistrictsStatus: FormzStatus.submissionFailure,
+        toastMessage: MyFunctions.getErrorMessage(result.left),
+        popStatus: PopStatus.error,
+      ));
     }
   }
 
@@ -284,8 +288,10 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
       );
     } else {
       emit(state.copyWith(
-          status: FormzStatus.submissionFailure,
-          toastMessage: MyFunctions.getErrorMessage(result.left), popStatus: PopStatus.error,));
+        status: FormzStatus.submissionFailure,
+        toastMessage: MyFunctions.getErrorMessage(result.left),
+        popStatus: PopStatus.error,
+      ));
     }
   }
 
@@ -300,14 +306,17 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
     emit(state.copyWith(createStatus: FormzStatus.submissionInProgress));
     final result = await createUseCase.call(await EASingleton.create(state));
     if (result.isRight) {
-      emit(state.copyWith(
+      emit(
+        state.copyWith(
           createStatus: FormzStatus.submissionSuccess,
-          toastMessage: 'Your ad created successfully!', popStatus: PopStatus.success,),
-       );
+          toastMessage: 'Your ad created successfully!',
+          popStatus: PopStatus.success,
+        ),
+      );
     } else {
       emit(state.copyWith(
-          createStatus: FormzStatus.submissionFailure,
-          toastMessage: MyFunctions.getErrorMessage(result.left),
+        createStatus: FormzStatus.submissionFailure,
+        toastMessage: MyFunctions.getErrorMessage(result.left),
         popStatus: PopStatus.error,
       ));
     }

@@ -19,14 +19,14 @@ class Interpolate {
 
   Interpolate(
       {required List<double> inputRange,
-        required List<double> outputRange,
-        this.extrapolate = Extrapolate.extend}) {
+      required List<double> outputRange,
+      this.extrapolate = Extrapolate.extend}) {
     _x = inputRange.map((e) => e.toDouble()).toList();
     _y = outputRange.map((e) => e.toDouble()).toList();
     assert(_x.length == _y.length,
-    'interpolate: the length of inputRange must be equal to the length ot the outputRange');
+        'interpolate: the length of inputRange must be equal to the length ot the outputRange');
     assert(_x.length >= 2 && _y.length >= 2,
-    'interpolate: the range should have more than two data points');
+        'interpolate: the range should have more than two data points');
   }
 
   /// execute the interpolation in the range

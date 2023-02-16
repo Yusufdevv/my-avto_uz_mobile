@@ -41,7 +41,7 @@ class CodegenLoader extends AssetLoader{
   "optimal": "Оптимальная",
   "excellent": "Отличная",
   "overpriced": "Завышенная",
-  "how_the_average_price_is_calculated": "Как рассчитывается\nсредняя цена",
+  "how_the_average_price_is_calculated": "Как рассчитывается{middle}средняя цена",
   "average_price": "Средняя цена:",
   "ratio": "Соотношение",
   "market_condition_on": "Состояние рынка на",
@@ -174,7 +174,7 @@ class CodegenLoader extends AssetLoader{
   "photo": "Фото",
   "user_ads": "Объяления пользователя",
   "no_results": "Нет результатов",
-  "sorry_no_results": "К сожэалению, по вашему запросу результаты не найдены",
+  "sorry_no_results": "К сожалению, по вашему запросу результаты не найдены",
   "add_photo": "Добавить фото",
   "region": "Регион",
   "full_name": "ФИО",
@@ -257,7 +257,7 @@ class CodegenLoader extends AssetLoader{
   "paint_condition": "Состояние краски",
   "position": "Позиция",
   "how_price_is_calculated": "Как рассчитывается средняя цена",
-  "we_compared_all_same_auto": "Мы сравнили все похожие авто на ",
+  "we_compared_all_parameters": "Мы сравнили все похожие авто на ",
   "by_parameters": "по параметрам:",
   "drive_gearbox": "Коробка передач",
   "modification": "Модификация",
@@ -509,7 +509,6 @@ class CodegenLoader extends AssetLoader{
   "minimal_summa_must_be": "Минимальная сумма должна быть",
   "monthly_pay": "Ежемесячная оплата",
   "map": "Карта",
-  "we_compared_all_parameters": "Мы сравнили все похожие авто на ",
   "km": "км",
   "dayss": "дня",
   "u_t_e_o_t_a_p_l": "До окончания срока объявления осталось: ",
@@ -527,7 +526,10 @@ class CodegenLoader extends AssetLoader{
   "go_to_comparison": "Перейти к сравнению",
   "added_x_auto": "добавлено {} авто",
   "your_ad_edited_successfully": "Ваше объявление успешно отредактировано!",
-  "sum": "сум"
+  "sum": "сум",
+  "the_before_enter_price": "Сначала введите цену",
+  "you_dont_have_featured_listings": "У вас нет избранных объявлений",
+  "rent_to_buy": "Аренда c выкупом"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -573,7 +575,7 @@ static const Map<String,dynamic> uz = {
   "cheaper_sc": "Arzonroq s.c:",
   "ratio": "Nisbat",
   "market_condition_on": "Bozor holati yoqilgan",
-  "how_the_average_price_is_calculated": "O'rtacha narx\nqanday hisoblanadi",
+  "how_the_average_price_is_calculated": "O'rtacha narx{middle}qanday hisoblanadi",
   "average_price": "O'rtacha narx:",
   "choose_car": "Avtomobil markasini tanlang",
   "search": "Qidirish",
@@ -988,7 +990,7 @@ static const Map<String,dynamic> uz = {
   "gas_ballon_equipment": "Gaz balon uskunasi",
   "car_color": "Avtomobil rangi",
   "original_slash_electronniy_pts": "Original / Elektron TVP",
-  "duplicat": "Nusxasi..",
+  "duplicate": "Nusxasi..",
   "first": "Birinchi",
   "second": "Ikkinchi",
   "third": "Uchinchi",
@@ -1041,7 +1043,10 @@ static const Map<String,dynamic> uz = {
   "go_to_comparison": "Taqqoslashga borish",
   "added_x_auto": "{} ta qo'shildi",
   "your_ad_edited_successfully": "Reklamangiz muvaffaqiyatli tahrirlandi!",
-  "sum": "so'm"
+  "sum": "so'm",
+  "the_before_enter_price": "Avval narxni kiriting",
+  "you_dont_have_featured_listings": "Sizda tanlangan e'lonlar yoʻq",
+  "rent_to_buy": "Аренда c выкупом"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }

@@ -20,12 +20,17 @@ class MapDatasourceImpl extends MapDatasource {
       final response = await _dio.get('/users/dealers/',
           options: Options(
               headers: StorageRepository.getString('token').isNotEmpty
-                  ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
+                  ? {
+                      'Authorization':
+                          'Token ${StorageRepository.getString('token')}'
+                    }
                   : {}));
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        return GenericPagination.fromJson(response.data, (p0) => TypeModel.fromJson(p0 as Map<String, dynamic>));
+        return GenericPagination.fromJson(response.data,
+            (p0) => TypeModel.fromJson(p0 as Map<String, dynamic>));
       } else {
-        throw ServerException(statusCode: response.statusCode!, errorMessage: response.data);
+        throw ServerException(
+            statusCode: response.statusCode!, errorMessage: response.data);
       }
     } on ServerException {
       rethrow;

@@ -92,7 +92,6 @@ abstract class AdRemoteDataSource {
   Future<void> createAnnouncement({
     required FormData announcementFormData,
   });
-
 }
 
 class AdRemoteDataSourceImpl extends AdRemoteDataSource {
@@ -121,7 +120,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
     try {
       final response = await _dio.get(
         '/car/makes/',
-        queryParameters: {'search': name, 'limit': 1000, 'offset': 0},
+        queryParameters: {'search': name, 'limit': 1000, 'offset': 0, 'ordering' : 'name'},
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return GetMakeModel.fromJson(response.data);
@@ -495,7 +494,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
                 }
               : {},
         ),
-      ); 
+      );
       await Future.delayed(const Duration(milliseconds: 5000));
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return;

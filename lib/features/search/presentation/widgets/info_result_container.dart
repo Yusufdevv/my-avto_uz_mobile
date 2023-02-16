@@ -43,8 +43,8 @@ class InfoResultContainer extends StatefulWidget {
       required this.discount,
       required this.id,
       required this.index,
+      required this.sellType,
       this.onTap,
-      this.sellType,
       super.key});
 
   final List<String> gallery;
@@ -66,7 +66,7 @@ class InfoResultContainer extends StatefulWidget {
   final double discount;
   final String callFrom;
   final String callTo;
-  final String? sellType;
+  final String sellType;
   final Function()? onTap;
   final int index;
 
@@ -220,19 +220,20 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                   ],
                 ),
               ),
-              if (widget.sellType != null)
+              if (widget.sellType.isNotEmpty)
                 CustomChip(
-                  label: widget.sellType!,
+                  label: widget.sellType,
                   backgroundColor: Theme.of(context)
                       .extension<ThemedColors>()!
                       .seashellToCinnabar15,
                   labelPadding:
                       const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                  margin: const EdgeInsets.only(top: 8, bottom: 12),
+                  margin: const EdgeInsets.only(top: 8),
                   labelStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
                         color: orange,
                         fontSize: 12,
                       ),
+                  borderRadius: 4,
                 ),
               const SizedBox(height: 12),
               CarNameYearWidget(

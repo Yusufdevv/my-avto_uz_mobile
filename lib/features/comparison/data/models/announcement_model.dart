@@ -6,7 +6,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'announcement_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class AnnouncementsModel extends  AnnouncementsEntity{
+class AnnouncementsModel extends AnnouncementsEntity {
   const AnnouncementsModel({
     required super.id,
     required super.licenceType,

@@ -7,24 +7,26 @@ import 'package:dio/dio.dart';
 class CarsInDealerDataSource {
   final Dio _dio;
   CarsInDealerDataSource(this._dio);
-  Future<GenericPagination<CarsInDealerModel>> getCars({required String slug, String? next,}) async {
+  Future<GenericPagination<CarsInDealerModel>> getCars({
+    required String slug,
+    String? next,
+  }) async {
     var query = <String, dynamic>{};
-    if(next!=null) {
-      query = {
-        'next': next
-      };
+    if (next != null) {
+      query = {'next': next};
     }
     try {
-      final results = await _dio.get('users/dealers/$slug/cars/',
-      queryParameters: query,
-      options: Options(
-        headers:  {
-            'Authorization': 'Bearer ${StorageRepository.getString('token')}'
-          }),
+      final results = await _dio.get(
+        'users/dealers/$slug/cars/',
+        queryParameters: query,
+        options: Options(headers: {
+          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+        }),
       );
 
       if (results.statusCode! >= 200 && results.statusCode! < 300) {
-        return GenericPagination.fromJson(results.data, (p0) => CarsInDealerModel.fromJson(p0 as Map<String, dynamic>));
+        return GenericPagination.fromJson(results.data,
+            (p0) => CarsInDealerModel.fromJson(p0 as Map<String, dynamic>));
       } else {
         throw ServerException(
             errorMessage: results.data.toString(),

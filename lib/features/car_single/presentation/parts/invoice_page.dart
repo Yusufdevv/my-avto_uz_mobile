@@ -236,8 +236,7 @@ class _InvoicePageState extends State<InvoicePage> {
                                     final urllaunchable = await canLaunch(url);
                                     if (urllaunchable) {
                                       await launch(url);
-                                    } else {
-                                    }
+                                    } else {}
                                   }),
                             const TextSpan(
                               text: ' вы подтверждаете свое согласие',

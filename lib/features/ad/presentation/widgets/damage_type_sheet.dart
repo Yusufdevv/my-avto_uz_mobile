@@ -48,7 +48,7 @@ class _DamageTypeChooseSheetState extends State<DamageTypeChooseSheet> {
                     ),
                   ),
                   GestureDetector(
-                        behavior: HitTestBehavior.opaque,
+                    behavior: HitTestBehavior.opaque,
                     onTap: () => Navigator.pop(context),
                     child: SvgPicture.asset(
                       AppIcons.close,
@@ -119,8 +119,10 @@ class _DamageTypeChooseSheetState extends State<DamageTypeChooseSheet> {
               },
               color: orange,
               text: 'Сохранить',
-              textStyle:
-                  Theme.of(context).textTheme.titleMedium!.copyWith(color: white),
+              textStyle: Theme.of(context)
+                  .textTheme
+                  .titleMedium!
+                  .copyWith(color: white),
               margin: EdgeInsets.only(
                 bottom: MediaQuery.of(context).padding.bottom + 20,
                 top: 20,

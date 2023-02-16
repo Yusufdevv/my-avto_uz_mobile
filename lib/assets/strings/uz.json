@@ -42,7 +42,7 @@
   "cheaper_sc": "Arzonroq s.c:",
   "ratio": "Nisbat",
   "market_condition_on": "Bozor holati yoqilgan",
-  "how_the_average_price_is_calculated": "O'rtacha narx\nqanday hisoblanadi",
+  "how_the_average_price_is_calculated": "O'rtacha narx{middle}qanday hisoblanadi",
   "average_price": "O'rtacha narx:",
   "choose_car": "Avtomobil markasini tanlang",
   "search": "Qidirish",
@@ -457,7 +457,7 @@
   "gas_ballon_equipment":"Gaz balon uskunasi",
   "car_color":"Avtomobil rangi",
   "original_slash_electronniy_pts":"Original / Elektron TVP",
-  "duplicat":"Nusxasi..",
+  "duplicate":"Nusxasi..",
   "first":"Birinchi",
   "second":"Ikkinchi",
   "third":"Uchinchi",
@@ -510,5 +510,8 @@
   "go_to_comparison" : "Taqqoslashga borish",
   "added_x_auto" : "{} ta qo'shildi",
   "your_ad_edited_successfully" : "Reklamangiz muvaffaqiyatli tahrirlandi!",
-  "sum" : "so'm"
+  "sum" : "so'm",
+  "the_before_enter_price": "Avval narxni kiriting",
+  "you_dont_have_featured_listings": "Sizda tanlangan e'lonlar yoʻq",
+  "rent_to_buy": "Аренда c выкупом"
 }

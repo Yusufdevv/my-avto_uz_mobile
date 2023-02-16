@@ -3,9 +3,9 @@ import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 class BodyTypeEntity extends Equatable {
-  @JsonKey(name: 'id' )
+  @JsonKey(name: 'id')
   final int id;
-  @JsonKey(name: 'type' )
+  @JsonKey(name: 'type')
   final String type;
   @JsonKey(name: 'logo')
   final String logo;

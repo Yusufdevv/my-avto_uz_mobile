@@ -13,6 +13,5 @@ class PhotoInstructionChangeStepEvent extends PhotoInstructionEvent {
 
   PhotoInstructionChangeStepEvent({required this.step});
 }
-class PhotoInstructionGetEvent extends PhotoInstructionEvent{
-  
-}
+
+class PhotoInstructionGetEvent extends PhotoInstructionEvent {}

@@ -61,8 +61,7 @@ class CarSingleBloc extends Bloc<CarSingleEvent, CarSingleState> {
       emit(state.copyWith(soldStatus: FormzStatus.submissionInProgress));
       if (result.isRight) {
         emit(state.copyWith(soldStatus: FormzStatus.submissionSuccess));
-      } else {
-      }
+      } else {}
     });
   }
 }

@@ -35,15 +35,16 @@ class MainState extends Equatable {
     bool? historySaved,
   }) =>
       MainState(
-          stories: stories ?? this.stories,
-          statusStoriesGet: statusStoriesGet ?? this.statusStoriesGet,
-          makeId: makeId ?? this.makeId,
-          modelId: modelId ?? this.modelId,
-          modelName: modelName ?? this.modelName,
-          makeName: makeName ?? this.makeName,
-          makeLogo: makeLogo ?? this.makeLogo,
-          historySaved: historySaved ?? this.historySaved,
-          announcementCount: announcementCount ?? this.announcementCount,);
+        stories: stories ?? this.stories,
+        statusStoriesGet: statusStoriesGet ?? this.statusStoriesGet,
+        makeId: makeId ?? this.makeId,
+        modelId: modelId ?? this.modelId,
+        modelName: modelName ?? this.modelName,
+        makeName: makeName ?? this.makeName,
+        makeLogo: makeLogo ?? this.makeLogo,
+        historySaved: historySaved ?? this.historySaved,
+        announcementCount: announcementCount ?? this.announcementCount,
+      );
 
   @override
   List<Object?> get props => [

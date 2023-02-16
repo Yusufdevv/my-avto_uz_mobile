@@ -54,9 +54,10 @@ class _RegistrationLeaseScreenState extends State<RegistrationLeaseScreen> {
                   Navigator.popUntil(context, (route) => route.isFirst);
                 }
                 if (state.status == FormzStatus.submissionFailure) {
-                  context
-                      .read<ShowPopUpBloc>()
-                      .add(ShowPopUp(message: state.errorMessage,  status: PopStatus.error,));
+                  context.read<ShowPopUpBloc>().add(ShowPopUp(
+                        message: state.errorMessage,
+                        status: PopStatus.error,
+                      ));
                 }
               },
               builder: (context, state) {

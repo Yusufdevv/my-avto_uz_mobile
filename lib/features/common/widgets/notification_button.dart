@@ -31,7 +31,7 @@ class _NotificationButtonState extends State<NotificationButton> {
           isAllread = stateLis.isNotificationAllRead;
         }
       }, builder: (context, state) {
-                  isAllread = state.isNotificationAllRead;
+        isAllread = state.isNotificationAllRead;
 
         if (state.changeStatus.isSubmissionSuccess ||
             state.changeStatus.isSubmissionFailure) {

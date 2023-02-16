@@ -11,7 +11,6 @@ class ProfilTextField extends StatefulWidget {
     this.suffix,
     this.isNameField = false,
     Key? key,
-
   }) : super(key: key);
 
   final TextEditingController controller;
@@ -36,7 +35,7 @@ class _ProfilTextFieldState extends State<ProfilTextField> {
             .displayLarge!
             .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
         borderRadius: SizeConfig.h(12),
-        hintText:widget.hintText,
+        hintText: widget.hintText,
         suffix: widget.suffix,
         hintTextStyle: Theme.of(context)
             .textTheme

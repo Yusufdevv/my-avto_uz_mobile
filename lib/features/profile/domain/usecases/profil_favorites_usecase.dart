@@ -16,12 +16,18 @@ class GetUserFavoritesMyAdsUseCase
   Future<Either<Failure, GenericPagination<AutoEntity>>> call(
           Params params) async =>
       await repository.getProfileFavoritesMyAds(
-          url: params.endpoint, next: params.query, moderationStatus: params.moderationStatus);
+          url: params.endpoint,
+          next: params.query,
+          moderationStatus: params.moderationStatus);
 }
 
 class Params {
   final String? query;
   final String endpoint;
   final String? moderationStatus;
-  Params({required this.endpoint, this.query, this.moderationStatus,});
+  Params({
+    required this.endpoint,
+    this.query,
+    this.moderationStatus,
+  });
 }

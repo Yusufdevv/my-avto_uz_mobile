@@ -243,7 +243,7 @@ abstract class  LocaleKeys {
   static const paint_condition = 'paint_condition';
   static const position = 'position';
   static const how_price_is_calculated = 'how_price_is_calculated';
-  static const we_compared_all_same_auto = 'we_compared_all_same_auto';
+  static const we_compared_all_parameters = 'we_compared_all_parameters';
   static const by_parameters = 'by_parameters';
   static const drive_gearbox = 'drive_gearbox';
   static const modification = 'modification';
@@ -495,7 +495,6 @@ abstract class  LocaleKeys {
   static const minimal_summa_must_be = 'minimal_summa_must_be';
   static const monthly_pay = 'monthly_pay';
   static const map = 'map';
-  static const we_compared_all_parameters = 'we_compared_all_parameters';
   static const km = 'km';
   static const dayss = 'dayss';
   static const u_t_e_o_t_a_p_l = 'u_t_e_o_t_a_p_l';
@@ -514,5 +513,8 @@ abstract class  LocaleKeys {
   static const added_x_auto = 'added_x_auto';
   static const your_ad_edited_successfully = 'your_ad_edited_successfully';
   static const sum = 'sum';
+  static const the_before_enter_price = 'the_before_enter_price';
+  static const you_dont_have_featured_listings = 'you_dont_have_featured_listings';
+  static const rent_to_buy = 'rent_to_buy';
 
 }

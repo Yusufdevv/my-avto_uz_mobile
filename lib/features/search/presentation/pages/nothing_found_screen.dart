@@ -9,8 +9,8 @@ class NothingFoundScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-              padding: const EdgeInsets.all(20),
-    child: Center(
+        padding: const EdgeInsets.all(20),
+        child: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -30,13 +30,14 @@ class NothingFoundScreen extends StatelessWidget {
               ),
               Text(
                 LocaleKeys.no_results.tr(),
-                style:
-                    Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 16),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium!
+                    .copyWith(fontSize: 16),
               ),
               const SizedBox(height: 8),
               Text(
-                                LocaleKeys.sorry_no_results.tr(),
-
+                LocaleKeys.sorry_no_results.tr(),
                 maxLines: 2,
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
@@ -47,5 +48,5 @@ class NothingFoundScreen extends StatelessWidget {
             ],
           ),
         ),
-  );
+      );
 }

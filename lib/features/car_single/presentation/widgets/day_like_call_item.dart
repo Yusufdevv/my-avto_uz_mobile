@@ -53,7 +53,7 @@ class DayLikeCallItem extends StatelessWidget {
                 CallLikeItem(
                   icon: AppIcons.phoneCall,
                   number: '$calls',
-                  text:LocaleKeys.phone_call.tr(),
+                  text: LocaleKeys.phone_call.tr(),
                 ),
               ],
             ),

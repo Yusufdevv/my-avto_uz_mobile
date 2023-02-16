@@ -14,7 +14,7 @@ import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class NewPasswordsPage extends StatefulWidget {
- const NewPasswordsPage({Key? key}) : super(key: key);
+  const NewPasswordsPage({Key? key}) : super(key: key);
 
   @override
   State<NewPasswordsPage> createState() => _NewPasswordsPageState();

@@ -24,7 +24,7 @@ class CarsInMarksBloc extends Bloc<CarsInMarksEvent, CarsInMarksState> {
             status: FormzStatus.submissionSuccess,
             cars: result.right.results,
             next: result.right.next,
-            moreFetch: result.right.next!=null,
+            moreFetch: result.right.next != null,
           ),
         );
       } else {
@@ -38,10 +38,10 @@ class CarsInMarksBloc extends Bloc<CarsInMarksEvent, CarsInMarksState> {
           state.copyWith(
             cars: [...state.cars, ...result.right.results],
             next: result.right.next,
-            moreFetch: result.right.next!=null,
+            moreFetch: result.right.next != null,
           ),
         );
-      } 
+      }
     });
   }
 }

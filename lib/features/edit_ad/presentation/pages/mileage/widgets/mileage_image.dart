@@ -19,36 +19,37 @@ class MileageImageItem extends StatefulWidget {
 
 class _MileageImageItemState extends State<MileageImageItem> {
   @override
-  Widget build(BuildContext context) => widget.image == null|| widget.image!.isEmpty
-      ? WScaleAnimation(
-          onTap: () {
-            context.read<MileageImageBloc>().add( PickMileageImage());
-          },
-          child: Container(
-            alignment: Alignment.center,
-            height: 82,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(width: 1, color: purple),
-              color: Theme.of(context)
-                  .extension<ThemedColors>()!
-                  .ghostWhiteToUltramarine10,
-            ),
-            child: const PlusCircle(),
-          ),
-        )
-      : Container(
-          height: 140,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: FileImage(
-                File(widget.image!),
+  Widget build(BuildContext context) =>
+      widget.image == null || widget.image!.isEmpty
+          ? WScaleAnimation(
+              onTap: () {
+                context.read<MileageImageBloc>().add(PickMileageImage());
+              },
+              child: Container(
+                alignment: Alignment.center,
+                height: 82,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(width: 1, color: purple),
+                  color: Theme.of(context)
+                      .extension<ThemedColors>()!
+                      .ghostWhiteToUltramarine10,
+                ),
+                child: const PlusCircle(),
               ),
-            ),
-          ),
-        );
+            )
+          : Container(
+              height: 140,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: FileImage(
+                    File(widget.image!),
+                  ),
+                ),
+              ),
+            );
 }

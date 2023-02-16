@@ -25,9 +25,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
         child: AppBar(
           elevation: 0,
-          actions:const [
-            NotificationButton()
-          ],
+          actions: const [NotificationButton()],
           centerTitle: false,
           title: SvgPicture.asset(
             Theme.of(context).extension<ThemedIcons>()!.imageUrl,
@@ -38,5 +36,3 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => AppBar().preferredSize;
 }
-
-

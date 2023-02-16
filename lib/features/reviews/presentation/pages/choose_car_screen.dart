@@ -61,10 +61,11 @@ class _ChooseCarScreenState extends State<ChooseCarScreen> {
                       ),
                       Text(
                         LocaleKeys.choose_brand_auto.tr(),
-                        style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
+                        style:
+                            Theme.of(context).textTheme.titleMedium!.copyWith(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
                       ),
                       const Spacer(),
                       WScaleAnimation(

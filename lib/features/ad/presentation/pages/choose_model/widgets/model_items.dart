@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ModelItems extends StatelessWidget {
-  final String entity;
+  final String title;
   final bool isSelected;
   final String text;
   final VoidCallback onTap;
   final bool hasBorder;
 
   const ModelItems({
-    required this.entity,
+    required this.title,
     required this.isSelected,
     required this.text,
     required this.onTap,
@@ -50,7 +50,7 @@ class ModelItems extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       HighlightedText(
-                        allText: entity,
+                        allText: title,
                         highlightedText: '',
                         terms: text.split(' '),
                         highlightColor:

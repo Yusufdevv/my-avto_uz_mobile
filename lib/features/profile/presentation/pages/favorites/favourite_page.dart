@@ -57,7 +57,6 @@ class _FavouritePageState extends State<FavouritePage> {
                       key: listkey,
                       initialItemCount: state.favorites.length + 1,
                       itemBuilder: (context, index, animation) {
-                        print('======= ${index}');
                         if (index == state.favorites.length) {
                           if (state.moreFetchFavorites) {
                             bloc.add(GetMoreUserFavoritesEvent());
@@ -75,6 +74,9 @@ class _FavouritePageState extends State<FavouritePage> {
                             padding: EdgeInsets.only(
                                 top: index == 0 ? 16 : 0, bottom: 12),
                             child: FavoriteItem(
+                                sellType: item.isRentWithPurchase
+                                    ? LocaleKeys.rent_to_buy.tr()
+                                    : LocaleKeys.car_sale.tr(),
                                 bloc: bloc,
                                 animation: animation,
                                 gallery: item.gallery,
@@ -83,14 +85,14 @@ class _FavouritePageState extends State<FavouritePage> {
                                 carYear: item.year,
                                 contactPhone: item.contactPhone,
                                 description: item.description,
-                                districtTitle: item.district.title,
+                                districtTitle: item.region.title,
                                 isNew: item.isNew,
                                 isWishlisted: item.isWishlisted,
                                 price: item.price,
                                 currency: item.currency,
                                 publishedAt: item.publishedAt,
                                 userFullName: item.userType == 'owner'
-                                    ? item.user.fullName
+                                    ? item.user.fullName.isNotEmpty ? item.user.fullName: item.contactName  
                                     : dealer.name ?? '',
                                 userImage: item.userType == 'owner'
                                     ? item.user.image
@@ -116,6 +118,9 @@ class _FavouritePageState extends State<FavouritePage> {
                                   listkey.currentState?.removeItem(
                                       index,
                                       (context, animation) => FavoriteItem(
+                                            sellType: item.isRentWithPurchase
+                                                ? LocaleKeys.rent_to_buy.tr()
+                                                : LocaleKeys.car_sale.tr(),
                                             bloc: bloc,
                                             animation: animation,
                                             gallery: item.gallery,
@@ -154,7 +159,8 @@ class _FavouritePageState extends State<FavouritePage> {
                       })
                   : Center(
                       child: EmptyItemBody(
-                          subtitle: LocaleKeys.you_dont_have_ads.tr(),
+                          subtitle:
+                              LocaleKeys.you_dont_have_featured_listings.tr(),
                           image: AppIcons.carIcon),
                     );
             }

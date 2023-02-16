@@ -33,7 +33,7 @@ class PostingAdMapControllerButtons extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             shadow: [
               BoxShadow(
-                  offset:const  Offset(0, 4),
+                  offset: const Offset(0, 4),
                   blurRadius: 10,
                   spreadRadius: 0,
                   color: profileContainers.withOpacity(.08))

@@ -43,20 +43,21 @@ class TopAdBloc extends Bloc<TopAdEvent, TopAdState> {
 
     on<_GetFavorites>((event, emit) async {
       emit(state.copyWith(favoritesStatus: FormzStatus.submissionInProgress));
-      final result = await profileFavoritesMyAdsUseCase.call(Params(endpoint: '/users/wishlist/announcement/list/'));
+      final result = await profileFavoritesMyAdsUseCase
+          .call(Params(endpoint: '/users/wishlist/announcement/list/'));
       if (result.isRight) {
         emit(state.copyWith(
-          favoritesStatus: FormzStatus.submissionSuccess,
-          favorites: result.right.results,
-          nextF: result.right.next          
-        ));
+            favoritesStatus: FormzStatus.submissionSuccess,
+            favorites: result.right.results,
+            nextF: result.right.next));
       } else {
         emit(state.copyWith(favoritesStatus: FormzStatus.submissionFailure));
       }
     });
 
     on<_GetMoreFavorite>((event, emit) async {
-      final result = await profileFavoritesMyAdsUseCase(Params(endpoint: '/users/wishlist/announcement/list/', query: state.nextF));
+      final result = await profileFavoritesMyAdsUseCase(Params(
+          endpoint: '/users/wishlist/announcement/list/', query: state.nextF));
       if (result.isRight) {
         emit(state.copyWith(
           favorites: [...state.favorites, ...result.right.results],
@@ -77,7 +78,6 @@ class TopAdBloc extends Bloc<TopAdEvent, TopAdState> {
     list.remove(item);
     emit(state.copyWith(favorites: list));
   }
-
 
   void _onChangeIsWish(_ChangeIsWish event, Emitter<TopAdState> emit) {
     // ignore: prefer_final_locals

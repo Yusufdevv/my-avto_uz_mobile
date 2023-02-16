@@ -38,7 +38,8 @@ class RentToSaleDetailsBox extends StatelessWidget {
                 WScaleAnimation(
                   onTap: onTap,
                   child: Padding(
-                      padding: const EdgeInsets.only(left: 8, top: 8, right: 12),
+                      padding:
+                          const EdgeInsets.only(left: 8, top: 8, right: 12),
                       child: SvgPicture.asset(AppIcons.editProfile)),
                 )
               ],

@@ -38,19 +38,21 @@ class YearItem extends StatelessWidget {
                 TextSpan(
                   text: beginYear.substring(0, beginYear.length - 2),
                   style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: grey),
+                      fontSize: 16, fontWeight: FontWeight.w400, color: grey),
                 ),
                 TextSpan(
-                  text: beginYear.substring( beginYear.length - 2),
-                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                      fontSize: 16, fontWeight: FontWeight.w600),
+                  text: beginYear.substring(beginYear.length - 2),
+                  style: Theme.of(context)
+                      .textTheme
+                      .displayLarge!
+                      .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
                 TextSpan(
-                  text:' - ',
-                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                      fontSize: 16, fontWeight: FontWeight.w600),
+                  text: ' - ',
+                  style: Theme.of(context)
+                      .textTheme
+                      .displayLarge!
+                      .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
               ])),
               RichText(
@@ -58,17 +60,17 @@ class YearItem extends StatelessWidget {
                 TextSpan(
                   text: endYear.substring(0, beginYear.length - 2),
                   style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: grey),
+                      fontSize: 16, fontWeight: FontWeight.w400, color: grey),
                 ),
                 TextSpan(
-                  text: endYear.substring( beginYear.length - 2),
-                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                      fontSize: 16, fontWeight: FontWeight.w600),
+                  text: endYear.substring(beginYear.length - 2),
+                  style: Theme.of(context)
+                      .textTheme
+                      .displayLarge!
+                      .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
               ])),
-             const  Spacer(),
+              const Spacer(),
               if (isSelected)
                 SvgPicture.asset(
                   AppIcons.check,

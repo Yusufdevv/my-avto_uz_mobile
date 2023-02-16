@@ -82,6 +82,7 @@ CarsInMarksModel _$CarsInMarksModelFromJson(Map<String, dynamic> json) =>
       year: json['year'] as int? ?? 0,
       isWishlisted: json['is_wishlisted'] as bool? ?? false,
       isComparison: json['is_comparison'] as bool? ?? false,
+      isRentWithPurchase: json['is_rent_with_purchase'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$CarsInMarksModelToJson(CarsInMarksModel instance) =>
@@ -139,4 +140,5 @@ Map<String, dynamic> _$CarsInMarksModelToJson(CarsInMarksModel instance) =>
       'dealer': const DealerCardConvert().toJson(instance.dealer),
       'is_wishlisted': instance.isWishlisted,
       'is_comparison': instance.isComparison,
+      'is_rent_with_purchase': instance.isRentWithPurchase,
     };

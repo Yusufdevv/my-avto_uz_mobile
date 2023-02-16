@@ -66,7 +66,7 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
           context.read<ShowPopUpBloc>().add(HidePopUp());
           return true;
         },
-    child: KeyboardDismisser(
+        child: KeyboardDismisser(
           child: Scaffold(
             backgroundColor: white,
             appBar: WAppBar(
@@ -149,8 +149,11 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
                   Row(
                     children: [
                       Text(LocaleKeys.send_via_password.tr(),
-                          style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                              fontSize: 14, fontWeight: FontWeight.w400)),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleLarge!
+                              .copyWith(
+                                  fontSize: 14, fontWeight: FontWeight.w400)),
                       const SizedBox(width: 6),
                       if (timeComplete)
                         Container(
@@ -212,8 +215,9 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
                                               context
                                                   .read<AuthenticationBloc>()
                                                   .add(AuthenticationStatusChanged(
-                                                      status: AuthenticationStatus
-                                                          .authenticated));
+                                                      status:
+                                                          AuthenticationStatus
+                                                              .authenticated));
                                             },
                                           ),
                                         );
@@ -245,5 +249,5 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
             ),
           ),
         ),
-  );
+      );
 }

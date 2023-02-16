@@ -25,7 +25,7 @@
   "optimal":"Оптимальная",
   "excellent":"Отличная",
   "overpriced":"Завышенная",
-  "how_the_average_price_is_calculated":"Как рассчитывается\nсредняя цена",
+  "how_the_average_price_is_calculated":"Как рассчитывается{middle}средняя цена",
   "average_price":"Средняя цена:",
   "ratio":"Соотношение",
   "market_condition_on":"Состояние рынка на",
@@ -158,7 +158,7 @@
   "photo": "Фото",
   "user_ads" : "Объяления пользователя",
   "no_results": "Нет результатов",
-  "sorry_no_results" : "К сожэалению, по вашему запросу результаты не найдены",
+  "sorry_no_results" : "К сожалению, по вашему запросу результаты не найдены",
   "add_photo": "Добавить фото",
   "region": "Регион",
   "full_name": "ФИО",
@@ -241,7 +241,7 @@
   "paint_condition":"Состояние краски",
   "position":"Позиция",
   "how_price_is_calculated":"Как рассчитывается средняя цена",
-  "we_compared_all_same_auto":"Мы сравнили все похожие авто на ",
+  "we_compared_all_parameters":"Мы сравнили все похожие авто на ",
   "by_parameters":"по параметрам:",
   "drive_gearbox": "Коробка передач",
   "modification": "Модификация",
@@ -493,7 +493,6 @@
   "minimal_summa_must_be":"Минимальная сумма должна быть",
   "monthly_pay":"Ежемесячная оплата",
   "map":"Карта",
-  "we_compared_all_parameters": "Мы сравнили все похожие авто на ",
   "km": "км",
   "dayss": "дня",
   "u_t_e_o_t_a_p_l": "До окончания срока объявления осталось: ",
@@ -511,5 +510,9 @@
   "go_to_comparison" : "Перейти к сравнению",
   "added_x_auto" : "добавлено {} авто",
   "your_ad_edited_successfully" : "Ваше объявление успешно отредактировано!",
-  "sum" : "сум"
+  "sum" : "сум",
+  "the_before_enter_price": "Сначала введите цену",
+  "you_dont_have_featured_listings": "У вас нет избранных объявлений",
+  "rent_to_buy": "Аренда c выкупом"
+
 }

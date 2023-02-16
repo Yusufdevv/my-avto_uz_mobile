@@ -13,9 +13,8 @@ class PaginationRepository {
 
   /// Give empty String for "next" if you don't have next link
   Future<Either<Failure, GenericPagination<T>>> fetchMore<T>(
-      {
-      required T Function(Map<String, dynamic>) fromJson,
-        required String url,
+      {required T Function(Map<String, dynamic>) fromJson,
+      required String url,
       String? next,
       bool sendToken = true,
       Map<String, dynamic>? query}) async {

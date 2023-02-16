@@ -277,7 +277,8 @@ class _StoryContentItemState extends State<StoryContentItem>
     final dy = details.globalPosition.dy;
     if (dx < screenWidth / 3 && dy < screenHeight - (canNavigate ? 54 : 0)) {
       setState(prevStory);
-    } else if (dx > 2 * screenWidth / 3 && dy < screenHeight - (canNavigate ? 54 : 0)) {
+    } else if (dx > 2 * screenWidth / 3 &&
+        dy < screenHeight - (canNavigate ? 54 : 0)) {
       setState(nextStory);
     }
   }

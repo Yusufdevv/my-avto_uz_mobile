@@ -111,9 +111,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                         ),
                       ).then((value) {
                         if (value != null) {
-                          context
-                              .read<EditAdBloc>()
-                              .add(EditAdChooseEvent(
+                          context.read<EditAdBloc>().add(EditAdChooseEvent(
                                 districtId: value.id,
                               ));
                         }
@@ -131,7 +129,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                       state.showExactAddress) ...{
                     Container(
                       height: 200,
-                   width: double.maxFinite,
+                      width: double.maxFinite,
                       decoration: BoxDecoration(
                           color: Colors.amber,
                           borderRadius: BorderRadius.circular(12),
@@ -139,7 +137,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                             image: MemoryImage(state.mapPointBytes!),
                             fit: BoxFit.cover,
                           )),
-                          // child:Image.asset(AppIcons.currentLoc),
+                      // child:Image.asset(AppIcons.currentLoc),
                     ),
                     const SizedBox(height: 17),
                   },

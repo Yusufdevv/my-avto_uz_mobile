@@ -11,5 +11,7 @@ class MyReviewsUseCase extends UseCase<GenericPagination, String> {
   MyReviewsUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, GenericPagination<AutoReviewModel>>> call(String? params) => repository.getMyReviews(search: params);
+  Future<Either<Failure, GenericPagination<AutoReviewModel>>> call(
+          String? params) =>
+      repository.getMyReviews(search: params);
 }

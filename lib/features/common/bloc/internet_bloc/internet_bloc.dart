@@ -12,6 +12,5 @@ class InternetBloc extends Bloc<InternetEvent, InternetState> {
     on<GlobalCheck>((event, emit) {
       emit(state.copyWith(isConnected: event.isConnected));
     });
-
   }
 }

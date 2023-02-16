@@ -7,5 +7,5 @@ class GetAdditionalServicesEvent extends AdditionalServicesEvent {}
 class CheckUncheckEvent extends AdditionalServicesEvent {
   final bool value;
   final int index;
-  CheckUncheckEvent({required this.index,required this.value});
+  CheckUncheckEvent({required this.index, required this.value});
 }

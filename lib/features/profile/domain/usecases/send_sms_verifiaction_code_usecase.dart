@@ -12,7 +12,10 @@ class SendSmsVerificationUseCase
 
   @override
   Future<Either<Failure, String>> call(SmsVerificationParams params) async =>
-      await repository.sendVerificationCode(phoneNumber: params.phoneNumber, code: params.code, session: params.session);
+      await repository.sendVerificationCode(
+          phoneNumber: params.phoneNumber,
+          code: params.code,
+          session: params.session);
 }
 
 class SmsVerificationParams extends Equatable {
@@ -20,7 +23,8 @@ class SmsVerificationParams extends Equatable {
   final String code;
   final String session;
 
-  const SmsVerificationParams({required this.phoneNumber, required this.code, required this.session});
+  const SmsVerificationParams(
+      {required this.phoneNumber, required this.code, required this.session});
 
   @override
   List<Object?> get props => [phoneNumber];

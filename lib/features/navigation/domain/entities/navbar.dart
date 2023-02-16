@@ -6,8 +6,8 @@ class NavBar {
   final bool isImage;
   const NavBar(
       {required this.title,
-        required this.id,
-        required this.icon,
-        required this.outlinedIcon,
-        this.isImage = false});
+      required this.id,
+      required this.icon,
+      required this.outlinedIcon,
+      this.isImage = false});
 }

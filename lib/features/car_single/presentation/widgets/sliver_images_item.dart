@@ -32,7 +32,8 @@ class _SingleImagePartState extends State<SingleImagePart> {
               images: widget.images,
             )));
           }
-        },    behavior: HitTestBehavior.opaque,
+        },
+        behavior: HitTestBehavior.opaque,
         child: Stack(
           children: [
             PageView.builder(

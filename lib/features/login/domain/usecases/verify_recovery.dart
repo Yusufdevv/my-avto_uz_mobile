@@ -8,7 +8,8 @@ class VerifyRecoveryUseCase extends UseCase<String, VerifyParam> {
   final GlobalRequestRepository repo = GlobalRequestRepository();
 
   @override
-  Future<Either<Failure, String>> call(VerifyParam params) => repo.postAndSingle(
+  Future<Either<Failure, String>> call(VerifyParam params) =>
+      repo.postAndSingle(
           endpoint: '/users/forget-pass/sms-verification/verify/',
           sendToken: false,
           fromJson: (data) => data['phone'],
@@ -18,5 +19,3 @@ class VerifyRecoveryUseCase extends UseCase<String, VerifyParam> {
             'session': params.session,
           });
 }
-
-

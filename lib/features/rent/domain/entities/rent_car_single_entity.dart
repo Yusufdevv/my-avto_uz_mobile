@@ -1,7 +1,6 @@
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_entity.dart';
 
-
 class RentCarSingleEntity {
   RentCarSingleEntity({
     required this.id,
