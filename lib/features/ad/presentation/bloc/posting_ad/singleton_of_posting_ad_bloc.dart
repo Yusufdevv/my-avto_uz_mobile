@@ -395,7 +395,7 @@ class PASingleton {
 
       // PriceScreen
       case 17:
-        return state.price == null;
+        return state.price == null || (state.price?.isEmpty ?? true);
       // MileageScreen
       case 18:
         final milage =
