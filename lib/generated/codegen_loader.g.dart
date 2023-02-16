@@ -527,7 +527,8 @@ class CodegenLoader extends AssetLoader{
   "go_to_comparison": "Перейти к сравнению",
   "added_x_auto": "добавлено {} авто",
   "your_ad_edited_successfully": "Ваше объявление успешно отредактировано!",
-  "sum": "сум"
+  "sum": "сум",
+  "the_before_enter_price": "Сначала введите цену"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -1041,7 +1042,8 @@ static const Map<String,dynamic> uz = {
   "go_to_comparison": "Taqqoslashga borish",
   "added_x_auto": "{} ta qo'shildi",
   "your_ad_edited_successfully": "Reklamangiz muvaffaqiyatli tahrirlandi!",
-  "sum": "so'm"
+  "sum": "so'm",
+  "the_before_enter_price": "Avval narxni kiriting"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }
