@@ -48,7 +48,7 @@
 //             // const SizedBox(
 //             //   height: 10,
 //             // ),
-//             // WlabelLarge(
+//             // WButton(
 //             //   text: LocaleKeys.buy_full_report.tr(),
 //             //   textColor: Colors.white,
 //             //   onTap: () {},
@@ -59,7 +59,7 @@
 //             // const SizedBox(
 //             //   height: 8,
 //             // ),
-//             // WlabelLarge(
+//             // WButton(
 //             //   text: LocaleKeys.show_free_report.tr(),
 //             //   textColor: grey,
 //             //   onTap: () {},

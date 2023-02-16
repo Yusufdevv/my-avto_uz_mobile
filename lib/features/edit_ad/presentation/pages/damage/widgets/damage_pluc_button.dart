@@ -6,10 +6,10 @@ import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class DamagelabelLarge extends StatelessWidget {
+class DamageButton extends StatelessWidget {
   final DamageType? damageType;
   final VoidCallback? onTap;
-  const DamagelabelLarge({
+  const DamageButton({
     this.onTap,
     this.damageType,
     Key? key,
