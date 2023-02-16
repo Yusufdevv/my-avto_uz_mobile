@@ -92,7 +92,7 @@ class _FavouritePageState extends State<FavouritePage> {
                                 currency: item.currency,
                                 publishedAt: item.publishedAt,
                                 userFullName: item.userType == 'owner'
-                                    ? item.user.fullName
+                                    ? item.user.fullName.isNotEmpty ? item.user.fullName: item.contactName  
                                     : dealer.name ?? '',
                                 userImage: item.userType == 'owner'
                                     ? item.user.image
