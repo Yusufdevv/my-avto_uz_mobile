@@ -62,6 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return KeyboardDismisser(
       child: CustomScreen(
         child: Scaffold(
+          resizeToAvoidBottomInset: true,
           backgroundColor: white,
           appBar: WAppBar(
             hasBackButton: false,
@@ -76,159 +77,161 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: darkGray.withOpacity(0.08))
             ],
           ),
-          body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 48),
-                Text(
-                  LocaleKeys.enter_to_account.tr(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .displayLarge!
-                      .copyWith(fontSize: 18),
-                ),
-                const SizedBox(height: 4),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      LocaleKeys.d_y_h_account.tr(),
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleLarge!
-                          .copyWith(fontSize: 13, fontWeight: FontWeight.w400),
-                    ),
-                    const SizedBox(width: 4),
-                    WScaleAnimation(
-                      onTap: () {
-                        hidePopUp();
-                        Navigator.push(
-                            context, fade(page: const RegisterScreen()));
-                      },
-                      child: Text(
-                        LocaleKeys.register.tr(),
-                        style: Theme.of(context)
-                            .textTheme
-                            .displaySmall!
-                            .copyWith(
-                                fontWeight: FontWeight.w600, fontSize: 13),
-                      ),
-                    )
-                  ],
-                ),
-                const SizedBox(height: 36),
-                ZTextFormField(
-                  onTap: hidePopUp,
-                  onChanged: (value) {
-                    setState(() {});
-                  },
-                  controller: phoneController,
-                  prefixIcon: Row(
-                    children: [
-                      SizedBox(
-                          height: 20,
-                          width: 20,
-                          child: Image.asset(AppImages.flagUzb2)),
-                      const SizedBox(width: 8),
-                      Text('+998',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium!
-                              .copyWith(
-                                  fontSize: 14, fontWeight: FontWeight.w400)),
-                    ],
-                  ),
-                  hintText: '00 000 00 00',
-                  hintTextStyle: Theme.of(context)
-                      .textTheme
-                      .titleMedium!
-                      .copyWith(
-                          fontSize: 14,
-                          color: warmerGrey,
-                          fontWeight: FontWeight.w400),
-                  keyBoardType: TextInputType.number,
-                  textInputFormatters: [phoneFormatter],
-                  textStyle: Theme.of(context)
-                      .textTheme
-                      .titleMedium!
-                      .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
-                ),
-                const SizedBox(height: 16),
-                ZTextFormField(
-                  onTap: hidePopUp,
-                  onChanged: (value) {
-                    setState(() {});
-                  },
-                  hintText: LocaleKeys.password.tr(),
-                  controller: passwordController,
-                  isObscure: true,
-                  hintTextStyle: Theme.of(context)
-                      .textTheme
-                      .titleMedium!
-                      .copyWith(
-                          fontSize: 14,
-                          color: warmerGrey,
-                          fontWeight: FontWeight.w400),
-                  textStyle: Theme.of(context)
-                      .textTheme
-                      .titleMedium!
-                      .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
-                ),
-                const SizedBox(height: 16),
-                WScaleAnimation(
-                  onTap: () {
-                    hidePopUp();
-                    Navigator.of(context)
-                        .push(fade(page: const SendPhoneNumberPage()));
-                  },
-                  child: Text(
-                    LocaleKeys.forgot_password.tr(),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding:  EdgeInsets.only(left: 16, right: 16, top: 16, bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 48),
+                  Text(
+                    LocaleKeys.enter_to_account.tr(),
                     style: Theme.of(context)
                         .textTheme
-                        .displaySmall!
-                        .copyWith(fontSize: 13, fontWeight: FontWeight.w600),
+                        .displayLarge!
+                        .copyWith(fontSize: 18),
                   ),
-                ),
-                const SizedBox(height: 24),
-                WButton(
-                  isLoading: context.watch<AuthenticationBloc>().state.status ==
-                      AuthenticationStatus.loading,
-                  onTap: passwordController.text.length >= 6 &&
-                          phoneController.text.length == 12
-                      ? () {
+                  const SizedBox(height: 4),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        LocaleKeys.d_y_h_account.tr(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleLarge!
+                            .copyWith(fontSize: 13, fontWeight: FontWeight.w400),
+                      ),
+                      const SizedBox(width: 4),
+                      WScaleAnimation(
+                        onTap: () {
                           hidePopUp();
-                          context.read<AuthenticationBloc>().add(LoginUser(
-                              onError: (text) {
-                                var error = text;
-                                if (error.toLowerCase().contains('dio') ||
-                                    error.toLowerCase().contains('type')) {
-                                  error = LocaleKeys.service_error.tr();
-                                }
-                                context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                      message: error,
-                                      status: PopStatus.error,
-                                      dismissible: false,
-                                    ));
-                              },
-                              password: passwordController.text,
-                              userName: phoneController.text
-                                  .replaceAll('+998', '')
-                                  .replaceAll('', ' ')));
-                        }
-                      : () {},
-                  margin: EdgeInsets.only(
-                    bottom: 20 + MediaQuery.of(context).padding.bottom,
+                          Navigator.push(
+                              context, fade(page: const RegisterScreen()));
+                        },
+                        child: Text(
+                          LocaleKeys.register.tr(),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displaySmall!
+                              .copyWith(
+                                  fontWeight: FontWeight.w600, fontSize: 13),
+                        ),
+                      )
+                    ],
                   ),
-                  text: LocaleKeys.continuee.tr(),
-                  border: Border.all(width: 1, color: white),
-                  color: (passwordController.text.length >= 6 &&
-                          phoneController.text.length > 11)
-                      ? orange
-                      : disabledButton,
-                ),
-              ],
+                  const SizedBox(height: 36),
+                  ZTextFormField(
+                    onTap: hidePopUp,
+                    onChanged: (value) {
+                      setState(() {});
+                    },
+                    controller: phoneController,
+                    prefixIcon: Row(
+                      children: [
+                        SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: Image.asset(AppImages.flagUzb2)),
+                        const SizedBox(width: 8),
+                        Text('+998',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(
+                                    fontSize: 14, fontWeight: FontWeight.w400)),
+                      ],
+                    ),
+                    hintText: '00 000 00 00',
+                    hintTextStyle: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(
+                            fontSize: 14,
+                            color: warmerGrey,
+                            fontWeight: FontWeight.w400),
+                    keyBoardType: TextInputType.number,
+                    textInputFormatters: [phoneFormatter],
+                    textStyle: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
+                  ),
+                  const SizedBox(height: 16),
+                  ZTextFormField(
+                    onTap: hidePopUp,
+                    onChanged: (value) {
+                      setState(() {});
+                    },
+                    hintText: LocaleKeys.password.tr(),
+                    controller: passwordController,
+                    isObscure: true,
+                    hintTextStyle: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(
+                            fontSize: 14,
+                            color: warmerGrey,
+                            fontWeight: FontWeight.w400),
+                    textStyle: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
+                  ),
+                  const SizedBox(height: 16),
+                  WScaleAnimation(
+                    onTap: () {
+                      hidePopUp();
+                      Navigator.of(context)
+                          .push(fade(page: const SendPhoneNumberPage()));
+                    },
+                    child: Text(
+                      LocaleKeys.forgot_password.tr(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .displaySmall!
+                          .copyWith(fontSize: 13, fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  WButton(
+                    isLoading: context.watch<AuthenticationBloc>().state.status ==
+                        AuthenticationStatus.loading,
+                    onTap: passwordController.text.length >= 6 &&
+                            phoneController.text.length == 12
+                        ? () {
+                            hidePopUp();
+                            context.read<AuthenticationBloc>().add(LoginUser(
+                                onError: (text) {
+                                  var error = text;
+                                  if (error.toLowerCase().contains('dio') ||
+                                      error.toLowerCase().contains('type')) {
+                                    error = LocaleKeys.service_error.tr();
+                                  }
+                                  context.read<ShowPopUpBloc>().add(ShowPopUp(
+                                        message: error,
+                                        status: PopStatus.error,
+                                        dismissible: false,
+                                      ));
+                                },
+                                password: passwordController.text,
+                                userName: phoneController.text
+                                    .replaceAll('+998', '')
+                                    .replaceAll('', ' ')));
+                          }
+                        : () {},
+                    margin: EdgeInsets.only(
+                      bottom: 20 + MediaQuery.of(context).padding.bottom,
+                    ),
+                    text: LocaleKeys.continuee.tr(),
+                    border: Border.all(width: 1, color: white),
+                    color: (passwordController.text.length >= 6 &&
+                            phoneController.text.length > 11)
+                        ? orange
+                        : disabledButton,
+                  ),
+                ],
+              ),
             ),
           ),
           bottomNavigationBar: Column(
