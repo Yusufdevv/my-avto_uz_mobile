@@ -57,7 +57,6 @@ class _FavouritePageState extends State<FavouritePage> {
                       key: listkey,
                       initialItemCount: state.favorites.length + 1,
                       itemBuilder: (context, index, animation) {
-                        print('======= ${index}');
                         if (index == state.favorites.length) {
                           if (state.moreFetchFavorites) {
                             bloc.add(GetMoreUserFavoritesEvent());
@@ -154,7 +153,7 @@ class _FavouritePageState extends State<FavouritePage> {
                       })
                   : Center(
                       child: EmptyItemBody(
-                          subtitle: LocaleKeys.you_dont_have_ads.tr(),
+                          subtitle: LocaleKeys.you_dont_have_featured_listings.tr(),
                           image: AppIcons.carIcon),
                     );
             }
