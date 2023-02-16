@@ -42,6 +42,7 @@ class _ChooseCarModelComparison extends State<ChooseCarModelPage> {
   @override
   void initState() {
     id = widget.selectedMake?.id ?? -1;
+    _searchController = TextEditingController();
     _getCarModelBloc = GetCarModelBloc(
         useCase:
             GetCarModelUseCase(repository: serviceLocator<AdRepositoryImpl>()))
@@ -49,8 +50,10 @@ class _ChooseCarModelComparison extends State<ChooseCarModelPage> {
         selectedId: widget.selectedModelId ?? -1,
         model: const MakeEntity(),
       ))
-      ..add(GetCarModelEvent.getCarModel(id));
-    _searchController = TextEditingController();
+      ..add(GetCarModelEvent.getCarModel(
+        getId: id,
+        search: _searchController.text,
+      ));
     super.initState();
   }
 
@@ -116,17 +119,17 @@ class _ChooseCarModelComparison extends State<ChooseCarModelPage> {
                                 controller: _searchController,
                                 onChanged: () {
                                   _getCarModelBloc
-                                    ..add(
-                                      GetCarModelEvent.getSerched(
-                                          _searchController.text),
-                                    )
-                                    ..add(GetCarModelEvent.getCarModel(id));
+                                      .add(GetCarModelEvent.getCarModel(
+                                    getId: id,
+                                    search: _searchController.text,
+                                  ));
                                 },
                                 onClear: () {
                                   _getCarModelBloc
-                                    ..add(GetCarModelEvent.getSerched(
-                                        _searchController.text))
-                                    ..add(GetCarModelEvent.getCarModel(id));
+                                      .add(GetCarModelEvent.getCarModel(
+                                    getId: id,
+                                    search: _searchController.text,
+                                  ));
                                 },
                               ),
                               pinned: true,
@@ -148,7 +151,7 @@ class _ChooseCarModelComparison extends State<ChooseCarModelPage> {
                                     title: state.model.results[index].name,
                                     isSelected: state.selectedId ==
                                         state.model.results[index].id,
-                                    text: state.search,
+                                    text: _searchController.text,
                                     onTap: () {
                                       _getCarModelBloc.add(
                                         GetCarModelEvent.selectedModelItem(
