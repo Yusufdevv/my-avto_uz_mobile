@@ -49,7 +49,7 @@ class _ChooseCarModelComparison extends State<ChooseCarModelPage> {
             GetCarModelUseCase(repository: serviceLocator<AdRepositoryImpl>()))
       ..add(GetCarModelEvent.selectedModelItem(
         selectedId: widget.selectedModelId ?? -1,
-        model: const MakeEntity(),
+        model: MakeEntity(id: widget.selectedModelId ?? -1),
       ))
       ..add(GetCarModelEvent.getCarModel(
         getId: id,
