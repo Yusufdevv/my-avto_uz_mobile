@@ -68,6 +68,7 @@ class WTextField extends StatefulWidget {
   final bool readOnly;
   final Widget? suffixTitleWidget;
   final String hintNextToTitle;
+  final BoxConstraints? prefixConstraints;
 
   const WTextField(
       {required this.onChanged,
@@ -81,6 +82,7 @@ class WTextField extends StatefulWidget {
       this.autoFocus = false,
       this.borderRadius = 0,
       this.prefixStyle,
+      this.prefixConstraints,
       this.disabledBorderColor,
       this.hasClearButton,
       this.textAlign = TextAlign.start,
@@ -274,8 +276,7 @@ class _WTextFieldState extends State<WTextField>
                                 color: Theme.of(context).hintColor,
                                 fontWeight: FontWeight.w400),
                         filled: widget.filled,
-                        // prefixIconConstraints:
-                        // const BoxConstraints(maxWidth: 20, maxHeight: 20),
+                        prefixIconConstraints:widget.prefixConstraints,
                         prefixIcon:
                             widget.hasSearch != null && widget.hasSearch!
                                 ? Padding(
