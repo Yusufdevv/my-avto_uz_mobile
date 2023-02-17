@@ -27,10 +27,12 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 class ChooseCarBrandPage extends StatefulWidget {
   final int? selectedMakeId;
   final int? selectedModelId;
+  final int? announcementCount;
 
   const ChooseCarBrandPage({
     this.selectedMakeId,
     this.selectedModelId,
+    this.announcementCount,
     Key? key,
   }) : super(key: key);
 
