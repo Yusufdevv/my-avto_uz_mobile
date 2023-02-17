@@ -92,7 +92,9 @@ class _SingleMarkAnnouncementsState extends State<SingleMarkAnnouncements> {
                         year: item.year,
                         price: item.price,
                         discountPrice: item.price,
-                        sellType: item.isRentWithPurchase ? LocaleKeys.rent_to_buy.tr() : LocaleKeys.car_sale.tr(),
+                        sellType: item.isRentWithPurchase
+                            ? LocaleKeys.rent_to_buy.tr()
+                            : LocaleKeys.car_sale.tr(),
                         hasStatusInfo: item.isNew,
                         gallery: item.gallery,
                         currency: item.currency,

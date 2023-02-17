@@ -36,10 +36,6 @@ class SetSort extends AnnouncementListEvent {
   });
 }
 
-class GetMinMaxPriceYear extends AnnouncementListEvent {
-  const GetMinMaxPriceYear();
-}
-
 class SetFilter extends AnnouncementListEvent {
   final Currency? currency;
   final GearboxTypeEntity? gearboxType;

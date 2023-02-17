@@ -234,20 +234,21 @@ class _FavoriteItemState extends State<FavoriteItem> {
                   ),
                 ),
                 if (widget.sellType.isNotEmpty)
-              CustomChip(
-                label: widget.sellType,
-                backgroundColor: Theme.of(context)
-                    .extension<ThemedColors>()!
-                    .seashellToCinnabar15,
-                labelPadding:
-                    const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                margin: const EdgeInsets.only(top: 8),
-                labelStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      color: orange,
-                      fontSize: 12,
-                    ),
-                borderRadius: 4,
-              ),
+                  CustomChip(
+                    label: widget.sellType,
+                    backgroundColor: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .seashellToCinnabar15,
+                    labelPadding:
+                        const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                    margin: const EdgeInsets.only(top: 8),
+                    labelStyle:
+                        Theme.of(context).textTheme.titleMedium!.copyWith(
+                              color: orange,
+                              fontSize: 12,
+                            ),
+                    borderRadius: 4,
+                  ),
                 const SizedBox(height: 12),
                 CarNameYearWidget(
                     carName: widget.carModelName,

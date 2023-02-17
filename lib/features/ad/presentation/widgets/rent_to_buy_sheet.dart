@@ -169,7 +169,9 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                               text: TextSpan(
                                 children: [
                                   TextSpan(
-                                      text: LocaleKeys.the_minimum_amount_must_be.tr(),
+                                      text: LocaleKeys
+                                          .the_minimum_amount_must_be
+                                          .tr(),
                                       style: Theme.of(context)
                                           .textTheme
                                           .displayMedium!
@@ -199,7 +201,8 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                                           controller: TextEditingController(
                                               text: MyFunctions.getFormatCost(
                                                   '${(state.entityForEdit?.rentalPeriod ?? 0) > 0 ? (state.entityForEdit?.rentalPeriod ?? 0) : ''}')),
-                                          title: '${LocaleKeys.rent_period.tr()} (${LocaleKeys.for_month.tr()})',
+                                          title:
+                                              '${LocaleKeys.rent_period.tr()} (${LocaleKeys.for_month.tr()})',
                                           step: state.step + 1,
                                           prepayment: state.controller.text
                                               .replaceAll(' ', '')));

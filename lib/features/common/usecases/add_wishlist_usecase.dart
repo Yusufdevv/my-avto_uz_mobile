@@ -1,13 +1,15 @@
 import 'package:auto/core/exceptions/failures.dart';
+import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/common/repository/add_wishlist_repository.dart';
 import 'package:equatable/equatable.dart';
 
 class AddWishlistUseCase extends UseCase<void, int> {
-  final AddWishlistRepository repo;
+  final AddWishlistRepository repo =
+      serviceLocator<AddWishlistRepositoryImpl>();
 
-  AddWishlistUseCase({required this.repo});
+  AddWishlistUseCase();
 
   @override
   Future<Either<Failure, void>> call(int params) async =>
@@ -15,9 +17,10 @@ class AddWishlistUseCase extends UseCase<void, int> {
 }
 
 class RemoveWishlistUseCase extends UseCase<void, Params> {
-  final AddWishlistRepository repo;
+  final AddWishlistRepository repo =
+      serviceLocator<AddWishlistRepositoryImpl>();
 
-  RemoveWishlistUseCase({required this.repo});
+  RemoveWishlistUseCase();
 
   @override
   Future<Either<Failure, void>> call(Params params) async =>

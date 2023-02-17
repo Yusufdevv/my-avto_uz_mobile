@@ -12,7 +12,8 @@ class SwipeDetector extends StatelessWidget {
   final VoidCallback? onSwipeLeft;
   final VoidCallback? onSwipeRight;
 
-   const SwipeDetector({Key? key,
+  const SwipeDetector({
+    Key? key,
     required this.child,
     this.onSwipeUp,
     this.onSwipeDown,

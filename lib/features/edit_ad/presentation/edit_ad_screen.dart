@@ -273,8 +273,7 @@ class _EditAdScreenState extends State<EditAdScreen>
                             left: 16,
                             child: WButton(
                               disabledColor: disabledButton,
-                              isDisabled:
-                                  state.buttonStatus(currentTabIndex),
+                              isDisabled: state.buttonStatus(currentTabIndex),
                               onTap: () {
                                 hidePopUp();
                                 FocusScope.of(context).unfocus();

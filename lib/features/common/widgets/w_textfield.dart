@@ -276,7 +276,7 @@ class _WTextFieldState extends State<WTextField>
                                 color: Theme.of(context).hintColor,
                                 fontWeight: FontWeight.w400),
                         filled: widget.filled,
-                        prefixIconConstraints:widget.prefixConstraints,
+                        prefixIconConstraints: widget.prefixConstraints,
                         prefixIcon:
                             widget.hasSearch != null && widget.hasSearch!
                                 ? Padding(
@@ -299,7 +299,6 @@ class _WTextFieldState extends State<WTextField>
                                     : widget.disabledColor
                                 : widget.fillColor,
                         contentPadding: widget.contentPadding,
-
                         disabledBorder: OutlineInputBorder(
                           borderRadius: widget.detailedBorderRadius ??
                               BorderRadius.circular(widget.borderRadius),

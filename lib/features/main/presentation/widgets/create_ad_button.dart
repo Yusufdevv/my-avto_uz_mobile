@@ -17,9 +17,7 @@ class CreateAdButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) => WButton(
         onTap: () {
-          HomeTabControllerProvider.of(context)
-              .controller
-              .animateTo(2);
+          HomeTabControllerProvider.of(context).controller.animateTo(2);
           return;
           showModalBottomSheet<int>(
                   backgroundColor: Colors.transparent,

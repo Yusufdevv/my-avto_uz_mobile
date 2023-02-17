@@ -48,7 +48,7 @@ class _CurrencyChooseSheetState extends State<CurrencyChooseSheet> {
               child: Column(
                 children: [
                   ...List.generate(
-                    Currency.values.length-1,
+                    Currency.values.length - 1,
                     (index) => Column(
                       children: [
                         WScaleAnimation(
@@ -58,7 +58,9 @@ class _CurrencyChooseSheetState extends State<CurrencyChooseSheet> {
                           },
                           child: RegionSheetItem(
                             isMultiChoice: false,
-                            title: Currency.values[index].name=='uzs' ? LocaleKeys.sum.tr() : 'y.e',
+                            title: Currency.values[index].name == 'uzs'
+                                ? LocaleKeys.sum.tr()
+                                : 'y.e',
                             hasBorder: index == Currency.values.length - 1,
                             isChecked: selected == Currency.values[index].name,
                           ),

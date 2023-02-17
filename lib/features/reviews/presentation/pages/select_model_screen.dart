@@ -1,8 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/core/singletons/service_locator.dart';
-import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/entities/choose_model/car_type_entity.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
 import 'package:auto/features/ad/presentation/bloc/choose_model/car_type_selector_bloc.dart';
@@ -33,10 +31,8 @@ class _SelectModelScreenState extends State<SelectModelScreen> {
 
   @override
   void initState() {
-    carTypeSelectorBloc = CarModelSelectorBloc(
-        makeId: -1,
-        useCase:
-            GetCarModelUseCase(repository: serviceLocator<AdRepositoryImpl>()));
+    carTypeSelectorBloc =
+        CarModelSelectorBloc(makeId: -1, useCase: GetCarModelUseCase());
     searchController = TextEditingController();
     super.initState();
   }

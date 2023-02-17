@@ -81,8 +81,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
     isDisable = true;
     isLike = false;
     bloc = CarSingleBloc(
-        GetCarSingleUseCase(
-            repository: serviceLocator<CarSingleRepositoryImpl>()),
+        GetCarSingleUseCase(),
         OtherAdsUseCase(repository: serviceLocator<CarSingleRepositoryImpl>()),
         SoldAdsUseCase(repository: serviceLocator<CarSingleRepositoryImpl>()),
         CallCount(repository: serviceLocator<CarSingleRepositoryImpl>()))

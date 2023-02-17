@@ -130,24 +130,7 @@ class AnnouncementListBloc
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     });
-    on<GetMinMaxPriceYear>((event, emit) async {
-      final result =
-          await minMaxPriceYearUseCase.call(state.currency?.value ?? '');
-      if (result.isRight) {
-        emit(
-          state.copyWith(
-            yearValues: RangeValues(result.right.minYear.toDouble(),
-                result.right.maxYear.toDouble()),
-            priceValues: RangeValues(double.parse(result.right.minPrice),
-                double.parse(result.right.maxPrice)),
-          ),
-        );
-      }
-    });
     on<SetFilter>((event, emit) {
-      if (state.currency != event.currency) {
-        add(const GetMinMaxPriceYear());
-      }
       emit(state.copyWith(
         currency: event.currency,
         gearboxType: event.gearboxType,
@@ -175,7 +158,6 @@ class AnnouncementListBloc
       add(GetAnnouncementList(isNew: event.isNew));
     });
     on<ClearFilter>((event, emit) {
-      add(const GetMinMaxPriceYear());
       emit(state.copyWith(
         currency: Currency.none,
         gearboxType: const GearboxTypeEntity(),

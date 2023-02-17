@@ -136,7 +136,9 @@ class _PriceScreenState extends State<PriceScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                widget.currency=='uzs' ? LocaleKeys.sum.tr() : 'y.e',
+                                widget.currency == 'uzs'
+                                    ? LocaleKeys.sum.tr()
+                                    : 'y.e',
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleMedium!
@@ -217,7 +219,8 @@ class _PriceScreenState extends State<PriceScreen> {
                             );
                           } else {
                             context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                  message: LocaleKeys.the_before_enter_price.tr(),
+                                  message:
+                                      LocaleKeys.the_before_enter_price.tr(),
                                   status: PopStatus.warning,
                                 ));
                           }

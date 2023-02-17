@@ -120,7 +120,12 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
     try {
       final response = await _dio.get(
         '/car/makes/',
-        queryParameters: {'search': name, 'limit': 1000, 'offset': 0, 'ordering' : 'name'},
+        queryParameters: {
+          'search': name,
+          'limit': 1000,
+          'offset': 0,
+          'ordering': 'name'
+        },
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return GetMakeModel.fromJson(response.data);

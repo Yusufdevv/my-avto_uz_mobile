@@ -1,10 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/core/singletons/service_locator.dart';
-import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
-import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
 import 'package:auto/features/ad/presentation/pages/choose_model/widgets/model_items.dart';
 import 'package:auto/features/ads/presentation/widgets/no_data_widget.dart';
 import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
@@ -45,9 +42,7 @@ class _ChooseCarModelComparison extends State<ChooseCarModelPage> {
   void initState() {
     id = widget.selectedMake?.id ?? -1;
     _searchController = TextEditingController();
-    _getCarModelBloc = GetCarModelBloc(
-        useCase:
-            GetCarModelUseCase(repository: serviceLocator<AdRepositoryImpl>()))
+    _getCarModelBloc = GetCarModelBloc()
       ..add(GetCarModelEvent.selectedModelItem(
         selectedId: widget.selectedModelId ?? -1,
         model: MakeEntity(id: widget.selectedModelId ?? -1),

@@ -8,17 +8,17 @@ import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'get_makes_bloc_event.dart';
+
 part 'get_makes_bloc_state.dart';
+
 part 'get_makes_bloc_bloc.freezed.dart';
 
 class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
-  final GetMakesUseCase useCase;
-  final GetTopMakesUseCase topUseCase;
-  GetMakesBloc({
-    required this.useCase,
-    required this.topUseCase,
-    int? initialId,
-  }) : super(GetMakesState(selectId: initialId ?? -1)) {
+  final GetMakesUseCase useCase = GetMakesUseCase();
+  final GetTopMakesUseCase topUseCase = GetTopMakesUseCase();
+
+  GetMakesBloc({int? initialId})
+      : super(GetMakesState(selectId: initialId ?? -1)) {
     on<_ChangeSelected>((event, emit) {
       emit(state.copyWith(selectId: event.id));
     });

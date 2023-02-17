@@ -19,12 +19,9 @@ import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -70,8 +67,13 @@ class _LoginScreenState extends State<LoginScreen> {
             hasBackButton: false,
             title: LocaleKeys.enter.tr(),
             boxShadow: [
-              BoxShadow(offset: const Offset(0, 4), blurRadius: 16, color: darkGray.withOpacity(0.08)),
-              BoxShadow(offset: const Offset(0, -1), color: darkGray.withOpacity(0.08))
+              BoxShadow(
+                  offset: const Offset(0, 4),
+                  blurRadius: 16,
+                  color: darkGray.withOpacity(0.08)),
+              BoxShadow(
+                  offset: const Offset(0, -1),
+                  color: darkGray.withOpacity(0.08))
             ],
           ),
           body: Padding(
@@ -82,7 +84,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 48),
                 Text(
                   LocaleKeys.enter_to_account.tr(),
-                  style: Theme.of(context).textTheme.headline1!.copyWith(fontSize: 18),
+                  style: Theme.of(context)
+                      .textTheme
+                      .displayLarge!
+                      .copyWith(fontSize: 18),
                 ),
                 const SizedBox(height: 4),
                 Row(
@@ -90,18 +95,22 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Text(
                       LocaleKeys.d_y_h_account.tr(),
-                      style: Theme.of(context).textTheme.headline6!.copyWith(fontSize: 13, fontWeight: FontWeight.w400),
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge!
+                          .copyWith(fontSize: 13, fontWeight: FontWeight.w400),
                     ),
                     const SizedBox(width: 4),
                     WScaleAnimation(
                       onTap: () {
                         hidePopUp();
-                        Navigator.push(context, fade(page: const RegisterScreen()));
+                        Navigator.push(
+                            context, fade(page: const RegisterScreen()));
                       },
                       child: Text(
                         LocaleKeys.register.tr(),
-                        style:
-                            Theme.of(context).textTheme.headline3!.copyWith(fontWeight: FontWeight.w600, fontSize: 13),
+                        style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                            fontWeight: FontWeight.w600, fontSize: 13),
                       ),
                     )
                   ],
@@ -115,23 +124,33 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: phoneController,
                   prefixIcon: Row(
                     children: [
-                      SizedBox(height: 20, width: 20, child: Image.asset(AppImages.flagUzb2)),
+                      SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: Image.asset(AppImages.flagUzb2)),
                       const SizedBox(width: 8),
                       Text('+998',
                           style: Theme.of(context)
                               .textTheme
-                              .subtitle1!
-                              .copyWith(fontSize: 14, fontWeight: FontWeight.w400)),
+                              .titleMedium!
+                              .copyWith(
+                                  fontSize: 14, fontWeight: FontWeight.w400)),
                     ],
                   ),
                   hintText: '00 000 00 00',
                   hintTextStyle: Theme.of(context)
                       .textTheme
-                      .subtitle1!
-                      .copyWith(fontSize: 14, color: warmerGrey, fontWeight: FontWeight.w400),
+                      .titleMedium!
+                      .copyWith(
+                          fontSize: 14,
+                          color: warmerGrey,
+                          fontWeight: FontWeight.w400),
                   keyBoardType: TextInputType.number,
                   textInputFormatters: [phoneFormatter],
-                  textStyle: Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 14, fontWeight: FontWeight.w400),
+                  textStyle: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                 ),
                 const SizedBox(height: 16),
                 ZTextFormField(
@@ -144,31 +163,44 @@ class _LoginScreenState extends State<LoginScreen> {
                   isObscure: true,
                   hintTextStyle: Theme.of(context)
                       .textTheme
-                      .subtitle1!
-                      .copyWith(fontSize: 14, color: warmerGrey, fontWeight: FontWeight.w400),
-                  textStyle: Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 14, fontWeight: FontWeight.w400),
+                      .titleMedium!
+                      .copyWith(
+                          fontSize: 14,
+                          color: warmerGrey,
+                          fontWeight: FontWeight.w400),
+                  textStyle: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                 ),
                 const SizedBox(height: 16),
                 WScaleAnimation(
                   onTap: () {
                     hidePopUp();
-                    Navigator.of(context).push(fade(page: const SendPhoneNumberPage()));
+                    Navigator.of(context)
+                        .push(fade(page: const SendPhoneNumberPage()));
                   },
                   child: Text(
                     LocaleKeys.forgot_password.tr(),
-                    style: Theme.of(context).textTheme.headline3!.copyWith(fontSize: 13, fontWeight: FontWeight.w600),
+                    style: Theme.of(context)
+                        .textTheme
+                        .displaySmall!
+                        .copyWith(fontSize: 13, fontWeight: FontWeight.w600),
                   ),
                 ),
                 const SizedBox(height: 24),
                 WButton(
-                  isLoading: context.watch<AuthenticationBloc>().state.status == AuthenticationStatus.loading,
-                  onTap: passwordController.text.length >= 6 && phoneController.text.length == 12
+                  isLoading: context.watch<AuthenticationBloc>().state.status ==
+                      AuthenticationStatus.loading,
+                  onTap: passwordController.text.length >= 6 &&
+                          phoneController.text.length == 12
                       ? () {
                           hidePopUp();
                           context.read<AuthenticationBloc>().add(LoginUser(
                               onError: (text) {
                                 var error = text;
-                                if (error.toLowerCase().contains('dio') || error.toLowerCase().contains('type')) {
+                                if (error.toLowerCase().contains('dio') ||
+                                    error.toLowerCase().contains('type')) {
                                   error = LocaleKeys.service_error.tr();
                                 }
                                 context.read<ShowPopUpBloc>().add(ShowPopUp(
@@ -178,7 +210,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ));
                               },
                               password: passwordController.text,
-                              userName: phoneController.text.replaceAll('+998', '').replaceAll('', ' ')));
+                              userName: phoneController.text
+                                  .replaceAll('+998', '')
+                                  .replaceAll('', ' ')));
                         }
                       : () {},
                   margin: EdgeInsets.only(
@@ -186,7 +220,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   text: LocaleKeys.continuee.tr(),
                   border: Border.all(width: 1, color: white),
-                  color: (passwordController.text.length >= 6 && phoneController.text.length > 11)
+                  color: (passwordController.text.length >= 6 &&
+                          phoneController.text.length > 11)
                       ? orange
                       : disabledButton,
                 ),
@@ -207,7 +242,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                     child: Text(
                       LocaleKeys.another_ways.tr(),
-                      style: Theme.of(context).textTheme.headline6!.copyWith(
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
                             fontWeight: FontWeight.w400,
                             fontSize: 12,
                           ),
@@ -227,7 +262,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     onTap: () async {
                       context.read<AuthenticationBloc>().add(LoginWithGoogle());
                     },
-                    icon: SvgPicture.asset(Theme.of(context).extension<ThemedIcons>()!.google),
+                    icon: SvgPicture.asset(
+                        Theme.of(context).extension<ThemedIcons>()!.google),
                   ),
                   const SizedBox(width: 24),
                   SocialMediaItem(
@@ -236,17 +272,23 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                     icon: SvgPicture.asset(
                       AppIcons.apple,
-                      color: Theme.of(context).extension<ThemedColors>()!.blackToWhite80,
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .blackToWhite80,
                     ),
                   ),
                   const SizedBox(width: 24),
                   SocialMediaItem(
                     onTap: () async {
-                      context.read<AuthenticationBloc>().add(LoginWithFaceBook());
+                      context
+                          .read<AuthenticationBloc>()
+                          .add(LoginWithFaceBook());
                     },
                     icon: SvgPicture.asset(
                       AppIcons.facebook,
-                      color: Theme.of(context).extension<ThemedColors>()!.blackToWhite80,
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .blackToWhite80,
                     ),
                   ),
                   // SocialMediaItem(

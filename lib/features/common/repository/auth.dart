@@ -68,15 +68,14 @@ class AuthRepository {
       return Left(result.left);
     }
   }
-  Future<Either<Failure, TokenModel>> loginWithGoogle({required String authToken, required String code}) async {
+
+  Future<Either<Failure, TokenModel>> loginWithGoogle(
+      {required String authToken, required String code}) async {
     final result = await repo.postAndSingle<TokenModel>(
       endpoint: 'users/social-auth/login/google/',
       fromJson: TokenModel.fromJson,
       sendToken: false,
-      data: {
-        'access_token': authToken,
-        'code': code
-      },
+      data: {'access_token': authToken, 'code': code},
     );
     if (result.isRight) {
       await StorageRepository.putString('token', result.right.access);
@@ -85,15 +84,15 @@ class AuthRepository {
     } else {
       return Left(result.left);
     }
-  } Future<Either<Failure, TokenModel>> loginWithFacebook({required String authToken, required String code}) async {
+  }
+
+  Future<Either<Failure, TokenModel>> loginWithFacebook(
+      {required String authToken, required String code}) async {
     final result = await repo.postAndSingle<TokenModel>(
       endpoint: 'users/social-auth/login/facebook/',
       fromJson: TokenModel.fromJson,
       sendToken: false,
-      data: {
-        'access_token': authToken,
-        'code': ''
-      },
+      data: {'access_token': authToken, 'code': ''},
     );
     if (result.isRight) {
       await StorageRepository.putString('token', result.right.access);
@@ -102,15 +101,15 @@ class AuthRepository {
     } else {
       return Left(result.left);
     }
-  } Future<Either<Failure, TokenModel>> loginWithApple({required String authToken, required String code}) async {
+  }
+
+  Future<Either<Failure, TokenModel>> loginWithApple(
+      {required String authToken, required String code}) async {
     final result = await repo.postAndSingle<TokenModel>(
       endpoint: 'users/social-auth/login/apple/',
       fromJson: TokenModel.fromJson,
       sendToken: false,
-      data: {
-        'access_token': authToken,
-        'code': code
-      },
+      data: {'access_token': authToken, 'code': code},
     );
     if (result.isRight) {
       await StorageRepository.putString('token', result.right.access);

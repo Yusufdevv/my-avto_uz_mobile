@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/ad/const/constants.dart';
-import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
 import 'package:auto/features/ad/domain/entities/rent_with_purchase/rent_with_purchase_entity.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
@@ -24,7 +22,6 @@ import 'package:auto/features/ad/domain/usecases/get_map_screenshot_usecase.dart
 import 'package:auto/features/ad/domain/usecases/get_modification_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_years.dart';
 import 'package:auto/features/ad/domain/usecases/minimum_price_usecase.dart';
-import 'package:auto/features/car_single/data/repository/car_single_repository_impl.dart';
 import 'package:auto/features/car_single/domain/entities/car_single_entity.dart';
 import 'package:auto/features/car_single/domain/entities/damaged_parts_entity.dart';
 import 'package:auto/features/car_single/domain/usecases/get_ads_usecase.dart';
@@ -57,37 +54,24 @@ part 'singleton_of_edit_ad_bloc.dart';
 class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
   final GetModificationTypeUseCase modificationUseCase =
       GetModificationTypeUseCase();
-  final GetMapScreenShotUseCase screenShotUseCase =
-      GetMapScreenShotUseCase(repository: serviceLocator<AdRepositoryImpl>());
-  final GetYearsUseCase getYearsUseCase =
-      GetYearsUseCase(repository: serviceLocator<AdRepositoryImpl>());
-  final CreateAnnouncementUseCase createUseCase =
-      CreateAnnouncementUseCase(repository: serviceLocator<AdRepositoryImpl>());
+  final GetMapScreenShotUseCase screenShotUseCase = GetMapScreenShotUseCase();
+  final GetYearsUseCase getYearsUseCase = GetYearsUseCase();
+  final CreateAnnouncementUseCase createUseCase = CreateAnnouncementUseCase();
   final AuthRepository userRepository = AuthRepository();
   final VerifyCodeUseCase verifyCodeUseCase = VerifyCodeUseCase();
-  final ContactsUseCase contactsUseCase =
-      ContactsUseCase(repository: serviceLocator<AdRepositoryImpl>());
-  final GetMinimumPriceUseCase minimumPriceUseCase =
-      GetMinimumPriceUseCase(repository: serviceLocator<AdRepositoryImpl>());
-  final GetCarSingleUseCase announcementUseCase = GetCarSingleUseCase(
-      repository: serviceLocator<CarSingleRepositoryImpl>());
+  final ContactsUseCase contactsUseCase = ContactsUseCase();
+  final GetMinimumPriceUseCase minimumPriceUseCase = GetMinimumPriceUseCase();
+  final GetCarSingleUseCase announcementUseCase = GetCarSingleUseCase();
   final GetRegionsUseCase regionsUseCase = GetRegionsUseCase();
   final GetDistrictsUseCase districtUseCase = GetDistrictsUseCase();
-  final GetGearBoxessUseCase gearboxUseCase =
-      GetGearBoxessUseCase(repository: serviceLocator<AdRepositoryImpl>());
-  final GetDriveTypeUseCase driveTypeUseCase =
-      GetDriveTypeUseCase(repository: serviceLocator<AdRepositoryImpl>());
-  final GetEngineTypeUseCase engineUseCase =
-      GetEngineTypeUseCase(repository: serviceLocator<AdRepositoryImpl>());
-  final GetCarModelUseCase modelsUseCase =
-      GetCarModelUseCase(repository: serviceLocator<AdRepositoryImpl>());
-  final GetGenerationUseCase generationUseCase =
-      GetGenerationUseCase(repository: serviceLocator<AdRepositoryImpl>());
-  final GetMakesUseCase makeUseCase =
-      GetMakesUseCase(repository: serviceLocator<AdRepositoryImpl>());
+  final GetGearBoxessUseCase gearboxUseCase = GetGearBoxessUseCase();
+  final GetDriveTypeUseCase driveTypeUseCase = GetDriveTypeUseCase();
+  final GetEngineTypeUseCase engineUseCase = GetEngineTypeUseCase();
+  final GetCarModelUseCase modelsUseCase = GetCarModelUseCase();
+  final GetGenerationUseCase generationUseCase = GetGenerationUseCase();
+  final GetMakesUseCase makeUseCase = GetMakesUseCase();
   final GetTopBrandUseCase topMakesUseCase = GetTopBrandUseCase();
-  final GetBodyTypeUseCase bodyTypesUseCase =
-      GetBodyTypeUseCase(repository: serviceLocator<AdRepositoryImpl>());
+  final GetBodyTypeUseCase bodyTypesUseCase = GetBodyTypeUseCase();
 
   EditAdBloc()
       : super(EditAdState(
@@ -117,6 +101,7 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
     on<EditAdShowToastEvent>(_showToast);
     on<EditAdOnRentWithPurchaseEvent>(_onRentWithPurchaseConditionChanged);
   }
+
   FutureOr<void> _onRentWithPurchaseConditionChanged(
       EditAdOnRentWithPurchaseEvent event, Emitter<EditAdState> emit) {
     final conditions = state.rentWithPurchaseConditions.map(MapEntry.new);

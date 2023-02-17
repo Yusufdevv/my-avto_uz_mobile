@@ -1,6 +1,6 @@
 import 'package:auto/features/commercial/presentation/widgets/info_container.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
-import 'package:auto/features/dealers/presentation/blocs/cars_in_dealer_bloc/cars_in_dealer_bloc.dart'; 
+import 'package:auto/features/dealers/presentation/blocs/cars_in_dealer_bloc/cars_in_dealer_bloc.dart';
 import 'package:auto/features/pagination/presentation/paginator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
@@ -54,7 +54,9 @@ class AllCarsInDealerScreen extends StatelessWidget {
                     year: item.year,
                     price: item.price,
                     discountPrice: item.price,
-                                                              sellType: item.isRentWithPurchase ? LocaleKeys.rent_to_buy.tr() : LocaleKeys.car_sale.tr(),
+                    sellType: item.isRentWithPurchase
+                        ? LocaleKeys.rent_to_buy.tr()
+                        : LocaleKeys.car_sale.tr(),
 
                     hasStatusInfo: item.isNew,
                     gallery: item.gallery,

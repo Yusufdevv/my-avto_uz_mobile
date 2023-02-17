@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:auto/features/common/usecases/add_wishlist_usecase.dart';
 import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';
@@ -12,13 +10,11 @@ part 'wishlist_add_state.dart';
 part 'wishlist_add_bloc.freezed.dart';
 
 class WishlistAddBloc extends Bloc<WishlistAddEvent, WishlistAddState> {
-  final AddWishlistUseCase useCase;
-  final RemoveWishlistUseCase removeWishlistUseCase;
+  final AddWishlistUseCase useCase = AddWishlistUseCase();
+  final RemoveWishlistUseCase removeWishlistUseCase = RemoveWishlistUseCase();
 
-  WishlistAddBloc({required this.useCase, required this.removeWishlistUseCase})
-      : super(WishlistAddState()) {
+  WishlistAddBloc() : super(WishlistAddState()) {
     on<_GoToAds>((event, emit) async {
-      log('=======gotoads ${event.goToAds}');
       emit(state.copyWith(goToAds: event.goToAds));
     });
     on<_AddWishlist>((event, emit) async {

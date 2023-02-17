@@ -5,14 +5,16 @@ import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'comparison_add_event.dart';
+
 part 'comparison_add_state.dart';
+
 part 'comparison_add_bloc.freezed.dart';
 
 class ComparisonAddBloc extends Bloc<ComparisonAddEvent, ComparisonAddState> {
-  final ComparisonAddUseCase addUseCase;
-  final DeleteComparisonUseCase deleteUseCase;
-  ComparisonAddBloc({required this.addUseCase, required this.deleteUseCase})
-      : super(ComparisonAddState()) {
+  final ComparisonAddUseCase addUseCase = ComparisonAddUseCase();
+  final DeleteComparisonUseCase deleteUseCase = DeleteComparisonUseCase();
+
+  ComparisonAddBloc() : super(ComparisonAddState()) {
     on<_PostComparisonCars>((event, emit) async {
       emit(state.copyWith(addStatus: FormzStatus.submissionInProgress));
       final result = await addUseCase(event.id);

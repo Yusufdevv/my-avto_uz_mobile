@@ -1,15 +1,17 @@
 import 'package:auto/core/exceptions/failures.dart';
+import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/core/utils/either.dart';
+import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/entities/years/years.dart';
 import 'package:auto/features/ad/domain/repositories/ad_repository.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 
 class GetYearsUseCase
     extends UseCase<GenericPagination<YearsEntity>, YearsParams> {
-  final AdRepository repository;
+  final AdRepository repository = serviceLocator<AdRepositoryImpl>();
 
-  GetYearsUseCase({required this.repository});
+  GetYearsUseCase();
 
   @override
   Future<Either<Failure, GenericPagination<YearsEntity>>> call(

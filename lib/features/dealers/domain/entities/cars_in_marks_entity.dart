@@ -68,7 +68,6 @@ class CarsInMarksEntity extends Equatable {
   final bool isComparison;
   final bool isRentWithPurchase;
 
-
   const CarsInMarksEntity({
     this.id = 0,
     this.viewsCount = 0,

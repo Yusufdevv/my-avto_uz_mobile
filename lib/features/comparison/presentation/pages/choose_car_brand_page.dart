@@ -1,10 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/core/singletons/service_locator.dart';
-import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
-import 'package:auto/features/ad/domain/usecases/get_makes.dart';
-import 'package:auto/features/ad/domain/usecases/get_top_makes.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/car_items.dart';
 import 'package:auto/features/ads/presentation/widgets/no_data_widget.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
@@ -55,13 +51,7 @@ class _ChooseCarBrandPageState extends State<ChooseCarBrandPage> {
     _searchController = TextEditingController();
     _topBrandBloc = TopBrandBloc(GetTopBrandUseCase())
       ..add(TopBrandEvent.getBrand());
-    _getMakesBloc = GetMakesBloc(
-      topUseCase:
-          GetTopMakesUseCase(repository: serviceLocator<AdRepositoryImpl>()),
-      useCase: GetMakesUseCase(
-        repository: serviceLocator<AdRepositoryImpl>(),
-      ),
-    )
+    _getMakesBloc = GetMakesBloc()
       ..add(GetMakesBlocEvent.getMakes())
       ..add(GetMakesBlocEvent.changeSelected(widget.selectedMakeId ?? -1));
     _scrollController = ScrollController();

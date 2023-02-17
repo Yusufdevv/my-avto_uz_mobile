@@ -242,6 +242,6 @@ class AutoConverter
         registrationSerialNumber: object.registrationSerialNumber,
         registrationVin: object.registrationVin,
         stats: object.stats,
-        isRentWithPurchase :object.isRentWithPurchase,
+        isRentWithPurchase: object.isRentWithPurchase,
       ).toJson();
 }

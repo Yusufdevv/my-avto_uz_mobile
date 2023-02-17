@@ -17,7 +17,6 @@ import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
-import 'package:auto/features/search/presentation/search_screen.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -106,8 +105,7 @@ class _AdsScreenState extends State<AdsScreen>
         priceValues: RangeValues(widget.queryData?.priceFrom?.toDouble() ?? -1,
             widget.queryData?.priceTo?.toDouble() ?? -1),
         currency: currency,
-      ))
-      ..add(const GetMinMaxPriceYear());
+      ));
 
     super.initState();
   }

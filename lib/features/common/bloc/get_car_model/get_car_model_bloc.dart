@@ -13,11 +13,11 @@ part 'get_car_model_state.dart';
 part 'get_car_model_bloc.freezed.dart';
 
 class GetCarModelBloc extends Bloc<GetCarModelEvent, GetCarModelState> {
-  final GetCarModelUseCase useCase;
+  final GetCarModelUseCase useCase = GetCarModelUseCase();
   GetAnnouncementListUseCase getAnnouncementListUseCase =
       GetAnnouncementListUseCase();
 
-  GetCarModelBloc({required this.useCase}) : super(GetCarModelState()) {
+  GetCarModelBloc() : super(GetCarModelState()) {
     on<_GetCarModel>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await useCase.call(event.getId, name: event.search);
@@ -46,18 +46,22 @@ class GetCarModelBloc extends Bloc<GetCarModelEvent, GetCarModelState> {
       emit(state.copyWith(selectedId: state.confirmId));
     });
     on<_GetAnnouncementList>((event, emit) async {
-      if(event.makeId == -1 || event.modelId == -1) {
+      if (event.makeId == -1 || event.modelId == -1) {
         return;
       }
-      emit(state.copyWith(getAnnouncementStatus: FormzStatus.submissionInProgress));
+      emit(state.copyWith(
+          getAnnouncementStatus: FormzStatus.submissionInProgress));
       final result = await getAnnouncementListUseCase.call({
         'make': event.makeId == -1 ? null : event.makeId,
         'model': event.modelId == -1 ? null : event.modelId,
       });
       if (result.isRight) {
-        emit(state.copyWith(announcementCount: result.right.count, getAnnouncementStatus: FormzStatus.submissionSuccess));
+        emit(state.copyWith(
+            announcementCount: result.right.count,
+            getAnnouncementStatus: FormzStatus.submissionSuccess));
       } else {
-        emit(state.copyWith(getAnnouncementStatus: FormzStatus.submissionInProgress));
+        emit(state.copyWith(
+            getAnnouncementStatus: FormzStatus.submissionInProgress));
       }
     });
   }
