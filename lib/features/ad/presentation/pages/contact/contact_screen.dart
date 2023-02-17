@@ -220,20 +220,13 @@ class _ContactScreenState extends State<ContactScreen> {
                               },
                               title: LocaleKeys.tel_number.tr(),
                               controller: postingAdState.phoneController,
-                              prefixPadding: EdgeInsets.zero,
-                              contentPadding:const EdgeInsets.only(right: 2, bottom: 12,top: 12),
+                              contentPadding:const EdgeInsets.only( bottom: 12,top: 12),
                               prefix: Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 16, right: 6, top: 14, bottom: 12),
+                                    left: 16, right: 6, top: 14, bottom: 14),
                                 child: Text(
                                   '+998',
-                                  style: postingAdState
-                                          .phoneController.text.isEmpty
-                                      ? Theme.of(context)
-                                          .textTheme
-                                          .displayMedium!
-                                          .copyWith(fontWeight: FontWeight.w400)
-                                      : Theme.of(context)
+                                  style: Theme.of(context)
                                           .textTheme
                                           .displayLarge!
                                           .copyWith(
@@ -403,7 +396,8 @@ class _ContactScreenState extends State<ContactScreen> {
                                     .displayMedium!
                                     .copyWith(color: grey),
                               ),
-                            )
+                            ),
+                             SizedBox(height: 60+MediaQuery.of(context).viewInsets.bottom),
                           ],
                         ),
                       ),
