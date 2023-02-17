@@ -220,20 +220,27 @@ class _ContactScreenState extends State<ContactScreen> {
                               },
                               title: LocaleKeys.tel_number.tr(),
                               controller: postingAdState.phoneController,
-                              contentPadding:const EdgeInsets.only( bottom: 12,top: 12),
-                              prefix: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 16, right: 6, top: 14, bottom: 14),
-                                child: Text(
-                                  '+998',
-                                  style: Theme.of(context)
+                              contentPadding:
+                                  const EdgeInsets.only(bottom: 12, top: 12),
+                              prefixConstraints:
+                                  const BoxConstraints(maxWidth: 52),
+                              prefix: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 10, bottom: 12, left: 12),
+                                    child: Text(
+                                      '+998',
+                                      style: Theme.of(context)
                                           .textTheme
                                           .displayLarge!
                                           .copyWith(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w400,
                                           ),
-                                ),
+                                    ),
+                                  ),
+                                ],
                               ),
                               hintText: '_ _  _ _ _  _ _  _ _',
                               borderRadius: 12,
@@ -397,7 +404,9 @@ class _ContactScreenState extends State<ContactScreen> {
                                     .copyWith(color: grey),
                               ),
                             ),
-                             SizedBox(height: 60+MediaQuery.of(context).viewInsets.bottom),
+                            SizedBox(
+                                height: 60 +
+                                    MediaQuery.of(context).viewInsets.bottom),
                           ],
                         ),
                       ),
