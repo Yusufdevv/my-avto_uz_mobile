@@ -10,7 +10,7 @@ class CarPriceText extends StatelessWidget {
         child: Row(
           children: [
             Text(
-              '$text UZS',
+              text,
               style: Theme.of(context)
                   .textTheme
                   .displayLarge!

@@ -136,7 +136,7 @@ class _PriceScreenState extends State<PriceScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                widget.currency,
+                                widget.currency=='uzs' ? LocaleKeys.sum.tr() : 'y.e',
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleMedium!

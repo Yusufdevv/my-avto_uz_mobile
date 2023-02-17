@@ -36,7 +36,7 @@ class PreviewScreen extends StatelessWidget {
                       CarModelText(
                           text:
                               '${state.make?.name ?? ''} ${state.model?.name ?? ''} ${state.generations.first.name}'),
-                      CarPriceText(text: '${state.price}'),
+                      CarPriceText(text: '${state.price } ${state.currency=='uzs' ? LocaleKeys.sum.tr().toUpperCase() : 'USD'}'),
                       const SizedBox(height: 12),
                       DateAndViewsRow(date: state.purchasedDate!),
                       const SizedBox(height: 8),

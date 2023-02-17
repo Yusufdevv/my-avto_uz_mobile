@@ -58,7 +58,7 @@ class _CurrencyChooseSheetState extends State<CurrencyChooseSheet> {
                           },
                           child: RegionSheetItem(
                             isMultiChoice: false,
-                            title: Currency.values[index].name,
+                            title: Currency.values[index].name=='uzs' ? LocaleKeys.sum.tr() : 'y.e',
                             hasBorder: index == Currency.values.length - 1,
                             isChecked: selected == Currency.values[index].name,
                           ),

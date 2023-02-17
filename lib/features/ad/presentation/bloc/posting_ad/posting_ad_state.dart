@@ -126,7 +126,7 @@ class PostingAdState extends Equatable {
     this.city,
     this.regionId,
     this.price,
-    this.currency = 'usd',
+    this.currency = 'uzs',
     this.mileage,
     this.gasBalloonType,
     this.callTimeFrom,
