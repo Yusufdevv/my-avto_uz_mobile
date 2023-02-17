@@ -177,12 +177,14 @@ class AnnouncementListBloc
     on<ClearFilter>((event, emit) {
       add(const GetMinMaxPriceYear());
       emit(state.copyWith(
-        currency: Currency.euro,
+        currency: Currency.none,
         gearboxType: const GearboxTypeEntity(),
         bodyType: const BodyTypeEntity(),
         driveType: const DriveTypeEntity(),
         isFilter: false,
         historySaved: true,
+        priceValues: const RangeValues(0, 0),
+        yearValues: const RangeValues(0, 0),
         //! history saved -- param ni x qilganda caselarni ko'rish kerak
       ));
       add(GetAnnouncementList(isNew: event.isNew));

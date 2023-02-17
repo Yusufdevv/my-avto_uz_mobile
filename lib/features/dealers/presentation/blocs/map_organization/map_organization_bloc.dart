@@ -26,14 +26,12 @@ class MapOrganizationBloc
   MapOrganizationBloc(this.getDealers, this.getDirectoriesMapPointUseCase)
       : super(MapOrganizationState()) {
     on<_GetAddressOfDealler>((event, emit) async {
-      print('POINT NAME TRIGGEREED');
       String? address;
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await getAddressUseCase.call(
           {'type': 'geo', 'long': '${event.long}', 'lat': '${event.lat}'});
       if (result.isRight) {
         address = MyFunctions.extractAddress(result.right);
-        print('ADRESS   ADRESS   ADRESS   ADRESS   $address');
       }
       emit(state.copyWith(
           address: address,
@@ -48,7 +46,6 @@ class MapOrganizationBloc
               long: event.longitude ?? state.long,
               radius: event.radius?.floor() ?? state.radius));
       if (result.isRight) {
-        print('here is result${result.right}');
         emit(state.copyWith(
             dealers: result.right, status: FormzStatus.submissionSuccess));
       } else {
@@ -86,12 +83,10 @@ class MapOrganizationBloc
       }
     }, transformer: debounce(const Duration(milliseconds: 300)));
     on<_GetCurrentLocation>((event, emit) async {
-      print('GET CURRENT LOCATION TRIGGERED');
       emit(state.copyWith(
           getCurrentLocationStatus: FormzStatus.submissionInProgress));
       try {
         final position = await MyFunctions.determinePosition();
-        print('DETERMINED POSITION');
         emit(state.copyWith(
             getCurrentLocationStatus: FormzStatus.submissionSuccess));
         event.onSuccess(position);

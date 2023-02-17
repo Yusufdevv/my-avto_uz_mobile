@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+<key>SERVER_CLIENT_ID</key>
+<string>385393917430-0knj07r3islaer9oegrkq2m6od3tm5ln.apps.googleusercontent.com</string>
 	<key>CLIENT_ID</key>
 	<string>385393917430-0knj07r3islaer9oegrkq2m6od3tm5ln.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>

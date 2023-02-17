@@ -19,19 +19,17 @@ class SignInWithSocials extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: Divider(
-                    thickness: 1,
-                    color: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .solitudeToDarkGray95),
+                child: Divider(thickness: 1, color: Theme.of(context).extension<ThemedColors>()!.solitudeToDarkGray95),
               ),
               const SizedBox(
                 width: 4,
               ),
               Text(
                 LocaleKeys.another_ways.tr(),
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    fontSize: 14, color: DarkThemeColors.navBarUnselected),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .copyWith(fontSize: 14, color: DarkThemeColors.navBarUnselected),
               ),
               const SizedBox(
                 width: 4,
@@ -39,9 +37,7 @@ class SignInWithSocials extends StatelessWidget {
               Expanded(
                 child: Divider(
                   thickness: 1,
-                  color: Theme.of(context)
-                      .extension<ThemedColors>()!
-                      .solitudeToDarkGray95,
+                  color: Theme.of(context).extension<ThemedColors>()!.solitudeToDarkGray95,
                 ),
               ),
             ],
@@ -58,8 +54,7 @@ class SignInWithSocials extends StatelessWidget {
               // ),
               SocialMediaItem(
                 onTap: () {},
-                icon: SvgPicture.asset(
-                    Theme.of(context).extension<ThemedIcons>()!.google),
+                icon: SvgPicture.asset(Theme.of(context).extension<ThemedIcons>()!.google),
               ),
               const SizedBox(
                 width: 24,
@@ -67,11 +62,9 @@ class SignInWithSocials extends StatelessWidget {
               SocialMediaItem(
                   onTap: () {},
                   icon: SvgPicture.asset(
-                    AppIcons.apple,
-                    color: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .blackToWhite80,
-                  )),
+                AppIcons.apple,
+                color: Theme.of(context).extension<ThemedColors>()!.blackToWhite80,
+              )),
               const SizedBox(
                 width: 24,
               ),
@@ -79,9 +72,7 @@ class SignInWithSocials extends StatelessWidget {
                 onTap: () {},
                 icon: SvgPicture.asset(
                   AppIcons.imkon,
-                  color: Theme.of(context)
-                      .extension<ThemedColors>()!
-                      .prussianBlueToWhite80,
+                  color: Theme.of(context).extension<ThemedColors>()!.prussianBlueToWhite80,
                 ),
               ),
             ],

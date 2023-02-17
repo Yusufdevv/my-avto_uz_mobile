@@ -80,6 +80,7 @@ class HighlightedText extends StatelessWidget {
         int termLen = termListLC[iNearest].length;
         children.add(
           WidgetSpan(
+            alignment: PlaceholderAlignment.middle,
             child: Container(
               decoration: BoxDecoration(
                 color: highlightColor,

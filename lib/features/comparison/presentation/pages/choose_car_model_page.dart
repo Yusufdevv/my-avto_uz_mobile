@@ -42,6 +42,7 @@ class _ChooseCarModelComparison extends State<ChooseCarModelPage> {
   @override
   void initState() {
     id = widget.selectedMake?.id ?? -1;
+    _searchController = TextEditingController();
     _getCarModelBloc = GetCarModelBloc(
         useCase:
             GetCarModelUseCase(repository: serviceLocator<AdRepositoryImpl>()))
@@ -49,8 +50,10 @@ class _ChooseCarModelComparison extends State<ChooseCarModelPage> {
         selectedId: widget.selectedModelId ?? -1,
         model: const MakeEntity(),
       ))
-      ..add(GetCarModelEvent.getCarModel(id));
-    _searchController = TextEditingController();
+      ..add(GetCarModelEvent.getCarModel(
+        getId: id,
+        search: _searchController.text,
+      ));
     super.initState();
   }
 
@@ -68,152 +71,151 @@ class _ChooseCarModelComparison extends State<ChooseCarModelPage> {
           child: Scaffold(
             resizeToAvoidBottomInset: false,
             body: BlocBuilder<GetCarModelBloc, GetCarModelState>(
-                builder: (context, state) {
-              if (state.status.isSubmissionInProgress) {
-                return const Center(child: CupertinoActivityIndicator());
-              }
-              if (state.status.isSubmissionSuccess) {
-                return Stack(
-                  children: [
-                    CustomScrollView(
-                      slivers: [
-                        SliverAppBar(
-                          elevation: 0,
-                          pinned: true,
-                          leadingWidth: 36,
-                          leading: GestureDetector(
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                            behavior: HitTestBehavior.opaque,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 16),
-                              child: SvgPicture.asset(AppIcons.chevronLeft),
-                            ),
-                          ),
-                          titleSpacing: 4,
-                          title: Text(
-                            LocaleKeys.choose_model_auto.tr(),
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                              color: dark,
-                            ),
-                          ),
-                          actions: [
-                            ///  x button
-                            Padding(
-                              padding: const EdgeInsets.only(right: 16),
-                              child: InkWell(
+                builder: (context, state) => Stack(
+                      children: [
+                        NestedScrollView(
+                          headerSliverBuilder: (context, innerBoxIsScrolled) =>
+                              [
+                            SliverAppBar(
+                              elevation: 0,
+                              pinned: true,
+                              leadingWidth: 36,
+                              leading: GestureDetector(
                                 onTap: () {
-                                  Navigator.of(context).pop('');
-                                  Navigator.of(widget.parentContext).pop('');
+                                  Navigator.pop(context);
                                 },
-                                child: SvgPicture.asset(AppIcons.close),
+                                behavior: HitTestBehavior.opaque,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 16),
+                                  child: SvgPicture.asset(AppIcons.chevronLeft),
+                                ),
                               ),
+                              titleSpacing: 4,
+                              title: Text(
+                                LocaleKeys.choose_model_auto.tr(),
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                  color: dark,
+                                ),
+                              ),
+                              actions: [
+                                ///  x button
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 16),
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.of(context).pop('');
+                                      Navigator.of(widget.parentContext)
+                                          .pop('');
+                                    },
+                                    child: SvgPicture.asset(AppIcons.close),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SliverPersistentHeader(
+                              delegate: ComparisonSearchBar(
+                                controller: _searchController,
+                                onChanged: () {
+                                  _getCarModelBloc
+                                      .add(GetCarModelEvent.getCarModel(
+                                    getId: id,
+                                    search: _searchController.text,
+                                  ));
+                                },
+                                onClear: () {
+                                  _getCarModelBloc
+                                      .add(GetCarModelEvent.getCarModel(
+                                    getId: id,
+                                    search: _searchController.text,
+                                  ));
+                                },
+                              ),
+                              pinned: true,
                             ),
                           ],
-                        ),
-                        SliverSafeArea(
-                          top: false,
-                          bottom: true,
-                          sliver: SliverPersistentHeader(
-                            delegate: ComparisonSearchBar(
-                              controller: _searchController,
-                              onChanged: () {
-                                _getCarModelBloc
-                                  ..add(
-                                    GetCarModelEvent.getSerched(
-                                        _searchController.text),
-                                  )
-                                  ..add(GetCarModelEvent.getCarModel(id));
-                              },
-                              onClear: () {
-                                _getCarModelBloc
-                                  ..add(GetCarModelEvent.getSerched(
-                                      _searchController.text))
-                                  ..add(GetCarModelEvent.getCarModel(id));
-                              },
-                            ),
-                            pinned: true,
-                          ),
-                        ),
-                        SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                            (context, index) => Container(
-                              color: Theme.of(context)
-                                  .extension<ThemedColors>()!
-                                  .whiteToDark,
-                              child: ModelItems(
-                                entity: state.model.results[index].name,
-                                isSelected: state.selectedId ==
-                                    state.model.results[index].id,
-                                text: state.search,
-                                onTap: () {
-                                  _getCarModelBloc.add(
-                                    GetCarModelEvent.selectedModelItem(
-                                      selectedId: state.model.results[index].id,
-                                      model: state.model.results[index],
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                            childCount: state.model.results.length,
-                          ),
-                        ),
-                        const SliverToBoxAdapter(child: SizedBox(height: 60)),
-                      ],
-                    ),
-                    Positioned(
-                      bottom: 16,
-                      right: 16,
-                      left: 16,
-                      child: WButton(
-                        onTap: () {
-                          if (state.selectedId != -1) {
-                            if (state.selectedModel.id == -1) {
-                              final item = state.model.results.firstWhere(
-                                  (element) => element.id == state.selectedId);
-                              Navigator.pop(context);
-                              Navigator.of(widget.parentContext).pop({
-                                'makeId': widget.selectedMake?.id,
-                                'modelId': item.id,
-                                'modelName': item.name,
-                                'makeName': widget.selectedMake?.name,
-                                'makeLogo': widget.selectedMake?.logo,
-                              });
-                            } else {
-                              Navigator.pop(context);
-                              Navigator.of(widget.parentContext).pop({
-                                'makeId': widget.selectedMake?.id,
-                                'modelId': state.selectedModel.id,
-                                'modelName': state.selectedModel.name,
-                                'makeName': widget.selectedMake?.name,
-                                'makeLogo': widget.selectedMake?.logo,
-                              });
+                          body: Builder(builder: (context) {
+                            if (state.status.isSubmissionInProgress) {
+                              return const Center(
+                                  child: CupertinoActivityIndicator());
                             }
-                          }
-                        },
-                        text: LocaleKeys.further.tr(),
-                        isDisabled: state.selectedId == -1,
-                        disabledColor: darkGray,
-                        shadow: state.selectedId != -1
-                            ? [
-                                BoxShadow(
-                                  offset: const Offset(0, 4),
-                                  blurRadius: 20,
-                                  color: orange.withOpacity(0.2),
+                            if (state.status.isSubmissionSuccess) {
+                              return ListView.builder(
+                                padding: const EdgeInsets.only(bottom: 60),
+                                itemBuilder: (context, index) => Container(
+                                  color: Theme.of(context)
+                                      .extension<ThemedColors>()!
+                                      .whiteToDark,
+                                  child: ModelItems(
+                                    title: state.model.results[index].name,
+                                    isSelected: state.selectedId ==
+                                        state.model.results[index].id,
+                                    text: _searchController.text,
+                                    onTap: () {
+                                      _getCarModelBloc.add(
+                                        GetCarModelEvent.selectedModelItem(
+                                          selectedId:
+                                              state.model.results[index].id,
+                                          model: state.model.results[index],
+                                        ),
+                                      );
+                                    },
+                                  ),
                                 ),
-                              ]
-                            : [],
-                      ),
-                    ),
-                  ],
-                );
-              }
-              return const SizedBox();
-            }),
+                                itemCount: state.model.results.length,
+                              );
+                            }
+                            return const SizedBox();
+                          }),
+                        ),
+                        Positioned(
+                          bottom: 16,
+                          right: 16,
+                          left: 16,
+                          child: WButton(
+                            onTap: () {
+                              if (state.selectedId != -1) {
+                                if (state.selectedModel.id == -1) {
+                                  final item = state.model.results.firstWhere(
+                                      (element) =>
+                                          element.id == state.selectedId);
+                                  Navigator.pop(context);
+                                  Navigator.of(widget.parentContext).pop({
+                                    'makeId': widget.selectedMake?.id,
+                                    'modelId': item.id,
+                                    'modelName': item.name,
+                                    'makeName': widget.selectedMake?.name,
+                                    'makeLogo': widget.selectedMake?.logo,
+                                  });
+                                } else {
+                                  Navigator.pop(context);
+                                  Navigator.of(widget.parentContext).pop({
+                                    'makeId': widget.selectedMake?.id,
+                                    'modelId': state.selectedModel.id,
+                                    'modelName': state.selectedModel.name,
+                                    'makeName': widget.selectedMake?.name,
+                                    'makeLogo': widget.selectedMake?.logo,
+                                  });
+                                }
+                              }
+                            },
+                            text: LocaleKeys.further.tr(),
+                            isDisabled: state.selectedId == -1,
+                            disabledColor: darkGray,
+                            shadow: state.selectedId != -1
+                                ? [
+                                    BoxShadow(
+                                      offset: const Offset(0, 4),
+                                      blurRadius: 20,
+                                      color: orange.withOpacity(0.2),
+                                    ),
+                                  ]
+                                : [],
+                          ),
+                        ),
+                      ],
+                    )),
           ),
         ),
       );

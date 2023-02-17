@@ -15,6 +15,7 @@ import 'package:auto/features/ad/domain/usecases/get_makes.dart';
 import 'package:auto/features/ad/domain/usecases/get_top_makes.dart';
 import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
+import 'package:auto/features/common/bloc/deeplinking/deep_link_bloc.dart';
 import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/bloc/internet_bloc/internet_bloc.dart';
@@ -82,8 +83,7 @@ class _AppProviderState extends State<AppProvider> {
   }
 
   @override
-  Widget build(BuildContext context) =>
-      BlocProvider.value(value: bloc, child: const App());
+  Widget build(BuildContext context) => BlocProvider.value(value: bloc, child: const App());
 }
 
 class App extends StatefulWidget {
@@ -102,9 +102,7 @@ class _AppState extends State<App> {
   void initState() {
     bloc = InternetBloc();
     streamSubscription = Connectivity().onConnectivityChanged.listen((status) {
-      bloc.add(GlobalCheck(
-          isConnected: status == ConnectivityResult.mobile ||
-              status == ConnectivityResult.wifi));
+      bloc.add(GlobalCheck(isConnected: status == ConnectivityResult.mobile || status == ConnectivityResult.wifi));
       log('app log: status ${status == ConnectivityResult.mobile || status == ConnectivityResult.wifi}');
     });
     super.initState();
@@ -115,8 +113,7 @@ class _AppState extends State<App> {
         providers: [
           BlocProvider(create: (c) => bloc),
           BlocProvider(
-            create: (c) =>
-                AuthenticationBloc(AuthRepository())..add(CheckUser()),
+            create: (c) => AuthenticationBloc(AuthRepository())..add(CheckUser()),
           ),
           BlocProvider(
             create: (context) => RegionsBloc()..add(RegionsEvent.getRegions()),
@@ -128,32 +125,28 @@ class _AppState extends State<App> {
             create: (context) => ProfileBloc(),
           ),
           BlocProvider(
+            create: (context) => DeepLinkBloc(),
+          ),
+          BlocProvider(
             create: (context) => GetMakesBloc(
-              topUseCase: GetTopMakesUseCase(
-                  repository: serviceLocator<AdRepositoryImpl>()),
+              topUseCase: GetTopMakesUseCase(repository: serviceLocator<AdRepositoryImpl>()),
               useCase: GetMakesUseCase(
                 repository: serviceLocator<AdRepositoryImpl>(),
               ),
             ),
           ),
           BlocProvider(
-              create: (context) => GetCarModelBloc(
-                  useCase: GetCarModelUseCase(
-                      repository: serviceLocator<AdRepositoryImpl>()))),
+              create: (context) =>
+                  GetCarModelBloc(useCase: GetCarModelUseCase(repository: serviceLocator<AdRepositoryImpl>()))),
           BlocProvider(
               create: (context) => WishlistAddBloc(
-                  useCase: AddWishlistUseCase(
-                      repo: serviceLocator<AddWishlistRepositoryImpl>()),
-                  removeWishlistUseCase: RemoveWishlistUseCase(
-                      repo: serviceLocator<AddWishlistRepositoryImpl>()))),
+                  useCase: AddWishlistUseCase(repo: serviceLocator<AddWishlistRepositoryImpl>()),
+                  removeWishlistUseCase: RemoveWishlistUseCase(repo: serviceLocator<AddWishlistRepositoryImpl>()))),
           BlocProvider(
               create: (context) => ComparisonAddBloc(
-                  addUseCase: ComparisonAddUseCase(
-                      comparisonAddRepo:
-                          serviceLocator<ComparisonCarsRepoImpl>()),
-                  deleteUseCase: DeleteComparisonUseCase(
-                      comparisonCarsRepo:
-                          serviceLocator<ComparisonCarsRepoImpl>()))),
+                  addUseCase: ComparisonAddUseCase(comparisonAddRepo: serviceLocator<ComparisonCarsRepoImpl>()),
+                  deleteUseCase:
+                      DeleteComparisonUseCase(comparisonCarsRepo: serviceLocator<ComparisonCarsRepoImpl>()))),
         ],
         child: AnnotatedRegion(
           value: const SystemUiOverlayStyle(
@@ -179,29 +172,40 @@ class _AppState extends State<App> {
 
               return ScrollConfiguration(
                 behavior: MyBehavior(),
-                child: BlocListener<AuthenticationBloc, AuthenticationState>(
+                child: BlocListener<DeepLinkBloc, DeepLinkState>(
                   listener: (context, state) {
-                    switch (state.status) {
-                      case AuthenticationStatus.unauthenticated:
-                        if (StorageRepository.getString(StorageKeys.TOKEN,
-                                defValue: '')
-                            .isNotEmpty) {
-                          AppConstants.navigatorKey.currentState
-                              ?.pushAndRemoveUntil(
-                                  fade(page: const HomeScreen()),
-                                  (route) => false);
+                  },
+                  child: BlocListener<AuthenticationBloc, AuthenticationState>(
+                    listener: (context, state) {
+                      switch (state.status) {
+                        case AuthenticationStatus.unauthenticated:
+                          if (StorageRepository.getString(StorageKeys.TOKEN, defValue: '').isNotEmpty) {
+                            AppConstants.navigatorKey.currentState
+                                ?.pushAndRemoveUntil(fade(page: const HomeScreen()), (route) => false);
+                            break;
+                          }
+                          if (!StorageRepository.getBool(StorageKeys.ON_BOARDING, defValue: false)) {
+                            AppConstants.navigatorKey.currentState
+                                ?.pushAndRemoveUntil(fade(page: const FirstOnBoarding()), (route) => false);
+                            break;
+                          }
+                          AppConstants.navigatorKey.currentState?.pushAndRemoveUntil(
+                              fade(
+                                page: BlocProvider(
+                                  create: (c) => RegisterBloc(
+                                    sendCodeUseCase: SendCodeUseCase(),
+                                    registerUseCase: RegisterUseCase(),
+                                    verifyCodeUseCase: VerifyCodeUseCase(),
+                                  ),
+                                  child: const LoginScreen(),
+                                ),
+                              ),
+                              (route) => false);
                           break;
-                        }
-                        if (!StorageRepository.getBool(StorageKeys.ON_BOARDING,
-                            defValue: false)) {
-                          AppConstants.navigatorKey.currentState
-                              ?.pushAndRemoveUntil(
-                                  fade(page: const FirstOnBoarding()),
-                                  (route) => false);
-                          break;
-                        }
-                        AppConstants.navigatorKey.currentState
-                            ?.pushAndRemoveUntil(
+                        case AuthenticationStatus.authenticated:
+                          context.read<ShowPopUpBloc>().add(HidePopUp());
+                          if (StorageRepository.getString(StorageKeys.TOKEN).isEmpty) {
+                            AppConstants.navigatorKey.currentState?.pushAndRemoveUntil(
                                 fade(
                                   page: BlocProvider(
                                     create: (c) => RegisterBloc(
@@ -213,37 +217,18 @@ class _AppState extends State<App> {
                                   ),
                                 ),
                                 (route) => false);
-                        break;
-                      case AuthenticationStatus.authenticated:
-                        context.read<ShowPopUpBloc>().add(HidePopUp());
-                        if (StorageRepository.getString(StorageKeys.TOKEN)
-                            .isEmpty) {
-                          AppConstants.navigatorKey.currentState
-                              ?.pushAndRemoveUntil(
-                                  fade(
-                                    page: BlocProvider(
-                                      create: (c) => RegisterBloc(
-                                        sendCodeUseCase: SendCodeUseCase(),
-                                        registerUseCase: RegisterUseCase(),
-                                        verifyCodeUseCase: VerifyCodeUseCase(),
-                                      ),
-                                      child: const LoginScreen(),
-                                    ),
-                                  ),
-                                  (route) => false);
-                        } else {
-                          AppConstants.navigatorKey.currentState
-                              ?.pushAndRemoveUntil(
-                                  fade(page: const HomeScreen()),
-                                  (route) => false);
-                        }
-                        break;
-                      case AuthenticationStatus.loading:
-                      case AuthenticationStatus.cancelLoading:
-                        break;
-                    }
-                  },
-                  child: child,
+                          } else {
+                            AppConstants.navigatorKey.currentState
+                                ?.pushAndRemoveUntil(fade(page: const HomeScreen()), (route) => false);
+                          }
+                          break;
+                        case AuthenticationStatus.loading:
+                        case AuthenticationStatus.cancelLoading:
+                          break;
+                      }
+                    },
+                    child: child,
+                  ),
                 ),
               );
             },
@@ -254,7 +239,5 @@ class _AppState extends State<App> {
 
 class MyBehavior extends ScrollBehavior {
   @override
-  Widget buildOverscrollIndicator(
-          BuildContext context, Widget child, ScrollableDetails details) =>
-      child;
+  Widget buildOverscrollIndicator(BuildContext context, Widget child, ScrollableDetails details) => child;
 }

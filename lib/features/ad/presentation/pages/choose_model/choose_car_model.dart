@@ -156,7 +156,7 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                                 onTap: () => context.read<PostingAdBloc>().add(
                                     PostingAdChooseEvent(
                                         model: state.models[index])),
-                                entity: state.models[index].name,
+                                title: state.models[index].name,
                                 isSelected: (context
                                             .watch<PostingAdBloc>()
                                             .state
