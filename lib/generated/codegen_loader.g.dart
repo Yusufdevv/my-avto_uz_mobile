@@ -529,7 +529,16 @@ class CodegenLoader extends AssetLoader{
   "sum": "сум",
   "the_before_enter_price": "Сначала введите цену",
   "you_dont_have_featured_listings": "У вас нет избранных объявлений",
-  "rent_to_buy": "Аренда c выкупом"
+  "rent_to_buy": "Аренда c выкупом",
+  "conditon_1": "Условия 1",
+  "prepayment": "Предоплата",
+  "lease_term_in_months": "Срок аренды в месяцах",
+  "payment_per_month": "Платеж в меяц",
+  "the_minimum_amount_must_be": "Минимальная сумма должна быть",
+  "must_filled": "Должен быть заполнен",
+  "could_not_be": "Не может быть > ",
+  "must_be": "Должно быть",
+  "valyuta": "Валюта"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -1046,7 +1055,16 @@ static const Map<String,dynamic> uz = {
   "sum": "so'm",
   "the_before_enter_price": "Avval narxni kiriting",
   "you_dont_have_featured_listings": "Sizda tanlangan e'lonlar yoʻq",
-  "rent_to_buy": "Аренда c выкупом"
+  "rent_to_buy": "Аренда c выкупом",
+  "conditon_1": "Shart 1",
+  "prepayment": "Oldindan to'lov",
+  "lease_term_in_months": "Oy hisobida ijara muddati",
+  "payment_per_month": "Oylik to'lov",
+  "the_minimum_amount_must_be": "Minimal miqdor bo'lishi kerak",
+  "must_filled": "To'ldirilishi shart",
+  "could_not_be": "Bo'lishi mumkin emas > ",
+  "must_be": "Bo'lishi kerak",
+  "valyuta": "Valyuta"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }

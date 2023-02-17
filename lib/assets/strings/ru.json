@@ -513,6 +513,14 @@
   "sum" : "сум",
   "the_before_enter_price": "Сначала введите цену",
   "you_dont_have_featured_listings": "У вас нет избранных объявлений",
-  "rent_to_buy": "Аренда c выкупом"
-
+  "rent_to_buy": "Аренда c выкупом",
+  "conditon_1": "Условия 1",
+  "prepayment": "Предоплата",
+  "lease_term_in_months": "Срок аренды в месяцах",
+  "payment_per_month": "Платеж в меяц",
+  "the_minimum_amount_must_be": "Минимальная сумма должна быть",
+  "must_filled": "Должен быть заполнен",
+  "could_not_be": "Не может быть > ",
+  "must_be": "Должно быть",
+  "valyuta": "Валюта"
 }

@@ -217,7 +217,7 @@ class _PriceScreenState extends State<PriceScreen> {
                             );
                           } else {
                             context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                  message: 'Avval narhni kiriting',
+                                  message: LocaleKeys.the_before_enter_price.tr(),
                                   status: PopStatus.warning,
                                 ));
                           }

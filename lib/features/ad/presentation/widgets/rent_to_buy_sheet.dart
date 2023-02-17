@@ -51,7 +51,7 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                       top: 20,
                       right: 16,
                       left: 16,
-                      bottom: MediaQuery.of(context).padding.bottom + 42,
+                      bottom: MediaQuery.of(context).padding.bottom + 20,
                     ),
                     margin: MediaQuery.of(context).viewInsets,
                     decoration: const BoxDecoration(
@@ -115,21 +115,21 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                                   case 1:
                                     {
                                       if (value > widget.price) {
-                                        return 'Could not be > ${widget.price}';
+                                        return '${LocaleKeys.could_not_be.tr()}${widget.price}';
                                       }
                                     }
                                     break;
                                   case 2:
                                     {
                                       if (vv?.isEmpty ?? true) {
-                                        return 'Must filled';
+                                        return LocaleKeys.must_filled.tr();
                                       }
                                     }
                                     break;
                                   case 3:
                                     {
                                       if (!(value >= state.minimumSumma!)) {
-                                        return 'Must be >= ${state.minimumSumma}';
+                                        return '${LocaleKeys.must_be.tr()} >= ${state.minimumSumma}';
                                       }
                                     }
                                     break;
@@ -145,7 +145,7 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                               ],
                               keyboardType: TextInputType.phone,
                               textAlign: TextAlign.center,
-                              cursorColor: white,
+                              cursorColor: black,
                               style: Theme.of(context)
                                   .textTheme
                                   .displayLarge!
@@ -169,7 +169,7 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                               text: TextSpan(
                                 children: [
                                   TextSpan(
-                                      text: 'Минимальная сумма должна быть',
+                                      text: LocaleKeys.the_minimum_amount_must_be.tr(),
                                       style: Theme.of(context)
                                           .textTheme
                                           .displayMedium!
@@ -199,8 +199,7 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                                           controller: TextEditingController(
                                               text: MyFunctions.getFormatCost(
                                                   '${(state.entityForEdit?.rentalPeriod ?? 0) > 0 ? (state.entityForEdit?.rentalPeriod ?? 0) : ''}')),
-                                          title: '',
-                                          // '${LocaleKeys.rent_period.tr()} (${LocaleKeys.for_month.tr()})',
+                                          title: '${LocaleKeys.rent_period.tr()} (${LocaleKeys.for_month.tr()})',
                                           step: state.step + 1,
                                           prepayment: state.controller.text
                                               .replaceAll(' ', '')));
@@ -250,7 +249,7 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                               }
                             },
                             content: Text(
-                              LocaleKeys.continuee,
+                              LocaleKeys.continuee.tr(),
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium!

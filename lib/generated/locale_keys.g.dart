@@ -516,5 +516,14 @@ abstract class  LocaleKeys {
   static const the_before_enter_price = 'the_before_enter_price';
   static const you_dont_have_featured_listings = 'you_dont_have_featured_listings';
   static const rent_to_buy = 'rent_to_buy';
+  static const conditon_1 = 'conditon_1';
+  static const prepayment = 'prepayment';
+  static const lease_term_in_months = 'lease_term_in_months';
+  static const payment_per_month = 'payment_per_month';
+  static const the_minimum_amount_must_be = 'the_minimum_amount_must_be';
+  static const must_filled = 'must_filled';
+  static const could_not_be = 'could_not_be';
+  static const must_be = 'must_be';
+  static const valyuta = 'valyuta';
 
 }

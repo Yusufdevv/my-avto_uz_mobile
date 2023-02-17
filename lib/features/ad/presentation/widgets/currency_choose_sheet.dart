@@ -4,6 +4,8 @@ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/region_sheet_item.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/sheet_header.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class CurrencyChooseSheet extends StatefulWidget {
@@ -36,7 +38,7 @@ class _CurrencyChooseSheetState extends State<CurrencyChooseSheet> {
           mainAxisSize: MainAxisSize.min,
           children: [
             SheetHeader(
-                title: 'Валюта',
+                title: LocaleKeys.valyuta.tr(),
                 onCancelPressed: () {
                   Navigator.of(context).pop();
                 }),
@@ -46,7 +48,7 @@ class _CurrencyChooseSheetState extends State<CurrencyChooseSheet> {
               child: Column(
                 children: [
                   ...List.generate(
-                    Currency.values.length,
+                    Currency.values.length-1,
                     (index) => Column(
                       children: [
                         WScaleAnimation(
@@ -84,7 +86,7 @@ class _CurrencyChooseSheetState extends State<CurrencyChooseSheet> {
                     Navigator.of(context).pop(selected);
                   },
                   color: orange,
-                  text: 'Применить'),
+                  text: LocaleKeys.apply.tr()),
             ),
           ],
         ),
