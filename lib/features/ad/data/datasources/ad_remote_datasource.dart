@@ -92,6 +92,11 @@ abstract class AdRemoteDataSource {
   Future<void> createAnnouncement({
     required FormData announcementFormData,
   });
+
+  Future<void> updateAnnouncement({
+    required FormData announcementFormData,
+    required int id,
+  });
 }
 
 class AdRemoteDataSourceImpl extends AdRemoteDataSource {
@@ -683,4 +688,39 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
       throw ParsingException(errorMessage: e.toString());
     }
   }
+
+  @override
+  Future<void> updateAnnouncement({
+    required FormData announcementFormData,
+    required int id,
+  }) async {
+    try {
+      final response = await _dio.put(
+        '/car/announcement/$id/update/',
+        data: announcementFormData,
+        options: Options(
+          headers: StorageRepository.getString('token').isNotEmpty
+              ? {
+            'Authorization':
+            'Bearer ${StorageRepository.getString('token')}'
+          }
+              : {},
+        ),
+      );
+      await Future.delayed(const Duration(milliseconds: 5000));
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return;
+      }
+      throw ServerException(
+          statusCode: response.statusCode ?? 0,
+          errorMessage: response.statusMessage ?? '');
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
 }

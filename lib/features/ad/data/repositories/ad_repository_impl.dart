@@ -398,4 +398,25 @@ class AdRepositoryImpl extends AdRepository {
           errorMessage: e.errorMessage, statusCode: e.statusCode));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> updateAnnouncement({
+    required FormData announcementFormData,
+    required int id,
+  }) async {
+    try {
+      await remoteDataSource.updateAnnouncement(
+        announcementFormData: announcementFormData,
+        id: id,
+      );
+      return Right('success');
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+          errorMessage: e.errorMessage, statusCode: e.statusCode));
+    }
+  }
 }

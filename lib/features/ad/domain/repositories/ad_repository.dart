@@ -92,4 +92,9 @@ abstract class AdRepository {
   Future<Either<Failure, void>> createAnnouncement({
     required FormData announcementFormData,
   });
+
+  Future<Either<Failure, void>> updateAnnouncement({
+    required FormData announcementFormData,
+    required int id,
+  });
 }

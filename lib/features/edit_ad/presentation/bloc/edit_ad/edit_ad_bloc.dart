@@ -11,7 +11,6 @@ import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/domain/entities/types/modification_type.dart';
 import 'package:auto/features/ad/domain/entities/years/years.dart';
 import 'package:auto/features/ad/domain/usecases/contacts_usecase.dart';
-import 'package:auto/features/ad/domain/usecases/create_announcement.dart';
 import 'package:auto/features/ad/domain/usecases/get_body_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
 import 'package:auto/features/ad/domain/usecases/get_drive_type.dart';
@@ -32,6 +31,7 @@ import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/repository/auth.dart';
 import 'package:auto/features/common/usecases/get_districts_usecase.dart';
 import 'package:auto/features/common/usecases/get_regions_usecase.dart';
+import 'package:auto/features/edit_ad/domain/use_case/update_announcement.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
@@ -56,7 +56,7 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
       GetModificationTypeUseCase();
   final GetMapScreenShotUseCase screenShotUseCase = GetMapScreenShotUseCase();
   final GetYearsUseCase getYearsUseCase = GetYearsUseCase();
-  final CreateAnnouncementUseCase createUseCase = CreateAnnouncementUseCase();
+  final UpdateAnnouncementUseCase updateUseCase = UpdateAnnouncementUseCase();
   final AuthRepository userRepository = AuthRepository();
   final VerifyCodeUseCase verifyCodeUseCase = VerifyCodeUseCase();
   final ContactsUseCase contactsUseCase = ContactsUseCase();
@@ -289,7 +289,7 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
   FutureOr<void> _create(
       EditAdCreateEvent event, Emitter<EditAdState> emit) async {
     emit(state.copyWith(createStatus: FormzStatus.submissionInProgress));
-    final result = await createUseCase.call(await EASingleton.create(state));
+    final result = await updateUseCase.call({'form_data' : await EASingleton.create(state), 'id' : event.announcementId});
     if (result.isRight) {
       emit(
         state.copyWith(

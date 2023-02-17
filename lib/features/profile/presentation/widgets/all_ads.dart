@@ -17,7 +17,11 @@ import 'package:formz/formz.dart';
 
 class AllAds extends StatefulWidget {
   final String moderationStatus;
-  const AllAds({required this.moderationStatus, Key? key}) : super(key: key);
+
+  const AllAds({
+    required this.moderationStatus,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<AllAds> createState() => _AllAdsState();
@@ -76,7 +80,10 @@ class _AllAdsState extends State<AllAds> {
                                   MyAdCarDescPart(item: item),
                                   //
                                   if (item.moderationStatus != 'blocked')
-                                    MyAdDesc(item: item)
+                                    MyAdDesc(
+                                      moderationStatus: widget.moderationStatus,
+                                      item: item,
+                                    )
                                   else
                                     ReSendPart(item: item)
                                 ],

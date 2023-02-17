@@ -28,12 +28,12 @@ import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class EditAdScreen extends StatefulWidget {
-  final BuildContext parentContext;
   final int announcementId;
 
-  const EditAdScreen(
-      {required this.parentContext, required this.announcementId, Key? key})
-      : super(key: key);
+  const EditAdScreen({
+    required this.announcementId,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<EditAdScreen> createState() => _EditAdScreenState();
@@ -112,15 +112,7 @@ class _EditAdScreenState extends State<EditAdScreen>
                             dismissible: false,
                           ),
                         );
-                    await Future.delayed(const Duration(milliseconds: 1000));
-                    hidePopUp();
-                    currentTabIndex = 0;
-                    await Future.delayed(const Duration(milliseconds: 500));
-                    await pageController.animateToPage(currentTabIndex,
-                        duration: const Duration(milliseconds: 150),
-                        curve: Curves.linear);
-                    editAdBloc.add(EditAdClearStateEvent());
-                    Navigator.pop(context);
+                    Navigator.pop(context, true);
                     return;
                   }
 
@@ -311,7 +303,8 @@ class _EditAdScreenState extends State<EditAdScreen>
                                   FormzStatus.submissionInProgress,
                               onTap: () async {
                                 hidePopUp();
-                                editAdBloc.add(EditAdCreateEvent());
+                                editAdBloc.add(
+                                    EditAdCreateEvent(widget.announcementId));
                               },
                               text: LocaleKeys.confirmation.tr(),
                               shadow: [

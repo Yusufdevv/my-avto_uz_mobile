@@ -1,6 +1,8 @@
 part of 'edit_ad_bloc.dart';
 
-abstract class EditAdEvent {}
+abstract class EditAdEvent {
+  const EditAdEvent();
+}
 
 class EditAdShowToastEvent extends EditAdEvent {
   final String message;
@@ -55,7 +57,11 @@ class EditAdGetDistritsEvent extends EditAdEvent {
   EditAdGetDistritsEvent({required this.regionId});
 }
 
-class EditAdCreateEvent extends EditAdEvent {}
+class EditAdCreateEvent extends EditAdEvent {
+  final int announcementId;
+
+  const EditAdCreateEvent(this.announcementId);
+}
 
 class EditAdOnRentWithPurchaseEvent extends EditAdEvent {
   final RentWithPurchaseEntity condition;
