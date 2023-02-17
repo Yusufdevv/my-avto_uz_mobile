@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/app_constants.dart';
@@ -9,6 +10,7 @@ import 'package:auto/assets/themes/light.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/core/utils/size_config.dart';
+import 'package:auto/core/utils/swipe_detector.dart';
 import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
@@ -83,7 +85,8 @@ class _AppProviderState extends State<AppProvider> {
   }
 
   @override
-  Widget build(BuildContext context) => BlocProvider.value(value: bloc, child: const App());
+  Widget build(BuildContext context) =>
+      BlocProvider.value(value: bloc, child: const App());
 }
 
 class App extends StatefulWidget {
@@ -102,7 +105,9 @@ class _AppState extends State<App> {
   void initState() {
     bloc = InternetBloc();
     streamSubscription = Connectivity().onConnectivityChanged.listen((status) {
-      bloc.add(GlobalCheck(isConnected: status == ConnectivityResult.mobile || status == ConnectivityResult.wifi));
+      bloc.add(GlobalCheck(
+          isConnected: status == ConnectivityResult.mobile ||
+              status == ConnectivityResult.wifi));
       log('app log: status ${status == ConnectivityResult.mobile || status == ConnectivityResult.wifi}');
     });
     super.initState();
@@ -113,7 +118,8 @@ class _AppState extends State<App> {
         providers: [
           BlocProvider(create: (c) => bloc),
           BlocProvider(
-            create: (c) => AuthenticationBloc(AuthRepository())..add(CheckUser()),
+            create: (c) =>
+                AuthenticationBloc(AuthRepository())..add(CheckUser()),
           ),
           BlocProvider(
             create: (context) => RegionsBloc()..add(RegionsEvent.getRegions()),
@@ -129,24 +135,31 @@ class _AppState extends State<App> {
           ),
           BlocProvider(
             create: (context) => GetMakesBloc(
-              topUseCase: GetTopMakesUseCase(repository: serviceLocator<AdRepositoryImpl>()),
+              topUseCase: GetTopMakesUseCase(
+                  repository: serviceLocator<AdRepositoryImpl>()),
               useCase: GetMakesUseCase(
                 repository: serviceLocator<AdRepositoryImpl>(),
               ),
             ),
           ),
           BlocProvider(
-              create: (context) =>
-                  GetCarModelBloc(useCase: GetCarModelUseCase(repository: serviceLocator<AdRepositoryImpl>()))),
+              create: (context) => GetCarModelBloc(
+                  useCase: GetCarModelUseCase(
+                      repository: serviceLocator<AdRepositoryImpl>()))),
           BlocProvider(
               create: (context) => WishlistAddBloc(
-                  useCase: AddWishlistUseCase(repo: serviceLocator<AddWishlistRepositoryImpl>()),
-                  removeWishlistUseCase: RemoveWishlistUseCase(repo: serviceLocator<AddWishlistRepositoryImpl>()))),
+                  useCase: AddWishlistUseCase(
+                      repo: serviceLocator<AddWishlistRepositoryImpl>()),
+                  removeWishlistUseCase: RemoveWishlistUseCase(
+                      repo: serviceLocator<AddWishlistRepositoryImpl>()))),
           BlocProvider(
               create: (context) => ComparisonAddBloc(
-                  addUseCase: ComparisonAddUseCase(comparisonAddRepo: serviceLocator<ComparisonCarsRepoImpl>()),
-                  deleteUseCase:
-                      DeleteComparisonUseCase(comparisonCarsRepo: serviceLocator<ComparisonCarsRepoImpl>()))),
+                  addUseCase: ComparisonAddUseCase(
+                      comparisonAddRepo:
+                          serviceLocator<ComparisonCarsRepoImpl>()),
+                  deleteUseCase: DeleteComparisonUseCase(
+                      comparisonCarsRepo:
+                          serviceLocator<ComparisonCarsRepoImpl>()))),
         ],
         child: AnnotatedRegion(
           value: const SystemUiOverlayStyle(
@@ -156,82 +169,105 @@ class _AppState extends State<App> {
             statusBarIconBrightness: Brightness.dark,
             systemNavigationBarIconBrightness: Brightness.dark,
           ),
-          child: MaterialApp(
-            supportedLocales: context.supportedLocales,
-            localizationsDelegates: context.localizationDelegates,
-            locale: context.locale,
-            debugShowCheckedModeBanner: false,
-            title: 'Avto.uz',
-            theme: LightTheme.theme(),
-            darkTheme: DarkTheme.theme(),
-            themeMode: ThemeMode.light,
-            navigatorKey: AppConstants.navigatorKey,
-            onGenerateRoute: (settings) => SplashSc.route(),
-            builder: (context, child) {
-              SizeConfig().init(context);
-
-              return ScrollConfiguration(
-                behavior: MyBehavior(),
-                child: BlocListener<DeepLinkBloc, DeepLinkState>(
-                  listener: (context, state) {
-                  },
-                  child: BlocListener<AuthenticationBloc, AuthenticationState>(
-                    listener: (context, state) {
-                      switch (state.status) {
-                        case AuthenticationStatus.unauthenticated:
-                          if (StorageRepository.getString(StorageKeys.TOKEN, defValue: '').isNotEmpty) {
-                            AppConstants.navigatorKey.currentState
-                                ?.pushAndRemoveUntil(fade(page: const HomeScreen()), (route) => false);
-                            break;
-                          }
-                          if (!StorageRepository.getBool(StorageKeys.ON_BOARDING, defValue: false)) {
-                            AppConstants.navigatorKey.currentState
-                                ?.pushAndRemoveUntil(fade(page: const FirstOnBoarding()), (route) => false);
-                            break;
-                          }
-                          AppConstants.navigatorKey.currentState?.pushAndRemoveUntil(
-                              fade(
-                                page: BlocProvider(
-                                  create: (c) => RegisterBloc(
-                                    sendCodeUseCase: SendCodeUseCase(),
-                                    registerUseCase: RegisterUseCase(),
-                                    verifyCodeUseCase: VerifyCodeUseCase(),
-                                  ),
-                                  child: const LoginScreen(),
-                                ),
-                              ),
-                              (route) => false);
-                          break;
-                        case AuthenticationStatus.authenticated:
-                          context.read<ShowPopUpBloc>().add(HidePopUp());
-                          if (StorageRepository.getString(StorageKeys.TOKEN).isEmpty) {
-                            AppConstants.navigatorKey.currentState?.pushAndRemoveUntil(
-                                fade(
-                                  page: BlocProvider(
-                                    create: (c) => RegisterBloc(
-                                      sendCodeUseCase: SendCodeUseCase(),
-                                      registerUseCase: RegisterUseCase(),
-                                      verifyCodeUseCase: VerifyCodeUseCase(),
-                                    ),
-                                    child: const LoginScreen(),
-                                  ),
-                                ),
-                                (route) => false);
-                          } else {
-                            AppConstants.navigatorKey.currentState
-                                ?.pushAndRemoveUntil(fade(page: const HomeScreen()), (route) => false);
-                          }
-                          break;
-                        case AuthenticationStatus.loading:
-                        case AuthenticationStatus.cancelLoading:
-                          break;
-                      }
-                    },
-                    child: child,
-                  ),
-                ),
-              );
+          child: SwipeDetector(
+            onSwipeRight: () {
+              if (Platform.isIOS &&
+                  AppConstants.navigatorKey.currentContext != null) {
+                Navigator.pop(AppConstants.navigatorKey.currentContext!);
+              }
             },
+            child: MaterialApp(
+              supportedLocales: context.supportedLocales,
+              localizationsDelegates: context.localizationDelegates,
+              locale: context.locale,
+              debugShowCheckedModeBanner: false,
+              title: 'Avto.uz',
+              theme: LightTheme.theme(),
+              darkTheme: DarkTheme.theme(),
+              themeMode: ThemeMode.light,
+              navigatorKey: AppConstants.navigatorKey,
+              onGenerateRoute: (settings) => SplashSc.route(),
+              builder: (context, child) {
+                SizeConfig().init(context);
+
+                return ScrollConfiguration(
+                  behavior: MyBehavior(),
+                  child: BlocListener<DeepLinkBloc, DeepLinkState>(
+                    listener: (context, state) {},
+                    child:
+                        BlocListener<AuthenticationBloc, AuthenticationState>(
+                      listener: (context, state) {
+                        switch (state.status) {
+                          case AuthenticationStatus.unauthenticated:
+                            if (StorageRepository.getString(StorageKeys.TOKEN,
+                                    defValue: '')
+                                .isNotEmpty) {
+                              AppConstants.navigatorKey.currentState
+                                  ?.pushAndRemoveUntil(
+                                      fade(page: const HomeScreen()),
+                                      (route) => false);
+                              break;
+                            }
+                            if (!StorageRepository.getBool(
+                                StorageKeys.ON_BOARDING,
+                                defValue: false)) {
+                              AppConstants.navigatorKey.currentState
+                                  ?.pushAndRemoveUntil(
+                                      fade(page: const FirstOnBoarding()),
+                                      (route) => false);
+                              break;
+                            }
+                            AppConstants.navigatorKey.currentState
+                                ?.pushAndRemoveUntil(
+                                    fade(
+                                      page: BlocProvider(
+                                        create: (c) => RegisterBloc(
+                                          sendCodeUseCase: SendCodeUseCase(),
+                                          registerUseCase: RegisterUseCase(),
+                                          verifyCodeUseCase:
+                                              VerifyCodeUseCase(),
+                                        ),
+                                        child: const LoginScreen(),
+                                      ),
+                                    ),
+                                    (route) => false);
+                            break;
+                          case AuthenticationStatus.authenticated:
+                            context.read<ShowPopUpBloc>().add(HidePopUp());
+                            if (StorageRepository.getString(StorageKeys.TOKEN)
+                                .isEmpty) {
+                              AppConstants.navigatorKey.currentState
+                                  ?.pushAndRemoveUntil(
+                                      fade(
+                                        page: BlocProvider(
+                                          create: (c) => RegisterBloc(
+                                            sendCodeUseCase: SendCodeUseCase(),
+                                            registerUseCase: RegisterUseCase(),
+                                            verifyCodeUseCase:
+                                                VerifyCodeUseCase(),
+                                          ),
+                                          child: const LoginScreen(),
+                                        ),
+                                      ),
+                                      (route) => false);
+                            } else {
+                              AppConstants.navigatorKey.currentState
+                                  ?.pushAndRemoveUntil(
+                                      fade(page: const HomeScreen()),
+                                      (route) => false);
+                            }
+                            break;
+                          case AuthenticationStatus.loading:
+                          case AuthenticationStatus.cancelLoading:
+                            break;
+                        }
+                      },
+                      child: child,
+                    ),
+                  ),
+                );
+              },
+            ),
           ),
         ),
       );
@@ -239,5 +275,7 @@ class _AppState extends State<App> {
 
 class MyBehavior extends ScrollBehavior {
   @override
-  Widget buildOverscrollIndicator(BuildContext context, Widget child, ScrollableDetails details) => child;
+  Widget buildOverscrollIndicator(
+          BuildContext context, Widget child, ScrollableDetails details) =>
+      child;
 }

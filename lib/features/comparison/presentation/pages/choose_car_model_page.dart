@@ -6,6 +6,7 @@ import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
 import 'package:auto/features/ad/presentation/pages/choose_model/widgets/model_items.dart';
+import 'package:auto/features/ads/presentation/widgets/no_data_widget.dart';
 import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/comparison/presentation/widgets/comparison_search_bar.dart';
@@ -146,38 +147,46 @@ class _ChooseCarModelComparison extends State<ChooseCarModelPage> {
                                   child: CupertinoActivityIndicator());
                             }
                             if (state.status.isSubmissionSuccess) {
-                              return ListView.builder(
-                                padding: const EdgeInsets.only(bottom: 60),
-                                itemBuilder: (context, index) => Container(
-                                  color: Theme.of(context)
-                                      .extension<ThemedColors>()!
-                                      .whiteToDark,
-                                  child: ModelItems(
-                                    title: state.model.results[index].name,
-                                    isSelected: state.selectedId ==
-                                        state.model.results[index].id,
-                                    text: _searchController.text,
-                                    onTap: () {
-                                      _getCarModelBloc
-                                        ..add(
-                                          GetCarModelEvent.selectedModelItem(
-                                            selectedId:
-                                                state.model.results[index].id,
-                                            model: state.model.results[index],
-                                          ),
-                                        )
-                                        ..add(GetCarModelEvent
-                                            .getAnnouncementList(
-                                                makeId:
-                                                    widget.selectedMake?.id ??
-                                                        -1,
-                                                modelId: state
-                                                    .model.results[index].id));
-                                    },
-                                  ),
-                                ),
-                                itemCount: state.model.results.length,
-                              );
+                              return state.model.results.isNotEmpty
+                                  ? ListView.builder(
+                                      padding:
+                                          const EdgeInsets.only(bottom: 60),
+                                      itemBuilder: (context, index) =>
+                                          Container(
+                                        color: Theme.of(context)
+                                            .extension<ThemedColors>()!
+                                            .whiteToDark,
+                                        child: ModelItems(
+                                          title:
+                                              state.model.results[index].name,
+                                          isSelected: state.selectedId ==
+                                              state.model.results[index].id,
+                                          text: _searchController.text,
+                                          onTap: () {
+                                            _getCarModelBloc
+                                              ..add(
+                                                GetCarModelEvent
+                                                    .selectedModelItem(
+                                                  selectedId: state
+                                                      .model.results[index].id,
+                                                  model: state
+                                                      .model.results[index],
+                                                ),
+                                              )
+                                              ..add(GetCarModelEvent
+                                                  .getAnnouncementList(
+                                                      makeId: widget
+                                                              .selectedMake
+                                                              ?.id ??
+                                                          -1,
+                                                      modelId: state.model
+                                                          .results[index].id));
+                                          },
+                                        ),
+                                      ),
+                                      itemCount: state.model.results.length,
+                                    )
+                                  : const NoDataWidget();
                             }
                             return const SizedBox();
                           }),
@@ -225,9 +234,11 @@ class _ChooseCarModelComparison extends State<ChooseCarModelPage> {
                                     : LocaleKeys.no_offers.tr(),
                             isLoading: state
                                 .getAnnouncementStatus.isSubmissionInProgress,
-                            isDisabled: state.announcementCount == 0 || state.selectedModel.id == -1,
+                            isDisabled: state.announcementCount == 0 ||
+                                state.selectedModel.id == -1,
                             disabledColor: darkGray,
-                            shadow: state.announcementCount != 0 && state.selectedModel.id != -1
+                            shadow: state.announcementCount != 0 &&
+                                    state.selectedModel.id != -1
                                 ? [
                                     BoxShadow(
                                       offset: const Offset(0, 4),

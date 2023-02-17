@@ -6,6 +6,7 @@ import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
 import 'package:auto/features/ad/domain/usecases/get_top_makes.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/car_items.dart';
+import 'package:auto/features/ads/presentation/widgets/no_data_widget.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_car_model_page.dart';
@@ -210,31 +211,33 @@ class _ChooseCarBrandPageState extends State<ChooseCarBrandPage> {
                         );
                       }
                       if (state.status.isSubmissionSuccess) {
-                        return ListView.builder(
-                          padding: const EdgeInsets.only(bottom: 60),
-                          itemCount: state.makes.length,
-                          controller: _scrollController,
-                          itemBuilder: (context, index) => Container(
-                            height: 54,
-                            color: Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .whiteToDark,
-                            child: ChangeCarItems(
-                              selectedId: state.selectId,
-                              id: state.makes[index].id,
-                              imageUrl: state.makes[index].logo,
-                              name: state.makes[index].name,
-                              text: state.search,
-                              onTap: () {
-                                context.read<GetMakesBloc>().add(
-                                      GetMakesBlocEvent.selectedCarItems(
-                                        makeEntity: state.makes[index],
-                                      ),
-                                    );
-                              },
-                            ),
-                          ),
-                        );
+                        return state.makes.isNotEmpty
+                            ? ListView.builder(
+                                padding: const EdgeInsets.only(bottom: 60),
+                                itemCount: state.makes.length,
+                                controller: _scrollController,
+                                itemBuilder: (context, index) => Container(
+                                  height: 54,
+                                  color: Theme.of(context)
+                                      .extension<ThemedColors>()!
+                                      .whiteToDark,
+                                  child: ChangeCarItems(
+                                    selectedId: state.selectId,
+                                    id: state.makes[index].id,
+                                    imageUrl: state.makes[index].logo,
+                                    name: state.makes[index].name,
+                                    text: state.search,
+                                    onTap: () {
+                                      context.read<GetMakesBloc>().add(
+                                            GetMakesBlocEvent.selectedCarItems(
+                                              makeEntity: state.makes[index],
+                                            ),
+                                          );
+                                    },
+                                  ),
+                                ),
+                              )
+                            : const NoDataWidget();
                       }
                       return const SizedBox();
                     }),
