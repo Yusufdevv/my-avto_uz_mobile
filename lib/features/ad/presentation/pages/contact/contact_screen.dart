@@ -220,9 +220,11 @@ class _ContactScreenState extends State<ContactScreen> {
                               },
                               title: LocaleKeys.tel_number.tr(),
                               controller: postingAdState.phoneController,
+                              prefixPadding: EdgeInsets.only(bottom: 12),
+                              contentPadding: EdgeInsets.only(right: 2, bottom: 12,top: 12),
                               prefix: Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 16, right: 8, top: 13.5),
+                                    left: 16, right: 6, top: 14),
                                 child: Text(
                                   '+998',
                                   style: postingAdState

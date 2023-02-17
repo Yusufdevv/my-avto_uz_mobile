@@ -999,7 +999,7 @@ static const Map<String,dynamic> uz = {
   "gas_ballon_equipment": "Gaz balon uskunasi",
   "car_color": "Avtomobil rangi",
   "original_slash_electronniy_pts": "Original / Elektron TVP",
-  "duplicate": "Nusxasi..",
+  "duplicate": "Nusxasi",
   "first": "Birinchi",
   "second": "Ikkinchi",
   "third": "Uchinchi",
