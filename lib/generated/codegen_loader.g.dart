@@ -948,7 +948,7 @@ static const Map<String,dynamic> uz = {
   "categories": "Kategoriyalar",
   "call_not_available": "Qo'ng'iroq qilish cheklangan\n",
   "please_call_during": "Iltimos, quyidagi vaqtlarda qo'ng'iroq qiling:\n",
-  "you_dont_have_ads": "Sizda hali reklama yo'q",
+  "you_dont_have_ads": "Sizda hali e'lon yo'q",
   "pluses": "Afzalliklari",
   "minuses": "Kamchiliklari",
   "engine_volume_l": "Dvigatel sig'imi, litr",
