@@ -24,6 +24,7 @@ mixin _$GetCarModelEvent {
         selectedModelItem,
     required TResult Function() confirmModel,
     required TResult Function() revertModel,
+    required TResult Function(int makeId, int modelId) getAnnouncementList,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -33,6 +34,7 @@ mixin _$GetCarModelEvent {
     TResult? Function(MakeEntity model, int selectedId)? selectedModelItem,
     TResult? Function()? confirmModel,
     TResult? Function()? revertModel,
+    TResult? Function(int makeId, int modelId)? getAnnouncementList,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -42,6 +44,7 @@ mixin _$GetCarModelEvent {
     TResult Function(MakeEntity model, int selectedId)? selectedModelItem,
     TResult Function()? confirmModel,
     TResult Function()? revertModel,
+    TResult Function(int makeId, int modelId)? getAnnouncementList,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -52,6 +55,7 @@ mixin _$GetCarModelEvent {
     required TResult Function(_SelectedModelItem value) selectedModelItem,
     required TResult Function(_ConfirmModel value) confirmModel,
     required TResult Function(_RevertModel value) revertModel,
+    required TResult Function(_GetAnnouncementList value) getAnnouncementList,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -61,6 +65,7 @@ mixin _$GetCarModelEvent {
     TResult? Function(_SelectedModelItem value)? selectedModelItem,
     TResult? Function(_ConfirmModel value)? confirmModel,
     TResult? Function(_RevertModel value)? revertModel,
+    TResult? Function(_GetAnnouncementList value)? getAnnouncementList,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -70,6 +75,7 @@ mixin _$GetCarModelEvent {
     TResult Function(_SelectedModelItem value)? selectedModelItem,
     TResult Function(_ConfirmModel value)? confirmModel,
     TResult Function(_RevertModel value)? revertModel,
+    TResult Function(_GetAnnouncementList value)? getAnnouncementList,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -171,6 +177,7 @@ class _$_GetCarModel implements _GetCarModel {
         selectedModelItem,
     required TResult Function() confirmModel,
     required TResult Function() revertModel,
+    required TResult Function(int makeId, int modelId) getAnnouncementList,
   }) {
     return getCarModel(getId, search);
   }
@@ -183,6 +190,7 @@ class _$_GetCarModel implements _GetCarModel {
     TResult? Function(MakeEntity model, int selectedId)? selectedModelItem,
     TResult? Function()? confirmModel,
     TResult? Function()? revertModel,
+    TResult? Function(int makeId, int modelId)? getAnnouncementList,
   }) {
     return getCarModel?.call(getId, search);
   }
@@ -195,6 +203,7 @@ class _$_GetCarModel implements _GetCarModel {
     TResult Function(MakeEntity model, int selectedId)? selectedModelItem,
     TResult Function()? confirmModel,
     TResult Function()? revertModel,
+    TResult Function(int makeId, int modelId)? getAnnouncementList,
     required TResult orElse(),
   }) {
     if (getCarModel != null) {
@@ -211,6 +220,7 @@ class _$_GetCarModel implements _GetCarModel {
     required TResult Function(_SelectedModelItem value) selectedModelItem,
     required TResult Function(_ConfirmModel value) confirmModel,
     required TResult Function(_RevertModel value) revertModel,
+    required TResult Function(_GetAnnouncementList value) getAnnouncementList,
   }) {
     return getCarModel(this);
   }
@@ -223,6 +233,7 @@ class _$_GetCarModel implements _GetCarModel {
     TResult? Function(_SelectedModelItem value)? selectedModelItem,
     TResult? Function(_ConfirmModel value)? confirmModel,
     TResult? Function(_RevertModel value)? revertModel,
+    TResult? Function(_GetAnnouncementList value)? getAnnouncementList,
   }) {
     return getCarModel?.call(this);
   }
@@ -235,6 +246,7 @@ class _$_GetCarModel implements _GetCarModel {
     TResult Function(_SelectedModelItem value)? selectedModelItem,
     TResult Function(_ConfirmModel value)? confirmModel,
     TResult Function(_RevertModel value)? revertModel,
+    TResult Function(_GetAnnouncementList value)? getAnnouncementList,
     required TResult orElse(),
   }) {
     if (getCarModel != null) {
@@ -326,6 +338,7 @@ class _$_GetMakeId implements _GetMakeId {
         selectedModelItem,
     required TResult Function() confirmModel,
     required TResult Function() revertModel,
+    required TResult Function(int makeId, int modelId) getAnnouncementList,
   }) {
     return getMakeId(id);
   }
@@ -338,6 +351,7 @@ class _$_GetMakeId implements _GetMakeId {
     TResult? Function(MakeEntity model, int selectedId)? selectedModelItem,
     TResult? Function()? confirmModel,
     TResult? Function()? revertModel,
+    TResult? Function(int makeId, int modelId)? getAnnouncementList,
   }) {
     return getMakeId?.call(id);
   }
@@ -350,6 +364,7 @@ class _$_GetMakeId implements _GetMakeId {
     TResult Function(MakeEntity model, int selectedId)? selectedModelItem,
     TResult Function()? confirmModel,
     TResult Function()? revertModel,
+    TResult Function(int makeId, int modelId)? getAnnouncementList,
     required TResult orElse(),
   }) {
     if (getMakeId != null) {
@@ -366,6 +381,7 @@ class _$_GetMakeId implements _GetMakeId {
     required TResult Function(_SelectedModelItem value) selectedModelItem,
     required TResult Function(_ConfirmModel value) confirmModel,
     required TResult Function(_RevertModel value) revertModel,
+    required TResult Function(_GetAnnouncementList value) getAnnouncementList,
   }) {
     return getMakeId(this);
   }
@@ -378,6 +394,7 @@ class _$_GetMakeId implements _GetMakeId {
     TResult? Function(_SelectedModelItem value)? selectedModelItem,
     TResult? Function(_ConfirmModel value)? confirmModel,
     TResult? Function(_RevertModel value)? revertModel,
+    TResult? Function(_GetAnnouncementList value)? getAnnouncementList,
   }) {
     return getMakeId?.call(this);
   }
@@ -390,6 +407,7 @@ class _$_GetMakeId implements _GetMakeId {
     TResult Function(_SelectedModelItem value)? selectedModelItem,
     TResult Function(_ConfirmModel value)? confirmModel,
     TResult Function(_RevertModel value)? revertModel,
+    TResult Function(_GetAnnouncementList value)? getAnnouncementList,
     required TResult orElse(),
   }) {
     if (getMakeId != null) {
@@ -488,6 +506,7 @@ class _$_SelectedModelItem implements _SelectedModelItem {
         selectedModelItem,
     required TResult Function() confirmModel,
     required TResult Function() revertModel,
+    required TResult Function(int makeId, int modelId) getAnnouncementList,
   }) {
     return selectedModelItem(model, selectedId);
   }
@@ -500,6 +519,7 @@ class _$_SelectedModelItem implements _SelectedModelItem {
     TResult? Function(MakeEntity model, int selectedId)? selectedModelItem,
     TResult? Function()? confirmModel,
     TResult? Function()? revertModel,
+    TResult? Function(int makeId, int modelId)? getAnnouncementList,
   }) {
     return selectedModelItem?.call(model, selectedId);
   }
@@ -512,6 +532,7 @@ class _$_SelectedModelItem implements _SelectedModelItem {
     TResult Function(MakeEntity model, int selectedId)? selectedModelItem,
     TResult Function()? confirmModel,
     TResult Function()? revertModel,
+    TResult Function(int makeId, int modelId)? getAnnouncementList,
     required TResult orElse(),
   }) {
     if (selectedModelItem != null) {
@@ -528,6 +549,7 @@ class _$_SelectedModelItem implements _SelectedModelItem {
     required TResult Function(_SelectedModelItem value) selectedModelItem,
     required TResult Function(_ConfirmModel value) confirmModel,
     required TResult Function(_RevertModel value) revertModel,
+    required TResult Function(_GetAnnouncementList value) getAnnouncementList,
   }) {
     return selectedModelItem(this);
   }
@@ -540,6 +562,7 @@ class _$_SelectedModelItem implements _SelectedModelItem {
     TResult? Function(_SelectedModelItem value)? selectedModelItem,
     TResult? Function(_ConfirmModel value)? confirmModel,
     TResult? Function(_RevertModel value)? revertModel,
+    TResult? Function(_GetAnnouncementList value)? getAnnouncementList,
   }) {
     return selectedModelItem?.call(this);
   }
@@ -552,6 +575,7 @@ class _$_SelectedModelItem implements _SelectedModelItem {
     TResult Function(_SelectedModelItem value)? selectedModelItem,
     TResult Function(_ConfirmModel value)? confirmModel,
     TResult Function(_RevertModel value)? revertModel,
+    TResult Function(_GetAnnouncementList value)? getAnnouncementList,
     required TResult orElse(),
   }) {
     if (selectedModelItem != null) {
@@ -617,6 +641,7 @@ class _$_ConfirmModel implements _ConfirmModel {
         selectedModelItem,
     required TResult Function() confirmModel,
     required TResult Function() revertModel,
+    required TResult Function(int makeId, int modelId) getAnnouncementList,
   }) {
     return confirmModel();
   }
@@ -629,6 +654,7 @@ class _$_ConfirmModel implements _ConfirmModel {
     TResult? Function(MakeEntity model, int selectedId)? selectedModelItem,
     TResult? Function()? confirmModel,
     TResult? Function()? revertModel,
+    TResult? Function(int makeId, int modelId)? getAnnouncementList,
   }) {
     return confirmModel?.call();
   }
@@ -641,6 +667,7 @@ class _$_ConfirmModel implements _ConfirmModel {
     TResult Function(MakeEntity model, int selectedId)? selectedModelItem,
     TResult Function()? confirmModel,
     TResult Function()? revertModel,
+    TResult Function(int makeId, int modelId)? getAnnouncementList,
     required TResult orElse(),
   }) {
     if (confirmModel != null) {
@@ -657,6 +684,7 @@ class _$_ConfirmModel implements _ConfirmModel {
     required TResult Function(_SelectedModelItem value) selectedModelItem,
     required TResult Function(_ConfirmModel value) confirmModel,
     required TResult Function(_RevertModel value) revertModel,
+    required TResult Function(_GetAnnouncementList value) getAnnouncementList,
   }) {
     return confirmModel(this);
   }
@@ -669,6 +697,7 @@ class _$_ConfirmModel implements _ConfirmModel {
     TResult? Function(_SelectedModelItem value)? selectedModelItem,
     TResult? Function(_ConfirmModel value)? confirmModel,
     TResult? Function(_RevertModel value)? revertModel,
+    TResult? Function(_GetAnnouncementList value)? getAnnouncementList,
   }) {
     return confirmModel?.call(this);
   }
@@ -681,6 +710,7 @@ class _$_ConfirmModel implements _ConfirmModel {
     TResult Function(_SelectedModelItem value)? selectedModelItem,
     TResult Function(_ConfirmModel value)? confirmModel,
     TResult Function(_RevertModel value)? revertModel,
+    TResult Function(_GetAnnouncementList value)? getAnnouncementList,
     required TResult orElse(),
   }) {
     if (confirmModel != null) {
@@ -738,6 +768,7 @@ class _$_RevertModel implements _RevertModel {
         selectedModelItem,
     required TResult Function() confirmModel,
     required TResult Function() revertModel,
+    required TResult Function(int makeId, int modelId) getAnnouncementList,
   }) {
     return revertModel();
   }
@@ -750,6 +781,7 @@ class _$_RevertModel implements _RevertModel {
     TResult? Function(MakeEntity model, int selectedId)? selectedModelItem,
     TResult? Function()? confirmModel,
     TResult? Function()? revertModel,
+    TResult? Function(int makeId, int modelId)? getAnnouncementList,
   }) {
     return revertModel?.call();
   }
@@ -762,6 +794,7 @@ class _$_RevertModel implements _RevertModel {
     TResult Function(MakeEntity model, int selectedId)? selectedModelItem,
     TResult Function()? confirmModel,
     TResult Function()? revertModel,
+    TResult Function(int makeId, int modelId)? getAnnouncementList,
     required TResult orElse(),
   }) {
     if (revertModel != null) {
@@ -778,6 +811,7 @@ class _$_RevertModel implements _RevertModel {
     required TResult Function(_SelectedModelItem value) selectedModelItem,
     required TResult Function(_ConfirmModel value) confirmModel,
     required TResult Function(_RevertModel value) revertModel,
+    required TResult Function(_GetAnnouncementList value) getAnnouncementList,
   }) {
     return revertModel(this);
   }
@@ -790,6 +824,7 @@ class _$_RevertModel implements _RevertModel {
     TResult? Function(_SelectedModelItem value)? selectedModelItem,
     TResult? Function(_ConfirmModel value)? confirmModel,
     TResult? Function(_RevertModel value)? revertModel,
+    TResult? Function(_GetAnnouncementList value)? getAnnouncementList,
   }) {
     return revertModel?.call(this);
   }
@@ -802,6 +837,7 @@ class _$_RevertModel implements _RevertModel {
     TResult Function(_SelectedModelItem value)? selectedModelItem,
     TResult Function(_ConfirmModel value)? confirmModel,
     TResult Function(_RevertModel value)? revertModel,
+    TResult Function(_GetAnnouncementList value)? getAnnouncementList,
     required TResult orElse(),
   }) {
     if (revertModel != null) {
@@ -816,12 +852,184 @@ abstract class _RevertModel implements GetCarModelEvent {
 }
 
 /// @nodoc
+abstract class _$$_GetAnnouncementListCopyWith<$Res> {
+  factory _$$_GetAnnouncementListCopyWith(_$_GetAnnouncementList value,
+          $Res Function(_$_GetAnnouncementList) then) =
+      __$$_GetAnnouncementListCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int makeId, int modelId});
+}
+
+/// @nodoc
+class __$$_GetAnnouncementListCopyWithImpl<$Res>
+    extends _$GetCarModelEventCopyWithImpl<$Res, _$_GetAnnouncementList>
+    implements _$$_GetAnnouncementListCopyWith<$Res> {
+  __$$_GetAnnouncementListCopyWithImpl(_$_GetAnnouncementList _value,
+      $Res Function(_$_GetAnnouncementList) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? makeId = null,
+    Object? modelId = null,
+  }) {
+    return _then(_$_GetAnnouncementList(
+      makeId: null == makeId
+          ? _value.makeId
+          : makeId // ignore: cast_nullable_to_non_nullable
+              as int,
+      modelId: null == modelId
+          ? _value.modelId
+          : modelId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_GetAnnouncementList implements _GetAnnouncementList {
+  _$_GetAnnouncementList({required this.makeId, required this.modelId});
+
+  @override
+  final int makeId;
+  @override
+  final int modelId;
+
+  @override
+  String toString() {
+    return 'GetCarModelEvent.getAnnouncementList(makeId: $makeId, modelId: $modelId)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_GetAnnouncementList &&
+            (identical(other.makeId, makeId) || other.makeId == makeId) &&
+            (identical(other.modelId, modelId) || other.modelId == modelId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, makeId, modelId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_GetAnnouncementListCopyWith<_$_GetAnnouncementList> get copyWith =>
+      __$$_GetAnnouncementListCopyWithImpl<_$_GetAnnouncementList>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int getId, String search) getCarModel,
+    required TResult Function(int id) getMakeId,
+    required TResult Function(MakeEntity model, int selectedId)
+        selectedModelItem,
+    required TResult Function() confirmModel,
+    required TResult Function() revertModel,
+    required TResult Function(int makeId, int modelId) getAnnouncementList,
+  }) {
+    return getAnnouncementList(makeId, modelId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int getId, String search)? getCarModel,
+    TResult? Function(int id)? getMakeId,
+    TResult? Function(MakeEntity model, int selectedId)? selectedModelItem,
+    TResult? Function()? confirmModel,
+    TResult? Function()? revertModel,
+    TResult? Function(int makeId, int modelId)? getAnnouncementList,
+  }) {
+    return getAnnouncementList?.call(makeId, modelId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int getId, String search)? getCarModel,
+    TResult Function(int id)? getMakeId,
+    TResult Function(MakeEntity model, int selectedId)? selectedModelItem,
+    TResult Function()? confirmModel,
+    TResult Function()? revertModel,
+    TResult Function(int makeId, int modelId)? getAnnouncementList,
+    required TResult orElse(),
+  }) {
+    if (getAnnouncementList != null) {
+      return getAnnouncementList(makeId, modelId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetCarModel value) getCarModel,
+    required TResult Function(_GetMakeId value) getMakeId,
+    required TResult Function(_SelectedModelItem value) selectedModelItem,
+    required TResult Function(_ConfirmModel value) confirmModel,
+    required TResult Function(_RevertModel value) revertModel,
+    required TResult Function(_GetAnnouncementList value) getAnnouncementList,
+  }) {
+    return getAnnouncementList(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetCarModel value)? getCarModel,
+    TResult? Function(_GetMakeId value)? getMakeId,
+    TResult? Function(_SelectedModelItem value)? selectedModelItem,
+    TResult? Function(_ConfirmModel value)? confirmModel,
+    TResult? Function(_RevertModel value)? revertModel,
+    TResult? Function(_GetAnnouncementList value)? getAnnouncementList,
+  }) {
+    return getAnnouncementList?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetCarModel value)? getCarModel,
+    TResult Function(_GetMakeId value)? getMakeId,
+    TResult Function(_SelectedModelItem value)? selectedModelItem,
+    TResult Function(_ConfirmModel value)? confirmModel,
+    TResult Function(_RevertModel value)? revertModel,
+    TResult Function(_GetAnnouncementList value)? getAnnouncementList,
+    required TResult orElse(),
+  }) {
+    if (getAnnouncementList != null) {
+      return getAnnouncementList(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetAnnouncementList implements GetCarModelEvent {
+  factory _GetAnnouncementList(
+      {required final int makeId,
+      required final int modelId}) = _$_GetAnnouncementList;
+
+  int get makeId;
+  int get modelId;
+  @JsonKey(ignore: true)
+  _$$_GetAnnouncementListCopyWith<_$_GetAnnouncementList> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$GetCarModelState {
   FormzStatus get status => throw _privateConstructorUsedError;
   GetMakeEntity get model => throw _privateConstructorUsedError;
   dynamic get next => throw _privateConstructorUsedError;
   int get getId => throw _privateConstructorUsedError;
   dynamic get count => throw _privateConstructorUsedError;
+  dynamic get announcementCount => throw _privateConstructorUsedError;
+  FormzStatus get getAnnouncementStatus => throw _privateConstructorUsedError;
   dynamic get selectedId => throw _privateConstructorUsedError;
   dynamic get confirmId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
@@ -844,6 +1052,8 @@ abstract class $GetCarModelStateCopyWith<$Res> {
       dynamic next,
       int getId,
       dynamic count,
+      dynamic announcementCount,
+      FormzStatus getAnnouncementStatus,
       dynamic selectedId,
       dynamic confirmId,
       String name,
@@ -868,6 +1078,8 @@ class _$GetCarModelStateCopyWithImpl<$Res, $Val extends GetCarModelState>
     Object? next = freezed,
     Object? getId = null,
     Object? count = freezed,
+    Object? announcementCount = freezed,
+    Object? getAnnouncementStatus = null,
     Object? selectedId = freezed,
     Object? confirmId = freezed,
     Object? name = null,
@@ -894,6 +1106,14 @@ class _$GetCarModelStateCopyWithImpl<$Res, $Val extends GetCarModelState>
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      announcementCount: freezed == announcementCount
+          ? _value.announcementCount
+          : announcementCount // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      getAnnouncementStatus: null == getAnnouncementStatus
+          ? _value.getAnnouncementStatus
+          : getAnnouncementStatus // ignore: cast_nullable_to_non_nullable
+              as FormzStatus,
       selectedId: freezed == selectedId
           ? _value.selectedId
           : selectedId // ignore: cast_nullable_to_non_nullable
@@ -928,6 +1148,8 @@ abstract class _$$_GetCarModelStateCopyWith<$Res>
       dynamic next,
       int getId,
       dynamic count,
+      dynamic announcementCount,
+      FormzStatus getAnnouncementStatus,
       dynamic selectedId,
       dynamic confirmId,
       String name,
@@ -950,6 +1172,8 @@ class __$$_GetCarModelStateCopyWithImpl<$Res>
     Object? next = freezed,
     Object? getId = null,
     Object? count = freezed,
+    Object? announcementCount = freezed,
+    Object? getAnnouncementStatus = null,
     Object? selectedId = freezed,
     Object? confirmId = freezed,
     Object? name = null,
@@ -970,6 +1194,13 @@ class __$$_GetCarModelStateCopyWithImpl<$Res>
           : getId // ignore: cast_nullable_to_non_nullable
               as int,
       count: freezed == count ? _value.count! : count,
+      announcementCount: freezed == announcementCount
+          ? _value.announcementCount!
+          : announcementCount,
+      getAnnouncementStatus: null == getAnnouncementStatus
+          ? _value.getAnnouncementStatus
+          : getAnnouncementStatus // ignore: cast_nullable_to_non_nullable
+              as FormzStatus,
       selectedId: freezed == selectedId ? _value.selectedId! : selectedId,
       confirmId: freezed == confirmId ? _value.confirmId! : confirmId,
       name: null == name
@@ -993,6 +1224,8 @@ class _$_GetCarModelState implements _GetCarModelState {
       this.next = '',
       this.getId = 0,
       this.count = 0,
+      this.announcementCount = 0,
+      this.getAnnouncementStatus = FormzStatus.pure,
       this.selectedId = 0,
       this.confirmId = 0,
       this.name = '',
@@ -1015,6 +1248,12 @@ class _$_GetCarModelState implements _GetCarModelState {
   final dynamic count;
   @override
   @JsonKey()
+  final dynamic announcementCount;
+  @override
+  @JsonKey()
+  final FormzStatus getAnnouncementStatus;
+  @override
+  @JsonKey()
   final dynamic selectedId;
   @override
   @JsonKey()
@@ -1028,7 +1267,7 @@ class _$_GetCarModelState implements _GetCarModelState {
 
   @override
   String toString() {
-    return 'GetCarModelState(status: $status, model: $model, next: $next, getId: $getId, count: $count, selectedId: $selectedId, confirmId: $confirmId, name: $name, selectedModel: $selectedModel)';
+    return 'GetCarModelState(status: $status, model: $model, next: $next, getId: $getId, count: $count, announcementCount: $announcementCount, getAnnouncementStatus: $getAnnouncementStatus, selectedId: $selectedId, confirmId: $confirmId, name: $name, selectedModel: $selectedModel)';
   }
 
   @override
@@ -1041,6 +1280,10 @@ class _$_GetCarModelState implements _GetCarModelState {
             const DeepCollectionEquality().equals(other.next, next) &&
             (identical(other.getId, getId) || other.getId == getId) &&
             const DeepCollectionEquality().equals(other.count, count) &&
+            const DeepCollectionEquality()
+                .equals(other.announcementCount, announcementCount) &&
+            (identical(other.getAnnouncementStatus, getAnnouncementStatus) ||
+                other.getAnnouncementStatus == getAnnouncementStatus) &&
             const DeepCollectionEquality()
                 .equals(other.selectedId, selectedId) &&
             const DeepCollectionEquality().equals(other.confirmId, confirmId) &&
@@ -1057,6 +1300,8 @@ class _$_GetCarModelState implements _GetCarModelState {
       const DeepCollectionEquality().hash(next),
       getId,
       const DeepCollectionEquality().hash(count),
+      const DeepCollectionEquality().hash(announcementCount),
+      getAnnouncementStatus,
       const DeepCollectionEquality().hash(selectedId),
       const DeepCollectionEquality().hash(confirmId),
       name,
@@ -1076,6 +1321,8 @@ abstract class _GetCarModelState implements GetCarModelState {
       final dynamic next,
       final int getId,
       final dynamic count,
+      final dynamic announcementCount,
+      final FormzStatus getAnnouncementStatus,
       final dynamic selectedId,
       final dynamic confirmId,
       final String name,
@@ -1091,6 +1338,10 @@ abstract class _GetCarModelState implements GetCarModelState {
   int get getId;
   @override
   dynamic get count;
+  @override
+  dynamic get announcementCount;
+  @override
+  FormzStatus get getAnnouncementStatus;
   @override
   dynamic get selectedId;
   @override

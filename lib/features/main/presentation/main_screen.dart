@@ -191,6 +191,7 @@ class _MainScreenState extends State<MainScreen> {
                                   page: ChooseCarBrandPage(
                         selectedMakeId: state.makeId,
                         selectedModelId: state.modelId,
+                        announcementCount: state.announcementCount,
                       )))
                               .then((value) {
                         if (value != null) {
@@ -210,6 +211,16 @@ class _MainScreenState extends State<MainScreen> {
                                   makeName: makeName,
                                   historySaved: false))
                               ..add(GetAnnouncement());
+                            Navigator.of(context, rootNavigator: true)
+                                .push(fade(
+                                    page: AdsScreen(
+                              makeId: makeId,
+                              modelId: modelId,
+                              makeName: makeName,
+                              modelName: modelName,
+                              makeLogo: makeLogo,
+                              historySaved: false,
+                            )));
                           } else {
                             mainBloc
                               ..add(const GetMakeModelEvent(
