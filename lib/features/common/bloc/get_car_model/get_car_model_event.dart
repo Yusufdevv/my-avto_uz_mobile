@@ -9,4 +9,5 @@ class GetCarModelEvent with _$GetCarModelEvent {
       required int selectedId}) = _SelectedModelItem;
   factory GetCarModelEvent.confirmModel() = _ConfirmModel;
   factory GetCarModelEvent.revertModel() = _RevertModel;
+  factory GetCarModelEvent.getAnnouncementList({required int makeId, required int modelId}) = _GetAnnouncementList;
 }

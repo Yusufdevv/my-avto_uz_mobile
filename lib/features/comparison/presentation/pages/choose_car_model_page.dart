@@ -10,6 +10,7 @@ import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart'
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/comparison/presentation/widgets/comparison_search_bar.dart';
 import 'package:auto/generated/locale_keys.g.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -53,6 +54,10 @@ class _ChooseCarModelComparison extends State<ChooseCarModelPage> {
       ..add(GetCarModelEvent.getCarModel(
         getId: id,
         search: _searchController.text,
+      ))
+      ..add(GetCarModelEvent.getAnnouncementList(
+        makeId: widget.selectedMake?.id ?? -1,
+        modelId: widget.selectedModelId ?? -1,
       ));
     super.initState();
   }
@@ -153,13 +158,21 @@ class _ChooseCarModelComparison extends State<ChooseCarModelPage> {
                                         state.model.results[index].id,
                                     text: _searchController.text,
                                     onTap: () {
-                                      _getCarModelBloc.add(
-                                        GetCarModelEvent.selectedModelItem(
-                                          selectedId:
-                                              state.model.results[index].id,
-                                          model: state.model.results[index],
-                                        ),
-                                      );
+                                      _getCarModelBloc
+                                        ..add(
+                                          GetCarModelEvent.selectedModelItem(
+                                            selectedId:
+                                                state.model.results[index].id,
+                                            model: state.model.results[index],
+                                          ),
+                                        )
+                                        ..add(GetCarModelEvent
+                                            .getAnnouncementList(
+                                                makeId:
+                                                    widget.selectedMake?.id ??
+                                                        -1,
+                                                modelId: state
+                                                    .model.results[index].id));
                                     },
                                   ),
                                 ),
@@ -187,6 +200,7 @@ class _ChooseCarModelComparison extends State<ChooseCarModelPage> {
                                     'modelName': item.name,
                                     'makeName': widget.selectedMake?.name,
                                     'makeLogo': widget.selectedMake?.logo,
+                                    'count': state.announcementCount,
                                   });
                                 } else {
                                   Navigator.pop(context);
@@ -196,14 +210,24 @@ class _ChooseCarModelComparison extends State<ChooseCarModelPage> {
                                     'modelName': state.selectedModel.name,
                                     'makeName': widget.selectedMake?.name,
                                     'makeLogo': widget.selectedMake?.logo,
+                                    'count': state.announcementCount,
                                   });
                                 }
                               }
                             },
-                            text: LocaleKeys.further.tr(),
-                            isDisabled: state.selectedId == -1,
+                            text: state.selectedModel.id == -1
+                                ? LocaleKeys.choose_model.tr()
+                                : state.announcementCount > 0
+                                    ? LocaleKeys.show_offers.tr(args: [
+                                        MyFunctions.getThousandsSeparatedPrice(
+                                            '${state.announcementCount}')
+                                      ])
+                                    : LocaleKeys.no_offers.tr(),
+                            isLoading: state
+                                .getAnnouncementStatus.isSubmissionInProgress,
+                            isDisabled: state.announcementCount == 0 || state.selectedModel.id == -1,
                             disabledColor: darkGray,
-                            shadow: state.selectedId != -1
+                            shadow: state.announcementCount != 0 && state.selectedModel.id != -1
                                 ? [
                                     BoxShadow(
                                       offset: const Offset(0, 4),

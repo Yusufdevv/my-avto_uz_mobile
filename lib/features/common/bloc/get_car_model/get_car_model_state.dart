@@ -8,6 +8,8 @@ class GetCarModelState with _$GetCarModelState {
     @Default('') next,
     @Default(0) int getId,
     @Default(0) count,
+    @Default(0) announcementCount,
+    @Default(FormzStatus.pure) FormzStatus getAnnouncementStatus,
     @Default(0) selectedId,
     @Default(0) confirmId,
     @Default('') String name,
