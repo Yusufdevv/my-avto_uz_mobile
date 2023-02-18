@@ -1,12 +1,9 @@
 import 'package:auto/features/ads/data/models/query_data_model.dart';
+import 'package:auto/features/ads/domain/entities/query_data_entity.dart';
 import 'package:equatable/equatable.dart';
-import 'package:json_annotation/json_annotation.dart';
 
-part 'search_history_model.g.dart';
-
-@JsonSerializable(fieldRename: FieldRename.snake)
-class SaveFilterModel extends Equatable {
-  const SaveFilterModel({
+class SaveFilterEntity extends Equatable {
+  const SaveFilterEntity({
     this.make,
     this.model,
     this.query,
@@ -18,27 +15,23 @@ class SaveFilterModel extends Equatable {
   final List<int?>? model;
   final String? query;
   final int? id;
-  final QueryDataModel? queryData;
+  @QueryDataEntityConverter()
+  final QueryDataEntity? queryData;
 
-  SaveFilterModel copyWith({
+  SaveFilterEntity copyWith({
     int? make,
     List<int?>? model,
     String? query,
     int? id,
     QueryDataModel? queryData,
   }) =>
-      SaveFilterModel(
+      SaveFilterEntity(
         make: make ?? this.make,
         id: id ?? this.id,
         model: model ?? this.model,
         query: query ?? this.query,
         queryData: queryData ?? this.queryData,
       );
-
-  factory SaveFilterModel.fromJson(Map<String, dynamic> json) =>
-      _$SaveFilterModelFromJson(json);
-
-  Map<String, dynamic> toJson() => _$SaveFilterModelToJson(this);
 
   @override
   List<Object?> get props => [make, model, query, queryData, id];

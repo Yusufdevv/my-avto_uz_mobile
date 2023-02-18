@@ -13,4 +13,6 @@ class DriveTypeModel extends DriveTypeEntity {
 
   factory DriveTypeModel.fromJson(Map<String, dynamic> json) =>
       _$DriveTypeModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DriveTypeModelToJson(this);
 }
