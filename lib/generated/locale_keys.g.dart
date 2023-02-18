@@ -525,5 +525,8 @@ abstract class  LocaleKeys {
   static const could_not_be = 'could_not_be';
   static const must_be = 'must_be';
   static const valyuta = 'valyuta';
+  static const bad_request = 'bad_request';
+  static const internal_error_server = 'internal_error_server';
+  static const user_already_exist = 'user_already_exist';
 
 }

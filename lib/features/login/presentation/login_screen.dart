@@ -45,15 +45,11 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
   }
 
-  // @override
-  // void dispose() {
-  //   phoneController.dispose();
-  //   passwordController.dispose();
-  //   super.dispose();
-  // }
-
-  void hidePopUp() {
-    context.read<ShowPopUpBloc>().add(HidePopUp());
+  @override
+  void dispose() {
+    phoneController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -103,7 +99,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(width: 4),
                     WScaleAnimation(
                       onTap: () {
-                        hidePopUp();
                         Navigator.push(
                             context, fade(page: const RegisterScreen()));
                       },
@@ -117,7 +112,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 36),
                 ZTextFormField(
-                  onTap: hidePopUp,
                   onChanged: (value) {
                     setState(() {});
                   },
@@ -154,7 +148,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 16),
                 ZTextFormField(
-                  onTap: hidePopUp,
                   onChanged: (value) {
                     setState(() {});
                   },
@@ -176,7 +169,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 16),
                 WScaleAnimation(
                   onTap: () {
-                    hidePopUp();
                     Navigator.of(context)
                         .push(fade(page: const SendPhoneNumberPage()));
                   },
@@ -195,18 +187,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   onTap: passwordController.text.length >= 6 &&
                           phoneController.text.length == 12
                       ? () {
-                          hidePopUp();
                           context.read<AuthenticationBloc>().add(LoginUser(
                               onError: (text) {
                                 var error = text;
                                 if (error.toLowerCase().contains('dio') ||
                                     error.toLowerCase().contains('type')) {
                                   error = LocaleKeys.service_error.tr();
+                                } else if(error.toLowerCase().contains('user')) {
+                                  error = LocaleKeys.user_already_exist.tr();
                                 }
                                 context.read<ShowPopUpBloc>().add(ShowPopUp(
                                       message: error,
                                       status: PopStatus.error,
-                                      dismissible: false,
                                     ));
                               },
                               password: passwordController.text,

@@ -220,7 +220,7 @@ class CodegenLoader extends AssetLoader{
   "refresh_the_page": "Обновить страницу",
   "avialable_hours": "Доступные часы",
   "the_user_is_only_available_in": "Пользователь доступен только в",
-  "incognito_mode": "Если вы включаете этот режим ваш контакный номер не будеть отображаться в объявление",
+  "incognito_mode": "Если вы включите этот режим, ваш номер в объявлении будет отображаться только в вами выбранное время",
   "buyers_more_call_on_add": "Покупатели чаще звонят по объявлениям,  в которых указана комплектация",
   "description_dont_do": "Пожалуйста, не указывайте ссылки, цену, контактные данные и не предлагайте услуги — такое объявление не пройдет модерацию",
   "be_honest": "Честно опишите достоинства и недостатки своего автомобиля",
@@ -432,7 +432,7 @@ class CodegenLoader extends AssetLoader{
   "car_sale": "Продажа Автомобиля",
   "load_more": "Загрузить еще",
   "show_offers": "Показать {} предложени{apendix}",
-  "show": "Показать",
+  "show": "Показать результаты",
   "select_currency": "Выберите валюту",
   "result": "результата",
   "moto": "Мото",
@@ -538,7 +538,10 @@ class CodegenLoader extends AssetLoader{
   "must_filled": "Должен быть заполнен",
   "could_not_be": "Не может быть > ",
   "must_be": "Должно быть",
-  "valyuta": "Валюта"
+  "valyuta": "Валюта",
+  "bad_request": "Системная ошибка, попробуйте еще раз",
+  "internal_error_server": "Ошибка сервера, попробуйте еще раз",
+  "user_already_exist": "Пользователь с таким номером уже зарегистрирован"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -756,7 +759,7 @@ static const Map<String,dynamic> uz = {
   "add_email": "Elektron pochtani kiriting",
   "confirm": "Tasdiqlash",
   "avialable_hours": "Mavjud soatlar",
-  "incognito_mode": "Agar siz ushbu rejimni yoqsangiz, sizning aloqa raqamingiz e'londa ko'rsatilmaydi",
+  "incognito_mode": "Agar siz ushbu rejimni yoqsangiz, raqamingiz e'londa faqat siz tanlagan vaqtda ko'rsatiladi",
   "buyers_more_call_on_add": "Xaridorlar uskunalarni o'z ichiga olgan  reklamalar orqali qo'ng'iroq qilish ehtimoli ko'proq",
   "description_dont_do": "Iltimos, havolalar, narx, aloqa ma'lumotlarini ko'rsatmang va xizmatlarni taklif qilmang - bunday reklama moderatsiya qilinmaydi",
   "be_honest": "Avtomobilingizning kuchli va zaif tomonlari haqida batafsil yozing",
@@ -881,7 +884,7 @@ static const Map<String,dynamic> uz = {
   "ads": "E'lonlar",
   "marks": "Markalar",
   "car_dealers": "Avtomobil sotuvchilari",
-  "reset": "Qayta o'rnatish",
+  "reset": "Tozalash",
   "light_commercial_vehicles": "Yengil tijoriy avtomobillar",
   "last_requests": "Oxirgi so'rovlar",
   "popular_requests": "Ommabop so'rovlar",
@@ -957,7 +960,7 @@ static const Map<String,dynamic> uz = {
   "car_sale": "Avtomobil sotuvi",
   "load_more": "Yana yuklash",
   "show_offers": "{} ta taklifni ko'rish",
-  "show": "Ko'rmoq",
+  "show": "Natijalarni ko'rish",
   "result": "Natijalar",
   "cars": "{} dan avtomobillar",
   "email_example": "example@auto.uz",
@@ -1064,7 +1067,10 @@ static const Map<String,dynamic> uz = {
   "must_filled": "To'ldirilishi shart",
   "could_not_be": "Bo'lishi mumkin emas > ",
   "must_be": "Bo'lishi kerak",
-  "valyuta": "Valyuta"
+  "valyuta": "Valyuta",
+  "bad_request": "Tizimda xatolik, qaytadan urinib ko'ring",
+  "internal_error_server": "Serverda xatolik, qaytadan urinib ko'ring",
+  "user_already_exist": "Bunday raqamli foydalanuvchi allaqachon ro'yxatdan o'tgan"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }

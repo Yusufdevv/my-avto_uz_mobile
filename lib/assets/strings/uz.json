@@ -214,7 +214,7 @@
   "add_email": "Elektron pochtani kiriting",
   "confirm": "Tasdiqlash",
   "avialable_hours": "Mavjud soatlar",
-  "incognito_mode": "Agar siz ushbu rejimni yoqsangiz, sizning aloqa raqamingiz e'londa ko'rsatilmaydi",
+  "incognito_mode": "Agar siz ushbu rejimni yoqsangiz, raqamingiz e'londa faqat siz tanlagan vaqtda ko'rsatiladi",
   "buyers_more_call_on_add": "Xaridorlar uskunalarni o'z ichiga olgan \u2028reklamalar orqali qo'ng'iroq qilish ehtimoli ko'proq",
   "description_dont_do": "Iltimos, havolalar, narx, aloqa ma'lumotlarini ko'rsatmang va xizmatlarni taklif qilmang - bunday reklama moderatsiya qilinmaydi",
   "be_honest": "Avtomobilingizning kuchli va zaif tomonlari haqida batafsil yozing",
@@ -339,7 +339,7 @@
   "ads": "E'lonlar",
   "marks": "Markalar",
   "car_dealers": "Avtomobil sotuvchilari",
-  "reset": "Qayta o'rnatish",
+  "reset": "Tozalash",
   "light_commercial_vehicles": "Yengil tijoriy avtomobillar",
   "last_requests": "Oxirgi so'rovlar",
   "popular_requests": "Ommabop so'rovlar",
@@ -415,7 +415,7 @@
   "car_sale": "Avtomobil sotuvi",
   "load_more": "Yana yuklash",
   "show_offers": "{} ta taklifni ko'rish",
-  "show" : "Ko'rmoq",
+  "show" : "Natijalarni ko'rish",
   "result": "Natijalar",
   "cars": "{} dan avtomobillar",
   "email_example": "example@auto.uz",
@@ -522,5 +522,8 @@
   "must_filled": "To'ldirilishi shart",
   "could_not_be": "Bo'lishi mumkin emas > ",
   "must_be": "Bo'lishi kerak",
-  "valyuta": "Valyuta"
+  "valyuta": "Valyuta",
+  "bad_request": "Tizimda xatolik, qaytadan urinib ko'ring",
+  "internal_error_server": "Serverda xatolik, qaytadan urinib ko'ring",
+  "user_already_exist": "Bunday raqamli foydalanuvchi allaqachon ro'yxatdan o'tgan"
 }

@@ -125,10 +125,6 @@ class _PostingAdScreenState extends State<PostingAdScreen>
     LocaleKeys.preispection.tr(),
   ];
 
-  void hidePopUp() {
-    context.read<ShowPopUpBloc>().add(HidePopUp());
-  }
-
   @override
   Widget build(BuildContext context) => WillPopScope(
         onWillPop: () async {
@@ -156,16 +152,23 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                     listener: (context, state) async {
                   if (state.createStatus == FormzStatus.submissionSuccess) {
                     FocusScope.of(context).unfocus();
+                    var error = state.toastMessage ?? '';
+                    if (error.toLowerCase().contains('dio') ||
+                        error.toLowerCase().contains('type')) {
+                      error = LocaleKeys.service_error.tr();
+                    } else if (error.toLowerCase().contains('bad')) {
+                      error = LocaleKeys.bad_request.tr();
+                    } else if (error.toLowerCase().contains('internal') ||
+                        error.toLowerCase().contains('internet')) {
+                      error = LocaleKeys.internal_error_server.tr();
+                    }
                     context.read<ShowPopUpBloc>().add(
                           ShowPopUp(
-                            message: state.toastMessage ?? '',
+                            message: error,
                             status: PopStatus.success,
-                            dismissible: false,
                           ),
                         );
                     await Future.delayed(const Duration(milliseconds: 1000));
-                    hidePopUp();
-
                     context
                         .read<WishlistAddBloc>()
                         .add(WishlistAddEvent.goToAdds(1));
@@ -188,11 +191,20 @@ class _PostingAdScreenState extends State<PostingAdScreen>
 
                   if (state.toastMessage != null &&
                       state.toastMessage!.isNotEmpty) {
+                    var error = state.toastMessage ?? '';
+                    if (error.toLowerCase().contains('dio') ||
+                        error.toLowerCase().contains('type')) {
+                      error = LocaleKeys.service_error.tr();
+                    } else if (error.toLowerCase().contains('bad')) {
+                      error = LocaleKeys.bad_request.tr();
+                    } else if (error.toLowerCase().contains('internal') ||
+                        error.toLowerCase().contains('internet')) {
+                      error = LocaleKeys.internal_error_server.tr();
+                    }
                     context.read<ShowPopUpBloc>().add(
                           ShowPopUp(
-                            message: state.toastMessage!,
+                            message: error,
                             status: state.popStatus,
-                            dismissible: false,
                           ),
                         );
                     postingAdBloc.add(PostingAdShowToastEvent(
@@ -238,7 +250,6 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                           tabLength: tabLength,
                           hasShadow: state.hasAppBarShadow,
                           onTapBack: () {
-                            hidePopUp();
                             if (currentTabIndex != 0) {
                               --currentTabIndex;
                               postingAdBloc.add(PostingAdAddEventForEveryPage(
@@ -253,7 +264,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                   .animateTo(0);
                             }
                           },
-                          onTapCancel: hidePopUp,
+                          onTapCancel: () {},
                           title: currentTabIndex == 0
                               ? LocaleKeys.get_back.tr()
                               : tabs[currentTabIndex - 1],
@@ -270,7 +281,6 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                 tabLength: tabLength,
                                 postingAddBloc: postingAdBloc,
                                 onTopBrandPressed: (makeId) {
-                                  hidePopUp();
                                   postingAdBloc
                                       .add(PostingAdChooseEvent(make: makeId));
                                   currentTabIndex++;
@@ -318,13 +328,11 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                               //16
                               InspectionPlaceScreen(
                                 onToMapPressed: () {
-                                  hidePopUp();
                                   Navigator.push(
                                     context,
                                     fade(page: const MapScreenPostingAd()),
                                   ).then(
                                     (latLongZoom) {
-                                      hidePopUp();
                                       if (latLongZoom is List<double>) {
                                         postingAdBloc.add(
                                           PostingAdGetMapScreenShotEvent(
@@ -384,7 +392,6 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                 disabledColor: disabledButton,
                                 isDisabled: state.buttonStatus(currentTabIndex),
                                 onTap: () {
-                                  hidePopUp();
                                   FocusScope.of(context).unfocus();
                                   if (currentTabIndex < tabLength - 1) {
                                     if (currentTabIndex == 0 &&
@@ -426,7 +433,6 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                 isLoading: state.createStatus ==
                                     FormzStatus.submissionInProgress,
                                 onTap: () async {
-                                  hidePopUp();
                                   postingAdBloc.add(PostingAdCreateEvent());
                                 },
                                 text: LocaleKeys.start_free_week.tr(),

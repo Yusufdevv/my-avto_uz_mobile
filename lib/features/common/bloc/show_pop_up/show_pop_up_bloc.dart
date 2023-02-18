@@ -18,18 +18,20 @@ class ShowPopUpBloc extends Bloc<ShowPopUpEvent, ShowPopUpState> {
           showPopUp: false,
         )) {
     var timer = Timer(Duration.zero, () {});
+
     on<ShowPopUp>((event, emit) {
       emit(state.copyWith(
           message: event.message, showPopUp: true, status: event.status));
       if (timer.isActive) {
         timer.cancel();
       }
-      timer = Timer(const Duration(seconds: 3), () {
+      timer = Timer(const Duration(seconds: 5), () {
         if (event.dismissible) {
           add(HidePopUp());
         }
       });
     });
+    
     on<HidePopUp>((event, emit) {
       if (timer.isActive) {
         timer.cancel();
