@@ -357,7 +357,9 @@ class MyFunctions {
 
   static String getDateNamedMonth(String data) {
     final list = data.substring(0, 10).split('-');
-
+    if(list[2].startsWith('0')) {
+      list[2]= list[2].substring(1);
+    }
     return '${list[2]} ${getMonthByIndex(int.tryParse(list[1]) ?? -1)}, ${list[0]} г.';
   }
 
