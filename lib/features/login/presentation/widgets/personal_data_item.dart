@@ -26,25 +26,30 @@ class PersonalDataItemm extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
-              child: Row(
-                children: [
-                  Text( title,
-                    style: Theme.of(context)
-                        .textTheme
-                        .displayLarge!
-                        .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
-                  ),
-                  if (isRequired) ...{
-                    Text( '*',
-                      style:
-                      Theme.of(context).textTheme.displayLarge!.copyWith(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14,
-                        color: orange,
-                      ),
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 1.5),
+                child: Row(
+                  children: [
+                    Text(
+                      title,
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayLarge!
+                          .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                     ),
-                  }
-                ],
+                    if (isRequired) ...{
+                      Text(
+                        '*',
+                        style:
+                            Theme.of(context).textTheme.displayLarge!.copyWith(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14,
+                                  color: orange,
+                                ),
+                      ),
+                    }
+                  ],
+                ),
               ),
             ),
             Expanded(
