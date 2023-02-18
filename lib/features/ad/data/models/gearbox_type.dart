@@ -13,4 +13,6 @@ class GearboxTypeModel extends GearboxTypeEntity {
 
   factory GearboxTypeModel.fromJson(Map<String, dynamic> json) =>
       _$GearboxTypeModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$GearboxTypeModelToJson(this);
 }

@@ -2,7 +2,7 @@ import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/core/utils/either.dart';
-import 'package:auto/features/ads/data/models/search_history_model.dart';
+import 'package:auto/features/ads/data/models/save_filter_model.dart';
 import 'package:auto/features/ads/data/repository/ads_repo_impl.dart';
 import 'package:auto/features/ads/domain/repository/ads_repository.dart';
 

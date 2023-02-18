@@ -33,5 +33,9 @@ class BodyTypeEntityConverter
       BodyTypeModel.fromJson(json ?? {});
 
   @override
-  Map<String, dynamic> toJson(BodyTypeEntity object) => {};
+  Map<String, dynamic> toJson(BodyTypeEntity object) => BodyTypeModel(
+        id: object.id,
+        logo: object.logo,
+        type: object.type,
+      ).toJson();
 }

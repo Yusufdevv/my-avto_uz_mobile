@@ -33,5 +33,9 @@ class GearboxTypeEntityConverter
       GearboxTypeModel.fromJson(json ?? {});
 
   @override
-  Map<String, dynamic> toJson(GearboxTypeEntity object) => {};
+  Map<String, dynamic> toJson(GearboxTypeEntity object) => GearboxTypeModel(
+        id: object.id,
+        logo: object.logo,
+        type: object.type,
+      ).toJson();
 }

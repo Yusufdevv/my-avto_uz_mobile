@@ -3,7 +3,7 @@ import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ads/data/models/min_max_price_year_model.dart';
-import 'package:auto/features/ads/data/models/search_history_model.dart';
+import 'package:auto/features/ads/data/models/save_filter_model.dart';
 import 'package:auto/features/comparison/data/models/announcement_list_model.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:dio/dio.dart';

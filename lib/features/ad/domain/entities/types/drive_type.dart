@@ -35,5 +35,9 @@ class DriveTypeEntityConverter
       DriveTypeModel.fromJson(json ?? {});
 
   @override
-  Map<String, dynamic> toJson(DriveTypeEntity object) => {};
+  Map<String, dynamic> toJson(DriveTypeEntity object) => DriveTypeModel(
+        id: object.id,
+        logo: object.logo,
+        type: object.type,
+      ).toJson();
 }

@@ -13,4 +13,6 @@ class BodyTypeModel extends BodyTypeEntity {
 
   factory BodyTypeModel.fromJson(Map<String, dynamic> json) =>
       _$BodyTypeModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$BodyTypeModelToJson(this);
 }

@@ -4,14 +4,12 @@ import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/core/utils/either.dart';
-import 'package:auto/features/ads/data/models/search_history_model.dart';
 import 'package:auto/features/dealers/data/models/dealer_info_model.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:auto/features/profile/data/models/dir_category_model.dart';
 import 'package:auto/features/profile/data/models/directory_model.dart';
 import 'package:auto/features/profile/data/models/my_searches_model.dart';
 import 'package:auto/features/profile/data/models/notifications_model.dart';
-import 'package:auto/features/profile/domain/entities/my_searches_entity.dart';
 import 'package:dio/dio.dart';
 
 abstract class GetUserListDatasource {
