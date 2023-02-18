@@ -78,7 +78,7 @@ class _FilterParametersState extends State<FilterParameters> {
                     ));
                   },
                   child: Text(
-                    LocaleKeys.reset.tr(),
+                    LocaleKeys.clear.tr(),
                     style: const TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w400,
