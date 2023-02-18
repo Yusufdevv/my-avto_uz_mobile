@@ -130,7 +130,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                             if (nameController.text.isNotEmpty) {
                               if (emailController.text.isNotEmpty) {
                                 if (!MyFunctions.isEmail(
-                                    emailController.text)) {
+                                    emailController.text.trim())) {
                                   context.read<ShowPopUpBloc>().add(ShowPopUp(
                                       message: LocaleKeys
                                           .please_enter_valid_email

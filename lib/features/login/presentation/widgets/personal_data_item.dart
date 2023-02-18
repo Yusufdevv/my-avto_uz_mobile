@@ -26,29 +26,25 @@ class PersonalDataItemm extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
-              child: RichText(
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                      text: title,
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayLarge!
-                          .copyWith(fontSize: 16, fontWeight: FontWeight.w400),
-                    ),
-                    if (isRequired) ...{
-                      TextSpan(
-                        text: '*',
-                        style:
-                            Theme.of(context).textTheme.displayLarge!.copyWith(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 14,
-                                  color: orange,
-                                ),
+              child: Row(
+                children: [
+                  Text( title,
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayLarge!
+                        .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
+                  ),
+                  if (isRequired) ...{
+                    Text( '*',
+                      style:
+                      Theme.of(context).textTheme.displayLarge!.copyWith(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14,
+                        color: orange,
                       ),
-                    }
-                  ],
-                ),
+                    ),
+                  }
+                ],
               ),
             ),
             Expanded(
@@ -67,7 +63,7 @@ class PersonalDataItemm extends StatelessWidget {
                           fontWeight: FontWeight.w400),
                   textStyle: Theme.of(context)
                       .textTheme
-                      .titleMedium!
+                      .displayLarge!
                       .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                 )),
           ],
