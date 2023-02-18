@@ -26,6 +26,7 @@ class _StoryScreenState extends State<StoryScreen> {
   int _currentPage = 0;
   bool _isOnPageTurning = false;
   bool didRead = false;
+  bool didForward = true;
 
   @override
   void initState() {
@@ -98,6 +99,7 @@ class _StoryScreenState extends State<StoryScreen> {
                 storiesCount: widget.stories.length,
                 read: _read,
                 didRead: didRead,
+                didForward: didForward,
               ),
             ),
           ),
@@ -110,6 +112,7 @@ class _StoryScreenState extends State<StoryScreen> {
             duration: const Duration(milliseconds: 200), curve: Curves.linear)
         : _pageController.previousPage(
             duration: const Duration(milliseconds: 200), curve: Curves.linear);
+    didForward = forward;
   }
 
   void _read(int id) {
