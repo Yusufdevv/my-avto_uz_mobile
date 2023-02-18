@@ -69,11 +69,11 @@ class VinSoonItem extends StatelessWidget {
                       ),
                       Text(
                         LocaleKeys.vin_check_text.tr(),
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
+                        // maxLines: 3,
+                        // overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.displayMedium,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       )
                     ],
