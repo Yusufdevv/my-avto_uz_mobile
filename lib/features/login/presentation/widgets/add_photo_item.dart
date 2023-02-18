@@ -136,13 +136,11 @@ class _AddPhotoItemState extends State<AddPhotoItem> {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 12),
-                child: Text(
-                  LocaleKeys.photo.tr(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .displayLarge!
-                      .copyWith(fontWeight: FontWeight.w400, fontSize: 14),
-                ),
+                child: Text(LocaleKeys.photo.tr(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayLarge!
+                        .copyWith(fontWeight: FontWeight.w400, fontSize: 14)),
               ),
             ),
             const SizedBox(width: 48),

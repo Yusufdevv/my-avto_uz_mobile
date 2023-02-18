@@ -130,8 +130,10 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                           ),
                           const SizedBox(height: 36),
                           WButton(
-                            // isDisabled: newPasswordController.text.length < 6 &&
-                            //     confirmPasswordController.text.length < 6,
+                            isDisabled: newPasswordController.text.length < 6 ||
+                                confirmPasswordController.text.length < 6 &&
+                                    newPasswordController.text !=
+                                        confirmPasswordController.text,
                             isLoading: state.registerStatus ==
                                 FormzStatus.submissionInProgress,
                             onTap: () {
@@ -167,17 +169,12 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                             margin: EdgeInsets.only(
                                 bottom:
                                     4 + MediaQuery.of(context).padding.bottom),
-                            color: newPasswordController.text.length < 6 &&
-                                    confirmPasswordController.text.length < 6
-                                ? Theme.of(context)
-                                    .extension<ThemedColors>()!
-                                    .veryLightGreyToEclipse
-                                : orange,
+                            color: orange,
+                            disabledColor: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .veryLightGreyToEclipse,
                             text: LocaleKeys.continuee.tr(),
-                            border: Border.all(
-                              width: 1,
-                              color: white,
-                            ),
+                            border: Border.all(width: 1, color: white),
                           ),
                         ],
                       ),
