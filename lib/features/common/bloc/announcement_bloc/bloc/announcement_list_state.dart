@@ -2,9 +2,7 @@ part of 'announcement_list_bloc.dart';
 
 class AnnouncementListState extends Equatable {
   final FormzStatus status;
-  final int selected;
   final bool next;
-  final String search;
   final int? historyId;
   final int count;
   final List<Region> regions;
@@ -30,9 +28,7 @@ class AnnouncementListState extends Equatable {
 
   const AnnouncementListState({
     this.status = FormzStatus.pure,
-    this.selected = 0,
     this.next = false,
-    this.search = '',
     this.historyId,
     this.count = 0,
     this.regions = const [],
@@ -59,9 +55,7 @@ class AnnouncementListState extends Equatable {
 
   AnnouncementListState copyWith({
     FormzStatus? status,
-    int? selected,
     bool? next,
-    String? search,
     int? historyId,
     int? count,
     List<Region>? regions,
@@ -87,10 +81,8 @@ class AnnouncementListState extends Equatable {
   }) =>
       AnnouncementListState(
         status: status ?? this.status,
-        selected: selected ?? this.selected,
         next: next ?? this.next,
         historyId: historyId ?? this.historyId,
-        search: search ?? this.search,
         count: count ?? this.count,
         regions: regions ?? this.regions,
         isFilter: isFilter ?? this.isFilter,
@@ -111,15 +103,13 @@ class AnnouncementListState extends Equatable {
         isNew: isNew ?? this.isNew,
         saveFilterStatus: saveFilterStatus ?? this.saveFilterStatus,
         crossFadeState: crossFadeState ?? this.crossFadeState,
-        sortStatus: sortResult ?? this.sortStatus,
+        sortStatus: sortResult ?? sortStatus,
       );
 
   @override
   List<Object?> get props => [
         status,
-        selected,
         next,
-        search,
         count,
         regions,
         isFilter,

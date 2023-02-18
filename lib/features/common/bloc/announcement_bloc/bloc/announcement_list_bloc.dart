@@ -3,7 +3,7 @@ import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/ads/data/models/query_data_model.dart';
-import 'package:auto/features/ads/data/models/search_history_model.dart';
+import 'package:auto/features/ads/data/models/save_filter_model.dart';
 import 'package:auto/features/ads/domain/usecases/get_announcement_list_usecase.dart';
 import 'package:auto/features/ads/domain/usecases/get_min_max_price_use_case.dart';
 import 'package:auto/features/ads/domain/usecases/save_filter_history_usecase.dart';
