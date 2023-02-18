@@ -114,20 +114,6 @@ class _CarSingleScreenState extends State<CarSingleScreen>
     super.initState();
   }
 
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    switch (state) {
-      case AppLifecycleState.resumed:
-        context.read<CarSingleBloc>().add(CarSingleEvent.callCount(widget.id));
-        break;
-      case AppLifecycleState.inactive:
-        break;
-      case AppLifecycleState.paused:
-        break;
-      case AppLifecycleState.detached:
-        break;
-    }
-  }
-
   @override
   void dispose() {
     _scrollController.dispose();
@@ -298,6 +284,9 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                   ? state.singleEntity.user.name
                                   : state.singleEntity.user.fullName,
                               userType: state.singleEntity.userType,
+                              userId: state.singleEntity.user.id,
+                              announcementId: state.singleEntity.id,
+                              slug: state.singleEntity.user.slug,
                               isCrashed: false,
                             ),
                           ),
@@ -326,9 +315,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                         SellerComment(
                                           comment:
                                               state.singleEntity.description,
-                                        )
-                                      else
-                                        const SizedBox(),
+                                        ),
                                       const VinSoonItem(),
                                     ],
                                   )
@@ -409,7 +396,9 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                           callFrom: state.singleEntity.contactAvailableFrom,
                           callTo: state.singleEntity.contactAvailableTo,
                           phoneNumber: state.singleEntity.user.phoneNumber,
-                          userAvatar: state.singleEntity.user.avatar,
+                          userAvatar: state.singleEntity.userType == 'dealer'
+                              ? state.singleEntity.user.avatar ?? ''
+                              : state.singleEntity.user.image ?? '',
                           id: state.singleEntity.id,
                           userId: state.singleEntity.user.id,
                           usertype: state.singleEntity.userType,

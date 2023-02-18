@@ -127,8 +127,8 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                       list: context.read<RegionsBloc>().state.regions,
                     ),
                   ).then((value) {
-                    if (value != state.regions) {
-                      bloc.add(SetRegions(regions: value ?? [], isNew: isNew));
+                    if (value != null && value != state.regions) {
+                      bloc.add(SetRegions(regions: value, isNew: isNew));
                     }
                   });
                 },
