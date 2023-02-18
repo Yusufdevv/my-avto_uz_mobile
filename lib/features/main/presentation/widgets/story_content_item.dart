@@ -28,6 +28,7 @@ class StoryContentItem extends StatefulWidget {
     required this.storiesCount,
     required this.read,
     required this.didRead,
+    required this.didForward,
     Key? key,
   }) : super(key: key);
 
@@ -38,6 +39,7 @@ class StoryContentItem extends StatefulWidget {
   final Function({required bool forward}) animate;
   final Function(int id) read;
   final bool didRead;
+  final bool didForward;
 
   @override
   State<StoryContentItem> createState() => _StoryContentItemState();
@@ -70,6 +72,7 @@ class _StoryContentItemState extends State<StoryContentItem>
 
   @override
   void initState() {
+    itemIndex = widget.didForward ? 0 : widget.story.items.length - 1;
     WidgetsBinding.instance.addObserver(this);
     animationController = AnimationController(vsync: this);
     animationController.addStatusListener(_animationListener);
@@ -276,21 +279,25 @@ class _StoryContentItemState extends State<StoryContentItem>
     final dx = details.globalPosition.dx;
     final dy = details.globalPosition.dy;
     if (dx < screenWidth / 3 && dy < screenHeight - (canNavigate ? 54 : 0)) {
+      print('go to: prev');
       setState(prevStory);
     } else if (dx > 2 * screenWidth / 3 &&
         dy < screenHeight - (canNavigate ? 54 : 0)) {
+      print('go to: next');
       setState(nextStory);
     }
   }
 
   void prevStory() {
+    print('story: itemIndex $itemIndex');
+    print('story: pageIndex ${widget.pageIndex}');
     if (itemIndex == 0) {
       if (widget.pageIndex == 0) {
         Navigator.pop(context);
       } else {
-        itemIndex = widget.story.items.length - 1;
+        // itemIndex = widget.story.items.length - 1;
         widget.animate(forward: false);
-        _loadStory();
+        // _loadStory();
       }
     } else {
       itemIndex--;
@@ -314,15 +321,18 @@ class _StoryContentItemState extends State<StoryContentItem>
   }
 
   void _loadStory() {
+    print('story: load');
     if (!(widget.pageIndex == widget.pageIndex && !widget.isPaused)) {
       return;
     }
     final last = widget.story.items[itemIndex].content.split('.').last;
     isVideo = last == 'mp4' || last == 'mov';
     if (isVideo) {
+      print('story: video');
       _initVideoController();
       _pauseAndPlayVideo();
     } else {
+      print('story: not video');
       disposeVideo();
       animationController
         ..stop()
