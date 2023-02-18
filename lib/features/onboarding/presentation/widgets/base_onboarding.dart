@@ -90,15 +90,15 @@ class BaseOnBoarding extends StatelessWidget {
                           .extension<ThemedColors>()!
                           .blackToWhite80,
                     )),
-                const SizedBox(width: 24),
-                SocialMediaItem(
-                    onTap: () {},
-                    icon: SvgPicture.asset(
-                      AppIcons.imkon,
-                      color: Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .prussianBlueToWhite80,
-                    )),
+                // const SizedBox(width: 24),
+                // SocialMediaItem(
+                //     onTap: () {},
+                //     icon: SvgPicture.asset(
+                //       AppIcons.imkon,
+                //       color: Theme.of(context)
+                //           .extension<ThemedColors>()!
+                //           .prussianBlueToWhite80,
+                //     )),
               ],
             ),
             const SizedBox(height: 24)

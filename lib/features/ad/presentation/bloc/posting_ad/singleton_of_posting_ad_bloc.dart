@@ -150,6 +150,7 @@ class PASingleton {
     }
 
     return PostingAdState(
+      contactsFormKey: GlobalKey<FormState>(),
       getAnnouncementToEditStatus: FormzStatus.submissionSuccess,
       licenceType: v.licenceType,
       gallery: gallery,
@@ -388,7 +389,9 @@ class PASingleton {
         return state.damagedParts.isEmpty;
       // ContactsScreen
       case 15:
-        return !state.isContactsVerified;
+        return !((state.isContactsVerified &&
+                (state.contactsFormKey.currentState?.validate() ?? false)) ||
+            state.nameController.text.isNotEmpty);
 // InspectionPlaceScreen
       case 16:
         return !(state.regionId != null || state.mapPointBytes != null);

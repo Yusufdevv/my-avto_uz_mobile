@@ -49,7 +49,6 @@ class _ContactScreenState extends State<ContactScreen> {
     mask: '## ### ## ##',
     filter: {'#': RegExp('[0-9]')},
   );
-  final _formKey = GlobalKey<FormState>();
 
   void _onAvailableHoursPressed(PostingAdState postingAdState) {
     hidePopUp();
@@ -81,7 +80,7 @@ class _ContactScreenState extends State<ContactScreen> {
         child: BlocBuilder<PostingAdBloc, PostingAdState>(
             builder: (context, postingAdState) => Scaffold(
                   body: Form(
-                    key: _formKey,
+                    key: postingAdState.contactsFormKey,
                     child: BaseWidget(
                       headerText: LocaleKeys.contact_data.tr(),
                       child: SingleChildScrollView(
@@ -120,6 +119,12 @@ class _ContactScreenState extends State<ContactScreen> {
                             },
                             const SizedBox(height: 16),
                             WTextField(
+                              validate: (v) {
+                                if (v!.isEmpty) {
+                                  return 'Name can not to be empty';
+                                }
+                                return null;
+                              },
                               onTap: hidePopUp,
                               controller: postingAdState.nameController,
                               onChanged: (value) {
@@ -130,7 +135,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                     .read<PostingAdBloc>()
                                     .add(PostingAdChooseEvent(
                                       ownerName: value,
-                                      isContactsVerified: v,
+                                      // isContactsVerified: v,
                                       showOwnerContacts: v,
                                     ));
                               },
@@ -265,7 +270,8 @@ class _ContactScreenState extends State<ContactScreen> {
                                       12,
                                   onTap: () {
                                     hidePopUp();
-                                    if (_formKey.currentState!.validate()) {
+                                    if (postingAdState
+                                        .phoneController.text.length == 12) {
                                       context.read<PostingAdBloc>().add(
                                           PostingAdSendCodeEvent(
                                               phone: postingAdState

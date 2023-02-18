@@ -76,6 +76,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
   PostingAdBloc()
       : super(PostingAdState(
+        contactsFormKey: GlobalKey<FormState>(),
             getAnnouncementToEditStatus: FormzStatus.pure,
             popStatus: PopStatus.success,
             colorName: LocaleKeys.white.tr(),
@@ -139,6 +140,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       PostingAdClearStateEvent event, Emitter<PostingAdState> emit) {
     emit(
       PostingAdState(
+        contactsFormKey: GlobalKey<FormState>(),
         getAnnouncementToEditStatus: FormzStatus.pure,
         popStatus: PopStatus.success,
         status: FormzStatus.submissionSuccess,

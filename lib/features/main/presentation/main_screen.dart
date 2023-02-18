@@ -115,8 +115,14 @@ class _MainScreenState extends State<MainScreen> {
         );
       },
       () {
-        Navigator.of(context, rootNavigator: true)
-            .push(fade(page: const CommercialScreen()));
+        showModalBottomSheet(
+          backgroundColor: Colors.transparent,
+          useRootNavigator: true,
+          context: context,
+          builder: (context) => const SoonBottomsheet(),
+        );
+        // Navigator.of(context, rootNavigator: true)
+        //     .push(fade(page: const CommercialScreen()));
       },
       () {
         Navigator.of(context, rootNavigator: true)
@@ -254,12 +260,12 @@ class _MainScreenState extends State<MainScreen> {
                       height: 64,
                       child: ListView.builder(
                           physics: const BouncingScrollPhysics(),
-                          padding: const EdgeInsets.only(right: 12, bottom: 16),
+                          padding: const EdgeInsets.only(right: 16, bottom: 16),
                           itemBuilder: (context, index) => ServiceItem(
                                 serviceEntity: serviceEntity[index],
                                 onTap: serviceTaps[index],
                               ),
-                          itemCount: serviceEntity.length,
+                          itemCount: serviceEntity.length - 1,
                           scrollDirection: Axis.horizontal),
                     ),
                     TopBrands(

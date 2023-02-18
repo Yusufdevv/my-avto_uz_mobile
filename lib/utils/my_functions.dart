@@ -18,18 +18,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:http/http.dart' as http;
 import 'package:jiffy/jiffy.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
-import 'package:http/http.dart' as http;
-import 'package:path_provider/path_provider.dart';
-import 'dart:io';
-import 'dart:math';
 
 // ignore: avoid_classes_with_only_static_members
 class MyFunctions {
   static String getData(String data) =>
       Jiffy(data).format('dd-MM-yyyy').replaceAll('-', '/').toString();
+
+  static String getAppendix(int count) {
+    var res;
+    if (count == 1) {
+      res = 'е';
+    } else if (count == 2 || count == 3) {
+      res = 'я';
+    } else if (count > 3) {
+      res = 'й';
+    }
+    return res;
+  }
 
   static String phoneFormat(String phone) {
     var formattedPhone = '';

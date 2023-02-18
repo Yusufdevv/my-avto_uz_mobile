@@ -89,7 +89,7 @@ class AuthenticationBloc
             'https://www.googleapis.com/auth/userinfo.email',
           ],
         ).signIn();
-        print('result: ${await googleResult?.authHeaders}');
+        log('result: ${await googleResult?.authHeaders}');
         await googleResult?.authentication.then((value) async {
           log('value.accessToken: ${value.accessToken}');
           log('value.idToken: ${googleResult.serverAuthCode}');
@@ -104,8 +104,9 @@ class AuthenticationBloc
             emit(AuthenticationState.cancelLoading());
           }
         });
+      // ignore: avoid_catches_without_on_clauses
       } catch (error) {
-        print('error: $error');
+        log('error: $error');
       }
     });
     on<AuthenticationStatusChanged>((event, emit) async {

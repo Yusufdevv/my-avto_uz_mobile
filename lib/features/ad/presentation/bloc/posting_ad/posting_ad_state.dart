@@ -9,6 +9,8 @@ class PostingAdState extends Equatable {
 
   final FormzStatus getAnnouncementToEditStatus;
   final String? id;
+  
+  final GlobalKey<FormState> contactsFormKey;
   final TextEditingController phoneController;
   final TextEditingController emailController;
   final TextEditingController nameController;
@@ -76,6 +78,8 @@ class PostingAdState extends Equatable {
   final bool? isWithoutMileage;
 
   const PostingAdState({
+    
+   required  this.contactsFormKey,
     required this.status,
     required this.getAnnouncementToEditStatus,
     required this.searchController,
@@ -228,10 +232,12 @@ class PostingAdState extends Equatable {
     bool? rentToBuy,
     bool? isWithoutMileage,
     bool? showExactAddress,
+    GlobalKey<FormState>? contactsFormKey,
   }) {
     // print('====   ACTUALLY IN STATE:  ${this.districts}  ====');
     // print('==== INCOMING DISTRICT TO COPYWITH:  ${districts}  ====');
     final newState = PostingAdState(
+      contactsFormKey: contactsFormKey??this.contactsFormKey,
       getAnnouncementToEditStatus:
           getAnnouncementToEditStatus ?? this.getAnnouncementToEditStatus,
       popStatus: popStatus ?? this.popStatus,
@@ -313,6 +319,7 @@ class PostingAdState extends Equatable {
 
   @override
   List<Object?> get props => [
+    contactsFormKey,
         getAnnouncementToEditStatus,
         popStatus,
         milageImage,
