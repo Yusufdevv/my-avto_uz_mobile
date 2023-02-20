@@ -22,12 +22,14 @@ class DealerSingleInfoPart extends StatefulWidget {
   final int daelerId;
   final String contact;
   final String additionalInfo;
+  final String address;
   final double longitude;
   final double latitude;
   final DealerSingleBloc dealerSingleBloc;
 
   const DealerSingleInfoPart({
     required this.dealerName,
+    required this.address,
     required this.quantityOfCars,
     required this.daelerId,
     required this.contact,
@@ -91,9 +93,20 @@ class _DealerSingleInfoPartState extends State<DealerSingleInfoPart> {
                 const SizedBox(height: 16),
                 if (widget.contactFrom != '')
                   DeaelerInfoWidget(
+                      
                       text:
                           '${LocaleKeys.every_day.tr()}, ${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}',
-                      icon: AppIcons.clock),
+                      icon: AppIcons.clock,
+                      isTextBlue: true,
+                      ),
+                      if (widget.address != '')
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: DeaelerInfoWidget(
+                  icon: AppIcons.location1, text: widget.address,
+                      isTextBlue: true,
+                  ),
+            ),
                 if (widget.latitude > 1 && widget.longitude > 1)
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
