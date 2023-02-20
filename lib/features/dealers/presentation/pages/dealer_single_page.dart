@@ -106,6 +106,7 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 16),
                           child: DealerSingleInfoPart(
+                            address: 'Toshkent',
                             daelerId: dealer.id,
                             dealerSingleBloc: dealerSingleBloc,
                             dealerName: dealer.name,
@@ -304,7 +305,8 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                                           ),
                                         ),
                                       Padding(
-                                        padding: const EdgeInsets.only(bottom: 20),
+                                        padding:
+                                            const EdgeInsets.only(bottom: 20),
                                         child: SizedBox(
                                           height: 293,
                                           child: Paginator(
@@ -315,14 +317,16 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                                                   .getMoreResults(
                                                       slug: widget.slug));
                                             },
-                                            paginatorStatus: allCarsState.status,
+                                            paginatorStatus:
+                                                allCarsState.status,
                                             errorWidget: const SizedBox(),
                                             padding:
                                                 const EdgeInsets.only(left: 16),
                                             physics:
                                                 const BouncingScrollPhysics(),
-                                            separatorBuilder: (context, index) =>
-                                                const SizedBox(width: 16),
+                                            separatorBuilder:
+                                                (context, index) =>
+                                                    const SizedBox(width: 16),
                                             scrollDirection: Axis.horizontal,
                                             itemBuilder: (context, index) =>
                                                 BlocConsumer<WishlistAddBloc,
@@ -336,7 +340,8 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                                                       allCarsState
                                                           .cars[index].id) {
                                                     context
-                                                        .read<CarsInDealerBloc>()
+                                                        .read<
+                                                            CarsInDealerBloc>()
                                                         .add(CarsInDealerEvent
                                                             .changeIsWish(
                                                                 index: stateWish
@@ -356,11 +361,11 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                                                 id: allCarsState.cars[index].id,
                                                 image: allCarsState.cars[index]
                                                         .gallery.isNotEmpty
-                                                    ? allCarsState
-                                                        .cars[index].gallery.first
+                                                    ? allCarsState.cars[index]
+                                                        .gallery.first
                                                     : '',
-                                                name: allCarsState
-                                                    .cars[index].absoluteCarName,
+                                                name: allCarsState.cars[index]
+                                                    .absoluteCarName,
                                                 currency: allCarsState
                                                     .cars[index].currency,
                                                 description: allCarsState
@@ -378,13 +383,15 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                                                           ? WishlistAddEvent
                                                               .removeWishlist(
                                                                   allCarsState
-                                                                      .cars[index]
+                                                                      .cars[
+                                                                          index]
                                                                       .id,
                                                                   index)
                                                           : WishlistAddEvent
                                                               .addWishlist(
                                                                   allCarsState
-                                                                      .cars[index]
+                                                                      .cars[
+                                                                          index]
                                                                       .id,
                                                                   index));
                                                 },

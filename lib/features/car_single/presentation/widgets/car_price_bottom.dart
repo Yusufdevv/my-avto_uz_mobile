@@ -118,7 +118,7 @@ class CarPriceBottom extends StatelessWidget {
             ),
             PriceStatisticItem(
               percent: percenti,
-              price: price,
+              price: MyFunctions.getFormatCost(price),
             ),
             const SizedBox(height: 16),
             const Divider(indent: 16, endIndent: 16, height: 1),
@@ -127,7 +127,7 @@ class CarPriceBottom extends StatelessWidget {
               date: LocaleKeys.ratio.tr(),
               price: LocaleKeys.cheaper_sc.tr(),
               totalPrice: LocaleKeys.on
-                  .tr(args: ['${ration.ceil()} $currency ($percent%)']),
+                  .tr(args: ['${MyFunctions.getFormatCost(ration.ceil().toString())} $currency ($percent%)']),
               // 'на $ration ($percent %)',
               textColor: const Color(0xff5ECC81),
             ),
@@ -137,7 +137,8 @@ class CarPriceBottom extends StatelessWidget {
             CarsPrice(
               date: '${LocaleKeys.market_condition_on.tr()} $date',
               price: LocaleKeys.average_price.tr(),
-              totalPrice: '≈ ${middlePrice.ceil()} $currency',
+              totalPrice:
+                  '≈ ${MyFunctions.getFormatCost(middlePrice.ceil().toString())} $currency',
               textColor: profileContainers,
             ),
             WScaleAnimation(

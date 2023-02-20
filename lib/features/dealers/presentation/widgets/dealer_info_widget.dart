@@ -7,11 +7,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 class DeaelerInfoWidget extends StatelessWidget {
   final String icon;
   final String text;
+  final bool? isTextBlue;
   final VoidCallback? onTap;
   const DeaelerInfoWidget({
     required this.icon,
     required this.text,
     this.onTap,
+    this.isTextBlue,
     Key? key,
   }) : super(key: key);
 
@@ -25,8 +27,7 @@ class DeaelerInfoWidget extends StatelessWidget {
               onTap: onTap,
               child: Text(
                 text,
-                maxLines: 4,
-                style: icon == AppIcons.tablerPhone
+                style: isTextBlue==true
                     ? const TextStyle(
                         fontSize: 14, fontWeight: FontWeight.w600, color: blue)
                     : TextStyle(
