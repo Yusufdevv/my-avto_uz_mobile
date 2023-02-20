@@ -79,9 +79,9 @@ class PostingAdAppBar extends StatelessWidget implements PreferredSizeWidget {
                                   ),
                                   const SizedBox(width: 8),
                                   Text(
-                                    title.length > 21
-                                        ? '${title.substring(0, 20)}..'
-                                        : title,
+                                    title,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
                                     style: titleStyle ??
                                         Theme.of(context)
                                             .textTheme
