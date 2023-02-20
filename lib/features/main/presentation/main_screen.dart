@@ -79,7 +79,6 @@ class _MainScreenState extends State<MainScreen> {
       ..add(GetAnnouncement());
     context.read<ProfileBloc>().add(GetProfileEvent());
     context.read<ProfileBloc>().add(GetNoReadNotificationsEvent(filter: 0));
-    // context.read<GetMakesBloc>().add(GetMakesBlocEvent.getMakes());
     topAdBloc = TopAdBloc(GetTopAdsUseCase())
       ..add(TopAdEvent.getTopAds())
       ..add(TopAdEvent.getFavorites());
