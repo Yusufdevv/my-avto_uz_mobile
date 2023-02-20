@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/notification_button.dart';
 import 'package:auto/features/comparison/presentation/comparison_page.dart';

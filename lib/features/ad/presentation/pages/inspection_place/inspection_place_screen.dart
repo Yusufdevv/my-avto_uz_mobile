@@ -28,9 +28,7 @@ class InspectionPlaceScreen extends StatefulWidget {
 }
 
 class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
-  void hidePopUp() {
-    context.read<ShowPopUpBloc>().add(HidePopUp());
-  }
+
 
   late GlobalKey globalKey;
   @override
@@ -54,7 +52,6 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                     isActive: state.regionId != null,
                     isLoading: state.status == FormzStatus.submissionInProgress,
                     onTap: () async {
-                      hidePopUp();
                       await showModalBottomSheet<List<Region>>(
                         isDismissible: false,
                         context: context,
@@ -88,11 +85,9 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                     isLoading: state.getDistrictsStatus ==
                         FormzStatus.submissionInProgress,
                     onTap: () async {
-                      hidePopUp();
                       if (state.districts.isEmpty) {
                         context.read<ShowPopUpBloc>().add(
                               ShowPopUp(
-                                dismissible: false,
                                 message:
                                     LocaleKeys.the_before_choose_region.tr(),
                                 status: PopStatus.warning,
@@ -146,13 +141,11 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
 
                   SwitcherRowAsButtonAlso(
                     onTap: () {
-                      hidePopUp();
                       widget.onToMapPressed();
                     },
                     title: LocaleKeys.show_exactly_geoposition.tr(),
                     value: state.showExactAddress,
                     onChanged: (v) {
-                      hidePopUp();
                       if (!v) {
                         context
                             .read<PostingAdBloc>()
