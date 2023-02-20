@@ -15,6 +15,7 @@ import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dar
 import 'package:auto/features/profile/presentation/pages/my_profile/profile_edit_page.dart';
 import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:auto/generated/locale_keys.g.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -111,7 +112,18 @@ class SeeProfilePage extends StatelessWidget {
                                 .copyWith(fontSize: 18)),
                       ),
                       Text(
-                          '${state.profileEntity.usercountdata.announcementsCount} ${LocaleKeys.how_many_ads.tr()}',
+                          state.profileEntity.usercountdata
+                                      .announcementsCount ==
+                                  0
+                              ? LocaleKeys.no_ads.tr()
+                              : '${state.profileEntity.usercountdata.announcementsCount} ${LocaleKeys.how_many_ads.tr(args: [
+                                      '${state.profileEntity.usercountdata.announcementsCount}'
+                                    ], namedArgs: {
+                                      'appendix': MyFunctions.getAppendix(state
+                                          .profileEntity
+                                          .usercountdata
+                                          .announcementsCount)
+                                    })}',
                           style: Theme.of(context)
                               .textTheme
                               .displayMedium!

@@ -409,7 +409,7 @@ class CodegenLoader extends AssetLoader{
   "surname": "Фамилия",
   "about_ads": "0 объявлений",
   "code_confimer": "Код подтверждения",
-  "how_many_ads": "объявлений",
+  "how_many_ads": "{} объявлени{appendix}",
   "day": "дней",
   "extends_for_7": "Продлить на 7 дней",
   "confirmation": "Подтверждение",
@@ -541,7 +541,8 @@ class CodegenLoader extends AssetLoader{
   "valyuta": "Валюта",
   "bad_request": "Системная ошибка, попробуйте еще раз",
   "internal_error_server": "Ошибка сервера, попробуйте еще раз",
-  "user_already_exist": "Пользователь с таким номером уже зарегистрирован"
+  "user_already_exist": "Пользователь с таким номером уже зарегистрирован",
+  "no_ads": "Нет объявлений"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -927,7 +928,7 @@ static const Map<String,dynamic> uz = {
   "surname": "Familiya",
   "about_ads": "0 e'lonlar",
   "code_confimer": "Tasdiqlash kodi",
-  "how_many_ads": "E'lonlar",
+  "how_many_ads": "{} ta e'lonlar",
   "day": "kun",
   "extends_for_7": "7 kunga uzaytirish",
   "confirmation": "Tasdiqlash",
@@ -1070,7 +1071,8 @@ static const Map<String,dynamic> uz = {
   "valyuta": "Valyuta",
   "bad_request": "Tizimda xatolik, qaytadan urinib ko'ring",
   "internal_error_server": "Serverda xatolik, qaytadan urinib ko'ring",
-  "user_already_exist": "Bunday raqamli foydalanuvchi allaqachon ro'yxatdan o'tgan"
+  "user_already_exist": "Bunday raqamli foydalanuvchi allaqachon ro'yxatdan o'tgan",
+  "no_ads": "E'lonlar yo'q"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }

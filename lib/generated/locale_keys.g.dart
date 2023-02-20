@@ -528,5 +528,6 @@ abstract class  LocaleKeys {
   static const bad_request = 'bad_request';
   static const internal_error_server = 'internal_error_server';
   static const user_already_exist = 'user_already_exist';
+  static const no_ads = 'no_ads';
 
 }

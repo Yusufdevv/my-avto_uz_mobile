@@ -382,7 +382,7 @@
   "surname": "Familiya",
   "about_ads": "0 e'lonlar",
   "code_confimer": "Tasdiqlash kodi",
-  "how_many_ads": "E'lonlar",
+  "how_many_ads": "{} ta e'lonlar",
   "day": "kun",
   "extends_for_7": "7 kunga uzaytirish",
   "confirmation": "Tasdiqlash",
@@ -525,5 +525,6 @@
   "valyuta": "Valyuta",
   "bad_request": "Tizimda xatolik, qaytadan urinib ko'ring",
   "internal_error_server": "Serverda xatolik, qaytadan urinib ko'ring",
-  "user_already_exist": "Bunday raqamli foydalanuvchi allaqachon ro'yxatdan o'tgan"
+  "user_already_exist": "Bunday raqamli foydalanuvchi allaqachon ro'yxatdan o'tgan",
+  "no_ads": "E'lonlar yo'q"
 }

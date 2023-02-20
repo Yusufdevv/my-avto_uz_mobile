@@ -225,16 +225,16 @@ class _ChooseCarModelComparison extends State<ChooseCarModelPage> {
                                     ? LocaleKeys.show_offers.tr(args: [
                                         MyFunctions.getThousandsSeparatedPrice(
                                             '${state.announcementCount}')
-                                      ],
-                                       namedArgs: {
-                          'apendix' : MyFunctions.getAppendix(state.announcementCount)
-                        })
+                                      ], namedArgs: {
+                                        'apendix': MyFunctions.getAppendix(
+                                            state.announcementCount)
+                                      })
                                     : LocaleKeys.no_offers.tr(),
                             isLoading: state
                                 .getAnnouncementStatus.isSubmissionInProgress,
                             isDisabled: state.announcementCount == 0 ||
                                 state.selectedModel.id == -1,
-                            disabledColor: darkGray,
+                            disabledColor: disabledButton,
                             shadow: state.announcementCount != 0 &&
                                     state.selectedModel.id != -1
                                 ? [

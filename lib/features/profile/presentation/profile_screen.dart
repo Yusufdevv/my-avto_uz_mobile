@@ -3,6 +3,7 @@ import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/notification_button.dart';
 import 'package:auto/features/comparison/presentation/comparison_page.dart';
 import 'package:auto/features/profile/domain/entities/profile_data_entity.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -103,8 +104,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   page: SeeProfilePage(imageBloc: imageBloc)));
                             },
                             fullName: profileData.fullName ?? '',
-                            subTitle:
-                                '${usercountData.announcementsCount} ${LocaleKeys.how_many_ads.tr()}',
+                            subTitle: usercountData.announcementsCount == 0
+                                ? LocaleKeys.no_ads.tr()
+                                : LocaleKeys.how_many_ads.tr(args: [
+                                    '${usercountData.announcementsCount}'
+                                  ], namedArgs: {
+                                    'appendix': MyFunctions.getAppendix(
+                                        usercountData.announcementsCount)
+                                  }),
                             imageUrl: profileData.image ?? '',
                             margin: EdgeInsets.only(
                                 top: SizeConfig.v(16),

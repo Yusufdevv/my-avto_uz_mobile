@@ -263,7 +263,7 @@ class _ChooseCarBrandPageState extends State<ChooseCarBrandPage> {
                         }
                       },
                       isDisabled: state.selectId == -1,
-                      disabledColor: darkGray,
+                      disabledColor: disabledButton,
                       text: LocaleKeys.further.tr(),
                       shadow: state.selectId != -1
                           ? [
