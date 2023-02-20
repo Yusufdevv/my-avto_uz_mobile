@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/common/widgets/maps_list_in_app.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/dealers/presentation/widgets/dealer_info_widget.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -8,6 +9,7 @@ import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:map_launcher/map_launcher.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
@@ -39,8 +41,19 @@ class DirectoryInfoPart extends StatefulWidget {
 
 class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
   late YandexMapController controller;
-  double maxZoomLevel = 0;
-  double minZoomLevel = 0;
+
+  Future<void> openMapsSheet(
+      BuildContext context, double lat, double long, String title) async {
+    final coords = Coords(lat, long);
+    final availableMaps = await MapLauncher.installedMaps;
+
+    await showModalBottomSheet(
+      context: context,
+      builder: (context) => MapsListInApp(
+          availableMaps: availableMaps, coords: coords, title: title),
+    );
+  }
+
   bool isSelected = false;
 
   @override
@@ -65,11 +78,11 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
                 color: orange, fontSize: 16, fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 20),
-          if(widget.contactFrom!='')
-          DeaelerInfoWidget(
-              text:
-                  '${LocaleKeys.every_day.tr()}, ${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}',
-              icon: AppIcons.clock),
+          if (widget.contactFrom != '')
+            DeaelerInfoWidget(
+                text:
+                    '${LocaleKeys.every_day.tr()}, ${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}',
+                icon: AppIcons.clock),
           const SizedBox(height: 16),
           if (widget.address != '')
             Padding(
@@ -108,6 +121,10 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
                       },
                       mapObjects: [
                         PlacemarkMapObject(
+                          onTap: (mapObject, point) {
+                            openMapsSheet(context, widget.latitude,
+                                widget.longitude, widget.name);
+                          },
                           icon: PlacemarkIcon.single(
                             PlacemarkIconStyle(
                               scale: 0.6,
@@ -127,9 +144,9 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
               ],
             ),
           const SizedBox(height: 16),
-          if (widget.description!='')
-          DeaelerInfoWidget(
-              icon: AppIcons.tablerInfo, text: widget.description),
+          if (widget.description != '')
+            DeaelerInfoWidget(
+                icon: AppIcons.tablerInfo, text: widget.description),
           const SizedBox(height: 16),
           if (!isSelected)
             WScaleAnimation(
