@@ -2,6 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/car_single/presentation/bloc/user_single_bloc/user_single_bloc.dart';
+import 'package:auto/features/common/widgets/maps_list_in_app.dart';
 import 'package:auto/features/dealers/presentation/widgets/dealer_info_widget.dart';
 import 'package:auto/features/profile/presentation/pages/directory/directory_sliver_delegete.dart';
 import 'package:auto/features/search/presentation/widgets/info_result_container.dart';
@@ -11,7 +12,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
+import 'package:map_launcher/map_launcher.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
@@ -44,16 +47,19 @@ class _UserSinglePageState extends State<UserSinglePage> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    userSingleBloc.close();
-    super.dispose();
-  }
-
   late YandexMapController controller;
-  double maxZoomLevel = 0;
-  double minZoomLevel = 0;
-  bool isSelected = false;
+
+  Future<void> openMapsSheet(
+      BuildContext context, double lat, double long, String title) async {
+    final coords = Coords(lat, long);
+    final availableMaps = await MapLauncher.installedMaps;
+
+    await showModalBottomSheet(
+      context: context,
+      builder: (context) => MapsListInApp(
+          availableMaps: availableMaps, coords: coords, title: title),
+    );
+  }
 
   @override
   Widget build(BuildContext context) => BlocProvider.value(
@@ -165,6 +171,17 @@ class _UserSinglePageState extends State<UserSinglePage> {
                                               },
                                               mapObjects: [
                                                 PlacemarkMapObject(
+                                                  onTap: (mapObject, point) {
+                                                    openMapsSheet(
+                                                        context,
+                                                        item.announcement
+                                                                ?.latitude ??
+                                                            0,
+                                                        item.announcement
+                                                                ?.longitude ??
+                                                            0,
+                                                        '');
+                                                  },
                                                   icon: PlacemarkIcon.single(
                                                     PlacemarkIconStyle(
                                                       scale: 0.6,
