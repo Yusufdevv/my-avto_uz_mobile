@@ -1,9 +1,10 @@
-import 'package:auto/assets/constants/images.dart';
+import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/damage/widgets/damage_pluc_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 typedef OnDamageButtonPressed = Function(DamagedParts part);
 
@@ -23,7 +24,10 @@ class DamageCarsItem extends StatelessWidget {
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
-                    Image.asset(AppImages.carFromLeft),
+                    SvgPicture.asset(
+                      AppIcons.carFromLeft,
+                      fit: BoxFit.cover,
+                    ),
                     Positioned(
                       left: 54,
                       top: 27,
@@ -72,7 +76,10 @@ class DamageCarsItem extends StatelessWidget {
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
-                    Image.asset(AppImages.carFromOpposite),
+                    SvgPicture.asset(
+                      AppIcons.carFromFront,
+                      fit: BoxFit.cover,
+                    ),
                     Positioned(
                       top: 3,
                       child: DamageButton(
@@ -106,7 +113,10 @@ class DamageCarsItem extends StatelessWidget {
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
-                    Image.asset(AppImages.carFromBack),
+                    SvgPicture.asset(
+                      AppIcons.carFromBack,
+                      fit: BoxFit.cover,
+                    ),
                     Positioned(
                       top: 24,
                       child: DamageButton(
@@ -131,7 +141,10 @@ class DamageCarsItem extends StatelessWidget {
               Center(
                 child: Stack(
                   children: [
-                    Image.asset(AppImages.carFromRight),
+                    SvgPicture.asset(
+                      AppIcons.carFromRight,
+                      fit: BoxFit.cover,
+                    ),
                     Positioned(
                       left: 39,
                       top: 27,
