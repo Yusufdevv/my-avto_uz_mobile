@@ -1,14 +1,17 @@
+import 'package:auto/features/ad/domain/entities/district_entity.dart';
 import 'package:auto/features/common/domain/entity/car_dealer_entity.dart';
+import 'package:auto/features/common/domain/entity/car_generation_entity.dart';
 import 'package:auto/features/comparison/domain/entities/user_entity.dart';
+import 'package:auto/features/rent/domain/entities/region_entity.dart';
 
 class AnnouncementListEntity {
   const AnnouncementListEntity({
     this.id = 0,
     this.make = '',
     this.model = '',
-    this.generation = '',
+    this.generation = const CarGenerationEntity(),
     this.gallery = const [],
-    this.region = '',
+    this.region = const RegionEntity(),
     this.description = '',
     this.year = 0,
     this.viewsCount = 0,
@@ -28,14 +31,17 @@ class AnnouncementListEntity {
     this.createdAt = '',
     this.isWishlisted = false,
     this.isRentWithPurchase = false,
+    this.district = const DistrictEntity(),
   });
 
   final int id;
   final String make;
   final String model;
-  final String generation;
+  @CarGenerationConverter()
+  final CarGenerationEntity generation;
   final List<String> gallery;
-  final String region;
+  @RegionConverter()
+  final RegionEntity region;
   final String description;
   final int year;
   final int viewsCount;
@@ -57,4 +63,5 @@ class AnnouncementListEntity {
   final String publishedAt;
   final String createdAt;
   final bool isWishlisted;
+  final DistrictEntity district;
 }

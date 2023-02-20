@@ -1,6 +1,8 @@
 import 'package:auto/features/common/domain/entity/car_dealer_entity.dart';
+import 'package:auto/features/common/domain/entity/car_generation_entity.dart';
 import 'package:auto/features/comparison/domain/entities/announcement_list_entity.dart';
 import 'package:auto/features/comparison/domain/entities/user_entity.dart';
+import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'announcement_list_model.g.dart';
