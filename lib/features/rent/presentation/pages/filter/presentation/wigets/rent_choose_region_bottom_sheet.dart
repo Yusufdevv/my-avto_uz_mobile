@@ -133,7 +133,7 @@ class _RentChooseRegionBottomSheetState
                     .pop(checkStatus.entries.map((e) => e.value).toList());
               },
               color: orange,
-              text: LocaleKeys.show.tr(),
+              text: LocaleKeys.apply.tr(),
             ),
           ),
         ],

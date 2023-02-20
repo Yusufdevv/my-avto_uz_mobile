@@ -88,30 +88,44 @@ class _DirectoryPageState extends State<DirectoryPage> {
                             const SizedBox(width: 7),
                             Expanded(
                               child: WTextField(
-                                controller: controller,
-                                borderColor: Theme.of(context)
+                                height: 40,
+                                contentPadding: const EdgeInsets.only(
+                                    left: 12, right: 12, top: 12),
+                                borderColor: purple,
+                                disabledBorderColor: Theme.of(context)
                                     .extension<ThemedColors>()!
-                                    .whiteSmokeToNightRider,
+                                    .whiteSmokeToEclipse,
                                 fillColor: Theme.of(context)
                                     .extension<ThemedColors>()!
-                                    .whiteSmokeToNightRider,
+                                    .whiteSmokeToEclipse,
                                 hintText: LocaleKeys.autosalon_autoservice.tr(),
                                 hintTextStyle: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,
                                     color: grey),
+                                textStyle: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  color: black,
+                                ),
+                                enabledBorderColor: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .whiteSmokeToEclipse,
                                 focusColor: Theme.of(context)
                                     .extension<ThemedColors>()!
-                                    .whiteSmokeToNightRider,
+                                    .whiteSmokeToEclipse,
                                 onChanged: (value) {
                                   bloc.add(GetDirectoriesEvent(search: value));
                                 },
+                                controller: controller,
                                 hasSearch: true,
                                 borderRadius: 8,
                               ),
                             ),
                             const SizedBox(width: 12),
                             WButton(
+                                height: 40,
+                                width: 40,
                                 onTap: () {
                                   FocusScope.of(context).unfocus();
                                   controller.text = '';
@@ -126,7 +140,7 @@ class _DirectoryPageState extends State<DirectoryPage> {
                                 color: Theme.of(context)
                                     .extension<ThemedColors>()!
                                     .whiteSmokeToNightRider,
-                                padding: const EdgeInsets.all(12),
+                                padding: const EdgeInsets.all(8),
                                 child: SvgPicture.asset(AppIcons.filter,
                                     color: purple))
                           ],

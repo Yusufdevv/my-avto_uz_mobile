@@ -210,7 +210,7 @@ class _WTextFieldState extends State<WTextField>
                   widget.title.isNotEmpty ? widget.sizeBetweenFieldTitle : null,
             ),
             Container(
-              // height: widget.height ?? 44,
+              height: widget.height ?? 44,
               width: widget.width,
               decoration: BoxDecoration(
                 borderRadius:

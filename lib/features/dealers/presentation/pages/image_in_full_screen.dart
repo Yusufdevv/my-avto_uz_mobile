@@ -66,27 +66,27 @@ class _ImageInFullScreenState extends State<ImageInFullScreen> {
                             ),
                             child: CachedNetworkImage(
                                 imageUrl: widget.images[index],
-                                width: double.maxFinite,
-                                fit: BoxFit.cover),
+                                width: double.maxFinite),
                           )),
                 ),
                 Positioned(
-                    right: MediaQuery.of(context).size.width * 0.45,
-                    bottom: 8,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 6, vertical: 4),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: black.withOpacity(0.2)),
-                      child: Text(
-                        '${page + 1}/${widget.images.length}',
-                        style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: white),
-                      ),
-                    ))
+                  right: MediaQuery.of(context).size.width * 0.45,
+                  bottom: 8,
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: black.withOpacity(0.2)),
+                    child: Text(
+                      '${page + 1}/${widget.images.length}',
+                      style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: white),
+                    ),
+                  ),
+                ),
               ]),
             ],
           ),
