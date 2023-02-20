@@ -49,16 +49,17 @@ class DealerSingleInfoPart extends StatefulWidget {
 class _DealerSingleInfoPartState extends State<DealerSingleInfoPart> {
   late YandexMapController controller;
 
-    Future<void> openMapsSheet(BuildContext context,double lat, double long, String title) async {
+  Future<void> openMapsSheet(
+      BuildContext context, double lat, double long, String title) async {
     final coords = Coords(lat, long);
     final availableMaps = await MapLauncher.installedMaps;
 
     await showModalBottomSheet(
       context: context,
-      builder: (context) => MapsListInApp(availableMaps: availableMaps, coords: coords, title: title),
+      builder: (context) => MapsListInApp(
+          availableMaps: availableMaps, coords: coords, title: title),
     );
   }
-
 
   @override
   Widget build(BuildContext context) => BlocProvider.value(
@@ -93,20 +94,20 @@ class _DealerSingleInfoPartState extends State<DealerSingleInfoPart> {
                 const SizedBox(height: 16),
                 if (widget.contactFrom != '')
                   DeaelerInfoWidget(
-                      
-                      text:
-                          '${LocaleKeys.every_day.tr()}, ${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}',
-                      icon: AppIcons.clock,
-                      isTextBlue: true,
-                      ),
-                      if (widget.address != '')
-            Padding(
-              padding: const EdgeInsets.only(bottom: 16),
-              child: DeaelerInfoWidget(
-                  icon: AppIcons.location1, text: widget.address,
-                      isTextBlue: true,
+                    text:
+                        '${LocaleKeys.every_day.tr()}, ${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}',
+                    icon: AppIcons.clock,
+                    isTextBlue: true,
                   ),
-            ),
+                if (widget.address != '')
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16),
+                    child: DeaelerInfoWidget(
+                      icon: AppIcons.location1,
+                      text: widget.address,
+                      isTextBlue: true,
+                    ),
+                  ),
                 if (widget.latitude > 1 && widget.longitude > 1)
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -141,7 +142,8 @@ class _DealerSingleInfoPartState extends State<DealerSingleInfoPart> {
                             mapObjects: [
                               PlacemarkMapObject(
                                 onTap: (mapObject, point) {
-                                  openMapsSheet(context, widget.latitude, widget.longitude, widget.dealerName);
+                                  openMapsSheet(context, widget.latitude,
+                                      widget.longitude, widget.dealerName);
                                 },
                                 icon: PlacemarkIcon.single(
                                   PlacemarkIconStyle(

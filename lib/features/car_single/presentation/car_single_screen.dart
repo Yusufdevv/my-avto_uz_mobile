@@ -11,7 +11,7 @@ import 'package:auto/features/car_single/presentation/pages/user_single_page.dar
 import 'package:auto/features/car_single/presentation/parts/car_seller_card.dart';
 import 'package:auto/features/car_single/presentation/parts/descriptions/seller_comment.dart';
 import 'package:auto/features/car_single/presentation/parts/owner_actions.dart';
-import 'package:auto/features/car_single/presentation/widgets/app_bar.dart';
+import 'package:auto/features/car_single/presentation/widgets/sliver_app_bar_item.dart';
 import 'package:auto/features/car_single/presentation/widgets/bottom_item.dart';
 import 'package:auto/features/car_single/presentation/widgets/car_characteristic_image.dart';
 import 'package:auto/features/car_single/presentation/widgets/car_name_widget.dart';
@@ -251,7 +251,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                   .singleEntity.priceAnalytics.averagePrice,
                               ration: state
                                   .singleEntity.priceAnalytics.priceDifference,
-                              dateBsh: '25 mart',
+                              dateBsh: DateFormat('d MMMM', 'uz').format(DateTime.now()),
                               percent: MyFunctions.getFormatCost(
                                   '${100 - state.singleEntity.priceAnalytics.percentage}'),
                               isMine: state.singleEntity.isMine,

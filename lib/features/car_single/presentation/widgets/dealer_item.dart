@@ -60,29 +60,32 @@ class DealerItem extends StatelessWidget {
               const SizedBox(
                 width: 8,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    name,
-                    style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                        color: const Color(0xff171725),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  const SizedBox(
-                    height: 2,
-                  ),
-                  Text(
-                    position,
-                    style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                        color: const Color(0xff92929D),
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400),
-                  ),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                          color: const Color(0xff171725),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    const SizedBox(
+                      height: 2,
+                    ),
+                    Text(
+                      position,
+                      style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                          color: const Color(0xff92929D),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  ],
+                ),
               ),
-              const Spacer(),
               GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onTap: onTap,
