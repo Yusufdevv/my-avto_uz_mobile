@@ -136,14 +136,12 @@ class _MapScreenState extends State<MapScreen>
                       mapOrganizationBloc.add(
                         MapOrganizationEvent.getCurrentLocation(
                           onError: (message) {
-                            print('ON ERROR TRIGGERED IN GET CURRENT LOCATION');
                             context.read<ShowPopUpBloc>().add(ShowPopUp(
                                   message: message,
                                   status: PopStatus.error,
                                 ));
                           },
                           onSuccess: (position) async {
-                            print('GET CURRENT LOCATION ON SUCCESS TRIGGERED');
                             myPoint = Point(
                                 latitude: position.latitude,
                                 longitude: position.longitude);
@@ -165,21 +163,20 @@ class _MapScreenState extends State<MapScreen>
                                   duration: 0.15,
                                   type: MapAnimationType.smooth),
                             );
-                            mapOrganizationBloc.add(
-                                MapOrganizationEvent.getAddressOfDealler(
-                                    lat: position.latitude,
-                                    long: position.longitude,
-                                    currentDealer: null));
-                            print("CHANGE LANG LONG TRIGGERED");
-                            mapOrganizationBloc.add(
-                              MapOrganizationEvent.changeLatLong(
-                                lat: position.latitude,
-                                long: position.longitude,
-                                radius:
-                                    MyFunctions.getRadiusFromZoom(camera.zoom)
-                                        .floor(),
-                              ),
-                            );
+                            mapOrganizationBloc
+                              ..add(MapOrganizationEvent.getAddressOfDealler(
+                                  lat: position.latitude,
+                                  long: position.longitude,
+                                  currentDealer: null))
+                              ..add(
+                                MapOrganizationEvent.changeLatLong(
+                                  lat: position.latitude,
+                                  long: position.longitude,
+                                  radius:
+                                      MyFunctions.getRadiusFromZoom(camera.zoom)
+                                          .floor(),
+                                ),
+                              );
                             widget.isFromDirectoryPage
                                 ? mapOrganizationBloc.add(
                                     MapOrganizationEvent.getDirectoriesPoints(

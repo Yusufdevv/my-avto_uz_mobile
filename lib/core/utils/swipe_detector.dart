@@ -13,12 +13,12 @@ class SwipeDetector extends StatelessWidget {
   final VoidCallback? onSwipeRight;
 
   const SwipeDetector({
-    Key? key,
     required this.child,
     this.onSwipeUp,
     this.onSwipeDown,
     this.onSwipeLeft,
     this.onSwipeRight,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -27,27 +27,27 @@ class SwipeDetector extends StatelessWidget {
     DragUpdateDetails? panUpdateDetails;
 
     return GestureDetector(
-      onTapDown: (_) => panUpdateDetails =
-          null, // This prevents two fingers quick taps from being detected as a swipe
-      behavior: HitTestBehavior
-          .opaque, // This allows swipe above other clickable widgets
+      onTapDown: (_) => panUpdateDetails = null,
+      // This prevents two fingers quick taps from being detected as a swipe
+      behavior: HitTestBehavior.opaque,
+      // This allows swipe above other clickable widgets
       child: child,
       onPanStart: (startDetails) => panStartDetails = startDetails,
       onPanUpdate: (updateDetails) => panUpdateDetails = updateDetails,
       onPanEnd: (endDetails) {
         if (panStartDetails == null || panUpdateDetails == null) return;
 
-        double dx = panUpdateDetails!.globalPosition.dx -
+        final dx = panUpdateDetails!.globalPosition.dx -
             panStartDetails!.globalPosition.dx;
-        double dy = panUpdateDetails!.globalPosition.dy -
+        final dy = panUpdateDetails!.globalPosition.dy -
             panStartDetails!.globalPosition.dy;
 
-        int panDurationMiliseconds =
+        final panDurationMilliseconds =
             panUpdateDetails!.sourceTimeStamp!.inMilliseconds -
                 panStartDetails!.sourceTimeStamp!.inMilliseconds;
 
         double mainDis, crossDis, mainVel;
-        bool isHorizontalMainAxis = dx.abs() > dy.abs();
+        final isHorizontalMainAxis = dx.abs() > dy.abs();
 
         if (isHorizontalMainAxis) {
           mainDis = dx.abs();
@@ -57,7 +57,7 @@ class SwipeDetector extends StatelessWidget {
           crossDis = dx.abs();
         }
 
-        mainVel = 1000 * mainDis / panDurationMiliseconds;
+        mainVel = 1000 * mainDis / panDurationMilliseconds;
 
         // if (mainDis < minMainDisplacement) return;
         // if (crossDis > maxCrossRatio * mainDis) return;
