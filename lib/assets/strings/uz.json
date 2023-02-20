@@ -526,5 +526,6 @@
   "bad_request": "Tizimda xatolik, qaytadan urinib ko'ring",
   "internal_error_server": "Serverda xatolik, qaytadan urinib ko'ring",
   "user_already_exist": "Bunday raqamli foydalanuvchi allaqachon ro'yxatdan o'tgan",
-  "no_ads": "E'lonlar yo'q"
+  "no_ads": "E'lonlar yo'q",
+  "no_instructions": "Instruksiyalar yo'q"
 }

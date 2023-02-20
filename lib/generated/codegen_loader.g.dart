@@ -542,7 +542,8 @@ class CodegenLoader extends AssetLoader{
   "bad_request": "Системная ошибка, попробуйте еще раз",
   "internal_error_server": "Ошибка сервера, попробуйте еще раз",
   "user_already_exist": "Пользователь с таким номером уже зарегистрирован",
-  "no_ads": "Нет объявлений"
+  "no_ads": "Нет объявлений",
+  "no_instructions": "Нет инструкций"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -1072,7 +1073,8 @@ static const Map<String,dynamic> uz = {
   "bad_request": "Tizimda xatolik, qaytadan urinib ko'ring",
   "internal_error_server": "Serverda xatolik, qaytadan urinib ko'ring",
   "user_already_exist": "Bunday raqamli foydalanuvchi allaqachon ro'yxatdan o'tgan",
-  "no_ads": "E'lonlar yo'q"
+  "no_ads": "E'lonlar yo'q",
+  "no_instructions": "Instruksiyalar yo'q"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }

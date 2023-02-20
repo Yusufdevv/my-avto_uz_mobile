@@ -61,7 +61,7 @@ class _PhotoInstructionsScreenState extends State<PhotoInstructionsScreen> {
                 return const Center(child: CupertinoActivityIndicator());
               }
               if (state.instructions.isEmpty) {
-                return const Center(child: Text('No Instructions available'));
+                return Center(child: Text(LocaleKeys.no_instructions.tr()));
               }
               return Column(
                 mainAxisSize: MainAxisSize.max,

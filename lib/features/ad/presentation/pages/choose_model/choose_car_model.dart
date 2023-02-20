@@ -185,7 +185,7 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                       /// JUST CONTAINER
                       SliverToBoxAdapter(
                         child: Container(
-                          height: 10,
+                          height: 60,
                           width: double.infinity,
                           color: Theme.of(context)
                               .extension<ThemedColors>()!
