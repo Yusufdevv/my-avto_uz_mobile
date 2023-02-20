@@ -131,7 +131,6 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                         maxZoomLevel = await controller.getMaxZoom();
                         minZoomLevel = await controller.getMinZoom();
                         final camera = await _mapController.getCameraPosition();
-                        print(' MOVING CAMERA POSITION ');
                         myPoint = Point(
                           latitude: lat,
                           longitude: long,
@@ -155,7 +154,6 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                               duration: 0.15, type: MapAnimationType.smooth),
                         );
                         setState(() {});
-                        print(' CAMERA MOVED TO POSITION');
                         mapBloc.add(
                           MapGetCurrentLocationEvent(
                             onError: (message) {

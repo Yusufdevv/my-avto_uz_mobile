@@ -1,7 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/dealers/presentation/blocs/dealer_single_bloc/dealer_single_bloc.dart';
 import 'package:auto/features/dealers/presentation/widgets/dealer_info_widget.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -9,7 +8,6 @@ import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
@@ -45,9 +43,6 @@ class DealerSingleInfoPart extends StatefulWidget {
 
 class _DealerSingleInfoPartState extends State<DealerSingleInfoPart> {
   late YandexMapController controller;
-  double maxZoomLevel = 0;
-  double minZoomLevel = 0;
-  bool isSelected = false;
 
   @override
   Widget build(BuildContext context) => BlocProvider.value(
@@ -118,14 +113,19 @@ class _DealerSingleInfoPartState extends State<DealerSingleInfoPart> {
                             },
                             mapObjects: [
                               PlacemarkMapObject(
+                                onTap: (mapObject, point) {
+                                  // print('======= ${point}');
+                                  // launchUrl(Uri.parse(
+                                  //     'https://yandex.com/maps/10335/tashkent/?ll=${widget.latitude}%2C${widget.latitude}&utm_medium=org.uicgroup.avto.uz&utm_source=mapkit&z=12'));
+                                },
                                 icon: PlacemarkIcon.single(
                                   PlacemarkIconStyle(
                                     scale: 0.6,
                                     image: BitmapDescriptor.fromAssetImage(
-                                        AppIcons.currentLoc),
+                                        AppIcons.locationRedIcon),
                                   ),
                                 ),
-                                mapId: MapObjectId(widget.latitude.toString()),
+                                mapId: MapObjectId(widget.daelerId.toString()),
                                 point: Point(
                                     latitude: widget.latitude,
                                     longitude: widget.longitude),

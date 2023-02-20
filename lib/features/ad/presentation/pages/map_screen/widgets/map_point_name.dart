@@ -46,7 +46,9 @@ class MapPointName extends StatelessWidget {
         },
         child: Column(
           children: [
-            if (currentDealer != null && !isWaiting) ...{
+            if (currentDealer != null &&
+                currentDealer?.name != '' &&
+                !isWaiting) ...{
               MapItemImageNameWidget(
                   dealerImageUrl: currentDealer?.avatar ?? '',
                   dealerName: currentDealer?.name ?? '',
@@ -62,7 +64,7 @@ class MapPointName extends StatelessWidget {
                       child: Text(
                         '${LocaleKeys.every_day.tr()}, ${currentDealer?.contactFrom.substring(0, 5)} - ${currentDealer?.contactTo.substring(0, 5)}',
                         maxLines: 4,
-                        style: Theme.of(context).textTheme.subtitle2!,
+                        style: Theme.of(context).textTheme.titleSmall!,
                       ),
                     ),
                 ],
@@ -71,7 +73,6 @@ class MapPointName extends StatelessWidget {
             },
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SvgPicture.asset(AppIcons.foldedMap, color: greyText),
                 const SizedBox(width: 8),
@@ -81,7 +82,7 @@ class MapPointName extends StatelessWidget {
                   Expanded(
                     child: Text(
                       name ?? '',
-                      style: Theme.of(context).textTheme.subtitle2!,
+                      style: Theme.of(context).textTheme.titleSmall!,
                     ),
                   ),
                 }
@@ -132,24 +133,27 @@ class MapItemImageNameWidget extends StatelessWidget {
                 Text(dealerName,
                     style: Theme.of(context)
                         .textTheme
-                        .headline1!
+                        .displayLarge!
                         .copyWith(fontSize: 14),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1),
                 Text(dealerType,
                     style: Theme.of(context)
                         .textTheme
-                        .bodyText1!
+                        .bodyLarge!
                         .copyWith(fontSize: 12, color: purple),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1)
               ],
             ),
           ),
-          const Spacer(),
-          SvgPicture.asset(
-            AppIcons.chevronRightGrey,
-            color: grey,
+          SizedBox(
+            height: 20,
+            width: 20,
+            child: SvgPicture.asset(
+              AppIcons.chevronRightGrey,
+              color: grey,
+            ),
           ),
         ],
       );

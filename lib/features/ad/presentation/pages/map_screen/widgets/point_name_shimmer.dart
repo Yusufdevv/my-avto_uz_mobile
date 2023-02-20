@@ -7,10 +7,8 @@ class PointNameShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SizedBox(
-        height: 56,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Shimmer.fromColors(
               baseColor: grey.withOpacity(0.5),
