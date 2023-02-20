@@ -303,94 +303,97 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                                             ],
                                           ),
                                         ),
-                                      SizedBox(
-                                        height: 293,
-                                        child: Paginator(
-                                          hasMoreToFetch:
-                                              allCarsState.moreFetch ?? false,
-                                          fetchMoreFunction: () {
-                                            carsBloc.add(CarsInDealerEvent
-                                                .getMoreResults(
-                                                    slug: widget.slug));
-                                          },
-                                          paginatorStatus: allCarsState.status,
-                                          errorWidget: const SizedBox(),
-                                          padding:
-                                              const EdgeInsets.only(left: 16),
-                                          physics:
-                                              const BouncingScrollPhysics(),
-                                          separatorBuilder: (context, index) =>
-                                              const SizedBox(width: 16),
-                                          scrollDirection: Axis.horizontal,
-                                          itemBuilder: (context, index) =>
-                                              BlocConsumer<WishlistAddBloc,
-                                                  WishlistAddState>(
-                                            listener: (context, stateWish) {
-                                              if (stateWish.addStatus
-                                                      .isSubmissionSuccess ||
-                                                  stateWish.removeStatus
-                                                      .isSubmissionSuccess) {
-                                                if (stateWish.id ==
-                                                    allCarsState
-                                                        .cars[index].id) {
-                                                  context
-                                                      .read<CarsInDealerBloc>()
-                                                      .add(CarsInDealerEvent
-                                                          .changeIsWish(
-                                                              index: stateWish
-                                                                  .index,
-                                                              id: stateWish
-                                                                  .id));
-                                                }
-                                                context
-                                                    .read<WishlistAddBloc>()
-                                                    .add(WishlistAddEvent
-                                                        .clearState());
-                                              }
+                                      Padding(
+                                        padding: const EdgeInsets.only(bottom: 20),
+                                        child: SizedBox(
+                                          height: 293,
+                                          child: Paginator(
+                                            hasMoreToFetch:
+                                                allCarsState.moreFetch ?? false,
+                                            fetchMoreFunction: () {
+                                              carsBloc.add(CarsInDealerEvent
+                                                  .getMoreResults(
+                                                      slug: widget.slug));
                                             },
-                                            builder:
-                                                (context, stateWishBuild) =>
-                                                    AdsItem(
-                                              id: allCarsState.cars[index].id,
-                                              image: allCarsState.cars[index]
-                                                      .gallery.isNotEmpty
-                                                  ? allCarsState
-                                                      .cars[index].gallery.first
-                                                  : '',
-                                              name: allCarsState
-                                                  .cars[index].absoluteCarName,
-                                              currency: allCarsState
-                                                  .cars[index].currency,
-                                              description: allCarsState
-                                                  .cars[index].description,
-                                              isLiked: allCarsState
-                                                  .cars[index].isWishlisted,
-                                              location: allCarsState
-                                                  .cars[index].region.title,
-                                              onTapLike: () {
-                                                context
-                                                    .read<WishlistAddBloc>()
-                                                    .add(allCarsState
-                                                            .cars[index]
-                                                            .isWishlisted
-                                                        ? WishlistAddEvent
-                                                            .removeWishlist(
-                                                                allCarsState
-                                                                    .cars[index]
-                                                                    .id,
-                                                                index)
-                                                        : WishlistAddEvent
-                                                            .addWishlist(
-                                                                allCarsState
-                                                                    .cars[index]
-                                                                    .id,
-                                                                index));
+                                            paginatorStatus: allCarsState.status,
+                                            errorWidget: const SizedBox(),
+                                            padding:
+                                                const EdgeInsets.only(left: 16),
+                                            physics:
+                                                const BouncingScrollPhysics(),
+                                            separatorBuilder: (context, index) =>
+                                                const SizedBox(width: 16),
+                                            scrollDirection: Axis.horizontal,
+                                            itemBuilder: (context, index) =>
+                                                BlocConsumer<WishlistAddBloc,
+                                                    WishlistAddState>(
+                                              listener: (context, stateWish) {
+                                                if (stateWish.addStatus
+                                                        .isSubmissionSuccess ||
+                                                    stateWish.removeStatus
+                                                        .isSubmissionSuccess) {
+                                                  if (stateWish.id ==
+                                                      allCarsState
+                                                          .cars[index].id) {
+                                                    context
+                                                        .read<CarsInDealerBloc>()
+                                                        .add(CarsInDealerEvent
+                                                            .changeIsWish(
+                                                                index: stateWish
+                                                                    .index,
+                                                                id: stateWish
+                                                                    .id));
+                                                  }
+                                                  context
+                                                      .read<WishlistAddBloc>()
+                                                      .add(WishlistAddEvent
+                                                          .clearState());
+                                                }
                                               },
-                                              price: allCarsState
-                                                  .cars[index].price,
+                                              builder:
+                                                  (context, stateWishBuild) =>
+                                                      AdsItem(
+                                                id: allCarsState.cars[index].id,
+                                                image: allCarsState.cars[index]
+                                                        .gallery.isNotEmpty
+                                                    ? allCarsState
+                                                        .cars[index].gallery.first
+                                                    : '',
+                                                name: allCarsState
+                                                    .cars[index].absoluteCarName,
+                                                currency: allCarsState
+                                                    .cars[index].currency,
+                                                description: allCarsState
+                                                    .cars[index].description,
+                                                isLiked: allCarsState
+                                                    .cars[index].isWishlisted,
+                                                location: allCarsState
+                                                    .cars[index].region.title,
+                                                onTapLike: () {
+                                                  context
+                                                      .read<WishlistAddBloc>()
+                                                      .add(allCarsState
+                                                              .cars[index]
+                                                              .isWishlisted
+                                                          ? WishlistAddEvent
+                                                              .removeWishlist(
+                                                                  allCarsState
+                                                                      .cars[index]
+                                                                      .id,
+                                                                  index)
+                                                          : WishlistAddEvent
+                                                              .addWishlist(
+                                                                  allCarsState
+                                                                      .cars[index]
+                                                                      .id,
+                                                                  index));
+                                                },
+                                                price: allCarsState
+                                                    .cars[index].price,
+                                              ),
                                             ),
+                                            itemCount: allCarsState.cars.length,
                                           ),
-                                          itemCount: allCarsState.cars.length,
                                         ),
                                       )
                                     ],
