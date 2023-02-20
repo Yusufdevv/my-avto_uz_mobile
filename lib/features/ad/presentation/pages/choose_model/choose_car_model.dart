@@ -2,6 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/choose_model/widgets/model_items.dart';
+import 'package:auto/features/ads/presentation/widgets/no_data_widget.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -145,31 +146,40 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                         const SliverToBoxAdapter(
                             child: Center(child: CupertinoActivityIndicator()))
                       } else ...{
-                        SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                            (context, index) => Container(
-                              color: Theme.of(context)
-                                  .extension<ThemedColors>()!
-                                  .whiteToDark,
-                              child: ModelItems(
-                                hasBorder: index != state.models.length - 1,
-                                onTap: () => context.read<PostingAdBloc>().add(
-                                    PostingAdChooseEvent(
-                                        model: state.models[index])),
-                                title: state.models[index].name,
-                                isSelected: (context
-                                            .watch<PostingAdBloc>()
-                                            .state
-                                            .model
-                                            ?.id ??
-                                        -1) ==
-                                    state.models[index].id,
-                                text: searchController.text,
+                        if (state.models.isNotEmpty)
+                          SliverList(
+                            delegate: SliverChildBuilderDelegate(
+                              (context, index) => Container(
+                                color: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .whiteToDark,
+                                child: ModelItems(
+                                  hasBorder: index != state.models.length - 1,
+                                  onTap: () => context
+                                      .read<PostingAdBloc>()
+                                      .add(PostingAdChooseEvent(
+                                          model: state.models[index])),
+                                  title: state.models[index].name,
+                                  isSelected: (context
+                                              .watch<PostingAdBloc>()
+                                              .state
+                                              .model
+                                              ?.id ??
+                                          -1) ==
+                                      state.models[index].id,
+                                  text: searchController.text,
+                                ),
                               ),
+                              childCount: state.models.length,
                             ),
-                            childCount: state.models.length,
+                          )
+                        else
+                          const SliverToBoxAdapter(
+                            child: Padding(
+                              padding: EdgeInsets.only(top: 100),
+                              child: NoDataWidget(),
+                            ),
                           ),
-                        ),
                       },
 
                       /// JUST CONTAINER

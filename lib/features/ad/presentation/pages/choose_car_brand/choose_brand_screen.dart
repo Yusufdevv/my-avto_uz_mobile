@@ -6,6 +6,7 @@ import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.da
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/car_items.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/persistant_header.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/persistent_header_search.dart';
+import 'package:auto/features/ads/presentation/widgets/no_data_widget.dart';
 import 'package:auto/features/common/widgets/car_brand_item.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/main/presentation/widgets/brand_shimmer_item.dart';
@@ -353,29 +354,34 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                                     ),
                               )
                             ]))
-                      : ListView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          controller: _makesController,
-                          padding: const EdgeInsets.only(bottom: 66),
-                          itemBuilder: (context, index) => ChangeCarItems(
-                            hasBorder: (state.makes.length - 1) != index,
-                            onTap: () {
-                              context.read<PostingAdBloc>().add(
-                                    PostingAdChooseEvent(
-                                      make: state.makes[index],
-                                    ),
-                                  );
-                            },
-                            selectedId:
-                                context.watch<PostingAdBloc>().state.make?.id ??
+                      : state.makes.isNotEmpty
+                          ? ListView.builder(
+                              physics: const BouncingScrollPhysics(),
+                              controller: _makesController,
+                              padding: const EdgeInsets.only(bottom: 66),
+                              itemBuilder: (context, index) => ChangeCarItems(
+                                hasBorder: (state.makes.length - 1) != index,
+                                onTap: () {
+                                  context.read<PostingAdBloc>().add(
+                                        PostingAdChooseEvent(
+                                          make: state.makes[index],
+                                        ),
+                                      );
+                                },
+                                selectedId: context
+                                        .watch<PostingAdBloc>()
+                                        .state
+                                        .make
+                                        ?.id ??
                                     -1,
-                            id: state.makes[index].id,
-                            imageUrl: state.makes[index].logo,
-                            name: state.makes[index].name,
-                            text: state.searchController.text,
-                          ),
-                          itemCount: state.makes.length,
-                        ),
+                                id: state.makes[index].id,
+                                imageUrl: state.makes[index].logo,
+                                name: state.makes[index].name,
+                                text: state.searchController.text,
+                              ),
+                              itemCount: state.makes.length,
+                            )
+                          : const NoDataWidget(),
                 ),
               ),
             ),

@@ -65,6 +65,7 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
                 color: orange, fontSize: 16, fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 20),
+          if(widget.contactFrom!='')
           DeaelerInfoWidget(
               text:
                   '${LocaleKeys.every_day.tr()}, ${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}',
@@ -126,6 +127,7 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
               ],
             ),
           const SizedBox(height: 16),
+          if (widget.description!='')
           DeaelerInfoWidget(
               icon: AppIcons.tablerInfo, text: widget.description),
           const SizedBox(height: 16),

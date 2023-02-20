@@ -114,10 +114,12 @@ class _UserSinglePageState extends State<UserSinglePage> {
                                         fontWeight: FontWeight.w600),
                                   ),
                                   const SizedBox(height: 16),
-                                  DeaelerInfoWidget(
-                                      text:
-                                          '${LocaleKeys.every_day.tr()}, ${item.announcement?.contactAvailableFrom?.substring(0, 5)} - ${item.announcement?.contactAvailableTo?.substring(0, 5)}',
-                                      icon: AppIcons.clock),
+                                  if (item.announcement?.contactAvailableFrom !=
+                                      '')
+                                    DeaelerInfoWidget(
+                                        text:
+                                            '${LocaleKeys.every_day.tr()}, ${item.announcement?.contactAvailableFrom?.substring(0, 5)} - ${item.announcement?.contactAvailableTo?.substring(0, 5)}',
+                                        icon: AppIcons.clock),
                                   if (item.announcement?.latitude != 0.0 ||
                                       item.announcement?.longitude != 0.0)
                                     Column(

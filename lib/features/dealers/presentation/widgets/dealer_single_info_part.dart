@@ -80,10 +80,11 @@ class _DealerSingleInfoPartState extends State<DealerSingleInfoPart> {
                       : '${widget.quantityOfCars} ${LocaleKeys.carses.tr()}',
                 ),
                 const SizedBox(height: 16),
-                DeaelerInfoWidget(
-                    text:
-                        '${LocaleKeys.every_day.tr()}, ${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}',
-                    icon: AppIcons.clock),
+                if (widget.contactFrom != '')
+                  DeaelerInfoWidget(
+                      text:
+                          '${LocaleKeys.every_day.tr()}, ${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}',
+                      icon: AppIcons.clock),
                 if (widget.latitude > 1 && widget.longitude > 1)
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -135,7 +136,7 @@ class _DealerSingleInfoPartState extends State<DealerSingleInfoPart> {
                       ),
                     ],
                   ),
-                if (widget.contact.isNotEmpty)
+                if (widget.contact != '')
                   Padding(
                     padding: const EdgeInsets.only(top: 16),
                     child: DeaelerInfoWidget(
