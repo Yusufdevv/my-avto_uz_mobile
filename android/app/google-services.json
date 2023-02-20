@@ -1,41 +1,33 @@
 {
   "project_info": {
-    "project_number": "385393917430",
-    "project_id": "avto-29949",
-    "storage_bucket": "avto-29949.appspot.com"
+    "project_number": "742569060269",
+    "project_id": "avto-a6713",
+    "storage_bucket": "avto-a6713.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:385393917430:android:9804394f1bdc7a66701bd7",
+        "mobilesdk_app_id": "1:742569060269:android:a97b03acf7d7ebd2f2e324",
         "android_client_info": {
           "package_name": "org.uicgroup.avto.uz"
         }
       },
       "oauth_client": [
         {
-          "client_id": "385393917430-8uehsjqs6l6pdgnl5p41nlt1ap0u8ffa.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "org.uicgroup.avto.uz",
-            "certificate_hash": "d7f2881be61d7b6f885e02144e168854723dc6e6"
-          }
-        },
-        {
-          "client_id": "385393917430-s91qcociodqaqbut9vjaknc3tpek20p8.apps.googleusercontent.com",
+          "client_id": "742569060269-99epgim20otr6juh7lrr8svihrngoeab.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDWBPTa7RNFT58Ek7VUj_VVcyZT2qLugoA"
+          "current_key": "AIzaSyD0YtwYM4_atzbqVqDN6IyrNeln3l3uAxE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "385393917430-s91qcociodqaqbut9vjaknc3tpek20p8.apps.googleusercontent.com",
+              "client_id": "742569060269-99epgim20otr6juh7lrr8svihrngoeab.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

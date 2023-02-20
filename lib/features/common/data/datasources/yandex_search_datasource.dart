@@ -1,9 +1,9 @@
+import 'package:alice/alice.dart';
 import 'package:auto/assets/constants/app_constants.dart';
 import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/models/yandex_search_model.dart';
-import 'package:chuck_interceptor/chuck.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
@@ -25,7 +25,7 @@ class YandexSearchDataSource {
           responseHeader: kDebugMode,
           error: kDebugMode,
         ))
-        ..interceptors.add(Chuck(
+        ..interceptors.add(Alice(
           navigatorKey: AppConstants.navigatorKey,
           showNotification: chuck || kDebugMode,
           showInspectorOnShake: chuck || kDebugMode,
