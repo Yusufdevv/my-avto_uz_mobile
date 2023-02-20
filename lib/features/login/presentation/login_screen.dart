@@ -104,8 +104,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       child: Text(
                         LocaleKeys.register.tr(),
-                        style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                            fontWeight: FontWeight.w600, fontSize: 13),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displaySmall!
+                            .copyWith(
+                                fontWeight: FontWeight.w600, fontSize: 13),
                       ),
                     )
                   ],
@@ -193,7 +196,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 if (error.toLowerCase().contains('dio') ||
                                     error.toLowerCase().contains('type')) {
                                   error = LocaleKeys.service_error.tr();
-                                } else if(error.toLowerCase().contains('user')) {
+                                } else if (error
+                                    .toLowerCase()
+                                    .contains('user')) {
                                   error = LocaleKeys.user_already_exist.tr();
                                 }
                                 context.read<ShowPopUpBloc>().add(ShowPopUp(
@@ -280,7 +285,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       AppIcons.facebook,
                       color: Theme.of(context)
                           .extension<ThemedColors>()!
-                          .blackToWhite80,
+                          .dodgerBlueToWhite80,
                     ),
                   ),
                   // SocialMediaItem(

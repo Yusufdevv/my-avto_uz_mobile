@@ -2,7 +2,6 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ads/presentation/pages/ads_screen.dart';
-import 'package:auto/features/commercial/presentation/commercial_screen.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_car_brand_page.dart';
 import 'package:auto/features/main/domain/entities/service_entity.dart';

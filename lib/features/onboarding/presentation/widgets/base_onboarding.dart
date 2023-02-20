@@ -68,15 +68,6 @@ class BaseOnBoarding extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SocialMediaItem(
-                    onTap: () {},
-                    icon: SvgPicture.asset(
-                      AppIcons.facebook,
-                      color: Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .dodgerBlueToWhite80,
-                    )),
-                const SizedBox(width: 24),
-                SocialMediaItem(
                   onTap: () {},
                   icon: SvgPicture.asset(
                       Theme.of(context).extension<ThemedIcons>()!.google),
@@ -89,6 +80,16 @@ class BaseOnBoarding extends StatelessWidget {
                       color: Theme.of(context)
                           .extension<ThemedColors>()!
                           .blackToWhite80,
+                    )),
+
+                const SizedBox(width: 24),
+                SocialMediaItem(
+                    onTap: () {},
+                    icon: SvgPicture.asset(
+                      AppIcons.facebook,
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .dodgerBlueToWhite80,
                     )),
                 // const SizedBox(width: 24),
                 // SocialMediaItem(
