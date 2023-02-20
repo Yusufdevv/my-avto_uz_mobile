@@ -26,8 +26,8 @@ class _ImagesPageState extends State<ImagesPage> {
   @override
   Widget build(BuildContext context) => AnnotatedRegion(
         value: const SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-        ),
+            statusBarColor: Colors.transparent,
+            statusBarIconBrightness: Brightness.light),
         child: Scaffold(
           body: Stack(
             children: [
