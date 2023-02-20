@@ -61,7 +61,7 @@ class GetCarModelBloc extends Bloc<GetCarModelEvent, GetCarModelState> {
             getAnnouncementStatus: FormzStatus.submissionSuccess));
       } else {
         emit(state.copyWith(
-            getAnnouncementStatus: FormzStatus.submissionInProgress));
+            getAnnouncementStatus: FormzStatus.submissionFailure));
       }
     });
   }

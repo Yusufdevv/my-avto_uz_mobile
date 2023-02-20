@@ -258,7 +258,7 @@ class _UserSinglePageState extends State<UserSinglePage> {
                                           carYear: item.year,
                                           contactPhone: item.user.phoneNumber,
                                           description: item.description,
-                                          districtTitle: item.region,
+                                          districtTitle: item.region.title,
                                           isNew: item.isNew,
                                           isWishlisted: item.isWishlisted,
                                           price: item.price,
