@@ -53,8 +53,8 @@ class EditAdDamageEvent extends EditAdEvent {
 class EditAdGetRegionsEvent extends EditAdEvent {}
 
 class EditAdGetDistritsEvent extends EditAdEvent {
-  final int regionId;
-  EditAdGetDistritsEvent({required this.regionId});
+  final int? regionId;
+  EditAdGetDistritsEvent({this.regionId});
 }
 
 class EditAdCreateEvent extends EditAdEvent {
@@ -121,6 +121,7 @@ class EditAdChooseEvent extends EditAdEvent {
   final bool? isWithoutMileage;
   final bool? showExactAddress;
   final bool? isNew;
+  final int? equipmentId;
 
   EditAdChooseEvent({
     this.modification,
@@ -172,10 +173,15 @@ class EditAdChooseEvent extends EditAdEvent {
     this.rentToBuy,
     this.isWithoutMileage,
     this.milageImage,
+    this.equipmentId,
   });
 }
 
 class EditAdChangeAppBarShadowEvent extends EditAdEvent {
   final bool value;
   EditAdChangeAppBarShadowEvent({required this.value});
+}
+
+class EditAdGetEquipments extends EditAdEvent {
+  EditAdGetEquipments();
 }

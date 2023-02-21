@@ -10,7 +10,7 @@ class GetDistrictsUseCase
   final PaginationRepository repo = PaginationRepository();
 
   @override
-  Future<Either<Failure, GenericPagination<DistrictModel>>> call(int params) =>
+  Future<Either<Failure, GenericPagination<DistrictModel>>> call(int? params) =>
       repo.fetchMore(
         url: '/common/districts/$params',
         fromJson: DistrictModel.fromJson,

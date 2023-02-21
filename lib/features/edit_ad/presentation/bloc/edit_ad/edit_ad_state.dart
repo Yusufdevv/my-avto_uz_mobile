@@ -56,6 +56,8 @@ class EditAdState extends Equatable {
   final bool showExactAddress;
   final bool? rentToBuy;
   final bool? isWithoutMileage;
+  final List<EquipmentEntity> equipments;
+  final int? equipmentId;
 
   const EditAdState({
     required this.status,
@@ -111,6 +113,8 @@ class EditAdState extends Equatable {
     this.locationUrl,
     this.mapPointBytes,
     this.milageImage,
+    this.equipments = const [],
+    this.equipmentId,
   });
 
   String? get districtTitle {
@@ -178,71 +182,68 @@ class EditAdState extends Equatable {
     bool? rentToBuy,
     bool? isWithoutMileage,
     bool? showExactAddress,
-  }) {
-    // print('====   ACTUALLY IN STATE:  ${this.districts}  ====');
-    // print('==== INCOMING DISTRICT TO COPYWITH:  ${districts}  ====');
-    final newState = EditAdState(
-      getAnnouncementToEditStatus:
-          getAnnouncementToEditStatus ?? this.getAnnouncementToEditStatus,
-      popStatus: popStatus ?? this.popStatus,
-      milageImage: milageImage ?? this.milageImage,
-      modification: modification ?? this.modification,
-      panaramaGallery: panaramaGallery ?? this.panaramaGallery,
-      createStatus: createStatus ?? this.createStatus,
-      mapPointBytes: mapPointBytes ?? this.mapPointBytes,
-      yearEntity: yearEntity ?? this.yearEntity,
-      locationUrl: locationUrl ?? this.locationUrl,
-      phoneController: phoneController ?? this.phoneController,
-      emailController: emailController ?? this.emailController,
-      nameController: nameController ?? this.nameController,
-      userModel: userModel ?? this.userModel,
-      minimumPrice: minimumPrice ?? this.minimumPrice,
-      getDistrictsStatus: getDistrictsStatus ?? this.getDistrictsStatus,
-      districts: districts ?? this.districts,
-      damagedParts: damagedParts ?? this.damagedParts,
-      rentWithPurchaseConditions:
-          rentWithPurchaseConditions ?? this.rentWithPurchaseConditions,
-      showExactAddress: showExactAddress ?? this.showExactAddress,
-      districtId: districtId ?? this.districtId,
-      city: city ?? this.city,
-      regionId: regionId ?? this.regionId,
-      gearbox: gearbox ?? this.gearbox,
-      driveTypeId: driveTypeId ?? this.driveTypeId,
-      engineId: engineId ?? this.engineId,
-      generationEntity: generationEntity ?? this.generationEntity,
-      bodyType: bodyType ?? this.bodyType,
-      status: status ?? this.status,
-      model: model ?? this.model,
-      make: make ?? this.make,
-      colorName: colorName ?? this.colorName,
-      licenceType: licenceType ?? this.licenceType,
-      ownerStep: ownerStep ?? this.ownerStep,
-      purchasedDate: purchasedDate ?? this.purchasedDate,
-      notRegisteredInUzbekistan:
-          notRegisteredInUzbekistan ?? this.notRegisteredInUzbekistan,
-      description: description ?? this.description,
-      ownerEmail: ownerEmail ?? this.ownerEmail,
-      ownerName: ownerName ?? this.ownerName,
-      ownerPhone: ownerPhone ?? this.ownerPhone,
-      mileage: mileage ?? this.mileage,
-      currency: currency ?? this.currency,
-      price: price ?? this.price,
-      callTimeFrom: callTimeFrom ?? this.callTimeFrom,
-      callTimeTo: callTimeTo ?? this.callTimeTo,
-      isCallTimed: isCallTimed ?? this.isCallTimed,
-      showOwnerContacts: showOwnerContacts ?? this.showOwnerContacts,
-      isContactsVerified: isContactsVerified ?? this.isContactsVerified,
-      rentToBuy: rentToBuy ?? this.rentToBuy,
-      isWithoutMileage: isWithoutMileage ?? this.isWithoutMileage,
-      gallery: gallery ?? this.gallery,
-      regions: regions ?? this.regions,
-      toastMessage: toastMessage,
-    );
-
-    // print(
-    //     '====   OUTCOMINT DISTRICT FROM COPY WITH:  ${newState.districts}  ====');
-    return newState;
-  }
+    List<EquipmentEntity>? equipments,
+    int? equipmentId,
+  }) =>
+      EditAdState(
+        getAnnouncementToEditStatus:
+            getAnnouncementToEditStatus ?? this.getAnnouncementToEditStatus,
+        popStatus: popStatus ?? this.popStatus,
+        milageImage: milageImage ?? this.milageImage,
+        modification: modification ?? this.modification,
+        panaramaGallery: panaramaGallery ?? this.panaramaGallery,
+        createStatus: createStatus ?? this.createStatus,
+        mapPointBytes: mapPointBytes ?? this.mapPointBytes,
+        yearEntity: yearEntity ?? this.yearEntity,
+        locationUrl: locationUrl ?? this.locationUrl,
+        phoneController: phoneController ?? this.phoneController,
+        emailController: emailController ?? this.emailController,
+        nameController: nameController ?? this.nameController,
+        userModel: userModel ?? this.userModel,
+        minimumPrice: minimumPrice ?? this.minimumPrice,
+        getDistrictsStatus: getDistrictsStatus ?? this.getDistrictsStatus,
+        districts: districts ?? this.districts,
+        damagedParts: damagedParts ?? this.damagedParts,
+        rentWithPurchaseConditions:
+            rentWithPurchaseConditions ?? this.rentWithPurchaseConditions,
+        showExactAddress: showExactAddress ?? this.showExactAddress,
+        districtId: districtId ?? this.districtId,
+        city: city ?? this.city,
+        regionId: regionId ?? this.regionId,
+        gearbox: gearbox ?? this.gearbox,
+        driveTypeId: driveTypeId ?? this.driveTypeId,
+        engineId: engineId ?? this.engineId,
+        generationEntity: generationEntity ?? this.generationEntity,
+        bodyType: bodyType ?? this.bodyType,
+        status: status ?? this.status,
+        model: model ?? this.model,
+        make: make ?? this.make,
+        colorName: colorName ?? this.colorName,
+        licenceType: licenceType ?? this.licenceType,
+        ownerStep: ownerStep ?? this.ownerStep,
+        purchasedDate: purchasedDate ?? this.purchasedDate,
+        notRegisteredInUzbekistan:
+            notRegisteredInUzbekistan ?? this.notRegisteredInUzbekistan,
+        description: description ?? this.description,
+        ownerEmail: ownerEmail ?? this.ownerEmail,
+        ownerName: ownerName ?? this.ownerName,
+        ownerPhone: ownerPhone ?? this.ownerPhone,
+        mileage: mileage ?? this.mileage,
+        currency: currency ?? this.currency,
+        price: price ?? this.price,
+        callTimeFrom: callTimeFrom ?? this.callTimeFrom,
+        callTimeTo: callTimeTo ?? this.callTimeTo,
+        isCallTimed: isCallTimed ?? this.isCallTimed,
+        showOwnerContacts: showOwnerContacts ?? this.showOwnerContacts,
+        isContactsVerified: isContactsVerified ?? this.isContactsVerified,
+        rentToBuy: rentToBuy ?? this.rentToBuy,
+        isWithoutMileage: isWithoutMileage ?? this.isWithoutMileage,
+        gallery: gallery ?? this.gallery,
+        regions: regions ?? this.regions,
+        toastMessage: toastMessage,
+        equipments: equipments ?? this.equipments,
+        equipmentId: equipmentId ?? this.equipmentId,
+      );
 
   @override
   List<Object?> get props => [
@@ -299,6 +300,8 @@ class EditAdState extends Equatable {
         isCallTimed,
         showOwnerContacts,
         isContactsVerified,
+        equipments,
+        equipmentId,
       ];
 
   bool buttonStatus(int page) => EASingleton.nextButtonIsDisabled(page, this);

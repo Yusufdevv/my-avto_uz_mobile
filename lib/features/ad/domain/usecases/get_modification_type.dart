@@ -28,18 +28,18 @@ class GetModificationTypeUseCase extends UseCase<
 
 class ModificationTypeParams {
   final String? next;
-  final int bodyTypeId;
-  final int generationId;
-  final int engineTypeId;
-  final int driveTypeId;
-  final int gearBoxTypeTypeId;
+  final int? bodyTypeId;
+  final int? generationId;
+  final int? engineTypeId;
+  final int? driveTypeId;
+  final int? gearBoxTypeTypeId;
 
   ModificationTypeParams({
-    required this.generationId,
-    required this.bodyTypeId,
-    required this.engineTypeId,
-    required this.driveTypeId,
-    required this.gearBoxTypeTypeId,
+    this.generationId,
+    this.bodyTypeId,
+    this.engineTypeId,
+    this.driveTypeId,
+    this.gearBoxTypeTypeId,
     this.next,
   });
 }

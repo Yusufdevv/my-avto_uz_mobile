@@ -77,6 +77,8 @@ class PostingAdState extends Equatable {
   final bool? isWithoutMileage;
   final List<GasEquipmentEntity> gasEquipments;
   final int? gasEquipmentId;
+  final List<EquipmentEntity> equipments;
+  final int? equipmentId;
 
   const PostingAdState({
     required this.contactsFormKey,
@@ -151,6 +153,8 @@ class PostingAdState extends Equatable {
     this.milageImage,
     this.gasEquipments = const [],
     this.gasEquipmentId,
+    this.equipments = const [],
+    this.equipmentId,
   });
 
   String? get districtTitle {
@@ -236,6 +240,8 @@ class PostingAdState extends Equatable {
     GlobalKey<FormState>? contactsFormKey,
     List<GasEquipmentEntity>? gasEquipments,
     int? gasEquipmentId,
+    List<EquipmentEntity>? equipments,
+    int? equipmentId,
   }) =>
       PostingAdState(
         contactsFormKey: contactsFormKey ?? this.contactsFormKey,
@@ -312,6 +318,8 @@ class PostingAdState extends Equatable {
         toastMessage: toastMessage,
         gasEquipments: gasEquipments ?? this.gasEquipments,
         gasEquipmentId: gasEquipmentId ?? this.gasEquipmentId,
+        equipments: equipments ?? this.equipments,
+        equipmentId: equipmentId ?? this.equipmentId,
       );
 
   @override
@@ -385,6 +393,8 @@ class PostingAdState extends Equatable {
         isContactsVerified,
         gasEquipments,
         gasEquipmentId,
+        equipments,
+        equipmentId,
       ];
 
   bool buttonStatus(int page) => PASingleton.nextButtonIsDisabled(page, this);

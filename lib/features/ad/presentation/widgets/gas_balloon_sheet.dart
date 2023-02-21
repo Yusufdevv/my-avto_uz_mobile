@@ -1,6 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/features/ad/domain/entities/gas_equipment_entity.dart';
+import 'package:auto/features/ad/domain/entities/equipment/gas_equipment_entity.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/marka_checkbox.dart';
 import 'package:auto/generated/locale_keys.g.dart';
