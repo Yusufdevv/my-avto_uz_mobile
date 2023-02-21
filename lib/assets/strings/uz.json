@@ -466,7 +466,7 @@
   "mark_all_the_colored_and_damaged_parts":"Chizmada bo'yalgan detallar va shikastlangan joyni belgilang",
   "door":"Eshik",
   "left":"Chap",
-  "right":"Ong",
+  "right":"O'ng",
   "bamper":"Bamper",
   "back":"Orqa",
   "front":"Old",
@@ -533,5 +533,6 @@
   "drive_type": "Boshqaruv turi",
   "gearbox_type": "Uzatish qutisi",
   "power": "Quvvat",
-  "volume": "Dvigatel quvvati"
+  "volume": "Dvigatel quvvati",
+  "not_shown": "Ko'rsatilmagan"
 }

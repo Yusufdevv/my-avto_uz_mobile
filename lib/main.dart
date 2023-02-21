@@ -54,15 +54,16 @@ void main() {
     debugRepaintRainbowEnabled = false;
     runApp(
       EasyLocalization(
-          supportedLocales: const [
-            Locale('uz'),
-            Locale('ru'),
-          ],
-          path: 'lib/assets/strings',
-          fallbackLocale: const Locale('uz'),
-          startLocale: const Locale('uz'),
-          assetLoader: const CodegenLoader(),
-          child: const AppProvider()),
+        supportedLocales: const [
+          Locale('uz'),
+          Locale('ru'),
+        ],
+        path: 'lib/assets/strings',
+        fallbackLocale: const Locale('uz'),
+        startLocale: const Locale('uz'),
+        assetLoader: const CodegenLoader(),
+        child: const AppProvider(),
+      ),
     );
   }, (error, stack) => FirebaseCrashlytics.instance.recordError(error, stack));
 }

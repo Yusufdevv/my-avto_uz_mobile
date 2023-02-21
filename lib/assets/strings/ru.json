@@ -470,11 +470,11 @@
   "bamper":"Бамфер",
   "back":"Задний",
   "front":"Передний",
-  "back_bumper":"Задняя бамфер",
+  "back_bumper":"Заднее бамфер",
   "fender":"Крыло",
   "of_back":"Заднее",
-  "left_back_fender":"Задняя левое крыло",
-  "right_back_fender":"Задняя правое крыло",
+  "left_back_fender":"Заднее левое крыло",
+  "right_back_fender":"Заднее правое крыло",
   "left_front_fender":"Переднее левое крыло",
   "right_front_fender":"Переднее правое крыло",
   "contact_data":"Контактные данные",
@@ -533,5 +533,6 @@
   "drive_type": "Тип вождения",
   "gearbox_type": "Коробка передач",
   "power": "Власть",
-  "volume": "Объем двигателя"
+  "volume": "Объем двигателя",
+  "not_shown": "Не показано"
 }

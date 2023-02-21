@@ -3,6 +3,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/presentation/widgets/warning_circle_widget.dart';
 import 'package:auto/utils/my_functions.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -41,7 +42,7 @@ class SituationItem extends StatelessWidget {
                       height: 2,
                     ),
                     Text(
-                      MyFunctions.getStatusTitle(damageType?.value ?? ''),
+                      MyFunctions.getStatusTitle(damageType?.value ?? '').tr(),
                       style: Theme.of(context)
                           .textTheme
                           .displayLarge!

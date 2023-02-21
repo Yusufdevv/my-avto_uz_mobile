@@ -174,19 +174,19 @@ class _DamageScreenState extends State<DamageScreen>
                         SituationItem(
                             onTap: () {
                               _showChoosDamageTypeSheet(
-                                  DamagedParts.frontBumper);
-                            },
-                            position: LocaleKeys.front_bumper.tr(),
-                            damageType:
-                                state.damagedParts[DamagedParts.frontBumper]),
-                        SituationItem(
-                            onTap: () {
-                              _showChoosDamageTypeSheet(
                                   DamagedParts.rearBumper);
                             },
                             position: LocaleKeys.back_bumper.tr(),
                             damageType:
                                 state.damagedParts[DamagedParts.rearBumper]),
+                        SituationItem(
+                            onTap: () {
+                              _showChoosDamageTypeSheet(
+                                  DamagedParts.frontBumper);
+                            },
+                            position: LocaleKeys.front_bumper.tr(),
+                            damageType:
+                            state.damagedParts[DamagedParts.frontBumper]),
                       ],
                     ),
                   ),

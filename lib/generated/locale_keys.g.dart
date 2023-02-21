@@ -536,5 +536,6 @@ abstract class  LocaleKeys {
   static const gearbox_type = 'gearbox_type';
   static const power = 'power';
   static const volume = 'volume';
+  static const not_shown = 'not_shown';
 
 }

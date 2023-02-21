@@ -38,11 +38,11 @@ class CreateAdButton extends StatelessWidget {
           });
         },
         margin: const EdgeInsets.symmetric(horizontal: 16),
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        height: MediaQuery.of(context).size.height * 0.054,
+        padding: const EdgeInsets.symmetric(vertical: 8),
         color: orange,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
+
           children: [
             SvgPicture.asset(AppIcons.whitePlusCircle),
             const SizedBox(width: 12),

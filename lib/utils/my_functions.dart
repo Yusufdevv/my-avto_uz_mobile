@@ -459,26 +459,30 @@ class MyFunctions {
   }
 
   static String getStatusTitle(String status) {
+    final language = StorageRepository.getString('language');
+
     switch (status) {
       case 'ideal':
-        return 'Идеальное';
+        return language=='ru' ? 'Идеальное' : 'Ideal';
       case 'scratched':
-        return 'Повреждено';
+        return language=='ru' ? 'Повреждено' : 'Shikastlangan';
       case 'replaced':
-        return 'Заменено';
+        return  language=='ru' ? 'Заменено' : 'Almashtirilgan';
       case 'with_dents':
-        return 'С вмятинами';
+        return  language=='ru' ? 'С вмятинами' : 'Chiziqlar bilan';
       case 'requires_replacement':
-        return 'Требует замены';
+        return  language=='ru' ? 'Требует замены' : "O'zgartirishni talab qiladi";
     }
-    return 'Не показано';
+    return language=='ru' ? 'Не показано' : "Ko'rsatilmagan";
   }
 
   static String getErrorMessage(Failure failure) {
+    final language = StorageRepository.getString('language');
+
     var err =
         (failure is ServerFailure) ? failure.errorMessage : failure.toString();
     if (err == 'Wrong code!') {
-      err = 'Код подтверждения введен неверно';
+      err = language=='ru' ?  'Код подтверждения введен неверно': "Tasdiqlash kodi noto'g'ri kiritilgan";
     }
     return err;
   }

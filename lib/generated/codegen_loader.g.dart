@@ -486,11 +486,11 @@ class CodegenLoader extends AssetLoader{
   "bamper": "Бамфер",
   "back": "Задний",
   "front": "Передний",
-  "back_bumper": "Задняя бамфер",
+  "back_bumper": "Заднее бамфер",
   "fender": "Крыло",
   "of_back": "Заднее",
-  "left_back_fender": "Задняя левое крыло",
-  "right_back_fender": "Задняя правое крыло",
+  "left_back_fender": "Заднее левое крыло",
+  "right_back_fender": "Заднее правое крыло",
   "left_front_fender": "Переднее левое крыло",
   "right_front_fender": "Переднее правое крыло",
   "contact_data": "Контактные данные",
@@ -549,7 +549,8 @@ class CodegenLoader extends AssetLoader{
   "drive_type": "Тип вождения",
   "gearbox_type": "Коробка передач",
   "power": "Власть",
-  "volume": "Объем двигателя"
+  "volume": "Объем двигателя",
+  "not_shown": "Не показано"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -1019,7 +1020,7 @@ static const Map<String,dynamic> uz = {
   "mark_all_the_colored_and_damaged_parts": "Chizmada bo'yalgan detallar va shikastlangan joyni belgilang",
   "door": "Eshik",
   "left": "Chap",
-  "right": "Ong",
+  "right": "O'ng",
   "bamper": "Bamper",
   "back": "Orqa",
   "front": "Old",
@@ -1086,7 +1087,8 @@ static const Map<String,dynamic> uz = {
   "drive_type": "Boshqaruv turi",
   "gearbox_type": "Uzatish qutisi",
   "power": "Quvvat",
-  "volume": "Dvigatel quvvati"
+  "volume": "Dvigatel quvvati",
+  "not_shown": "Ko'rsatilmagan"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }
