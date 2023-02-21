@@ -44,44 +44,44 @@ class _ComparisonState extends State<Comparison> {
   late TextEditingController searchController;
   List<Complectation> complectationParameters = [
     Complectation(
-      parameterName: 'Main Data',
+      parameterName: LocaleKeys.mains,
       id: 0,
       complectationParameters: [
         ComplectationParametersEntity(
-          comparisonParameters: 'Make',
+          comparisonParameters: LocaleKeys.make,
         ),
         ComplectationParametersEntity(
-          comparisonParameters: 'Generation',
+          comparisonParameters: LocaleKeys.generation,
         ),
         ComplectationParametersEntity(
-          comparisonParameters: 'Body Type',
+          comparisonParameters: LocaleKeys.body_type,
         ),
         ComplectationParametersEntity(
-          comparisonParameters: 'Drive Type',
+          comparisonParameters: LocaleKeys.drive_type,
         ),
         ComplectationParametersEntity(
-          comparisonParameters: 'Gearbox Type',
+          comparisonParameters: LocaleKeys.gearbox_type,
         ),
         ComplectationParametersEntity(
-          comparisonParameters: 'Year',
+          comparisonParameters: LocaleKeys.year_of_issue,
         ),
         ComplectationParametersEntity(
-          comparisonParameters: 'Color',
+          comparisonParameters: LocaleKeys.color,
         )
       ],
     ),
     Complectation(
-      parameterName: 'Engine Data',
+      parameterName: LocaleKeys.complectation,
       id: 1,
       complectationParameters: [
         ComplectationParametersEntity(
-          comparisonParameters: 'Engine Type',
+          comparisonParameters: LocaleKeys.engine_type,
         ),
         ComplectationParametersEntity(
-          comparisonParameters: 'Power',
+          comparisonParameters: LocaleKeys.power,
         ),
         ComplectationParametersEntity(
-          comparisonParameters: 'Volume',
+          comparisonParameters: LocaleKeys.volume,
         )
       ],
     ),

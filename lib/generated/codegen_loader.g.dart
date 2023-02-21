@@ -544,7 +544,12 @@ class CodegenLoader extends AssetLoader{
   "user_already_exist": "Пользователь с таким номером уже зарегистрирован",
   "no_ads": "Нет объявлений",
   "no_instructions": "Нет инструкций",
-  "lpg_equipment": "Газобаллонное оборудование"
+  "lpg_equipment": "Газобаллонное оборудование",
+  "make": "Марка",
+  "drive_type": "Тип вождения",
+  "gearbox_type": "Коробка передач",
+  "power": "Власть",
+  "volume": "Объем двигателя"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -1076,7 +1081,12 @@ static const Map<String,dynamic> uz = {
   "user_already_exist": "Bunday raqamli foydalanuvchi allaqachon ro'yxatdan o'tgan",
   "no_ads": "E'lonlar yo'q",
   "no_instructions": "Instruksiyalar yo'q",
-  "lpg_equipment": "Газобаллонное оборудование"
+  "lpg_equipment": "Газобаллонное оборудование",
+  "make": "Marka",
+  "drive_type": "Boshqaruv turi",
+  "gearbox_type": "Uzatish qutisi",
+  "power": "Quvvat",
+  "volume": "Dvigatel quvvati"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }

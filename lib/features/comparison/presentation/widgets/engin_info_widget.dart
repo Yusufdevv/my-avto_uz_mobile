@@ -5,7 +5,8 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/comparison/domain/entities/comparison_entity.dart';
 import 'package:auto/features/comparison/domain/entities/complectation_entity.dart';
-import 'package:auto/features/comparison/presentation/widgets/comparison_list_widget.dart';
+import 'package:auto/features/comparison/presentation/widgets/comparison_list_tile.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -58,7 +59,7 @@ class EngineParametersWidget extends StatelessWidget {
                         milliseconds: 100,
                       ),
                       child: Text(
-                        comparisonParameters.parameterName,
+                        comparisonParameters.parameterName.tr(),
                       ),
                     ),
                   ),
@@ -98,26 +99,32 @@ class EngineParametersWidget extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     children: [
                       ...List.generate(
-                        numberOfAddedCars.length,
+                        numberOfAddedCars.length+1,
                         (index) => Column(
                           children: [
-                            ComparsionList(
-                              info: numberOfAddedCars[index]
+                            ComparsionListTile(
+                              info: index == numberOfAddedCars.length
+                                  ? ''
+                                  :  numberOfAddedCars[index]
                                   .announcement
                                   .engineData
-                                  .engineType
-                                  .toUpperCase(),
+                                  .engineType,
                               isGrey: true,
                             ),
-                            ComparsionList(
-                              info: numberOfAddedCars[index]
+                            ComparsionListTile(
+                              info:index == numberOfAddedCars.length
+                                  ? ''
+                                  :  numberOfAddedCars[index]
                                   .announcement
                                   .engineData
                                   .power,
                               isGrey: false,
                             ),
-                            ComparsionList(
-                              info: numberOfAddedCars[index]
+                            ComparsionListTile(
+                              info:
+                              index == numberOfAddedCars.length
+                                  ? ''
+                                  :  numberOfAddedCars[index]
                                   .announcement
                                   .engineData
                                   .volume,
@@ -136,7 +143,7 @@ class EngineParametersWidget extends StatelessWidget {
                     left: 16,
                     child: Text(
                       comparisonParameters
-                          .complectationParameters[index].comparisonParameters,
+                          .complectationParameters[index].comparisonParameters.tr(),
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 12,
