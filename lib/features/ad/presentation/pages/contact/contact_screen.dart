@@ -86,6 +86,7 @@ class _ContactScreenState extends State<ContactScreen> {
                           children: [
                             SwitcherRowAsButtonAlso(
                                 onTap: () {
+                                  setState(() {});
                                   context
                                       .read<PostingAdBloc>()
                                       .add(PostingAdGetUserDataEvent());
@@ -93,6 +94,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                 title: LocaleKeys.show_my_contact_data.tr(),
                                 value: postingAdState.showOwnerContacts,
                                 onChanged: (value) {
+                                  setState(() {});
                                   if (!value) {
                                     context
                                         .read<PostingAdBloc>()
@@ -112,15 +114,15 @@ class _ContactScreenState extends State<ContactScreen> {
                             },
                             const SizedBox(height: 16),
                             WTextField(
-                              // height: 80,
-                              errorColor: red,
+                              onTap: () {},
                               validate: (v) {
                                 if (v!.isEmpty) {
                                   return 'Name can not to be empty';
                                 }
                                 return null;
                               },
-                              onTap: () {},
+                              maxLength: 40,
+                              hideCounterText: true,
                               controller: postingAdState.nameController,
                               onChanged: (value) {
                                 final v = postingAdState.isContactsVerified
@@ -156,14 +158,14 @@ class _ContactScreenState extends State<ContactScreen> {
                             ),
                             const SizedBox(height: 16),
                             WTextField(
-                              // height: 80,
                               onTap: () {},
                               controller: postingAdState.emailController,
-                              errorColor: red,
                               onChanged: (value) => context
                                   .read<PostingAdBloc>()
                                   .add(PostingAdChooseEvent(ownerEmail: value)),
                               title: 'E-mail',
+                              maxLength: 40,
+                              hideCounterText: true,
                               hintText: LocaleKeys.add_email.tr(),
                               borderRadius: 12,
                               validate: (value) {
@@ -173,7 +175,8 @@ class _ContactScreenState extends State<ContactScreen> {
                                         value.isEmpty ||
                                         !value.contains('@') ||
                                         !value.contains('.'))) {
-                                  return LocaleKeys.please_enter_valid_email.tr();
+                                  return LocaleKeys.please_enter_valid_email
+                                      .tr();
                                 }
                                 return null;
                               },
@@ -197,13 +200,12 @@ class _ContactScreenState extends State<ContactScreen> {
                             ),
                             const SizedBox(height: 16),
                             WTextField(
-                              // height: 80,
-                              validate: (v) {
-                                if (v?.length != 12) {
-                                  return 'Enter valid phone number';
-                                }
-                                return null;
-                              },
+                              // validate: (v) {
+                              //   if (v?.length != 12) {
+                              //     return 'Enter valid phone number';
+                              //   }
+                              //   return null;
+                              // },
                               onTap: () {},
                               onChanged: (value) {
                                 final v = postingAdState.isContactsVerified
