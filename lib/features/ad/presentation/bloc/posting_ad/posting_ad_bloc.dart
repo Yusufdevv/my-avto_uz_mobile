@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
+import 'package:auto/features/ad/domain/entities/gas_equipment_entity.dart';
 import 'package:auto/features/ad/domain/entities/generation/generation.dart';
 import 'package:auto/features/ad/domain/entities/rent_with_purchase/rent_with_purchase_entity.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
@@ -18,6 +19,7 @@ import 'package:auto/features/ad/domain/usecases/get_body_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
 import 'package:auto/features/ad/domain/usecases/get_drive_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_engine_type.dart';
+import 'package:auto/features/ad/domain/usecases/get_gas_equipment.dart';
 import 'package:auto/features/ad/domain/usecases/get_generation.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
 import 'package:auto/features/ad/domain/usecases/get_map_screenshot_usecase.dart';
@@ -73,10 +75,12 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   final GetMakesUseCase makeUseCase = GetMakesUseCase();
   final GetTopBrandUseCase topMakesUseCase = GetTopBrandUseCase();
   final GetBodyTypeUseCase bodyTypesUseCase = GetBodyTypeUseCase();
+  final GetGasEquipmentsUseCase gasEquipmentsUseCase =
+      GetGasEquipmentsUseCase();
 
   PostingAdBloc()
       : super(PostingAdState(
-        contactsFormKey: GlobalKey<FormState>(),
+            contactsFormKey: GlobalKey<FormState>(),
             getAnnouncementToEditStatus: FormzStatus.pure,
             popStatus: PopStatus.success,
             colorName: LocaleKeys.white.tr(),
@@ -115,6 +119,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdShowToastEvent>(_showToast);
     on<PostingAdOnRentWithPurchaseConditionChangedEvent>(
         _onRentWithPurchaseCondition);
+    on<PostingAdGetGasEquipments>(_getGasEquipments);
   }
 
   FutureOr<void> _onRentWithPurchaseCondition(
@@ -222,6 +227,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         break;
       case 5:
         add(PostingAdEnginesEvent());
+        add(PostingAdGetGasEquipments());
         break;
       case 6:
         add(PostingAdDriveTypesEvent());
@@ -592,5 +598,20 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       add(PostingAdGetMinimumPriceEvent());
     }
     emit(PASingleton.choose(state, event));
+  }
+
+  FutureOr<void> _getGasEquipments(
+      PostingAdGetGasEquipments event, Emitter<PostingAdState> emit) async {
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    final result = await gasEquipmentsUseCase.call({'limit': 100, 'offset': 0});
+    if (result.isRight) {
+      final gasEquipments = result.right.results;
+      emit(state.copyWith(
+        gasEquipments: gasEquipments,
+        status: FormzStatus.submissionSuccess,
+      ));
+    } else {
+      emit(state.copyWith(status: FormzStatus.submissionFailure));
+    }
   }
 }

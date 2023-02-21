@@ -8,6 +8,7 @@ import 'package:auto/features/ad/data/models/body_type.dart';
 import 'package:auto/features/ad/data/models/drive_type.dart';
 import 'package:auto/features/ad/data/models/engine_type.dart';
 import 'package:auto/features/ad/data/models/foto_instruction_model.dart';
+import 'package:auto/features/ad/data/models/gas_equipment_model.dart';
 import 'package:auto/features/ad/data/models/gearbox_type.dart';
 import 'package:auto/features/ad/data/models/generation.dart';
 import 'package:auto/features/ad/data/models/modification_type.dart';
@@ -96,6 +97,12 @@ abstract class AdRemoteDataSource {
   Future<void> updateAnnouncement({
     required FormData announcementFormData,
     required int id,
+  });
+
+  Future<GenericPagination<GasEquipmentModel>> getGasEquipments({
+    String? search,
+    int? limit,
+    int? offset,
   });
 }
 
@@ -701,9 +708,9 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
         options: Options(
           headers: StorageRepository.getString('token').isNotEmpty
               ? {
-            'Authorization':
-            'Bearer ${StorageRepository.getString('token')}'
-          }
+                  'Authorization':
+                      'Bearer ${StorageRepository.getString('token')}'
+                }
               : {},
         ),
       );
@@ -723,4 +730,28 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
     }
   }
 
+  @override
+  Future<GenericPagination<GasEquipmentModel>> getGasEquipments({
+    String? search,
+    int? limit,
+    int? offset,
+  }) async {
+    try {
+      final result = await _dio.get('car/gas-equipments/',
+          queryParameters: {
+            'search': search,
+            'limit': limit,
+            'offset': offset,
+          },
+          options: Options(
+            headers: {
+              'Authorization': 'Bearer ${StorageRepository.getString('token')}',
+            },
+          ));
+      return GenericPagination.fromJson(result.data,
+          (json) => GasEquipmentModel.fromJson(json as Map<String, dynamic>));
+    } catch (e) {
+      throw const ServerException();
+    }
+  }
 }

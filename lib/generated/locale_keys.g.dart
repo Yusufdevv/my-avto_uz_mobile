@@ -530,5 +530,6 @@ abstract class  LocaleKeys {
   static const user_already_exist = 'user_already_exist';
   static const no_ads = 'no_ads';
   static const no_instructions = 'no_instructions';
+  static const lpg_equipment = 'lpg_equipment';
 
 }
