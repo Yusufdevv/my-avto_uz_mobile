@@ -222,3 +222,7 @@ class PostingAdChangeAppBarShadowEvent extends PostingAdEvent {
   final bool value;
   PostingAdChangeAppBarShadowEvent({required this.value});
 }
+
+class PostingAdGetGasEquipments extends PostingAdEvent {
+  PostingAdGetGasEquipments();
+}

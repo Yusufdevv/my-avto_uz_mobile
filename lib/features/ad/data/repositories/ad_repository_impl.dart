@@ -5,6 +5,7 @@ import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/ad/data/datasources/ad_remote_datasource.dart';
 import 'package:auto/features/ad/domain/entities/foto_instruction_entity.dart';
+import 'package:auto/features/ad/domain/entities/gas_equipment_entity.dart';
 import 'package:auto/features/ad/domain/entities/generation/generation.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
@@ -417,6 +418,26 @@ class AdRepositoryImpl extends AdRepository {
     } on ServerException catch (e) {
       return Left(ServerFailure(
           errorMessage: e.errorMessage, statusCode: e.statusCode));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GenericPagination<GasEquipmentEntity>>>
+      getGasEquipments({String? search, int? limit, int? offset}) async {
+    try {
+      final result = await remoteDataSource.getGasEquipments(
+        search: search,
+        limit: limit,
+        offset: offset,
+      );
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+          errorMessage: e.errorMessage, statusCode: e.statusCode));
+    } on DioException {
+      return Left(DioFailure());
+    } on DioError {
+      return Left(DioFailure());
     }
   }
 }

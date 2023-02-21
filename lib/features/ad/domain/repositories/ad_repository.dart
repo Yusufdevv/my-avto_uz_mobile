@@ -1,6 +1,7 @@
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/ad/domain/entities/foto_instruction_entity.dart';
+import 'package:auto/features/ad/domain/entities/gas_equipment_entity.dart';
 import 'package:auto/features/ad/domain/entities/generation/generation.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
@@ -96,5 +97,12 @@ abstract class AdRepository {
   Future<Either<Failure, void>> updateAnnouncement({
     required FormData announcementFormData,
     required int id,
+  });
+
+  Future<Either<Failure, GenericPagination<GasEquipmentEntity>>>
+      getGasEquipments({
+    String? search,
+    int? limit,
+    int? offset,
   });
 }
