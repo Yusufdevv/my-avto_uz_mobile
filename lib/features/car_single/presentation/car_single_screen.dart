@@ -35,6 +35,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../../core/singletons/storage.dart';
+
 class CarSingleScreen extends StatefulWidget {
   final int id;
 
@@ -251,7 +253,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                   .singleEntity.priceAnalytics.averagePrice,
                               ration: state
                                   .singleEntity.priceAnalytics.priceDifference,
-                              dateBsh: DateFormat('d MMMM', 'uz').format(DateTime.now()),
+                              dateBsh: DateFormat('d MMMM', StorageRepository.getString('language'),).format(DateTime.now()),
                               percent: MyFunctions.getFormatCost(
                                   '${100 - state.singleEntity.priceAnalytics.percentage}'),
                               isMine: state.singleEntity.isMine,
