@@ -248,13 +248,13 @@ class PASingleton {
         regionId: event.regionId,
         price: event.price,
         currency: event.currency,
-        gasBalloonType: event.gasBalloonType,
         districtId: event.districtId,
         phoneController: event.phoneController,
         emailController: event.emailController,
         nameController: event.nameController,
         eventMakeScrrollIndex: _getMakeLetterIndex(event, state.makes),
         description: event.description,
+        gasEquipmentId: event.gasEquipmentId,
       );
 
   static int? _getMakeLetterIndex(
@@ -346,26 +346,26 @@ class PASingleton {
         return state.model == null;
       // year
       case 2:
-        return state.yearEntity == null;
+        return false;
       // generation
       case 3:
-        return state.generationId == null;
+        return false;
 
       // body type
       case 4:
-        return state.bodyType == null;
+        return false;
       // engine
       case 5:
-        return state.engineId == null;
+        return false;
       // drive type
       case 6:
-        return state.driveTypeId == null;
+        return false;
       // gearbox
       case 7:
-        return state.gearbox == null;
+        return false;
       // ModificationScreen
       case 8:
-        return state.modification == null;
+        return false;
       // ColorsScreen
       case 9:
         return false;

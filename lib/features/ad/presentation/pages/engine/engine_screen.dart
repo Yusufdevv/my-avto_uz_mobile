@@ -53,14 +53,16 @@ class _EngineScreenState extends State<EngineScreen> {
                     ),
                   ),
                   const SizedBox(height: 13),
-                  if (state.gasBalloonType?.isNotEmpty ?? false) ...{
+                  if (state.gasEquipmentId != null && state.gasEquipmentId != -1) ...{
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: SwitcherRow(
                           value: true,
                           onChanged: (v) => context.read<PostingAdBloc>().add(
                                 PostingAdChooseEvent(
-                                    hasGasBalloon: true, gasBalloonType: ''),
+                                  hasGasBalloon: false,
+                                  gasEquipmentId: -1,
+                                ),
                               ),
                           title: LocaleKeys.gas_ballon_equipment.tr()),
                     ),
@@ -73,7 +75,7 @@ class _EngineScreenState extends State<EngineScreen> {
                             .read<PostingAdBloc>()
                             .add(PostingAdChooseEvent(hasGasBalloon: v)),
                         onTap: () {
-                          showModalBottomSheet<String>(
+                          showModalBottomSheet<int>(
                             context: context,
                             useRootNavigator: true,
                             backgroundColor: LightThemeColors.appBarColor,
@@ -83,15 +85,17 @@ class _EngineScreenState extends State<EngineScreen> {
                             ),
                             clipBehavior: Clip.hardEdge,
                             builder: (context) => SelectGasBalloonTypeSheet(
-                              selected: state.gasBalloonType,
+                              selected: state.gasEquipmentId,
+                              gasEquipments: state.gasEquipments,
                             ),
                           ).then(
                             (value) {
-                              context.read<PostingAdBloc>().add(
-                                  PostingAdChooseEvent(
-                                      hasGasBalloon:
-                                          value != null && value.isNotEmpty,
-                                      gasBalloonType: value));
+                              context
+                                  .read<PostingAdBloc>()
+                                  .add(PostingAdChooseEvent(
+                                    hasGasBalloon: value != null && value != -1,
+                                    gasEquipmentId: value,
+                                  ));
                             },
                           );
                         },

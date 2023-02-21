@@ -146,7 +146,6 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final String? price;
   final String? currency;
   final String? mileage;
-  final String? gasBalloonType;
 
   final String? callTimeFrom;
   final String? callTimeTo;
@@ -163,6 +162,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final bool? isWithoutMileage;
   final bool? showExactAddress;
   final bool? isNew;
+  final int? gasEquipmentId;
 
   PostingAdChooseEvent({
     this.modification,
@@ -206,7 +206,6 @@ class PostingAdChooseEvent extends PostingAdEvent {
     this.currency,
     this.mileage,
     this.hasGasBalloon,
-    this.gasBalloonType,
     this.callTimeFrom,
     this.callTimeTo,
     this.isCallTimed,
@@ -215,6 +214,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
     this.rentToBuy,
     this.isWithoutMileage,
     this.milageImage,
+    this.gasEquipmentId,
   });
 }
 

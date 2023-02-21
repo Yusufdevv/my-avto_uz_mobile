@@ -62,7 +62,6 @@ class PostingAdState extends Equatable {
   final String? price;
   final String currency;
   final String? mileage;
-  final String? gasBalloonType;
   final String? callTimeFrom;
   final String? callTimeTo;
   final String? toastMessage;
@@ -133,7 +132,6 @@ class PostingAdState extends Equatable {
     this.price,
     this.currency = 'uzs',
     this.mileage,
-    this.gasBalloonType,
     this.callTimeFrom,
     this.callTimeTo,
     this.isCallTimed = false,
@@ -301,7 +299,6 @@ class PostingAdState extends Equatable {
         ownerPhone: ownerPhone ?? this.ownerPhone,
         mileage: mileage ?? this.mileage,
         currency: currency ?? this.currency,
-        gasBalloonType: gasBalloonType ?? this.gasBalloonType,
         price: price ?? this.price,
         callTimeFrom: callTimeFrom ?? this.callTimeFrom,
         callTimeTo: callTimeTo ?? this.callTimeTo,
@@ -383,7 +380,6 @@ class PostingAdState extends Equatable {
         price,
         currency,
         mileage,
-        gasBalloonType,
         isCallTimed,
         showOwnerContacts,
         isContactsVerified,

@@ -227,6 +227,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         break;
       case 5:
         add(PostingAdEnginesEvent());
+        add(PostingAdGetGasEquipments());
         break;
       case 6:
         add(PostingAdDriveTypesEvent());
@@ -606,10 +607,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     if (result.isRight) {
       final gasEquipments = result.right.results;
       emit(state.copyWith(
-          gasEquipments: gasEquipments,
-          status: FormzStatus.submissionSuccess,
-          gasEquipmentId:
-              gasEquipments.isNotEmpty ? gasEquipments.first.id : null));
+        gasEquipments: gasEquipments,
+        status: FormzStatus.submissionSuccess,
+      ));
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
