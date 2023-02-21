@@ -88,40 +88,42 @@ class _DealerScreenState extends State<DealerScreen> {
                               ),
                               const SizedBox(width: 7),
                               Expanded(
-                                child: WTextField(
+                                child: SizedBox(
                                   height: 40,
-                                  contentPadding: const EdgeInsets.only(
-                                      left: 12, right: 12, top: 12),
-                                  borderColor: purple,
-                                  disabledBorderColor: Theme.of(context)
-                                      .extension<ThemedColors>()!
-                                      .whiteSmokeToEclipse,
-                                  fillColor: Theme.of(context)
-                                      .extension<ThemedColors>()!
-                                      .whiteSmokeToEclipse,
-                                  hintText: LocaleKeys.model_brand.tr(),
-                                  hintTextStyle: const TextStyle(
+                                  child: WTextField(
+                                    contentPadding: const EdgeInsets.only(
+                                        left: 12, right: 12, top: 12),
+                                    borderColor: purple,
+                                    disabledBorderColor: Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .whiteSmokeToEclipse,
+                                    fillColor: Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .whiteSmokeToEclipse,
+                                    hintText: LocaleKeys.model_brand.tr(),
+                                    hintTextStyle: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                        color: grey),
+                                    textStyle: const TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w400,
-                                      color: grey),
-                                  textStyle: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                    color: black,
+                                      color: black,
+                                    ),
+                                    enabledBorderColor: Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .whiteSmokeToEclipse,
+                                    focusColor: Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .whiteSmokeToEclipse,
+                                    onChanged: (value) {
+                                      bloc.add(DealerCardEvent.getResults(
+                                          isRefresh: false, search: value));
+                                    },
+                                    controller: controller,
+                                    hasSearch: true,
+                                    borderRadius: 8,
                                   ),
-                                  enabledBorderColor: Theme.of(context)
-                                      .extension<ThemedColors>()!
-                                      .whiteSmokeToEclipse,
-                                  focusColor: Theme.of(context)
-                                      .extension<ThemedColors>()!
-                                      .whiteSmokeToEclipse,
-                                  onChanged: (value) {
-                                    bloc.add(DealerCardEvent.getResults(
-                                        isRefresh: false, search: value));
-                                  },
-                                  controller: controller,
-                                  hasSearch: true,
-                                  borderRadius: 8,
                                 ),
                               ),
                               const SizedBox(width: 12),

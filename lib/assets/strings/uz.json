@@ -534,5 +534,7 @@
   "gearbox_type": "Uzatish qutisi",
   "power": "Quvvat",
   "volume": "Dvigatel quvvati",
-  "not_shown": "Ko'rsatilmagan"
+  "not_shown": "Ko'rsatilmagan",
+  "enter_valid_phone_number": "To'g'ri telefon raqam kiriting"
+
 }
