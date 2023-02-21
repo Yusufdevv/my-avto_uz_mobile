@@ -24,10 +24,10 @@ class GetBodyTypeUseCase
 
 class BodyTypeParams {
   final String? next;
-  final int generationId;
+  final int? generationId;
 
   BodyTypeParams({
-    required this.generationId,
+    this.generationId,
     this.next,
   });
 }

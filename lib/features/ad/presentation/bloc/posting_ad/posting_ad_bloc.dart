@@ -3,7 +3,8 @@ import 'dart:async';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
-import 'package:auto/features/ad/domain/entities/gas_equipment_entity.dart';
+import 'package:auto/features/ad/domain/entities/equipment/equipment_entity.dart';
+import 'package:auto/features/ad/domain/entities/equipment/gas_equipment_entity.dart';
 import 'package:auto/features/ad/domain/entities/generation/generation.dart';
 import 'package:auto/features/ad/domain/entities/rent_with_purchase/rent_with_purchase_entity.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
@@ -19,6 +20,7 @@ import 'package:auto/features/ad/domain/usecases/get_body_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
 import 'package:auto/features/ad/domain/usecases/get_drive_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_engine_type.dart';
+import 'package:auto/features/ad/domain/usecases/get_equipments.dart';
 import 'package:auto/features/ad/domain/usecases/get_gas_equipment.dart';
 import 'package:auto/features/ad/domain/usecases/get_generation.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
@@ -77,6 +79,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   final GetBodyTypeUseCase bodyTypesUseCase = GetBodyTypeUseCase();
   final GetGasEquipmentsUseCase gasEquipmentsUseCase =
       GetGasEquipmentsUseCase();
+  final GetEquipmentsUseCase getEquipmentsUseCase = GetEquipmentsUseCase();
 
   PostingAdBloc()
       : super(PostingAdState(
@@ -120,6 +123,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdOnRentWithPurchaseConditionChangedEvent>(
         _onRentWithPurchaseCondition);
     on<PostingAdGetGasEquipments>(_getGasEquipments);
+    on<PostingAdGetEquipments>(_getEquipments);
   }
 
   FutureOr<void> _onRentWithPurchaseCondition(
@@ -163,11 +167,11 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       PostingAdModificationsEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await modificationUseCase.call(ModificationTypeParams(
-        bodyTypeId: state.bodyType!.id,
-        driveTypeId: state.driveTypeId!,
-        engineTypeId: state.engineId!,
-        gearBoxTypeTypeId: state.gearbox!.id,
-        generationId: state.generationId!,
+        bodyTypeId: state.bodyType?.id,
+        driveTypeId: state.driveTypeId,
+        engineTypeId: state.engineId,
+        gearBoxTypeTypeId: state.gearbox?.id,
+        generationId: state.generationId,
         next: ''));
     if (result.isRight) {
       emit(
@@ -237,6 +241,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         break;
       case 8:
         add(PostingAdModificationsEvent());
+        break;
+      case 13:
+        add(PostingAdGetEquipments());
         break;
       case 16:
         if (state.regions.isEmpty) add(PostingAdGetRegionsEvent());
@@ -437,7 +444,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       PostingAdBodyTypesEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await bodyTypesUseCase
-        .call(BodyTypeParams(generationId: state.generationId!));
+        .call(BodyTypeParams(generationId: state.generationId));
 
     if (result.isRight) {
       final bodies = result.right.results;
@@ -473,9 +480,10 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       PostingAdDriveTypesEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await driveTypeUseCase.call(DriveTypeParams(
-        generationId: state.generationId!,
-        bodyTypeId: state.bodyType!.id,
-        engineTypeId: state.engineId!));
+      generationId: state.generationId,
+      bodyTypeId: state.bodyType?.id,
+      engineTypeId: state.engineId,
+    ));
     if (result.isRight) {
       final driveTypes = result.right.results;
       emit(
@@ -494,8 +502,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       PostingAdEnginesEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await engineUseCase.call(EngineTypeParams(
-      bodyTypeId: state.bodyType!.id,
-      generationId: state.generationId!,
+      bodyTypeId: state.bodyType?.id,
+      generationId: state.generationId,
     ));
 
     if (result.isRight) {
@@ -515,7 +523,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   FutureOr<void> _models(
       PostingAdModelEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    final result = await modelsUseCase.call(state.make!.id, name: event.name);
+    final result = await modelsUseCase.call(state.make?.id ?? -1, name: event.name);
     if (result.isRight) {
       emit(
         state.copyWith(
@@ -532,7 +540,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       PostingAdGenerationsEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await generationUseCase.call(GenerationParams(
-        modelId: state.model!.id, year: state.yearEntity!.yearBegin));
+      modelId: state.model?.id,
+      year: state.yearEntity?.yearBegin,
+    ));
     if (result.isRight) {
       final generations = result.right.results;
       emit(state.copyWith(
@@ -592,7 +602,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
   void _choose(PostingAdChooseEvent event, Emitter<PostingAdState> emit) {
     if (event.regionId != null) {
-      add(PostingAdGetDistritsEvent(regionId: event.regionId!));
+      add(PostingAdGetDistritsEvent(regionId: event.regionId));
     }
     if (event.currency != null) {
       add(PostingAdGetMinimumPriceEvent());
@@ -609,6 +619,22 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       emit(state.copyWith(
         gasEquipments: gasEquipments,
         status: FormzStatus.submissionSuccess,
+      ));
+    } else {
+      emit(state.copyWith(status: FormzStatus.submissionFailure));
+    }
+  }
+
+  FutureOr<void> _getEquipments(
+      PostingAdGetEquipments event, Emitter<PostingAdState> emit) async {
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    final result = await getEquipmentsUseCase.call({ 'search' : '', 'limit': 100, 'offset': 0,'modelId' : 3063});
+    if (result.isRight) {
+      final equipments = result.right.results;
+      emit(state.copyWith(
+        equipments: equipments,
+        status: FormzStatus.submissionSuccess,
+          equipmentId: equipments.isNotEmpty ? equipments.first.id : null
       ));
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));

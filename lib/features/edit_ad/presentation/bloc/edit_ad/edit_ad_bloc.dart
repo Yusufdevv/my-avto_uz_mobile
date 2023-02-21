@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
+import 'package:auto/features/ad/domain/entities/equipment/equipment_entity.dart';
 import 'package:auto/features/ad/domain/entities/rent_with_purchase/rent_with_purchase_entity.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
@@ -15,6 +16,7 @@ import 'package:auto/features/ad/domain/usecases/get_body_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
 import 'package:auto/features/ad/domain/usecases/get_drive_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_engine_type.dart';
+import 'package:auto/features/ad/domain/usecases/get_equipments.dart';
 import 'package:auto/features/ad/domain/usecases/get_generation.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
 import 'package:auto/features/ad/domain/usecases/get_map_screenshot_usecase.dart';
@@ -72,6 +74,7 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
   final GetMakesUseCase makeUseCase = GetMakesUseCase();
   final GetTopBrandUseCase topMakesUseCase = GetTopBrandUseCase();
   final GetBodyTypeUseCase bodyTypesUseCase = GetBodyTypeUseCase();
+  final GetEquipmentsUseCase getEquipmentsUseCase = GetEquipmentsUseCase();
 
   EditAdBloc()
       : super(EditAdState(
@@ -100,6 +103,7 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
     on<EditAdClearStateEvent>(_clearState);
     on<EditAdShowToastEvent>(_showToast);
     on<EditAdOnRentWithPurchaseEvent>(_onRentWithPurchaseConditionChanged);
+    on<EditAdGetEquipments>(_getEquipments);
   }
 
   FutureOr<void> _onRentWithPurchaseConditionChanged(
@@ -131,6 +135,9 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
   FutureOr<void> _addEvent(
       EditAdAddEventForEveryPage event, Emitter<EditAdState> emit) {
     switch (event.page) {
+      case 5:
+        add(EditAdGetEquipments());
+        break;
       case 6:
         if (state.regions.isEmpty) add(EditAdGetRegionsEvent());
         break;
@@ -289,7 +296,10 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
   FutureOr<void> _create(
       EditAdCreateEvent event, Emitter<EditAdState> emit) async {
     emit(state.copyWith(createStatus: FormzStatus.submissionInProgress));
-    final result = await updateUseCase.call({'form_data' : await EASingleton.create(state), 'id' : event.announcementId});
+    final result = await updateUseCase.call({
+      'form_data': await EASingleton.create(state),
+      'id': event.announcementId
+    });
     if (result.isRight) {
       emit(
         state.copyWith(
@@ -314,11 +324,27 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
 
   void _choose(EditAdChooseEvent event, Emitter<EditAdState> emit) {
     if (event.regionId != null) {
-      add(EditAdGetDistritsEvent(regionId: event.regionId!));
+      add(EditAdGetDistritsEvent(regionId: event.regionId));
     }
     if (event.currency != null) {
       add(EditAdGetMinimumPriceEvent());
     }
     emit(EASingleton.choose(state, event));
+  }
+
+  FutureOr<void> _getEquipments(
+      EditAdGetEquipments event, Emitter<EditAdState> emit) async {
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    final result = await getEquipmentsUseCase
+        .call({'search': '', 'limit': 100, 'offset': 0, 'modelId': 3063});
+    if (result.isRight) {
+      final equipments = result.right.results;
+      emit(state.copyWith(
+          equipments: equipments,
+          status: FormzStatus.submissionSuccess,
+          equipmentId: equipments.isNotEmpty ? equipments.first.id : null));
+    } else {
+      emit(state.copyWith(status: FormzStatus.submissionFailure));
+    }
   }
 }

@@ -1,4 +1,4 @@
-import 'package:auto/features/ad/domain/entities/gas_equipment_entity.dart';
+import 'package:auto/features/ad/domain/entities/equipment/gas_equipment_entity.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'gas_equipment_model.g.dart';

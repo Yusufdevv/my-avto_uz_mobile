@@ -60,8 +60,8 @@ class PostingAdDamageEvent extends PostingAdEvent {
 class PostingAdGetRegionsEvent extends PostingAdEvent {}
 
 class PostingAdGetDistritsEvent extends PostingAdEvent {
-  final int regionId;
-  PostingAdGetDistritsEvent({required this.regionId});
+  final int? regionId;
+  PostingAdGetDistritsEvent({this.regionId});
 }
 
 class PostingAdCreateEvent extends PostingAdEvent {}
@@ -163,6 +163,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final bool? showExactAddress;
   final bool? isNew;
   final int? gasEquipmentId;
+  final int? equipmentId;
 
   PostingAdChooseEvent({
     this.modification,
@@ -215,6 +216,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
     this.isWithoutMileage,
     this.milageImage,
     this.gasEquipmentId,
+    this.equipmentId,
   });
 }
 
@@ -225,4 +227,8 @@ class PostingAdChangeAppBarShadowEvent extends PostingAdEvent {
 
 class PostingAdGetGasEquipments extends PostingAdEvent {
   PostingAdGetGasEquipments();
+}
+
+class PostingAdGetEquipments extends PostingAdEvent {
+  PostingAdGetEquipments();
 }

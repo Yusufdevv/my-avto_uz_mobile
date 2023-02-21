@@ -12,12 +12,12 @@ class PASingleton {
       'make': v.make?.id,
       'model': v.model?.id,
       'generation': v.generationId,
-      'body_type': v.bodyType!.id,
+      'body_type': v.bodyType?.id,
       'drive_type': v.driveTypeId,
       'engine_type': v.engineId,
       'gearbox_type': v.gearbox?.id,
       'year': v.yearEntity?.id,
-      'modification_type': v.modification!.id,
+      'modification_type': v.modification?.id,
       'color': v.colorName,
       'licence_type': v.licenceType,
       'ownership': v.ownerStep,
@@ -30,7 +30,7 @@ class PASingleton {
       'region': v.regionId,
       'district': v.districtId,
       'location_url': v.locationUrl,
-      'price': v.price!.replaceAll(' ', ''),
+      'price': v.price?.replaceAll(' ', ''),
       'currency': v.currency,
       'distance_traveled': (v.isWithoutMileage ?? false)
           ? '0'
@@ -48,6 +48,8 @@ class PASingleton {
       'rent_with_purchase': v.rentWithPurchaseConditions.entries
           .map((e) => e.value.toApi())
           .toList(),
+      'equipment' : v.equipmentId,
+      'gas_equipment' : v.gasEquipmentId,
     };
     if (v.milageImage != null && v.milageImage!.isNotEmpty) {
       final milageImage = await MultipartFile.fromFile(v.milageImage!);
@@ -85,8 +87,8 @@ class PASingleton {
   }
 
   static Map<String, dynamic> getMiniPrice(PostingAdState state) => {
-        'make': state.make!.id,
-        'model': state.model!.id,
+        'make': state.make?.id,
+        'model': state.model?.id,
         'currency': state.currency
       };
 
@@ -255,6 +257,7 @@ class PASingleton {
         eventMakeScrrollIndex: _getMakeLetterIndex(event, state.makes),
         description: event.description,
         gasEquipmentId: event.gasEquipmentId,
+        equipmentId: event.equipmentId,
       );
 
   static int? _getMakeLetterIndex(
