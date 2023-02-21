@@ -8,6 +8,7 @@ import 'package:auto/features/comparison/presentation/widgets/added_car_sticky.d
 import 'package:auto/features/comparison/presentation/widgets/added_car_widget.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/search/presentation/part/bottom_sheet_for_calling.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,6 +21,7 @@ class ComparisonSliverDelegete extends SliverPersistentHeaderDelegate {
   final ValueChanged<bool> setSticky;
   final ComparisonBloc comparisonBloc;
   final GlobalKey<AnimatedListState> listkey;
+
   ComparisonSliverDelegete({
     required this.onAddCar,
     required this.numberOfAddedCars,
@@ -30,6 +32,7 @@ class ComparisonSliverDelegete extends SliverPersistentHeaderDelegate {
     required this.comparisonBloc,
     required this.listkey,
   });
+
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
@@ -136,57 +139,58 @@ class ComparisonSliverDelegete extends SliverPersistentHeaderDelegate {
                                       },
                                       behavior: HitTestBehavior.opaque,
                                       child: AddedCar(
-                                        ownerType: item!.announcement.ownership,
-                                        hasCallCard: true,
-                                        carName:
-                                            item.announcement.mainData.model,
-                                        carSalary:
-                                            '${item.announcement.price} ${item.announcement.currency.toUpperCase()}',
-                                        imageUrl:
-                                            item.announcement.mainData.gallery,
-                                        onTabCall: () {
-                                          bottomSheetForCalling(
-                                            context,
-                                            item.announcement.mainData.user
-                                                .phoneNumber,
-                                          );
-                                        },
-                                        onTabClose: () {
-                                          comparisonBloc
-                                              .add(GetCars(id: item.id));
-                                          listkey.currentState?.removeItem(
-                                            index,
-                                            (context, animation) => AddedCar(
-                                              ownerType:
-                                                  item.announcement.ownership,
-                                              hasCallCard: true,
-                                              carName: item
-                                                  .announcement.mainData.model,
-                                              carSalary:
-                                                  '${item.announcement.price} ${item.announcement.currency.toUpperCase()}',
-                                              imageUrl: item.announcement
-                                                  .mainData.gallery,
-                                              onTabCall: () {},
-                                              onTabClose: () {},
-                                              id: item.id,
-                                              animation: animation,
-                                            ),
-                                          );
-                                          context.read<ComparisonAddBloc>().add(
-                                                ComparisonAddEvent
+                                          ownerType:
+                                              item!.announcement.ownership,
+                                          hasCallCard: true,
+                                          carName:
+                                              item.announcement.mainData.model,
+                                          carSalary:
+                                              '${MyFunctions.getFormatCost(item.announcement.price)} ${item.announcement.currency.toUpperCase()}',
+                                          imageUrl: item
+                                              .announcement.mainData.gallery,
+                                          onTabCall: () {
+                                            bottomSheetForCalling(
+                                              context,
+                                              item.announcement.mainData.user
+                                                  .phoneNumber,
+                                            );
+                                          },
+                                          onTabClose: () {
+                                            comparisonBloc
+                                                .add(GetCars(id: item.id));
+                                            listkey.currentState?.removeItem(
+                                              index,
+                                              (context, animation) => AddedCar(
+                                                ownerType:
+                                                    item.announcement.ownership,
+                                                hasCallCard: true,
+                                                carName: item.announcement
+                                                    .mainData.model,
+                                                carSalary:
+                                                    '${MyFunctions.getFormatCost(item.announcement.price)} ${item.announcement.currency.toUpperCase()}',
+                                                imageUrl: item.announcement
+                                                    .mainData.gallery,
+                                                onTabCall: () {},
+                                                onTabClose: () {},
+                                                id: item.id,
+                                                animation: animation,
+                                              ),
+                                            );
+                                            context
+                                                .read<ComparisonAddBloc>()
+                                                .add(ComparisonAddEvent
                                                     .deleteComparison(
-                                                  item.order,
-                                                ),
-                                              );
-                                          context.read<ComparisonAddBloc>().add(
-                                              ComparisonAddEvent
-                                                  .addToMapComparison(
-                                                      id: item.announcement.id,
-                                                      value: false));
-                                        },
-                                        id: item.id,
-                                        animation: animation,
-                                      ),
+                                                        item.order));
+                                            context
+                                                .read<ComparisonAddBloc>()
+                                                .add(ComparisonAddEvent
+                                                    .addToMapComparison(
+                                                        id: item
+                                                            .announcement.id,
+                                                        value: false));
+                                          },
+                                          id: item.id,
+                                          animation: animation),
                                     );
                                   }
                                 },

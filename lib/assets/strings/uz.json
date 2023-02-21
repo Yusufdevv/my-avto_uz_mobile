@@ -528,5 +528,10 @@
   "user_already_exist": "Bunday raqamli foydalanuvchi allaqachon ro'yxatdan o'tgan",
   "no_ads": "E'lonlar yo'q",
   "no_instructions": "Instruksiyalar yo'q",
-  "lpg_equipment": "Газобаллонное оборудование"
+  "lpg_equipment": "Газобаллонное оборудование",
+  "make": "Marka",
+  "drive_type": "Boshqaruv turi",
+  "gearbox_type": "Uzatish qutisi",
+  "power": "Quvvat",
+  "volume": "Dvigatel quvvati"
 }
