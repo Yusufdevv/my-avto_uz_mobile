@@ -537,5 +537,7 @@ abstract class  LocaleKeys {
   static const power = 'power';
   static const volume = 'volume';
   static const not_shown = 'not_shown';
+  static const enter_valid_phone_number = 'enter_valid_phone_number';
+  static const please_enter_your_name = 'please_enter_your_name';
 
 }
