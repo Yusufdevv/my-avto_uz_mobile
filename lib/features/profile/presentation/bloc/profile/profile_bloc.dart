@@ -77,13 +77,13 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         myAdsCount += event.myAdsCount!;
       }
     } else {
-      if (event.favoritesCount != null) {
+      if (event.favoritesCount != null && announcementWishlistCount>0) {
         announcementWishlistCount -= event.favoritesCount!;
       }
-      if (event.mySearchesCount != null) {
+      if (event.mySearchesCount != null && mySearchesCount>0) {
         mySearchesCount -= event.mySearchesCount!;
       }
-      if (event.myAdsCount != null) {
+      if (event.myAdsCount != null && myAdsCount>0) {
         myAdsCount -= event.myAdsCount!;
       }
     }

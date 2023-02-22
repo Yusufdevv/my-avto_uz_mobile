@@ -3,11 +3,13 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/car_single/presentation/car_single_screen.dart';
+import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/search/presentation/widgets/add_wishlist_item.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class AdsItem extends StatelessWidget {
@@ -136,7 +138,32 @@ class AdsItem extends StatelessWidget {
                                       .extension<ThemedColors>()
                                       ?.dolphinToGreySuit)),
                     ),
-                    AddWishlistItem(onTap: onTapLike, initialLike: isLiked),
+                    BlocConsumer<WishlistAddBloc, WishlistAddState>(
+                      listener: (context, state) {},
+                      builder: (context, state) {
+                        final isliked =
+                            state.map[id] ?? isLiked;
+                        return AddWishlistItem(
+                          onTap: () {
+                            if (!isliked) {
+                              context.read<WishlistAddBloc>().add(
+                                  WishlistAddEvent.addWishlist(id, 0));
+                              context.read<WishlistAddBloc>().add(
+                                  WishlistAddEvent.addToMapFavorites(
+                                      id: id, value: true));
+                            } else {
+                              context.read<WishlistAddBloc>().add(
+                                  WishlistAddEvent.removeWishlist(
+                                       id, 0));
+                              context.read<WishlistAddBloc>().add(
+                                  WishlistAddEvent.addToMapFavorites(
+                                      id:  id, value: false));
+                            }
+                          },
+                          initialLike: isliked,
+                        );
+                      },
+                    ),
                   ],
                 ),
               ),

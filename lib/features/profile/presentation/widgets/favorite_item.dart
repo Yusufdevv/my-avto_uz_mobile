@@ -4,7 +4,6 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/car_single/presentation/car_single_screen.dart';
-import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/bloc/user_wishlists_notifications/user_wishlists_notification_bloc.dart';
@@ -18,7 +17,6 @@ import 'package:auto/utils/my_functions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class FavoriteItem extends StatefulWidget {
@@ -369,21 +367,7 @@ class _FavoriteItemState extends State<FavoriteItem> {
                       ),
                       const SizedBox(width: 8),
                       AddWishlistItem(
-                        onTap: widget.onTap ??
-                            () {
-                              if (!isLiked) {
-                                context.read<WishlistAddBloc>().add(
-                                    WishlistAddEvent.addWishlist(
-                                        widget.id, widget.index));
-                                isLiked = true;
-                              } else {
-                                context.read<WishlistAddBloc>().add(
-                                    WishlistAddEvent.removeWishlist(
-                                        widget.id, widget.index));
-                                isLiked = false;
-                              }
-                              setState(() {});
-                            },
+                        onTap: widget.onTap?? (){},
                         initialLike: isLiked,
                       ),
                     ],

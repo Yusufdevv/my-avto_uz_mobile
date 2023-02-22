@@ -19,7 +19,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:formz/formz.dart';
 
 class InfoResultContainer extends StatefulWidget {
   const InfoResultContainer(
@@ -75,13 +74,6 @@ class InfoResultContainer extends StatefulWidget {
 }
 
 class _InfoResultContainerState extends State<InfoResultContainer> {
-  bool isLiked = false;
-
-  @override
-  void initState() {
-    isLiked = widget.isWishlisted;
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) => GestureDetector(
@@ -354,33 +346,31 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                       initialLike: widget.hasComparison,
                     ),
                     const SizedBox(width: 8),
-                    BlocListener<WishlistAddBloc, WishlistAddState>(
-                      listener: (context, stateWish) {
-                        if (stateWish.addStatus.isSubmissionSuccess ||
-                            stateWish.removeStatus.isSubmissionSuccess) {
-                          if (stateWish.id == widget.id) {
-                            isLiked = !isLiked;
-                            setState(() {});
-                          }
-                        }
+                    BlocConsumer<WishlistAddBloc, WishlistAddState>(
+                      listener: (context, state) {},
+                      builder: (context, state) {
+                        final isLiked =
+                            state.map[widget.id] ?? widget.isWishlisted;
+                        return AddWishlistItem(
+                          onTap: () {
+                            if (!isLiked) {
+                              context.read<WishlistAddBloc>().add(
+                                  WishlistAddEvent.addWishlist(widget.id, 0));
+                              context.read<WishlistAddBloc>().add(
+                                  WishlistAddEvent.addToMapFavorites(
+                                      id: widget.id, value: true));
+                            } else {
+                              context.read<WishlistAddBloc>().add(
+                                  WishlistAddEvent.removeWishlist(
+                                      widget.id, 0));
+                              context.read<WishlistAddBloc>().add(
+                                  WishlistAddEvent.addToMapFavorites(
+                                      id: widget.id, value: false));
+                            }
+                          },
+                          initialLike: isLiked,
+                        );
                       },
-                      child: AddWishlistItem(
-                        onTap: () {
-                          context
-                              .read<WishlistAddBloc>()
-                              .add(WishlistAddEvent.clearState());
-                          if (!isLiked) {
-                            context.read<WishlistAddBloc>().add(
-                                WishlistAddEvent.addWishlist(
-                                    widget.id, widget.index));
-                          } else {
-                            context.read<WishlistAddBloc>().add(
-                                WishlistAddEvent.removeWishlist(
-                                    widget.id, widget.index));
-                          }
-                        },
-                        initialLike: isLiked,
-                      ),
                     ),
                   ],
                 ),
