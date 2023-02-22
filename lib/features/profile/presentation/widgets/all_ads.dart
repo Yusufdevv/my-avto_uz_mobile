@@ -96,7 +96,8 @@ class _AllAdsState extends State<AllAds> {
                   })
               : Center(
                   child: EmptyItemBody(
-                      subtitle: LocaleKeys.you_dont_have_ads.tr(),
+                      subtitle: '',
+                      title: LocaleKeys.no_results.tr(),
                       image: AppIcons.carIcon),
                 );
         }

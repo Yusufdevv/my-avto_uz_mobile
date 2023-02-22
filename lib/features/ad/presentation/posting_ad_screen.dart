@@ -266,7 +266,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                             }
                           },
                           onTapCancel: () {
-                            print('on tap cancel');
+                            postingAdBloc.add(PostingAdClearStateEvent());
                             currentTabIndex = 0;
                             pageController.animateToPage(currentTabIndex,
                                 duration: const Duration(milliseconds: 300),

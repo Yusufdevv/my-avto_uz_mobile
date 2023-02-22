@@ -523,7 +523,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   FutureOr<void> _models(
       PostingAdModelEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    final result = await modelsUseCase.call(state.make?.id ?? -1, name: event.name);
+    final result =
+        await modelsUseCase.call(state.make?.id ?? -1, name: event.name);
     if (result.isRight) {
       emit(
         state.copyWith(
@@ -628,14 +629,18 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   FutureOr<void> _getEquipments(
       PostingAdGetEquipments event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    final result = await getEquipmentsUseCase.call({ 'search' : '', 'limit': 100, 'offset': 0,'modelId' : 3063});
+    final result = await getEquipmentsUseCase.call({
+      'search': '',
+      'limit': 100,
+      'offset': 0,
+      'modelId': state.model?.id,
+    });
     if (result.isRight) {
       final equipments = result.right.results;
       emit(state.copyWith(
-        equipments: equipments,
-        status: FormzStatus.submissionSuccess,
-          equipmentId: equipments.isNotEmpty ? equipments.first.id : null
-      ));
+          equipments: equipments,
+          status: FormzStatus.submissionSuccess,
+          equipmentId: equipments.isNotEmpty ? equipments.first.id : null));
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
