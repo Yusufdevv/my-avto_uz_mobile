@@ -29,7 +29,7 @@ class BaseWidget extends StatelessWidget {
                 left: 16,
               ),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
                     headerText,

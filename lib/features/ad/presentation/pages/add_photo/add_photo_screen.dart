@@ -67,18 +67,14 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                   headerText: LocaleKeys.photo.tr(),
                   extraAction: [
                     const SizedBox(width: 12),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 3),
-                      child: GestureDetector(
-                          onTap: () {
-                            Navigator.of(context, rootNavigator: true).push(
-                                fade(page: const PhotoInstructionsScreen()));
-                          },
-                          behavior: HitTestBehavior.opaque,
-                          child: SvgPicture.asset(AppIcons.infoCircle,
-                              height: 24)),
-                    ),
-                    const Spacer()
+                    GestureDetector(
+                        onTap: () {
+                          Navigator.of(context, rootNavigator: true).push(
+                              fade(page: const PhotoInstructionsScreen()));
+                        },
+                        behavior: HitTestBehavior.opaque,
+                        child:
+                            SvgPicture.asset(AppIcons.infoCircle, height: 24)),
                   ],
                   child: BlocConsumer<ImageBloc, ImageState>(
                     listener: (context, state) {

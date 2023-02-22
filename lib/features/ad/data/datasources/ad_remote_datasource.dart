@@ -2,11 +2,14 @@
 
 import 'dart:convert';
 import 'dart:typed_data';
+
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/data/models/body_type.dart';
 import 'package:auto/features/ad/data/models/drive_type.dart';
 import 'package:auto/features/ad/data/models/engine_type.dart';
+import 'package:auto/features/ad/data/models/equipment/equipment_model.dart';
+import 'package:auto/features/ad/data/models/equipment/gas_equipment_model.dart';
 import 'package:auto/features/ad/data/models/foto_instruction_model.dart';
 import 'package:auto/features/ad/data/models/gearbox_type.dart';
 import 'package:auto/features/ad/data/models/generation.dart';
@@ -38,54 +41,54 @@ abstract class AdRemoteDataSource {
   Future<GetMakeEntity> getCarModel(int makeId, {String? name});
 
   Future<GenericPagination<YearsModel>> getYears({
-    required int modelId,
+    int? modelId,
     String? next,
   });
 
   Future<GenericPagination<GenerationModel>> getGeneration({
-    required int modelId,
-    required int year,
+    int? modelId,
+    int? year,
     String? next,
   });
 
   Future<GenericPagination<BodyTypeModel>> getBodyType({
-    required int generationId,
+    int? generationId,
     String? next,
   });
 
   Future<GenericPagination<BodyTypeModel>> bodyTypesGet();
 
   Future<GenericPagination<EngineTypeModel>> getEngineType({
-    required int generationId,
-    required int bodyTypeId,
+    int? generationId,
+    int? bodyTypeId,
     String? next,
   });
 
   Future<GenericPagination<DriveTypeModel>> getDriveType({
-    required int generationId,
-    required int bodyTypeId,
-    required int engineTypeId,
+    int? generationId,
+    int? bodyTypeId,
+    int? engineTypeId,
     String? next,
   });
 
   Future<GenericPagination<DriveTypeModel>> driveTypesGet();
 
   Future<GenericPagination<GearboxTypeModel>> getGearboxType({
-    required int generationId,
-    required int bodyTypeId,
-    required int engineTypeId,
-    required int driveTypeId,
+    int? generationId,
+    int? bodyTypeId,
+    int? engineTypeId,
+    int? driveTypeId,
     String? next,
   });
 
   Future<GenericPagination<GearboxTypeModel>> gearboxessGet();
 
   Future<GenericPagination<ModificationTypeModel>> getModificationType({
-    required int generationId,
-    required int bodyTypeId,
-    required int engineTypeId,
-    required int driveTypeId,
-    required int gearBoxTypeTypeId,
+    int? generationId,
+    int? bodyTypeId,
+    int? engineTypeId,
+    int? driveTypeId,
+    int? gearBoxTypeTypeId,
     String? next,
   });
 
@@ -96,6 +99,19 @@ abstract class AdRemoteDataSource {
   Future<void> updateAnnouncement({
     required FormData announcementFormData,
     required int id,
+  });
+
+  Future<GenericPagination<GasEquipmentModel>> getGasEquipments({
+    String? search,
+    int? limit,
+    int? offset,
+  });
+
+  Future<GenericPagination<EquipmentModel>> getEquipments({
+    String? search,
+    int? limit,
+    int? offset,
+    int? modelId,
   });
 }
 
@@ -144,7 +160,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
   }
 
   @override
-  Future<GetMakeEntity> getCarModel(int makeId, {String? name}) async {
+  Future<GetMakeEntity> getCarModel(int? makeId, {String? name}) async {
     final response = await _dio.get('/car/$makeId/models/',
         options: Options(
           headers: StorageRepository.getString('token').isNotEmpty
@@ -166,7 +182,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
 
   @override
   Future<GenericPagination<YearsModel>> getYears({
-    required int modelId,
+    int? modelId,
     String? next,
   }) async {
     final response = await _dio.get(
@@ -188,8 +204,8 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
 
   @override
   Future<GenericPagination<GenerationModel>> getGeneration({
-    required int modelId,
-    required int year,
+    int? modelId,
+    int? year,
     String? next,
   }) async {
     try {
@@ -223,7 +239,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
 
   @override
   Future<GenericPagination<BodyTypeModel>> getBodyType({
-    required int generationId,
+    int? generationId,
     String? next,
   }) async {
     try {
@@ -288,8 +304,8 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
 
   @override
   Future<GenericPagination<EngineTypeModel>> getEngineType({
-    required int generationId,
-    required int bodyTypeId,
+    int? generationId,
+    int? bodyTypeId,
     String? next,
   }) async {
     try {
@@ -322,9 +338,9 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
 
   @override
   Future<GenericPagination<DriveTypeModel>> getDriveType({
-    required int generationId,
-    required int bodyTypeId,
-    required int engineTypeId,
+    int? generationId,
+    int? bodyTypeId,
+    int? engineTypeId,
     String? next,
   }) async {
     try {
@@ -387,10 +403,10 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
 
   @override
   Future<GenericPagination<GearboxTypeModel>> getGearboxType({
-    required int generationId,
-    required int bodyTypeId,
-    required int engineTypeId,
-    required int driveTypeId,
+    int? generationId,
+    int? bodyTypeId,
+    int? engineTypeId,
+    int? driveTypeId,
     String? next,
   }) async {
     try {
@@ -453,11 +469,11 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
 
   @override
   Future<GenericPagination<ModificationTypeModel>> getModificationType({
-    required int generationId,
-    required int bodyTypeId,
-    required int engineTypeId,
-    required int driveTypeId,
-    required int gearBoxTypeTypeId,
+    int? generationId,
+    int? bodyTypeId,
+    int? engineTypeId,
+    int? driveTypeId,
+    int? gearBoxTypeTypeId,
     String? next,
   }) async {
     try {
@@ -701,9 +717,9 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
         options: Options(
           headers: StorageRepository.getString('token').isNotEmpty
               ? {
-            'Authorization':
-            'Bearer ${StorageRepository.getString('token')}'
-          }
+                  'Authorization':
+                      'Bearer ${StorageRepository.getString('token')}'
+                }
               : {},
         ),
       );
@@ -723,4 +739,54 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
     }
   }
 
+  @override
+  Future<GenericPagination<GasEquipmentModel>> getGasEquipments({
+    String? search,
+    int? limit,
+    int? offset,
+  }) async {
+    try {
+      final result = await _dio.get('car/gas-equipments/',
+          queryParameters: {
+            'search': search,
+            'limit': limit,
+            'offset': offset,
+          },
+          options: Options(
+            headers: {
+              'Authorization': 'Bearer ${StorageRepository.getString('token')}',
+            },
+          ));
+      return GenericPagination.fromJson(result.data,
+          (json) => GasEquipmentModel.fromJson(json as Map<String, dynamic>));
+    } catch (e) {
+      throw const ServerException();
+    }
+  }
+
+  @override
+  Future<GenericPagination<EquipmentModel>> getEquipments({
+    String? search,
+    int? limit,
+    int? offset,
+    int? modelId,
+  }) async {
+    try {
+      final result = await _dio.get('car/equipments/$modelId/',
+          queryParameters: {
+            'search': search,
+            'limit': limit,
+            'offset': offset,
+          },
+          options: Options(
+            headers: {
+              'Authorization': 'Bearer ${StorageRepository.getString('token')}',
+            },
+          ));
+      return GenericPagination.fromJson(result.data,
+          (json) => EquipmentModel.fromJson(json as Map<String, dynamic>));
+    } catch (e) {
+      throw const ServerException();
+    }
+  }
 }

@@ -170,7 +170,7 @@ class _AddedCarState extends State<AddedCar> {
                       children: [
                         SvgPicture.asset(
                           widget.ownerType != 'first'
-                              ? AppIcons.tablerInfo
+                              ? AppIcons.shopping
                               : AppIcons.tablerPhone,
                           color: white,
                           height: 20,

@@ -486,11 +486,11 @@ class CodegenLoader extends AssetLoader{
   "bamper": "Бамфер",
   "back": "Задний",
   "front": "Передний",
-  "back_bumper": "Задняя бамфер",
+  "back_bumper": "Заднее бамфер",
   "fender": "Крыло",
   "of_back": "Заднее",
-  "left_back_fender": "Задняя левое крыло",
-  "right_back_fender": "Задняя правое крыло",
+  "left_back_fender": "Заднее левое крыло",
+  "right_back_fender": "Заднее правое крыло",
   "left_front_fender": "Переднее левое крыло",
   "right_front_fender": "Переднее правое крыло",
   "contact_data": "Контактные данные",
@@ -543,7 +543,14 @@ class CodegenLoader extends AssetLoader{
   "internal_error_server": "Ошибка сервера, попробуйте еще раз",
   "user_already_exist": "Пользователь с таким номером уже зарегистрирован",
   "no_ads": "Нет объявлений",
-  "no_instructions": "Нет инструкций"
+  "no_instructions": "Нет инструкций",
+  "lpg_equipment": "Газобаллонное оборудование",
+  "make": "Марка",
+  "drive_type": "Тип вождения",
+  "gearbox_type": "Коробка передач",
+  "power": "Власть",
+  "volume": "Объем двигателя",
+  "not_shown": "Не показано"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -1013,7 +1020,7 @@ static const Map<String,dynamic> uz = {
   "mark_all_the_colored_and_damaged_parts": "Chizmada bo'yalgan detallar va shikastlangan joyni belgilang",
   "door": "Eshik",
   "left": "Chap",
-  "right": "Ong",
+  "right": "O'ng",
   "bamper": "Bamper",
   "back": "Orqa",
   "front": "Old",
@@ -1074,7 +1081,14 @@ static const Map<String,dynamic> uz = {
   "internal_error_server": "Serverda xatolik, qaytadan urinib ko'ring",
   "user_already_exist": "Bunday raqamli foydalanuvchi allaqachon ro'yxatdan o'tgan",
   "no_ads": "E'lonlar yo'q",
-  "no_instructions": "Instruksiyalar yo'q"
+  "no_instructions": "Instruksiyalar yo'q",
+  "lpg_equipment": "Газобаллонное оборудование",
+  "make": "Marka",
+  "drive_type": "Boshqaruv turi",
+  "gearbox_type": "Uzatish qutisi",
+  "power": "Quvvat",
+  "volume": "Dvigatel quvvati",
+  "not_shown": "Ko'rsatilmagan"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }

@@ -11,8 +11,8 @@ class EASingleton {
     var announcementFields = <String, dynamic>{
       'make': v.make?.id,
       'model': v.model?.id,
-      'generation': v.generationEntity!.id,
-      'body_type': v.bodyType!.id,
+      'generation': v.generationEntity?.id,
+      'body_type': v.bodyType?.id,
       'drive_type': v.driveTypeId,
       'engine_type': v.engineId,
       'gearbox_type': v.gearbox?.id,
@@ -30,7 +30,7 @@ class EASingleton {
       'region': v.regionId,
       'district': v.districtId,
       'location_url': v.locationUrl,
-      'price': v.price!.replaceAll(' ', ''),
+      'price': v.price?.replaceAll(' ', ''),
       'currency': v.currency,
       'distance_traveled': (v.isWithoutMileage ?? false)
           ? '0'
@@ -48,6 +48,7 @@ class EASingleton {
       'rent_with_purchase': v.rentWithPurchaseConditions.entries
           .map((e) => e.value.toApi())
           .toList(),
+      'equipment': v.equipmentId,
     };
     if (v.milageImage != null && v.milageImage!.isNotEmpty) {
       final milageImage = await MultipartFile.fromFile(v.milageImage!);
@@ -85,8 +86,8 @@ class EASingleton {
   }
 
   static Map<String, dynamic> getMiniPrice(EditAdState state) => {
-        'make': state.make!.id,
-        'model': state.model!.id,
+        'make': state.make?.id,
+        'model': state.model?.id,
         'currency': state.currency
       };
 

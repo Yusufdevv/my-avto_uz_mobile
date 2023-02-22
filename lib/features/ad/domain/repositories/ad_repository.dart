@@ -1,5 +1,7 @@
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/utils/either.dart';
+import 'package:auto/features/ad/domain/entities/equipment/equipment_entity.dart';
+import 'package:auto/features/ad/domain/entities/equipment/gas_equipment_entity.dart';
 import 'package:auto/features/ad/domain/entities/foto_instruction_entity.dart';
 import 'package:auto/features/ad/domain/entities/generation/generation.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
@@ -37,43 +39,43 @@ abstract class AdRepository {
       {String? name});
 
   Future<Either<Failure, GenericPagination<YearsEntity>>> getYears({
-    required int modelId,
+    required int? modelId,
     String? next,
   });
 
   Future<Either<Failure, GenericPagination<GenerationEntity>>> getGeneration({
-    required int modelId,
-    required int year,
+    required int? modelId,
+    required int? year,
     String? next,
   });
 
   Future<Either<Failure, GenericPagination<BodyTypeEntity>>> getBodyType({
-    required int generationId,
+    required int? generationId,
     String? next,
   });
 
   Future<Either<Failure, GenericPagination<BodyTypeEntity>>> getBodyTypes();
 
   Future<Either<Failure, GenericPagination<EngineTypeEntity>>> getEngineType({
-    required int generationId,
-    required int bodyTypeId,
+    required int? generationId,
+    required int? bodyTypeId,
     String? next,
   });
 
   Future<Either<Failure, GenericPagination<DriveTypeEntity>>> getDriveType({
-    required int generationId,
-    required int bodyTypeId,
-    required int engineTypeId,
+    required int? generationId,
+    required int? bodyTypeId,
+    required int? engineTypeId,
     String? next,
   });
 
   Future<Either<Failure, GenericPagination<DriveTypeEntity>>> driveTypesGet();
 
   Future<Either<Failure, GenericPagination<GearboxTypeEntity>>> getGearboxType({
-    required int generationId,
-    required int bodyTypeId,
-    required int engineTypeId,
-    required int driveTypeId,
+    required int? generationId,
+    required int? bodyTypeId,
+    required int? engineTypeId,
+    required int? driveTypeId,
     String? next,
   });
 
@@ -81,11 +83,11 @@ abstract class AdRepository {
 
   Future<Either<Failure, GenericPagination<ModificationTypeEntity>>>
       getModificationType({
-    required int generationId,
-    required int bodyTypeId,
-    required int engineTypeId,
-    required int driveTypeId,
-    required int gearBoxTypeTypeId,
+    required int? generationId,
+    required int? bodyTypeId,
+    required int? engineTypeId,
+    required int? driveTypeId,
+    required int? gearBoxTypeTypeId,
     String? next,
   });
 
@@ -96,5 +98,19 @@ abstract class AdRepository {
   Future<Either<Failure, void>> updateAnnouncement({
     required FormData announcementFormData,
     required int id,
+  });
+
+  Future<Either<Failure, GenericPagination<GasEquipmentEntity>>>
+      getGasEquipments({
+    String? search,
+    int? limit,
+    int? offset,
+  });
+
+  Future<Either<Failure, GenericPagination<EquipmentEntity>>> getEquipments({
+    String? search,
+    int? limit,
+    int? offset,
+    int? modelId,
   });
 }

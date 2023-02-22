@@ -5,7 +5,9 @@ import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/presentation/widgets/radio_circle_widget.dart';
 import 'package:auto/features/ad/presentation/widgets/warning_circle_widget.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -43,7 +45,7 @@ class _DamageTypeChooseSheetState extends State<DamageTypeChooseSheet> {
                 children: [
                   Expanded(
                     child: Text(
-                      'Состояние кузова',
+                      LocaleKeys.body_state.tr(),
                       style: Theme.of(context).textTheme.displayLarge,
                     ),
                   ),
@@ -64,7 +66,7 @@ class _DamageTypeChooseSheetState extends State<DamageTypeChooseSheet> {
             Padding(
               padding: const EdgeInsets.all(16),
               child: Text(
-                widget.title,
+                widget.title.tr(),
                 style: Theme.of(context)
                     .textTheme
                     .displayLarge!
@@ -118,7 +120,7 @@ class _DamageTypeChooseSheetState extends State<DamageTypeChooseSheet> {
                 Navigator.of(context).pop(selected);
               },
               color: orange,
-              text: 'Сохранить',
+              text: LocaleKeys.save.tr(),
               textStyle: Theme.of(context)
                   .textTheme
                   .titleMedium!

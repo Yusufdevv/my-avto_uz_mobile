@@ -530,5 +530,12 @@ abstract class  LocaleKeys {
   static const user_already_exist = 'user_already_exist';
   static const no_ads = 'no_ads';
   static const no_instructions = 'no_instructions';
+  static const lpg_equipment = 'lpg_equipment';
+  static const make = 'make';
+  static const drive_type = 'drive_type';
+  static const gearbox_type = 'gearbox_type';
+  static const power = 'power';
+  static const volume = 'volume';
+  static const not_shown = 'not_shown';
 
 }

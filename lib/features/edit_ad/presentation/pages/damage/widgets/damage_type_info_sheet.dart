@@ -19,6 +19,8 @@ class DamageTypeInfoSheet extends StatelessWidget {
     'Имеются определённқе повреждения и советуеся ремон, или замена',
     'Состояние плохое, ремонт сильно не поможет, трубется замена',
   ];
+
+
   @override
   Widget build(BuildContext context) => Padding(
         padding:

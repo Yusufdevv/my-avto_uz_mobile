@@ -36,6 +36,7 @@ import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dar
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -242,7 +243,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                       appBar: PreferredSize(
                         preferredSize: const Size.fromHeight(54),
                         child: PostingAdAppBar(
-                          hasBackButton: true,
+                          hasCancelButton: currentTabIndex != 0,
                           currentTabIndex: currentTabIndex,
                           reversScaleAnimation: animeState.reversScaleAnimation,
                           reverseTitle: LocaleKeys.choose_brand_auto.tr(),
@@ -264,7 +265,14 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                   .animateTo(0);
                             }
                           },
-                          onTapCancel: () {},
+                          onTapCancel: () {
+                            postingAdBloc.add(PostingAdClearStateEvent());
+                            currentTabIndex = 0;
+                            pageController.animateToPage(currentTabIndex,
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.linear);
+                            setState(() {});
+                          },
                           title: currentTabIndex == 0
                               ? LocaleKeys.get_back.tr()
                               : tabs[currentTabIndex - 1],

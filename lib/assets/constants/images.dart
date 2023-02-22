@@ -24,10 +24,6 @@ class AppImages {
   static const orangePolygon = 'assets/images/global/orange_polygon.png';
   static const chevrolet = 'assets/images/global/chevrolet.png';
   static const carcase = 'assets/images/global/carcase.png';
-  static const carFromLeft = 'assets/images/global/car_from_left.png';
-  static const carFromRight = 'assets/images/global/car_from_right.png';
-  static const carFromOpposite = 'assets/images/global/car_from_opposite.png';
-  static const carFromBack = 'assets/images/global/car_from_back.png';
   static const bmwInfo = 'assets/images/global/bmw_info.png';
   static const logo = 'assets/images/global/logo.png';
   static const editPassword = 'assets/images/global/edit_password.png';
@@ -58,9 +54,6 @@ class AppImages {
   static const paymepng = 'assets/images/car_single/payme.png';
   static const upaypng = 'assets/images/car_single/upay.png';
   static const vin_soon = 'assets/images/car_single/vin_soon.png';
-  static const car_from_back = 'assets/images/car_single/car_from_back.png';
-  static const car_from_opposite =
-      'assets/images/car_single/car_from_opposite.png';
   static const noItemFoundCar = 'assets/images/global/no_item_found_car.png';
   static const one_nice = 'assets/images/car_single/one_nice.png';
   static const nice_two = 'assets/images/car_single/nice_two.png';

@@ -4,7 +4,9 @@ import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/ad/data/datasources/ad_remote_datasource.dart';
+import 'package:auto/features/ad/domain/entities/equipment/equipment_entity.dart';
 import 'package:auto/features/ad/domain/entities/foto_instruction_entity.dart';
+import 'package:auto/features/ad/domain/entities/equipment/gas_equipment_entity.dart';
 import 'package:auto/features/ad/domain/entities/generation/generation.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
@@ -46,7 +48,7 @@ class AdRepositoryImpl extends AdRepository {
 
   @override
   Future<Either<Failure, GenericPagination<BodyTypeEntity>>> getBodyType({
-    required int generationId,
+    required int? generationId,
     String? next,
   }) async {
     try {
@@ -97,9 +99,9 @@ class AdRepositoryImpl extends AdRepository {
 
   @override
   Future<Either<Failure, GenericPagination<DriveTypeEntity>>> getDriveType({
-    required int generationId,
-    required int bodyTypeId,
-    required int engineTypeId,
+    required int? generationId,
+    required int? bodyTypeId,
+    required int? engineTypeId,
     String? next,
   }) async {
     try {
@@ -138,8 +140,8 @@ class AdRepositoryImpl extends AdRepository {
 
   @override
   Future<Either<Failure, GenericPagination<EngineTypeEntity>>> getEngineType({
-    required int generationId,
-    required int bodyTypeId,
+    required int? generationId,
+    required int? bodyTypeId,
     String? next,
   }) async {
     try {
@@ -161,10 +163,10 @@ class AdRepositoryImpl extends AdRepository {
 
   @override
   Future<Either<Failure, GenericPagination<GearboxTypeEntity>>> getGearboxType({
-    required int generationId,
-    required int bodyTypeId,
-    required int engineTypeId,
-    required int driveTypeId,
+    int? generationId,
+    int? bodyTypeId,
+    int? engineTypeId,
+    int? driveTypeId,
     String? next,
   }) async {
     try {
@@ -208,8 +210,8 @@ class AdRepositoryImpl extends AdRepository {
 
   @override
   Future<Either<Failure, GenericPagination<GenerationEntity>>> getGeneration({
-    required int modelId,
-    required int year,
+    int? modelId,
+    int? year,
     String? next,
   }) async {
     try {
@@ -251,11 +253,11 @@ class AdRepositoryImpl extends AdRepository {
   @override
   Future<Either<Failure, GenericPagination<ModificationTypeEntity>>>
       getModificationType({
-    required int generationId,
-    required int bodyTypeId,
-    required int engineTypeId,
-    required int driveTypeId,
-    required int gearBoxTypeTypeId,
+    int? generationId,
+    int? bodyTypeId,
+    int? engineTypeId,
+    int? driveTypeId,
+    int? gearBoxTypeTypeId,
     String? next,
   }) async {
     try {
@@ -301,7 +303,7 @@ class AdRepositoryImpl extends AdRepository {
 
   @override
   Future<Either<Failure, GenericPagination<YearsEntity>>> getYears({
-    required int modelId,
+    int? modelId,
     String? next,
   }) async {
     try {
@@ -417,6 +419,47 @@ class AdRepositoryImpl extends AdRepository {
     } on ServerException catch (e) {
       return Left(ServerFailure(
           errorMessage: e.errorMessage, statusCode: e.statusCode));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GenericPagination<GasEquipmentEntity>>>
+      getGasEquipments({String? search, int? limit, int? offset}) async {
+    try {
+      final result = await remoteDataSource.getGasEquipments(
+        search: search,
+        limit: limit,
+        offset: offset,
+      );
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+          errorMessage: e.errorMessage, statusCode: e.statusCode));
+    } on DioException {
+      return Left(DioFailure());
+    } on DioError {
+      return Left(DioFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, GenericPagination<EquipmentEntity>>> getEquipments(
+      {String? search, int? limit, int? offset, int? modelId}) async {
+    try {
+      final result = await remoteDataSource.getEquipments(
+        search: search,
+        limit: limit,
+        offset: offset,
+        modelId: modelId,
+      );
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+          errorMessage: e.errorMessage, statusCode: e.statusCode));
+    } on DioException {
+      return Left(DioFailure());
+    } on DioError {
+      return Left(DioFailure());
     }
   }
 }

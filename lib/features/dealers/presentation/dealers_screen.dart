@@ -89,7 +89,6 @@ class _DealerScreenState extends State<DealerScreen> {
                               const SizedBox(width: 7),
                               Expanded(
                                 child: WTextField(
-                                  height: 40,
                                   contentPadding: const EdgeInsets.only(
                                       left: 12, right: 12, top: 12),
                                   borderColor: purple,
@@ -127,8 +126,8 @@ class _DealerScreenState extends State<DealerScreen> {
                               const SizedBox(width: 12),
                               BlocBuilder<DealerFilterBloc, DealerFilterState>(
                                 builder: (context, filterState) => WButton(
-                                  height: 40,
-                                  width: 40,
+                                  height: 50,
+                                  width: 50,
                                   onTap: () {
                                     context
                                         .read<RegionsBloc>()

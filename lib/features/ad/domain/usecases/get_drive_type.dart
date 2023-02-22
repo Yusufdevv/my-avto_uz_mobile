@@ -26,9 +26,9 @@ class GetDriveTypeUseCase
 
 class DriveTypeParams {
   final String? next;
-  final int bodyTypeId;
-  final int generationId;
-  final int engineTypeId;
+  final int? bodyTypeId;
+  final int? generationId;
+  final int? engineTypeId;
 
   DriveTypeParams({
     required this.generationId,

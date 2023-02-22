@@ -266,12 +266,8 @@ class MyFunctions {
       bool platformIsAndroid) async {
     if (platformIsAndroid) {
       var permission = await Permission.camera.status;
-      print(
-          '=> => => =>    CAMERA PERMISSION STATUS NAME: ${permission.name}     <= <= <= <=');
       if (!permission.isGranted) {
         permission = await Permission.camera.request();
-        print(
-            '=> => => =>     camera request status name: ${permission.name}    <= <= <= <=');
       }
       return permission;
     }
@@ -427,58 +423,64 @@ class MyFunctions {
       .hasMatch(email);
 
   static String getDamagedPartName(String door) {
+    final lang = StorageRepository.getString('language');
+
     switch (door) {
       case 'left_front_door':
-        return 'Левая передняя дверь';
+        return lang=='ru' ?  'Левая передняя дверь' : 'Chap old eshik';
       case 'rigth_front_door':
-        return 'Правая передняя дверь';
+        return lang=='ru' ?   'Правая передняя дверь': "O'ng old eshik";
       case 'left_rear_door':
-        return 'Левая задняя дверь';
+        return lang=='ru' ?   'Левая задняя дверь': 'Chap orqa eshik';
       case 'right_rear_door':
-        return 'Правая задняя дверь';
+        return  lang=='ru' ?  'Правая задняя дверь' : "O'ng orqa eshik";
       case 'front_bumper':
-        return 'Передний бамфер';
+        return lang=='ru' ?  'Передний бамфер' : 'Old bamper';
       case 'rear_bumper':
-        return 'Задний бамфер';
+        return lang=='ru' ?  'Задний бамфер' : 'Orqa bamper';
       case 'front_left_fender':
-        return 'Переднее левое крыло';
+        return lang=='ru' ?  'Переднее левое крыло' : 'Old chap qanot';
       case 'front_right_fender':
-        return 'Переднее правое крыло';
+        return lang=='ru' ?  'Переднее правое крыло' : "Old o'ng qanot";
       case 'rear_left_fender':
-        return 'Заднее левое крыло';
+        return lang=='ru' ?  'Заднее левое крыло' : 'Orqa chap qanot';
       case 'rear_right_fender':
-        return 'Заднее правое крыло';
+        return lang=='ru' ?  'Заднее правое крыло' : "Orqa o'ng qanot";
       case 'roof':
-        return 'Крыша';
+        return lang=='ru' ?  'Крыша' : 'Tom';
       case 'hood':
-        return 'Капот';
+        return lang=='ru' ?  'Капот' : 'Kapot';
       case 'trunk':
-        return 'Багажник';
+        return lang=='ru' ?  'Багажник' : 'Yukxona';
     }
     return '';
   }
 
   static String getStatusTitle(String status) {
+    final language = StorageRepository.getString('language');
+
     switch (status) {
       case 'ideal':
-        return 'Идеальное';
+        return language=='ru' ? 'Идеальное' : 'Ideal';
       case 'scratched':
-        return 'Повреждено';
+        return language=='ru' ? 'Повреждено' : 'Shikastlangan';
       case 'replaced':
-        return 'Заменено';
+        return  language=='ru' ? 'Заменено' : 'Almashtirilgan';
       case 'with_dents':
-        return 'С вмятинами';
+        return  language=='ru' ? 'С вмятинами' : 'Chiziqlar bilan';
       case 'requires_replacement':
-        return 'Требует замены';
+        return  language=='ru' ? 'Требует замены' : "O'zgartirishni talab qiladi";
     }
-    return 'Не показано';
+    return language=='ru' ? 'Не показано' : "Ko'rsatilmagan";
   }
 
   static String getErrorMessage(Failure failure) {
+    final language = StorageRepository.getString('language');
+
     var err =
         (failure is ServerFailure) ? failure.errorMessage : failure.toString();
     if (err == 'Wrong code!') {
-      err = 'Код подтверждения введен неверно';
+      err = language=='ru' ?  'Код подтверждения введен неверно': "Tasdiqlash kodi noto'g'ri kiritilgan";
     }
     return err;
   }

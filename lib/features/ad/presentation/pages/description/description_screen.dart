@@ -89,7 +89,9 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                                 .extension<ThemedColors>()!
                                 .whiteSmokeToDark,
                             controller: textController,
+                            hideCounterText: true,
                             borderRadius: 8,
+                            maxLength: 500,
                             maxLines: 6,
                             height: 125,
                             textStyle: Theme.of(context)
@@ -98,7 +100,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                                 .copyWith(
                                     fontSize: 16, fontWeight: FontWeight.w400),
                           ),
-                          const SizedBox(height: 28),
+                          const SizedBox(height: 20),
                           GestureDetector(
                             behavior: HitTestBehavior.opaque,
                             onTap: () => context.read<PostingAdBloc>().add(

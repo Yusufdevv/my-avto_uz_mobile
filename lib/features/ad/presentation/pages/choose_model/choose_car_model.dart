@@ -144,7 +144,10 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                       /// POPULAR TYPES
                       if (state.status == FormzStatus.submissionInProgress) ...{
                         const SliverToBoxAdapter(
-                            child: Center(child: CupertinoActivityIndicator()))
+                            child: Padding(
+                              padding: EdgeInsets.only(top: 50),
+                              child: Center(child: CupertinoActivityIndicator()),
+                            ))
                       } else ...{
                         if (state.models.isNotEmpty)
                           SliverList(

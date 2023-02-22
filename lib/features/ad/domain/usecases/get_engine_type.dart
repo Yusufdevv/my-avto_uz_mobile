@@ -24,12 +24,12 @@ class GetEngineTypeUseCase
 
 class EngineTypeParams {
   final String? next;
-  final int bodyTypeId;
-  final int generationId;
+  final int? bodyTypeId;
+  final int? generationId;
 
   EngineTypeParams({
-    required this.generationId,
-    required this.bodyTypeId,
+    this.generationId,
+    this.bodyTypeId,
     this.next,
   });
 }

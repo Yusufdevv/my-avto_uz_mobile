@@ -32,6 +32,7 @@ class DirectoryPage extends StatefulWidget {
 class _DirectoryPageState extends State<DirectoryPage> {
   late DirectoryBloc bloc;
   late TextEditingController controller;
+
   @override
   void initState() {
     controller = TextEditingController();
@@ -88,7 +89,6 @@ class _DirectoryPageState extends State<DirectoryPage> {
                             const SizedBox(width: 7),
                             Expanded(
                               child: WTextField(
-                                height: 40,
                                 contentPadding: const EdgeInsets.only(
                                     left: 12, right: 12, top: 12),
                                 borderColor: purple,
@@ -124,25 +124,30 @@ class _DirectoryPageState extends State<DirectoryPage> {
                             ),
                             const SizedBox(width: 12),
                             WButton(
-                                height: 40,
-                                width: 40,
+                                height: 50,
+                                width: 50,
                                 onTap: () {
                                   FocusScope.of(context).unfocus();
                                   controller.text = '';
                                   Navigator.of(context, rootNavigator: true)
-                                      .push(fade(
-                                          page: BlocProvider.value(
-                                    value: bloc,
-                                    child: DirectoryFilterPage(bloc: bloc),
-                                  )));
+                                      .push(
+                                    fade(
+                                      page: BlocProvider.value(
+                                        value: bloc,
+                                        child: DirectoryFilterPage(bloc: bloc),
+                                      ),
+                                    ),
+                                  );
                                 },
                                 borderRadius: 12,
                                 color: Theme.of(context)
                                     .extension<ThemedColors>()!
                                     .whiteSmokeToNightRider,
                                 padding: const EdgeInsets.all(8),
-                                child: SvgPicture.asset(AppIcons.filter,
-                                    color: purple))
+                                child: SvgPicture.asset(
+                                  AppIcons.filter,
+                                  color: purple,
+                                ))
                           ],
                         ),
                       ),

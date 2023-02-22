@@ -41,17 +41,12 @@ class _ContactScreenState extends State<ContactScreen> {
     super.dispose();
   }
 
-  void hidePopUp() {
-    context.read<ShowPopUpBloc>().add(HidePopUp());
-  }
-
   final phoneFormatter = MaskTextInputFormatter(
     mask: '## ### ## ##',
     filter: {'#': RegExp('[0-9]')},
   );
 
   void _onAvailableHoursPressed(PostingAdState postingAdState) {
-    hidePopUp();
     showModalBottomSheet<List<String>>(
       useRootNavigator: true,
       isScrollControlled: false,
@@ -91,7 +86,7 @@ class _ContactScreenState extends State<ContactScreen> {
                           children: [
                             SwitcherRowAsButtonAlso(
                                 onTap: () {
-                                  hidePopUp();
+                                  setState(() {});
                                   context
                                       .read<PostingAdBloc>()
                                       .add(PostingAdGetUserDataEvent());
@@ -99,12 +94,12 @@ class _ContactScreenState extends State<ContactScreen> {
                                 title: LocaleKeys.show_my_contact_data.tr(),
                                 value: postingAdState.showOwnerContacts,
                                 onChanged: (value) {
+                                  setState(() {});
                                   if (!value) {
                                     context
                                         .read<PostingAdBloc>()
                                         .add(PostingAdClearControllersEvent());
 
-                                    hidePopUp();
                                     context.read<PostingAdBloc>().add(
                                           PostingAdChooseEvent(
                                             showOwnerContacts: value,
@@ -119,13 +114,15 @@ class _ContactScreenState extends State<ContactScreen> {
                             },
                             const SizedBox(height: 16),
                             WTextField(
+                              onTap: () {},
                               validate: (v) {
                                 if (v!.isEmpty) {
                                   return 'Name can not to be empty';
                                 }
                                 return null;
                               },
-                              onTap: hidePopUp,
+                              maxLength: 40,
+                              hideCounterText: true,
                               controller: postingAdState.nameController,
                               onChanged: (value) {
                                 final v = postingAdState.isContactsVerified
@@ -139,8 +136,6 @@ class _ContactScreenState extends State<ContactScreen> {
                                       showOwnerContacts: v,
                                     ));
                               },
-                              maxLength: 40,
-                              hideCounterText: true,
                               title: LocaleKeys.name.tr(),
                               hintText: LocaleKeys.add_name.tr(),
                               borderRadius: 12,
@@ -163,7 +158,7 @@ class _ContactScreenState extends State<ContactScreen> {
                             ),
                             const SizedBox(height: 16),
                             WTextField(
-                              onTap: hidePopUp,
+                              onTap: () {},
                               controller: postingAdState.emailController,
                               onChanged: (value) => context
                                   .read<PostingAdBloc>()
@@ -180,7 +175,8 @@ class _ContactScreenState extends State<ContactScreen> {
                                         value.isEmpty ||
                                         !value.contains('@') ||
                                         !value.contains('.'))) {
-                                  return 'Invalid Email';
+                                  return LocaleKeys.please_enter_valid_email
+                                      .tr();
                                 }
                                 return null;
                               },
@@ -204,23 +200,22 @@ class _ContactScreenState extends State<ContactScreen> {
                             ),
                             const SizedBox(height: 16),
                             WTextField(
-                              validate: (v) {
-                                if (v?.length != 12) {
-                                  return 'Enter valid phone number';
-                                }
-                                return null;
-                              },
-                              onTap: hidePopUp,
+                              // validate: (v) {
+                              //   if (v?.length != 12) {
+                              //     return 'Enter valid phone number';
+                              //   }
+                              //   return null;
+                              // },
+                              onTap: () {},
                               onChanged: (value) {
                                 final v = postingAdState.isContactsVerified
                                     ? false
                                     : null;
                                 context.read<PostingAdBloc>().add(
                                       PostingAdChooseEvent(
-                                        ownerName: value,
-                                        isContactsVerified: v,
-                                        showOwnerContacts: v,
-                                      ),
+                                          ownerName: value,
+                                          isContactsVerified: v,
+                                          showOwnerContacts: v),
                                     );
                               },
                               title: LocaleKeys.tel_number.tr(),
@@ -252,6 +247,7 @@ class _ContactScreenState extends State<ContactScreen> {
                               borderColor: Theme.of(context)
                                   .extension<WTextFieldStyle>()!
                                   .borderColor,
+                              errorColor: red,
                               keyBoardType: TextInputType.number,
                               fillColor: Theme.of(context)
                                   .extension<WTextFieldStyle>()!
@@ -269,9 +265,9 @@ class _ContactScreenState extends State<ContactScreen> {
                                           .phoneController.text.length !=
                                       12,
                                   onTap: () {
-                                    hidePopUp();
                                     if (postingAdState
-                                        .phoneController.text.length == 12) {
+                                            .phoneController.text.length ==
+                                        12) {
                                       context.read<PostingAdBloc>().add(
                                           PostingAdSendCodeEvent(
                                               phone: postingAdState
@@ -337,12 +333,11 @@ class _ContactScreenState extends State<ContactScreen> {
                                                     context
                                                         .read<ShowPopUpBloc>()
                                                         .add(ShowPopUp(
-                                                            message: value
-                                                                .toString(),
-                                                            status:
-                                                                PopStatus.error,
-                                                            dismissible:
-                                                                false));
+                                                          message:
+                                                              value.toString(),
+                                                          status:
+                                                              PopStatus.error,
+                                                        ));
                                                   }
                                                 });
                                               }));
@@ -362,7 +357,6 @@ class _ContactScreenState extends State<ContactScreen> {
                                 title: LocaleKeys.avialable_hours.tr(),
                                 value: postingAdState.isCallTimed,
                                 onTap: () {
-                                  hidePopUp();
                                   if (postingAdState.callTimeFrom != null &&
                                       postingAdState.callTimeTo != null) {
                                     context.read<PostingAdBloc>().add(
@@ -373,7 +367,6 @@ class _ContactScreenState extends State<ContactScreen> {
                                   _onAvailableHoursPressed(postingAdState);
                                 },
                                 onChanged: (value) {
-                                  hidePopUp();
                                   context.read<PostingAdBloc>().add(
                                       PostingAdChooseEvent(isCallTimed: value));
                                 }),
@@ -383,8 +376,6 @@ class _ContactScreenState extends State<ContactScreen> {
                                   text:
                                       '${postingAdState.callTimeFrom}-${postingAdState.callTimeTo}',
                                   onTap: () {
-                                    hidePopUp();
-
                                     _onAvailableHoursPressed(postingAdState);
                                   }),
                             },

@@ -25,12 +25,12 @@ class GetGenerationUseCase
 
 class GenerationParams {
   final String? next;
-  final int modelId;
-  final int year;
+  final int? modelId;
+  final int? year;
 
   GenerationParams({
-    required this.modelId,
-    required this.year,
+    this.modelId,
+    this.year,
     this.next,
   });
 }

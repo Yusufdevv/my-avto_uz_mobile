@@ -283,4 +283,8 @@ class AppIcons {
   static const crug = 'assets/icons/car_single/crug.svg';
   static const introduce = 'assets/icons/reels/introduce.svg';
   static const introduce1 = 'assets/icons/reels/introduce1.svg';
+  static const carFromLeft = 'assets/icons/global/car_from_left.svg';
+  static const carFromRight = 'assets/icons/global/car_from_right.svg';
+  static const carFromBack = 'assets/icons/global/car_from_back.svg';
+  static const carFromFront = 'assets/icons/global/car_from_front.svg';
 }

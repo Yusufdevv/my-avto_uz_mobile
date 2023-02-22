@@ -5,7 +5,8 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/comparison/domain/entities/comparison_entity.dart';
 import 'package:auto/features/comparison/domain/entities/complectation_entity.dart';
-import 'package:auto/features/comparison/presentation/widgets/comparison_list_widget.dart';
+import 'package:auto/features/comparison/presentation/widgets/comparison_list_tile.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -58,7 +59,7 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                         milliseconds: 100,
                       ),
                       child: Text(
-                        comparisonParameters.parameterName,
+                        comparisonParameters.parameterName.tr(),
                       ),
                     ),
                   ),
@@ -101,7 +102,7 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                         numberOfAddedCars.length + 1,
                         (index) => Column(
                           children: [
-                            ComparsionList(
+                            ComparsionListTile(
                               info: index == numberOfAddedCars.length
                                   ? ''
                                   : numberOfAddedCars[index]
@@ -110,7 +111,7 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                                       .make,
                               isGrey: true,
                             ),
-                            ComparsionList(
+                            ComparsionListTile(
                               info: index == numberOfAddedCars.length
                                   ? ''
                                   : numberOfAddedCars[index]
@@ -119,27 +120,25 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                                       .generation,
                               isGrey: false,
                             ),
-                            ComparsionList(
+                            ComparsionListTile(
                               info: index == numberOfAddedCars.length
                                   ? ''
                                   : numberOfAddedCars[index]
                                       .announcement
                                       .mainData
-                                      .bodyType
-                                      .toUpperCase(),
+                                      .bodyType,
                               isGrey: true,
                             ),
-                            ComparsionList(
+                            ComparsionListTile(
                               info: index == numberOfAddedCars.length
                                   ? ''
                                   : numberOfAddedCars[index]
                                       .announcement
                                       .mainData
-                                      .driveType
-                                      .toUpperCase(),
+                                      .driveType,
                               isGrey: false,
                             ),
-                            ComparsionList(
+                            ComparsionListTile(
                               info: index == numberOfAddedCars.length
                                   ? ''
                                   : numberOfAddedCars[index]
@@ -149,7 +148,7 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                                       .toUpperCase(),
                               isGrey: true,
                             ),
-                            ComparsionList(
+                            ComparsionListTile(
                               info: index == numberOfAddedCars.length
                                   ? ''
                                   : numberOfAddedCars[index]
@@ -159,14 +158,13 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                                       .toString(),
                               isGrey: false,
                             ),
-                            ComparsionList(
+                            ComparsionListTile(
                               info: index == numberOfAddedCars.length
                                   ? ''
                                   : numberOfAddedCars[index]
                                       .announcement
                                       .mainData
-                                      .color
-                                      .toUpperCase(),
+                                      .color,
                               isGrey: true,
                             ),
                           ],
@@ -182,7 +180,7 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                     left: 16,
                     child: Text(
                       comparisonParameters
-                          .complectationParameters[index].comparisonParameters,
+                          .complectationParameters[index].comparisonParameters.tr(),
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 12,
