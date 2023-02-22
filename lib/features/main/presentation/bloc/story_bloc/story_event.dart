@@ -13,4 +13,3 @@ class ReadEvent extends StoryEvent {
   @override
   List<Object?> get props => [itemId];
 }
-

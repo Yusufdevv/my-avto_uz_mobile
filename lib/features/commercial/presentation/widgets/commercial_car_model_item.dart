@@ -35,7 +35,7 @@ class CommercialCarModelItem extends StatelessWidget {
         width: 1,
         color: theme.solitudeToPayneGrey,
       ),
-      height: MediaQuery.of(context).size.height*.065,
+      height: MediaQuery.of(context).size.height * .065,
       margin: const EdgeInsets.only(top: 16, bottom: 12, right: 16, left: 16),
       child: Row(
         children: [
@@ -67,19 +67,19 @@ class CommercialCarModelItem extends StatelessWidget {
             color: theme.solitudeToCharcoal,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   title.isEmpty ? LocaleKeys.choose_brand_model.tr() : title,
-                  style: Theme.of(context).textTheme.subtitle1,
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
                 if (subtitle!.isNotEmpty)
                   Text(
                     subtitle!,
-                    style: Theme.of(context).textTheme.headline2,
+                    style: Theme.of(context).textTheme.displayMedium,
                   )
               ],
             ),

@@ -1,9 +1,14 @@
 part of 'filter_bloc.dart';
 
-abstract class FilterEvent {}
-    class  FilterClearEvent  extends FilterEvent  {
-      
+abstract class FilterEvent {
+  const FilterEvent();
+}
 
+class FilterClearEvent extends FilterEvent {
+  final RangeValues? yearValues;
+  final RangeValues? priceValues;
+
+  const FilterClearEvent({this.yearValues, this.priceValues});
 }
 
 class FilterSelectEvent extends FilterEvent {
@@ -14,7 +19,8 @@ class FilterSelectEvent extends FilterEvent {
   final GearboxTypeEntity? gearboxType;
   final RangeValues? yearValues;
   final RangeValues? priceValues;
-  final int? idVal;
+  final Currency? currency;
+
   FilterSelectEvent({
     this.bodyType,
     this.carDriveType,
@@ -23,6 +29,12 @@ class FilterSelectEvent extends FilterEvent {
     this.priceValues,
     this.regions,
     this.yearValues,
-    this.idVal
+    this.currency,
   });
+}
+
+class FilterChangeCurrencyEvent extends FilterEvent {
+  final Currency currency;
+
+  const FilterChangeCurrencyEvent(this.currency);
 }

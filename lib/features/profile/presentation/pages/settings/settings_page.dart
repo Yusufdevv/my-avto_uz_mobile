@@ -16,9 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SettingsPage extends StatefulWidget {
- 
-
-  const SettingsPage({ Key? key}) : super(key: key);
+  const SettingsPage({Key? key}) : super(key: key);
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();
@@ -34,7 +32,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) => WillPopScope(
         onWillPop: () async {
-            Navigator.pop(context, true);
+          Navigator.pop(context, true);
           return false;
         },
         child: Scaffold(
@@ -57,8 +55,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       onTap: () {
                         Navigator.of(context).push(
                           fade(
-                            page:const PasswordChangingPage(
-                                 ),
+                            page: const PasswordChangingPage(),
                           ),
                         );
                       },
@@ -85,7 +82,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                   LocaleKeys.change_password.tr(),
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline1!
+                                      .displayLarge!
                                       .copyWith(
                                           fontSize: 15,
                                           fontWeight: FontWeight.w600),
@@ -147,15 +144,16 @@ class _SettingsPageState extends State<SettingsPage> {
                                   LocaleKeys.language.tr(),
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline1!
+                                      .displayLarge!
                                       .copyWith(
                                           fontSize: 15,
                                           fontWeight: FontWeight.w600),
                                 ),
                                 const Spacer(),
                                 Text(LocaleKeys.dev_language.tr(),
-                                    style:
-                                        Theme.of(context).textTheme.headline2),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayMedium),
                                 SizedBox(width: SizeConfig.h(12)),
                                 SvgPicture.asset(
                                   AppIcons.chevronRightBlack,

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
@@ -17,7 +18,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:http/http.dart' as http;
 import 'package:jiffy/jiffy.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
@@ -25,6 +28,18 @@ import 'package:yandex_mapkit/yandex_mapkit.dart';
 class MyFunctions {
   static String getData(String data) =>
       Jiffy(data).format('dd-MM-yyyy').replaceAll('-', '/').toString();
+
+  static String getAppendix(int count) {
+    var res;
+    if (count == 1) {
+      res = 'е';
+    } else if (count == 2 || count == 3) {
+      res = 'я';
+    } else if (count > 3) {
+      res = 'й';
+    }
+    return res;
+  }
 
   static String phoneFormat(String phone) {
     var formattedPhone = '';
@@ -115,6 +130,23 @@ class MyFunctions {
     return buffer.toString();
   }
 
+  static String getThousandsSeparatedPrice(String price) {
+    var priceInText = '';
+    var counter = 0;
+    for (var i = price.length - 1; i >= 0; i--) {
+      counter++;
+      var str = price[i];
+      if ((counter % 3) != 0 && i != 0) {
+        priceInText = '$str$priceInText';
+      } else if (i == 0) {
+        priceInText = '$str$priceInText';
+      } else {
+        priceInText = ' $str$priceInText';
+      }
+    }
+    return priceInText.trim();
+  }
+
   static Future<ImageInfo> getImageInfo(
       BuildContext context, String image) async {
     final assetImage = AssetImage(image);
@@ -162,15 +194,8 @@ class MyFunctions {
     return data?.buffer.asUint8List() ?? Uint8List(0);
   }
 
-  static String? extractAddress(YandexSearchModel result) {
-    String? address;
-    try {
-      return '${result.features[6].properties.name}, ${result.features[4].properties.name}, ${result.features[0].properties.name}';
-    } catch (e) {
-      print('GET YANDEX ADDRESS EXEPTION: $e');
-      return null;
-    }
-  }
+  static String? extractAddress(YandexSearchModel result) =>
+      result.features[0].properties.geocoderMetaData.text;
 
   static Future<MapObject<dynamic>> getMyPoint(
       Point point, BuildContext context) async {
@@ -199,6 +224,7 @@ class MyFunctions {
       40000 / pow(2, zoom) > 1 ? 40000 / pow(2, zoom) : 1;
 
   static String getFormatCost(String cost) {
+    if (cost.isEmpty) return '';
     var oldCost = cost;
     if (cost.contains('.')) {
       final arr = cost.split('.');
@@ -215,7 +241,8 @@ class MyFunctions {
   static List<String> getUpperLetter() =>
       [for (int i = 0; i < 26; i++) String.fromCharCode(i + 65)];
 
-  static Future<bool> getPhotosPermission(bool platformIsAndroid) async {
+  static Future<PermissionStatus> getPhotosPermission(
+      bool platformIsAndroid) async {
     if (platformIsAndroid) {
       Permission permissionType;
 
@@ -230,31 +257,30 @@ class MyFunctions {
       if (!permission.isGranted) {
         permission = await permissionType.request();
       }
-      return permission.isGranted;
+      return permission;
     }
-    return true;
+    return PermissionStatus.granted;
   }
 
-  static Future<bool> getCameraPermission(bool platformIsAndroid) async {
+  static Future<PermissionStatus> getCameraPermission(
+      bool platformIsAndroid) async {
     if (platformIsAndroid) {
       var permission = await Permission.camera.status;
-      print(
-          '=> => => =>    CAMERA PERMISSION STATUS NAME: ${permission.name}     <= <= <= <=');
       if (!permission.isGranted) {
         permission = await Permission.camera.request();
-        print(
-            '=> => => =>     camera request status name: ${permission.name}    <= <= <= <=');
       }
-      return permission.isGranted;
+      return permission;
     }
-    return true;
+    return PermissionStatus.granted;
   }
 
   static Future<Position> determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
+
+    permission = await Geolocator.checkPermission();
+    if (!serviceEnabled || permission == LocationPermission.denied) {
       permission = await Geolocator.checkPermission();
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
@@ -327,7 +353,9 @@ class MyFunctions {
 
   static String getDateNamedMonth(String data) {
     final list = data.substring(0, 10).split('-');
-
+    if(list[2].startsWith('0')) {
+      list[2]= list[2].substring(1);
+    }
     return '${list[2]} ${getMonthByIndex(int.tryParse(list[1]) ?? -1)}, ${list[0]} г.';
   }
 
@@ -395,58 +423,64 @@ class MyFunctions {
       .hasMatch(email);
 
   static String getDamagedPartName(String door) {
+    final lang = StorageRepository.getString('language');
+
     switch (door) {
       case 'left_front_door':
-        return 'Левая передняя дверь';
+        return lang=='ru' ?  'Левая передняя дверь' : 'Chap old eshik';
       case 'rigth_front_door':
-        return 'Правая передняя дверь';
+        return lang=='ru' ?   'Правая передняя дверь': "O'ng old eshik";
       case 'left_rear_door':
-        return 'Левая задняя дверь';
+        return lang=='ru' ?   'Левая задняя дверь': 'Chap orqa eshik';
       case 'right_rear_door':
-        return 'Правая задняя дверь';
+        return  lang=='ru' ?  'Правая задняя дверь' : "O'ng orqa eshik";
       case 'front_bumper':
-        return 'Передний бамфер';
+        return lang=='ru' ?  'Передний бамфер' : 'Old bamper';
       case 'rear_bumper':
-        return 'Задний бамфер';
+        return lang=='ru' ?  'Задний бамфер' : 'Orqa bamper';
       case 'front_left_fender':
-        return 'Переднее левое крыло';
+        return lang=='ru' ?  'Переднее левое крыло' : 'Old chap qanot';
       case 'front_right_fender':
-        return 'Переднее правое крыло';
+        return lang=='ru' ?  'Переднее правое крыло' : "Old o'ng qanot";
       case 'rear_left_fender':
-        return 'Заднее левое крыло';
+        return lang=='ru' ?  'Заднее левое крыло' : 'Orqa chap qanot';
       case 'rear_right_fender':
-        return 'Заднее правое крыло';
+        return lang=='ru' ?  'Заднее правое крыло' : "Orqa o'ng qanot";
       case 'roof':
-        return 'Крыша';
+        return lang=='ru' ?  'Крыша' : 'Tom';
       case 'hood':
-        return 'Капот';
+        return lang=='ru' ?  'Капот' : 'Kapot';
       case 'trunk':
-        return 'Багажник';
+        return lang=='ru' ?  'Багажник' : 'Yukxona';
     }
     return '';
   }
 
   static String getStatusTitle(String status) {
+    final language = StorageRepository.getString('language');
+
     switch (status) {
       case 'ideal':
-        return 'Идеальное';
+        return language=='ru' ? 'Идеальное' : 'Ideal';
       case 'scratched':
-        return 'Повреждено';
+        return language=='ru' ? 'Повреждено' : 'Shikastlangan';
       case 'replaced':
-        return 'Заменено';
+        return  language=='ru' ? 'Заменено' : 'Almashtirilgan';
       case 'with_dents':
-        return 'С вмятинами';
+        return  language=='ru' ? 'С вмятинами' : 'Chiziqlar bilan';
       case 'requires_replacement':
-        return 'Требует замены';
+        return  language=='ru' ? 'Требует замены' : "O'zgartirishni talab qiladi";
     }
-    return 'Не показано';
+    return language=='ru' ? 'Не показано' : "Ko'rsatilmagan";
   }
 
   static String getErrorMessage(Failure failure) {
+    final language = StorageRepository.getString('language');
+
     var err =
         (failure is ServerFailure) ? failure.errorMessage : failure.toString();
     if (err == 'Wrong code!') {
-      err = 'Код подтверждения введен неверно';
+      err = language=='ru' ?  'Код подтверждения введен неверно': "Tasdiqlash kodi noto'g'ri kiritilgan";
     }
     return err;
   }
@@ -546,5 +580,28 @@ class MyFunctions {
     final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
 
     return byteData?.buffer.asUint8List();
+  }
+
+  static Future<String?> urlToFilePath(String imageUrl) async {
+    try {
+      // generate random number.
+      final rng = Random();
+// get temporary directory of device.
+      final tempDir = await getTemporaryDirectory();
+// get temporary path from temporary directory.
+      final tempPath = tempDir.path;
+// create a new file in temporary path with random file name.
+      final file = File(
+          '$tempPath${(rng.nextInt(100)).toString()}.${imageUrl.split('.').toList().last}');
+// call http.get method and pass imageUrl into it to get response.
+      final response = await http.get(Uri.parse(imageUrl));
+// write bodyBytes received in response to file.
+      await file.writeAsBytes(response.bodyBytes);
+// now return the file which is created with random name in
+// temporary directory and image bytes from response is written to // that file.
+      return file.path;
+    } catch (e) {
+      return null;
+    }
   }
 }

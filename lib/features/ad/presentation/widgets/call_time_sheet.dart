@@ -56,10 +56,10 @@ class _CallTimeSheetState extends State<CallTimeSheet> {
               children: [
                 Text(
                   'Выберите время',
-                  style: Theme.of(context).textTheme.headline1,
+                  style: Theme.of(context).textTheme.displayLarge,
                 ),
                 GestureDetector(
-                      behavior: HitTestBehavior.opaque,
+                  behavior: HitTestBehavior.opaque,
                   onTap: () {
                     Navigator.of(context).pop();
                   },
@@ -74,22 +74,20 @@ class _CallTimeSheetState extends State<CallTimeSheet> {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 27
-            ),
+            const SizedBox(height: 27),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   HourPickerWidget(
-                    defaultHour: 8,
+                      defaultHour: 8,
                       initialItem: widget.timeFrom,
                       title: 'от',
                       onChanged: (value) => setState(() => from = value)),
                   Container(width: 1, height: 120, color: border),
                   HourPickerWidget(
-                    defaultHour: 17,
+                      defaultHour: 17,
                       initialItem: widget.timeTo,
                       title: 'до',
                       onChanged: (value) => setState(() => to = value)),
@@ -101,13 +99,13 @@ class _CallTimeSheetState extends State<CallTimeSheet> {
               shadowColor: orange.withOpacity(0.2),
               color: orange,
               onTap: () {
-                if(from.isEmpty) from = '08 : 00';
-                if(to.isEmpty) to = '17 : 00';
+                if (from.isEmpty) from = '08 : 00';
+                if (to.isEmpty) to = '17 : 00';
                 Navigator.of(context).pop([from, to]);
               },
               content: Text(
                 LocaleKeys.confirm.tr(),
-                style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
                       color: white,
                     ),
               ),

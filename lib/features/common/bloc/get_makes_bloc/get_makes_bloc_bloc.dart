@@ -8,20 +8,21 @@ import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'get_makes_bloc_event.dart';
+
 part 'get_makes_bloc_state.dart';
+
 part 'get_makes_bloc_bloc.freezed.dart';
 
 class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
-  final GetMakesUseCase useCase;
-  final GetTopMakesUseCase topUseCase;
-  GetMakesBloc({
-    required this.useCase,
-    required this.topUseCase,
-    int? initialId,
-  }) : super(GetMakesState(selectId: initialId ?? -1)) {
+  final GetMakesUseCase useCase = GetMakesUseCase();
+  final GetTopMakesUseCase topUseCase = GetTopMakesUseCase();
+
+  GetMakesBloc({int? initialId})
+      : super(GetMakesState(selectId: initialId ?? -1)) {
     on<_ChangeSelected>((event, emit) {
       emit(state.copyWith(selectId: event.id));
     });
+
     on<_SortMakes>((event, emit) {
       final firstMakes = state.makes
           .where((element) => element.name.startsWith(event.letter))
@@ -33,7 +34,9 @@ class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
               ? state.makes
               : [...firstMakes, ...secondMakes]));
     });
+
     on<_GetIsCheck>((event, emit) => emit(state.copyWith(ischeck: true)));
+
     on<_GetMakes>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await useCase.call(state.search);
@@ -50,6 +53,7 @@ class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     });
+
     on<_GetTopMakes>((event, emit) async {
       emit(state.copyWith(statusTop: FormzStatus.submissionInProgress));
       final result = await topUseCase.call('');
@@ -65,6 +69,7 @@ class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
         emit(state.copyWith(statusTop: FormzStatus.submissionFailure));
       }
     });
+
     on<_GetNextTop>((event, emit) async {
       if (state.next != null) {
         final result =
@@ -84,25 +89,31 @@ class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
     });
 
     on<_GetSerched>((event, emit) => emit(state.copyWith(search: event.naem)));
+
     on<_SelectedCarItems>((event, emit) {
       emit(state.copyWith(
-          selectId: event.id,
-          name: event.name,
-          imageUrl: event.imageUrl,
-          ischeck: event.id == -1 ? false : true));
+          selectId: event.makeEntity.id, selectedMake: event.makeEntity));
     });
+
     on<_ConfirmCarOption>((event, emit) {
       emit(state.copyWith(confirmId: state.selectId));
     });
+
     on<_RevertCarOption>((event, emit) {
       emit(state.copyWith(selectId: state.confirmId));
     });
+
+    on<_ChangeControlleStatus>((event, emit) {
+      emit(state.copyWith(statusController: FormzStatus.pure));
+    });
+
     on<_GetIndex>((event, emit) {
       emit(state.copyWith(selectChar: event.index));
-      final inde = state.makes
-          .indexWhere((element) => element.name.startsWith(event.index));
-      if (inde >= 0) {
-        emit(state.copyWith(index: inde));
+      final index = state.makes.indexWhere((element) =>
+          element.name.toLowerCase().startsWith(event.index.toLowerCase()));
+      if (index >= 0) {
+        emit(state.copyWith(
+            index: index, statusController: FormzStatus.submissionSuccess));
       }
     });
   }

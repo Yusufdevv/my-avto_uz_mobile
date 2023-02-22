@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
@@ -12,7 +14,6 @@ import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/switcher_row_as_button_also.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/generated/locale_keys.g.dart';
-// import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -23,16 +24,7 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class ContactScreen extends StatefulWidget {
-  final String initialPhone;
-  final String initialEmail;
-  final String initialName;
-
-  const ContactScreen(
-      {required this.initialEmail,
-      required this.initialName,
-      required this.initialPhone,
-      Key? key})
-      : super(key: key);
+  const ContactScreen({Key? key}) : super(key: key);
 
   @override
   State<ContactScreen> createState() => _ContactScreenState();
@@ -49,18 +41,12 @@ class _ContactScreenState extends State<ContactScreen> {
     super.dispose();
   }
 
-  void hidePopUp() {
-    context.read<ShowPopUpBloc>().add(HidePopUp());
-  }
-
   final phoneFormatter = MaskTextInputFormatter(
     mask: '## ### ## ##',
     filter: {'#': RegExp('[0-9]')},
   );
-  final _formKey = GlobalKey<FormState>();
 
   void _onAvailableHoursPressed(PostingAdState postingAdState) {
-    hidePopUp();
     showModalBottomSheet<List<String>>(
       useRootNavigator: true,
       isScrollControlled: false,
@@ -89,7 +75,7 @@ class _ContactScreenState extends State<ContactScreen> {
         child: BlocBuilder<PostingAdBloc, PostingAdState>(
             builder: (context, postingAdState) => Scaffold(
                   body: Form(
-                    key: _formKey,
+                    key: postingAdState.contactsFormKey,
                     child: BaseWidget(
                       headerText: LocaleKeys.contact_data.tr(),
                       child: SingleChildScrollView(
@@ -100,7 +86,7 @@ class _ContactScreenState extends State<ContactScreen> {
                           children: [
                             SwitcherRowAsButtonAlso(
                                 onTap: () {
-                                  hidePopUp();
+                                  setState(() {});
                                   context
                                       .read<PostingAdBloc>()
                                       .add(PostingAdGetUserDataEvent());
@@ -108,12 +94,12 @@ class _ContactScreenState extends State<ContactScreen> {
                                 title: LocaleKeys.show_my_contact_data.tr(),
                                 value: postingAdState.showOwnerContacts,
                                 onChanged: (value) {
+                                  setState(() {});
                                   if (!value) {
                                     context
                                         .read<PostingAdBloc>()
                                         .add(PostingAdClearControllersEvent());
 
-                                    hidePopUp();
                                     context.read<PostingAdBloc>().add(
                                           PostingAdChooseEvent(
                                             showOwnerContacts: value,
@@ -128,7 +114,15 @@ class _ContactScreenState extends State<ContactScreen> {
                             },
                             const SizedBox(height: 16),
                             WTextField(
-                              onTap: hidePopUp,
+                              onTap: () {},
+                              validate: (v) {
+                                if (v!.isEmpty) {
+                                  return LocaleKeys.please_enter_your_name.tr();
+                                }
+                                return null;
+                              },
+                              maxLength: 40,
+                              hideCounterText: true,
                               controller: postingAdState.nameController,
                               onChanged: (value) {
                                 final v = postingAdState.isContactsVerified
@@ -138,12 +132,10 @@ class _ContactScreenState extends State<ContactScreen> {
                                     .read<PostingAdBloc>()
                                     .add(PostingAdChooseEvent(
                                       ownerName: value,
-                                      isContactsVerified: v,
+                                      // isContactsVerified: v,
                                       showOwnerContacts: v,
                                     ));
                               },
-                              maxLength: 40,
-                              hideCounterText: true,
                               title: LocaleKeys.name.tr(),
                               hintText: LocaleKeys.add_name.tr(),
                               borderRadius: 12,
@@ -158,7 +150,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                   .fillColor,
                               textStyle: Theme.of(context)
                                   .textTheme
-                                  .headline1!
+                                  .displayLarge!
                                   .copyWith(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,
@@ -166,7 +158,7 @@ class _ContactScreenState extends State<ContactScreen> {
                             ),
                             const SizedBox(height: 16),
                             WTextField(
-                              onTap: hidePopUp,
+                              onTap: () {},
                               controller: postingAdState.emailController,
                               onChanged: (value) => context
                                   .read<PostingAdBloc>()
@@ -183,10 +175,12 @@ class _ContactScreenState extends State<ContactScreen> {
                                         value.isEmpty ||
                                         !value.contains('@') ||
                                         !value.contains('.'))) {
-                                  return 'Invalid Email';
+                                  return LocaleKeys.please_enter_valid_email
+                                      .tr();
                                 }
                                 return null;
                               },
+                              keyBoardType: TextInputType.emailAddress,
                               borderColor: Theme.of(context)
                                   .extension<WTextFieldStyle>()!
                                   .borderColor,
@@ -198,7 +192,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                   .fillColor,
                               textStyle: Theme.of(context)
                                   .textTheme
-                                  .headline1!
+                                  .displayLarge!
                                   .copyWith(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,
@@ -206,43 +200,54 @@ class _ContactScreenState extends State<ContactScreen> {
                             ),
                             const SizedBox(height: 16),
                             WTextField(
-                              validate: (v) {
-                                if (v?.length != 12) {
-                                  return 'Enter valid phone number';
-                                }
-                                return null;
-                              },
-                              onTap: hidePopUp,
+                              // validate: (v) {
+                              //   if (v?.length != 12) {
+                              //     return 'Enter valid phone number';
+                              //   }
+                              //   return null;
+                              // },
+                              onTap: () {},
                               onChanged: (value) {
                                 final v = postingAdState.isContactsVerified
                                     ? false
                                     : null;
                                 context.read<PostingAdBloc>().add(
                                       PostingAdChooseEvent(
-                                        ownerName: value,
-                                        isContactsVerified: v,
-                                        showOwnerContacts: v,
-                                      ),
+                                          ownerName: value,
+                                          isContactsVerified: v,
+                                          showOwnerContacts: v),
                                     );
                               },
                               title: LocaleKeys.tel_number.tr(),
                               controller: postingAdState.phoneController,
-                              prefix: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 16, right: 8, top: 13),
-                                child: Text(
-                                  '+998',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline2!
-                                      .copyWith(fontWeight: FontWeight.w400),
-                                ),
+                              contentPadding:
+                                  const EdgeInsets.only(bottom: 12, top: 12),
+                              prefixConstraints:
+                                  const BoxConstraints(maxWidth: 52),
+                              prefix: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 10, bottom: 12, left: 12),
+                                    child: Text(
+                                      '+998',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayLarge!
+                                          .copyWith(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                    ),
+                                  ),
+                                ],
                               ),
                               hintText: '_ _  _ _ _  _ _  _ _',
                               borderRadius: 12,
                               borderColor: Theme.of(context)
                                   .extension<WTextFieldStyle>()!
                                   .borderColor,
+                              errorColor: red,
                               keyBoardType: TextInputType.number,
                               fillColor: Theme.of(context)
                                   .extension<WTextFieldStyle>()!
@@ -260,8 +265,9 @@ class _ContactScreenState extends State<ContactScreen> {
                                           .phoneController.text.length !=
                                       12,
                                   onTap: () {
-                                    hidePopUp();
-                                    if (_formKey.currentState!.validate()) {
+                                    if (postingAdState
+                                            .phoneController.text.length ==
+                                        12) {
                                       context.read<PostingAdBloc>().add(
                                           PostingAdSendCodeEvent(
                                               phone: postingAdState
@@ -327,11 +333,11 @@ class _ContactScreenState extends State<ContactScreen> {
                                                     context
                                                         .read<ShowPopUpBloc>()
                                                         .add(ShowPopUp(
-                                                            message: value
-                                                                .toString(),
-                                                           status: PopStatus.error,
-                                                            dismissible:
-                                                                false));
+                                                          message:
+                                                              value.toString(),
+                                                          status:
+                                                              PopStatus.error,
+                                                        ));
                                                   }
                                                 });
                                               }));
@@ -340,9 +346,9 @@ class _ContactScreenState extends State<ContactScreen> {
                               suffixPadding: const EdgeInsets.all(5),
                               textStyle: Theme.of(context)
                                   .textTheme
-                                  .headline1!
+                                  .displayLarge!
                                   .copyWith(
-                                    fontSize: 16,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.w400,
                                   ),
                             ),
@@ -351,7 +357,6 @@ class _ContactScreenState extends State<ContactScreen> {
                                 title: LocaleKeys.avialable_hours.tr(),
                                 value: postingAdState.isCallTimed,
                                 onTap: () {
-                                  hidePopUp();
                                   if (postingAdState.callTimeFrom != null &&
                                       postingAdState.callTimeTo != null) {
                                     context.read<PostingAdBloc>().add(
@@ -362,7 +367,6 @@ class _ContactScreenState extends State<ContactScreen> {
                                   _onAvailableHoursPressed(postingAdState);
                                 },
                                 onChanged: (value) {
-                                  hidePopUp();
                                   context.read<PostingAdBloc>().add(
                                       PostingAdChooseEvent(isCallTimed: value));
                                 }),
@@ -372,8 +376,6 @@ class _ContactScreenState extends State<ContactScreen> {
                                   text:
                                       '${postingAdState.callTimeFrom}-${postingAdState.callTimeTo}',
                                   onTap: () {
-                                    hidePopUp();
-
                                     _onAvailableHoursPressed(postingAdState);
                                   }),
                             },
@@ -395,10 +397,13 @@ class _ContactScreenState extends State<ContactScreen> {
                                 LocaleKeys.incognito_mode.tr(),
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline2!
+                                    .displayMedium!
                                     .copyWith(color: grey),
                               ),
-                            )
+                            ),
+                            SizedBox(
+                                height: 60 +
+                                    MediaQuery.of(context).viewInsets.bottom),
                           ],
                         ),
                       ),

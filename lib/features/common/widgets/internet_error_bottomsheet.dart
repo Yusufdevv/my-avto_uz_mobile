@@ -49,7 +49,7 @@ class _InternetErrorBottomSheetState extends State<InternetErrorBottomSheet> {
               ),
               Text(
                 LocaleKeys.net_conntect_fail.tr(),
-                style: Theme.of(context).textTheme.headline1!.copyWith(
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(
                       color: dark,
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -60,7 +60,7 @@ class _InternetErrorBottomSheetState extends State<InternetErrorBottomSheet> {
               ),
               Text(
                 LocaleKeys.problem_net_try_again.tr(),
-                style: Theme.of(context).textTheme.headline1!.copyWith(
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(
                       color: const Color(0xff696974),
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
@@ -101,7 +101,7 @@ class _InternetErrorBottomSheetState extends State<InternetErrorBottomSheet> {
                               LocaleKeys.repeat.tr(),
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline1!
+                                  .displayLarge!
                                   .copyWith(
                                     color: white,
                                     fontSize: 14,

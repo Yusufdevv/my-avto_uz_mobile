@@ -3,17 +3,17 @@ import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 class BodyTypeEntity extends Equatable {
-  @JsonKey(name: 'id', defaultValue: 0)
+  @JsonKey(name: 'id')
   final int id;
-  @JsonKey(name: 'type', defaultValue: '')
+  @JsonKey(name: 'type')
   final String type;
-  @JsonKey(name: 'logo', defaultValue: '')
+  @JsonKey(name: 'logo')
   final String logo;
 
   const BodyTypeEntity({
-    required this.id,
-    required this.type,
-    required this.logo,
+    this.id = -1,
+    this.type = '',
+    this.logo = '',
   });
 
   @override
@@ -33,5 +33,9 @@ class BodyTypeEntityConverter
       BodyTypeModel.fromJson(json ?? {});
 
   @override
-  Map<String, dynamic> toJson(BodyTypeEntity object) => {};
+  Map<String, dynamic> toJson(BodyTypeEntity object) => BodyTypeModel(
+        id: object.id,
+        logo: object.logo,
+        type: object.type,
+      ).toJson();
 }

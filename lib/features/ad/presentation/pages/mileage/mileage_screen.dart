@@ -5,19 +5,25 @@ import 'package:auto/features/ad/presentation/bloc/mileage/mileage_image_bloc.da
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/mileage/widgets/mileage_image.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
+import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/switcher_row.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class MileageScreen extends StatefulWidget {
   final Function(String) onImageChange;
-  final String initialMilage;
+  final String initialMileage;
+  final String? initialMileageImage;
   const MileageScreen(
-      {required this.onImageChange, required this.initialMilage, Key? key})
+      {required this.onImageChange,
+      required this.initialMileage,
+      required this.initialMileageImage,
+      Key? key})
       : super(key: key);
 
   @override
@@ -30,8 +36,8 @@ class _MileageScreenState extends State<MileageScreen> {
 
   @override
   void initState() {
-    mileageImageBloc = MileageImageBloc();
-    mileageController = TextEditingController(text: widget.initialMilage);
+    mileageImageBloc = MileageImageBloc(widget.initialMileageImage);
+    mileageController = TextEditingController(text: widget.initialMileage);
 
     super.initState();
   }
@@ -49,8 +55,16 @@ class _MileageScreenState extends State<MileageScreen> {
           child: Scaffold(
             body: BlocConsumer<MileageImageBloc, MileageImageState>(
               listener: (context, state) {
-                print('=> => => =>     milage image change in listener: ${state.image}    <= <= <= <=');
-                widget.onImageChange(state.image);
+                if (state.image != null && state.image!.isNotEmpty) {
+                  widget.onImageChange(state.image!);
+                }
+                if (state.toastMessage != null &&
+                    state.toastMessage!.isNotEmpty) {
+                  print('toast is showing');
+                  context.read<PostingAdBloc>().add(PostingAdShowToastEvent(
+                      message: state.toastMessage!, status: PopStatus.warning));
+                  mileageImageBloc.add(MakeToastMessageNullEvent());
+                }
               },
               builder: (context, state) => BaseWidget(
                 headerText: LocaleKeys.Mileage.tr(),
@@ -79,11 +93,12 @@ class _MileageScreenState extends State<MileageScreen> {
                         WTextField(
                           textStyle: Theme.of(context)
                               .textTheme
-                              .headline1!
+                              .displayLarge!
                               .copyWith(
                                   fontSize: 16, fontWeight: FontWeight.w400),
                           textInputFormatters: [
-                            ThousandsSeparatorInputFormatter()
+                            FilteringTextInputFormatter.digitsOnly,
+                            ThousandsSeparatorInputFormatter(),
                           ],
                           maxLength: 12,
                           hideCounterText: true,
@@ -93,7 +108,7 @@ class _MileageScreenState extends State<MileageScreen> {
                           title: LocaleKeys.Mileage.tr(),
                           hintText: '0 km',
                           borderRadius: 12,
-                          keyBoardType: TextInputType.number,
+                          keyBoardType: TextInputType.phone,
                           controller: mileageController,
                           fillColor: Theme.of(context)
                               .extension<WTextFieldStyle>()!
@@ -110,17 +125,15 @@ class _MileageScreenState extends State<MileageScreen> {
                         height: 20,
                       ),
                       Text(
-                        '${LocaleKeys.photo.tr()} 360°',
+                        LocaleKeys.milage_photo.tr(),
                         style: Theme.of(context)
                             .textTheme
-                            .subtitle1!
+                            .titleMedium!
                             .copyWith(color: grey),
                       ),
                       const SizedBox(height: 8),
                       MileageImageItem(image: state.image),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      const SizedBox(height: 20),
                     ],
                   ),
                 ),

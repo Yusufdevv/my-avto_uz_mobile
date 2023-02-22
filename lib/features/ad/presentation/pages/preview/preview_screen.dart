@@ -1,5 +1,3 @@
-import 'package:auto/features/ad/data/models/modification_type.dart';
-import 'package:auto/features/ad/domain/entities/types/modification_type.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/preview/widgets/car_info_row.dart';
 import 'package:auto/features/ad/presentation/pages/preview/widgets/car_model_price_text.dart';
@@ -29,7 +27,7 @@ class PreviewScreen extends StatelessWidget {
                             top: 16, left: 16, bottom: 12),
                         child: Text(
                           LocaleKeys.final_review.tr(),
-                          style: Theme.of(context).textTheme.headline1,
+                          style: Theme.of(context).textTheme.displayLarge,
                         ),
                       ),
                       ImageViewer(
@@ -37,12 +35,16 @@ class PreviewScreen extends StatelessWidget {
                       const SizedBox(height: 12),
                       CarModelText(
                           text:
-                              '${state.makes[state.makes.indexWhere((element) => element.id == state.makeId)]}'),
-                      CarPriceText(text: '${state.price}'),
+                              '${state.make?.name ?? ''} ${state.model?.name ?? ''} ${state.generations.first.name}'),
+                      CarPriceText(
+                          text:
+                              '${state.price} ${state.currency == 'uzs' ? LocaleKeys.sum.tr().toUpperCase() : 'USD'}'),
                       const SizedBox(height: 12),
                       DateAndViewsRow(date: state.purchasedDate!),
                       const SizedBox(height: 8),
-                      IdRow(id: state.id ?? ''),
+                      //
+                      if (state.id != null) IdRow(id: state.id ?? ''),
+                      //
                       Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 16, vertical: 16),
@@ -53,38 +55,27 @@ class PreviewScreen extends StatelessWidget {
                           title: LocaleKeys.years_of_issue.tr(),
                           info: state.yearEntity == null
                               ? ''
-                              : '${state.yearEntity!.yearBegin}'),
+                              : '${state.yearEntity?.yearBegin}'),
                       CarInfoRow(
-                          title: LocaleKeys.Mileage.tr(), info: '${state.mileage}'),
+                          title: LocaleKeys.Mileage.tr(),
+                          info: state.mileage ?? '0'),
                       CarInfoRow(
                           title: LocaleKeys.body.tr(),
-                          info: state.bodyTypes.isEmpty
-                              ? 'not selected'
-                              : state.bodyTypes
-                                  .firstWhere((e) => e.id == state.bodyTypeId)
-                                  .type),
+                          info: state.bodyType?.type ?? ''),
                       CarInfoRow(
                         title: LocaleKeys.color.tr(),
                         info: '${state.colorName}',
                       ),
                       CarInfoRow(
                           title: LocaleKeys.complectation.tr(),
-                          info: 'hsergfd'),
+                          info: 'really soon'),
                       CarInfoRow(
                         title: LocaleKeys.engine_volume_l.tr(),
-                        info: state.modifications
-                            .singleWhere((e) => e.id == state.modificationId,
-                                orElse: () => const ModificationTypeModel(
-                                    volume: '', id: -1, power: ''))
-                            .volume,
+                        info: state.modification?.volume ?? '',
                       ),
                       CarInfoRow(
                         title: LocaleKeys.Transmission.tr(),
-                        info: state.gearBoxes.isEmpty
-                            ? 'not selected'
-                            : state.gearBoxes
-                                .firstWhere((e) => e.id == state.gearboxId)
-                                .type,
+                        info: state.gearbox?.type ?? '',
                       ),
                       CarInfoRow(
                         title: LocaleKeys.rastamojen_v_uzbekistan.tr(),

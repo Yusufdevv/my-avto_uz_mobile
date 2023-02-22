@@ -29,7 +29,7 @@ class VinInfoTile extends StatelessWidget {
               entity.title.tr(),
               style: Theme.of(context)
                   .textTheme
-                  .headline2!
+                  .displayMedium!
                   .copyWith(fontWeight: FontWeight.w400, fontSize: 14),
             ),
           ],

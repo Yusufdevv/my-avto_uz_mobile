@@ -7,13 +7,16 @@ import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
 class EquipmentCard extends StatefulWidget {
   final String complectation;
   final String complectationItem;
 
-  const EquipmentCard(
-      {required this.complectation, required this.complectationItem,Key? key,})
-      : super(key: key);
+  const EquipmentCard({
+    required this.complectation,
+    required this.complectationItem,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<EquipmentCard> createState() => _EquipmentCardState();
@@ -65,8 +68,10 @@ class _EquipmentCardState extends State<EquipmentCard>
           children: [
             Text(
               widget.complectation,
-              style:
-                  Theme.of(context).textTheme.headline1!.copyWith(fontSize: 18),
+              style: Theme.of(context)
+                  .textTheme
+                  .displayLarge!
+                  .copyWith(fontSize: 18),
             ),
             const SizedBox(
               height: 12,
@@ -74,7 +79,7 @@ class _EquipmentCardState extends State<EquipmentCard>
             ...List.generate(
               entity.length,
               (index) => Padding(
-                padding:const EdgeInsets.only(left: 8),
+                padding: const EdgeInsets.only(left: 8),
                 child: EquipmentTile(title: widget.complectationItem),
               ),
             ),
@@ -89,7 +94,8 @@ class _EquipmentCardState extends State<EquipmentCard>
                       animationController.reverse();
                     }
                   });
-                },    behavior: HitTestBehavior.opaque,
+                },
+                behavior: HitTestBehavior.opaque,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8),
                   child: Column(
@@ -118,20 +124,16 @@ class _EquipmentCardState extends State<EquipmentCard>
                             LocaleKeys.show_all_dealers.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .headline3!
+                                .displaySmall!
                                 .copyWith(
                                     fontSize: 14, fontWeight: FontWeight.w600),
                           ),
-                          const SizedBox(
-                            width: 4
-                          ),
+                          const SizedBox(width: 4),
                           AnimatedRotation(
                             turns: showContent ? 1 / 2 : 1,
                             duration: const Duration(milliseconds: 200),
-                            child: SvgPicture.asset(
-                              AppIcons.chevronDown,
-                              color: purple
-                            ),
+                            child: SvgPicture.asset(AppIcons.chevronDown,
+                                color: purple),
                           ),
                         ],
                       ),

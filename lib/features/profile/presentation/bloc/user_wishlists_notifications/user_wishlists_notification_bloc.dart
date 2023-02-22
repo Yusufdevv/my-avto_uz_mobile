@@ -37,14 +37,23 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
           notificationSingle: NotificationsEntity(),
           mySearches: const <MySearchesEntity>[],
           count: 0,
-          next: '',
-          moreFetch: false,
+          nextMyAds: '',
+          moreFetchMyAds: false,
+          nextNotifications: '',
+          nextFavorites: '',
+          nextMySearches: '',
+          moreFetchNotifications: false,
+          moreFetchFavorites: false,
+          moreFetchMySearches: false,
         )) {
     on<GetUserFavoritesEvent>(_onGetUserFavorites);
+    on<GetMoreUserFavoritesEvent>(_onGetMoreUserFavorites);
     on<GetUserMyAdsEvent>(_onGetUserMyAds);
     on<GetMoreUserMyAdsEvent>(_onGetMoreUserMyAds);
     on<GetMySearchesEvent>(_onGetMySearches);
+    on<GetMoreMySearchesEvent>(_onGetMoreMySearches);
     on<GetNotificationsEvent>(_onGetNotifications);
+    on<GetMoreNotificationsEvent>(_onGetMoreNotifications);
     on<GetNotificationSingleEvent>(_onGetNotificationSingle);
     on<NotificationAllReadEvent>(_onNotificationAllReadEvent);
     on<DeleteMySearchesEvent>(_onDeleteMySearchesEvent);
@@ -74,12 +83,25 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
         .call(Params(endpoint: '/users/wishlist/announcement/list/'));
     if (result.isRight) {
       emit(state.copyWith(
-        favoritesStatus: FormzStatus.submissionSuccess,
-        favorites: result.right.results,
-        next: result.right.next,
-      ));
+          favoritesStatus: FormzStatus.submissionSuccess,
+          favorites: result.right.results,
+          nextFavorites: result.right.next,
+          moreFetchFavorites: result.right.next != null));
     } else {
       emit(state.copyWith(favoritesStatus: FormzStatus.submissionFailure));
+    }
+  }
+
+  Future<void> _onGetMoreUserFavorites(
+      GetMoreUserFavoritesEvent event, Emitter<UserWishListsState> emit) async {
+    final result = await profileFavoritesMyAdsUseCase.call(Params(
+        endpoint: '/users/wishlist/announcement/list/',
+        query: state.nextFavorites));
+    if (result.isRight) {
+      emit(state.copyWith(
+          favorites: [...state.favorites, ...result.right.results],
+          nextFavorites: result.right.next,
+          moreFetchFavorites: result.right.next != null));
     }
   }
 
@@ -105,8 +127,8 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
       emit(state.copyWith(
         myAdsStatus: FormzStatus.submissionSuccess,
         myAds: result.right.results,
-        next: result.right.next,
-        moreFetch: result.right.next != null,
+        nextMyAds: result.right.next,
+        moreFetchMyAds: result.right.next != null,
       ));
     } else {
       emit(state.copyWith(myAdsStatus: FormzStatus.submissionFailure));
@@ -117,13 +139,13 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
       GetMoreUserMyAdsEvent event, Emitter<UserWishListsState> emit) async {
     final result = await profileFavoritesMyAdsUseCase.call(Params(
         endpoint: '/car/my-announcements/',
-        query: state.next,
+        query: state.nextMyAds,
         moderationStatus: event.moderationStatus));
     if (result.isRight) {
       emit(state.copyWith(
         myAds: [...state.myAds, ...result.right.results],
-        next: result.right.next,
-        moreFetch: result.right.next != null,
+        nextMyAds: result.right.next,
+        moreFetchMyAds: result.right.next != null,
       ));
     }
   }
@@ -131,24 +153,58 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
   Future<void> _onGetMySearches(
       GetMySearchesEvent event, Emitter<UserWishListsState> emit) async {
     emit(state.copyWith(myAdsStatus: FormzStatus.submissionInProgress));
-    final result = await getMySearchesUseCase.call(NoParams());
+    final result = await getMySearchesUseCase.call('');
     if (result.isRight) {
       emit(state.copyWith(
-          myAdsStatus: FormzStatus.submissionSuccess,
-          mySearches: result.right));
+        myAdsStatus: FormzStatus.submissionSuccess,
+        mySearches: result.right.results,
+        nextMySearches: result.right.next,
+        moreFetchMySearches: result.right.next != null,
+      ));
     } else {
       emit(state.copyWith(myAdsStatus: FormzStatus.submissionFailure));
+    }
+  }
+
+  Future<void> _onGetMoreMySearches(
+      GetMoreMySearchesEvent event, Emitter<UserWishListsState> emit) async {
+    final result = await getMySearchesUseCase.call(state.nextMySearches);
+    if (result.isRight) {
+      emit(state.copyWith(
+        mySearches: [...state.mySearches, ...result.right.results],
+        nextMySearches: result.right.next,
+        moreFetchMySearches: result.right.next != null,
+      ));
     }
   }
 
   Future<void> _onGetNotifications(
       GetNotificationsEvent event, Emitter<UserWishListsState> emit) async {
     emit(state.copyWith(myAdsStatus: FormzStatus.submissionInProgress));
-    final result = await getNotificationsUseCase.call(event.filter);
+    final result = await getNotificationsUseCase
+        .call(NotificationParams(filter: event.filter));
     if (result.isRight) {
       emit(state.copyWith(
-          myAdsStatus: FormzStatus.submissionSuccess,
-          notifications: result.right));
+        myAdsStatus: FormzStatus.submissionSuccess,
+        notifications: result.right.results,
+        nextNotifications: result.right.next,
+        moreFetchNotifications: result.right.next != null,
+      ));
+    } else {
+      emit(state.copyWith(myAdsStatus: FormzStatus.submissionFailure));
+    }
+  }
+
+  Future<void> _onGetMoreNotifications(
+      GetMoreNotificationsEvent event, Emitter<UserWishListsState> emit) async {
+    final result = await getNotificationsUseCase
+        .call(NotificationParams(next: state.nextNotifications));
+    if (result.isRight) {
+      emit(state.copyWith(
+        notifications: [...state.notifications, ...result.right.results],
+        nextNotifications: result.right.next,
+        moreFetchNotifications: result.right.next != null,
+      ));
     } else {
       emit(state.copyWith(myAdsStatus: FormzStatus.submissionFailure));
     }

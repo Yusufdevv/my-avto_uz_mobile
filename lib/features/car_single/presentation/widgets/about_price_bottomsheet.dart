@@ -27,8 +27,9 @@ class AboutCarPriceBottom extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    LocaleKeys.how_the_average_price_is_calculated.tr(),
-                    style: Theme.of(context).textTheme.headline1,
+                    LocaleKeys.how_the_average_price_is_calculated
+                        .tr(namedArgs: {'middle': '\n'}),
+                    style: Theme.of(context).textTheme.displayLarge,
                   ),
                   const Spacer(),
                   GestureDetector(
@@ -62,21 +63,21 @@ class AboutCarPriceBottom extends StatelessWidget {
                     text: LocaleKeys.we_compared_all_parameters.tr(),
                     style: Theme.of(context)
                         .textTheme
-                        .headline2!
+                        .displayMedium!
                         .copyWith(color: dark, fontSize: 16),
                   ),
                   TextSpan(
                     text: 'auto.uz ',
                     style: Theme.of(context)
                         .textTheme
-                        .headline2!
+                        .displayMedium!
                         .copyWith(color: orange, fontSize: 16),
                   ),
                   TextSpan(
                     text: LocaleKeys.by_parameters.tr(),
                     style: Theme.of(context)
                         .textTheme
-                        .headline2!
+                        .displayMedium!
                         .copyWith(color: dark, fontSize: 16),
                   ),
                 ]))),
@@ -103,7 +104,7 @@ class AboutCarPriceBottom extends StatelessWidget {
                             LocaleKeys.year_of_issue.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .subtitle2!
+                                .titleSmall!
                                 .copyWith(color: dark),
                           )
                         ],
@@ -121,7 +122,7 @@ class AboutCarPriceBottom extends StatelessWidget {
                             LocaleKeys.Mileage.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .subtitle2!
+                                .titleSmall!
                                 .copyWith(color: dark),
                           )
                         ],
@@ -139,7 +140,7 @@ class AboutCarPriceBottom extends StatelessWidget {
                             LocaleKeys.position.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .subtitle2!
+                                .titleSmall!
                                 .copyWith(color: dark),
                           )
                         ],
@@ -160,7 +161,7 @@ class AboutCarPriceBottom extends StatelessWidget {
                             LocaleKeys.brand.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .subtitle2!
+                                .titleSmall!
                                 .copyWith(color: dark),
                           )
                         ],
@@ -178,7 +179,7 @@ class AboutCarPriceBottom extends StatelessWidget {
                             LocaleKeys.model.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .subtitle2!
+                                .titleSmall!
                                 .copyWith(color: dark),
                           )
                         ],
@@ -196,7 +197,7 @@ class AboutCarPriceBottom extends StatelessWidget {
                             LocaleKeys.paint_condition.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .subtitle2!
+                                .titleSmall!
                                 .copyWith(color: dark),
                           ),
                         ],

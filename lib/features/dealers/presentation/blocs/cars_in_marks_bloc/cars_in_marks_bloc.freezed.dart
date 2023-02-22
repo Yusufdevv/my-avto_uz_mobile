@@ -20,32 +20,38 @@ mixin _$CarsInMarksEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(CarMarkParams params) getResults,
+    required TResult Function(CarMarkParams params) getMoreResults,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(CarMarkParams params)? getResults,
+    TResult? Function(CarMarkParams params)? getMoreResults,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(CarMarkParams params)? getResults,
+    TResult Function(CarMarkParams params)? getMoreResults,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetResults value) getResults,
+    required TResult Function(_GetMoreResults value) getMoreResults,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetResults value)? getResults,
+    TResult? Function(_GetMoreResults value)? getMoreResults,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetResults value)? getResults,
+    TResult Function(_GetMoreResults value)? getMoreResults,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -155,6 +161,7 @@ class _$_GetResults implements _GetResults {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(CarMarkParams params) getResults,
+    required TResult Function(CarMarkParams params) getMoreResults,
   }) {
     return getResults(params);
   }
@@ -163,6 +170,7 @@ class _$_GetResults implements _GetResults {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(CarMarkParams params)? getResults,
+    TResult? Function(CarMarkParams params)? getMoreResults,
   }) {
     return getResults?.call(params);
   }
@@ -171,6 +179,7 @@ class _$_GetResults implements _GetResults {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(CarMarkParams params)? getResults,
+    TResult Function(CarMarkParams params)? getMoreResults,
     required TResult orElse(),
   }) {
     if (getResults != null) {
@@ -183,6 +192,7 @@ class _$_GetResults implements _GetResults {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetResults value) getResults,
+    required TResult Function(_GetMoreResults value) getMoreResults,
   }) {
     return getResults(this);
   }
@@ -191,6 +201,7 @@ class _$_GetResults implements _GetResults {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetResults value)? getResults,
+    TResult? Function(_GetMoreResults value)? getMoreResults,
   }) {
     return getResults?.call(this);
   }
@@ -199,6 +210,7 @@ class _$_GetResults implements _GetResults {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetResults value)? getResults,
+    TResult Function(_GetMoreResults value)? getMoreResults,
     required TResult orElse(),
   }) {
     if (getResults != null) {
@@ -220,8 +232,148 @@ abstract class _GetResults implements CarsInMarksEvent {
 }
 
 /// @nodoc
+abstract class _$$_GetMoreResultsCopyWith<$Res>
+    implements $CarsInMarksEventCopyWith<$Res> {
+  factory _$$_GetMoreResultsCopyWith(
+          _$_GetMoreResults value, $Res Function(_$_GetMoreResults) then) =
+      __$$_GetMoreResultsCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({CarMarkParams params});
+}
+
+/// @nodoc
+class __$$_GetMoreResultsCopyWithImpl<$Res>
+    extends _$CarsInMarksEventCopyWithImpl<$Res, _$_GetMoreResults>
+    implements _$$_GetMoreResultsCopyWith<$Res> {
+  __$$_GetMoreResultsCopyWithImpl(
+      _$_GetMoreResults _value, $Res Function(_$_GetMoreResults) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? params = null,
+  }) {
+    return _then(_$_GetMoreResults(
+      params: null == params
+          ? _value.params
+          : params // ignore: cast_nullable_to_non_nullable
+              as CarMarkParams,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_GetMoreResults implements _GetMoreResults {
+  _$_GetMoreResults({required this.params});
+
+  @override
+  final CarMarkParams params;
+
+  @override
+  String toString() {
+    return 'CarsInMarksEvent.getMoreResults(params: $params)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_GetMoreResults &&
+            (identical(other.params, params) || other.params == params));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, params);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_GetMoreResultsCopyWith<_$_GetMoreResults> get copyWith =>
+      __$$_GetMoreResultsCopyWithImpl<_$_GetMoreResults>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(CarMarkParams params) getResults,
+    required TResult Function(CarMarkParams params) getMoreResults,
+  }) {
+    return getMoreResults(params);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(CarMarkParams params)? getResults,
+    TResult? Function(CarMarkParams params)? getMoreResults,
+  }) {
+    return getMoreResults?.call(params);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(CarMarkParams params)? getResults,
+    TResult Function(CarMarkParams params)? getMoreResults,
+    required TResult orElse(),
+  }) {
+    if (getMoreResults != null) {
+      return getMoreResults(params);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetResults value) getResults,
+    required TResult Function(_GetMoreResults value) getMoreResults,
+  }) {
+    return getMoreResults(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetResults value)? getResults,
+    TResult? Function(_GetMoreResults value)? getMoreResults,
+  }) {
+    return getMoreResults?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetResults value)? getResults,
+    TResult Function(_GetMoreResults value)? getMoreResults,
+    required TResult orElse(),
+  }) {
+    if (getMoreResults != null) {
+      return getMoreResults(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetMoreResults implements CarsInMarksEvent {
+  factory _GetMoreResults({required final CarMarkParams params}) =
+      _$_GetMoreResults;
+
+  @override
+  CarMarkParams get params;
+  @override
+  @JsonKey(ignore: true)
+  _$$_GetMoreResultsCopyWith<_$_GetMoreResults> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$CarsInMarksState {
   List<CarsInMarksEntity> get cars => throw _privateConstructorUsedError;
+  String? get next => throw _privateConstructorUsedError;
+  bool? get moreFetch => throw _privateConstructorUsedError;
   FormzStatus get status => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -235,7 +387,11 @@ abstract class $CarsInMarksStateCopyWith<$Res> {
           CarsInMarksState value, $Res Function(CarsInMarksState) then) =
       _$CarsInMarksStateCopyWithImpl<$Res, CarsInMarksState>;
   @useResult
-  $Res call({List<CarsInMarksEntity> cars, FormzStatus status});
+  $Res call(
+      {List<CarsInMarksEntity> cars,
+      String? next,
+      bool? moreFetch,
+      FormzStatus status});
 }
 
 /// @nodoc
@@ -252,6 +408,8 @@ class _$CarsInMarksStateCopyWithImpl<$Res, $Val extends CarsInMarksState>
   @override
   $Res call({
     Object? cars = null,
+    Object? next = freezed,
+    Object? moreFetch = freezed,
     Object? status = null,
   }) {
     return _then(_value.copyWith(
@@ -259,6 +417,14 @@ class _$CarsInMarksStateCopyWithImpl<$Res, $Val extends CarsInMarksState>
           ? _value.cars
           : cars // ignore: cast_nullable_to_non_nullable
               as List<CarsInMarksEntity>,
+      next: freezed == next
+          ? _value.next
+          : next // ignore: cast_nullable_to_non_nullable
+              as String?,
+      moreFetch: freezed == moreFetch
+          ? _value.moreFetch
+          : moreFetch // ignore: cast_nullable_to_non_nullable
+              as bool?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -275,7 +441,11 @@ abstract class _$$_CarsInMarksStateCopyWith<$Res>
       __$$_CarsInMarksStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<CarsInMarksEntity> cars, FormzStatus status});
+  $Res call(
+      {List<CarsInMarksEntity> cars,
+      String? next,
+      bool? moreFetch,
+      FormzStatus status});
 }
 
 /// @nodoc
@@ -290,6 +460,8 @@ class __$$_CarsInMarksStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? cars = null,
+    Object? next = freezed,
+    Object? moreFetch = freezed,
     Object? status = null,
   }) {
     return _then(_$_CarsInMarksState(
@@ -297,6 +469,14 @@ class __$$_CarsInMarksStateCopyWithImpl<$Res>
           ? _value._cars
           : cars // ignore: cast_nullable_to_non_nullable
               as List<CarsInMarksEntity>,
+      next: freezed == next
+          ? _value.next
+          : next // ignore: cast_nullable_to_non_nullable
+              as String?,
+      moreFetch: freezed == moreFetch
+          ? _value.moreFetch
+          : moreFetch // ignore: cast_nullable_to_non_nullable
+              as bool?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -310,6 +490,8 @@ class __$$_CarsInMarksStateCopyWithImpl<$Res>
 class _$_CarsInMarksState implements _CarsInMarksState {
   _$_CarsInMarksState(
       {final List<CarsInMarksEntity> cars = const [],
+      this.next = '',
+      this.moreFetch = false,
       this.status = FormzStatus.pure})
       : _cars = cars;
 
@@ -324,11 +506,17 @@ class _$_CarsInMarksState implements _CarsInMarksState {
 
   @override
   @JsonKey()
+  final String? next;
+  @override
+  @JsonKey()
+  final bool? moreFetch;
+  @override
+  @JsonKey()
   final FormzStatus status;
 
   @override
   String toString() {
-    return 'CarsInMarksState(cars: $cars, status: $status)';
+    return 'CarsInMarksState(cars: $cars, next: $next, moreFetch: $moreFetch, status: $status)';
   }
 
   @override
@@ -337,12 +525,15 @@ class _$_CarsInMarksState implements _CarsInMarksState {
         (other.runtimeType == runtimeType &&
             other is _$_CarsInMarksState &&
             const DeepCollectionEquality().equals(other._cars, _cars) &&
+            (identical(other.next, next) || other.next == next) &&
+            (identical(other.moreFetch, moreFetch) ||
+                other.moreFetch == moreFetch) &&
             (identical(other.status, status) || other.status == status));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_cars), status);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_cars), next, moreFetch, status);
 
   @JsonKey(ignore: true)
   @override
@@ -354,10 +545,16 @@ class _$_CarsInMarksState implements _CarsInMarksState {
 abstract class _CarsInMarksState implements CarsInMarksState {
   factory _CarsInMarksState(
       {final List<CarsInMarksEntity> cars,
+      final String? next,
+      final bool? moreFetch,
       final FormzStatus status}) = _$_CarsInMarksState;
 
   @override
   List<CarsInMarksEntity> get cars;
+  @override
+  String? get next;
+  @override
+  bool? get moreFetch;
   @override
   FormzStatus get status;
   @override

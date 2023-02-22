@@ -41,18 +41,18 @@ abstract class LightTheme {
           onSurface: LightThemeColors.solitudeToGhost,
         ),
         textTheme: const TextTheme(
-          headline1: headline1,
-          headline2: headline2,
-          headline3: headline3,
-          headline4: headline4,
-          headline5: headline5,
-          headline6: headline6,
-          bodyText1: bodyText1,
-          bodyText2: bodyText2,
-          subtitle1: subTitle1,
-          subtitle2: subTitle2,
-          caption: caption,
-          button: button,
+          displayLarge: displayLarge,
+          displayMedium: displayMedium,
+          displaySmall: displaySmall,
+          headlineMedium: headlineMedium,
+          headlineSmall: headlineSmall,
+          titleLarge: titleLarge,
+          bodyLarge: bodyLarge,
+          bodyMedium: bodyMedium,
+          titleMedium: titleMedium,
+          titleSmall: titleSmall,
+          bodySmall: bodySmall,
+          labelLarge: labelLarge,
         ),
         extensions: const {
           CheckBoxStyle(
@@ -82,7 +82,8 @@ abstract class LightTheme {
             transparentToSolitude12: LightThemeColors.transparentToSolitude12,
             whiteToDolphin: LightThemeColors.whiteToDolphin,
             greySuitToWhite60: LightThemeColors.greySuitToWhite60,
-            dividerColorToWhiteOpacity: LightThemeColors.dividerColorToWhiteOpacity,
+            dividerColorToWhiteOpacity:
+                LightThemeColors.dividerColorToWhiteOpacity,
             dolphinToGreySuit: LightThemeColors.dolphinToGreySuit,
             whiteLilacToWhite4: LightThemeColors.whiteLilacToWhite4,
             solitudeContainerToDark: LightThemeColors.solitudeContainerToDark,
@@ -92,8 +93,10 @@ abstract class LightTheme {
             whiteSmokeToBlack: LightThemeColors.whiteSmokeToBlack,
             whiteToGondola: LightThemeColors.whiteToGondola,
             whiteLilacToWhiteLilac10: LightThemeColors.whiteLilacToWhiteLilac10,
-            solitudeBorderToSolitudeBorder10: LightThemeColors.solitudeBorderToSolitudeBorder10,
-            lightSlateBlue12ToLightSlateBlue: LightThemeColors.lightSlateBlue12ToLightSlateBlue,
+            solitudeBorderToSolitudeBorder10:
+                LightThemeColors.solitudeBorderToSolitudeBorder10,
+            lightSlateBlue12ToLightSlateBlue:
+                LightThemeColors.lightSlateBlue12ToLightSlateBlue,
             mediumSlateBlueToWhite: LightThemeColors.mediumSlateBlueToWhite,
             midnightExpressToDolphin: LightThemeColors.midnightExpressToDolphin,
             cinnabar12ToCinnabar: LightThemeColors.cinnabar12ToCinnabar,
@@ -123,9 +126,11 @@ abstract class LightTheme {
             solitudeToNero: LightThemeColors.solitudeToNero,
             solitudeToEclipse: LightThemeColors.solitudeToEclipse,
             snow1ToCocoaBrown: LightThemeColors.snow1ToCocoaBrown,
-            mediumSlateBlue50ToNightRider: LightThemeColors.mediumSlateBlue50ToNightRider,
+            mediumSlateBlue50ToNightRider:
+                LightThemeColors.mediumSlateBlue50ToNightRider,
             stormGrey16ToStormGrey32: LightThemeColors.stormGrey16ToStormGrey32,
-            ghostWhiteToUltramarine10: LightThemeColors.ghostWhiteToUltramarine10,
+            ghostWhiteToUltramarine10:
+                LightThemeColors.ghostWhiteToUltramarine10,
             snowToNero: LightThemeColors.snowToNero,
             solitudeToDarkRider: LightThemeColors.solitudeToDarkRider,
             whiteToDark: LightThemeColors.whiteToDark,
@@ -148,18 +153,22 @@ abstract class LightTheme {
             whiteSmoke2ToNightRider: LightThemeColors.whiteSmoke2ToNightRider,
             solitudeTo1Black: LightThemeColors.solitudeTo1Black,
             whiteLilacToNightRider: LightThemeColors.whiteLilacToNightRider,
-            midnightExpressToGreySuit: LightThemeColors.midnightExpressToGreySuit,
+            midnightExpressToGreySuit:
+                LightThemeColors.midnightExpressToGreySuit,
             snowToNero1: LightThemeColors.snowToNero1,
             whiteToNightRider: LightThemeColors.whiteToNightRider,
             whiteToEclipse: LightThemeColors.whiteToEclipse,
             whiteLilacToPayneGrey: LightThemeColors.whiteLilacToPayneGrey,
-            whiteSmoke78ToWhiteSmoke12: LightThemeColors.whiteSmoke78ToWhiteSmoke12,
-            lavenderToMediumSlateBlue30: LightThemeColors.lavenderToMediumSlateBlue30,
+            whiteSmoke78ToWhiteSmoke12:
+                LightThemeColors.whiteSmoke78ToWhiteSmoke12,
+            lavenderToMediumSlateBlue30:
+                LightThemeColors.lavenderToMediumSlateBlue30,
             solitudeToDolphinBorder: LightThemeColors.solitudeToDolphinBorder,
             greyToCinnabar: LightThemeColors.greyToCinnabar,
             ghostToGondola: LightThemeColors.ghostToGondola,
             silverToNightRider: LightThemeColors.silverToNightRider,
-            tangerineYellowToMediumSlateBlue: LightThemeColors.tangerineYellowToMediumSlateBlue,
+            tangerineYellowToMediumSlateBlue:
+                LightThemeColors.tangerineYellowToMediumSlateBlue,
             solitudeContainerToBlack: LightThemeColors.solitudeContainerToBlack,
             solitudeContainerToNero1: LightThemeColors.solitudeContainerToNero1,
             solitudeToNightRider: LightThemeColors.solitudeToNightRider,
@@ -181,75 +190,74 @@ abstract class LightTheme {
       );
 
   // Fonts
-  static const headline1 = TextStyle(
+  static const displayLarge = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.w700,
-    color: LightThemeColors.headline1,
-    
+    color: LightThemeColors.displayLarge,
     height: 1.3,
   );
-  static const headline2 = TextStyle(
+  static const displayMedium = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w400,
-    color: LightThemeColors.headline2,
+    color: LightThemeColors.displayMedium,
     height: 1.3,
   );
-  static const headline3 = TextStyle(
+  static const displaySmall = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w500,
-    color: LightThemeColors.headline3,
+    color: LightThemeColors.displaySmall,
   );
-  static const headline4 = TextStyle(
+  static const headlineMedium = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w600,
-    color: LightThemeColors.headline4,
+    color: LightThemeColors.headlineMedium,
     height: 1.2,
   );
-  static const headline5 = TextStyle(
+  static const headlineSmall = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.w600,
-    color: LightThemeColors.headline5,
+    color: LightThemeColors.headlineSmall,
     height: 1.30,
   );
-  static const headline6 = TextStyle(
+  static const titleLarge = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w600,
     height: 1.25,
-    color: LightThemeColors.headline6,
+    color: LightThemeColors.titleLarge,
   );
-  static const bodyText1 = TextStyle(
+  static const bodyLarge = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w400,
     height: 1.4,
-    color: LightThemeColors.bodyText1,
+    color: LightThemeColors.bodyLarge,
   );
 
-  static const bodyText2 = TextStyle(
+  static const bodyMedium = TextStyle(
     fontSize: 15,
     fontWeight: FontWeight.w500,
     letterSpacing: -0.3,
-    color: LightThemeColors.bodyText2,
+    color: LightThemeColors.bodyMedium,
   );
 
-  static const subTitle1 = TextStyle(
+  static const titleMedium = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w600,
-    color: LightThemeColors.subTitle1,
+    color: LightThemeColors.titleMedium,
   );
 
-  static const subTitle2 = TextStyle(
+  static const titleSmall = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w600,
-    color: LightThemeColors.subTitle2,
+    color: LightThemeColors.titleSmall,
   );
 
-  static const caption = TextStyle(
+  static const bodySmall = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w500,
-    color: LightThemeColors.caption,
+    color: LightThemeColors.bodySmall,
   );
 
-  static const button = TextStyle(
+  static const labelLarge = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w500,
     color: LightThemeColors.button,

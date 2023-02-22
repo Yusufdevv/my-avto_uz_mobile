@@ -1,5 +1,6 @@
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
+import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:auto/features/common/domain/model/auto_model.dart';
@@ -14,9 +15,10 @@ import 'package:auto/features/profile/domain/repositories/get_user_list_repo.dar
 import 'package:dio/dio.dart';
 
 class GetUserListRepoImpl extends GetUserListRepository {
-  GetUserListDatasourceImpl dataSource;
+  final GetUserListDatasourceImpl dataSource =
+      serviceLocator<GetUserListDatasourceImpl>();
 
-  GetUserListRepoImpl({required this.dataSource});
+  GetUserListRepoImpl();
 
   @override
   Future<Either<Failure, DealerSingleModel>> getDirectorySingle(
@@ -73,9 +75,11 @@ class GetUserListRepoImpl extends GetUserListRepository {
   }
 
   @override
-  Future<Either<Failure, List<NotificationsEntity>>> getNotifications(int? filter) async {
+  Future<Either<Failure, GenericPagination<NotificationsEntity>>>
+      getNotifications({int? filter, String? next}) async {
     try {
-      final result = await dataSource.getNotifications(filter);
+      final result =
+          await dataSource.getNotifications(filter: filter, next: next);
       return Right(result);
     } on ServerException catch (error) {
       return Left(ServerFailure(
@@ -88,9 +92,10 @@ class GetUserListRepoImpl extends GetUserListRepository {
   }
 
   @override
-  Future<Either<Failure, List<MySearchesEntity>>> getMySearches() async {
+  Future<Either<Failure, GenericPagination<MySearchesEntity>>> getMySearches(
+      String next) async {
     try {
-      final result = await dataSource.getMySearches();
+      final result = await dataSource.getMySearches(next);
       return Right(result);
     } on ServerException catch (error) {
       return Left(ServerFailure(

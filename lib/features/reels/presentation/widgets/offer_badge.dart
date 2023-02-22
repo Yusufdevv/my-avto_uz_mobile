@@ -21,8 +21,10 @@ class OfferBadge extends StatelessWidget {
             const SizedBox(width: 8),
             Text(
               LocaleKeys.deals_of_day.tr(),
-              style:
-                  Theme.of(context).textTheme.headline4!.copyWith(fontSize: 14),
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineMedium!
+                  .copyWith(fontSize: 14),
             ),
             SvgPicture.asset(
               AppIcons.flash,

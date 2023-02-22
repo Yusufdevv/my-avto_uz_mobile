@@ -11,10 +11,11 @@ class GetDirectoriesUseCase extends UseCase<List<DirectoryEntity>, Params> {
 
   @override
   Future<Either<Failure, List<DirectoryEntity>>> call(Params params) async =>
-      await repository.getDirectories(params.search, params.regions, params.categories);
+      await repository.getDirectories(
+          params.search, params.regions, params.categories);
 }
 
-class  Params {
+class Params {
   String search;
   String regions;
   String categories;

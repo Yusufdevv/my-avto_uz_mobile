@@ -6,6 +6,7 @@ import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/pagination/presentation/paginator.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/features/profile/presentation/bloc/user_wishlists_notifications/user_wishlists_notification_bloc.dart';
 import 'package:auto/features/profile/presentation/pages/notification/notification_single_page.dart';
@@ -106,7 +107,14 @@ class _NotificationPageState extends State<NotificationPage> {
                   if (state.myAdsStatus.isSubmissionSuccess) {
                     final notifications = state.notifications;
                     return notifications.isNotEmpty
-                        ? ListView.builder(
+                        ? Paginator(
+                            paginatorStatus: state.myAdsStatus,
+                            fetchMoreFunction: () {
+                              bloc.add(GetMoreNotificationsEvent());
+                            },
+                            hasMoreToFetch: state.moreFetchNotifications,
+                            loadingWidget: const SizedBox(),
+                            errorWidget: const SizedBox(),
                             physics: const BouncingScrollPhysics(),
                             itemCount: notifications.length,
                             itemBuilder: (context, index) {

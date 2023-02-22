@@ -112,22 +112,26 @@ class _AddedCarState extends State<AddedCar> {
                         ),
                         child: Text(
                           widget.carSalary,
-                          style:
-                              Theme.of(context).textTheme.headline1!.copyWith(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayLarge!
+                              .copyWith(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w700,
+                              ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Text(
                           widget.carName,
-                          style:
-                              Theme.of(context).textTheme.headline1!.copyWith(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayLarge!
+                              .copyWith(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                              ),
                         ),
                       ),
                     ],
@@ -166,7 +170,7 @@ class _AddedCarState extends State<AddedCar> {
                       children: [
                         SvgPicture.asset(
                           widget.ownerType != 'first'
-                              ? AppIcons.tablerInfo
+                              ? AppIcons.shopping
                               : AppIcons.tablerPhone,
                           color: white,
                           height: 20,

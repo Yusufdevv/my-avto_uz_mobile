@@ -38,15 +38,19 @@ class MoreActionItem extends StatelessWidget {
           child: Center(
             child: Row(
               children: [
-                SvgPicture.asset(
-                  icon,
+                SizedBox(
+                  height: 24,
+                  width: 24,
+                  child: SvgPicture.asset(
+                    icon,
+                  ),
                 ),
                 const SizedBox(
                   width: 8,
                 ),
                 Text(
                   text,
-                  style: Theme.of(context).textTheme.headline1!.copyWith(
+                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
                         color: const Color(
                           0xff171725,
                         ),

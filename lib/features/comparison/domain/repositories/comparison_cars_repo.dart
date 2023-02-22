@@ -6,5 +6,5 @@ import 'package:auto/features/comparison/domain/entities/comparison_entity.dart'
 abstract class ComparisonCarsRepo {
   Future<Either<Failure, List<ComparisonEntity>>> getComparableCars();
   Future<Either<Failure, void>> postComparisonCars(int id);
-   Future<Either<Failure, void>> deleteComparisonCars(int id);
+  Future<Either<Failure, void>> deleteComparisonCars(int id);
 }

@@ -1,5 +1,5 @@
-import 'package:auto/features/dealers/domain/entities/marks_in_dealer_entity.dart';
 import 'package:auto/features/dealers/domain/entities/make_entity.dart';
+import 'package:auto/features/dealers/domain/entities/marks_in_dealer_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'marks_with_ads_model.g.dart';

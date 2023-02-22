@@ -32,7 +32,7 @@ class CarSinglePreview extends StatelessWidget {
                 '${rentEntity.rentCar.make.name} ${rentEntity.rentCar.model.name}',
                 style: Theme.of(context)
                     .textTheme
-                    .headline1!
+                    .displayLarge!
                     .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
               ),
             ),
@@ -47,7 +47,7 @@ class CarSinglePreview extends StatelessWidget {
                     '${MyFunctions.getFormatCost(rentEntity.price)} UZS',
                     style: Theme.of(context)
                         .textTheme
-                        .headline3!
+                        .displaySmall!
                         .copyWith(fontWeight: FontWeight.w600, fontSize: 24),
                   ),
                   const SizedBox(
@@ -57,7 +57,7 @@ class CarSinglePreview extends StatelessWidget {
                     LocaleKeys.per_day.tr(),
                     style: Theme.of(context)
                         .textTheme
-                        .headline2!
+                        .displayMedium!
                         .copyWith(fontSize: 16, color: grey),
                   ),
                 ],

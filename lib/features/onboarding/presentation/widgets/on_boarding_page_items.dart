@@ -56,18 +56,21 @@ class OnBoardingPageItems extends StatelessWidget {
                       text: title,
                       style: Theme.of(context)
                           .textTheme
-                          .headline1!
+                          .displayLarge!
                           .copyWith(fontSize: 36),
                     ),
                     TextSpan(
                         text: secondText,
-                        style: Theme.of(context).textTheme.headline3!.copyWith(
-                            fontSize: 36, fontWeight: FontWeight.w700)),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displaySmall!
+                            .copyWith(
+                                fontSize: 36, fontWeight: FontWeight.w700)),
                     TextSpan(
                       text: thirdText,
                       style: Theme.of(context)
                           .textTheme
-                          .headline1!
+                          .displayLarge!
                           .copyWith(fontSize: 36),
                     ),
                   ]),

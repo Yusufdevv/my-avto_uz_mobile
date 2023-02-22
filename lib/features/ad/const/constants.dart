@@ -1,7 +1,9 @@
+// ignore_for_file: constant_identifier_names
+
 const String CACHED_DRAFT_ANNOUNCEMENT = 'draft_announcement';
 
 enum DamagedParts {
-  rightFrontDoor('rigth_front_door'), //TODO incorrect spelling
+  rightFrontDoor('rigth_front_door'),
   rightRearDoor('right_rear_door'),
   leftFrontDoor('left_front_door'),
   leftRearDoor('left_rear_door'),
@@ -35,9 +37,21 @@ enum DamageType {
 enum Currency {
   uzs('uzs'),
   usd('usd'),
-  euro('euro');
+  none('');
 
   const Currency(this.value);
+
+  final String value;
+}
+
+enum SortStatus {
+  cheapest('-price'),
+  expensive('price'),
+  oldest('created_at'),
+  newest('-created_at'),
+  none('');
+
+  const SortStatus(this.value);
 
   final String value;
 }

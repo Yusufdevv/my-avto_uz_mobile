@@ -11,5 +11,5 @@ class SendCodeUseCase extends UseCase<String, String> {
       sendToken: false,
       endpoint: '/users/registration/sms-verification/entrypoint/',
       fromJson: (data) => data['session'],
-        data: {'phone': '+998${phone.replaceAll(' ', '')}'});
+      data: {'phone': '+998${phone.replaceAll(' ', '')}'});
 }

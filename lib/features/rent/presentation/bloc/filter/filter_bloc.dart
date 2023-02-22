@@ -1,13 +1,16 @@
+import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
+import 'package:auto/features/ads/domain/usecases/get_min_max_price_use_case.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 part 'filter_event.dart';
+
 part 'filter_state.dart';
 
 class FilterBloc extends Bloc<FilterEvent, FilterState> {
@@ -16,10 +19,13 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
   final BodyTypeEntity? bodyType;
   final DriveTypeEntity? carDriveType;
   final GearboxTypeEntity? gearboxType;
-  final int? idVal;
-  final bool ischek;
+  final bool isCheck;
   final RangeValues? yearValues;
   final RangeValues? priceValues;
+  final Currency? currency;
+  GetMinMaxPriceYearUseCase minMaxPriceYearUseCase =
+      GetMinMaxPriceYearUseCase();
+
   FilterBloc({
     this.regions,
     this.maker,
@@ -28,26 +34,35 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
     this.gearboxType,
     this.yearValues,
     this.priceValues,
-    this.idVal,
-    this.ischek = false,
+    this.currency,
+    this.isCheck = false,
   }) : super(FilterState(
           bodyType: bodyType,
           carDriveType: carDriveType,
           gearboxType: gearboxType,
           maker: maker,
           regions: regions ?? <Region>[],
-          idVal: idVal,
           yearValues: yearValues ?? RangeValues(1960, DateTime.now().year + 0),
           priceValues: priceValues ?? const RangeValues(1000, 500000),
-          ischeck: ischek,
+          isCheck: isCheck,
+          currency: currency,
+          priceStart: priceValues?.start,
+          priceEnd: priceValues?.end,
         )) {
     on<FilterClearEvent>((event, emit) => emit(FilterState(
-          ischeck: false,
-          regions: const <Region>[],
-          yearValues: RangeValues(1960, DateTime.now().year + 0),
-          priceValues: const RangeValues(1000, 500000),
+          isCheck: false,
+          regions: const [],
+          yearValues:
+              event.yearValues ?? RangeValues(1960, DateTime.now().year + 0),
+          priceValues: event.priceValues ?? const RangeValues(1000, 500000),
+          priceStart: priceValues?.start,
+          priceEnd: priceValues?.end,
+          currency: Currency.none,
+          bodyType: null,
+          carDriveType: null,
+          gearboxType: null,
         )));
-    on<FilterSelectEvent>((event, emit) {
+    on<FilterSelectEvent>((event, emit) async {
       emit(state.copyWith(
         bodyType: event.bodyType,
         carDriveType: event.carDriveType,
@@ -56,8 +71,27 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
         priceValues: event.priceValues,
         yearValues: event.yearValues,
         regions: event.regions,
-        idVal: event.idVal,
-        ischeck: true,
+        isCheck: true,
+      ));
+    });
+    on<FilterChangeCurrencyEvent>((event, emit) async {
+      final result = await minMaxPriceYearUseCase.call(event.currency.value);
+      RangeValues? priceValues;
+      RangeValues? yearValues;
+      if (result.isRight) {
+        priceValues = RangeValues(double.parse(result.right.minPrice),
+            double.parse(result.right.maxPrice));
+        yearValues = RangeValues(
+            result.right.minYear.toDouble(), result.right.maxYear.toDouble());
+      }
+      emit(state.copyWith(
+        priceValues: priceValues,
+        priceStart: priceValues?.start,
+        priceEnd: priceValues?.end,
+        currency: event.currency,
+        yearValues: yearValues,
+        yearEnd: yearValues?.end,
+        yearStart: yearValues?.start,
       ));
     });
   }

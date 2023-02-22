@@ -30,7 +30,7 @@ class SignInWithSocials extends StatelessWidget {
               ),
               Text(
                 LocaleKeys.another_ways.tr(),
-                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     fontSize: 14, color: DarkThemeColors.navBarUnselected),
               ),
               const SizedBox(
@@ -57,6 +57,7 @@ class SignInWithSocials extends StatelessWidget {
               //   width: 24,
               // ),
               SocialMediaItem(
+                onTap: () {},
                 icon: SvgPicture.asset(
                     Theme.of(context).extension<ThemedIcons>()!.google),
               ),
@@ -64,15 +65,18 @@ class SignInWithSocials extends StatelessWidget {
                 width: 24,
               ),
               SocialMediaItem(
+                  onTap: () {},
                   icon: SvgPicture.asset(
-                AppIcons.apple,
-                color:
-                    Theme.of(context).extension<ThemedColors>()!.blackToWhite80,
-              )),
+                    AppIcons.apple,
+                    color: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .blackToWhite80,
+                  )),
               const SizedBox(
                 width: 24,
               ),
               SocialMediaItem(
+                onTap: () {},
                 icon: SvgPicture.asset(
                   AppIcons.imkon,
                   color: Theme.of(context)

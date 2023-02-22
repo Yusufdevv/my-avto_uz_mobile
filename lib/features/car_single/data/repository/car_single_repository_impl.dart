@@ -36,7 +36,6 @@ class CarSingleRepositoryImpl extends CarSingleRepository {
       {required int id}) async {
     try {
       final result = await dataSource.getOtherAds(id: id);
-      print('REPOSITORY DATA ${Right(result)}');
       return Right(result);
     } on DioException {
       return Left(DioFailure());
@@ -67,7 +66,6 @@ class CarSingleRepositoryImpl extends CarSingleRepository {
   Future<Either<Failure, dynamic>> soldAds({required int id}) async {
     try {
       final result = await dataSource.soldAd(id: id);
-      print('repo succ sold');
       return Right(result);
     } on DioException {
       return Left(DioFailure());
@@ -83,7 +81,6 @@ class CarSingleRepositoryImpl extends CarSingleRepository {
   Future<Either<Failure, dynamic>> callCount({required int id}) async {
     try {
       final result = await dataSource.callCount(id: id);
-      print('REPO ---- SUCC CALL');
       return Right(result);
     } on DioException {
       return Left(DioFailure());

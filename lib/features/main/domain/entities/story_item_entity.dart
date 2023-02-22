@@ -1,4 +1,5 @@
 import 'package:auto/features/main/data/models/story_item_model.dart';
+import 'package:auto/features/main/domain/entities/story_redirect_data_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -12,6 +13,8 @@ class StoryItemEntity extends Equatable {
   final bool expired;
   final String redirectTo;
   final bool isRead;
+  @StoryRedirectDataConverter()
+  final StoryRedirectDataEntity redirectData;
 
   const StoryItemEntity({
     this.id = -1,
@@ -23,6 +26,7 @@ class StoryItemEntity extends Equatable {
     this.expired = false,
     this.redirectTo = '',
     this.isRead = false,
+    this.redirectData = const StoryRedirectDataEntity(),
   });
 
   @override
@@ -36,6 +40,7 @@ class StoryItemEntity extends Equatable {
         expired,
         redirectTo,
         isRead,
+        redirectData,
       ];
 }
 

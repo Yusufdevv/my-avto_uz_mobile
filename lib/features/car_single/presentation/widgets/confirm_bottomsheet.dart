@@ -1,6 +1,8 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -20,7 +22,6 @@ class ConfirmBottomSheet extends StatefulWidget {
 }
 
 class _ConfirmBottomSheetState extends State<ConfirmBottomSheet> {
-
   @override
   Widget build(BuildContext context) => Container(
         padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
@@ -37,19 +38,20 @@ class _ConfirmBottomSheetState extends State<ConfirmBottomSheet> {
             Align(
               alignment: Alignment.centerRight,
               child: GestureDetector(
-                  onTap: () => Navigator.pop(context),    behavior: HitTestBehavior.opaque,
+                  onTap: () => Navigator.pop(context),
+                  behavior: HitTestBehavior.opaque,
                   child:
                       SvgPicture.asset(AppIcons.close, height: 32, width: 32)),
             ),
             const SizedBox(height: 12),
             Text(widget.title,
-                style: Theme.of(context).textTheme.headline1,
+                style: Theme.of(context).textTheme.displayLarge,
                 textAlign: TextAlign.center),
             const SizedBox(height: 8),
             Text(widget.subTitle,
                 style: Theme.of(context)
                     .textTheme
-                    .headline2!
+                    .displayMedium!
                     .copyWith(fontWeight: FontWeight.w400, fontSize: 16),
                 textAlign: TextAlign.center),
             SizedBox(height: widget.betweenHeight.toDouble()),
@@ -64,7 +66,7 @@ class _ConfirmBottomSheetState extends State<ConfirmBottomSheet> {
                           false,
                         );
                       },
-                      text: 'Нет',
+                      text: LocaleKeys.no.tr(),
                       textColor: greyText),
                 ),
                 const SizedBox(width: 12),
@@ -74,7 +76,7 @@ class _ConfirmBottomSheetState extends State<ConfirmBottomSheet> {
                     onTap: () {
                       Navigator.pop(context, true);
                     },
-                    text: 'Да',
+                    text: LocaleKeys.yes.tr(),
                     textColor: red,
                   ),
                 ),

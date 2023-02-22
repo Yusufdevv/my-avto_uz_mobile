@@ -19,8 +19,8 @@ class DirectoryEntity {
   Category? category;
   String? address;
   String? region;
-  double? latitude;
-  double? longitude;
+  num? latitude;
+  num? longitude;
   String? contactFrom;
   String? contactTo;
   String? avatar;

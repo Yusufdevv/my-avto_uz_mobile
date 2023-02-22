@@ -11,6 +11,7 @@ class OtherAdsUseCase implements UseCase<GenericPagination, int> {
   OtherAdsUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, GenericPagination<ElasticSearchEntity>>> call(int params) =>
+  Future<Either<Failure, GenericPagination<ElasticSearchEntity>>> call(
+          int params) =>
       repository.getOtherAds(id: params);
 }

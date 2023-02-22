@@ -5,7 +5,7 @@ import 'package:auto/features/car_single/presentation/parts/car_actions.dart';
 import 'package:auto/features/car_single/presentation/parts/car_details.dart';
 import 'package:auto/features/car_single/presentation/parts/statistics.dart';
 import 'package:auto/features/car_single/presentation/widgets/car_price_bottom.dart';
-import 'package:auto/features/car_single/presentation/widgets/day_like_color_item.dart';
+import 'package:auto/features/car_single/presentation/widgets/day_like_call_item.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -23,6 +23,7 @@ class CarNameWidget extends StatelessWidget {
   final double percenti;
   final String currency;
   final String view;
+  final String todayViewedCount;
   final String id;
   final VoidCallback onVin;
   final VoidCallback onComparison;
@@ -48,6 +49,7 @@ class CarNameWidget extends StatelessWidget {
     required this.price,
     required this.date,
     required this.view,
+    required this.todayViewedCount,
     required this.id,
     required this.currency,
     required this.onVin,
@@ -88,7 +90,7 @@ class CarNameWidget extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
               child: Text(
                 fullname,
-                style: Theme.of(context).textTheme.headline4!.copyWith(
+                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                       color: dark,
                     ),
               ),
@@ -104,7 +106,7 @@ class CarNameWidget extends StatelessWidget {
                 children: [
                   Text(
                     price,
-                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
                           fontSize: 24,
                           fontWeight: FontWeight.w700,
                           color: dark,
@@ -115,7 +117,7 @@ class CarNameWidget extends StatelessWidget {
                   ),
                   Text(
                     currency,
-                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
                           fontSize: 24,
                           fontWeight: FontWeight.w700,
                           color: dark,
@@ -165,6 +167,7 @@ class CarNameWidget extends StatelessWidget {
               child: CarStatistics(
                 date: date,
                 views: view,
+                todayViewedCount: todayViewedCount,
                 id: id,
               ),
             ),
@@ -191,11 +194,9 @@ class CarNameWidget extends StatelessWidget {
               isComparised: isCompared,
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(
-                16,
-                0,
-                16,
-                0,
+              padding: const EdgeInsets.only(
+                left: 16,
+                right: 16,
               ),
               child: Divider(
                 thickness: 1,
@@ -215,11 +216,27 @@ class CarNameWidget extends StatelessWidget {
               uzb: uzb,
             ),
             if (isMine == true)
-              DayLikeCallItem(
-                days: saleDays,
-                likes: addToFavorite,
-                calls: callToNumber,
-                leftDays: daysLeft,
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 16,
+                      right: 16,
+                    ),
+                    child: Divider(
+                      thickness: 1,
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .solitudeToDarkRider,
+                    ),
+                  ),
+                  DayLikeCallItem(
+                    days: saleDays,
+                    likes: addToFavorite,
+                    calls: callToNumber,
+                    leftDays: daysLeft,
+                  ),
+                ],
               )
             else
               const SizedBox()

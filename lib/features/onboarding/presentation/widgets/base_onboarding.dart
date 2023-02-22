@@ -49,7 +49,7 @@ class BaseOnBoarding extends StatelessWidget {
                   LocaleKeys.another_ways.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText1!
+                      .bodyLarge!
                       .copyWith(color: greyText),
                 ),
                 const SizedBox(width: 4),
@@ -68,37 +68,38 @@ class BaseOnBoarding extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SocialMediaItem(
-                    // onTap: () {},
-                    icon: SvgPicture.asset(
-                  AppIcons.facebook,
-                  color: Theme.of(context)
-                      .extension<ThemedColors>()!
-                      .dodgerBlueToWhite80,
-                )),
-                const SizedBox(width: 24),
-                SocialMediaItem(
-                  // onTap: () {},
+                  onTap: () {},
                   icon: SvgPicture.asset(
                       Theme.of(context).extension<ThemedIcons>()!.google),
                 ),
                 const SizedBox(width: 24),
                 SocialMediaItem(
-                    // onTap: () {},
+                    onTap: () {},
                     icon: SvgPicture.asset(
-                  AppIcons.apple,
-                  color: Theme.of(context)
-                      .extension<ThemedColors>()!
-                      .blackToWhite80,
-                )),
+                      AppIcons.apple,
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .blackToWhite80,
+                    )),
+
                 const SizedBox(width: 24),
                 SocialMediaItem(
-                    // onTap: () {},
+                    onTap: () {},
                     icon: SvgPicture.asset(
-                  AppIcons.imkon,
-                  color: Theme.of(context)
-                      .extension<ThemedColors>()!
-                      .prussianBlueToWhite80,
-                )),
+                      AppIcons.facebook,
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .dodgerBlueToWhite80,
+                    )),
+                // const SizedBox(width: 24),
+                // SocialMediaItem(
+                //     onTap: () {},
+                //     icon: SvgPicture.asset(
+                //       AppIcons.imkon,
+                //       color: Theme.of(context)
+                //           .extension<ThemedColors>()!
+                //           .prussianBlueToWhite80,
+                //     )),
               ],
             ),
             const SizedBox(height: 24)

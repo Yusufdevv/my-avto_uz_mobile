@@ -29,7 +29,7 @@ class EmptyState extends StatelessWidget {
               LocaleKeys.no_dealer.tr(),
               style: Theme.of(context)
                   .textTheme
-                  .subtitle1
+                  .titleMedium
                   ?.copyWith(fontWeight: FontWeight.w400),
             ),
           ],

@@ -10,11 +10,10 @@ part 'wishlist_add_state.dart';
 part 'wishlist_add_bloc.freezed.dart';
 
 class WishlistAddBloc extends Bloc<WishlistAddEvent, WishlistAddState> {
-  final AddWishlistUseCase useCase;
-  final RemoveWishlistUseCase removeWishlistUseCase;
+  final AddWishlistUseCase useCase = AddWishlistUseCase();
+  final RemoveWishlistUseCase removeWishlistUseCase = RemoveWishlistUseCase();
 
-  WishlistAddBloc({required this.useCase, required this.removeWishlistUseCase})
-      : super(WishlistAddState()) {
+  WishlistAddBloc() : super(WishlistAddState()) {
     on<_GoToAds>((event, emit) async {
       emit(state.copyWith(goToAds: event.goToAds));
     });
@@ -56,6 +55,11 @@ class WishlistAddBloc extends Bloc<WishlistAddEvent, WishlistAddState> {
       }
     });
     on<_ClearState>(_onClear);
+    on<_AddToMapFavorites>((event, emit) async {
+      final map = {...state.map};
+      map[event.id] = event.value;
+      emit(state.copyWith(map: map));
+    });
   }
 
   void _onClear(_ClearState event, Emitter<WishlistAddState> emit) {

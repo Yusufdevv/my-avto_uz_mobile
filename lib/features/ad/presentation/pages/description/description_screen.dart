@@ -55,7 +55,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                             LocaleKeys.description_dont_do.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .headline6!
+                                .titleLarge!
                                 .copyWith(
                                     fontSize: 14,
                                     color: Theme.of(context)
@@ -89,16 +89,18 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                                 .extension<ThemedColors>()!
                                 .whiteSmokeToDark,
                             controller: textController,
+                            hideCounterText: true,
                             borderRadius: 8,
+                            maxLength: 500,
                             maxLines: 6,
                             height: 125,
                             textStyle: Theme.of(context)
                                 .textTheme
-                                .headline1!
+                                .displayLarge!
                                 .copyWith(
                                     fontSize: 16, fontWeight: FontWeight.w400),
                           ),
-                          const SizedBox(height: 28),
+                          const SizedBox(height: 20),
                           GestureDetector(
                             behavior: HitTestBehavior.opaque,
                             onTap: () => context.read<PostingAdBloc>().add(
@@ -109,7 +111,6 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 WCheckBox(
-
                                     isChecked: state.notRegisteredInUzbekistan,
                                     checkBoxColor: purple),
                                 const SizedBox(width: 10),
@@ -117,7 +118,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                                   LocaleKeys.ne_rastomojen.tr(),
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline6!
+                                      .titleLarge!
                                       .copyWith(color: greyText),
                                 ),
                               ],

@@ -7,7 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 class PostingAdAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback onTapBack;
   final VoidCallback onTapCancel;
-  final bool hasBackButton;
+  final bool hasCancelButton;
   final String title;
   final TextStyle? titleStyle;
   final bool hasShadow;
@@ -19,6 +19,7 @@ class PostingAdAppBar extends StatelessWidget implements PreferredSizeWidget {
   final int tabLength;
   final Animation<double> scaleAnimation;
   final Animation<double> reversScaleAnimation;
+
   const PostingAdAppBar({
     required this.onTapCancel,
     required this.currentTabIndex,
@@ -29,7 +30,7 @@ class PostingAdAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.hasShadow,
     required this.title,
     required this.onTapBack,
-    required this.hasBackButton,
+    required this.hasCancelButton,
     this.backButtonSize = 20,
     this.titleStyle,
     Key? key,
@@ -57,88 +58,109 @@ class PostingAdAppBar extends StatelessWidget implements PreferredSizeWidget {
                   : null,
               color: white,
             ),
-            child: hasBackButton
-                ? Stack(
-                    alignment: Alignment.center,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                FadeTransition(
+                  opacity: scaleAnimation,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      FadeTransition(
-                        opacity: scaleAnimation,
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width - 48,
                         child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
+                            const SizedBox(width: 16),
                             GestureDetector(
                               behavior: HitTestBehavior.opaque,
                               onTap: onTapBack,
-                              child: Row(
-                                children: [
-                                  const SizedBox(width: 16),
-                                  SvgPicture.asset(
-                                    AppIcons.chevronLeft,
-                                    height: 26,
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    title.length > 21
-                                        ? '${title.substring(0, 20)}..'
-                                        : title,
-                                    style: titleStyle ??
-                                        Theme.of(context)
-                                            .textTheme
-                                            .headline2!
-                                            .copyWith(
-                                                fontWeight: FontWeight.w600),
-                                  ),
-                                ],
+                              child: SizedBox(
+                                width: 24,
+                                height: 30,
+                                child: SvgPicture.asset(
+                                  AppIcons.chevronLeft,
+                                  height: 26,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                title,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                style: titleStyle ??
+                                    Theme.of(context)
+                                        .textTheme
+                                        .displayMedium!
+                                        .copyWith(fontWeight: FontWeight.w600),
                               ),
                             ),
                           ],
                         ),
                       ),
-                      FadeTransition(
-                        opacity: reversScaleAnimation,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                      if (hasCancelButton)
+                        GestureDetector(
+                          onTap: onTapCancel,
+                          behavior: HitTestBehavior.opaque,
+                          child: Container(
+                            width: 32,
+                            height: 32,
+                            padding: const EdgeInsets.all(8),
+                            child: SvgPicture.asset(
+                              AppIcons.cancel,
+                              color: grey,
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+                FadeTransition(
+                  opacity: reversScaleAnimation,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width - 48,
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               GestureDetector(
-                                behavior: HitTestBehavior.opaque,
                                 onTap: onTapBack,
-                                child: Row(
-                                  children: [
-                                    SvgPicture.asset(
-                                      AppIcons.chevronLeft,
-                                      height: 26,
-                                    ),
-                                    const SizedBox(width: 8),
-                                    Text(
-                                      reverseTitle.length > 25
-                                          ? '${reverseTitle.substring(0, 24)}..'
-                                          : reverseTitle,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline1!
-                                          .copyWith(),
-                                    ),
-                                  ],
+                                behavior: HitTestBehavior.opaque,
+                                child: SizedBox(
+                                  width: 24,
+                                  height: 30,
+                                  child: SvgPicture.asset(
+                                    AppIcons.chevronLeft,
+                                    height: 26,
+                                  ),
                                 ),
                               ),
-                              GestureDetector(
-                                onTap: onTapCancel,
-                                behavior: HitTestBehavior.opaque,
-                                child: SvgPicture.asset(
-                                  AppIcons.cancel,
-                                  color: grey,
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: Text(
+                                  reverseTitle,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayLarge!
+                                      .copyWith(),
                                 ),
                               ),
                             ],
                           ),
                         ),
-                      ),
-                    ],
-                  )
-                : const SizedBox(),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
           CompletionBar(
             visibile: hasShadow,

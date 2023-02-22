@@ -21,18 +21,19 @@ class AllButtonItem extends StatelessWidget {
               title,
               style: Theme.of(context)
                   .textTheme
-                  .headline1!
+                  .displayLarge!
                   .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
             ),
             GestureDetector(
-              onTap: onTap, behavior: HitTestBehavior.opaque,
+              onTap: onTap,
+              behavior: HitTestBehavior.opaque,
               child: Row(
                 children: [
                   Text(
                     LocaleKeys.all.tr(),
                     style: Theme.of(context)
                         .textTheme
-                        .bodyText1!
+                        .bodyLarge!
                         .copyWith(fontSize: 14, color: greyText),
                   ),
                   const SizedBox(

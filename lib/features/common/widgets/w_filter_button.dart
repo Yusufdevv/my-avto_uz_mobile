@@ -35,7 +35,7 @@ class WFilterButton extends StatelessWidget {
         height: 38,
         width: size.width * 0.45,
         borderRadius: 8,
-        padding: const EdgeInsets.only(top: 8,bottom:8,left: 12,right: 10 ),
+        padding: const EdgeInsets.only(top: 8, bottom: 8, left: 12, right: 10),
         border: Border.all(color: theme.dividerColorToGrey),
         color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
         child: Row(
@@ -54,7 +54,7 @@ class WFilterButton extends StatelessWidget {
                 name.isEmpty ? defaultTitle : name,
                 style: Theme.of(context)
                     .textTheme
-                    .subtitle1!
+                    .titleMedium!
                     .copyWith(color: claerA ? activeColor : null),
                 overflow: TextOverflow.ellipsis,
               ),
@@ -70,8 +70,8 @@ class WFilterButton extends StatelessWidget {
                     AppIcons.close,
                     color: white,
                     fit: BoxFit.cover,
-                    height: 14,
-                    width: 14,
+                    height: 16,
+                    width: 16,
                   ),
                 ),
               )

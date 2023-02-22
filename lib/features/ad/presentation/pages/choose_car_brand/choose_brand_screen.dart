@@ -1,14 +1,13 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/presentation/bloc/bloc/choose_make_anime_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/car_items.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/persistant_header.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/persistent_header_search.dart';
-import 'package:auto/features/ad/presentation/widgets/serch_suffix_cancel_button.dart';
+import 'package:auto/features/ads/presentation/widgets/no_data_widget.dart';
 import 'package:auto/features/common/widgets/car_brand_item.dart';
-import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/main/presentation/widgets/brand_shimmer_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -17,14 +16,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class ChooseCarBrand extends StatefulWidget {
   final int tabLength;
-  final Function(int) onTopBrandPressed;
+  final Function(MakeEntity) onTopBrandPressed;
   final PostingAdBloc postingAddBloc;
+
   const ChooseCarBrand({
     required this.tabLength,
     required this.postingAddBloc,
@@ -207,7 +206,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                             LocaleKeys.choose_brand_auto.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .headline1!
+                                .displayLarge!
                                 .copyWith(
                                     color: _headerTextTweenColor
                                         .evaluate(animeState.scaleAnimation)),
@@ -230,37 +229,34 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                               _bgTweenColor.evaluate(animeState.scaleAnimation),
                           padding: const EdgeInsets.only(top: 16, bottom: 12),
                           child: WTextField(
-                          
-                              focusColor: _fillTweenColor
-                                  .evaluate(animeState.scaleAnimation),
-                              fillColor: _fillTweenColor
-                                  .evaluate(animeState.scaleAnimation),
-                              filled: true,
-                              margin:
-                                  const EdgeInsets.only(left: 16, right: 16),
-                              onChanged: (value) => widget.postingAddBloc
-                                  .add(PostingAdSearchMakesEvent(name: value)),
-                              borderRadius: 12,
-                              borderColor: purple,
-                              hasSearch: true,
-                              hintText: LocaleKeys.search.tr(),
-                              height: 40,
-                              controller: state.searchController,
-                              hasClearButton: true,
-                              textStyle: Theme.of(context)
-                                  .textTheme
-                                  .headline1!
-                                  .copyWith(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 16),
-                                      onClear:  () {
-                                      context.read<PostingAdBloc>().add(
-                                          PostingAdSerchControllerClearEvent());
-                                    },
-                             ),
+                            focusColor: _fillTweenColor
+                                .evaluate(animeState.scaleAnimation),
+                            fillColor: _fillTweenColor
+                                .evaluate(animeState.scaleAnimation),
+                            filled: true,
+                            margin: const EdgeInsets.only(left: 16, right: 16),
+                            onChanged: (value) => widget.postingAddBloc
+                                .add(PostingAdSearchMakesEvent(name: value)),
+                            borderRadius: 12,
+                            borderColor: purple,
+                            hasSearch: true,
+                            hintText: LocaleKeys.search.tr(),
+                            height: 40,
+                            controller: state.searchController,
+                            hasClearButton: true,
+                            textStyle: Theme.of(context)
+                                .textTheme
+                                .displayLarge!
+                                .copyWith(
+                                    fontWeight: FontWeight.w400, fontSize: 16),
+                            onClear: () {
+                              context
+                                  .read<PostingAdBloc>()
+                                  .add(PostingAdSerchControllerClearEvent());
+                            },
+                          ),
                         ),
                       ),
-                      
                       pinned: true,
                     ),
                   ),
@@ -296,7 +292,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                                         carBrandEntity: state.topMakes[index],
                                         onTap: () {
                                           widget.onTopBrandPressed(
-                                              state.topMakes[index].id);
+                                              state.topMakes[index]);
                                         },
                                       ),
                                   separatorBuilder: (context, index) =>
@@ -351,36 +347,41 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                                 LocaleKeys.loading_data.tr(),
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline6!
+                                    .titleLarge!
                                     .copyWith(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w400,
                                     ),
                               )
                             ]))
-                      : ListView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          controller: _makesController,
-                          padding: const EdgeInsets.only(bottom: 66),
-                          itemBuilder: (context, index) => ChangeCarItems(
-                            hasBorder: (state.makes.length - 1) != index,
-                            onTap: () {
-                              context.read<PostingAdBloc>().add(
-                                    PostingAdChooseEvent(
-                                      makeId: state.makes[index].id,
-                                    ),
-                                  );
-                            },
-                            selectedId:
-                                context.watch<PostingAdBloc>().state.makeId ??
+                      : state.makes.isNotEmpty
+                          ? ListView.builder(
+                              physics: const BouncingScrollPhysics(),
+                              controller: _makesController,
+                              padding: const EdgeInsets.only(bottom: 66),
+                              itemBuilder: (context, index) => ChangeCarItems(
+                                hasBorder: (state.makes.length - 1) != index,
+                                onTap: () {
+                                  context.read<PostingAdBloc>().add(
+                                        PostingAdChooseEvent(
+                                          make: state.makes[index],
+                                        ),
+                                      );
+                                },
+                                selectedId: context
+                                        .watch<PostingAdBloc>()
+                                        .state
+                                        .make
+                                        ?.id ??
                                     -1,
-                            id: state.makes[index].id,
-                            imageUrl: state.makes[index].logo,
-                            name: state.makes[index].name,
-                            text: state.searchController.text,
-                          ),
-                          itemCount: state.makes.length,
-                        ),
+                                id: state.makes[index].id,
+                                imageUrl: state.makes[index].logo,
+                                name: state.makes[index].name,
+                                text: state.searchController.text,
+                              ),
+                              itemCount: state.makes.length,
+                            )
+                          : const NoDataWidget(),
                 ),
               ),
             ),

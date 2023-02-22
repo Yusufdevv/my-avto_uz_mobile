@@ -5,7 +5,6 @@ class ChangePhoneNumberState extends Equatable {
   final String phoneNumber;
   final String session;
   final FormzStatus status;
-  
 
   const ChangePhoneNumberState({
     required this.phoneNumber,

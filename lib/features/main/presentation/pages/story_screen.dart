@@ -26,6 +26,7 @@ class _StoryScreenState extends State<StoryScreen> {
   int _currentPage = 0;
   bool _isOnPageTurning = false;
   bool didRead = false;
+  bool didForward = true;
 
   @override
   void initState() {
@@ -40,20 +41,17 @@ class _StoryScreenState extends State<StoryScreen> {
   }
 
   void _scrollListener() {
-    print('app log: page view scrolling');
     if (_isOnPageTurning &&
         _pageController.page == _pageController.page!.roundToDouble()) {
       setState(() {
         _currentPage = _pageController.page!.toInt();
         _isOnPageTurning = false;
-        print('app log: set state 1');
       });
     } else if (!_isOnPageTurning &&
         _currentPage.toDouble() != _pageController.page) {
       if ((_currentPage.toDouble() - _pageController.page!).abs() > 0.7) {
         setState(() {
           _isOnPageTurning = true;
-          print('app log: set state 2');
         });
       }
     }
@@ -101,6 +99,7 @@ class _StoryScreenState extends State<StoryScreen> {
                 storiesCount: widget.stories.length,
                 read: _read,
                 didRead: didRead,
+                didForward: didForward,
               ),
             ),
           ),
@@ -113,6 +112,7 @@ class _StoryScreenState extends State<StoryScreen> {
             duration: const Duration(milliseconds: 200), curve: Curves.linear)
         : _pageController.previousPage(
             duration: const Duration(milliseconds: 200), curve: Curves.linear);
+    didForward = forward;
   }
 
   void _read(int id) {

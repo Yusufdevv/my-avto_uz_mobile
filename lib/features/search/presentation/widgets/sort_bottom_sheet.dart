@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/search/presentation/search_screen.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -10,9 +11,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class SortBottomSheet extends StatefulWidget {
   final String title;
-  final ValueChanged<SortSearchResultStatus> onChanged;
+  final ValueChanged<SortStatus> onChanged;
   final List<SortSearchResultsModel> values;
-  final SortSearchResultStatus? defaultValue;
+  final SortStatus? defaultValue;
   const SortBottomSheet(
       {required this.title,
       required this.values,
@@ -25,7 +26,7 @@ class SortBottomSheet extends StatefulWidget {
 }
 
 class _SortBottomSheetState extends State<SortBottomSheet> {
-  SortSearchResultStatus? groupValue;
+  SortStatus? groupValue;
 
   @override
   void initState() {
@@ -44,11 +45,12 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                 Expanded(
                   child: Text(
                     widget.title,
-                    style: Theme.of(context).textTheme.headline1,
+                    style: Theme.of(context).textTheme.displayLarge,
                   ),
                 ),
                 GestureDetector(
-                  onTap: () => Navigator.pop(context), behavior: HitTestBehavior.opaque,
+                  onTap: () => Navigator.pop(context),
+                  behavior: HitTestBehavior.opaque,
                   child: SvgPicture.asset(
                     AppIcons.close,
                     height: 24,
@@ -90,11 +92,11 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                                           groupValue
                                       ? Theme.of(context)
                                           .textTheme
-                                          .subtitle1!
+                                          .titleMedium!
                                           .copyWith(fontSize: 16)
                                       : Theme.of(context)
                                           .textTheme
-                                          .headline6!
+                                          .titleLarge!
                                           .copyWith(
                                               color: LightThemeColors.smoky),
                                 ),
@@ -104,7 +106,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                                   child: SizedBox(
                                     height: 24,
                                     width: 24,
-                                    child: Radio<SortSearchResultStatus>(
+                                    child: Radio<SortStatus>(
                                       activeColor: purple,
                                       focusColor: red,
                                       visualDensity: const VisualDensity(
@@ -137,7 +139,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                   text: LocaleKeys.apply.tr(),
                   textStyle: Theme.of(context)
                       .textTheme
-                      .subtitle1!
+                      .titleMedium!
                       .copyWith(color: white),
                   margin: EdgeInsets.only(
                     bottom: MediaQuery.of(context).padding.bottom + 20,

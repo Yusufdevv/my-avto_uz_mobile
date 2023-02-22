@@ -1,4 +1,3 @@
-import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/material.dart';
@@ -34,8 +33,11 @@ class ProfileMenuTile extends StatelessWidget {
                     children: [
                       Text(
                         name,
-                        style: Theme.of(context).textTheme.headline1!.copyWith(
-                            fontSize: 15, fontWeight: FontWeight.w600),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayLarge!
+                            .copyWith(
+                                fontSize: 15, fontWeight: FontWeight.w600),
                       ),
                     ],
                   ),
@@ -45,7 +47,7 @@ class ProfileMenuTile extends StatelessWidget {
                       count.toString(),
                       style: Theme.of(context)
                           .textTheme
-                          .headline3
+                          .displaySmall
                           ?.copyWith(fontWeight: FontWeight.w600),
                     )
                   },

@@ -37,7 +37,7 @@ class PlusMinusScreen extends StatelessWidget {
                   titles[index],
                   style: Theme.of(context)
                       .textTheme
-                      .headline2!
+                      .displayMedium!
                       .copyWith(color: dark, fontSize: 16),
                 ),
                 Text.rich(
@@ -47,21 +47,21 @@ class PlusMinusScreen extends StatelessWidget {
                         text: positivesCount[index].toString(),
                         style: Theme.of(context)
                             .textTheme
-                            .headline2!
+                            .displayMedium!
                             .copyWith(color: green, fontSize: 16),
                       ),
                       TextSpan(
                         text: ' / ',
                         style: Theme.of(context)
                             .textTheme
-                            .headline2!
+                            .displayMedium!
                             .copyWith(color: dividerColor, fontSize: 13),
                       ),
                       TextSpan(
                         text: negativesCount[index].toString(),
                         style: Theme.of(context)
                             .textTheme
-                            .headline2!
+                            .displayMedium!
                             .copyWith(color: red, fontSize: 16),
                       ),
                     ],

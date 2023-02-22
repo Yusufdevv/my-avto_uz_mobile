@@ -14,7 +14,8 @@ class AlphabeticHeader extends SliverPersistentHeaderDelegate {
   double get maxExtent => 38;
 
   @override
-  bool shouldRebuild(AlphabeticHeader oldDelegate) => color != oldDelegate.color;
+  bool shouldRebuild(AlphabeticHeader oldDelegate) =>
+      color != oldDelegate.color;
   final List<String> letters = [
     'A',
     'B',

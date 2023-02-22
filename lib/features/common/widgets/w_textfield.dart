@@ -68,6 +68,7 @@ class WTextField extends StatefulWidget {
   final bool readOnly;
   final Widget? suffixTitleWidget;
   final String hintNextToTitle;
+  final BoxConstraints? prefixConstraints;
 
   const WTextField(
       {required this.onChanged,
@@ -81,6 +82,7 @@ class WTextField extends StatefulWidget {
       this.autoFocus = false,
       this.borderRadius = 0,
       this.prefixStyle,
+      this.prefixConstraints,
       this.disabledBorderColor,
       this.hasClearButton,
       this.textAlign = TextAlign.start,
@@ -157,7 +159,6 @@ class _WTextFieldState extends State<WTextField>
 
     focusNode.addListener(
       () => setState(() {
-        print('== focused ==');
         focused = !focused;
       }),
     );
@@ -185,13 +186,13 @@ class _WTextFieldState extends State<WTextField>
                       Text(
                         widget.title,
                         style: widget.titleTextStyle ??
-                            Theme.of(context).textTheme.headline2!.copyWith(
+                            Theme.of(context).textTheme.displayMedium!.copyWith(
                                   fontWeight: FontWeight.w600,
                                 ),
                       ),
                       Text(
                         ' ${widget.hintNextToTitle}',
-                        style: Theme.of(context).textTheme.button!.copyWith(
+                        style: Theme.of(context).textTheme.labelLarge!.copyWith(
                               fontSize: 15,
                               fontWeight: FontWeight.w500,
                             ),
@@ -249,7 +250,7 @@ class _WTextFieldState extends State<WTextField>
                       style: widget.textStyle ??
                           Theme.of(context)
                               .textTheme
-                              .headline2!
+                              .displayMedium!
                               .copyWith(fontWeight: FontWeight.w400),
                       decoration: InputDecoration(
                         suffix: widget.suffix != null
@@ -271,12 +272,11 @@ class _WTextFieldState extends State<WTextField>
                             : null,
                         hintText: widget.hintText,
                         hintStyle: widget.hintTextStyle ??
-                            Theme.of(context).textTheme.subtitle2!.copyWith(
+                            Theme.of(context).textTheme.titleSmall!.copyWith(
                                 color: Theme.of(context).hintColor,
                                 fontWeight: FontWeight.w400),
                         filled: widget.filled,
-                        // prefixIconConstraints:
-                        // const BoxConstraints(maxWidth: 20, maxHeight: 20),
+                        prefixIconConstraints: widget.prefixConstraints,
                         prefixIcon:
                             widget.hasSearch != null && widget.hasSearch!
                                 ? Padding(
@@ -299,7 +299,6 @@ class _WTextFieldState extends State<WTextField>
                                     : widget.disabledColor
                                 : widget.fillColor,
                         contentPadding: widget.contentPadding,
-
                         disabledBorder: OutlineInputBorder(
                           borderRadius: widget.detailedBorderRadius ??
                               BorderRadius.circular(widget.borderRadius),
@@ -368,7 +367,7 @@ class _WTextFieldState extends State<WTextField>
                           style: widget.prefixStyle ??
                               Theme.of(context)
                                   .textTheme
-                                  .headline1!
+                                  .displayLarge!
                                   .copyWith(fontSize: 15),
                         ),
                       ),

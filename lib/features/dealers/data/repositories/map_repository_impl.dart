@@ -10,7 +10,8 @@ class MapRepositoryImpl extends MapRepository {
   final MapDatasource datasource;
   MapRepositoryImpl({required this.datasource});
   @override
-  Future<Either<Failure, GenericPagination<TypeEntity>>> getTypes({String? next}) async {
+  Future<Either<Failure, GenericPagination<TypeEntity>>> getTypes(
+      {String? next}) async {
     try {
       final result = await datasource.getTypes(next: next);
       return Right(result);
@@ -19,7 +20,8 @@ class MapRepositoryImpl extends MapRepository {
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode));
+      return Left(ServerFailure(
+          errorMessage: e.errorMessage, statusCode: e.statusCode));
     }
   }
 }

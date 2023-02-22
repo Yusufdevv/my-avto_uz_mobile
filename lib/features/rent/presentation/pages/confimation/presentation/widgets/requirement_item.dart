@@ -29,8 +29,10 @@ class RequirementItem extends StatelessWidget {
           children: [
             Text(
               LocaleKeys.requirements.tr(),
-              style:
-                  Theme.of(context).textTheme.headline1!.copyWith(fontSize: 14),
+              style: Theme.of(context)
+                  .textTheme
+                  .displayLarge!
+                  .copyWith(fontSize: 14),
             ),
             const SizedBox(
               height: 12,
@@ -42,14 +44,14 @@ class RequirementItem extends StatelessWidget {
                   LocaleKeys.min_age.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText1!
+                      .bodyLarge!
                       .copyWith(color: grey),
                 ),
                 Text(
                   '$age ' + LocaleKeys.years.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .headline6!
+                      .titleLarge!
                       .copyWith(color: greyText, fontSize: 12),
                 ),
               ],
@@ -64,14 +66,14 @@ class RequirementItem extends StatelessWidget {
                   LocaleKeys.min_drive_experience.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText1!
+                      .bodyLarge!
                       .copyWith(color: grey),
                 ),
                 Text(
                   '$experience ' + LocaleKeys.years.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .headline6!
+                      .titleLarge!
                       .copyWith(color: greyText, fontSize: 12),
                 ),
               ],

@@ -79,7 +79,7 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                             '+998 ${MyFunctions.phoneFormat(widget.phone)}',
                             style: Theme.of(context)
                                 .textTheme
-                                .headline6!
+                                .titleLarge!
                                 .copyWith(
                                     fontWeight: FontWeight.w400, fontSize: 14),
                           ),
@@ -130,11 +130,11 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                       enableActiveFill: false,
                       textStyle: Theme.of(context)
                           .textTheme
-                          .headline1!
+                          .displayLarge!
                           .copyWith(fontSize: 24, fontWeight: FontWeight.w400),
                       hintStyle: Theme.of(context)
                           .textTheme
-                          .bodyText2!
+                          .bodyMedium!
                           .copyWith(fontSize: 4),
                       appContext: context,
                       showCursor: true,
@@ -144,7 +144,7 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                         Text(LocaleKeys.send_via_password.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .headline6!
+                                .titleLarge!
                                 .copyWith(
                                     fontSize: 14, fontWeight: FontWeight.w400)),
                         const SizedBox(width: 6),
@@ -170,17 +170,20 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                                             onError: (message) {
                                               var error = message;
                                               if (error
-                                                  .toLowerCase()
-                                                  .contains('dio')  || error
-                                              .toLowerCase()
-                                              .contains('type')) {
+                                                      .toLowerCase()
+                                                      .contains('dio') ||
+                                                  error
+                                                      .toLowerCase()
+                                                      .contains('type')) {
                                                 error = LocaleKeys.service_error
                                                     .tr();
                                               }
-                                              context.read<ShowPopUpBloc>().add(
-                                                  ShowPopUp(
-                                                      message: error,
-                                                     status: PopStatus.error,));
+                                              context
+                                                  .read<ShowPopUpBloc>()
+                                                  .add(ShowPopUp(
+                                                    message: error,
+                                                    status: PopStatus.error,
+                                                  ));
                                               setState(() {
                                                 isError = true;
                                               });
@@ -239,10 +242,12 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                                       setState(() {
                                         isError = true;
                                       });
-                                      context.read<ShowPopUpBloc>().add(
-                                          ShowPopUp(
-                                              message: message,
-                                              status: PopStatus.error,));
+                                      context
+                                          .read<ShowPopUpBloc>()
+                                          .add(ShowPopUp(
+                                            message: message,
+                                            status: PopStatus.error,
+                                          ));
                                     }));
                           }
                         },

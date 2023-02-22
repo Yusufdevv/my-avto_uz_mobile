@@ -1,10 +1,10 @@
+import 'package:auto/features/ad/domain/entities/types/modification_type.dart';
+import 'package:auto/features/common/domain/entity/car_generation_entity.dart';
 import 'package:auto/features/rent/data/models/rent_car_model.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_bodytype_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_category_entity.dart';
-import 'package:auto/features/rent/domain/entities/rent_car_generation_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_make_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_models_entity.dart';
-import 'package:auto/features/rent/domain/entities/rent_car_modification_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_type_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -19,15 +19,15 @@ class RentCarEntity extends Equatable {
   final RentCarMakeEntity make;
   @RentCarModelsConverter()
   final RentCarModelsEntity model;
-  @RentCarGenerationConverter()
-  final RentCarGenerationEntity generation;
+  @CarGenerationConverter()
+  final CarGenerationEntity generation;
   @RentCarBodyTypeConverter()
   final RentCarBodyTypeEntity bodyType;
   final int year;
   @RentCarBodyTypeConverter()
   final RentCarBodyTypeEntity driveType;
-  @RentCarModificationConverter()
-  final RentCarModificationEntity modificationType;
+  @ModificationTypeEntityConverter()
+  final ModificationTypeEntity modificationType;
   @RentCarBodyTypeConverter()
   final RentCarBodyTypeEntity gearboxType;
   @RentCarBodyTypeConverter()
@@ -47,11 +47,11 @@ class RentCarEntity extends Equatable {
     this.category = const RentCarCategoryEntity(),
     this.make = const RentCarMakeEntity(),
     this.model = const RentCarModelsEntity(),
-    this.generation = const RentCarGenerationEntity(),
+    this.generation = const CarGenerationEntity(),
     this.bodyType = const RentCarBodyTypeEntity(),
     this.year = 0,
     this.driveType = const RentCarBodyTypeEntity(),
-    this.modificationType = const RentCarModificationEntity(),
+    this.modificationType = const ModificationTypeEntity(),
     this.gearboxType = const RentCarBodyTypeEntity(),
     this.engineType = const RentCarBodyTypeEntity(),
     this.engineVolume = 0.0,

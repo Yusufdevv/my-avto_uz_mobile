@@ -14,7 +14,8 @@ class CategorySingleItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-        onTap: onTap, behavior: HitTestBehavior.opaque,
+        onTap: onTap,
+        behavior: HitTestBehavior.opaque,
         child: Container(
           margin: const EdgeInsets.only(bottom: 16),
           padding: const EdgeInsets.all(12),
@@ -52,10 +53,10 @@ class CategorySingleItem extends StatelessWidget {
               ),
               Text(
                 '${rentListEntity.rentCar.generation.yearBegin}-${rentListEntity.rentCar.generation.yearEnd}, '
-                    '${rentListEntity.rentCar.model.name}',
+                '${rentListEntity.rentCar.model.name}',
                 style: Theme.of(context)
                     .textTheme
-                    .headline1!
+                    .displayLarge!
                     .copyWith(fontSize: 12, fontWeight: FontWeight.w600),
               ),
             ],

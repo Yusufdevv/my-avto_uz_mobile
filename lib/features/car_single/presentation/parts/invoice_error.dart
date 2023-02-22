@@ -26,7 +26,7 @@ class InvoiceError extends StatelessWidget {
                 Lottie.asset('assets/lottie/error.json', repeat: false),
                 Text(
                   LocaleKeys.service_connected_successfully.tr(),
-                  style: Theme.of(context).textTheme.headline1,
+                  style: Theme.of(context).textTheme.displayLarge,
                 ),
                 const Spacer(),
                 Column(
@@ -37,7 +37,7 @@ class InvoiceError extends StatelessWidget {
                         content: Text('Повторить попытку',
                             style: Theme.of(context)
                                 .textTheme
-                                .headline2!
+                                .displayMedium!
                                 .copyWith(
                                     fontSize: 14, fontWeight: FontWeight.w600)),
                         onTap: () {}),
@@ -50,7 +50,7 @@ class InvoiceError extends StatelessWidget {
                         content: Text(LocaleKeys.back_to_ad.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .headline4!
+                                .headlineMedium!
                                 .copyWith(
                                     fontSize: 14, fontWeight: FontWeight.w600)),
                         onTap: () {

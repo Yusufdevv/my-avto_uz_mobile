@@ -34,8 +34,10 @@ class CarCharacteristicImage extends StatelessWidget {
         children: [
           Text(
             LocaleKeys.auto_characters.tr(),
-            style:
-                Theme.of(context).textTheme.headline1!.copyWith(fontSize: 18),
+            style: Theme.of(context)
+                .textTheme
+                .displayLarge!
+                .copyWith(fontSize: 18),
           ),
           Row(
             children: [
@@ -45,7 +47,7 @@ class CarCharacteristicImage extends StatelessWidget {
                 LocaleKeys.checked_by_autouz.tr(),
                 style: Theme.of(context)
                     .textTheme
-                    .headline1!
+                    .displayLarge!
                     .copyWith(fontSize: 12, fontWeight: FontWeight.w600),
               ),
             ],
@@ -143,25 +145,25 @@ class CarCharacteristicImage extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) => Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: InformationAboutDoors(
+                    informAboutDoors: informAboutDoors,
+                    index: index,
+                  ),
+                ),
+                if (index > 12)
+                  const SizedBox()
+                else
                   Expanded(
                     child: InformationAboutDoors(
                       informAboutDoors: informAboutDoors,
-                      index: index,
+                      index: index + informAboutDoors.length ~/ 2,
                     ),
                   ),
-                  if (index > 12)
-                    const SizedBox()
-                  else
-                    Expanded(
-                      child: InformationAboutDoors(
-                        informAboutDoors: informAboutDoors,
-                        index: index + informAboutDoors.length ~/ 2,
-                      ),
-                    ),
-                ],
-              ),
+              ],
+            ),
             separatorBuilder: (context, index) => const Divider(),
             itemCount: informAboutDoors.length ~/ 2,
           )

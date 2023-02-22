@@ -42,7 +42,8 @@ class _OwnershipBottomsheetState extends State<OwnershipBottomsheet> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () => Navigator.pop(context), behavior: HitTestBehavior.opaque,
+                    onTap: () => Navigator.pop(context),
+                    behavior: HitTestBehavior.opaque,
                     child: SvgPicture.asset(AppIcons.close),
                   ),
                 ],

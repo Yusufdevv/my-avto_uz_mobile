@@ -1,134 +1,232 @@
-import 'package:auto/core/singletons/service_locator.dart';
-import 'package:auto/features/ad/data/models/announcement_filter.dart';
-import 'package:auto/features/ad/data/models/drive_type.dart';
+import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
-import 'package:auto/features/ad/domain/repositories/ad_repository.dart';
-import 'package:auto/features/ads/data/models/search_history_model.dart';
-import 'package:auto/features/ads/domain/entities/search_history_entity.dart';
-import 'package:auto/features/ads/domain/usecases/filter_history_usecase.dart';
+import 'package:auto/features/ads/data/models/query_data_model.dart';
+import 'package:auto/features/ads/data/models/save_filter_model.dart';
+import 'package:auto/features/ads/domain/usecases/get_announcement_list_usecase.dart';
+import 'package:auto/features/ads/domain/usecases/get_min_max_price_use_case.dart';
+import 'package:auto/features/ads/domain/usecases/save_filter_history_usecase.dart';
 import 'package:auto/features/common/models/region.dart';
-import 'package:auto/features/common/usecases/announcement_list_usecase.dart';
 import 'package:auto/features/comparison/domain/entities/announcement_list_entity.dart';
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:formz/formz.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'announcement_list_event.dart';
+
 part 'announcement_list_state.dart';
-part 'announcement_list_bloc.freezed.dart';
 
 class AnnouncementListBloc
     extends Bloc<AnnouncementListEvent, AnnouncementListState> {
-  AnnouncementListUseCase useCase;
-  FilterHistoryUseCase filterHistoryUseCase;
-  AnnouncementListBloc(
-      {required this.useCase, required this.filterHistoryUseCase})
-      : super(AnnouncementListState()) {
-    on<_GetAnnouncementList>((event, emit) async {
-      emit(state.copyWith(status: FormzStatus.submissionInProgress));
-      final result = await useCase.call(state.filter);
+  GetAnnouncementListUseCase useCase = GetAnnouncementListUseCase();
+  SaveFilterHistoryUseCase saveFilterHistoryUseCase =
+      SaveFilterHistoryUseCase();
+  GetMinMaxPriceYearUseCase minMaxPriceYearUseCase =
+      GetMinMaxPriceYearUseCase();
+
+  AnnouncementListBloc() : super(const AnnouncementListState()) {
+    on<GetAnnouncementList>((event, emit) async {
+      emit(state.copyWith(
+        status: FormzStatus.submissionInProgress,
+        isNew: event.isNew,
+      ));
+
+      final result = await useCase.call({
+        'make': state.makeId == -1 ? '' : state.makeId,
+        'model': state.modelId == -1 ? '' : state.modelId,
+        'body_type': state.bodyType?.id == -1 ? '' : state.bodyType?.id,
+        'drive_type': state.driveType?.id == -1 ? '' : state.driveType?.id,
+        'gearbox_type':
+            state.gearboxType?.id == -1 ? '' : state.gearboxType?.id,
+        'is_new': event.isNew,
+        'region__in': getRegionsId(state.regions),
+        'price_from': state.priceValues?.start == -1
+            ? ''
+            : state.priceValues?.start == 0.0
+                ? ''
+                : state.priceValues?.start,
+        'price_to': state.priceValues?.end == -1
+            ? ''
+            : state.priceValues?.end == 0.0
+                ? ''
+                : state.priceValues?.end,
+        'year_from': state.yearValues?.start == -1
+            ? ''
+            : state.yearValues?.start == 0.0
+                ? ''
+                : state.yearValues?.start,
+        'year_to': state.yearValues?.end == -1
+            ? ''
+            : state.yearValues?.end == 0.0
+                ? ''
+                : state.yearValues?.end,
+        'limit': 10,
+        'offset': 0,
+        'currency': state.currency?.value,
+        'ordering': state.sortStatus?.value,
+      });
       if (result.isRight) {
         emit(
           state.copyWith(
             announcementList: result.right.results,
             status: FormzStatus.submissionSuccess,
             count: result.right.count,
-            next: result.right.next ?? '',
+            next: result.right.next != null,
           ),
         );
       } else {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     });
-    on<_GetFilter>(
-      (event, emit) => emit(state.copyWith(filter: event.filter)),
-    );
-    on<_GetRegions>((event, emit) {
-      emit(state.copyWith(
-          filter: state.filter.copyWith(
-              region__in:
-                  event.regions.map((e) => '${e.id}').toList().join(','))));
-      emit(state.copyWith(regions: event.regions));
-    });
-    on<_GetIsHistory>((event, emit) {
-      emit(
-        state.copyWith(
-          isHistory: event.isHistory,
-          searchModel: state.searchModel.copyWith(
-            make: state.filter.make,
-            model: [state.filter.model],
-            queryData: state.searchModel.queryData!.copyWithout(
-              bodyType: state.filter.bodyType,
-              driveType: state.filter.driveType,
-              gearboxType: state.filter.gearboxType,
-              regionIn: state.filter.region__in,
-              priceFrom: state.filter.priceFrom,
-              priceTo: state.filter.priceTo,
-              yearFrom: state.filter.yearFrom,
-              yearTo: state.filter.yearTo,
-              isNew: state.filter.isNew,
-            ),
-          ),
-        ),
-      );
-      print('===> ==> Hullas ${state.searchHistoryEntity.make}');
-    });
-    on<_GetHistoryApi>((event, emit) async {
-      await filterHistoryUseCase.call(state.searchModel);
-    });
-    on<_GetFilterClear>((event, emit) {
-      if (event.ismake == true) {
+    on<GetMoreAnnouncementList>((event, emit) async {
+      final result = await useCase.call({
+        'make': state.makeId == -1 ? '' : state.makeId,
+        'model': state.modelId == -1 ? '' : state.modelId,
+        'body_type': state.bodyType?.id == -1 ? '' : state.bodyType?.id,
+        'drive_type': state.driveType?.id == -1 ? '' : state.driveType?.id,
+        'gearbox_type':
+            state.gearboxType?.id == -1 ? '' : state.gearboxType?.id,
+        'is_new': event.isNew,
+        'region__in': getRegionsId(state.regions),
+        'price_from': state.priceValues?.start == -1
+            ? ''
+            : state.priceValues?.start == 0.0
+                ? ''
+                : state.priceValues?.start,
+        'price_to': state.priceValues?.end == -1
+            ? ''
+            : state.priceValues?.end == 0.0
+                ? ''
+                : state.priceValues?.end,
+        'year_from': state.yearValues?.start == -1
+            ? ''
+            : state.yearValues?.start == 0.0
+                ? ''
+                : state.yearValues?.start,
+        'year_to': state.yearValues?.end == -1
+            ? ''
+            : state.yearValues?.end == 0.0
+                ? ''
+                : state.yearValues?.end,
+        'limit': 10,
+        'offset': state.announcementList.length,
+        'currency': state.currency?.value,
+        'ordering': state.sortStatus?.value,
+      });
+      if (result.isRight) {
         emit(
           state.copyWith(
-            filter: state.filter.copyWith(
-              make: -1,
-              model: -1,
-              gearboxType: null,
-              bodyType: null,
-              driveType: null,
-              priceFrom: 1000,
-              priceTo: 500000,
-              yearFrom: 1960,
-              yearTo: 2023,
-            ),
+            announcementList: [
+              ...state.announcementList,
+              ...result.right.results
+            ],
+            count: result.right.count,
+            next: result.right.next != null,
           ),
         );
-        add(AnnouncementListEvent.getAnnouncementList());
       } else {
-        emit(
-          state.copyWith(
-            filter: state.filter.copyWith(
-              gearboxType: null,
-              bodyType: null,
-              driveType: null,
-              priceFrom: 1000,
-              priceTo: 500000,
-              yearFrom: 1960,
-              yearTo: 2023,
-            ),
-          ),
-        );
+        emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     });
-    on<_GetInfo>(
-      (event, emit) => emit(
-        state.copyWith(
-          bodyTypeEntity: event.bodyType,
-          gearboxTypeEntity: event.gearboxType,
-          driveTypeEntity: event.carDriveType,
-          yearValues: event.yearValues == null
-              ? const RangeValues(1960, 2023)
-              : event.yearValues!,
-          priceValues: event.priceValues == null
-              ? const RangeValues(1000, 500000)
-              : event.priceValues!,
-          idVal: event.idVal ?? 0,
-          isFilter: event.isFilter!,
-        ),
-      ),
-    );
+    on<SetFilter>((event, emit) {
+      emit(state.copyWith(
+        currency: event.currency,
+        gearboxType: event.gearboxType,
+        bodyType: event.bodyType,
+        driveType: event.driveType,
+        yearValues: event.yearValues,
+        priceValues: event.priceValues,
+        isFilter: event.isFilter,
+        historyId: event.historyId ?? state.historyId,
+        // ignore: avoid_bool_literals_in_conditional_expressions
+        historySaved: event.historySaved,
+      ));
+
+      add(GetAnnouncementList(isNew: event.isNew));
+    });
+    on<SetMakeModel>((event, emit) {
+      emit(state.copyWith(
+        makeId: event.makeId,
+        modelId: event.modelId,
+        makeName: event.makeName,
+        modelName: event.modelName,
+        makeLogo: event.makeLogo,
+        historySaved: event.historySaved,
+      ));
+      add(GetAnnouncementList(isNew: event.isNew));
+    });
+    on<ClearFilter>((event, emit) {
+      emit(state.copyWith(
+        currency: Currency.none,
+        gearboxType: const GearboxTypeEntity(),
+        bodyType: const BodyTypeEntity(),
+        driveType: const DriveTypeEntity(),
+        isFilter: false,
+        historySaved: true,
+        priceValues: const RangeValues(0, 0),
+        yearValues: const RangeValues(0, 0),
+        //! history saved -- param ni x qilganda caselarni ko'rish kerak
+      ));
+      add(GetAnnouncementList(isNew: event.isNew));
+    });
+    //! setregion
+    on<SetRegions>((event, emit) {
+      emit(state.copyWith(regions: event.regions));
+      add(GetAnnouncementList(isNew: event.isNew));
+    });
+    //!setsort
+    on<SetSort>((event, emit) {
+      emit(state.copyWith(sortResult: event.sortResult));
+      add(GetAnnouncementList(isNew: state.isNew));
+    });
+    on<ChangeSaveFilterStatus>((event, emit) {
+      emit(state.copyWith(saveFilterStatus: event.status));
+    });
+    on<SaveHistory>((event, emit) async {
+      final saveFilterModel = SaveFilterModel(
+          id: state.historyId,
+          make: state.makeId,
+          model: [state.modelId],
+          query:
+              'make=${state.makeId ?? ''}&model=${state.modelId ?? ''}&body_type=${state.bodyType?.id == -1 ? '' : state.bodyType?.id}'
+              '&drive_type=${state.driveType?.id == -1 ? '' : state.driveType?.id}&gearbox_type=${state.gearboxType?.id == -1 ? '' : state.gearboxType?.id}&is_new=${state.isNew ?? ''}'
+              '&region__in=${getRegionsId(state.regions)}&price_from=${state.priceValues?.start.toInt() == -1 ? '' : state.priceValues?.start.toInt()}'
+              '&price_to${state.priceValues?.end.toInt() == -1 ? '' : state.priceValues?.end.toInt()}&year_from=${state.yearValues?.start.toInt() == -1 ? '' : state.yearValues?.start.toInt()}'
+              '&year_to=${state.yearValues?.end.toInt() == -1 ? '' : state.yearValues?.end.toInt()}&currency=${state.currency?.value}',
+          queryData: QueryDataModel(
+            bodyType: state.bodyType,
+            driveType: state.driveType,
+            gearboxType: state.gearboxType,
+            regionIn: getRegionsId(state.regions),
+            priceFrom: state.priceValues?.start.toInt(),
+            priceTo: state.priceValues?.end.toInt(),
+            yearFrom: state.yearValues?.start.toInt(),
+            yearTo: state.yearValues?.start.toInt(),
+            currency: state.currency?.value,
+          ));
+      final result = await saveFilterHistoryUseCase.call(saveFilterModel);
+      if (result.isRight) {
+        emit(state.copyWith(
+            historySaved: true,
+            saveFilterModel: saveFilterModel,
+            isFilter: false));
+      }
+    });
+    on<ChangeAppBarEvent>((event, emit) {
+      emit(state.copyWith(crossFadeState: event.crossFadeState));
+    });
+  }
+
+  String getRegionsId(List<Region> list) {
+    if (list.isEmpty) {
+      return '';
+    }
+    final ids = StringBuffer();
+    for (final value in list) {
+      ids.write('${value.id},');
+    }
+    return ids.toString();
   }
 }

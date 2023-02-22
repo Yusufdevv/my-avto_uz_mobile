@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 class AppIcons {
   //Auth
   static const icCamera = 'assets/icons/auth/camera.svg';
@@ -39,6 +41,7 @@ class AppIcons {
   static const filter = 'assets/icons/global/filter.svg';
   static const vehicleCar = 'assets/icons/global/vehicle_car.svg';
   static const clock = 'assets/icons/global/clock.svg';
+  static const clockGrey = 'assets/icons/global/clock_grey.svg';
   static const ticked = 'assets/icons/global/tick.svg';
   static const tablerInfo = 'assets/icons/global/tabler_info_circle.svg';
   static const tablerPhone = 'assets/icons/global/tabler_phone.svg';
@@ -86,6 +89,7 @@ class AppIcons {
   static const locationIcon = 'assets/icons/global/location_icon.svg';
   static const currentLocation = 'assets/icons/global/current_location.svg';
   static const currentLoc = 'assets/images/global/current_location.png';
+  static const locationRedIcon = 'assets/images/global/location_red_icon.png';
   static const dealersLocIcon = 'assets/images/global/dealers_loc_icon.png';
   static const shareWhite = 'assets/icons/global/share_white.svg';
   static const warningRed = 'assets/icons/global/warning_red.svg';
@@ -238,6 +242,8 @@ class AppIcons {
   static const redWarning = 'assets/icons/car_single/red_warning.svg';
   static const yellowWarning = 'assets/icons/car_single/yellow_warning.svg';
   static const comparGreen = 'assets/icons/car_single/compar_green.svg';
+  static const comparison = 'assets/icons/global/comparison.svg';
+  static const puzzle = 'assets/icons/global/puzzle.svg';
 
   static const greyPhoneCall = 'assets/icons/global/grey_phone_call.svg';
   static const inet_error = 'assets/icons/global/inet_error.svg';
@@ -277,4 +283,8 @@ class AppIcons {
   static const crug = 'assets/icons/car_single/crug.svg';
   static const introduce = 'assets/icons/reels/introduce.svg';
   static const introduce1 = 'assets/icons/reels/introduce1.svg';
+  static const carFromLeft = 'assets/icons/global/car_from_left.svg';
+  static const carFromRight = 'assets/icons/global/car_from_right.svg';
+  static const carFromBack = 'assets/icons/global/car_from_back.svg';
+  static const carFromFront = 'assets/icons/global/car_from_front.svg';
 }

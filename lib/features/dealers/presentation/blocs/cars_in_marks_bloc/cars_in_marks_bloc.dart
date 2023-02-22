@@ -21,12 +21,27 @@ class CarsInMarksBloc extends Bloc<CarsInMarksEvent, CarsInMarksState> {
       if (result.isRight) {
         emit(
           state.copyWith(
-              status: FormzStatus.submissionSuccess, cars: result.right.results),
+            status: FormzStatus.submissionSuccess,
+            cars: result.right.results,
+            next: result.right.next,
+            moreFetch: result.right.next != null,
+          ),
         );
       } else {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     });
+    on<_GetMoreResults>((event, emit) async {
+      final result = await carsInMarksUseCase.call(event.params);
+      if (result.isRight) {
+        emit(
+          state.copyWith(
+            cars: [...state.cars, ...result.right.results],
+            next: result.right.next,
+            moreFetch: result.right.next != null,
+          ),
+        );
+      }
+    });
   }
 }
-

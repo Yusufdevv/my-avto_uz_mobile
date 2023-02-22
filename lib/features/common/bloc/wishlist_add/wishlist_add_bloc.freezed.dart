@@ -22,6 +22,7 @@ mixin _$WishlistAddEvent {
     required TResult Function(int id, int index) removeWishlist,
     required TResult Function() clearState,
     required TResult Function(int goToAds) goToAdds,
+    required TResult Function(int id, bool value) addToMapFavorites,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -30,6 +31,7 @@ mixin _$WishlistAddEvent {
     TResult? Function(int id, int index)? removeWishlist,
     TResult? Function()? clearState,
     TResult? Function(int goToAds)? goToAdds,
+    TResult? Function(int id, bool value)? addToMapFavorites,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -38,6 +40,7 @@ mixin _$WishlistAddEvent {
     TResult Function(int id, int index)? removeWishlist,
     TResult Function()? clearState,
     TResult Function(int goToAds)? goToAdds,
+    TResult Function(int id, bool value)? addToMapFavorites,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -47,6 +50,7 @@ mixin _$WishlistAddEvent {
     required TResult Function(_RemoveWishlist value) removeWishlist,
     required TResult Function(_ClearState value) clearState,
     required TResult Function(_GoToAds value) goToAdds,
+    required TResult Function(_AddToMapFavorites value) addToMapFavorites,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -55,6 +59,7 @@ mixin _$WishlistAddEvent {
     TResult? Function(_RemoveWishlist value)? removeWishlist,
     TResult? Function(_ClearState value)? clearState,
     TResult? Function(_GoToAds value)? goToAdds,
+    TResult? Function(_AddToMapFavorites value)? addToMapFavorites,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -63,6 +68,7 @@ mixin _$WishlistAddEvent {
     TResult Function(_RemoveWishlist value)? removeWishlist,
     TResult Function(_ClearState value)? clearState,
     TResult Function(_GoToAds value)? goToAdds,
+    TResult Function(_AddToMapFavorites value)? addToMapFavorites,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -162,6 +168,7 @@ class _$_AddWishlist implements _AddWishlist {
     required TResult Function(int id, int index) removeWishlist,
     required TResult Function() clearState,
     required TResult Function(int goToAds) goToAdds,
+    required TResult Function(int id, bool value) addToMapFavorites,
   }) {
     return addWishlist(id, index);
   }
@@ -173,6 +180,7 @@ class _$_AddWishlist implements _AddWishlist {
     TResult? Function(int id, int index)? removeWishlist,
     TResult? Function()? clearState,
     TResult? Function(int goToAds)? goToAdds,
+    TResult? Function(int id, bool value)? addToMapFavorites,
   }) {
     return addWishlist?.call(id, index);
   }
@@ -184,6 +192,7 @@ class _$_AddWishlist implements _AddWishlist {
     TResult Function(int id, int index)? removeWishlist,
     TResult Function()? clearState,
     TResult Function(int goToAds)? goToAdds,
+    TResult Function(int id, bool value)? addToMapFavorites,
     required TResult orElse(),
   }) {
     if (addWishlist != null) {
@@ -199,6 +208,7 @@ class _$_AddWishlist implements _AddWishlist {
     required TResult Function(_RemoveWishlist value) removeWishlist,
     required TResult Function(_ClearState value) clearState,
     required TResult Function(_GoToAds value) goToAdds,
+    required TResult Function(_AddToMapFavorites value) addToMapFavorites,
   }) {
     return addWishlist(this);
   }
@@ -210,6 +220,7 @@ class _$_AddWishlist implements _AddWishlist {
     TResult? Function(_RemoveWishlist value)? removeWishlist,
     TResult? Function(_ClearState value)? clearState,
     TResult? Function(_GoToAds value)? goToAdds,
+    TResult? Function(_AddToMapFavorites value)? addToMapFavorites,
   }) {
     return addWishlist?.call(this);
   }
@@ -221,6 +232,7 @@ class _$_AddWishlist implements _AddWishlist {
     TResult Function(_RemoveWishlist value)? removeWishlist,
     TResult Function(_ClearState value)? clearState,
     TResult Function(_GoToAds value)? goToAdds,
+    TResult Function(_AddToMapFavorites value)? addToMapFavorites,
     required TResult orElse(),
   }) {
     if (addWishlist != null) {
@@ -316,6 +328,7 @@ class _$_RemoveWishlist implements _RemoveWishlist {
     required TResult Function(int id, int index) removeWishlist,
     required TResult Function() clearState,
     required TResult Function(int goToAds) goToAdds,
+    required TResult Function(int id, bool value) addToMapFavorites,
   }) {
     return removeWishlist(id, index);
   }
@@ -327,6 +340,7 @@ class _$_RemoveWishlist implements _RemoveWishlist {
     TResult? Function(int id, int index)? removeWishlist,
     TResult? Function()? clearState,
     TResult? Function(int goToAds)? goToAdds,
+    TResult? Function(int id, bool value)? addToMapFavorites,
   }) {
     return removeWishlist?.call(id, index);
   }
@@ -338,6 +352,7 @@ class _$_RemoveWishlist implements _RemoveWishlist {
     TResult Function(int id, int index)? removeWishlist,
     TResult Function()? clearState,
     TResult Function(int goToAds)? goToAdds,
+    TResult Function(int id, bool value)? addToMapFavorites,
     required TResult orElse(),
   }) {
     if (removeWishlist != null) {
@@ -353,6 +368,7 @@ class _$_RemoveWishlist implements _RemoveWishlist {
     required TResult Function(_RemoveWishlist value) removeWishlist,
     required TResult Function(_ClearState value) clearState,
     required TResult Function(_GoToAds value) goToAdds,
+    required TResult Function(_AddToMapFavorites value) addToMapFavorites,
   }) {
     return removeWishlist(this);
   }
@@ -364,6 +380,7 @@ class _$_RemoveWishlist implements _RemoveWishlist {
     TResult? Function(_RemoveWishlist value)? removeWishlist,
     TResult? Function(_ClearState value)? clearState,
     TResult? Function(_GoToAds value)? goToAdds,
+    TResult? Function(_AddToMapFavorites value)? addToMapFavorites,
   }) {
     return removeWishlist?.call(this);
   }
@@ -375,6 +392,7 @@ class _$_RemoveWishlist implements _RemoveWishlist {
     TResult Function(_RemoveWishlist value)? removeWishlist,
     TResult Function(_ClearState value)? clearState,
     TResult Function(_GoToAds value)? goToAdds,
+    TResult Function(_AddToMapFavorites value)? addToMapFavorites,
     required TResult orElse(),
   }) {
     if (removeWishlist != null) {
@@ -436,6 +454,7 @@ class _$_ClearState implements _ClearState {
     required TResult Function(int id, int index) removeWishlist,
     required TResult Function() clearState,
     required TResult Function(int goToAds) goToAdds,
+    required TResult Function(int id, bool value) addToMapFavorites,
   }) {
     return clearState();
   }
@@ -447,6 +466,7 @@ class _$_ClearState implements _ClearState {
     TResult? Function(int id, int index)? removeWishlist,
     TResult? Function()? clearState,
     TResult? Function(int goToAds)? goToAdds,
+    TResult? Function(int id, bool value)? addToMapFavorites,
   }) {
     return clearState?.call();
   }
@@ -458,6 +478,7 @@ class _$_ClearState implements _ClearState {
     TResult Function(int id, int index)? removeWishlist,
     TResult Function()? clearState,
     TResult Function(int goToAds)? goToAdds,
+    TResult Function(int id, bool value)? addToMapFavorites,
     required TResult orElse(),
   }) {
     if (clearState != null) {
@@ -473,6 +494,7 @@ class _$_ClearState implements _ClearState {
     required TResult Function(_RemoveWishlist value) removeWishlist,
     required TResult Function(_ClearState value) clearState,
     required TResult Function(_GoToAds value) goToAdds,
+    required TResult Function(_AddToMapFavorites value) addToMapFavorites,
   }) {
     return clearState(this);
   }
@@ -484,6 +506,7 @@ class _$_ClearState implements _ClearState {
     TResult? Function(_RemoveWishlist value)? removeWishlist,
     TResult? Function(_ClearState value)? clearState,
     TResult? Function(_GoToAds value)? goToAdds,
+    TResult? Function(_AddToMapFavorites value)? addToMapFavorites,
   }) {
     return clearState?.call(this);
   }
@@ -495,6 +518,7 @@ class _$_ClearState implements _ClearState {
     TResult Function(_RemoveWishlist value)? removeWishlist,
     TResult Function(_ClearState value)? clearState,
     TResult Function(_GoToAds value)? goToAdds,
+    TResult Function(_AddToMapFavorites value)? addToMapFavorites,
     required TResult orElse(),
   }) {
     if (clearState != null) {
@@ -575,6 +599,7 @@ class _$_GoToAds implements _GoToAds {
     required TResult Function(int id, int index) removeWishlist,
     required TResult Function() clearState,
     required TResult Function(int goToAds) goToAdds,
+    required TResult Function(int id, bool value) addToMapFavorites,
   }) {
     return goToAdds(goToAds);
   }
@@ -586,6 +611,7 @@ class _$_GoToAds implements _GoToAds {
     TResult? Function(int id, int index)? removeWishlist,
     TResult? Function()? clearState,
     TResult? Function(int goToAds)? goToAdds,
+    TResult? Function(int id, bool value)? addToMapFavorites,
   }) {
     return goToAdds?.call(goToAds);
   }
@@ -597,6 +623,7 @@ class _$_GoToAds implements _GoToAds {
     TResult Function(int id, int index)? removeWishlist,
     TResult Function()? clearState,
     TResult Function(int goToAds)? goToAdds,
+    TResult Function(int id, bool value)? addToMapFavorites,
     required TResult orElse(),
   }) {
     if (goToAdds != null) {
@@ -612,6 +639,7 @@ class _$_GoToAds implements _GoToAds {
     required TResult Function(_RemoveWishlist value) removeWishlist,
     required TResult Function(_ClearState value) clearState,
     required TResult Function(_GoToAds value) goToAdds,
+    required TResult Function(_AddToMapFavorites value) addToMapFavorites,
   }) {
     return goToAdds(this);
   }
@@ -623,6 +651,7 @@ class _$_GoToAds implements _GoToAds {
     TResult? Function(_RemoveWishlist value)? removeWishlist,
     TResult? Function(_ClearState value)? clearState,
     TResult? Function(_GoToAds value)? goToAdds,
+    TResult? Function(_AddToMapFavorites value)? addToMapFavorites,
   }) {
     return goToAdds?.call(this);
   }
@@ -634,6 +663,7 @@ class _$_GoToAds implements _GoToAds {
     TResult Function(_RemoveWishlist value)? removeWishlist,
     TResult Function(_ClearState value)? clearState,
     TResult Function(_GoToAds value)? goToAdds,
+    TResult Function(_AddToMapFavorites value)? addToMapFavorites,
     required TResult orElse(),
   }) {
     if (goToAdds != null) {
@@ -653,12 +683,176 @@ abstract class _GoToAds implements WishlistAddEvent {
 }
 
 /// @nodoc
+abstract class _$$_AddToMapFavoritesCopyWith<$Res> {
+  factory _$$_AddToMapFavoritesCopyWith(_$_AddToMapFavorites value,
+          $Res Function(_$_AddToMapFavorites) then) =
+      __$$_AddToMapFavoritesCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int id, bool value});
+}
+
+/// @nodoc
+class __$$_AddToMapFavoritesCopyWithImpl<$Res>
+    extends _$WishlistAddEventCopyWithImpl<$Res, _$_AddToMapFavorites>
+    implements _$$_AddToMapFavoritesCopyWith<$Res> {
+  __$$_AddToMapFavoritesCopyWithImpl(
+      _$_AddToMapFavorites _value, $Res Function(_$_AddToMapFavorites) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? value = null,
+  }) {
+    return _then(_$_AddToMapFavorites(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      value: null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_AddToMapFavorites implements _AddToMapFavorites {
+  _$_AddToMapFavorites({required this.id, required this.value});
+
+  @override
+  final int id;
+  @override
+  final bool value;
+
+  @override
+  String toString() {
+    return 'WishlistAddEvent.addToMapFavorites(id: $id, value: $value)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_AddToMapFavorites &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.value, value) || other.value == value));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id, value);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_AddToMapFavoritesCopyWith<_$_AddToMapFavorites> get copyWith =>
+      __$$_AddToMapFavoritesCopyWithImpl<_$_AddToMapFavorites>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int id, int index) addWishlist,
+    required TResult Function(int id, int index) removeWishlist,
+    required TResult Function() clearState,
+    required TResult Function(int goToAds) goToAdds,
+    required TResult Function(int id, bool value) addToMapFavorites,
+  }) {
+    return addToMapFavorites(id, value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int id, int index)? addWishlist,
+    TResult? Function(int id, int index)? removeWishlist,
+    TResult? Function()? clearState,
+    TResult? Function(int goToAds)? goToAdds,
+    TResult? Function(int id, bool value)? addToMapFavorites,
+  }) {
+    return addToMapFavorites?.call(id, value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int id, int index)? addWishlist,
+    TResult Function(int id, int index)? removeWishlist,
+    TResult Function()? clearState,
+    TResult Function(int goToAds)? goToAdds,
+    TResult Function(int id, bool value)? addToMapFavorites,
+    required TResult orElse(),
+  }) {
+    if (addToMapFavorites != null) {
+      return addToMapFavorites(id, value);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_AddWishlist value) addWishlist,
+    required TResult Function(_RemoveWishlist value) removeWishlist,
+    required TResult Function(_ClearState value) clearState,
+    required TResult Function(_GoToAds value) goToAdds,
+    required TResult Function(_AddToMapFavorites value) addToMapFavorites,
+  }) {
+    return addToMapFavorites(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_AddWishlist value)? addWishlist,
+    TResult? Function(_RemoveWishlist value)? removeWishlist,
+    TResult? Function(_ClearState value)? clearState,
+    TResult? Function(_GoToAds value)? goToAdds,
+    TResult? Function(_AddToMapFavorites value)? addToMapFavorites,
+  }) {
+    return addToMapFavorites?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_AddWishlist value)? addWishlist,
+    TResult Function(_RemoveWishlist value)? removeWishlist,
+    TResult Function(_ClearState value)? clearState,
+    TResult Function(_GoToAds value)? goToAdds,
+    TResult Function(_AddToMapFavorites value)? addToMapFavorites,
+    required TResult orElse(),
+  }) {
+    if (addToMapFavorites != null) {
+      return addToMapFavorites(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _AddToMapFavorites implements WishlistAddEvent {
+  factory _AddToMapFavorites(
+      {required final int id,
+      required final bool value}) = _$_AddToMapFavorites;
+
+  int get id;
+  bool get value;
+  @JsonKey(ignore: true)
+  _$$_AddToMapFavoritesCopyWith<_$_AddToMapFavorites> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$WishlistAddState {
   int get goToAds => throw _privateConstructorUsedError;
   FormzStatus get addStatus => throw _privateConstructorUsedError;
   FormzStatus get removeStatus => throw _privateConstructorUsedError;
   int get index => throw _privateConstructorUsedError;
   int get id => throw _privateConstructorUsedError;
+  Map<int, bool> get map => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $WishlistAddStateCopyWith<WishlistAddState> get copyWith =>
@@ -676,7 +870,8 @@ abstract class $WishlistAddStateCopyWith<$Res> {
       FormzStatus addStatus,
       FormzStatus removeStatus,
       int index,
-      int id});
+      int id,
+      Map<int, bool> map});
 }
 
 /// @nodoc
@@ -697,6 +892,7 @@ class _$WishlistAddStateCopyWithImpl<$Res, $Val extends WishlistAddState>
     Object? removeStatus = null,
     Object? index = null,
     Object? id = null,
+    Object? map = null,
   }) {
     return _then(_value.copyWith(
       goToAds: null == goToAds
@@ -719,6 +915,10 @@ class _$WishlistAddStateCopyWithImpl<$Res, $Val extends WishlistAddState>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      map: null == map
+          ? _value.map
+          : map // ignore: cast_nullable_to_non_nullable
+              as Map<int, bool>,
     ) as $Val);
   }
 }
@@ -736,7 +936,8 @@ abstract class _$$_WishlistAddStateCopyWith<$Res>
       FormzStatus addStatus,
       FormzStatus removeStatus,
       int index,
-      int id});
+      int id,
+      Map<int, bool> map});
 }
 
 /// @nodoc
@@ -755,6 +956,7 @@ class __$$_WishlistAddStateCopyWithImpl<$Res>
     Object? removeStatus = null,
     Object? index = null,
     Object? id = null,
+    Object? map = null,
   }) {
     return _then(_$_WishlistAddState(
       goToAds: null == goToAds
@@ -777,6 +979,10 @@ class __$$_WishlistAddStateCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      map: null == map
+          ? _value._map
+          : map // ignore: cast_nullable_to_non_nullable
+              as Map<int, bool>,
     ));
   }
 }
@@ -789,7 +995,9 @@ class _$_WishlistAddState implements _WishlistAddState {
       this.addStatus = FormzStatus.pure,
       this.removeStatus = FormzStatus.pure,
       this.index = -1,
-      this.id = -1});
+      this.id = -1,
+      final Map<int, bool> map = const {}})
+      : _map = map;
 
   @override
   @JsonKey()
@@ -806,10 +1014,18 @@ class _$_WishlistAddState implements _WishlistAddState {
   @override
   @JsonKey()
   final int id;
+  final Map<int, bool> _map;
+  @override
+  @JsonKey()
+  Map<int, bool> get map {
+    if (_map is EqualUnmodifiableMapView) return _map;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_map);
+  }
 
   @override
   String toString() {
-    return 'WishlistAddState(goToAds: $goToAds, addStatus: $addStatus, removeStatus: $removeStatus, index: $index, id: $id)';
+    return 'WishlistAddState(goToAds: $goToAds, addStatus: $addStatus, removeStatus: $removeStatus, index: $index, id: $id, map: $map)';
   }
 
   @override
@@ -823,12 +1039,13 @@ class _$_WishlistAddState implements _WishlistAddState {
             (identical(other.removeStatus, removeStatus) ||
                 other.removeStatus == removeStatus) &&
             (identical(other.index, index) || other.index == index) &&
-            (identical(other.id, id) || other.id == id));
+            (identical(other.id, id) || other.id == id) &&
+            const DeepCollectionEquality().equals(other._map, _map));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, goToAds, addStatus, removeStatus, index, id);
+  int get hashCode => Object.hash(runtimeType, goToAds, addStatus, removeStatus,
+      index, id, const DeepCollectionEquality().hash(_map));
 
   @JsonKey(ignore: true)
   @override
@@ -843,7 +1060,8 @@ abstract class _WishlistAddState implements WishlistAddState {
       final FormzStatus addStatus,
       final FormzStatus removeStatus,
       final int index,
-      final int id}) = _$_WishlistAddState;
+      final int id,
+      final Map<int, bool> map}) = _$_WishlistAddState;
 
   @override
   int get goToAds;
@@ -855,6 +1073,8 @@ abstract class _WishlistAddState implements WishlistAddState {
   int get index;
   @override
   int get id;
+  @override
+  Map<int, bool> get map;
   @override
   @JsonKey(ignore: true)
   _$$_WishlistAddStateCopyWith<_$_WishlistAddState> get copyWith =>

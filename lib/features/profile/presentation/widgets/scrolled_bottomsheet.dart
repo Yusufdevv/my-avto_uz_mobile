@@ -42,7 +42,7 @@ class ScrolledBottomSheet extends StatelessWidget {
                     width: double.infinity,
                     decoration: BoxDecoration(
                         color: Theme.of(context).scaffoldBackgroundColor,
-                        borderRadius:const BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(20),
                           topRight: Radius.circular(20),
                         )),
@@ -62,7 +62,7 @@ class ScrolledBottomSheet extends StatelessWidget {
                         if (isSubScreen) const SizedBox(width: 4),
                         Text(
                           title,
-                          style: Theme.of(context).textTheme.headline1,
+                          style: Theme.of(context).textTheme.displayLarge,
                         ),
                         if (!isSubScreen)
                           WScaleAnimation(

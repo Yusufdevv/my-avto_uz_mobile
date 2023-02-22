@@ -2,17 +2,19 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/car_single/presentation/bloc/user_single_bloc/user_single_bloc.dart';
-import 'package:auto/features/commercial/presentation/widgets/info_container.dart';
-import 'package:auto/features/dealers/presentation/widgets/dealer_single_info_part.dart';
-import 'package:auto/features/profile/domain/entities/dealer_type_entity.dart';
+import 'package:auto/features/common/widgets/maps_list_in_app.dart';
+import 'package:auto/features/dealers/presentation/widgets/dealer_info_widget.dart';
 import 'package:auto/features/profile/presentation/pages/directory/directory_sliver_delegete.dart';
 import 'package:auto/features/search/presentation/widgets/info_result_container.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:map_launcher/map_launcher.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 // ignore: must_be_immutable
@@ -44,15 +46,19 @@ class _UserSinglePageState extends State<UserSinglePage> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    userSingleBloc.close();
-    super.dispose();
-  }
-
   late YandexMapController controller;
-  double maxZoomLevel = 0;
-  double minZoomLevel = 0;
+
+  Future<void> openMapsSheet(
+      BuildContext context, double lat, double long, String title) async {
+    final coords = Coords(lat, long);
+    final availableMaps = await MapLauncher.installedMaps;
+
+    await showModalBottomSheet(
+      context: context,
+      builder: (context) => MapsListInApp(
+          availableMaps: availableMaps, coords: coords, title: title),
+    );
+  }
 
   @override
   Widget build(BuildContext context) => BlocProvider.value(
@@ -60,6 +66,9 @@ class _UserSinglePageState extends State<UserSinglePage> {
         child: Scaffold(
           body: BlocBuilder<UserSingleBloc, UserSingleState>(
             builder: (context, state) {
+              if (state.status.isSubmissionSuccess) {
+                const Center(child: CupertinoActivityIndicator());
+              }
               if (state.status.isSubmissionSuccess) {
                 final item = state.userSingleEntity;
                 return NestedScrollView(
@@ -110,10 +119,12 @@ class _UserSinglePageState extends State<UserSinglePage> {
                                         fontWeight: FontWeight.w600),
                                   ),
                                   const SizedBox(height: 16),
-                                  Info(
-                                      text:
-                                          '${LocaleKeys.every_day.tr()}, ${item.announcement?.contactAvailableFrom?.substring(0, 5)} - ${item.announcement?.contactAvailableTo?.substring(0, 5)}',
-                                      icon: AppIcons.clock),
+                                  if (item.announcement?.contactAvailableFrom !=
+                                      '')
+                                    DeaelerInfoWidget(
+                                        text:
+                                            '${LocaleKeys.every_day.tr()}, ${item.announcement?.contactAvailableFrom?.substring(0, 5)} - ${item.announcement?.contactAvailableTo?.substring(0, 5)}',
+                                        icon: AppIcons.clock),
                                   if (item.announcement?.latitude != 0.0 ||
                                       item.announcement?.longitude != 0.0)
                                     Column(
@@ -159,6 +170,17 @@ class _UserSinglePageState extends State<UserSinglePage> {
                                               },
                                               mapObjects: [
                                                 PlacemarkMapObject(
+                                                  onTap: (mapObject, point) {
+                                                    openMapsSheet(
+                                                        context,
+                                                        item.announcement
+                                                                ?.latitude ??
+                                                            0,
+                                                        item.announcement
+                                                                ?.longitude ??
+                                                            0,
+                                                        '');
+                                                  },
                                                   icon: PlacemarkIcon.single(
                                                     PlacemarkIconStyle(
                                                       scale: 0.6,
@@ -189,20 +211,29 @@ class _UserSinglePageState extends State<UserSinglePage> {
                                         ),
                                       ],
                                     ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 16),
-                                    child: Info(
-                                      text: MyFunctions.phoneFormat(
-                                          item.announcement?.contactPhone ??
-                                              ''),
-                                      icon: AppIcons.tablerPhone,
+                                  if (item.announcement?.contactPhone != '')
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 16),
+                                      child: DeaelerInfoWidget(
+                                        onTap: () {
+                                          launchUrl(Uri.parse(
+                                              'tel: ${item.announcement?.contactPhone}'));
+                                        },
+                                        text: MyFunctions.phoneFormat(
+                                            item.announcement?.contactPhone ??
+                                                ''),
+                                        icon: AppIcons.tablerPhone,
+                                      ),
                                     ),
-                                  ),
-                                  Info(
-                                      icon: AppIcons.tablerInfo,
-                                      text:
-                                          item.announcement?.description ?? ''),
+                                  if (item.announcement?.description != '')
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 16),
+                                      child: DeaelerInfoWidget(
+                                          icon: AppIcons.tablerInfo,
+                                          text:
+                                              item.announcement?.description ??
+                                                  ''),
+                                    ),
                                 ],
                               )),
                           if (state.userAds.isNotEmpty)
@@ -216,7 +247,7 @@ class _UserSinglePageState extends State<UserSinglePage> {
                                     LocaleKeys.user_ads.tr(),
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline5
+                                        .headlineSmall
                                         ?.copyWith(fontSize: 16),
                                   ),
                                 ),
@@ -231,6 +262,9 @@ class _UserSinglePageState extends State<UserSinglePage> {
                                         padding:
                                             const EdgeInsets.only(bottom: 12),
                                         child: InfoResultContainer(
+                                          sellType: item.isRentWithPurchase
+                                              ? LocaleKeys.rent_to_buy.tr()
+                                              : LocaleKeys.car_sale.tr(),
                                           currency: item.currency,
                                           discount: item.discount ?? 0.0,
                                           callFrom: item.contactAvailableFrom,
@@ -240,7 +274,7 @@ class _UserSinglePageState extends State<UserSinglePage> {
                                           carYear: item.year,
                                           contactPhone: item.user.phoneNumber,
                                           description: item.description,
-                                          districtTitle: item.region,
+                                          districtTitle: item.region.title,
                                           isNew: item.isNew,
                                           isWishlisted: item.isWishlisted,
                                           price: item.price,

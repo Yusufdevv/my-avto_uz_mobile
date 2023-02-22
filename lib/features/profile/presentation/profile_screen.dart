@@ -1,10 +1,9 @@
 import 'dart:async';
-
-import 'package:auto/features/ad/presentation/posting_ad_screen.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/notification_button.dart';
 import 'package:auto/features/comparison/presentation/comparison_page.dart';
 import 'package:auto/features/profile/domain/entities/profile_data_entity.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,21 +35,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void initState() {
-    if (mounted) {
-      Timer(
-        const Duration(milliseconds: 500),
-        () async {
-          if (context.read<WishlistAddBloc>().state.goToAds == 1) {
-            await Navigator.of(context)
-                .push(fade(page: const MyAdsPage()))
-                .then((value) => context
-                    .read<WishlistAddBloc>()
-                    .add(WishlistAddEvent.goToAdds(-1)));
-          }
-        },
-      );
-    }
-
     imageBloc = ImageBloc();
     super.initState();
   }
@@ -72,12 +56,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             if (stateWish.addStatus.isSubmissionSuccess) {
               context
                   .read<ProfileBloc>()
-                  .add(ChangeCountDataEvent(adding: true));
+                  .add(ChangeCountDataEvent(adding: true, favoritesCount: 1));
             }
             if (stateWish.removeStatus.isSubmissionSuccess) {
               context
                   .read<ProfileBloc>()
-                  .add(ChangeCountDataEvent(adding: false));
+                  .add(ChangeCountDataEvent(adding: false, favoritesCount: 1));
             }
           },
           builder: (context, stateWish) =>
@@ -90,12 +74,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
             builder: (context, state) {
               if (state.status.isSubmissionInProgress ||
                   stateWish.goToAds == 1) {
+                Timer(
+                  const Duration(milliseconds: 500),
+                  () async {
+                    if (context.read<WishlistAddBloc>().state.goToAds == 1) {
+                      await Navigator.of(context)
+                          .push(fade(page: const MyAdsPage()))
+                          .then((value) => context
+                              .read<WishlistAddBloc>()
+                              .add(WishlistAddEvent.goToAdds(-1)));
+                    }
+                  },
+                );
                 return const Center(child: CupertinoActivityIndicator());
               }
-              // else if (state.status.isSubmissionFailure) {
-              //   return const SizedBox();
-              // }
-              else if (state.status.isSubmissionSuccess ||
+              if (state.status.isSubmissionSuccess ||
                   state.status.isSubmissionFailure) {
                 profileData = state.profileEntity;
                 // ignore: prefer_final_locals
@@ -111,8 +104,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   page: SeeProfilePage(imageBloc: imageBloc)));
                             },
                             fullName: profileData.fullName ?? '',
-                            subTitle:
-                                '${usercountData.announcementsCount} ${LocaleKeys.how_many_ads.tr()}',
+                            subTitle: usercountData.announcementsCount == 0
+                                ? LocaleKeys.no_ads.tr()
+                                : LocaleKeys.how_many_ads.tr(args: [
+                                    '${usercountData.announcementsCount}'
+                                  ], namedArgs: {
+                                    'appendix': MyFunctions.getAppendix(
+                                        usercountData.announcementsCount)
+                                  }),
                             imageUrl: profileData.image ?? '',
                             margin: EdgeInsets.only(
                                 top: SizeConfig.v(16),
@@ -235,7 +234,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 );
               }
-              return const Center(child: CupertinoActivityIndicator());
+              return const Center(child: Text('xatolik'));
             },
           ),
         ),

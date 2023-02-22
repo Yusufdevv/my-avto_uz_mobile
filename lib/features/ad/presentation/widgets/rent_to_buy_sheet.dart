@@ -6,6 +6,7 @@ import 'package:auto/features/ad/domain/entities/rent_with_purchase/rent_with_pu
 import 'package:auto/features/ad/presentation/bloc/rent_to_buy/rent_to_buy_bloc.dart';
 import 'package:auto/features/car_single/presentation/widgets/orange_button.dart';
 import 'package:auto/generated/locale_keys.g.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,8 +15,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class RentToBuySheet extends StatefulWidget {
+  final int idForNewCondition;
   final int price;
-  const RentToBuySheet({required this.price, super.key});
+  final RentWithPurchaseEntity? entityForEdit;
+
+  const RentToBuySheet(
+      {required this.price,
+      required this.idForNewCondition,
+      this.entityForEdit,
+      super.key});
 
   @override
   State<RentToBuySheet> createState() => _RentToBuySheetState();
@@ -24,10 +32,11 @@ class RentToBuySheet extends StatefulWidget {
 class _RentToBuySheetState extends State<RentToBuySheet> {
   late RentToBuyBloc rentToBuyBloc;
   late GlobalKey<FormState> _formKey;
+
   @override
   void initState() {
     _formKey = GlobalKey<FormState>();
-    rentToBuyBloc = RentToBuyBloc();
+    rentToBuyBloc = RentToBuyBloc(widget.entityForEdit);
     super.initState();
   }
 
@@ -42,7 +51,7 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                       top: 20,
                       right: 16,
                       left: 16,
-                      bottom: MediaQuery.of(context).padding.bottom + 42,
+                      bottom: MediaQuery.of(context).padding.bottom + 20,
                     ),
                     margin: MediaQuery.of(context).viewInsets,
                     decoration: const BoxDecoration(
@@ -64,7 +73,7 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                                 '(${state.step}/3)',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline5!
+                                    .headlineSmall!
                                     .copyWith(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w700,
@@ -73,7 +82,7 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                               const SizedBox(width: 8),
                               Text(
                                 state.title,
-                                style: Theme.of(context).textTheme.headline1,
+                                style: Theme.of(context).textTheme.displayLarge,
                               ),
                               const Spacer(),
                               GestureDetector(
@@ -106,21 +115,21 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                                   case 1:
                                     {
                                       if (value > widget.price) {
-                                        return 'Could not be > ${widget.price}';
+                                        return '${LocaleKeys.could_not_be.tr()}${widget.price}';
                                       }
                                     }
                                     break;
                                   case 2:
                                     {
                                       if (vv?.isEmpty ?? true) {
-                                        return 'Must filled';
+                                        return LocaleKeys.must_filled.tr();
                                       }
                                     }
                                     break;
                                   case 3:
                                     {
                                       if (!(value >= state.minimumSumma!)) {
-                                        return 'Must be >= ${state.minimumSumma}';
+                                        return '${LocaleKeys.must_be.tr()} >= ${state.minimumSumma}';
                                       }
                                     }
                                     break;
@@ -136,10 +145,10 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                               ],
                               keyboardType: TextInputType.phone,
                               textAlign: TextAlign.center,
-                              cursorColor: white,
+                              cursorColor: black,
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline1!
+                                  .displayLarge!
                                   .copyWith(
                                       fontSize: 24,
                                       fontWeight: FontWeight.w400),
@@ -160,17 +169,21 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                               text: TextSpan(
                                 children: [
                                   TextSpan(
-                                      text: 'Минимальная сумма должна быть',
+                                      text: LocaleKeys
+                                          .the_minimum_amount_must_be
+                                          .tr(),
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline2!
+                                          .displayMedium!
                                           .copyWith(
                                             fontSize: 13,
                                           )),
                                   TextSpan(
-                                      text: '  ≥ ${state.minimumSumma}',
-                                      style:
-                                          Theme.of(context).textTheme.headline5)
+                                      text:
+                                          '  ≥ ${MyFunctions.getFormatCost('${state.minimumSumma}')}',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall)
                                 ],
                               ),
                             ),
@@ -185,10 +198,12 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                                   switch (state.step) {
                                     case 1:
                                       rentToBuyBloc.add(RentToBuyEvent(
-                                          title: '',
-                                              // '${LocaleKeys.rent_period.tr()} (${LocaleKeys.for_month.tr()})',
+                                          controller: TextEditingController(
+                                              text: MyFunctions.getFormatCost(
+                                                  '${(state.entityForEdit?.rentalPeriod ?? 0) > 0 ? (state.entityForEdit?.rentalPeriod ?? 0) : ''}')),
+                                          title:
+                                              '${LocaleKeys.rent_period.tr()} (${LocaleKeys.for_month.tr()})',
                                           step: state.step + 1,
-                                          controller: TextEditingController(),
                                           prepayment: state.controller.text
                                               .replaceAll(' ', '')));
                                       break;
@@ -201,23 +216,19 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                                                 .controller.text
                                                 .replaceAll(' ', '')) ??
                                             0;
-                                        print(
-                                            '=> => => =>     prepayment: $prePayment    <= <= <= <=');
-                                        print(
-                                            '=> => => =>     rental Period: $rentalPeriod    <= <= <= <=');
-                                        print(
-                                            '=> => => =>     widget price: ${widget.price}    <= <= <= <=');
                                         final mini = widget.price > 0
                                             ? (widget.price - prePayment) ~/
                                                 rentalPeriod
                                             : 0;
-                                        print(
-                                            '=> => => =>     MINI: ${mini}    <= <= <= <=');
                                         rentToBuyBloc.add(RentToBuyEvent(
+                                            controller: TextEditingController(
+                                                text: MyFunctions.getFormatCost(
+                                                    state.entityForEdit
+                                                            ?.monthlyPayment ??
+                                                        '')),
                                             rentalPeriod: state.controller.text
                                                 .replaceAll(' ', ''),
-                                            controller: TextEditingController(),
-                                            title: 'Ежемесячная оплата',
+                                            title: LocaleKeys.monthly_pay.tr(),
                                             step: state.step + 1,
                                             minimumMonthlyPay: mini));
                                       }
@@ -228,6 +239,8 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                                 } else {
                                   Navigator.of(context).pop(
                                     RentWithPurchaseEntity(
+                                        id: state.entityForEdit?.id ??
+                                            widget.idForNewCondition,
                                         monthlyPayment: state.controller.text
                                             .replaceAll(' ', ''),
                                         prepayment: state.prepayment!,
@@ -239,10 +252,10 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                               }
                             },
                             content: Text(
-                              LocaleKeys.continuee,
+                              LocaleKeys.continuee.tr(),
                               style: Theme.of(context)
                                   .textTheme
-                                  .subtitle1!
+                                  .titleMedium!
                                   .copyWith(
                                     color: white,
                                   ),
@@ -254,6 +267,7 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                   )),
         ),
       );
+
   UnderlineInputBorder _border() => UnderlineInputBorder(
       borderSide: BorderSide(
           color: Theme.of(context)

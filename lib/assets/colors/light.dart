@@ -6,18 +6,18 @@ import 'package:flutter/material.dart';
 /// Replenished as needed.
 /// Use only the main palette.
 class LightThemeColors {
-  static const headline1 = _midnightExpress;
-  static const headline2 = _grey;
-  static const headline3 = _mediumSlateBlue;
-  static const headline4 = _white;
-  static const headline5 = _cinnabar;
-  static const headline6 = _grey;
+  static const displayLarge = _midnightExpress;
+  static const displayMedium = _grey;
+  static const displaySmall = _mediumSlateBlue;
+  static const headlineMedium = _white;
+  static const headlineSmall = _cinnabar;
+  static const titleLarge = _grey;
   static const headline7 = _midnightExpress;
-  static const bodyText1 = _solitude;
-  static const bodyText2 = _dodgerBlue;
-  static const subTitle1 = _black;
-  static const subTitle2 = _blackOpacity;
-  static const caption = _nero;
+  static const bodyLarge = _solitude;
+  static const bodyMedium = _dodgerBlue;
+  static const titleMedium = _black;
+  static const titleSmall = _blackOpacity;
+  static const bodySmall = _nero;
   static const button = _cinnabar;
   static const surface = _midnightExpress;
   static const appBar = _midnightExpress;
@@ -147,7 +147,7 @@ class LightThemeColors {
   static const whiteSmokeToBlack = _whiteSmoke1;
   static const silverToNightRider = _silver;
   static const textBlue = _blueText;
-  static const dividerColor=_solitude;
+  static const dividerColor = _solitude;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).

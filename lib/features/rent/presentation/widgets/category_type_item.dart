@@ -31,18 +31,19 @@ class CategoryTypeItem extends StatelessWidget {
                     rentMainEntity.name,
                     style: Theme.of(context)
                         .textTheme
-                        .headline1!
+                        .displayLarge!
                         .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
                   GestureDetector(
-                    onTap: onAllTap, behavior: HitTestBehavior.opaque,
+                    onTap: onAllTap,
+                    behavior: HitTestBehavior.opaque,
                     child: Row(
                       children: [
                         Text(
                           LocaleKeys.all.tr().toLowerCase(),
                           style: Theme.of(context)
                               .textTheme
-                              .bodyText1!
+                              .bodyLarge!
                               .copyWith(fontSize: 14, color: greyText),
                         ),
                         const SizedBox(

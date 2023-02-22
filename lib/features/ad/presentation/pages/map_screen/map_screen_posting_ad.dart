@@ -73,7 +73,7 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                   LocaleKeys.map.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .headline1!
+                      .displayLarge!
                       .copyWith(fontWeight: FontWeight.w600, fontSize: 16),
                 )),
             body: BlocBuilder<MapBloc, MapState>(
@@ -85,11 +85,10 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                       rotateGesturesEnabled: false,
                       onCameraPositionChanged:
                           (cameraPosition, updateReason, isStopped) async {
-
+                        zoomLevel = cameraPosition.zoom;
+                        setState(() {});
                       },
                       onMapTap: (point) async {
-                        final camera = await _mapController.getCameraPosition();
-
                         myPoint = Point(
                             latitude: point.latitude,
                             longitude: point.longitude);
@@ -103,9 +102,7 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                           CameraUpdate.newCameraPosition(
                             CameraPosition(
                               zoom: zoomLevel,
-                              target: Point(
-                                  latitude: point.latitude,
-                                  longitude: point.longitude),
+                              target: myPoint,
                             ),
                           ),
                           animation: const MapAnimation(
@@ -115,7 +112,7 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                           MapChangeLatLongEvent(
                             lat: point.latitude,
                             long: point.longitude,
-                            radius: MyFunctions.getRadiusFromZoom(camera.zoom)
+                            radius: MyFunctions.getRadiusFromZoom(zoomLevel)
                                 .floor(),
                           ),
                         );
@@ -125,38 +122,51 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                       },
                       mapObjects: _mapObjects,
                       onMapCreated: (controller) async {
+                        final lat = StorageRepository.getDouble('lat',
+                            defValue: 41.310990);
+                        final long = StorageRepository.getDouble('long',
+                            defValue: 69.281997);
+                        mapBloc.add(GetPointName(long: long, lat: lat));
                         _mapController = controller;
                         maxZoomLevel = await controller.getMaxZoom();
                         minZoomLevel = await controller.getMinZoom();
                         final camera = await _mapController.getCameraPosition();
-                        final position = Point(
-                            latitude: StorageRepository.getDouble('lat',
-                                defValue: 41.310990),
-                            longitude: StorageRepository.getDouble('long',
-                                defValue: 69.281997));
+                        myPoint = Point(
+                          latitude: lat,
+                          longitude: long,
+                        );
+                        final myPlaceMark =
+                            await MyFunctions.getMyPoint(myPoint, context);
+                        setState(() {
+                          _mapObjects.add(myPlaceMark);
+                        });
                         await _mapController.moveCamera(
                           CameraUpdate.newCameraPosition(
                             CameraPosition(
+                              zoom: zoomLevel,
                               target: Point(
-                                  latitude: position.latitude,
-                                  longitude: position.longitude),
+                                latitude: lat,
+                                longitude: long,
+                              ),
                             ),
                           ),
                           animation: const MapAnimation(
                               duration: 0.15, type: MapAnimationType.smooth),
                         );
+                        setState(() {});
                         mapBloc.add(
                           MapGetCurrentLocationEvent(
                             onError: (message) {
                               context.read<ShowPopUpBloc>().add(ShowPopUp(
                                     message: message,
-                                    status: PopStatus.error,
+                                    status: PopStatus.warning,
                                   ));
                             },
                             onSuccess: (position) async {
                               myPoint = Point(
-                                  latitude: position.latitude,
-                                  longitude: position.longitude);
+                                latitude: position.latitude,
+                                longitude: position.longitude,
+                              );
                               final myPlaceMark = await MyFunctions.getMyPoint(
                                   myPoint, context);
                               setState(() {
@@ -196,45 +206,6 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                     child: Padding(
                       padding: const EdgeInsets.all(16),
                       child: PostingAdMapControllerButtons(
-                        onCurrentLocationTap: () async {
-                          mapBloc.add(
-                            MapGetCurrentLocationEvent(
-                              onSuccess: (position) async {
-                                myPoint = Point(
-                                    latitude: position.latitude,
-                                    longitude: position.longitude);
-                                final myPlaceMark =
-                                    await MyFunctions.getMyPoint(
-                                        myPoint, context);
-                                setState(() {
-                                  _mapObjects.add(myPlaceMark);
-                                });
-                                accuracy = position.accuracy;
-                                await _mapController.moveCamera(
-                                  CameraUpdate.newCameraPosition(
-                                    CameraPosition(
-                                      target: Point(
-                                          latitude: position.latitude,
-                                          longitude: position.longitude),
-                                      zoom: 15,
-                                    ),
-                                  ),
-                                  animation: const MapAnimation(
-                                      duration: 0.15,
-                                      type: MapAnimationType.smooth),
-                                );
-                                zoomLevel = 15;
-                              },
-                              onError: (message) {
-                                context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                      message: message,
-                                      status: PopStatus.error,
-                                    ));
-                              },
-                            ),
-                          );
-                          zoomLevel = 15;
-                        },
                         onMinusTap: () {
                           if (minZoomLevel < zoomLevel) {
                             _mapController.moveCamera(
@@ -261,7 +232,6 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                   Positioned(
                     bottom: 0,
                     child: PostingAdSubmitBox(
-                      address: state.address,
                       onTab: () {
                         if (state.lat == 0) return;
                         Navigator.of(context)

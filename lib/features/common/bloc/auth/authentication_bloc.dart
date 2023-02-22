@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:developer';
+import 'dart:io';
 
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/storage.dart';
@@ -7,6 +9,9 @@ import 'package:auto/features/common/repository/auth.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 part 'authentication_event.dart';
 
@@ -21,13 +26,88 @@ enum AuthenticationStatus {
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
-  final AuthRepository repository;
+  final AuthRepository repository = AuthRepository();
   late StreamSubscription<AuthenticationStatus> statusSubscription;
 
-  AuthenticationBloc(this.repository)
-      : super(AuthenticationState.unauthenticated()) {
+  AuthenticationBloc() : super(AuthenticationState.unauthenticated()) {
     statusSubscription = repository.authStream.stream.listen((event) {
       add(AuthenticationStatusChanged(status: event));
+    });
+    on<LoginWithFaceBook>((event, emit) async {
+      final result = await FacebookAuth.instance.login();
+      if (result.status == LoginStatus.success) {
+        final accessToken = result.accessToken!;
+        log('object: ${accessToken.token}');
+        log('object: ${accessToken.userId}');
+        emit(AuthenticationState.loading());
+        final authResult = await repository.loginWithFacebook(
+            authToken: accessToken.token, code: '');
+        if (authResult.isRight) {
+          add(AuthenticationStatusChanged(
+              status: AuthenticationStatus.authenticated));
+        } else {
+          emit(AuthenticationState.cancelLoading());
+        }
+      } else {
+        log(result.status.toString());
+        log(result.message.toString());
+      }
+    });
+    on<LoginWithAppLe>((event, emit) async {
+      final credential = await SignInWithApple.getAppleIDCredential(
+          scopes: [
+            AppleIDAuthorizationScopes.email,
+            AppleIDAuthorizationScopes.fullName,
+          ],
+          webAuthenticationOptions: Platform.isAndroid
+              ? WebAuthenticationOptions(
+                  clientId: 'org.uicgroup.avto.uz.client',
+                  redirectUri: Uri.parse('https://avto.uz/login'))
+              : null);
+
+      log(credential.toString());
+      log(credential.authorizationCode);
+      log(credential.identityToken.toString());
+      log(credential.toString());
+      emit(AuthenticationState.loading());
+      final result = await repository.loginWithApple(
+          authToken: credential.identityToken ?? '',
+          code: credential.authorizationCode);
+      if (result.isRight) {
+        add(AuthenticationStatusChanged(
+            status: AuthenticationStatus.authenticated));
+      } else {
+        emit(AuthenticationState.cancelLoading());
+      }
+    });
+    on<LoginWithGoogle>((event, emit) async {
+      try {
+        final googleResult = await GoogleSignIn(
+          scopes: [
+            'openid',
+            'https://www.googleapis.com/auth/userinfo.profile',
+            'https://www.googleapis.com/auth/userinfo.email',
+          ],
+        ).signIn();
+        log('result: ${await googleResult?.authHeaders}');
+        await googleResult?.authentication.then((value) async {
+          log('value.accessToken: ${value.accessToken}');
+          log('value.idToken: ${googleResult.serverAuthCode}');
+          emit(AuthenticationState.loading());
+          final result = await repository.loginWithGoogle(
+              authToken: value.accessToken ?? '',
+              code: googleResult.serverAuthCode ?? '');
+          if (result.isRight) {
+            add(AuthenticationStatusChanged(
+                status: AuthenticationStatus.authenticated));
+          } else {
+            emit(AuthenticationState.cancelLoading());
+          }
+        });
+      // ignore: avoid_catches_without_on_clauses
+      } catch (error) {
+        log('error: $error');
+      }
     });
     on<AuthenticationStatusChanged>((event, emit) async {
       switch (event.status) {
@@ -93,11 +173,9 @@ class AuthenticationBloc
     on<ChangeNotificationAllRead>(
       (event, emit) {
         // ignore: prefer_final_locals
-        print('=======berfore ${state.user.isReadAllNotifications}');
         var user = state.user;
         // ignore: cascade_invocations
         user.isReadAllNotifications = true;
-        print('=======after ${state.user.isReadAllNotifications}');
 
         emit(state.copyWith(user: user));
       },

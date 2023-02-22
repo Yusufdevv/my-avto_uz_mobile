@@ -60,7 +60,7 @@ class CustomScreen extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context)
                               .textTheme
-                              .bodyText1!
+                              .bodyLarge!
                               .copyWith(
                                   color: secondary,
                                   fontWeight: FontWeight.w600,

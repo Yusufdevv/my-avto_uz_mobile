@@ -51,14 +51,14 @@ class CarPriceBottom extends StatelessWidget {
                 children: [
                   Text(
                     MyFunctions.getFormatCost(price),
-                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
                         fontWeight: FontWeight.w700,
                         fontSize: 24,
                         color: const Color(0xff171725)),
                   ),
                   Text(
-                    currency == 'USD' ? ' USD' : ' UZS',
-                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                    ' $currency',
+                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
                         fontWeight: FontWeight.w700,
                         fontSize: 24,
                         color: const Color(0xff171725)),
@@ -67,7 +67,8 @@ class CarPriceBottom extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       Navigator.pop(context);
-                    },    behavior: HitTestBehavior.opaque,
+                    },
+                    behavior: HitTestBehavior.opaque,
                     child: SvgPicture.asset(
                       AppIcons.close,
                       width: 32,
@@ -81,9 +82,10 @@ class CarPriceBottom extends StatelessWidget {
               height: 4,
             ),
             GestureDetector(
-              onTap: () { 
+              onTap: () {
                 Navigator.of(context).pop();
-              },    behavior: HitTestBehavior.opaque,
+              },
+              behavior: HitTestBehavior.opaque,
               child: Container(
                 margin: const EdgeInsets.only(left: 16),
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -94,10 +96,13 @@ class CarPriceBottom extends StatelessWidget {
                   children: [
                     Text(
                       LocaleKeys.optimal_price.tr(),
-                      style: Theme.of(context).textTheme.headline2!.copyWith(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12,
-                          color: Colors.white),
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium!
+                          .copyWith(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12,
+                              color: Colors.white),
                     ),
                     RotatedBox(
                         quarterTurns: 1,
@@ -113,23 +118,27 @@ class CarPriceBottom extends StatelessWidget {
             ),
             PriceStatisticItem(
               percent: percenti,
-              price: price,
+              price: MyFunctions.getFormatCost(price),
             ),
+            const SizedBox(height: 16),
+            const Divider(indent: 16, endIndent: 16, height: 1),
+            const SizedBox(height: 24),
             CarsPrice(
               date: LocaleKeys.ratio.tr(),
               price: LocaleKeys.cheaper_sc.tr(),
-              totalPrice: LocaleKeys.on.tr(args: ['$ration ($percent %)']) ,
+              totalPrice: LocaleKeys.on
+                  .tr(args: ['${MyFunctions.getFormatCost(ration.ceil().toString())} $currency ($percent%)']),
               // 'на $ration ($percent %)',
               textColor: const Color(0xff5ECC81),
             ),
-            const Divider(
-              indent: 16,
-              endIndent: 16,
-            ),
+            const SizedBox(height: 16),
+            const Divider(indent: 16, endIndent: 16, height: 1),
+            const SizedBox(height: 12),
             CarsPrice(
               date: '${LocaleKeys.market_condition_on.tr()} $date',
               price: LocaleKeys.average_price.tr(),
-              totalPrice: '≈ $middlePrice',
+              totalPrice:
+                  '≈ ${MyFunctions.getFormatCost(middlePrice.ceil().toString())} $currency',
               textColor: profileContainers,
             ),
             WScaleAnimation(
@@ -149,7 +158,7 @@ class CarPriceBottom extends StatelessWidget {
                 ),
                 padding: const EdgeInsets.only(top: 10, bottom: 10, left: 10),
                 margin: const EdgeInsets.only(
-                    left: 16, right: 16, top: 24, bottom: 16),
+                    left: 16, right: 16, top: 24, bottom: 24),
                 child: Row(
                   children: [
                     SvgPicture.asset(
@@ -158,8 +167,9 @@ class CarPriceBottom extends StatelessWidget {
                     ),
                     const SizedBox(width: 4),
                     Text(
-                      LocaleKeys.how_the_average_price_is_calculated.tr(),
-                      style: Theme.of(context).textTheme.headline1!.copyWith(
+                      LocaleKeys.how_the_average_price_is_calculated
+                          .tr(namedArgs: {'middle': ' '}),
+                      style: Theme.of(context).textTheme.displayLarge!.copyWith(
                           fontWeight: FontWeight.w600,
                           fontSize: 14,
                           color: dark),

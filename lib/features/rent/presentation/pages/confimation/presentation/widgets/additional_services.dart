@@ -57,7 +57,7 @@ class _AdditionalServicesState extends State<AdditionalServices> {
                   children: [
                     Text(
                       widget.services[index].name,
-                      style: Theme.of(context).textTheme.headline6!.copyWith(
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           color: greyText,
                           fontSize: 12,
                           fontWeight: FontWeight.w600),
@@ -65,7 +65,7 @@ class _AdditionalServicesState extends State<AdditionalServices> {
                     const SizedBox(width: 8),
                     Text(
                       '${((double.tryParse(widget.services[index].price) ?? 0) / 1000).floor()} ${LocaleKeys.per_day.tr()}',
-                      style: Theme.of(context).textTheme.headline6!.copyWith(
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
                             color: grey,
                             fontSize: 12,
                             fontWeight: FontWeight.w400,

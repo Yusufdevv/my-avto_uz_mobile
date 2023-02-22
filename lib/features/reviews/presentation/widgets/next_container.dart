@@ -7,7 +7,7 @@ Widget nexContainer(Color color, String text) => Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         color: color,
-        // color: LightThemeColors.headline5,
+        // color: LightThemeColors.headlineSmall,
       ),
       child: Center(
         child: Text(

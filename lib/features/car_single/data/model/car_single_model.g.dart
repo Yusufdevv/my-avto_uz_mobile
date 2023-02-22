@@ -48,13 +48,13 @@ CarSingleModel _$CarSingleModelFromJson(Map<String, dynamic> json) =>
               .toList() ??
           [],
       gearboxType: json['gearbox_type'] == null
-          ? const RentCarGearboxTypeEntity()
-          : const RentCarGearboxTypeConverter()
+          ? const GearboxTypeEntity()
+          : const GearboxTypeEntityConverter()
               .fromJson(json['gearbox_type'] as Map<String, dynamic>?),
       generation: json['generation'] == null
-          ? const RentCarGenerationEntity()
-          : const RentCarGenerationConverter()
-              .fromJson(json['generation'] as Map<String, dynamic>?),
+          ? const CarGenerationEntity()
+          : const CarGenerationConverter()
+              .fromJson(json['generation'] as Map<String, dynamic>),
       isMine: json['is_mine'] as bool? ?? false,
       isNew: json['is_new'] as bool? ?? false,
       isRegisteredLocally: json['is_registered_locally'] as bool? ?? false,
@@ -67,8 +67,8 @@ CarSingleModel _$CarSingleModelFromJson(Map<String, dynamic> json) =>
           : const RentCarMakeConverter()
               .fromJson(json['make'] as Map<String, dynamic>?),
       modificationType: json['modification_type'] == null
-          ? const RentCarModificationEntity()
-          : const RentCarModificationConverter()
+          ? const ModificationTypeEntity()
+          : const ModificationTypeEntityConverter()
               .fromJson(json['modification_type'] as Map<String, dynamic>?),
       ownership: json['ownership'] as String? ?? '',
       publishedAt: json['published_at'] as String? ?? '',
@@ -87,6 +87,7 @@ CarSingleModel _$CarSingleModelFromJson(Map<String, dynamic> json) =>
               .fromJson(json['user'] as Map<String, dynamic>?),
       userType: json['user_type'] as String? ?? '',
       viewsCount: json['views_count'] as int? ?? 0,
+      todayViewedCount: json['today_viewed_count'] as int? ?? 0,
       callCount: json['call_count'] as int? ?? 0,
       wishlistCount: json['wishlist_count'] as int? ?? 0,
       isComparison: json['is_comparison'] as bool? ?? false,
@@ -112,16 +113,15 @@ Map<String, dynamic> _$CarSingleModelToJson(CarSingleModel instance) =>
       'year': instance.year,
       'distance_traveled': instance.distanceTraveled,
       'color': instance.color,
-      'generation':
-          const RentCarGenerationConverter().toJson(instance.generation),
+      'generation': const CarGenerationConverter().toJson(instance.generation),
       'body_type': const RentCarBodyTypeConverter().toJson(instance.bodyType),
       'drive_type':
           const RentCarDriveTypeConverter().toJson(instance.driveType),
       'engine_type':
           const RentCarEngineTypeConverter().toJson(instance.engineType),
       'gearbox_type':
-          const RentCarGearboxTypeConverter().toJson(instance.gearboxType),
-      'modification_type': const RentCarModificationConverter()
+          const GearboxTypeEntityConverter().toJson(instance.gearboxType),
+      'modification_type': const ModificationTypeEntityConverter()
           .toJson(instance.modificationType),
       'licence_type': instance.licenceType,
       'ownership': instance.ownership,
@@ -145,6 +145,7 @@ Map<String, dynamic> _$CarSingleModelToJson(CarSingleModel instance) =>
       'latitude': instance.latitude,
       'is_mine': instance.isMine,
       'views_count': instance.viewsCount,
+      'today_viewed_count': instance.todayViewedCount,
       'created_at': instance.createdAt,
       'updated_at': instance.updatedAt,
       'damaged_parts': instance.damagedParts

@@ -31,11 +31,11 @@ class SingleCarInformationItem extends StatelessWidget {
               informationTitle,
               style: Theme.of(context)
                   .textTheme
-                  .subtitle1!
+                  .titleMedium!
                   .copyWith(fontWeight: FontWeight.w400, fontSize: 16),
             ),
             Text(informationSubtitle,
-                style: Theme.of(context).textTheme.headline2),
+                style: Theme.of(context).textTheme.displayMedium),
             const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -49,7 +49,7 @@ class SingleCarInformationItem extends StatelessWidget {
                     color: white,
                     textStyle: Theme.of(context)
                         .textTheme
-                        .subtitle1!
+                        .titleMedium!
                         .copyWith(fontSize: 13),
                     padding: const EdgeInsets.symmetric(
                         horizontal: 24, vertical: 10),
@@ -65,7 +65,7 @@ class SingleCarInformationItem extends StatelessWidget {
                     color: white,
                     textStyle: Theme.of(context)
                         .textTheme
-                        .subtitle1!
+                        .titleMedium!
                         .copyWith(fontSize: 13),
                     padding: const EdgeInsets.symmetric(
                         horizontal: 38, vertical: 10),

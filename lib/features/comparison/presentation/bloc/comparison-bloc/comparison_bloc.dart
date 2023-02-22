@@ -1,4 +1,5 @@
 import 'package:auto/core/usecases/usecase.dart';
+import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/comparison/domain/entities/comparison_entity.dart';
 import 'package:auto/features/comparison/domain/usecases/comparison_cars_use_case.dart';
 import 'package:bloc/bloc.dart';
@@ -12,10 +13,13 @@ class ComparisonBloc extends Bloc<ComparisonEvent, ComparisonState> {
   final ComparisonCarsUseCase comparisonCarsUseCase;
   ComparisonBloc({required this.comparisonCarsUseCase})
       : super(const ComparisonState(
-            cars: [],
-            onlyDifferences: false,
-            isSticky: false,
-            status: FormzStatus.pure)) {
+          cars: [],
+          onlyDifferences: false,
+          isSticky: false,
+          status: FormzStatus.pure,
+          selectedMake: MakeEntity(),
+          selectedModel: MakeEntity(),
+        )) {
     on<GetComparableCars>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await comparisonCarsUseCase.call(NoParams());
@@ -37,5 +41,12 @@ class ComparisonBloc extends Bloc<ComparisonEvent, ComparisonState> {
       list.remove(item);
       emit(state.copyWith(cars: list));
     });
+
+    on<GetMakeModelEvent>(_onGetMakeModel);
+  }
+
+  void _onGetMakeModel(GetMakeModelEvent event, Emitter<ComparisonState> emit) {
+    emit(state.copyWith(
+        selectedMake: event.selectedMake, selectedModel: event.selectedModel));
   }
 }

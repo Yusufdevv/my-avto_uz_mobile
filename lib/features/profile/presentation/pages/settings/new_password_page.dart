@@ -1,5 +1,4 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
@@ -15,7 +14,7 @@ import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class NewPasswordsPage extends StatefulWidget {
- const NewPasswordsPage({Key? key}) : super(key: key);
+  const NewPasswordsPage({Key? key}) : super(key: key);
 
   @override
   State<NewPasswordsPage> createState() => _NewPasswordsPageState();
@@ -54,19 +53,19 @@ class _NewPasswordsPageState extends State<NewPasswordsPage> {
                           LocaleKeys.change_password.tr(),
                           style: Theme.of(context)
                               .textTheme
-                              .headline1
+                              .displayLarge
                               ?.copyWith(fontSize: 32),
                         ),
                         SizedBox(height: SizeConfig.v(6)),
                         Text(LocaleKeys.create_unfoget.tr(),
                             textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.headline2),
+                            style: Theme.of(context).textTheme.displayMedium),
                         SizedBox(height: SizeConfig.v(36)),
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
                             LocaleKeys.old_password.tr(),
-                            style: Theme.of(context).textTheme.headline2,
+                            style: Theme.of(context).textTheme.displayMedium,
                           ),
                         ),
                         SizedBox(height: SizeConfig.v(8)),
@@ -81,7 +80,7 @@ class _NewPasswordsPageState extends State<NewPasswordsPage> {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             LocaleKeys.new_password.tr(),
-                            style: Theme.of(context).textTheme.headline2,
+                            style: Theme.of(context).textTheme.displayMedium,
                           ),
                         ),
                         SizedBox(height: SizeConfig.v(8)),
@@ -96,7 +95,7 @@ class _NewPasswordsPageState extends State<NewPasswordsPage> {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             LocaleKeys.confirm_password.tr(),
-                            style: Theme.of(context).textTheme.headline2,
+                            style: Theme.of(context).textTheme.displayMedium,
                           ),
                         ),
                         SizedBox(height: SizeConfig.v(8)),

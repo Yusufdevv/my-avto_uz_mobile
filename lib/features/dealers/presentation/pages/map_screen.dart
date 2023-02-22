@@ -2,7 +2,6 @@ import 'dart:typed_data';
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/assets/constants/images.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/presentation/pages/map_screen/widgets/map_point_name.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
@@ -20,8 +19,9 @@ import 'package:formz/formz.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class MapScreen extends StatefulWidget {
-  const MapScreen({Key? key, this.isDirectoryPage = false}) : super(key: key);
-  final bool isDirectoryPage;
+  const MapScreen({Key? key, this.isFromDirectoryPage = false})
+      : super(key: key);
+  final bool isFromDirectoryPage;
 
   @override
   State<MapScreen> createState() => _MapScreenState();
@@ -66,7 +66,7 @@ class _MapScreenState extends State<MapScreen>
         child: Scaffold(
           body: BlocConsumer<MapOrganizationBloc, MapOrganizationState>(
             listenWhen: (state1, state2) {
-              final isBuild = widget.isDirectoryPage
+              final isBuild = widget.isFromDirectoryPage
                   ? state1.directoriesPoints.length !=
                       state2.directoriesPoints.length
                   : state1.dealers.length != state2.dealers.length;
@@ -74,14 +74,14 @@ class _MapScreenState extends State<MapScreen>
             },
             listener: (context, state) {
               addDealer(
-                points: widget.isDirectoryPage
+                points: widget.isFromDirectoryPage
                     ? state.directoriesPoints
                     : state.dealers,
                 context: context,
                 mapObjects: _mapObjects,
                 point: myPoint,
                 accuracy: accuracy,
-                isDirectoryPage: widget.isDirectoryPage,
+                isDirectoryPage: widget.isFromDirectoryPage,
               );
             },
             builder: (context, mapOrganizationState) => Stack(
@@ -163,16 +163,21 @@ class _MapScreenState extends State<MapScreen>
                                   duration: 0.15,
                                   type: MapAnimationType.smooth),
                             );
-                            mapOrganizationBloc.add(
-                              MapOrganizationEvent.changeLatLong(
-                                lat: position.latitude,
-                                long: position.longitude,
-                                radius:
-                                    MyFunctions.getRadiusFromZoom(camera.zoom)
-                                        .floor(),
-                              ),
-                            );
-                            widget.isDirectoryPage
+                            mapOrganizationBloc
+                              ..add(MapOrganizationEvent.getAddressOfDealler(
+                                  lat: position.latitude,
+                                  long: position.longitude,
+                                  currentDealer: null))
+                              ..add(
+                                MapOrganizationEvent.changeLatLong(
+                                  lat: position.latitude,
+                                  long: position.longitude,
+                                  radius:
+                                      MyFunctions.getRadiusFromZoom(camera.zoom)
+                                          .floor(),
+                                ),
+                              );
+                            widget.isFromDirectoryPage
                                 ? mapOrganizationBloc.add(
                                     MapOrganizationEvent.getDirectoriesPoints(
                                         latitude: position.latitude,
@@ -192,102 +197,113 @@ class _MapScreenState extends State<MapScreen>
                   ),
                 ),
 
-                /// CONTROLLER BUTTONS
+                /// CONTROLLER BUTTONS and mappointname
                 Positioned(
                   right: 0,
-                  bottom: 128,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: MapControllerButtons(
-                      onCurrentLocationTap: () async {
-                        mapOrganizationBloc.add(
-                          MapOrganizationEvent.getCurrentLocation(
-                            onSuccess: (position) async {
-                              myPoint = Point(
-                                  latitude: position.latitude,
-                                  longitude: position.longitude);
-                              final myPlaceMark = await MyFunctions.getMyPoint(
-                                  myPoint, context);
-                              setState(() {
-                                _mapObjects.add(myPlaceMark);
-                              });
-                              accuracy = position.accuracy;
-                              await _mapController.moveCamera(
-                                CameraUpdate.newCameraPosition(
-                                  CameraPosition(
-                                    target: Point(
-                                        latitude: position.latitude,
-                                        longitude: position.longitude),
-                                    zoom: 15,
-                                  ),
-                                ),
+                  bottom: 16,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: MapControllerButtons(
+                          onCurrentLocationTap: () async {
+                            mapOrganizationBloc.add(
+                              MapOrganizationEvent.getCurrentLocation(
+                                onSuccess: (position) async {
+                                  myPoint = Point(
+                                      latitude: position.latitude,
+                                      longitude: position.longitude);
+                                  final myPlaceMark =
+                                      await MyFunctions.getMyPoint(
+                                          myPoint, context);
+                                  setState(() {
+                                    _mapObjects.add(myPlaceMark);
+                                  });
+                                  accuracy = position.accuracy;
+                                  await _mapController.moveCamera(
+                                    CameraUpdate.newCameraPosition(
+                                      CameraPosition(
+                                        target: Point(
+                                            latitude: position.latitude,
+                                            longitude: position.longitude),
+                                        zoom: 15,
+                                      ),
+                                    ),
+                                    animation: const MapAnimation(
+                                        duration: 0.15,
+                                        type: MapAnimationType.smooth),
+                                  );
+                                  zoomLevel = 15;
+                                  mapOrganizationBloc.add(
+                                      MapOrganizationEvent.getAddressOfDealler(
+                                          lat: position.latitude,
+                                          long: position.longitude,
+                                          currentDealer: null));
+                                },
+                                onError: (message) {
+                                  context.read<ShowPopUpBloc>().add(ShowPopUp(
+                                        message: message,
+                                        status: PopStatus.error,
+                                      ));
+                                },
+                              ),
+                            );
+                            zoomLevel = 15;
+                          },
+                          onMinusTap: () {
+                            if (minZoomLevel < zoomLevel) {
+                              _mapController.moveCamera(
+                                CameraUpdate.zoomTo(zoomLevel - 1),
                                 animation: const MapAnimation(
-                                    duration: 0.15,
+                                    duration: 0.2,
                                     type: MapAnimationType.smooth),
                               );
-                              zoomLevel = 15;
-                            },
-                            onError: (message) {
-                              context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                    message: message,
-                                    status: PopStatus.error,
-                                  ));
-                            },
-                          ),
-                        );
-                        zoomLevel = 15;
-                      },
-                      onMinusTap: () {
-                        if (minZoomLevel < zoomLevel) {
-                          _mapController.moveCamera(
-                            CameraUpdate.zoomTo(zoomLevel - 1),
-                            animation: const MapAnimation(
-                                duration: 0.2, type: MapAnimationType.smooth),
-                          );
-                          zoomLevel--;
-                        }
-                      },
-                      onPlusTap: () async {
-                        if (maxZoomLevel > zoomLevel) {
-                          await _mapController.moveCamera(
-                            CameraUpdate.zoomTo(zoomLevel + 1),
-                            animation: const MapAnimation(
-                                duration: 0.2, type: MapAnimationType.smooth),
-                          );
-                          zoomLevel++;
-                        }
-                      },
-                    ),
-                  ),
-                ),
-                Positioned(
-                  bottom: 46,
-                  child: Container(
-                    alignment: Alignment.center,
-                    width: MediaQuery.of(context).size.width - 32,
-                    margin: const EdgeInsets.symmetric(horizontal: 16),
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: white,
-                      border: Border.all(
-                        color: borderCircular,
-                        width: 1,
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          offset: const Offset(0, 2),
-                          blurRadius: 10,
-                          spreadRadius: 0,
-                          color: black.withOpacity(.1),
+                              zoomLevel--;
+                            }
+                          },
+                          onPlusTap: () async {
+                            if (maxZoomLevel > zoomLevel) {
+                              await _mapController.moveCamera(
+                                CameraUpdate.zoomTo(zoomLevel + 1),
+                                animation: const MapAnimation(
+                                    duration: 0.2,
+                                    type: MapAnimationType.smooth),
+                              );
+                              zoomLevel++;
+                            }
+                          },
                         ),
-                      ],
-                    ),
-                    child: MapPointName(
-                      isWaiting: mapOrganizationState.status ==
-                          FormzStatus.submissionInProgress,
-                      name: mapOrganizationState.address,
-                    ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width - 32,
+                        margin: const EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: white,
+                          border: Border.all(
+                            color: borderCircular,
+                            width: 1,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              offset: const Offset(0, 2),
+                              blurRadius: 10,
+                              spreadRadius: 0,
+                              color: black.withOpacity(.1),
+                            ),
+                          ],
+                        ),
+                        child: MapPointName(
+                          isWaiting: mapOrganizationState.status !=
+                              FormzStatus.submissionSuccess,
+                          name: mapOrganizationState.address,
+                          currentDealer: mapOrganizationState.currentDealer,
+                          isFromDirectoryPage: widget.isFromDirectoryPage,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -318,11 +334,14 @@ class _MapScreenState extends State<MapScreen>
       placeMarks.add(
         PlacemarkMapObject(
           opacity: 1,
-          mapId: MapObjectId(point.latitude.toString()),
-          point: Point(latitude: point.latitude, longitude: point.longitude),
+          mapId: MapObjectId(mapModel.id.toString()),
+          point:
+              Point(latitude: mapModel.latitude, longitude: mapModel.longitude),
           onTap: (object, point) {
             mapOrganizationBloc.add(MapOrganizationEvent.getAddressOfDealler(
-                lat: point.latitude, long: point.longitude));
+                lat: point.latitude,
+                long: point.longitude,
+                currentDealer: mapModel));
             _mapController.moveCamera(
               CameraUpdate.newCameraPosition(
                 CameraPosition(
@@ -371,7 +390,7 @@ class _MapScreenState extends State<MapScreen>
             PlacemarkIconStyle(
               image: BitmapDescriptor.fromBytes(
                 await MyFunctions.getBytesFromCanvas(
-                    image: AppImages.audi,
+                    image: AppIcons.dealersLocIcon,
                     width: 170,
                     height: 410,
                     placeCount: cluster.placemarks.length,

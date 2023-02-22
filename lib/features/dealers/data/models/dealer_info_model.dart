@@ -1,4 +1,4 @@
-import 'package:auto/features/dealers/domain/entities/dealer_info_entity.dart';
+import 'package:auto/features/dealers/domain/entities/dealer_single_entity.dart';
 import 'package:auto/features/dealers/domain/entities/dealer_type_entity.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:json_annotation/json_annotation.dart';

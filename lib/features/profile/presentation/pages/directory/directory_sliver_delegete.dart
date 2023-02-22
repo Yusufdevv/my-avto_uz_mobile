@@ -43,7 +43,7 @@ class DirectorySliverDelegate extends SliverPersistentHeaderDelegate {
                             ? 0.2
                             : 1,
             child: AnimatedImages(
-              isUserSingle: isUserSingle,
+                isUserSingle: isUserSingle,
                 images: gallery,
                 screenWidth: MediaQuery.of(context).size.width),
           ),
@@ -149,7 +149,7 @@ class DirectorySliverDelegate extends SliverPersistentHeaderDelegate {
                                   duration: _duration,
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline1!
+                                      .displayLarge!
                                       .copyWith(
                                           fontSize:
                                               shrinkOffset >= 158 ? 14 : 16),

@@ -40,7 +40,7 @@ Future<dynamic> bottomSheetForCalling(BuildContext context, String phone) =>
                             phone,
                             style: Theme.of(context)
                                 .textTheme
-                                .headline1!
+                                .displayLarge!
                                 .copyWith(
                                     fontWeight: FontWeight.w400,
                                     color: dodgerBlue),
@@ -73,10 +73,11 @@ Future<dynamic> bottomSheetForCalling(BuildContext context, String phone) =>
                       ),
                       child: Text(
                         LocaleKeys.cancell.tr(),
-                        style: Theme.of(context).textTheme.headline1!.copyWith(
-                              fontWeight: FontWeight.w600,
-                              color: dodgerBlue,
-                            ),
+                        style:
+                            Theme.of(context).textTheme.displayLarge!.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                  color: dodgerBlue,
+                                ),
                       ),
                     ),
                   ),
@@ -100,11 +101,13 @@ Future<dynamic> bottomSheetForCalling(BuildContext context, String phone) =>
                         const SizedBox(width: 12),
                         Text(
                           phone,
-                          style:
-                              Theme.of(context).textTheme.headline1!.copyWith(
-                                    fontWeight: FontWeight.w400,
-                                    color: dodgerBlue,
-                                  ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayLarge!
+                              .copyWith(
+                                fontWeight: FontWeight.w400,
+                                color: dodgerBlue,
+                              ),
                         ),
                       ],
                     ),
@@ -121,7 +124,7 @@ Future<dynamic> bottomSheetForCalling(BuildContext context, String phone) =>
                 isDefaultAction: true,
                 child: Text(
                   'Отменить',
-                  style: Theme.of(context).textTheme.headline1!.copyWith(
+                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
                         fontWeight: FontWeight.w600,
                         color: dodgerBlue,
                       ),

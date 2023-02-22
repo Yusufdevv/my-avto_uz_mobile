@@ -19,13 +19,13 @@ class TermsOfUseAndRules extends StatelessWidget {
           children: [
             TextSpan(
                 text: "Ro'yxatdan o'tishni davom ",
-                style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: Theme.of(context)
                         .extension<ThemedColors>()!
                         .dolphinToGreySuit)),
             TextSpan(
                 text: 'ettirish orqali men ',
-                style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: Theme.of(context)
                         .extension<ThemedColors>()!
                         .dolphinToGreySuit)),
@@ -33,7 +33,7 @@ class TermsOfUseAndRules extends StatelessWidget {
                 alignment: PlaceholderAlignment.middle,
                 child: WScaleAnimation(
                   child: Text('foydalanish ',
-                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           color: Theme.of(context)
                               .extension<ThemedColors>()!
                               .mediumSlateBlueToDolphin,
@@ -50,7 +50,7 @@ class TermsOfUseAndRules extends StatelessWidget {
                 alignment: PlaceholderAlignment.middle,
                 child: WScaleAnimation(
                   child: Text('shartlari ',
-                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           color: Theme.of(context)
                               .extension<ThemedColors>()!
                               .mediumSlateBlueToDolphin,
@@ -64,7 +64,7 @@ class TermsOfUseAndRules extends StatelessWidget {
                 )),
             TextSpan(
                 text: 'va ',
-                style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: Theme.of(context)
                         .extension<ThemedColors>()!
                         .dolphinToGreySuit)),
@@ -73,7 +73,7 @@ class TermsOfUseAndRules extends StatelessWidget {
                 child: WScaleAnimation(
                   child: Text(
                     'qoidalarini ',
-                    style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         color: Theme.of(context)
                             .extension<ThemedColors>()!
                             .mediumSlateBlueToDolphin,
@@ -88,13 +88,13 @@ class TermsOfUseAndRules extends StatelessWidget {
                 )),
             TextSpan(
                 text: 'qabul qilganimni ',
-                style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: Theme.of(context)
                         .extension<ThemedColors>()!
                         .dolphinToGreySuit)),
             TextSpan(
                 text: 'tan olaman',
-                style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: Theme.of(context)
                         .extension<ThemedColors>()!
                         .dolphinToGreySuit)),
@@ -105,7 +105,7 @@ class TermsOfUseAndRules extends StatelessWidget {
           children: [
             TextSpan(
                 text: 'Продолжая регистрацию, я признаю что принимаю ',
-                style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: Theme.of(context)
                         .extension<ThemedColors>()!
                         .dolphinToGreySuit)),
@@ -113,7 +113,7 @@ class TermsOfUseAndRules extends StatelessWidget {
                 alignment: PlaceholderAlignment.middle,
                 child: WScaleAnimation(
                   child: Text('условия ',
-                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           color: Theme.of(context)
                               .extension<ThemedColors>()!
                               .mediumSlateBlueToDolphin,
@@ -129,7 +129,7 @@ class TermsOfUseAndRules extends StatelessWidget {
                 alignment: PlaceholderAlignment.middle,
                 child: WScaleAnimation(
                   child: Text('использования ',
-                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           color: Theme.of(context)
                               .extension<ThemedColors>()!
                               .mediumSlateBlueToDolphin,
@@ -143,7 +143,7 @@ class TermsOfUseAndRules extends StatelessWidget {
                 )),
             TextSpan(
                 text: 'и ',
-                style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: Theme.of(context)
                         .extension<ThemedColors>()!
                         .dolphinToGreySuit)),
@@ -152,7 +152,7 @@ class TermsOfUseAndRules extends StatelessWidget {
                 child: WScaleAnimation(
                   child: Text(
                     'правила ',
-                    style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         color: Theme.of(context)
                             .extension<ThemedColors>()!
                             .mediumSlateBlueToDolphin,

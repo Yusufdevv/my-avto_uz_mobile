@@ -17,7 +17,10 @@ AnnouncementListModel _$AnnouncementListModelFromJson(
               ?.map((e) => e as String)
               .toList() ??
           const [],
-      generation: json['generation'] as String? ?? '',
+      generation: json['generation'] == null
+          ? const CarGenerationEntity()
+          : const CarGenerationConverter()
+              .fromJson(json['generation'] as Map<String, dynamic>),
       id: json['id'] as int? ?? 0,
       isComparison: json['is_comparison'] as bool? ?? false,
       isWishlisted: json['is_wishlisted'] as bool? ?? false,
@@ -26,7 +29,10 @@ AnnouncementListModel _$AnnouncementListModelFromJson(
       make: json['make'] as String? ?? '',
       model: json['model'] as String? ?? '',
       price: (json['price'] as num?)?.toDouble() ?? 0,
-      region: json['region'] as String? ?? '',
+      region: json['region'] == null
+          ? const RegionEntity()
+          : const RegionConverter()
+              .fromJson(json['region'] as Map<String, dynamic>?),
       user: json['user'] == null
           ? const UserEntity()
           : const UserConverter()
@@ -50,9 +56,9 @@ Map<String, dynamic> _$AnnouncementListModelToJson(
       'id': instance.id,
       'make': instance.make,
       'model': instance.model,
-      'generation': instance.generation,
+      'generation': const CarGenerationConverter().toJson(instance.generation),
       'gallery': instance.gallery,
-      'region': instance.region,
+      'region': const RegionConverter().toJson(instance.region),
       'description': instance.description,
       'year': instance.year,
       'views_count': instance.viewsCount,

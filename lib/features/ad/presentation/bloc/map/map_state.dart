@@ -3,6 +3,7 @@ part of 'map_bloc.dart';
 class MapState extends Equatable {
   final FormzStatus status;
   final FormzStatus getCurrentLocationStatus;
+  final FormzStatus getPointNameStatus;
   final int radius;
   final double lat;
   final double long;
@@ -11,10 +12,11 @@ class MapState extends Equatable {
   const MapState({
     required this.status,
     required this.getCurrentLocationStatus,
+    required this.getPointNameStatus,
     this.lat = 0,
     this.long = 0,
     this.radius = 0,
-    this.address ,
+    this.address,
   });
 
   MapState copyWith({
@@ -23,9 +25,11 @@ class MapState extends Equatable {
     double? long,
     FormzStatus? status,
     FormzStatus? getCurrentLocationStatus,
+    FormzStatus? getPointNameStatus,
     String? address,
   }) =>
       MapState(
+        getPointNameStatus: getPointNameStatus ?? this.getPointNameStatus,
         lat: lat ?? this.lat,
         long: long ?? this.long,
         radius: radius ?? this.radius,
@@ -37,6 +41,7 @@ class MapState extends Equatable {
 
   @override
   List<Object?> get props => [
+        getPointNameStatus,
         status,
         getCurrentLocationStatus,
         radius,

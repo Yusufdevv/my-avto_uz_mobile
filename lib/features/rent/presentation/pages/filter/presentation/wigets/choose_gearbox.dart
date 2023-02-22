@@ -1,6 +1,4 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/core/singletons/service_locator.dart';
-import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
@@ -13,8 +11,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
+
 class ChooseGearbox extends StatefulWidget {
   final int selectedId;
+
   const ChooseGearbox({required this.selectedId, super.key});
 
   @override
@@ -23,13 +23,12 @@ class ChooseGearbox extends StatefulWidget {
 
 class _ChooseGearboxState extends State<ChooseGearbox> {
   late GetGearboxesBloc getGearboxesBloc;
+
   @override
   void initState() {
     getGearboxesBloc = GetGearboxesBloc(
       selectedId: widget.selectedId,
-      getGearboxesUseCase: GetGearBoxessUseCase(
-        repository: serviceLocator<AdRepositoryImpl>(),
-      ),
+      getGearboxesUseCase: GetGearBoxessUseCase(),
     )..add(GetGearboxesGetEvent());
     super.initState();
   }
@@ -99,7 +98,7 @@ class _ChooseGearboxState extends State<ChooseGearbox> {
                       child: WButton(
                         onTap: () {
                           Navigator.of(context).pop(state.selected >= 0
-                              ? state.gearBoxes[state.selected] 
+                              ? state.gearBoxes[state.selected]
                               : null);
                         },
                         color: orange,

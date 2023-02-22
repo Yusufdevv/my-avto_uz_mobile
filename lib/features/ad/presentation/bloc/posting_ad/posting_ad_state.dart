@@ -1,31 +1,36 @@
 part of 'posting_ad_bloc.dart';
 
 class PostingAdState extends Equatable {
+  final PopStatus popStatus;
   final FormzStatus status;
   final FormzStatus getDistrictsStatus;
   final FormzStatus getMakesStatus;
   final FormzStatus createStatus;
+
+  final FormzStatus getAnnouncementToEditStatus;
   final String? id;
+
+  final GlobalKey<FormState> contactsFormKey;
   final TextEditingController phoneController;
   final TextEditingController emailController;
   final TextEditingController nameController;
   final TextEditingController searchController;
-  final int? modificationId;
+  final ModificationTypeEntity? modification;
   final List<ModificationTypeEntity> modifications;
-  final int? gearboxId;
+  final GearboxTypeEntity? gearbox;
   final List<GearboxTypeEntity> gearBoxes;
   final int? driveTypeId;
   final List<DriveTypeEntity> driveTypes;
   final int? engineId;
   final List<EngineTypeEntity> engines;
-  final int? modelId;
+  final MakeEntity? model;
   final List<MakeEntity> models;
-  final int? makeId;
+  final MakeEntity? make;
   final List<MakeEntity> makes;
   final List<MakeEntity> topMakes;
   final int? generationId;
   final List<GenerationEntity> generations;
-  final int? bodyTypeId;
+  final BodyTypeEntity? bodyType;
   final List<BodyTypeEntity> bodyTypes;
   final int? regionId;
   final List<Region> regions;
@@ -36,7 +41,8 @@ class PostingAdState extends Equatable {
   final int? districtId;
   final List<String> gallery;
   final List<String> panaramaGallery;
-  final List<RentWithPurchaseEntity> rentWithPurchaseConditions;
+  final Map<int, RentWithPurchaseEntity> rentWithPurchaseConditions;
+
   final Map<DamagedParts, DamageType> damagedParts;
   final UserModel? userModel;
   final Uint8List? mapPointBytes;
@@ -56,7 +62,6 @@ class PostingAdState extends Equatable {
   final String? price;
   final String currency;
   final String? mileage;
-  final String? gasBalloonType;
   final String? callTimeFrom;
   final String? callTimeTo;
   final String? toastMessage;
@@ -70,38 +75,45 @@ class PostingAdState extends Equatable {
   final bool showExactAddress;
   final bool? rentToBuy;
   final bool? isWithoutMileage;
+  final List<GasEquipmentEntity> gasEquipments;
+  final int? gasEquipmentId;
+  final List<EquipmentEntity> equipments;
+  final int? equipmentId;
 
   const PostingAdState({
+    required this.contactsFormKey,
     required this.status,
+    required this.getAnnouncementToEditStatus,
     required this.searchController,
     required this.phoneController,
     required this.emailController,
     required this.nameController,
+    required this.popStatus,
     this.id,
     this.makeLetterIndex,
     this.minimumPrice = 0,
-    this.modificationId,
+    this.modification,
     this.modifications = const <ModificationTypeEntity>[],
-    this.gearboxId,
+    this.gearbox,
     this.gearBoxes = const <GearboxTypeEntity>[],
     this.driveTypeId,
     this.driveTypes = const <DriveTypeEntity>[],
-    this.makeId,
+    this.make,
     this.makes = const <MakeEntity>[],
     this.engineId,
     this.engines = const <EngineTypeEntity>[],
     this.topMakes = const <MakeEntity>[],
-    this.modelId,
+    this.model,
     this.models = const <MakeEntity>[],
     this.generationId,
     this.generations = const <GenerationEntity>[],
-    this.bodyTypeId,
+    this.bodyType,
     this.bodyTypes = const <BodyTypeEntity>[],
     this.yearEntity,
     this.years = const <YearsEntity>[],
     this.gallery = const <String>[],
     this.panaramaGallery = const <String>[],
-    this.rentWithPurchaseConditions = const <RentWithPurchaseEntity>[],
+    this.rentWithPurchaseConditions = const <int, RentWithPurchaseEntity>{},
     this.regions = const <Region>[],
     this.damagedParts = const <DamagedParts, DamageType>{},
     this.letter,
@@ -120,9 +132,8 @@ class PostingAdState extends Equatable {
     this.city,
     this.regionId,
     this.price,
-    this.currency = 'usd',
+    this.currency = 'uzs',
     this.mileage,
-    this.gasBalloonType,
     this.callTimeFrom,
     this.callTimeTo,
     this.isCallTimed = false,
@@ -140,6 +151,10 @@ class PostingAdState extends Equatable {
     this.locationUrl,
     this.mapPointBytes,
     this.milageImage,
+    this.gasEquipments = const [],
+    this.gasEquipmentId,
+    this.equipments = const [],
+    this.equipmentId,
   });
 
   String? get districtTitle {
@@ -157,28 +172,30 @@ class PostingAdState extends Equatable {
     TextEditingController? nameController,
     TextEditingController? searchController,
     Map<DamagedParts, DamageType>? damagedParts,
-    List<RentWithPurchaseEntity>? rentWithPurchaseConditions,
+    Map<int, RentWithPurchaseEntity>? rentWithPurchaseConditions,
     int? districtId,
     int? regionId,
     FormzStatus? status,
     FormzStatus? getDistrictsStatus,
     FormzStatus? createStatus,
     FormzStatus? getMakesStatus,
-    int? modificationId,
+    FormzStatus? getAnnouncementToEditStatus,
+    PopStatus? popStatus,
+    ModificationTypeEntity? modification,
     List<ModificationTypeEntity>? modifications,
-    int? gearboxId,
+    GearboxTypeEntity? gearbox,
     List<GearboxTypeEntity>? gearBoxes,
     int? driveTypeId,
     List<DriveTypeEntity>? driveTypes,
     int? engineId,
     List<EngineTypeEntity>? engines,
-    int? modelId,
+    MakeEntity? model,
     List<MakeEntity>? models,
     int? generationId,
     List<GenerationEntity>? generations,
-    int? bodyTypeId,
+    BodyTypeEntity? bodyType,
     List<BodyTypeEntity>? bodyTypes,
-    int? makeId,
+    MakeEntity? make,
     List<MakeEntity>? makes,
     List<Region>? regions,
     List<MakeEntity>? topMakes,
@@ -193,7 +210,7 @@ class PostingAdState extends Equatable {
     String? milageImage,
     String? eventLetter,
     String? colorName,
-    String? typeDocument,
+    String? licenceType,
     String? ownerStep,
     String? ownerName,
     Uint8List? mapPointBytes,
@@ -220,90 +237,98 @@ class PostingAdState extends Equatable {
     bool? rentToBuy,
     bool? isWithoutMileage,
     bool? showExactAddress,
-  }) {
-    // print('====   ACTUALLY IN STATE:  ${this.districts}  ====');
-    // print('==== INCOMING DISTRICT TO COPYWITH:  ${districts}  ====');
-    final newState = PostingAdState(
-      milageImage: milageImage ?? this.milageImage,
-      modificationId: modificationId ?? this.modificationId,
-      modifications: modifications ?? this.modifications,
-      getMakesStatus: getMakesStatus ?? this.getMakesStatus,
-      searchController: searchController ?? this.searchController,
-      panaramaGallery: panaramaGallery ?? this.panaramaGallery,
-      createStatus: createStatus ?? this.createStatus,
-      mapPointBytes: mapPointBytes ?? this.mapPointBytes,
-      makeLetterIndex: eventMakeScrrollIndex,
-      yearEntity: yearEntity ?? this.yearEntity,
-      locationUrl: locationUrl ?? this.locationUrl,
-      phoneController: phoneController ?? this.phoneController,
-      emailController: emailController ?? this.emailController,
-      nameController: nameController ?? this.nameController,
-      userModel: userModel ?? this.userModel,
-      minimumPrice: minimumPrice ?? this.minimumPrice,
-      getDistrictsStatus: getDistrictsStatus ?? this.getDistrictsStatus,
-      districts: districts ?? this.districts,
-      damagedParts: damagedParts ?? this.damagedParts,
-      rentWithPurchaseConditions:
-          rentWithPurchaseConditions ?? this.rentWithPurchaseConditions,
-      showExactAddress: showExactAddress ?? this.showExactAddress,
-      districtId: districtId ?? this.districtId,
-      city: city ?? this.city,
-      regionId: regionId ?? this.regionId,
-      gearboxId: gearboxId ?? this.gearboxId,
-      gearBoxes: gearBoxes ?? this.gearBoxes,
-      driveTypeId: driveTypeId ?? this.driveTypeId,
-      driveTypes: driveTypes ?? this.driveTypes,
-      engineId: engineId ?? this.engineId,
-      engines: engines ?? this.engines,
-      models: models ?? this.models,
-      generationId: generationId ?? this.generationId,
-      generations: generations ?? this.generations,
-      bodyTypeId: bodyTypeId ?? this.bodyTypeId,
-      topMakes: topMakes ?? this.topMakes,
-      makes: makes ?? this.makes,
-      status: status ?? this.status,
-      bodyTypes: bodyTypes ?? this.bodyTypes,
-      years: years ?? this.years,
-      hasAppBarShadow: hasAppBarShadow ?? this.hasAppBarShadow,
-      isSortByLetter: isSortByLetter,
-      modelId: modelId ?? this.modelId,
-      makeId: makeId ?? this.makeId,
-      letter: eventLetter,
-      colorName: colorName ?? this.colorName,
-      licenceType: typeDocument ?? this.licenceType,
-      ownerStep: ownerStep ?? this.ownerStep,
-      purchasedDate: purchasedDate ?? this.purchasedDate,
-      notRegisteredInUzbekistan:
-          notRegisteredInUzbekistan ?? this.notRegisteredInUzbekistan,
-      description: description ?? this.description,
-      ownerEmail: ownerEmail ?? this.ownerEmail,
-      ownerName: ownerName ?? this.ownerName,
-      ownerPhone: ownerPhone ?? this.ownerPhone,
-      mileage: mileage ?? this.mileage,
-      currency: currency ?? this.currency,
-      gasBalloonType: gasBalloonType ?? this.gasBalloonType,
-      price: price ?? this.price,
-      callTimeFrom: callTimeFrom ?? this.callTimeFrom,
-      callTimeTo: callTimeTo ?? this.callTimeTo,
-      isCallTimed: isCallTimed ?? this.isCallTimed,
-      showOwnerContacts: showOwnerContacts ?? this.showOwnerContacts,
-      isContactsVerified: isContactsVerified ?? this.isContactsVerified,
-      rentToBuy: rentToBuy ?? this.rentToBuy,
-      isWithoutMileage: isWithoutMileage ?? this.isWithoutMileage,
-      gallery: gallery ?? this.gallery,
-      regions: regions ?? this.regions,
-      toastMessage: toastMessage,
-    );
-
-    // print(
-    //     '====   OUTCOMINT DISTRICT FROM COPY WITH:  ${newState.districts}  ====');
-    return newState;
-  }
+    GlobalKey<FormState>? contactsFormKey,
+    List<GasEquipmentEntity>? gasEquipments,
+    int? gasEquipmentId,
+    List<EquipmentEntity>? equipments,
+    int? equipmentId,
+  }) =>
+      PostingAdState(
+        contactsFormKey: contactsFormKey ?? this.contactsFormKey,
+        getAnnouncementToEditStatus:
+            getAnnouncementToEditStatus ?? this.getAnnouncementToEditStatus,
+        popStatus: popStatus ?? this.popStatus,
+        milageImage: milageImage ?? this.milageImage,
+        modification: modification ?? this.modification,
+        modifications: modifications ?? this.modifications,
+        getMakesStatus: getMakesStatus ?? this.getMakesStatus,
+        searchController: searchController ?? this.searchController,
+        panaramaGallery: panaramaGallery ?? this.panaramaGallery,
+        createStatus: createStatus ?? this.createStatus,
+        mapPointBytes: mapPointBytes ?? this.mapPointBytes,
+        makeLetterIndex: eventMakeScrrollIndex,
+        yearEntity: yearEntity ?? this.yearEntity,
+        locationUrl: locationUrl ?? this.locationUrl,
+        phoneController: phoneController ?? this.phoneController,
+        emailController: emailController ?? this.emailController,
+        nameController: nameController ?? this.nameController,
+        userModel: userModel ?? this.userModel,
+        minimumPrice: minimumPrice ?? this.minimumPrice,
+        getDistrictsStatus: getDistrictsStatus ?? this.getDistrictsStatus,
+        districts: districts ?? this.districts,
+        damagedParts: damagedParts ?? this.damagedParts,
+        rentWithPurchaseConditions:
+            rentWithPurchaseConditions ?? this.rentWithPurchaseConditions,
+        showExactAddress: showExactAddress ?? this.showExactAddress,
+        districtId: districtId ?? this.districtId,
+        city: city ?? this.city,
+        regionId: regionId ?? this.regionId,
+        gearbox: gearbox ?? this.gearbox,
+        gearBoxes: gearBoxes ?? this.gearBoxes,
+        driveTypeId: driveTypeId ?? this.driveTypeId,
+        driveTypes: driveTypes ?? this.driveTypes,
+        engineId: engineId ?? this.engineId,
+        engines: engines ?? this.engines,
+        models: models ?? this.models,
+        generationId: generationId ?? this.generationId,
+        generations: generations ?? this.generations,
+        bodyType: bodyType ?? this.bodyType,
+        topMakes: topMakes ?? this.topMakes,
+        makes: makes ?? this.makes,
+        status: status ?? this.status,
+        bodyTypes: bodyTypes ?? this.bodyTypes,
+        years: years ?? this.years,
+        hasAppBarShadow: hasAppBarShadow ?? this.hasAppBarShadow,
+        isSortByLetter: isSortByLetter,
+        model: model ?? this.model,
+        make: make ?? this.make,
+        letter: eventLetter,
+        colorName: colorName ?? this.colorName,
+        licenceType: licenceType ?? this.licenceType,
+        ownerStep: ownerStep ?? this.ownerStep,
+        purchasedDate: purchasedDate ?? this.purchasedDate,
+        notRegisteredInUzbekistan:
+            notRegisteredInUzbekistan ?? this.notRegisteredInUzbekistan,
+        description: description ?? this.description,
+        ownerEmail: ownerEmail ?? this.ownerEmail,
+        ownerName: ownerName ?? this.ownerName,
+        ownerPhone: ownerPhone ?? this.ownerPhone,
+        mileage: mileage ?? this.mileage,
+        currency: currency ?? this.currency,
+        price: price ?? this.price,
+        callTimeFrom: callTimeFrom ?? this.callTimeFrom,
+        callTimeTo: callTimeTo ?? this.callTimeTo,
+        isCallTimed: isCallTimed ?? this.isCallTimed,
+        showOwnerContacts: showOwnerContacts ?? this.showOwnerContacts,
+        isContactsVerified: isContactsVerified ?? this.isContactsVerified,
+        rentToBuy: rentToBuy ?? this.rentToBuy,
+        isWithoutMileage: isWithoutMileage ?? this.isWithoutMileage,
+        gallery: gallery ?? this.gallery,
+        regions: regions ?? this.regions,
+        toastMessage: toastMessage,
+        gasEquipments: gasEquipments ?? this.gasEquipments,
+        gasEquipmentId: gasEquipmentId ?? this.gasEquipmentId,
+        equipments: equipments ?? this.equipments,
+        equipmentId: equipmentId ?? this.equipmentId,
+      );
 
   @override
   List<Object?> get props => [
+        contactsFormKey,
+        getAnnouncementToEditStatus,
+        popStatus,
         milageImage,
-        modificationId,
+        modification,
         modifications,
         getMakesStatus,
         searchController,
@@ -333,16 +358,16 @@ class PostingAdState extends Equatable {
         callTimeFrom,
         city,
         regionId,
-        gearboxId,
+        gearbox,
         gearBoxes,
         driveTypeId,
         driveTypes,
         engineId,
         engines,
         generations,
-        modelId,
+        model,
         isSortByLetter,
-        makeId,
+        make,
         letter,
         hasAppBarShadow,
         years,
@@ -354,7 +379,7 @@ class PostingAdState extends Equatable {
         licenceType,
         ownerStep,
         purchasedDate,
-        bodyTypeId,
+        bodyType,
         notRegisteredInUzbekistan,
         description,
         ownerEmail,
@@ -363,12 +388,17 @@ class PostingAdState extends Equatable {
         price,
         currency,
         mileage,
-        gasBalloonType,
         isCallTimed,
         showOwnerContacts,
         isContactsVerified,
+        gasEquipments,
+        gasEquipmentId,
+        equipments,
+        equipmentId,
       ];
-  bool buttonStatus(int page) => PASingleton.buttonStatus(page, this);
+
+  bool buttonStatus(int page) => PASingleton.nextButtonIsDisabled(page, this);
+
   Region get getSelectedRegion {
     final v = regions.firstWhere((e) => e.id == regionId,
         orElse: () => const Region(id: -1, name: '', title: ''));

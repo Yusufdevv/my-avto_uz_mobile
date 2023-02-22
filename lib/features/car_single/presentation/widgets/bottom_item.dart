@@ -17,7 +17,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class BottomItem extends StatefulWidget {
+class BottomItem extends StatelessWidget {
   final String? callFrom;
   final String usertype;
   final String? callTo;
@@ -40,46 +40,20 @@ class BottomItem extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<BottomItem> createState() => _BottomItemState();
-}
-
-class _BottomItemState extends State<BottomItem>
-    with SingleTickerProviderStateMixin, 
-    // ignore: prefer_mixin
-    WidgetsBindingObserver {
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    switch (state) {
-      case AppLifecycleState.resumed:
-        context.read<CarSingleBloc>().add(CarSingleEvent.callCount(widget.id));
-        break;
-      case AppLifecycleState.inactive:
-        break;
-      case AppLifecycleState.paused:
-        break;
-      case AppLifecycleState.detached:
-        break;
-    }
-  }
-
-  @override
-  void initState() {
-    WidgetsBinding.instance.addObserver(this);
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) => Row(
         children: [
           Expanded(
-              child: widget.callFrom != null && widget.callTo != null
+              child: callFrom != null && callTo != null
                   ? MyFunctions.enableForCalling(
-                      callFrom: widget.callFrom!,
-                      callTo: widget.callTo!,
+                      callFrom: callFrom!,
+                      callTo: callTo!,
                     )
                       ? WButton(
                           onTap: () {
-                            launchUrl(Uri.parse('tel://${widget.phoneNumber}'));
+                            launchUrl(Uri.parse('tel://$phoneNumber'));
+                            context
+                                .read<CarSingleBloc>()
+                                .add(CarSingleEvent.callCount(id));
                           },
                           height: 44,
                           borderRadius: 8,
@@ -95,8 +69,8 @@ class _BottomItemState extends State<BottomItem>
                               backgroundColor: Colors.transparent,
                               context: context,
                               builder: (context) => DealerTime(
-                                timeTo: widget.callTo!.substring(0, 5),
-                                timeFrom: widget.callFrom!.substring(0, 5),
+                                timeTo: callTo!.substring(0, 5),
+                                timeFrom: callFrom!.substring(0, 5),
                               ),
                             );
                           },
@@ -125,7 +99,10 @@ class _BottomItemState extends State<BottomItem>
                         )
                   : WButton(
                       onTap: () {
-                        launchUrl(Uri.parse('tel://${widget.phoneNumber}'));
+                        launchUrl(Uri.parse('tel://$phoneNumber'));
+                        context
+                            .read<CarSingleBloc>()
+                            .add(CarSingleEvent.callCount(id));
                       },
                       height: 44,
                       borderRadius: 8,
@@ -138,19 +115,17 @@ class _BottomItemState extends State<BottomItem>
           ),
           WScaleAnimation(
             onTap: () {
-             if(widget.usertype == 'owner')  {
-              Navigator.of(context)
-                      .push(fade(page:UserSinglePage(userId: widget.userId, announcementId: widget.id,)));
-             }
-             if(widget.usertype == 'dealer' && widget.slug.isNotEmpty)  {
-              Navigator.of(context)
-                      .push(fade(page: DealerSinglePage(slug: widget.slug)));
-             }
-            //  widget.usertype == 'owner'
-            //       ? Navigator.of(context)
-            //           .push(fade(page:UserSinglePage(userId: widget.userId, announcementId: widget.id,)))
-            //       : Navigator.of(context)
-            //           .push(fade(page: DealerSinglePage(slug: widget.slug)));
+              if (usertype == 'owner') {
+                Navigator.of(context).push(fade(
+                    page: UserSinglePage(
+                  userId: userId,
+                  announcementId: id,
+                )));
+              }
+              if (usertype == 'dealer' && slug.isNotEmpty) {
+                Navigator.of(context)
+                    .push(fade(page: DealerSinglePage(slug: slug)));
+              }
             },
             child: Container(
               height: 44,
@@ -161,7 +136,7 @@ class _BottomItemState extends State<BottomItem>
                 child: CachedNetworkImage(
                   fit: BoxFit.cover,
                   width: 44,
-                  imageUrl: widget.userAvatar ?? '',
+                  imageUrl: userAvatar ?? '',
                   errorWidget: (context, url, error) => Image.asset(
                     AppImages.defaultPhoto,
                     fit: BoxFit.cover,

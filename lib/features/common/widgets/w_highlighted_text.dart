@@ -1,3 +1,5 @@
+// ignore_for_file: omit_local_variable_types, prefer_final_locals
+
 import 'package:auto/assets/colors/light.dart';
 import 'package:flutter/material.dart';
 

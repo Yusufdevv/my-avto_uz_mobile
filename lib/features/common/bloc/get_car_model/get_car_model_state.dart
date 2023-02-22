@@ -6,11 +6,13 @@ class GetCarModelState with _$GetCarModelState {
     @Default(FormzStatus.pure) FormzStatus status,
     @Default(GetMakeEntity()) GetMakeEntity model,
     @Default('') next,
-    @Default('') search,
     @Default(0) int getId,
     @Default(0) count,
+    @Default(0) announcementCount,
+    @Default(FormzStatus.pure) FormzStatus getAnnouncementStatus,
     @Default(0) selectedId,
     @Default(0) confirmId,
     @Default('') String name,
+    @Default(MakeEntity()) MakeEntity selectedModel,
   }) = _GetCarModelState;
 }

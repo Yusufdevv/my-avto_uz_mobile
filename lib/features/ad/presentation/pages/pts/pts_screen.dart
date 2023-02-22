@@ -27,7 +27,7 @@ class _PtsScreenState extends State<PtsScreen> {
 
   final List<String> documentList = [
     LocaleKeys.original_slash_electronniy_pts.tr(),
-    LocaleKeys.duplicat.tr(),
+    LocaleKeys.duplicate.tr(),
   ];
 
   final List<String> ownerList = [
@@ -62,32 +62,33 @@ class _PtsScreenState extends State<PtsScreen> {
                         LocaleKeys.document_type.tr(),
                         style: Theme.of(context)
                             .textTheme
-                            .headline6!
+                            .titleLarge!
                             .copyWith(color: greyText),
                       ),
                       const SizedBox(height: 8),
                       Wrap(
                         spacing: 8,
                         children: List.generate(
-                          documentList.length,
-                          (index) => PtsButtons(
-                            onTap: (id) => context.read<PostingAdBloc>().add(
-                                PostingAdChooseEvent(
-                                    typeDocument:
-                                        LicenceType.values[index].name)),
-                            id: index.toString(),
-                            isSelected: state.licenceType ==
-                                LicenceType.values[index].name,
-                            text: documentList[index],
-                          ),
-                        ),
+                            documentList.length,
+                            (index) => PtsButtons(
+                                  onTap: (id) {
+                                    context.read<PostingAdBloc>().add(
+                                        PostingAdChooseEvent(
+                                            typeDocument: LicenceType
+                                                .values[index].name));
+                                  },
+                                  id: index.toString(),
+                                  isSelected: state.licenceType ==
+                                      LicenceType.values[index].name,
+                                  text: documentList[index],
+                                )),
                       ),
                       const SizedBox(height: 41),
                       Text(
                         LocaleKeys.what_kind_owner.tr(),
                         style: Theme.of(context)
                             .textTheme
-                            .headline6!
+                            .titleLarge!
                             .copyWith(color: greyText),
                       ),
                       const SizedBox(height: 8),
@@ -111,7 +112,7 @@ class _PtsScreenState extends State<PtsScreen> {
                         LocaleKeys.when_car_was_buing.tr(),
                         style: Theme.of(context)
                             .textTheme
-                            .headline6!
+                            .titleLarge!
                             .copyWith(color: greyText),
                       ),
                       const SizedBox(
@@ -120,18 +121,19 @@ class _PtsScreenState extends State<PtsScreen> {
                       WContainer(
                         onTap: () {
                           showCupertinoDatePicker(
-                            context,
-                            (date) => context.read<PostingAdBloc>().add(
-                                  PostingAdChooseEvent(
-                                      purchasedDate: '$date'.substring(0, 10)),
-                                ),
-                          );
+                              context,
+                              (date) => context.read<PostingAdBloc>().add(
+                                    PostingAdChooseEvent(
+                                        purchasedDate:
+                                            '$date'.substring(0, 10)),
+                                  ),
+                              DateTime(state.yearEntity!.yearBegin));
                         },
                         titleStyle: state.purchasedDate != null &&
                                 state.purchasedDate!.isNotEmpty
                             ? Theme.of(context)
                                 .textTheme
-                                .headline1!
+                                .displayLarge!
                                 .copyWith(fontSize: 16)
                             : null,
                         title: state.purchasedDate != null &&

@@ -2,6 +2,9 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/car_single/presentation/pages/user_single_page.dart';
+import 'package:auto/features/dealers/presentation/pages/dealer_single_page.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -12,13 +15,19 @@ class CarSellerCard extends StatelessWidget {
   final String image;
   final String name;
   final String userType;
+  final String slug;
   final bool isCrashed;
+  final int userId;
+  final int announcementId;
 
   const CarSellerCard({
     required this.image,
     required this.name,
     required this.userType,
+    required this.slug,
     required this.isCrashed,
+    required this.userId,
+    required this.announcementId,
     Key? key,
   }) : super(key: key);
 
@@ -44,61 +53,78 @@ class CarSellerCard extends StatelessWidget {
                     LocaleKeys.auto_seller.tr(),
                     style: Theme.of(context)
                         .textTheme
-                        .headline1!
+                        .displayLarge!
                         .copyWith(fontWeight: FontWeight.w700, fontSize: 18),
                   ),
                   const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      SizedBox(
-                        height: 44,
-                        width: 44,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child: CachedNetworkImage(
-                            imageUrl: image,
-                            fit: BoxFit.cover,
-                            errorWidget: (context, url, error) => Image.asset(
-                              AppImages.defaultPhoto,
+                  GestureDetector(
+                    onTap: () {
+                      if (userType == 'owner') {
+                                Navigator.of(context).push(fade(
+                                    page: UserSinglePage(
+                                  userId: userId,
+                                  announcementId: announcementId,
+                                )));
+                              }
+                              if (userType == 'dealer' &&
+                                   slug.isNotEmpty) {
+                                Navigator.of(context).push(fade(
+                                    page: DealerSinglePage(
+                                        slug:  slug)));
+                              }
+                    },
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          height: 44,
+                          width: 44,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(50),
+                            child: CachedNetworkImage(
+                              imageUrl: image,
                               fit: BoxFit.cover,
+                              errorWidget: (context, url, error) => Image.asset(
+                                AppImages.defaultPhoto,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      const SizedBox(width: 8),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: constraints.maxWidth - 120,
-                            child: Text(
-                              name,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
+                        const SizedBox(width: 8),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: constraints.maxWidth - 120,
+                              child: Text(
+                                name,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(
+                                      fontSize: 16,
+                                    ),
+                              ),
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              userType == 'owner'
+                                  ? LocaleKeys.private_person.tr()
+                                  : LocaleKeys.autosalon.tr(),
                               style: Theme.of(context)
                                   .textTheme
-                                  .subtitle1!
+                                  .displayMedium!
                                   .copyWith(
-                                    fontSize: 16,
-                                  ),
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 12,
+                                      color: const Color(0xff695CEA)),
                             ),
-                          ),
-                          const SizedBox(height: 2),
-                          Text(
-                            userType == 'owner'
-                                ? LocaleKeys.private_person.tr()
-                                : LocaleKeys.autosalon.tr(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline2!
-                                .copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 12,
-                                    color: const Color(0xff695CEA)),
-                          ),
-                        ],
-                      )
-                    ],
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 18),
                   Container(
@@ -123,7 +149,7 @@ class CarSellerCard extends StatelessWidget {
                                   LocaleKeys.participation_in_accident.tr(),
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline1!
+                                      .displayLarge!
                                       .copyWith(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 12),
@@ -155,7 +181,7 @@ class CarSellerCard extends StatelessWidget {
                                           LocaleKeys.found.tr(),
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline1!
+                                              .displayLarge!
                                               .copyWith(
                                                   fontWeight: FontWeight.w400,
                                                   fontSize: 14,
@@ -188,7 +214,7 @@ class CarSellerCard extends StatelessWidget {
                                           LocaleKeys.not_found.tr(),
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline1!
+                                              .displayLarge!
                                               .copyWith(
                                                   fontWeight: FontWeight.w400,
                                                   fontSize: 14,

@@ -1,5 +1,4 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +10,6 @@ class ProfilTextField extends StatefulWidget {
     this.suffix,
     this.isNameField = false,
     Key? key,
-
   }) : super(key: key);
 
   final TextEditingController controller;
@@ -33,19 +31,19 @@ class _ProfilTextFieldState extends State<ProfilTextField> {
         disabledColor: Theme.of(context).scaffoldBackgroundColor,
         textStyle: Theme.of(context)
             .textTheme
-            .headline1!
+            .displayLarge!
             .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
-        borderRadius: SizeConfig.h(12),
-        hintText:widget.hintText,
+        borderRadius: 12,
+        hintText: widget.hintText,
         suffix: widget.suffix,
         hintTextStyle: Theme.of(context)
             .textTheme
-            .headline1!
+            .displayLarge!
             .copyWith(fontWeight: FontWeight.w600, fontSize: 14),
         onChanged: (tmp) {
           widget.onChanged(tmp);
         },
         controller: widget.controller,
-        contentPadding: EdgeInsets.symmetric(horizontal: SizeConfig.h(16)),
+        contentPadding: EdgeInsets.symmetric(horizontal: 16),
       );
 }

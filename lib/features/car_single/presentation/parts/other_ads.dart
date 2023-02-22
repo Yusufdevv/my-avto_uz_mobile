@@ -54,7 +54,7 @@
 //                 LocaleKeys.Other_announcements.tr(),
 //                 style: Theme.of(context)
 //                     .textTheme
-//                     .headline1!
+//                     .displayLarge!
 //                     .copyWith(fontWeight: FontWeight.w700, fontSize: 18),
 //               ),
 //             ),
@@ -80,7 +80,7 @@
 //                     model,
 //                     style: Theme.of(context)
 //                         .textTheme
-//                         .headline1!
+//                         .displayLarge!
 //                         .copyWith(fontSize: 14, fontWeight: FontWeight.w700),
 //                   ),
 //                   const SizedBox(

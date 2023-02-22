@@ -2,7 +2,6 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/const/constants.dart';
-import 'package:auto/features/ad/presentation/pages/damage/widgets/damage_pluc_button.dart';
 import 'package:auto/features/ad/presentation/widgets/warning_circle_widget.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -13,12 +12,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class DamageTypeInfoSheet extends StatelessWidget {
   final infos = [
-    'Практически как новое и не требует никаких доработок, или поправок.',
-    'Данный элемент был заменен на другой',
-    // 'Не новое, но и не имеется потребность к замене или ремонтированию',
-    'Имеются не значительные вмятины',
-    'Имеются определённқе повреждения и советуеся ремон, или замена',
-    'Состояние плохое, ремонт сильно не поможет, трубется замена',
+    LocaleKeys.info_ideal.tr(),
+    LocaleKeys.info_scratched.tr(),
+    LocaleKeys.info_replacement.tr(),
+    LocaleKeys.info_replacement_not_required.tr(),
+    LocaleKeys.info_replacement_required.tr(),
   ];
   @override
   Widget build(BuildContext context) => Padding(
@@ -38,12 +36,12 @@ class DamageTypeInfoSheet extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        'Информация',
-                        style: Theme.of(context).textTheme.headline1,
+                        LocaleKeys.information.tr(),
+                        style: Theme.of(context).textTheme.displayLarge,
                       ),
                     ),
                     GestureDetector(
-                          behavior: HitTestBehavior.opaque,
+                      behavior: HitTestBehavior.opaque,
                       onTap: () => Navigator.pop(context),
                       child: SvgPicture.asset(
                         AppIcons.close,
@@ -80,7 +78,7 @@ class DamageTypeInfoSheet extends StatelessWidget {
                                   DamageType.values[index].value),
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline1!
+                                  .displayLarge!
                                   .copyWith(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600),
@@ -92,7 +90,7 @@ class DamageTypeInfoSheet extends StatelessWidget {
                           infos[index],
                           style: Theme.of(context)
                               .textTheme
-                              .headline2!
+                              .displayMedium!
                               .copyWith(
                                   color: Theme.of(context)
                                       .extension<ThemedColors>()!
@@ -113,7 +111,7 @@ class DamageTypeInfoSheet extends StatelessWidget {
                 text: LocaleKeys.understandably.tr(),
                 textStyle: Theme.of(context)
                     .textTheme
-                    .subtitle1!
+                    .titleMedium!
                     .copyWith(color: white),
                 margin: EdgeInsets.only(
                   bottom: MediaQuery.of(context).padding.bottom + 20,

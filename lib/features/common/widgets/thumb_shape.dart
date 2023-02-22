@@ -1,8 +1,10 @@
-// ignore_for_file: prefer_asserts_with_message
+// ignore_for_file: prefer_asserts_with_message, unnecessary_null_comparison
+
+import 'dart:math' as math;
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
+
 class CustomThumb extends SliderComponentShape {
   /// Create a slider thumb that draws a circle.
   const CustomThumb({
@@ -42,25 +44,24 @@ class CustomThumb extends SliderComponentShape {
   final double pressedElevation;
 
   @override
-  Size getPreferredSize(bool isEnabled, bool isDiscrete) {
-    return Size.fromRadius(isEnabled == true ? enabledThumbRadius : _disabledThumbRadius);
-  }
+  Size getPreferredSize(bool isEnabled, bool isDiscrete) => Size.fromRadius(
+      isEnabled == true ? enabledThumbRadius : _disabledThumbRadius);
 
   @override
   void paint(
-      PaintingContext context,
-      Offset center, {
-        required Animation<double> activationAnimation,
-        required Animation<double> enableAnimation,
-        required bool isDiscrete,
-        required TextPainter labelPainter,
-        required RenderBox parentBox,
-        required SliderThemeData sliderTheme,
-        required TextDirection textDirection,
-        required double value,
-        required double textScaleFactor,
-        required Size sizeWithOverflow,
-      }) {
+    PaintingContext context,
+    Offset center, {
+    required Animation<double> activationAnimation,
+    required Animation<double> enableAnimation,
+    required bool isDiscrete,
+    required TextPainter labelPainter,
+    required RenderBox parentBox,
+    required SliderThemeData sliderTheme,
+    required TextDirection textDirection,
+    required double value,
+    required double textScaleFactor,
+    required Size sizeWithOverflow,
+  }) {
     assert(context != null);
     assert(center != null);
     assert(enableAnimation != null);
@@ -78,7 +79,6 @@ class CustomThumb extends SliderComponentShape {
       end: sliderTheme.thumbColor,
     );
 
-    final color = colorTween.evaluate(enableAnimation)!;
     final radius = radiusTween.evaluate(enableAnimation);
 
     final elevationTween = Tween<double>(
@@ -88,12 +88,18 @@ class CustomThumb extends SliderComponentShape {
 
     final evaluatedElevation = elevationTween.evaluate(activationAnimation);
     final path = Path()
-      ..addArc(Rect.fromCenter(center: center, width: 2 * radius, height: 2 * radius), 0, math.pi * 2);
-    canvas..drawShadow(path, Colors.white, evaluatedElevation, true)
+      ..addArc(
+          Rect.fromCenter(
+              center: center, width: 2 * radius, height: 2 * radius),
+          0,
+          math.pi * 2);
+    canvas
+      ..drawShadow(path, Colors.white, evaluatedElevation, true)
       ..drawCircle(
         center,
         radius,
         Paint()..color = Colors.white,
-      )..drawCircle(center, 6, Paint()..color = orange);
+      )
+      ..drawCircle(center, 6, Paint()..color = orange);
   }
 }

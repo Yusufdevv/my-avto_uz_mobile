@@ -1,23 +1,23 @@
-// ignore_for_file: avoid_catches_without_on_clauses
+// ignore_for_file: avoid_catches_without_on_clauses, prefer_final_locals
 
 import 'dart:convert';
 import 'dart:typed_data';
+
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/storage.dart';
-import 'package:auto/features/ad/data/models/announcement_filter.dart';
 import 'package:auto/features/ad/data/models/body_type.dart';
 import 'package:auto/features/ad/data/models/drive_type.dart';
 import 'package:auto/features/ad/data/models/engine_type.dart';
+import 'package:auto/features/ad/data/models/equipment/equipment_model.dart';
+import 'package:auto/features/ad/data/models/equipment/gas_equipment_model.dart';
 import 'package:auto/features/ad/data/models/foto_instruction_model.dart';
 import 'package:auto/features/ad/data/models/gearbox_type.dart';
 import 'package:auto/features/ad/data/models/generation.dart';
 import 'package:auto/features/ad/data/models/modification_type.dart';
 import 'package:auto/features/ad/data/models/years.dart';
 import 'package:auto/features/ad/domain/entities/foto_instruction_entity.dart';
-import 'package:auto/features/ads/data/models/search_history_model.dart';
 import 'package:auto/features/common/entities/makes_entity.dart';
 import 'package:auto/features/common/models/get_make_model.dart';
-import 'package:auto/features/comparison/data/models/announcement_list_model.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:auto/features/reviews/data/models/make_model.dart';
 import 'package:dio/dio.dart';
@@ -25,9 +25,13 @@ import 'package:http/http.dart' as http;
 
 abstract class AdRemoteDataSource {
   Future<GenericPagination<FotoInstructionEntity>> getFotoInstructions();
+
   Future<Uint8List> getMapScreenShot(Map<String, String> params);
+
   Future<num> getMinimumPrice(Map<String, dynamic> params);
+
   Future<bool> verify(Map<String, String> params);
+
   Future<String> sendCode({required String phone});
 
   Future<GenericPagination<MakeModel>> getTopMakes({String? next});
@@ -37,52 +41,54 @@ abstract class AdRemoteDataSource {
   Future<GetMakeEntity> getCarModel(int makeId, {String? name});
 
   Future<GenericPagination<YearsModel>> getYears({
-    required int modelId,
+    int? modelId,
     String? next,
   });
 
   Future<GenericPagination<GenerationModel>> getGeneration({
-    required int modelId,
-    required int year,
+    int? modelId,
+    int? year,
     String? next,
   });
 
   Future<GenericPagination<BodyTypeModel>> getBodyType({
-    required int generationId,
+    int? generationId,
     String? next,
   });
+
   Future<GenericPagination<BodyTypeModel>> bodyTypesGet();
 
   Future<GenericPagination<EngineTypeModel>> getEngineType({
-    required int generationId,
-    required int bodyTypeId,
+    int? generationId,
+    int? bodyTypeId,
     String? next,
   });
 
   Future<GenericPagination<DriveTypeModel>> getDriveType({
-    required int generationId,
-    required int bodyTypeId,
-    required int engineTypeId,
+    int? generationId,
+    int? bodyTypeId,
+    int? engineTypeId,
     String? next,
   });
+
   Future<GenericPagination<DriveTypeModel>> driveTypesGet();
 
   Future<GenericPagination<GearboxTypeModel>> getGearboxType({
-    required int generationId,
-    required int bodyTypeId,
-    required int engineTypeId,
-    required int driveTypeId,
+    int? generationId,
+    int? bodyTypeId,
+    int? engineTypeId,
+    int? driveTypeId,
     String? next,
   });
 
   Future<GenericPagination<GearboxTypeModel>> gearboxessGet();
 
   Future<GenericPagination<ModificationTypeModel>> getModificationType({
-    required int generationId,
-    required int bodyTypeId,
-    required int engineTypeId,
-    required int driveTypeId,
-    required int gearBoxTypeTypeId,
+    int? generationId,
+    int? bodyTypeId,
+    int? engineTypeId,
+    int? driveTypeId,
+    int? gearBoxTypeTypeId,
     String? next,
   });
 
@@ -90,10 +96,23 @@ abstract class AdRemoteDataSource {
     required FormData announcementFormData,
   });
 
-  Future<GenericPagination<AnnouncementListModel>> getAnnouncementList(
-    AnnouncementFilterModel filter,
-  );
-  Future<void> filterHistory({required SearchHistoryModel model});
+  Future<void> updateAnnouncement({
+    required FormData announcementFormData,
+    required int id,
+  });
+
+  Future<GenericPagination<GasEquipmentModel>> getGasEquipments({
+    String? search,
+    int? limit,
+    int? offset,
+  });
+
+  Future<GenericPagination<EquipmentModel>> getEquipments({
+    String? search,
+    int? limit,
+    int? offset,
+    int? modelId,
+  });
 }
 
 class AdRemoteDataSourceImpl extends AdRemoteDataSource {
@@ -122,7 +141,12 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
     try {
       final response = await _dio.get(
         '/car/makes/',
-        queryParameters: {'search': name, 'limit': 1000, 'offset': 0},
+        queryParameters: {
+          'search': name,
+          'limit': 1000,
+          'offset': 0,
+          'ordering': 'name'
+        },
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return GetMakeModel.fromJson(response.data);
@@ -136,7 +160,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
   }
 
   @override
-  Future<GetMakeEntity> getCarModel(int makeId, {String? name}) async {
+  Future<GetMakeEntity> getCarModel(int? makeId, {String? name}) async {
     final response = await _dio.get('/car/$makeId/models/',
         options: Options(
           headers: StorageRepository.getString('token').isNotEmpty
@@ -158,7 +182,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
 
   @override
   Future<GenericPagination<YearsModel>> getYears({
-    required int modelId,
+    int? modelId,
     String? next,
   }) async {
     final response = await _dio.get(
@@ -180,8 +204,8 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
 
   @override
   Future<GenericPagination<GenerationModel>> getGeneration({
-    required int modelId,
-    required int year,
+    int? modelId,
+    int? year,
     String? next,
   }) async {
     try {
@@ -215,7 +239,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
 
   @override
   Future<GenericPagination<BodyTypeModel>> getBodyType({
-    required int generationId,
+    int? generationId,
     String? next,
   }) async {
     try {
@@ -280,8 +304,8 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
 
   @override
   Future<GenericPagination<EngineTypeModel>> getEngineType({
-    required int generationId,
-    required int bodyTypeId,
+    int? generationId,
+    int? bodyTypeId,
     String? next,
   }) async {
     try {
@@ -314,9 +338,9 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
 
   @override
   Future<GenericPagination<DriveTypeModel>> getDriveType({
-    required int generationId,
-    required int bodyTypeId,
-    required int engineTypeId,
+    int? generationId,
+    int? bodyTypeId,
+    int? engineTypeId,
     String? next,
   }) async {
     try {
@@ -379,10 +403,10 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
 
   @override
   Future<GenericPagination<GearboxTypeModel>> getGearboxType({
-    required int generationId,
-    required int bodyTypeId,
-    required int engineTypeId,
-    required int driveTypeId,
+    int? generationId,
+    int? bodyTypeId,
+    int? engineTypeId,
+    int? driveTypeId,
     String? next,
   }) async {
     try {
@@ -445,11 +469,11 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
 
   @override
   Future<GenericPagination<ModificationTypeModel>> getModificationType({
-    required int generationId,
-    required int bodyTypeId,
-    required int engineTypeId,
-    required int driveTypeId,
-    required int gearBoxTypeTypeId,
+    int? generationId,
+    int? bodyTypeId,
+    int? engineTypeId,
+    int? driveTypeId,
+    int? gearBoxTypeTypeId,
     String? next,
   }) async {
     try {
@@ -497,72 +521,13 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
               : {},
         ),
       );
-      print(
-          '=> => => =>    IN DATA SOURCE: ${response.data}         <= <= <= <=');
-      await Future.delayed(Duration(milliseconds: 5000));
+      await Future.delayed(const Duration(milliseconds: 5000));
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return;
       }
       throw ServerException(
           statusCode: response.statusCode ?? 0,
           errorMessage: response.statusMessage ?? '');
-    } on ServerException {
-      rethrow;
-    } on DioError {
-      throw DioException();
-    } on Exception catch (e) {
-      throw ParsingException(errorMessage: e.toString());
-    }
-  }
-
-  @override
-  Future<GenericPagination<AnnouncementListModel>> getAnnouncementList(
-    AnnouncementFilterModel filter,
-  ) async {
-    try {
-      final response = await _dio.get(
-        '/car/announcement/list/',
-        options: Options(headers: {
-          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
-        }),
-        queryParameters: filter.toJson(),
-      );
-      if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        return GenericPagination.fromJson(response.data,
-            (p0) => AnnouncementListModel.fromJson(p0 as Map<String, dynamic>));
-      } else {
-        throw ServerException(
-          statusCode: response.statusCode!,
-          errorMessage: response.data.toString(),
-        );
-      }
-    } on ServerException {
-      rethrow;
-    } on DioError {
-      throw DioException();
-    } on Exception catch (e) {
-      throw ParsingException(errorMessage: e.toString());
-    }
-  }
-
-  @override
-  Future<void> filterHistory({required SearchHistoryModel model}) async {
-    try {
-      final response = await _dio.post('users/filter-history/create/',
-          data: model.toJson(),
-          options: Options(headers: {
-            'Authorization': 'Bearer ${StorageRepository.getString('token')}'
-          }));
-      print('===> ==> kor ${model.toJson()}');
-      if (response.statusCode != null &&
-          response.statusCode! >= 200 &&
-          response.statusCode! < 300) {
-      } else {
-        throw ServerException(
-          statusCode: response.statusCode!,
-          errorMessage: response.data.toString(),
-        );
-      }
     } on ServerException {
       rethrow;
     } on DioError {
@@ -689,6 +654,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
       headers.addEntries(list);
       final request = http.Request('POST',
           Uri.parse('https://panel.avto.uz/api/v1/common/map/screenshot'));
+      // ignore: cascade_invocations
       request.body = json.encode(params);
 
       request.headers.addAll(headers);
@@ -736,6 +702,91 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
       throw DioException();
     } on Exception catch (e) {
       throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future<void> updateAnnouncement({
+    required FormData announcementFormData,
+    required int id,
+  }) async {
+    try {
+      final response = await _dio.put(
+        '/car/announcement/$id/update/',
+        data: announcementFormData,
+        options: Options(
+          headers: StorageRepository.getString('token').isNotEmpty
+              ? {
+                  'Authorization':
+                      'Bearer ${StorageRepository.getString('token')}'
+                }
+              : {},
+        ),
+      );
+      await Future.delayed(const Duration(milliseconds: 5000));
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return;
+      }
+      throw ServerException(
+          statusCode: response.statusCode ?? 0,
+          errorMessage: response.statusMessage ?? '');
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future<GenericPagination<GasEquipmentModel>> getGasEquipments({
+    String? search,
+    int? limit,
+    int? offset,
+  }) async {
+    try {
+      final result = await _dio.get('car/gas-equipments/',
+          queryParameters: {
+            'search': search,
+            'limit': limit,
+            'offset': offset,
+          },
+          options: Options(
+            headers: {
+              'Authorization': 'Bearer ${StorageRepository.getString('token')}',
+            },
+          ));
+      return GenericPagination.fromJson(result.data,
+          (json) => GasEquipmentModel.fromJson(json as Map<String, dynamic>));
+    } catch (e) {
+      throw const ServerException();
+    }
+  }
+
+  @override
+  Future<GenericPagination<EquipmentModel>> getEquipments({
+    String? search,
+    int? limit,
+    int? offset,
+    int? modelId,
+  }) async {
+    try {
+      final result = await _dio.get('car/equipments/$modelId/',
+          queryParameters: {
+            'search': search,
+            'limit': limit,
+            'offset': offset,
+          },
+          options: Options(
+            headers: {
+              'Authorization': 'Bearer ${StorageRepository.getString('token')}',
+            },
+          ));
+      return GenericPagination.fromJson(result.data,
+          (json) => EquipmentModel.fromJson(json as Map<String, dynamic>));
+    } catch (e) {
+      throw const ServerException();
     }
   }
 }

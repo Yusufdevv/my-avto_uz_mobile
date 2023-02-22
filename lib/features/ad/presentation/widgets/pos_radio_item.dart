@@ -2,7 +2,6 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class PostingRadioItem extends StatelessWidget {
   final VoidCallback onTap;
@@ -45,7 +44,7 @@ class PostingRadioItem extends StatelessWidget {
                 title,
                 style: Theme.of(context)
                     .textTheme
-                    .headline1!
+                    .displayLarge!
                     .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
               ),
               const Spacer(),

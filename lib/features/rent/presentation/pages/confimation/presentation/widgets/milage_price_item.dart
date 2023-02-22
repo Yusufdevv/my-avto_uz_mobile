@@ -27,8 +27,10 @@ class MileagePriceItem extends StatelessWidget {
           children: [
             Text(
               'Дополнительные услуги',
-              style:
-                  Theme.of(context).textTheme.headline1!.copyWith(fontSize: 14),
+              style: Theme.of(context)
+                  .textTheme
+                  .displayLarge!
+                  .copyWith(fontSize: 14),
             ),
             const SizedBox(
               height: 12,
@@ -39,7 +41,7 @@ class MileagePriceItem extends StatelessWidget {
                   LocaleKeys.baby_chair.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .headline6!
+                      .titleLarge!
                       .copyWith(color: greyText, fontSize: 12),
                 ),
                 const SizedBox(width: 8),
@@ -47,7 +49,7 @@ class MileagePriceItem extends StatelessWidget {
                   '50 тыс.' + LocaleKeys.per_day.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText1!
+                      .bodyLarge!
                       .copyWith(color: grey),
                 ),
                 const Spacer(),
@@ -68,7 +70,7 @@ class MileagePriceItem extends StatelessWidget {
                   'Крепление для лыж',
                   style: Theme.of(context)
                       .textTheme
-                      .headline6!
+                      .titleLarge!
                       .copyWith(color: greyText, fontSize: 12),
                 ),
                 const SizedBox(width: 8),
@@ -76,7 +78,7 @@ class MileagePriceItem extends StatelessWidget {
                   '100 тыс.' + LocaleKeys.per_day.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText1!
+                      .bodyLarge!
                       .copyWith(color: grey),
                 ),
                 const Spacer(),

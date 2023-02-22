@@ -42,7 +42,7 @@ class CarTypeItem extends StatelessWidget {
                       Text(title,
                           style: Theme.of(context)
                               .textTheme
-                              .headline1!
+                              .displayLarge!
                               .copyWith(
                                   fontSize: 16, fontWeight: FontWeight.w400)),
                       if (isSelected)

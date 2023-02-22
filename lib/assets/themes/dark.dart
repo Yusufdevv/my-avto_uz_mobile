@@ -49,18 +49,18 @@ abstract class DarkTheme {
           disabledColor: DarkThemeColors.buttonDisabledColor,
         ),
         textTheme: const TextTheme(
-          headline1: headline1,
-          headline2: headline2,
-          headline3: headline3,
-          headline4: headline4,
-          headline5: headline5,
-          headline6: headline6,
-          bodyText1: bodyText1,
-          bodyText2: bodyText2,
-          subtitle1: subTitle1,
-          subtitle2: subTitle2,
-          caption: caption,
-          button: button,
+          displayLarge: displayLarge,
+          displayMedium: displayMedium,
+          displaySmall: displaySmall,
+          headlineMedium: headlineMedium,
+          headlineSmall: headlineSmall,
+          titleLarge: titleLarge,
+          bodyLarge: bodyLarge,
+          bodyMedium: bodyMedium,
+          titleMedium: titleMedium,
+          titleSmall: titleSmall,
+          bodySmall: bodySmall,
+          labelLarge: labelLarge,
         ),
         extensions: const {
           CheckBoxStyle(
@@ -198,74 +198,74 @@ abstract class DarkTheme {
       );
 
   // Fonts
-  static const headline1 = TextStyle(
+  static const displayLarge = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.w700,
-    color: DarkThemeColors.headline1,
+    color: DarkThemeColors.displayLarge,
     height: 1.3,
   );
-  static const headline2 = TextStyle(
+  static const displayMedium = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w400,
-    color: DarkThemeColors.headline2,
+    color: DarkThemeColors.displayMedium,
     height: 1.3,
   );
-  static const headline3 = TextStyle(
+  static const displaySmall = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w500,
-    color: DarkThemeColors.headline3,
+    color: DarkThemeColors.displaySmall,
   );
-  static const headline4 = TextStyle(
+  static const headlineMedium = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w600,
-    color: DarkThemeColors.headline4,
+    color: DarkThemeColors.headlineMedium,
     height: 1.2,
   );
-  static const headline5 = TextStyle(
+  static const headlineSmall = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.w600,
-    color: DarkThemeColors.headline5,
+    color: DarkThemeColors.headlineSmall,
     height: 1.33,
   );
-  static const headline6 = TextStyle(
+  static const titleLarge = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w600,
     height: 1.25,
-    color: DarkThemeColors.headline6,
+    color: DarkThemeColors.titleLarge,
   );
-  static const bodyText1 = TextStyle(
+  static const bodyLarge = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w400,
     height: 1.4,
-    color: DarkThemeColors.bodyText1,
+    color: DarkThemeColors.bodyLarge,
   );
 
-  static const bodyText2 = TextStyle(
+  static const bodyMedium = TextStyle(
     fontSize: 15,
     fontWeight: FontWeight.w500,
     letterSpacing: -0.3,
-    color: DarkThemeColors.bodyText2,
+    color: DarkThemeColors.bodyMedium,
   );
 
-  static const subTitle1 = TextStyle(
+  static const titleMedium = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w600,
-    color: DarkThemeColors.subTitle1,
+    color: DarkThemeColors.titleMedium,
   );
 
-  static const subTitle2 = TextStyle(
+  static const titleSmall = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w600,
-    color: DarkThemeColors.subTitle2,
+    color: DarkThemeColors.titleSmall,
   );
 
-  static const caption = TextStyle(
+  static const bodySmall = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w400,
-    color: DarkThemeColors.caption,
+    color: DarkThemeColors.bodySmall,
   );
 
-  static const button = TextStyle(
+  static const labelLarge = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w500,
     color: DarkThemeColors.button,

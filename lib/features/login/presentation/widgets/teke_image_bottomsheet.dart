@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
+
 class TakeImageBottomSheet extends StatelessWidget {
   const TakeImageBottomSheet({Key? key}) : super(key: key);
 
@@ -28,7 +29,7 @@ class TakeImageBottomSheet extends StatelessWidget {
             children: [
               Text(
                 LocaleKeys.photo.tr(),
-                style: Theme.of(context).textTheme.headline1!.copyWith(),
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(),
               ),
               const Spacer(),
               WScaleAnimation(
@@ -49,7 +50,7 @@ class TakeImageBottomSheet extends StatelessWidget {
               const SizedBox(width: 8),
               Text(
                 LocaleKeys.camera.tr(),
-                style: Theme.of(context).textTheme.headline1!.copyWith(),
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(),
               )
             ],
           ),
@@ -62,7 +63,7 @@ class TakeImageBottomSheet extends StatelessWidget {
               const SizedBox(width: 8),
               Text(
                 LocaleKeys.choose_photo.tr(),
-                style: Theme.of(context).textTheme.headline1!.copyWith(),
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(),
               )
             ],
           ),

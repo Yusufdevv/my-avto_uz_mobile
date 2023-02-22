@@ -161,7 +161,7 @@ class _ZTextFormFieldState extends State<ZTextFormField>
             cursorWidth: 1,
             onEditingComplete: widget.onEditCompleted,
             style: widget.textStyle ??
-                Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 14),
+                Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 14),
             decoration: InputDecoration(
               focusColor: widget.focusColor,
               focusedBorder: const UnderlineInputBorder(
@@ -176,11 +176,15 @@ class _ZTextFormFieldState extends State<ZTextFormField>
                       ? ''
                       : null,
               prefixIconConstraints: const BoxConstraints(maxWidth: 70),
-              contentPadding: const EdgeInsets.only(left: 0),
+              contentPadding:
+                  const EdgeInsets.only(top: 12, bottom: 12.2),
               prefixIcon: widget.prefixIcon,
               hintText: widget.hintText,
               hintStyle: widget.hintTextStyle ??
-                  Theme.of(context).textTheme.headline6!.copyWith(fontSize: 14),
+                  Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(fontSize: 14),
             ),
           ),
           Positioned(

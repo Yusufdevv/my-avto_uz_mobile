@@ -1,5 +1,9 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:auto/utils/my_functions.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -7,7 +11,9 @@ class RentToSaleDetailsBox extends StatelessWidget {
   final String prePayment;
   final String monthlyPayment;
   final int rentalPeriod;
+  final VoidCallback onTap;
   const RentToSaleDetailsBox({
+    required this.onTap,
     required this.monthlyPayment,
     required this.prePayment,
     required this.rentalPeriod,
@@ -25,34 +31,38 @@ class RentToSaleDetailsBox extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Условия 1',
+                  LocaleKeys.conditon_1.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .headline1!
+                      .displayLarge!
                       .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
-                Padding(
-                    padding: const EdgeInsets.only(left: 8, top: 8, right: 12),
-                    child: SvgPicture.asset(AppIcons.editProfile))
+                WScaleAnimation(
+                  onTap: onTap,
+                  child: Padding(
+                      padding:
+                          const EdgeInsets.only(left: 8, top: 8, right: 12),
+                      child: SvgPicture.asset(AppIcons.editProfile)),
+                )
               ],
             ),
             const SizedBox(height: 16),
             TextInRow(
-              title: 'Предоплата',
+              title: LocaleKeys.prepayment.tr(),
               info: prePayment,
             ),
             const SizedBox(height: 12),
             const Divider(color: border, height: 1),
             const SizedBox(height: 8),
             TextInRow(
-              title: 'Срок аренды в месяцах',
+              title: LocaleKeys.lease_term_in_months.tr(),
               info: '$rentalPeriod',
             ),
             const SizedBox(height: 12),
             const Divider(color: border, height: 1),
             const SizedBox(height: 8),
             TextInRow(
-              title: 'Платеж в меяц',
+              title: LocaleKeys.payment_per_month.tr(),
               info: monthlyPayment,
             ),
           ],
@@ -75,14 +85,14 @@ class TextInRow extends StatelessWidget {
         children: [
           Text(
             title,
-            style: Theme.of(context).textTheme.headline2,
+            style: Theme.of(context).textTheme.displayMedium,
           ),
           const Spacer(),
           Text(
-            info,
+            MyFunctions.getFormatCost(info),
             style: Theme.of(context)
                 .textTheme
-                .headline1!
+                .displayLarge!
                 .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
           ),
           const SizedBox(width: 12),

@@ -11,10 +11,8 @@ import 'package:formz/formz.dart';
 class PostingAdMapControllerButtons extends StatelessWidget {
   final VoidCallback onPlusTap;
   final VoidCallback onMinusTap;
-  final VoidCallback onCurrentLocationTap;
 
   const PostingAdMapControllerButtons({
-    required this.onCurrentLocationTap,
     required this.onMinusTap,
     required this.onPlusTap,
     Key? key,
@@ -35,7 +33,7 @@ class PostingAdMapControllerButtons extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             shadow: [
               BoxShadow(
-                  offset:const  Offset(0, 4),
+                  offset: const Offset(0, 4),
                   blurRadius: 10,
                   spreadRadius: 0,
                   color: profileContainers.withOpacity(.08))

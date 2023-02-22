@@ -1,15 +1,14 @@
+// ignore_for_file: directives_ordering
+
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ads/presentation/pages/ads_screen.dart';
-import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
-import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
-import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
+import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
 import 'package:auto/features/comparison/domain/entities/complectation_entity.dart';
 import 'package:auto/features/comparison/domain/entities/complectation_parameters_entity.dart';
 import 'package:auto/features/comparison/presentation/bloc/comparison-bloc/comparison_bloc.dart';
-import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
-import 'package:auto/features/comparison/presentation/pages/choose_model.dart';
+import 'package:auto/features/comparison/presentation/pages/choose_car_brand_page.dart';
 import 'package:auto/features/comparison/presentation/widgets/engin_info_widget.dart';
-import 'package:auto/features/comparison/presentation/widgets/main_parameters_widget.dart';
+import 'package:auto/features/comparison/presentation/widgets/characteristics_parameters_widget.dart';
 import 'package:auto/features/comparison/presentation/widgets/comparison_sliver_delegate.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -21,6 +20,7 @@ import 'package:linked_scroll_controller/linked_scroll_controller.dart';
 class Comparison extends StatefulWidget {
   final bool isSticky;
   final ComparisonBloc comparisonBloc;
+
   const Comparison({
     required this.isSticky,
     required this.comparisonBloc,
@@ -44,44 +44,44 @@ class _ComparisonState extends State<Comparison> {
   late TextEditingController searchController;
   List<Complectation> complectationParameters = [
     Complectation(
-      parameterName: 'Main Data',
+      parameterName: LocaleKeys.mains,
       id: 0,
       complectationParameters: [
         ComplectationParametersEntity(
-          comparisonParameters: 'Make',
+          comparisonParameters: LocaleKeys.make,
         ),
         ComplectationParametersEntity(
-          comparisonParameters: 'Generation',
+          comparisonParameters: LocaleKeys.generation,
         ),
         ComplectationParametersEntity(
-          comparisonParameters: 'Body Type',
+          comparisonParameters: LocaleKeys.body_type,
         ),
         ComplectationParametersEntity(
-          comparisonParameters: 'Drive Type',
+          comparisonParameters: LocaleKeys.drive_type,
         ),
         ComplectationParametersEntity(
-          comparisonParameters: 'Gearbox Type',
+          comparisonParameters: LocaleKeys.gearbox_type,
         ),
         ComplectationParametersEntity(
-          comparisonParameters: 'Year',
+          comparisonParameters: LocaleKeys.year_of_issue,
         ),
         ComplectationParametersEntity(
-          comparisonParameters: 'Color',
+          comparisonParameters: LocaleKeys.color,
         )
       ],
     ),
     Complectation(
-      parameterName: 'Engine Data',
+      parameterName: LocaleKeys.complectation,
       id: 1,
       complectationParameters: [
         ComplectationParametersEntity(
-          comparisonParameters: 'Engine Type',
+          comparisonParameters: LocaleKeys.engine_type,
         ),
         ComplectationParametersEntity(
-          comparisonParameters: 'Power',
+          comparisonParameters: LocaleKeys.power,
         ),
         ComplectationParametersEntity(
-          comparisonParameters: 'Volume',
+          comparisonParameters: LocaleKeys.volume,
         )
       ],
     ),
@@ -106,11 +106,13 @@ class _ComparisonState extends State<Comparison> {
       complectationParameters: [],
     ),
   ];
+
   @override
   void initState() {
     totalNUmberOfParameters = complectationParameters.length;
     sliverWidgetScrollController = ScrollController();
     linkedScrollControllerGroup = LinkedScrollControllerGroup();
+    currentValueOfComplectation = complectationParameters[0].id;
     scrollControllers = [
       ...List.generate(
           complectationParameters.length + 1, (index) => ScrollController())
@@ -142,51 +144,36 @@ class _ComparisonState extends State<Comparison> {
                     onChanged: (showDifferences1) =>
                         setState(() => showDifferences = showDifferences1),
                     scrollController: sliverWidgetScrollController,
-                    onAddCar: () => Navigator.of(context).push(
-                      fade(
-                        page: ChooseCarBrandComparison(
-                          onTap: () => Navigator.of(context).push(
-                            fade(
-                              page: ChooseCarModelComparison(
-                                onTap: () {
-                                  context.read<AnnouncementListBloc>().add(
-                                        AnnouncementListEvent.getFilter(
-                                          context
-                                              .read<AnnouncementListBloc>()
-                                              .state
-                                              .filter
-                                              .copyWith(
-                                                  make: context
-                                                      .read<GetMakesBloc>()
-                                                      .state
-                                                      .selectId,
-                                                  model: context
-                                                      .read<GetCarModelBloc>()
-                                                      .state
-                                                      .selectedId),
-                                        ),
-                                      );
-                                  Navigator.of(context).push(
-                                    fade(
-                                      page: AdsScreen(
-                                        isBack: true,
-                                        onTap: () {
-                                          widget.comparisonBloc
-                                              .add(GetComparableCars());
-                                          Navigator.of(context).pop();
-                                          Navigator.of(context).pop();
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    onAddCar: () {
+                      ///
+                      Navigator.of(context)
+                          .push(
+                        fade(page: const ChooseCarBrandPage()),
+                      )
+                          .then((value) {
+                        if (value != null) {
+                          final result = value as Map<String, dynamic>;
+                          final makeId = result['makeId'];
+                          final modelId = result['modelId'];
+                          Navigator.of(context, rootNavigator: true)
+                              .push(fade(
+                                  page: AdsScreen(
+                            isFromComparison: true,
+                            makeId: makeId,
+                            modelId: modelId,
+                          )))
+                              .then((value) {
+                            if (context.read<ComparisonAddBloc>().state.count >
+                                0) {
+                              widget.comparisonBloc.add(GetComparableCars());
+                            }
+                            context
+                                .read<ComparisonAddBloc>()
+                                .add(ComparisonAddEvent.clearCountComparison());
+                          });
+                        }
+                      });
+                    },
                     setSticky: (val) {
                       context
                           .read<ComparisonBloc>()
@@ -221,7 +208,7 @@ class _ComparisonState extends State<Comparison> {
                             LocaleKeys.characters.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .headline1!
+                                .displayLarge!
                                 .copyWith(fontSize: 18),
                           ),
                         ),

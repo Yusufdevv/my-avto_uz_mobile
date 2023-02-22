@@ -3,6 +3,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/presentation/widgets/warning_circle_widget.dart';
 import 'package:auto/utils/my_functions.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -34,17 +35,17 @@ class SituationItem extends StatelessWidget {
                       position,
                       style: Theme.of(context)
                           .textTheme
-                          .bodyText1!
+                          .bodyLarge!
                           .copyWith(fontSize: 14, color: grey),
                     ),
                     const SizedBox(
                       height: 2,
                     ),
                     Text(
-                      MyFunctions.getStatusTitle(damageType?.value ?? ''),
+                      MyFunctions.getStatusTitle(damageType?.value ?? '').tr(),
                       style: Theme.of(context)
                           .textTheme
-                          .headline1!
+                          .displayLarge!
                           .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
                     )
                   ],
@@ -55,7 +56,7 @@ class SituationItem extends StatelessWidget {
                   behavior: HitTestBehavior.opaque,
                   child: SvgPicture.asset(AppIcons.editProfile, height: 24),
                 ),
-               const SizedBox(width: 16)
+                const SizedBox(width: 16)
               ],
             ),
             const SizedBox(height: 12),

@@ -19,7 +19,7 @@ class LoadingScreen extends StatelessWidget {
               LocaleKeys.loading_data.tr(),
               style: Theme.of(context)
                   .textTheme
-                  .bodyText1!
+                  .bodyLarge!
                   .copyWith(color: LightThemeColors.greyTextColor),
             )
           ],

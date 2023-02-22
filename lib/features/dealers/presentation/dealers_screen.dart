@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
-
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
@@ -90,20 +89,31 @@ class _DealerScreenState extends State<DealerScreen> {
                               const SizedBox(width: 7),
                               Expanded(
                                 child: WTextField(
-                                  borderColor: Theme.of(context)
+                                  contentPadding: const EdgeInsets.only(
+                                      left: 12, right: 12, top: 12),
+                                  borderColor: purple,
+                                  disabledBorderColor: Theme.of(context)
                                       .extension<ThemedColors>()!
-                                      .whiteSmokeToNightRider,
+                                      .whiteSmokeToEclipse,
                                   fillColor: Theme.of(context)
                                       .extension<ThemedColors>()!
-                                      .whiteSmokeToNightRider,
+                                      .whiteSmokeToEclipse,
                                   hintText: LocaleKeys.model_brand.tr(),
                                   hintTextStyle: const TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w400,
                                       color: grey),
+                                  textStyle: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                    color: black,
+                                  ),
+                                  enabledBorderColor: Theme.of(context)
+                                      .extension<ThemedColors>()!
+                                      .whiteSmokeToEclipse,
                                   focusColor: Theme.of(context)
                                       .extension<ThemedColors>()!
-                                      .whiteSmokeToNightRider,
+                                      .whiteSmokeToEclipse,
                                   onChanged: (value) {
                                     bloc.add(DealerCardEvent.getResults(
                                         isRefresh: false, search: value));
@@ -116,6 +126,8 @@ class _DealerScreenState extends State<DealerScreen> {
                               const SizedBox(width: 12),
                               BlocBuilder<DealerFilterBloc, DealerFilterState>(
                                 builder: (context, filterState) => WButton(
+                                  height: 50,
+                                  width: 50,
                                   onTap: () {
                                     context
                                         .read<RegionsBloc>()
@@ -140,7 +152,7 @@ class _DealerScreenState extends State<DealerScreen> {
                                   color: Theme.of(context)
                                       .extension<ThemedColors>()!
                                       .whiteSmokeToNightRider,
-                                  padding: const EdgeInsets.all(12),
+                                  padding: const EdgeInsets.all(8),
                                   child: SvgPicture.asset(
                                     AppIcons.delaerFilter,
                                   ),

@@ -25,10 +25,9 @@ class ReviewsBloc extends Bloc<ReviewsEvent, ReviewsState> {
           year: event.model.year));
       if (result.isRight) {
         emit(state.copyWith(
-          entity: result.right.results,
-          status: FormzStatus.submissionSuccess,
-          count: result.right.count
-        ));
+            entity: result.right.results,
+            status: FormzStatus.submissionSuccess,
+            count: result.right.count));
       }
     });
   }

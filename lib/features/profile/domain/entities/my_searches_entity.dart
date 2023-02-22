@@ -1,3 +1,5 @@
+import 'package:auto/features/ads/data/models/query_data_model.dart';
+
 class MySearchesEntity {
   MySearchesEntity({
     this.id,
@@ -5,7 +7,7 @@ class MySearchesEntity {
     this.make,
     this.model,
     this.query,
-    // this.queryData,
+    this.queryData,
   });
 
   int? id;
@@ -13,7 +15,7 @@ class MySearchesEntity {
   Make? make;
   List<Model?>? model;
   String? query;
-  // QueryData? queryData;
+  QueryDataModel? queryData;
 }
 
 class Make {
@@ -64,24 +66,54 @@ class Model {
       };
 }
 
-class QueryData {
-  QueryData({
-    this.make,
-    this.model,
-  });
+// class QueryData {
+//     QueryData({
+//         this.isNew,
+//         this.yearTo,
+//         this.priceTo,
+//         this.bodyType,
+//         this.regionIn,
+//         this.yearFrom,
+//         this.driveType,
+//         this.priceFrom,
+//         this.engineType,
+//         this.gearboxType,
+//     });
 
-  int? make;
-  List<int?>? model;
+//   final BodyTypeEntity? bodyType;
+//   final DriveTypeEntity? driveType;
+//   final int? engineType;
+//   final GearboxTypeEntity? gearboxType;
+//   final String? regionIn;
+//   final bool? isNew;
+//   final int? priceFrom;
+//   final int? priceTo;
+//   final int? yearFrom;
+//   final int? yearTo;
 
-  factory QueryData.fromJson(Map<String, dynamic> json) => QueryData(
-        make: int.parse(json['make']),
-        model: json['model'] == null
-            ? []
-            : List<int?>.from(json['model']!.map((x) => x)),
-      );
+//     factory QueryData.fromJson(Map<String, dynamic> json) => QueryData(
+//         isNew: json['is_new'] as bool? ?? false,
+//         yearTo: json['year_to'] as int? ?? -1,
+//         priceTo: json['year_to'] as int? ?? -1,
+//         bodyType: json['body_type']  as int? ?? -1,
+//         regionIn: json['region_in'] as String? ?? '',
+//         yearFrom: json['year_from']   as int? ?? -1,
+//         driveType: json['drive_type'] as int? ?? -1,
+//         priceFrom: (json['price_from']  as num?)?.toDouble() ?? -1,
+//         engineType: json['engine_type'] as int? ?? -1,
+//         gearboxType: json['gearbox_type'] as int? ?? -1,
+//     );
 
-  Map<String, dynamic> toJson() => {
-        'make': make,
-        'model': model == null ? [] : List<dynamic>.from(model!.map((x) => x)),
-      };
-}
+//     Map<String, dynamic> toJson() => {
+//         'is_new': isNew,
+//         'year_to': yearTo,
+//         'price_to': priceTo,
+//         'body_type': bodyType,
+//         'region_in': regionIn,
+//         'year_from': yearFrom,
+//         'drive_type': driveType,
+//         'price_from': priceFrom,
+//         'engine_type': engineType,
+//         'gearbox_type': gearboxType,
+//     };
+// }

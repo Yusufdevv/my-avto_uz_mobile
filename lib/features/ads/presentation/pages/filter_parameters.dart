@@ -1,12 +1,12 @@
 // ignore_for_file: avoid_bool_literals_in_conditional_expressions
 
+import 'dart:developer';
+
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
-import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
-import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
-import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/widgets/range_slider.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -24,21 +24,21 @@ class FilterParameters extends StatefulWidget {
   final BodyTypeEntity? bodyType;
   final DriveTypeEntity? carDriveType;
   final GearboxTypeEntity? gearboxType;
-  final int? idVal;
+  final Currency? currency;
   final RangeValues? yearValues;
   final RangeValues? priceValues;
-  final bool? ischek;
-  final AnnouncementListBloc? bloc;
-  const FilterParameters(
-      {super.key,
-      this.bodyType,
-      this.carDriveType,
-      this.gearboxType,
-      this.yearValues,
-      this.priceValues,
-      this.bloc,
-      this.idVal,
-      this.ischek});
+  final bool? isCheck;
+
+  const FilterParameters({
+    super.key,
+    this.bodyType,
+    this.carDriveType,
+    this.gearboxType,
+    this.yearValues,
+    this.priceValues,
+    this.currency,
+    this.isCheck,
+  });
 
   @override
   State<FilterParameters> createState() => _FilterParametersState();
@@ -49,16 +49,16 @@ class _FilterParametersState extends State<FilterParameters> {
 
   @override
   void initState() {
+    super.initState();
     filterBloc = FilterBloc(
       bodyType: widget.bodyType,
       carDriveType: widget.carDriveType,
       gearboxType: widget.gearboxType,
       priceValues: widget.priceValues,
       yearValues: widget.yearValues,
-      idVal: widget.idVal,
-      ischek: widget.ischek ?? false,
+      isCheck: widget.isCheck ?? false,
+      currency: widget.currency,
     );
-    super.initState();
   }
 
   @override
@@ -72,16 +72,13 @@ class _FilterParametersState extends State<FilterParameters> {
               extraActions: [
                 TextButton(
                   onPressed: () {
-                    widget.bloc!
-                        .add(AnnouncementListEvent.getInfo(isFilter: false));
-                    widget.bloc!.add(AnnouncementListEvent.getIsHistory(true));
-                    widget.bloc!.add(AnnouncementListEvent.getFilterClear());
-                    widget.bloc!
-                        .add(AnnouncementListEvent.getAnnouncementList());
-                    filterBloc.add(FilterClearEvent());
+                    filterBloc.add(FilterClearEvent(
+                      yearValues: widget.yearValues,
+                      priceValues: widget.priceValues,
+                    ));
                   },
                   child: Text(
-                    LocaleKeys.reset.tr(),
+                    LocaleKeys.clear.tr(),
                     style: const TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w400,
@@ -153,7 +150,9 @@ class _FilterParametersState extends State<FilterParameters> {
                         builder: (c) => ChooseGearbox(
                             selectedId: state.gearboxType?.id ?? -1),
                       ).then((value) {
-                        filterBloc.add(FilterSelectEvent(gearboxType: value));
+                        filterBloc.add(FilterSelectEvent(
+                          gearboxType: value,
+                        ));
                       });
                     },
                     hintText: state.gearboxType?.type == null
@@ -168,7 +167,7 @@ class _FilterParametersState extends State<FilterParameters> {
                   ),
                   Text(
                     LocaleKeys.select_currency.tr(),
-                    style: Theme.of(context).textTheme.headline2,
+                    style: Theme.of(context).textTheme.displayMedium,
                   ),
                   const SizedBox(height: 8),
                   Row(
@@ -176,39 +175,47 @@ class _FilterParametersState extends State<FilterParameters> {
                     children: [
                       WButton(
                         onTap: () {
-                          filterBloc.add(FilterSelectEvent(idVal: 0));
+                          filterBloc.add(
+                              const FilterChangeCurrencyEvent(Currency.usd));
                         },
                         height: 36,
                         width: MediaQuery.of(context).size.width * 0.45,
-                        color: state.idVal == 0 ? lavender : whiteSmoke,
+                        color: state.currency == Currency.usd
+                            ? lavender
+                            : whiteSmoke,
                         borderRadius: 46,
-                        border:
-                            state.idVal == 0 ? Border.all(color: purple) : null,
+                        border: state.currency == Currency.usd
+                            ? Border.all(color: purple)
+                            : null,
                         child: Text(
-                          'у.е. ',
+                          'у.е.',
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
-                            color: state.idVal == 0 ? dark : grey,
+                            color: state.currency == Currency.usd ? dark : grey,
                           ),
                         ),
                       ),
                       WButton(
                         onTap: () {
-                          filterBloc.add(FilterSelectEvent(idVal: 1));
+                          filterBloc.add(
+                              const FilterChangeCurrencyEvent(Currency.uzs));
                         },
                         height: 36,
                         width: MediaQuery.of(context).size.width * 0.45,
-                        color: state.idVal == 1 ? lavender : whiteSmoke,
+                        color: state.currency == Currency.uzs
+                            ? lavender
+                            : whiteSmoke,
                         borderRadius: 46,
-                        border:
-                            state.idVal == 1 ? Border.all(color: purple) : null,
+                        border: state.currency == Currency.uzs
+                            ? Border.all(color: purple)
+                            : null,
                         child: Text(
-                          'сум',
+                          LocaleKeys.sum.tr(),
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
-                            color: state.idVal == 1 ? dark : grey,
+                            color: state.currency == Currency.uzs ? dark : grey,
                           ),
                         ),
                       ),
@@ -217,67 +224,46 @@ class _FilterParametersState extends State<FilterParameters> {
                   const SizedBox(height: 20),
                   WRangeSlider(
                     values: state.yearValues,
-                    valueChanged: (value) =>
-                        filterBloc.add(FilterSelectEvent(yearValues: value)),
+                    valueChanged: (value) => filterBloc.add(FilterSelectEvent(
+                      yearValues: value,
+                    )),
                     title: LocaleKeys.year_of_issue.tr(),
-                    endValue: DateTime.now().year + 0,
-                    startValue: 1960,
+                    endValue: state.yearEnd ?? 0,
+                    startValue: state.yearStart ?? 0,
                   ),
                   const SizedBox(height: 16),
                   WRangeSlider(
                     values: state.priceValues,
-                    valueChanged: (value) =>
-                        filterBloc.add(FilterSelectEvent(priceValues: value)),
+                    valueChanged: (value) => filterBloc.add(FilterSelectEvent(
+                      priceValues: value,
+                    )),
                     title: LocaleKeys.price.tr(),
-                    endValue: 500000,
-                    startValue: 1000,
+                    endValue: state.priceEnd ?? 0,
+                    startValue: state.priceStart ?? 1,
                     isForPrice: true,
-                    description: state.idVal == 1 ? 'сум' : 'у.е.',
+                    description: state.currency == Currency.uzs
+                        ? LocaleKeys.sum.tr()
+                        : 'у.е.',
                   ),
                   const Spacer(),
                   WButton(
                     onTap: () {
-                      widget.bloc!.add(AnnouncementListEvent.getFilter(
-                          widget.bloc!.state.filter.copyWith(
-                        make: context.read<GetMakesBloc>().state.selectId,
-                        model: context.read<GetCarModelBloc>().state.selectedId,
-                        priceFrom: state.priceValues.start.toInt(),
-                        priceTo: state.priceValues.end.toInt(),
-                        yearFrom: state.yearValues.start.toInt(),
-                        yearTo: state.yearValues.end.toInt(),
-                        bodyType: state.bodyType?.id == -1
-                            ? null
-                            : state.bodyType?.id,
-                        driveType: state.carDriveType?.id == -1
-                            ? null
-                            : state.carDriveType?.id,
-                        gearboxType: state.gearboxType?.id == -1
-                            ? null
-                            : state.gearboxType?.id,
-                      )));
-                      widget.bloc!
-                          .add(AnnouncementListEvent.getAnnouncementList());
-                      if (context.read<GetMakesBloc>().state.name.isNotEmpty &&
-                          context
-                              .read<GetCarModelBloc>()
-                              .state
-                              .name
-                              .isNotEmpty) {
-                        widget.bloc!.add(
-                            AnnouncementListEvent.getIsHistory(!state.ischeck));
-                      }
-                      widget.bloc!.add(
-                        AnnouncementListEvent.getInfo(
-                          bodyType: state.bodyType,
-                          gearboxType: state.gearboxType,
-                          carDriveType: state.carDriveType,
-                          yearValues: state.yearValues,
-                          priceValues: state.priceValues,
-                          idVal: state.idVal,
-                          isFilter: state.ischeck,
-                        ),
-                      );
-                      Navigator.of(context).pop();
+                      var isFilter = state.bodyType != widget.bodyType ||
+                          state.gearboxType != widget.gearboxType;
+                      isFilter = state.carDriveType != widget.carDriveType ||
+                          state.yearValues != widget.yearValues;
+                      isFilter = state.currency != widget.currency ||
+                          state.isCheck != widget.isCheck;
+                      log('======= $isFilter');
+                      Navigator.of(context).pop({
+                        'bodyType': state.bodyType,
+                        'gearboxType': state.gearboxType,
+                        'carDriveType': state.carDriveType,
+                        'yearValues': state.yearValues,
+                        'priceValues': state.priceValues,
+                        'currency': state.currency,
+                        'isFilter': isFilter,
+                      });
                     },
                     text: LocaleKeys.show.tr(),
                   ),

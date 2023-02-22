@@ -29,7 +29,7 @@ class Rate extends StatelessWidget {
                   LocaleKeys.rate_us.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .headline5!
+                      .headlineSmall!
                       .copyWith(fontSize: 20, fontWeight: FontWeight.w600),
                 ),
                 if (Platform.isIOS)
@@ -37,14 +37,14 @@ class Rate extends StatelessWidget {
                     LocaleKeys.in_appstore.tr(),
                     style: Theme.of(context)
                         .textTheme
-                        .headline1!
+                        .displayLarge!
                         .copyWith(fontWeight: FontWeight.w600),
                   )
                 else
                   Text(LocaleKeys.in_playstore.tr(),
                       style: Theme.of(context)
                           .textTheme
-                          .headline1!
+                          .displayLarge!
                           .copyWith(fontWeight: FontWeight.w600)),
                 WButton(
                   shadow: [
@@ -72,7 +72,7 @@ class Rate extends StatelessWidget {
                   child: Text(LocaleKeys.rate.tr(),
                       style: Theme.of(context)
                           .textTheme
-                          .headline4!
+                          .headlineMedium!
                           .copyWith(fontSize: 14, fontWeight: FontWeight.w600)),
                 )
               ],

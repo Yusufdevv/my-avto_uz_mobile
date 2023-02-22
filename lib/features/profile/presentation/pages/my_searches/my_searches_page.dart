@@ -2,26 +2,26 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/ads/presentation/pages/ads_screen.dart';
-import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/pagination/presentation/paginator.dart';
 import 'package:auto/features/profile/domain/entities/my_searches_entity.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/features/profile/presentation/bloc/user_wishlists_notifications/user_wishlists_notification_bloc.dart';
 import 'package:auto/features/profile/presentation/widgets/custom_profile_bottomsheet.dart';
 import 'package:auto/features/profile/presentation/widgets/empty_item_body.dart';
 import 'package:auto/features/profile/presentation/widgets/my_search_item.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
-import 'package:auto/generated/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class MySearchesPage extends StatefulWidget {
   const MySearchesPage({super.key});
@@ -49,6 +49,7 @@ class _MySearchesPageState extends State<MySearchesPage> {
   List<MySearchesEntity> deletedList = [];
   bool isToggled = false;
   bool isDeleted = false;
+
   @override
   Widget build(BuildContext context) => BlocProvider.value(
         value: bloc,
@@ -69,6 +70,9 @@ class _MySearchesPageState extends State<MySearchesPage> {
                           WScaleAnimation(
                             onTap: () {
                               if (mySearches.isNotEmpty) {
+                                if (isToggled) {
+                                  deletedList.clear();
+                                }
                                 setState(() {
                                   isToggled = !isToggled;
                                 });
@@ -82,7 +86,7 @@ class _MySearchesPageState extends State<MySearchesPage> {
                                       LocaleKeys.cancell.tr(),
                                       style: Theme.of(context)
                                           .textTheme
-                                          .subtitle1
+                                          .titleMedium
                                           ?.copyWith(color: red, height: 1.3),
                                     )
                                   : SvgPicture.asset(AppIcons.delete,
@@ -94,55 +98,61 @@ class _MySearchesPageState extends State<MySearchesPage> {
                   body: Builder(builder: (context) {
                     if (st.myAdsStatus.isSubmissionSuccess) {
                       return mySearches.isNotEmpty
-                          ? ListView.builder(
-                              physics: const BouncingScrollPhysics(),
+                          ? Paginator(
+                              errorWidget: const SizedBox(),
+                              hasMoreToFetch: st.moreFetchMySearches,
+                              fetchMoreFunction: () {
+                                bloc.add(GetMoreMySearchesEvent());
+                              },
+                              paginatorStatus: st.myAdsStatus,
                               itemCount: mySearches.length,
                               itemBuilder: (context, index) {
                                 final item = mySearches[index];
-                                return GestureDetector(
-                                  onTap: () {
-                                    if (isToggled) {
-                                      if (deletedList
-                                          .contains(mySearches[index])) {
-                                        setState(() {
-                                          deletedList.remove(mySearches[index]);
-                                        });
+                                return MySearchItem(
+                                    onTap: () {
+                                      if (isToggled) {
+                                        if (deletedList
+                                            .contains(mySearches[index])) {
+                                          setState(() {
+                                            deletedList
+                                                .remove(mySearches[index]);
+                                          });
+                                        } else {
+                                          setState(() {
+                                            deletedList.add(mySearches[index]);
+                                          });
+                                        }
                                       } else {
-                                        setState(() {
-                                          deletedList.add(mySearches[index]);
-                                        });
-                                      }
-                                    } else {
-                                      context.read<AnnouncementListBloc>().add(
-                                          AnnouncementListEvent.getFilter(
-                                              context
-                                                  .read<AnnouncementListBloc>()
-                                                  .state
-                                                  .filter
-                                                  .copyWith(
-                                                      make: item.make?.id,
-                                                      model:
-                                                          item.model?[0]?.id)));
-                                      context.read<AnnouncementListBloc>().add(
-                                          AnnouncementListEvent
-                                              .getAnnouncementList());
-                                      Navigator.push(
+                                        Navigator.push(
                                           context,
                                           fade(
                                               page: AdsScreen(
-                                            isBack: false,
-                                            onTap: () {},
-                                          )));
-                                    }
-                                  },
-                                  behavior: HitTestBehavior.opaque,
-                                  child: MySearchItem(
-                                      item: item,
-                                      index: index,
-                                      isToggled: isToggled,
-                                      deletedList: deletedList,
-                                      mySearches: mySearches),
-                                );
+                                            historyId: mySearches[index].id,
+                                            historySaved: true,
+                                            makeId: mySearches[index].make?.id,
+                                            modelId: mySearches[index]
+                                                .model
+                                                ?.first
+                                                ?.id,
+                                            makeName:
+                                                mySearches[index].make?.name,
+                                            modelName: mySearches[index]
+                                                .model
+                                                ?.first
+                                                ?.name,
+                                            makeLogo:
+                                                mySearches[index].make?.logo,
+                                            queryData:
+                                                mySearches[index].queryData,
+                                          )),
+                                        );
+                                      }
+                                    },
+                                    item: item,
+                                    index: index,
+                                    isToggled: isToggled,
+                                    deletedList: deletedList,
+                                    mySearches: mySearches);
                               },
                             )
                           : Center(
@@ -179,6 +189,9 @@ class _MySearchesPageState extends State<MySearchesPage> {
                                         setState(() {});
                                         mySearches.removeWhere(
                                             (e) => deletedList.contains(e));
+                                        context
+                                            .read<ProfileBloc>()
+                                            .add(GetProfileEvent());
                                         deletedList.clear();
                                         isToggled = false;
                                         Navigator.pop(context);
@@ -204,7 +217,7 @@ class _MySearchesPageState extends State<MySearchesPage> {
       );
 
   List<int> deletedIds(List<MySearchesEntity> list) {
-    List<int> result = <int>[];
+    final result = <int>[];
 
     for (var i = 0; i < list.length; i++) {
       if (list[i].id != null) {

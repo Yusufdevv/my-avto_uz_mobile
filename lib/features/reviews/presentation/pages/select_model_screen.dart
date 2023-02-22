@@ -1,10 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/core/singletons/service_locator.dart';
-import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/entities/choose_model/car_type_entity.dart';
-import 'package:auto/features/ad/domain/entities/choose_model/model_item_entity.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
 import 'package:auto/features/ad/presentation/bloc/choose_model/car_type_selector_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/choose_model/widgets/car_type_item.dart';
@@ -34,10 +31,8 @@ class _SelectModelScreenState extends State<SelectModelScreen> {
 
   @override
   void initState() {
-    carTypeSelectorBloc = CarModelSelectorBloc(
-        makeId: -1,
-        useCase:
-            GetCarModelUseCase(repository: serviceLocator<AdRepositoryImpl>()));
+    carTypeSelectorBloc =
+        CarModelSelectorBloc(makeId: -1, useCase: GetCarModelUseCase());
     searchController = TextEditingController();
     super.initState();
   }
@@ -47,7 +42,6 @@ class _SelectModelScreenState extends State<SelectModelScreen> {
     searchController.dispose();
     super.dispose();
   }
-
 
   final List<CarTypeEntity> carTypes = List.generate(
       12,
@@ -87,7 +81,7 @@ class _SelectModelScreenState extends State<SelectModelScreen> {
                                   LocaleKeys.choose_model.tr(),
                                   style: Theme.of(context)
                                       .textTheme
-                                      .subtitle1!
+                                      .titleMedium!
                                       .copyWith(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,
@@ -145,7 +139,7 @@ class _SelectModelScreenState extends State<SelectModelScreen> {
                                       LocaleKeys.popular.tr(),
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline1!
+                                          .displayLarge!
                                           .copyWith(
                                               fontWeight: FontWeight.w600,
                                               color: purple),

@@ -7,7 +7,7 @@ class AuthHeader extends StatelessWidget {
   final String? desc;
   final String? phone;
 
-  const AuthHeader({required this.title,Key? key,  this.phone, this.desc})
+  const AuthHeader({required this.title, Key? key, this.phone, this.desc})
       : super(key: key);
 
   @override
@@ -18,7 +18,7 @@ class AuthHeader extends StatelessWidget {
             title,
             style: Theme.of(context)
                 .textTheme
-                .headline1!
+                .displayLarge!
                 .copyWith(fontWeight: FontWeight.w700, fontSize: 32),
           ),
           const SizedBox(
@@ -27,7 +27,10 @@ class AuthHeader extends StatelessWidget {
           Text(
             desc ?? '',
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headline2!.copyWith(color: grey),
+            style: Theme.of(context)
+                .textTheme
+                .displayMedium!
+                .copyWith(color: grey),
           ),
           const SizedBox(
             height: 12,
@@ -45,7 +48,7 @@ class AuthHeader extends StatelessWidget {
                   phone.toString(),
                   style: Theme.of(context)
                       .textTheme
-                      .headline2!
+                      .displayMedium!
                       .copyWith(color: grey),
                 ),
               ),

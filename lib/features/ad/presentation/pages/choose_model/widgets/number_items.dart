@@ -28,11 +28,11 @@ class _NumberItemsState extends State<NumberItems> {
             style: isSelected
                 ? Theme.of(context)
                     .textTheme
-                    .headline6!
+                    .titleLarge!
                     .copyWith(color: greyText)
                 : Theme.of(context)
                     .textTheme
-                    .headline6!
+                    .titleLarge!
                     .copyWith(color: warmerGrey),
           ),
         ),

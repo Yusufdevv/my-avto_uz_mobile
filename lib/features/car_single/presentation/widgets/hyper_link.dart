@@ -33,7 +33,7 @@ class Hyperlink extends StatelessWidget {
               TextSpan(
                 text: text,
                 style: textStyle ??
-                    Theme.of(context).textTheme.headline5!.copyWith(
+                    Theme.of(context).textTheme.headlineSmall!.copyWith(
                           fontSize: 13,
                           color: textColor ?? black,
                         ),

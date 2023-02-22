@@ -19,7 +19,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:formz/formz.dart';
 
 class InfoResultContainer extends StatefulWidget {
   const InfoResultContainer(
@@ -43,8 +42,8 @@ class InfoResultContainer extends StatefulWidget {
       required this.discount,
       required this.id,
       required this.index,
+      required this.sellType,
       this.onTap,
-      this.sellType,
       super.key});
 
   final List<String> gallery;
@@ -66,7 +65,7 @@ class InfoResultContainer extends StatefulWidget {
   final double discount;
   final String callFrom;
   final String callTo;
-  final String? sellType;
+  final String sellType;
   final Function()? onTap;
   final int index;
 
@@ -75,13 +74,6 @@ class InfoResultContainer extends StatefulWidget {
 }
 
 class _InfoResultContainerState extends State<InfoResultContainer> {
-  bool isLiked = false;
-
-  @override
-  void initState() {
-    isLiked = widget.isWishlisted;
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) => GestureDetector(
@@ -95,7 +87,7 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
               color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
               boxShadow: [
                 BoxShadow(
-                  color: LightThemeColors.subTitle1.withOpacity(0.1),
+                  color: LightThemeColors.titleMedium.withOpacity(0.1),
                   offset: const Offset(0, 4),
                   blurRadius: 16,
                 ),
@@ -142,10 +134,8 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                           ),
                         ),
                       ),
-                    if (widget.callFrom.isNotEmpty &&
-                        widget.callTo.isNotEmpty &&
-                        MyFunctions.enableForCalling(
-                            callFrom: widget.callFrom, callTo: widget.callTo))
+                    if (MyFunctions.enableForCalling(
+                        callFrom: widget.callFrom, callTo: widget.callTo))
                       WButton(
                         onTap: () {
                           bottomSheetForCalling(context, widget.contactPhone);
@@ -164,7 +154,7 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                               LocaleKeys.call.tr(),
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline4!
+                                  .headlineMedium!
                                   .copyWith(fontSize: 24),
                             )
                           ],
@@ -193,24 +183,25 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                                     text: LocaleKeys.call_not_available.tr(),
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline1!
+                                        .displayLarge!
                                         .copyWith(fontWeight: FontWeight.w600),
                                   ),
                                   TextSpan(
                                     text: LocaleKeys.please_call_during.tr(),
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline2!
+                                        .displayMedium!
                                         .copyWith(color: greyText),
                                   ),
-                                  TextSpan(
-                                    text:
-                                        '${widget.callFrom} - ${widget.callTo}',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline2!
-                                        .copyWith(color: secondary),
-                                  ),
+                                  if (widget.callFrom.length > 4)
+                                    TextSpan(
+                                      text:
+                                          '${widget.callFrom.substring(0, 5)} - ${widget.callTo.substring(0, 5)}',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayMedium
+                                          ?.copyWith(color: secondary),
+                                    ),
                                 ],
                               ),
                               textAlign: TextAlign.center,
@@ -221,19 +212,20 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                   ],
                 ),
               ),
-              if (widget.sellType != null)
+              if (widget.sellType.isNotEmpty)
                 CustomChip(
-                  label: widget.sellType!,
+                  label: widget.sellType,
                   backgroundColor: Theme.of(context)
                       .extension<ThemedColors>()!
                       .seashellToCinnabar15,
                   labelPadding:
                       const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                  margin: const EdgeInsets.only(top: 8, bottom: 12),
-                  labelStyle: Theme.of(context).textTheme.subtitle1!.copyWith(
+                  margin: const EdgeInsets.only(top: 8),
+                  labelStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
                         color: orange,
                         fontSize: 12,
                       ),
+                  borderRadius: 4,
                 ),
               const SizedBox(height: 12),
               CarNameYearWidget(
@@ -249,15 +241,19 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                         : '${widget.price.floor()} ${widget.currency.toUpperCase()}',
                     style: Theme.of(context)
                         .textTheme
-                        .headline5
+                        .headlineSmall
                         ?.copyWith(color: green, fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(width: 4),
                   if (widget.discount > 0.0)
                     Text(
                       '${widget.price.floor()} ${widget.currency.toUpperCase()}',
-                      style: Theme.of(context).textTheme.headline2?.copyWith(
-                          decoration: TextDecoration.lineThrough, color: grey),
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium
+                          ?.copyWith(
+                              decoration: TextDecoration.lineThrough,
+                              color: grey),
                     )
                 ],
               ),
@@ -266,7 +262,7 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                 widget.description,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.headline2!.copyWith(
+                style: Theme.of(context).textTheme.displayMedium!.copyWith(
                       fontSize: 13,
                       color: grey,
                     ),
@@ -274,65 +270,63 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
               const SizedBox(height: 12),
               Row(
                 children: [
-                  CachedNetworkImage(
-                    imageBuilder: (context, imageProvider) => Container(
-                      height: 36,
-                      width: 36,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(150),
-                        image: DecorationImage(
-                            image: imageProvider, fit: BoxFit.cover),
-                      ),
-                    ),
-                    errorWidget: (context, url, error) => Container(
-                      padding: const EdgeInsets.all(8),
-                      height: 36,
-                      width: 36,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(150),
-                        color: warmerGrey,
-                        border: Border.all(
-                          color: dividerColor,
-                          width: 1,
+                  SizedBox(
+                    height: 36,
+                    width: 36,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: CachedNetworkImage(
+                        imageUrl: widget.userImage,
+                        fit: BoxFit.cover,
+                        errorWidget: (context, url, error) => Image.asset(
+                          AppImages.defaultPhoto,
+                          fit: BoxFit.cover,
                         ),
                       ),
-                      child: SvgPicture.asset(AppIcons.userAvatar),
                     ),
-                    imageUrl: widget.userImage,
-                    fit: BoxFit.cover,
                   ),
                   const SizedBox(width: 8),
-                  RichText(
-                    text: TextSpan(
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        TextSpan(
-                          text: '${widget.userFullName}\n',
+                        Text(
+                          widget.userFullName,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: Theme.of(context)
                               .textTheme
-                              .headline2!
-                              .copyWith(fontSize: 14),
+                              .titleMedium!
+                              .copyWith(fontWeight: FontWeight.w700),
                         ),
-                        TextSpan(
-                          text: widget.userType == 'owner'
-                              ? LocaleKeys.private_person.tr()
-                              : LocaleKeys.autosalon.tr(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(color: purple),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              widget.userType == 'owner'
+                                  ? LocaleKeys.private_person.tr()
+                                  : LocaleKeys.autosalon.tr(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(color: purple),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  )
+                  ),
                 ],
               ),
               const SizedBox(height: 16),
-                Divider(
-                    color: Theme.of(context)
-                        .extension<ThemedColors>()
-                        ?.solitude2ToNightRider,
-                    height: 1,
-                    thickness: 1),
+              Divider(
+                  color: Theme.of(context)
+                      .extension<ThemedColors>()
+                      ?.solitude2ToNightRider,
+                  height: 1,
+                  thickness: 1),
               Padding(
                 padding: const EdgeInsets.only(right: 16, top: 8),
                 child: Row(
@@ -343,7 +337,7 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                         '${widget.districtTitle} • ${MyFunctions.getAutoPublishDate(widget.publishedAt)}',
                         style: Theme.of(context)
                             .textTheme
-                            .bodyText1!
+                            .bodyLarge!
                             .copyWith(color: grey),
                       ),
                     ),
@@ -352,33 +346,31 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                       initialLike: widget.hasComparison,
                     ),
                     const SizedBox(width: 8),
-                    BlocListener<WishlistAddBloc, WishlistAddState>(
-                      listener: (context, stateWish) {
-                        if (stateWish.addStatus.isSubmissionSuccess ||
-                            stateWish.removeStatus.isSubmissionSuccess) {
-                          if (stateWish.id == widget.id) {
-                            isLiked = !isLiked;
-                            setState(() {});
-                          }
-                        }
+                    BlocConsumer<WishlistAddBloc, WishlistAddState>(
+                      listener: (context, state) {},
+                      builder: (context, state) {
+                        final isLiked =
+                            state.map[widget.id] ?? widget.isWishlisted;
+                        return AddWishlistItem(
+                          onTap: () {
+                            if (!isLiked) {
+                              context.read<WishlistAddBloc>().add(
+                                  WishlistAddEvent.addWishlist(widget.id, 0));
+                              context.read<WishlistAddBloc>().add(
+                                  WishlistAddEvent.addToMapFavorites(
+                                      id: widget.id, value: true));
+                            } else {
+                              context.read<WishlistAddBloc>().add(
+                                  WishlistAddEvent.removeWishlist(
+                                      widget.id, 0));
+                              context.read<WishlistAddBloc>().add(
+                                  WishlistAddEvent.addToMapFavorites(
+                                      id: widget.id, value: false));
+                            }
+                          },
+                          initialLike: isLiked,
+                        );
                       },
-                      child: AddWishlistItem(
-                        onTap: () {
-                          context
-                              .read<WishlistAddBloc>()
-                              .add(WishlistAddEvent.clearState());
-                          if (!isLiked) {
-                            context.read<WishlistAddBloc>().add(
-                                WishlistAddEvent.addWishlist(
-                                    widget.id, widget.index));
-                          } else {
-                            context.read<WishlistAddBloc>().add(
-                                WishlistAddEvent.removeWishlist(
-                                    widget.id, widget.index));
-                          }
-                        },
-                        initialLike: isLiked,
-                      ),
                     ),
                   ],
                 ),

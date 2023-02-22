@@ -57,14 +57,13 @@ class ReviewTabBar extends StatelessWidget {
             labelColor: selectedTextColor ??
                 Theme.of(context).extension<ThemedColors>()!.blackToWhite,
             unselectedLabelStyle:
-                Theme.of(context).textTheme.subtitle1!.copyWith(
+                Theme.of(context).textTheme.titleMedium!.copyWith(
                       fontSize: 13,
                       fontWeight: FontWeight.w500,
                     ),
             unselectedLabelColor: unSelectedColor ??
                 Theme.of(context).extension<ThemedColors>()!.blackToWhite,
-            labelStyle:
-                Theme.of(context).textTheme.subtitle1,
+            labelStyle: Theme.of(context).textTheme.titleMedium,
             tabs: [
               for (int i = 0; i < tabLabels.length - 1; i++)
                 Row(

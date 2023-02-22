@@ -122,11 +122,13 @@ class _SelectCarModelScreenState extends State<SelectCarModelScreen> {
                           ),
                           Text(
                             LocaleKeys.choose_brand_auto.tr(),
-                            style:
-                                Theme.of(context).textTheme.subtitle1!.copyWith(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
                           ),
                           const Spacer(),
                           WScaleAnimation(
@@ -163,10 +165,8 @@ class _SelectCarModelScreenState extends State<SelectCarModelScreen> {
                           itemBuilder: (context, index) => CarBrandItem(
                             carBrandEntity: carBrandEntity[index],
                             onTap: () =>
-                                Navigator.of(context, rootNavigator: true).push(
-                                    fade(
-                                        page: AdsScreen(
-                                            isBack: false, onTap: () {}))),
+                                Navigator.of(context, rootNavigator: true)
+                                    .push(fade(page: const AdsScreen())),
                           ),
                           itemCount: carBrandEntity.length,
                         ),
@@ -275,7 +275,7 @@ class _SelectCarModelScreenState extends State<SelectCarModelScreen> {
 //                         child: Text(
 //                           'Выберите марку автомобиля',
 //                           style:
-//                               Theme.of(context).textTheme.subtitle1!.copyWith(
+//                               Theme.of(context).textTheme.titleMedium!.copyWith(
 //                                     fontSize: 16,
 //                                     fontWeight: FontWeight.w600,
 //                                   ),

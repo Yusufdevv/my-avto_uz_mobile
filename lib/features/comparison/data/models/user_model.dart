@@ -1,4 +1,3 @@
-import 'package:auto/features/comparison/domain/entities/main_data_entity.dart';
 import 'package:auto/features/comparison/domain/entities/user_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 

@@ -1,4 +1,3 @@
-
 import 'package:auto/assets/colors/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -40,7 +39,7 @@ class ReviewWrapBuilder extends StatelessWidget {
                 title,
                 style: Theme.of(context)
                     .textTheme
-                    .headline1!
+                    .displayLarge!
                     .copyWith(fontSize: 16),
               ),
             ],
@@ -54,7 +53,7 @@ class ReviewWrapBuilder extends StatelessWidget {
                 Chip(
                   label: Text(
                     i,
-                    style: Theme.of(context).textTheme.headline2,
+                    style: Theme.of(context).textTheme.displayMedium,
                   ),
                   shape: RoundedRectangleBorder(
                     side: const BorderSide(color: border, width: 1),

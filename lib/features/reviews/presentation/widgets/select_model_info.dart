@@ -15,7 +15,6 @@ class SelectModelInfo extends StatelessWidget {
       this.leading,
       this.suffixIconColor,
       this.verticalDivider,
-      
       super.key});
   final String title;
   final TextStyle? titleStyle;
@@ -58,7 +57,7 @@ class SelectModelInfo extends StatelessWidget {
                 style: titleStyle ??
                     Theme.of(context)
                         .textTheme
-                        .subtitle2!
+                        .titleSmall!
                         .copyWith(color: white),
               ),
               const Spacer(),

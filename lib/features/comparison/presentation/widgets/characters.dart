@@ -24,11 +24,12 @@ class _AzListState extends State<CharactersList> {
       BlocBuilder<GetMakesBloc, GetMakesState>(
         builder: (context, state) => GestureDetector(
           onTap: () {
-            widget.controller.jumpTo(146);
+            // widget.controller.jumpTo(146);
             context
                 .read<GetMakesBloc>()
                 .add(GetMakesBlocEvent.getIndex(widget.letter));
-          }, behavior: HitTestBehavior.opaque,
+          },
+          behavior: HitTestBehavior.opaque,
           child: Container(
             color: widget.color,
             padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -37,11 +38,11 @@ class _AzListState extends State<CharactersList> {
               style: widget.letter == state.selectChar
                   ? Theme.of(context)
                       .textTheme
-                      .headline6!
+                      .titleLarge!
                       .copyWith(color: greyText)
                   : Theme.of(context)
                       .textTheme
-                      .headline6!
+                      .titleLarge!
                       .copyWith(color: warmerGrey),
             ),
           ),

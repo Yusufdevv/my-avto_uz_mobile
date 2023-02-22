@@ -3,8 +3,11 @@ part of 'user_wishlists_notification_bloc.dart';
 class UserWishListsEvent {}
 
 class GetUserFavoritesEvent extends UserWishListsEvent {
-   
-  GetUserFavoritesEvent( );
+  GetUserFavoritesEvent();
+}
+
+class GetMoreUserFavoritesEvent extends UserWishListsEvent {
+  GetMoreUserFavoritesEvent();
 }
 
 class GetUserMyAdsEvent extends UserWishListsEvent {
@@ -19,6 +22,8 @@ class GetMoreUserMyAdsEvent extends UserWishListsEvent {
 }
 
 class GetMySearchesEvent extends UserWishListsEvent {}
+
+class GetMoreMySearchesEvent extends UserWishListsEvent {}
 
 class NotificationAllReadEvent extends UserWishListsEvent {}
 
@@ -53,3 +58,5 @@ class GetNotificationsEvent extends UserWishListsEvent {
   int? filter;
   GetNotificationsEvent({this.filter});
 }
+
+class GetMoreNotificationsEvent extends UserWishListsEvent {}

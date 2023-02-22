@@ -22,17 +22,15 @@ class AnimatedBar extends StatelessWidget {
             builder: (context, constraints) => Stack(
               children: [
                 BuildContainer(
-                    color: position < currentIndex
-                        ?white
-                        :white.withOpacity(.3),
+                    color:
+                        position < currentIndex ? white : white.withOpacity(.3),
                     width: double.infinity),
                 if (position == currentIndex)
                   AnimatedBuilder(
                     animation: animationController,
                     builder: (context, child) => BuildContainer(
-                      width: constraints.maxWidth * animationController.value,
-                      color: white
-                    ),
+                        width: constraints.maxWidth * animationController.value,
+                        color: white),
                   )
                 else
                   const SizedBox.shrink(),

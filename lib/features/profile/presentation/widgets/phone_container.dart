@@ -34,7 +34,7 @@ class PhoneContainer extends StatelessWidget {
               phoneNumber,
               style: Theme.of(context)
                   .textTheme
-                  .headline1!
+                  .displayLarge!
                   .copyWith(fontSize: 15, fontWeight: FontWeight.w600),
             ),
             const Spacer(),

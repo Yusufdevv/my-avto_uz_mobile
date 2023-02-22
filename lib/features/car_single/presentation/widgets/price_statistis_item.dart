@@ -4,6 +4,7 @@ import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class PriceStatisticItem extends StatelessWidget {
   final double percent;
   final String price;
@@ -127,7 +128,7 @@ class PriceStatisticItem extends StatelessWidget {
                             LocaleKeys.excellent.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .headline1!
+                                .displayLarge!
                                 .copyWith(
                                     fontSize: 16, fontWeight: FontWeight.w600),
                             textAlign: TextAlign.center,
@@ -141,7 +142,7 @@ class PriceStatisticItem extends StatelessWidget {
                             LocaleKeys.optimal.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .headline1!
+                                .displayLarge!
                                 .copyWith(
                                     fontSize: 16, fontWeight: FontWeight.w600),
                             textAlign: TextAlign.center,
@@ -153,11 +154,13 @@ class PriceStatisticItem extends StatelessWidget {
                           alignment: Alignment.center,
                           child: Text(
                             LocaleKeys.overpriced.tr(),
-                            style:
-                                Theme.of(context).textTheme.headline1!.copyWith(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayLarge!
+                                .copyWith(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -174,7 +177,7 @@ class PriceStatisticItem extends StatelessWidget {
                   children: [
                     Text(
                       '$price USD',
-                      style: Theme.of(context).textTheme.headline1!.copyWith(
+                      style: Theme.of(context).textTheme.displayLarge!.copyWith(
                             color: dark,
                             fontSize: 12,
                             fontWeight: FontWeight.w700,

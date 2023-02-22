@@ -1,6 +1,7 @@
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/dealers/presentation/pages/image_in_full_screen.dart';
+import 'package:auto/features/car_single/presentation/parts/images_page.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -98,10 +99,14 @@ class _AnimatedImagesState extends State<AnimatedImages>
                   }
                 } else {
                   if (!widget.isUserSingle && widget.images.isNotEmpty) {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ImageInFullScreen(
-                              images: widget.images,
-                            )));
+                    // Navigator.of(context).push(MaterialPageRoute(
+                    //     builder: (context) => ImageInFullScreen(
+                    //           images: widget.images,
+                    //         )));
+                    Navigator.of(context).push(fade(
+                        page: ImagesPage(
+                      images: widget.images,
+                    )));
                   }
                 }
               },

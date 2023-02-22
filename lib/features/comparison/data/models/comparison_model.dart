@@ -1,6 +1,6 @@
+import 'package:auto/features/comparison/domain/entities/announcement_entity.dart';
 import 'package:auto/features/comparison/domain/entities/comparison_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:auto/features/comparison/domain/entities/announcement_entity.dart';
 
 part 'comparison_model.g.dart';
 

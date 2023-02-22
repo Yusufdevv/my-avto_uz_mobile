@@ -64,7 +64,7 @@ class _PublishScreenState extends State<PublishScreen> {
                     style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w400,
-                      color: LightThemeColors.headline5,
+                      color: LightThemeColors.headlineSmall,
                     ),
                   ),
                 ),
@@ -171,7 +171,8 @@ class _PublishScreenState extends State<PublishScreen> {
                   MaterialPageRoute(
                     builder: (context) => const MyReviewsScreen(),
                   ),
-                ), behavior: HitTestBehavior.opaque,
+                ),
+                behavior: HitTestBehavior.opaque,
                 child: nexContainer(const Color(0xff64C59E), 'Опубликовать'),
               ),
             ],

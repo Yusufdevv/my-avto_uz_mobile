@@ -26,7 +26,7 @@ class _ReviewSingleCarActionsState extends State<ReviewSingleCarActions> {
           Text(
             '${widget.commentsCount}',
             style:
-                Theme.of(context).textTheme.headline6!.copyWith(fontSize: 14),
+                Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 14),
           ),
           const VerticalDivider(color: black, thickness: 1, width: 16),
           SvgPicture.asset(AppIcons.eye),
@@ -34,7 +34,7 @@ class _ReviewSingleCarActionsState extends State<ReviewSingleCarActions> {
           Text(
             '${widget.viewsCount}',
             style:
-                Theme.of(context).textTheme.headline6!.copyWith(fontSize: 14),
+                Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 14),
           ),
           const SizedBox(width: 16),
         ],

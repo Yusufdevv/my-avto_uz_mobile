@@ -8,7 +8,7 @@ part of 'body_type.dart';
 
 BodyTypeModel _$BodyTypeModelFromJson(Map<String, dynamic> json) =>
     BodyTypeModel(
-      id: json['id'] as int? ?? 0,
+      id: json['id'] as int? ?? -1,
       type: json['type'] as String? ?? '',
       logo: json['logo'] as String? ?? '',
     );

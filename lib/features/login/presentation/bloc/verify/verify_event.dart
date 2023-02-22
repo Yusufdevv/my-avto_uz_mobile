@@ -6,5 +6,3 @@ class VerifyVerifyEvent extends VerifyEvent {
   final VerifyParam param;
   VerifyVerifyEvent({required this.param});
 }
-
-

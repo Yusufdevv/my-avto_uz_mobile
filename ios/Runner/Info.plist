@@ -2,6 +2,45 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+<key>FacebookAppID</key>
+<string>863230334939681</string>
+<key>FacebookClientToken</key>
+<string>e1c258cab44ba72a23417ed9c32e1687</string>
+<key>FacebookDisplayName</key>
+<string>Avto.uz</string>
+<key>LSApplicationQueriesSchemes</key>
+<array>
+    <string>comgooglemaps</string>
+    <string>baidumap</string>
+    <string>iosamap</string>
+    <string>waze</string>
+    <string>yandexmaps</string>
+    <string>yandexnavi</string>
+    <string>citymapper</string>
+    <string>mapswithme</string>
+    <string>osmandmaps</string>
+    <string>dgis</string>
+    <string>qqmap</string>
+    <string>here-location</string>
+    <string>tomtomgo</string>
+</array>
+<key>LSApplicationQueriesSchemes</key>
+<array>
+  <string>fbapi</string>
+  <string>fb-messenger-share-api</string>
+</array>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>com.googleusercontent.apps.385393917430-0knj07r3islaer9oegrkq2m6od3tm5ln</string>
+                <string>fb863230334939681</string>
+            </array>
+        </dict>
+    </array>
     <key>NSMicrophoneUsageDescription</key>
     <string>We need permission for microphone to record video sounds</string>
     <key>NSCameraUsageDescription</key>
@@ -61,5 +100,10 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+    	<dict>
+    		<key>NSAllowsArbitraryLoads</key>
+    		<true/>
+    	</dict>
 </dict>
 </plist>

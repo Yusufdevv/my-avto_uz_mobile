@@ -2,6 +2,12 @@ part of 'posting_ad_bloc.dart';
 
 abstract class PostingAdEvent {}
 
+class PostingAdShowToastEvent extends PostingAdEvent {
+  final String message;
+  final PopStatus status;
+  PostingAdShowToastEvent({required this.message, required this.status});
+}
+
 class PostingAdSerchControllerClearEvent extends PostingAdEvent {}
 
 class PostingAdClearStateEvent extends PostingAdEvent {}
@@ -54,8 +60,8 @@ class PostingAdDamageEvent extends PostingAdEvent {
 class PostingAdGetRegionsEvent extends PostingAdEvent {}
 
 class PostingAdGetDistritsEvent extends PostingAdEvent {
-  final int regionId;
-  PostingAdGetDistritsEvent({required this.regionId});
+  final int? regionId;
+  PostingAdGetDistritsEvent({this.regionId});
 }
 
 class PostingAdCreateEvent extends PostingAdEvent {}
@@ -91,6 +97,11 @@ class PostingAdTopMakesEvent extends PostingAdEvent {
   PostingAdTopMakesEvent({this.name});
 }
 
+class PostingAdOnRentWithPurchaseConditionChangedEvent extends PostingAdEvent {
+  final RentWithPurchaseEntity condition;
+  PostingAdOnRentWithPurchaseConditionChangedEvent({required this.condition});
+}
+
 class PostingAdGenerationsEvent extends PostingAdEvent {
   final int modelId;
 
@@ -107,18 +118,18 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final int? regionId;
   final List<YearsEntity>? years;
   final int? districtId;
-  final List<RentWithPurchaseEntity>? rentWithPurchaseConditions;
+
   final Map<DamagedParts, DamageType>? damagedParts;
-  final int? modificationId;
-  final int? modelId;
+  final ModificationTypeEntity? modification;
+  final MakeEntity? model;
   final int? generationId;
 
   final int? popularTypeId;
-  final int? makeId;
+  final MakeEntity? make;
   final int? engineId;
-  final int? selectedBodyTypeId;
+  final BodyTypeEntity? bodyType;
   final int? driveTypeId;
-  final int? gearboxId;
+  final GearboxTypeEntity? gearbox;
   final YearsEntity? yearEntity;
   final Uint8List? bodyBytes;
   final String? milageImage;
@@ -135,7 +146,6 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final String? price;
   final String? currency;
   final String? mileage;
-  final String? gasBalloonType;
 
   final String? callTimeFrom;
   final String? callTimeTo;
@@ -152,9 +162,11 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final bool? isWithoutMileage;
   final bool? showExactAddress;
   final bool? isNew;
+  final int? gasEquipmentId;
+  final int? equipmentId;
 
   PostingAdChooseEvent({
-    this.modificationId,
+    this.modification,
     this.searchController,
     this.panaramaGallery,
     this.bodyBytes,
@@ -167,20 +179,19 @@ class PostingAdChooseEvent extends PostingAdEvent {
     this.where,
     this.damagedParts,
     this.isNew,
-    this.rentWithPurchaseConditions,
     this.gallery,
     this.showExactAddress,
     this.districtId,
     this.driveTypeId,
     this.generationId,
-    this.selectedBodyTypeId,
+    this.bodyType,
     this.years,
-    this.modelId,
+    this.model,
     this.letter,
-    this.makeId,
+    this.make,
     this.popularTypeId,
     this.engineId,
-    this.gearboxId,
+    this.gearbox,
     this.colorName,
     this.typeDocument,
     this.ownerStep,
@@ -196,7 +207,6 @@ class PostingAdChooseEvent extends PostingAdEvent {
     this.currency,
     this.mileage,
     this.hasGasBalloon,
-    this.gasBalloonType,
     this.callTimeFrom,
     this.callTimeTo,
     this.isCallTimed,
@@ -205,10 +215,20 @@ class PostingAdChooseEvent extends PostingAdEvent {
     this.rentToBuy,
     this.isWithoutMileage,
     this.milageImage,
+    this.gasEquipmentId,
+    this.equipmentId,
   });
 }
 
 class PostingAdChangeAppBarShadowEvent extends PostingAdEvent {
   final bool value;
   PostingAdChangeAppBarShadowEvent({required this.value});
+}
+
+class PostingAdGetGasEquipments extends PostingAdEvent {
+  PostingAdGetGasEquipments();
+}
+
+class PostingAdGetEquipments extends PostingAdEvent {
+  PostingAdGetEquipments();
 }

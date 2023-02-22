@@ -33,7 +33,7 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
     super.initState();
   }
 
-  List<Region> _checkedRegions = <Region>[]; 
+  List<Region> _checkedRegions = <Region>[];
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -41,12 +41,12 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
       appBar: WAppBar(
         boxShadow: const [],
         titleStyle:
-            Theme.of(context).textTheme.headline1!.copyWith(fontSize: 16),
+            Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 16),
         extraActions: [
           Text(LocaleKeys.filter.tr(),
               style: Theme.of(context)
                   .textTheme
-                  .headline1!
+                  .displayLarge!
                   .copyWith(fontSize: 16, fontWeight: FontWeight.w600)),
           const Spacer(
             flex: 30,
@@ -62,7 +62,7 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
                 LocaleKeys.clear.tr(),
                 style: Theme.of(context)
                     .textTheme
-                    .subtitle1!
+                    .titleMedium!
                     .copyWith(color: blue),
               ),
             ),
@@ -99,7 +99,7 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
                             isScrollControlled: true,
                             backgroundColor: Colors.transparent,
                             builder: (c) => RentChooseRegionBottomSheet(
-                              checkedRegions: _checkedRegions.asMap(),
+                                checkedRegions: _checkedRegions.asMap(),
                                 list:
                                     context.read<RegionsBloc>().state.regions),
                           ).then((value) {
@@ -109,14 +109,15 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
                               context.read<DirectoryBloc>().add(
                                   DirectoryFilterEvent(
                                       regionId: regionsId, regions: regions));
-                                      _checkedRegions = value;
+                              _checkedRegions = value;
                             }
                           });
                         },
                         child: EditItemContainer(
                             isOtherPage: true,
                             icon: AppIcons.chevronRightBlack,
-                            region:  context.read<DirectoryBloc>().state.regions),
+                            region:
+                                context.read<DirectoryBloc>().state.regions),
                       ),
                       const SizedBox(height: 16),
                       //Категории

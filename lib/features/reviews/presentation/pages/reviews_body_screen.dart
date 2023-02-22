@@ -102,7 +102,7 @@ class _ReviewsBodyScreenState extends State<ReviewsBodyScreen> {
                       Text('${widget.reviewCount} отзыва',
                           style: Theme.of(context)
                               .textTheme
-                              .subtitle1!
+                              .titleMedium!
                               .copyWith(fontSize: 13)),
                       const Spacer(),
                       GestureDetector(
@@ -110,7 +110,8 @@ class _ReviewsBodyScreenState extends State<ReviewsBodyScreen> {
                           setState(() {
                             firstPositive = !firstPositive;
                           });
-                        }, behavior: HitTestBehavior.opaque,
+                        },
+                        behavior: HitTestBehavior.opaque,
                         child: AnimatedContainer(
                           duration: const Duration(milliseconds: 200),
                           child: Text(
@@ -119,7 +120,7 @@ class _ReviewsBodyScreenState extends State<ReviewsBodyScreen> {
                                 : 'Сначала отрица...',
                             style: Theme.of(context)
                                 .textTheme
-                                .subtitle1!
+                                .titleMedium!
                                 .copyWith(
                                     fontSize: 13, fontWeight: FontWeight.w400),
                           ),
@@ -179,7 +180,7 @@ class _ReviewsBodyScreenState extends State<ReviewsBodyScreen> {
                                       'Шумоизоляция',
                                       'Безопасность'
                                     ],
-                                    minuses:  [
+                                    minuses: [
                                       'Качество сборки',
                                       LocaleKeys.drive_gearbox.tr()
                                     ],

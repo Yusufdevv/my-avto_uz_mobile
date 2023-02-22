@@ -42,7 +42,7 @@ class OtherAdsItem extends StatelessWidget {
                 LocaleKeys.Other_announcements.tr(),
                 style: Theme.of(context)
                     .textTheme
-                    .headline1!
+                    .displayLarge!
                     .copyWith(fontWeight: FontWeight.w700, fontSize: 18),
               ),
             ),
@@ -64,7 +64,7 @@ class OtherAdsItem extends StatelessWidget {
                       makeName,
                       style: Theme.of(context)
                           .textTheme
-                          .headline1!
+                          .displayLarge!
                           .copyWith(fontSize: 14, fontWeight: FontWeight.w700),
                     ),
                   ),

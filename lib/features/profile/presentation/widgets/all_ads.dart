@@ -17,7 +17,11 @@ import 'package:formz/formz.dart';
 
 class AllAds extends StatefulWidget {
   final String moderationStatus;
-  const AllAds({required this.moderationStatus, Key? key}) : super(key: key);
+
+  const AllAds({
+    required this.moderationStatus,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<AllAds> createState() => _AllAdsState();
@@ -42,7 +46,7 @@ class _AllAdsState extends State<AllAds> {
         if (state.myAdsStatus.isSubmissionSuccess) {
           return state.myAds.isNotEmpty
               ? Paginator(
-                  hasMoreToFetch: state.moreFetch,
+                  hasMoreToFetch: state.moreFetchMyAds,
                   fetchMoreFunction: () {
                     context.read<UserWishListsBloc>().add(GetMoreUserMyAdsEvent(
                         moderationStatus: widget.moderationStatus));
@@ -76,7 +80,10 @@ class _AllAdsState extends State<AllAds> {
                                   MyAdCarDescPart(item: item),
                                   //
                                   if (item.moderationStatus != 'blocked')
-                                    MyAdDesc(item: item)
+                                    MyAdDesc(
+                                      moderationStatus: widget.moderationStatus,
+                                      item: item,
+                                    )
                                   else
                                     ReSendPart(item: item)
                                 ],
@@ -89,7 +96,8 @@ class _AllAdsState extends State<AllAds> {
                   })
               : Center(
                   child: EmptyItemBody(
-                      subtitle: LocaleKeys.you_dont_have_ads.tr(),
+                      subtitle: '',
+                      title: LocaleKeys.no_results.tr(),
                       image: AppIcons.carIcon),
                 );
         }

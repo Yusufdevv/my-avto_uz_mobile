@@ -1,5 +1,4 @@
 // ignore_for_file: unnecessary_null_comparison
-
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/car_single/data/repository/car_single_repository_impl.dart';
@@ -12,7 +11,7 @@ import 'package:auto/features/car_single/presentation/pages/user_single_page.dar
 import 'package:auto/features/car_single/presentation/parts/car_seller_card.dart';
 import 'package:auto/features/car_single/presentation/parts/descriptions/seller_comment.dart';
 import 'package:auto/features/car_single/presentation/parts/owner_actions.dart';
-import 'package:auto/features/car_single/presentation/widgets/app_bar.dart';
+import 'package:auto/features/car_single/presentation/widgets/sliver_app_bar_item.dart';
 import 'package:auto/features/car_single/presentation/widgets/bottom_item.dart';
 import 'package:auto/features/car_single/presentation/widgets/car_characteristic_image.dart';
 import 'package:auto/features/car_single/presentation/widgets/car_name_widget.dart';
@@ -35,6 +34,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:share_plus/share_plus.dart';
+
+import '../../../core/singletons/storage.dart';
 
 class CarSingleScreen extends StatefulWidget {
   final int id;
@@ -82,8 +83,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
     isDisable = true;
     isLike = false;
     bloc = CarSingleBloc(
-        GetCarSingleUseCase(
-            repository: serviceLocator<CarSingleRepositoryImpl>()),
+        GetCarSingleUseCase(),
         OtherAdsUseCase(repository: serviceLocator<CarSingleRepositoryImpl>()),
         SoldAdsUseCase(repository: serviceLocator<CarSingleRepositoryImpl>()),
         CallCount(repository: serviceLocator<CarSingleRepositoryImpl>()))
@@ -114,21 +114,6 @@ class _CarSingleScreenState extends State<CarSingleScreen>
       }
     });
     super.initState();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    switch (state) {
-      case AppLifecycleState.resumed:
-        context.read<CarSingleBloc>().add(CarSingleEvent.callCount(widget.id));
-        break;
-      case AppLifecycleState.inactive:
-        break;
-      case AppLifecycleState.paused:
-        break;
-      case AppLifecycleState.detached:
-        break;
-    }
   }
 
   @override
@@ -187,7 +172,9 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                         slug: state.singleEntity.user.slug)));
                               }
                             },
-                            onCompare: () {},
+                            onCompare: () {
+                              /// tegma, ichkarida AddComparisonItemda function-i yozilgan
+                            },
                             isMine: state.singleEntity.isMine,
                             status: state.soldStatus,
                             onSold: () {
@@ -236,12 +223,16 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                               ),
                               date: state.singleEntity.publishedAt,
                               view: '${state.singleEntity.viewsCount}',
+                              todayViewedCount:
+                                  '${state.singleEntity.todayViewedCount}',
                               id: '${state.singleEntity.id}',
                               currency: state.singleEntity.currency == 'usd'
                                   ? 'USD'
                                   : 'UZS',
                               onVin: () {},
-                              onComparison: () {},
+                              onComparison: () {
+                                /// tegma, ichkarida AddComparisonItemda function-i yozilgan
+                              },
                               onShare: () {
                                 Share.share(
                                     'https://panel.avto.uz/api/v1/car/announcement/${state.singleEntity.id}/detail/');
@@ -262,7 +253,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                   .singleEntity.priceAnalytics.averagePrice,
                               ration: state
                                   .singleEntity.priceAnalytics.priceDifference,
-                              dateBsh: '25 mart',
+                              dateBsh: DateFormat('d MMMM', StorageRepository.getString('language'),).format(DateTime.now()),
                               percent: MyFunctions.getFormatCost(
                                   '${100 - state.singleEntity.priceAnalytics.percentage}'),
                               isMine: state.singleEntity.isMine,
@@ -295,6 +286,9 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                   ? state.singleEntity.user.name
                                   : state.singleEntity.user.fullName,
                               userType: state.singleEntity.userType,
+                              userId: state.singleEntity.user.id,
+                              announcementId: state.singleEntity.id,
+                              slug: state.singleEntity.user.slug,
                               isCrashed: false,
                             ),
                           ),
@@ -323,9 +317,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                         SellerComment(
                                           comment:
                                               state.singleEntity.description,
-                                        )
-                                      else
-                                        const SizedBox(),
+                                        ),
                                       const VinSoonItem(),
                                     ],
                                   )
@@ -406,7 +398,9 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                           callFrom: state.singleEntity.contactAvailableFrom,
                           callTo: state.singleEntity.contactAvailableTo,
                           phoneNumber: state.singleEntity.user.phoneNumber,
-                          userAvatar: state.singleEntity.user.avatar,
+                          userAvatar: state.singleEntity.userType == 'dealer'
+                              ? state.singleEntity.user.avatar ?? ''
+                              : state.singleEntity.user.image ?? '',
                           id: state.singleEntity.id,
                           userId: state.singleEntity.user.id,
                           usertype: state.singleEntity.userType,

@@ -3,8 +3,6 @@
 import 'package:auto/features/ad/domain/entities/damaged_part/damaged_part.dart';
 import 'package:equatable/equatable.dart';
 
-
-
 class AnnouncementToPostEntity extends Equatable {
   final int id;
   final int make;

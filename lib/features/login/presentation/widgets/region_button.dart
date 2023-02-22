@@ -57,25 +57,24 @@ class _RegionButtonState extends State<RegionButton> {
           });
         },
         child: BlocBuilder<RegionsBloc, RegionsState>(
-          builder: (context, state) => Container(
-            padding: const EdgeInsets.only(top: 29),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 12),
-                    child: Text(
-                      LocaleKeys.region.tr(),
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline1!
-                          .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
-                    ),
+          builder: (context, state) => Row(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 13, top: 26),
+                  child: Text(
+                    LocaleKeys.region.tr(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayLarge!
+                        .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                   ),
                 ),
-                Expanded(
-                  flex: 3,
+              ),
+              Expanded(
+                flex: 3,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 29),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -89,14 +88,14 @@ class _RegionButtonState extends State<RegionButton> {
                             style: currentRegion.isEmpty
                                 ? Theme.of(context)
                                     .textTheme
-                                    .subtitle1!
+                                    .titleMedium!
                                     .copyWith(
                                         fontSize: 14,
                                         color: warmerGrey,
                                         fontWeight: FontWeight.w400)
                                 : Theme.of(context)
                                     .textTheme
-                                    .headline2
+                                    .displayMedium
                                     ?.copyWith(color: dark),
                           ),
                           SvgPicture.asset(AppIcons.chevronRight,
@@ -111,8 +110,8 @@ class _RegionButtonState extends State<RegionButton> {
                     ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       );

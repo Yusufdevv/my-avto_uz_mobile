@@ -26,24 +26,26 @@ class PersonalDataItemm extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
-              child: RichText(
-                text: TextSpan(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 1.5),
+                child: Row(
                   children: [
-                    TextSpan(
-                      text: title,
+                    Text(
+                      title,
                       style: Theme.of(context)
                           .textTheme
-                          .headline1!
-                          .copyWith(fontSize: 16, fontWeight: FontWeight.w400),
+                          .displayLarge!
+                          .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                     ),
                     if (isRequired) ...{
-                      TextSpan(
-                        text: '*',
-                        style: Theme.of(context).textTheme.headline1!.copyWith(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14,
-                              color: orange,
-                            ),
+                      Text(
+                        '*',
+                        style:
+                            Theme.of(context).textTheme.displayLarge!.copyWith(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14,
+                                  color: orange,
+                                ),
                       ),
                     }
                   ],
@@ -59,14 +61,14 @@ class PersonalDataItemm extends StatelessWidget {
                   hintText: hintText,
                   hintTextStyle: Theme.of(context)
                       .textTheme
-                      .subtitle1!
+                      .titleMedium!
                       .copyWith(
                           fontSize: 14,
                           color: warmerGrey,
                           fontWeight: FontWeight.w400),
                   textStyle: Theme.of(context)
                       .textTheme
-                      .subtitle1!
+                      .displayLarge!
                       .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                 )),
           ],

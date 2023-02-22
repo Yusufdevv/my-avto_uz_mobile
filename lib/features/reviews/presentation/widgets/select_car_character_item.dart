@@ -25,14 +25,14 @@ class SelectCarCharactersItem extends StatelessWidget {
             title,
             style: Theme.of(context)
                 .textTheme
-                .headline2!
+                .displayMedium!
                 .copyWith(fontSize: subtitle == null ? 16 : 13),
           ),
           subtitle: subtitle == null
               ? null
               : Text(
                   subtitle!,
-                  style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
                       fontWeight: FontWeight.w400, fontSize: 16, color: dark),
                 ),
           trailing: SvgPicture.asset(AppIcons.chevronRight, color: darkGray),

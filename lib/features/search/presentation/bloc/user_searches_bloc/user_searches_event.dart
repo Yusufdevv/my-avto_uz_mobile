@@ -4,6 +4,6 @@ part of 'user_searches_bloc.dart';
 class UserSearchesEvent with _$UserSearchesEvent {
   factory UserSearchesEvent.getUserSearches({String? search}) =
       _GetUserSearches;
-      factory UserSearchesEvent.getPopularSearches({String? search}) =
+  factory UserSearchesEvent.getPopularSearches({String? search}) =
       _GetPopularSearches;
 }

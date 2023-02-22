@@ -1,4 +1,3 @@
-import 'package:auto/features/ad/data/models/body_type.dart';
 import 'package:auto/features/ad/data/models/modification_type.dart';
 import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -12,9 +11,9 @@ class ModificationTypeEntity extends Equatable {
   final String volume;
 
   const ModificationTypeEntity({
-     this.id = -1,
-     this.power='',
-     this.volume='',
+    this.id = -1,
+    this.power = '',
+    this.volume = '',
   });
 
   @override

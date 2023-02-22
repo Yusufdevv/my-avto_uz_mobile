@@ -6,14 +6,19 @@ class SocialMediaItem extends StatelessWidget {
   final Widget icon;
   final Color? backgroundColor;
   final Color? borderColor;
+  final VoidCallback onTap;
 
   const SocialMediaItem(
-      {required this.icon, this.borderColor, this.backgroundColor, Key? key})
+      {required this.icon,
+      required this.onTap,
+      this.borderColor,
+      this.backgroundColor,
+      Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) => WScaleAnimation(
-      onTap: () {},
+      onTap: onTap,
       child: Container(
         width: 40,
         height: 40,

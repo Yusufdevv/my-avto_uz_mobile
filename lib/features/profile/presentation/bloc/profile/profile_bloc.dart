@@ -41,7 +41,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<EditProfileEvent>(_onEditProfile);
     on<GetTermsOfUseEvent>(_onGetTermsOfUse);
     on<LoginUser>(_onLoginUser);
-    on<ChangeCountDataEvent>(_onChangeIsWish);
+    on<ChangeCountDataEvent>(_onChangeCountData);
     on<GetNoReadNotificationsEvent>(_onGetNoReadNotificationsEvent);
 
     on<ChangeNotificationAllRead>(
@@ -57,19 +57,41 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       },
     );
   }
-  void _onChangeIsWish(ChangeCountDataEvent event, Emitter<ProfileState> emit) {
+  void _onChangeCountData(
+      ChangeCountDataEvent event, Emitter<ProfileState> emit) {
     emit(state.copyWith(changeStatus: FormzStatus.submissionInProgress));
     // ignore: prefer_final_locals
     var profileData = state.profileEntity;
     var announcementWishlistCount =
         profileData.usercountdata.announcementWishlistCount;
+    var mySearchesCount = profileData.usercountdata.filterHistoryCount;
+    var myAdsCount = profileData.usercountdata.announcementsCount;
     if (event.adding) {
-      announcementWishlistCount += 1;
+      if (event.favoritesCount != null) {
+        announcementWishlistCount += event.favoritesCount!;
+      }
+      if (event.mySearchesCount != null) {
+        mySearchesCount += event.mySearchesCount!;
+      }
+      if (event.myAdsCount != null) {
+        myAdsCount += event.myAdsCount!;
+      }
     } else {
-      announcementWishlistCount -= 1;
+      if (event.favoritesCount != null && announcementWishlistCount>0) {
+        announcementWishlistCount -= event.favoritesCount!;
+      }
+      if (event.mySearchesCount != null && mySearchesCount>0) {
+        mySearchesCount -= event.mySearchesCount!;
+      }
+      if (event.myAdsCount != null && myAdsCount>0) {
+        myAdsCount -= event.myAdsCount!;
+      }
     }
     profileData.usercountdata.announcementWishlistCount =
         announcementWishlistCount;
+    profileData.usercountdata.filterHistoryCount = mySearchesCount;
+    profileData.usercountdata.announcementsCount = myAdsCount;
+
     emit(state.copyWith(
         profileEntity: profileData,
         changeStatus: FormzStatus.submissionSuccess));
@@ -78,11 +100,12 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   Future<void> _onGetNoReadNotificationsEvent(
       GetNoReadNotificationsEvent event, Emitter<ProfileState> emit) async {
     emit(state.copyWith(changeStatus: FormzStatus.submissionInProgress));
-    final result = await getNotificationsUseCase.call(event.filter);
+    final result = await getNotificationsUseCase
+        .call(NotificationParams(filter: event.filter));
     if (result.isRight) {
       emit(state.copyWith(
           changeStatus: FormzStatus.submissionSuccess,
-          isNotificationAllRead: result.right.isEmpty));
+          isNotificationAllRead: result.right.results.isEmpty));
     } else {
       emit(state.copyWith(changeStatus: FormzStatus.submissionFailure));
     }

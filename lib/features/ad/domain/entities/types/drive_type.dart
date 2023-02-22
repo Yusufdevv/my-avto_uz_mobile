@@ -3,17 +3,19 @@ import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 class DriveTypeEntity extends Equatable {
-  @JsonKey(name: 'id', defaultValue: 0)
+  @JsonKey(name: 'id')
   final int id;
-  @JsonKey(name: 'type', defaultValue: '')
+  @JsonKey(name: 'type')
   final String type;
-  @JsonKey(name: 'logo', defaultValue: '')
+  @JsonKey(
+    name: 'logo',
+  )
   final String logo;
 
   const DriveTypeEntity({
-    required this.id,
-    required this.type,
-    required this.logo,
+    this.id = -1,
+    this.type = '',
+    this.logo = '',
   });
 
   @override
@@ -33,5 +35,9 @@ class DriveTypeEntityConverter
       DriveTypeModel.fromJson(json ?? {});
 
   @override
-  Map<String, dynamic> toJson(DriveTypeEntity object) => {};
+  Map<String, dynamic> toJson(DriveTypeEntity object) => DriveTypeModel(
+        id: object.id,
+        logo: object.logo,
+        type: object.type,
+      ).toJson();
 }

@@ -4,7 +4,6 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/car_single/presentation/car_single_screen.dart';
-import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/bloc/user_wishlists_notifications/user_wishlists_notification_bloc.dart';
@@ -18,7 +17,6 @@ import 'package:auto/utils/my_functions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class FavoriteItem extends StatefulWidget {
@@ -45,8 +43,8 @@ class FavoriteItem extends StatefulWidget {
       required this.index,
       required this.animation,
       required this.bloc,
+      required this.sellType,
       this.onTap,
-      this.sellType,
       super.key});
   final UserWishListsBloc bloc;
   final List<String> gallery;
@@ -68,7 +66,7 @@ class FavoriteItem extends StatefulWidget {
   final double discount;
   final String callFrom;
   final String callTo;
-  final String? sellType;
+  final String sellType;
   final Function()? onTap;
   final Animation<double> animation;
   final int index;
@@ -105,7 +103,7 @@ class _FavoriteItemState extends State<FavoriteItem> {
                 color: Theme.of(context).extension<ThemedColors>()?.whiteToDark,
                 boxShadow: [
                   BoxShadow(
-                    color: LightThemeColors.subTitle1.withOpacity(0.1),
+                    color: LightThemeColors.titleMedium.withOpacity(0.1),
                     offset: const Offset(0, 4),
                     blurRadius: 16,
                   ),
@@ -174,7 +172,7 @@ class _FavoriteItemState extends State<FavoriteItem> {
                                 LocaleKeys.call.tr(),
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline4
+                                    .headlineMedium
                                     ?.copyWith(fontSize: 24),
                               )
                             ],
@@ -203,7 +201,7 @@ class _FavoriteItemState extends State<FavoriteItem> {
                                       text: LocaleKeys.call_not_available.tr(),
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline1
+                                          .displayLarge
                                           ?.copyWith(
                                               fontWeight: FontWeight.w600),
                                     ),
@@ -211,17 +209,18 @@ class _FavoriteItemState extends State<FavoriteItem> {
                                       text: LocaleKeys.please_call_during.tr(),
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline2
+                                          .displayMedium
                                           ?.copyWith(color: greyText),
                                     ),
-                                    TextSpan(
-                                      text:
-                                          '${widget.callFrom.substring(0, 5)} - ${widget.callTo.substring(0, 5)}',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline2
-                                          ?.copyWith(color: secondary),
-                                    ),
+                                    if (widget.callFrom.length > 4)
+                                      TextSpan(
+                                        text:
+                                            '${widget.callFrom.substring(0, 5)} - ${widget.callTo.substring(0, 5)}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displayMedium
+                                            ?.copyWith(color: secondary),
+                                      ),
                                   ],
                                 ),
                                 textAlign: TextAlign.center,
@@ -232,19 +231,21 @@ class _FavoriteItemState extends State<FavoriteItem> {
                     ],
                   ),
                 ),
-                if (widget.sellType != null)
+                if (widget.sellType.isNotEmpty)
                   CustomChip(
-                    label: widget.sellType!,
+                    label: widget.sellType,
                     backgroundColor: Theme.of(context)
-                        .extension<ThemedColors>()
-                        ?.seashellToCinnabar15,
+                        .extension<ThemedColors>()!
+                        .seashellToCinnabar15,
                     labelPadding:
                         const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                    margin: const EdgeInsets.only(top: 8, bottom: 12),
-                    labelStyle: Theme.of(context).textTheme.subtitle1?.copyWith(
-                          color: orange,
-                          fontSize: 12,
-                        ),
+                    margin: const EdgeInsets.only(top: 8),
+                    labelStyle:
+                        Theme.of(context).textTheme.titleMedium!.copyWith(
+                              color: orange,
+                              fontSize: 12,
+                            ),
+                    borderRadius: 4,
                   ),
                 const SizedBox(height: 12),
                 CarNameYearWidget(
@@ -260,16 +261,19 @@ class _FavoriteItemState extends State<FavoriteItem> {
                           : '${widget.price.floor()} ${widget.currency.toUpperCase()}',
                       style: Theme.of(context)
                           .textTheme
-                          .headline5
+                          .headlineSmall
                           ?.copyWith(color: green, fontWeight: FontWeight.w600),
                     ),
                     const SizedBox(width: 4),
                     if (widget.discount > 0.0)
                       Text(
                         '${widget.price.floor()} ${widget.currency.toUpperCase()}',
-                        style: Theme.of(context).textTheme.headline2?.copyWith(
-                            decoration: TextDecoration.lineThrough,
-                            color: grey),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium
+                            ?.copyWith(
+                                decoration: TextDecoration.lineThrough,
+                                color: grey),
                       )
                   ],
                 ),
@@ -278,7 +282,7 @@ class _FavoriteItemState extends State<FavoriteItem> {
                   widget.description,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.headline2?.copyWith(
+                  style: Theme.of(context).textTheme.displayMedium?.copyWith(
                         fontSize: 13,
                         color: grey,
                       ),
@@ -289,51 +293,51 @@ class _FavoriteItemState extends State<FavoriteItem> {
                     SizedBox(
                       height: 36,
                       width: 36,
-                      child: CachedNetworkImage(
-                          imageBuilder: (context, imageProvider) => Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(150),
-                                  image: DecorationImage(
-                                      image: imageProvider, fit: BoxFit.cover),
-                                ),
-                              ),
-                          errorWidget: (context, url, error) => Container(
-                                decoration: BoxDecoration(
-                                  image: const DecorationImage(
-                                      image: AssetImage(
-                                        AppImages.defaultPhoto,
-                                      ),
-                                      fit: BoxFit.cover),
-                                  borderRadius: BorderRadius.circular(150),
-                                  color: warmerGrey,
-                                ),
-                              ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: CachedNetworkImage(
                           imageUrl: widget.userImage,
-                          fit: BoxFit.cover),
+                          fit: BoxFit.cover,
+                          errorWidget: (context, url, error) => Image.asset(
+                            AppImages.defaultPhoto,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
                     ),
                     const SizedBox(width: 8),
-                    RichText(
-                      text: TextSpan(
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          TextSpan(
-                            text: '${widget.userFullName}\n',
+                          Text(
+                            widget.userFullName,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                             style: Theme.of(context)
                                 .textTheme
-                                .headline2
-                                ?.copyWith(fontSize: 14),
+                                .titleMedium!
+                                .copyWith(fontWeight: FontWeight.w700),
                           ),
-                          TextSpan(
-                            text: widget.userType == 'owner'
-                                ? LocaleKeys.private_person.tr()
-                                : LocaleKeys.autosalon.tr(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText1
-                                ?.copyWith(color: purple),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                widget.userType == 'owner'
+                                    ? LocaleKeys.private_person.tr()
+                                    : LocaleKeys.autosalon.tr(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .copyWith(color: purple),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
                 const SizedBox(height: 16),
@@ -353,7 +357,7 @@ class _FavoriteItemState extends State<FavoriteItem> {
                           '${widget.districtTitle} • ${MyFunctions.getAutoPublishDate(widget.publishedAt)}',
                           style: Theme.of(context)
                               .textTheme
-                              .bodyText1
+                              .bodyLarge
                               ?.copyWith(color: grey),
                         ),
                       ),
@@ -363,21 +367,7 @@ class _FavoriteItemState extends State<FavoriteItem> {
                       ),
                       const SizedBox(width: 8),
                       AddWishlistItem(
-                        onTap: widget.onTap ??
-                            () {
-                              if (!isLiked) {
-                                context.read<WishlistAddBloc>().add(
-                                    WishlistAddEvent.addWishlist(
-                                        widget.id, widget.index));
-                                isLiked = true;
-                              } else {
-                                context.read<WishlistAddBloc>().add(
-                                    WishlistAddEvent.removeWishlist(
-                                        widget.id, widget.index));
-                                isLiked = false;
-                              }
-                              setState(() {});
-                            },
+                        onTap: widget.onTap?? (){},
                         initialLike: isLiked,
                       ),
                     ],

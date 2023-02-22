@@ -23,7 +23,7 @@ class CarInfoTile extends StatelessWidget {
                 children: [
                   Text(
                     '$text ',
-                    style: Theme.of(context).textTheme.headline1!.copyWith(
+                    style: Theme.of(context).textTheme.displayLarge!.copyWith(
                         fontWeight: FontWeight.w400, fontSize: 14, color: grey),
                   ),
                   Expanded(
@@ -40,7 +40,7 @@ class CarInfoTile extends StatelessWidget {
               flex: 2,
               child: Text(
                 ' $value',
-                style: Theme.of(context).textTheme.headline1!.copyWith(
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(
                     fontWeight: FontWeight.w600, fontSize: 14, color: grey),
               ),
             ),

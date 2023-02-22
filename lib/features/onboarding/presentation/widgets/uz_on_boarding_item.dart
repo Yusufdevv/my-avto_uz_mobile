@@ -22,15 +22,13 @@ class UzOnBoardingPageItems extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: Center(
-              child: Image.asset(image)
-            ),
+            child: Center(child: Image.asset(image)),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 32),
             child: RichText(
               text: TextSpan(children: [
-               WidgetSpan(
+                WidgetSpan(
                     child: Padding(
                   padding: const EdgeInsets.only(right: 8),
                   child:
@@ -40,20 +38,20 @@ class UzOnBoardingPageItems extends StatelessWidget {
                     text: secondText,
                     style: Theme.of(context)
                         .textTheme
-                        .headline3!
+                        .displaySmall!
                         .copyWith(fontSize: 36, fontWeight: FontWeight.w700)),
-                        TextSpan(
+                TextSpan(
                   text: title,
                   style: Theme.of(context)
                       .textTheme
-                      .headline1!
+                      .displayLarge!
                       .copyWith(fontSize: 36),
                 ),
                 TextSpan(
                   text: thirdText,
                   style: Theme.of(context)
                       .textTheme
-                      .headline1!
+                      .displayLarge!
                       .copyWith(fontSize: 36),
                 ),
               ]),

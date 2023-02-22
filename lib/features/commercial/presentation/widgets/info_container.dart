@@ -2,6 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/commercial/presentation/widgets/button_add_to_comparison.dart';
 import 'package:auto/features/commercial/presentation/widgets/custom_chip.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -16,7 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class InfoContainer extends StatefulWidget {
+class InfoContainer extends StatelessWidget {
   const InfoContainer({
     required this.onTapComparsion,
     required this.onTapFavorites,
@@ -42,6 +43,7 @@ class InfoContainer extends StatefulWidget {
     this.gallery,
     this.initialLike,
     this.phone,
+    this.isFromComparison = false,
   });
 
   final String? avatarPicture;
@@ -65,21 +67,9 @@ class InfoContainer extends StatefulWidget {
   final VoidCallback onTapComparsion;
   final VoidCallback onTapFavorites;
   final bool? initialLike;
+  final bool isFromComparison;
   final bool initialComparsions;
   final int id;
-
-  @override
-  State<InfoContainer> createState() => _InfoContainerState();
-}
-
-class _InfoContainerState extends State<InfoContainer> {
-  bool isLiked = false;
-
-  @override
-  void initState() {
-    isLiked = widget.initialLike!;
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) => Container(
@@ -94,24 +84,24 @@ class _InfoContainerState extends State<InfoContainer> {
               height: 201,
               child: PageView.builder(
                 pageSnapping: false,
-                itemCount: widget.gallery!.length + 1,
+                itemCount: gallery!.length + 1,
                 padEnds: false,
                 clipBehavior: Clip.antiAlias,
                 controller: PageController(viewportFraction: 0.75),
                 physics: const BouncingScrollPhysics(),
-                itemBuilder: (context, index) => index == widget.gallery!.length
+                itemBuilder: (context, index) => index == gallery!.length
                     ? WScaleAnimation(
                         onTap: () {
                           bottomSheetForCalling(
                             context,
-                            widget.phone ?? '',
+                            phone ?? '',
                           );
                         },
                         child: Container(
                           height: 201,
                           decoration: BoxDecoration(
-                            color: widget.ownerType == 'owner'
-                                ? widget.hasCallCard
+                            color: ownerType == 'owner'
+                                ? hasCallCard
                                     ? green
                                     : red
                                 : red,
@@ -123,17 +113,17 @@ class _InfoContainerState extends State<InfoContainer> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SvgPicture.asset(
-                                  widget.ownerType == 'owner'
+                                  ownerType == 'owner'
                                       ? AppIcons.phone
                                       : AppIcons.shopping,
                                   color: white),
                               Text(
-                                widget.ownerType == 'owner'
+                                ownerType == 'owner'
                                     ? LocaleKeys.call.tr()
                                     : LocaleKeys.buy.tr(),
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline4!
+                                    .headlineMedium!
                                     .copyWith(fontSize: 24),
                               )
                             ],
@@ -145,7 +135,7 @@ class _InfoContainerState extends State<InfoContainer> {
                         width: 280,
                         padding: const EdgeInsets.only(right: 4),
                         child: CachedNetworkImage(
-                          imageUrl: widget.gallery?[index] ?? '',
+                          imageUrl: gallery?[index] ?? '',
                           fit: BoxFit.cover,
                           errorWidget: (context, url, error) => Image.asset(
                             AppImages.defaultPhoto,
@@ -155,16 +145,16 @@ class _InfoContainerState extends State<InfoContainer> {
                       ),
               ),
             ),
-            if (widget.sellType!.isNotEmpty)
+            if (sellType!.isNotEmpty)
               CustomChip(
-                label: widget.sellType!,
+                label: sellType!,
                 backgroundColor: Theme.of(context)
                     .extension<ThemedColors>()!
                     .seashellToCinnabar15,
                 labelPadding:
                     const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                 margin: const EdgeInsets.only(top: 8),
-                labelStyle: Theme.of(context).textTheme.subtitle1!.copyWith(
+                labelStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
                       color: orange,
                       fontSize: 12,
                     ),
@@ -172,22 +162,21 @@ class _InfoContainerState extends State<InfoContainer> {
               ),
             const SizedBox(height: 12),
             CarNameYearWidget(
-                carName: widget.carModel ?? '',
-                carYear: '${widget.year}',
-                isNew: widget.hasStatusInfo),
+                carName: carModel ?? '',
+                carYear: '$year',
+                isNew: hasStatusInfo),
             const SizedBox(height: 4),
-            
             RichText(
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: widget.discountPrice!.isEmpty
-                        ? '${widget.price} ${widget.currency!.toUpperCase()}'
-                        : '${widget.discountPrice!} ${widget.currency!.toUpperCase()}',
+                    text: discountPrice!.isEmpty
+                        ? '$price ${currency!.toUpperCase()}'
+                        : '${discountPrice!} ${currency!.toUpperCase()}',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
-                      color: widget.hasDiscount
+                      color: hasDiscount
                           ? green
                           : Theme.of(context)
                               .extension<ThemedColors>()!
@@ -200,13 +189,14 @@ class _InfoContainerState extends State<InfoContainer> {
                   WidgetSpan(
                     alignment: PlaceholderAlignment.middle,
                     child: Visibility(
-                      visible: widget.hasDiscount,
+                      visible: hasDiscount,
                       child: Text(
-                        widget.discountPrice == null ? '' : widget.price!,
-                        style: Theme.of(context).textTheme.headline2!.copyWith(
-                              decoration: TextDecoration.lineThrough,
-                              color: grey,
-                            ),
+                        discountPrice == null ? '' : price!,
+                        style:
+                            Theme.of(context).textTheme.displayMedium!.copyWith(
+                                  decoration: TextDecoration.lineThrough,
+                                  color: grey,
+                                ),
                       ),
                     ),
                   ),
@@ -215,8 +205,8 @@ class _InfoContainerState extends State<InfoContainer> {
             ),
             const SizedBox(height: 8),
             Text(
-              widget.subtitle ?? '',
-              style: Theme.of(context).textTheme.headline2!.copyWith(
+              subtitle ?? '',
+              style: Theme.of(context).textTheme.displayMedium!.copyWith(
                     fontSize: 13,
                     color: grey,
                   ),
@@ -231,7 +221,7 @@ class _InfoContainerState extends State<InfoContainer> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(50),
                     child: CachedNetworkImage(
-                      imageUrl: widget.avatarPicture!,
+                      imageUrl: avatarPicture!,
                       fit: BoxFit.cover,
                       errorWidget: (context, url, error) => Image.asset(
                         AppImages.defaultPhoto,
@@ -241,74 +231,121 @@ class _InfoContainerState extends State<InfoContainer> {
                   ),
                 ),
                 const SizedBox(width: 8),
-                RichText(
-                  text: TextSpan(
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TextSpan(
-                        text: '${widget.owner}\n',
+                      Text(
+                        '$owner',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: Theme.of(context)
                             .textTheme
-                            .headline2!
-                            .copyWith(fontSize: 14),
+                            .titleMedium!
+                            .copyWith(fontWeight: FontWeight.w700),
                       ),
-                      TextSpan(
-                        text: widget.ownerType == 'owner'
-                            ? LocaleKeys.private_person.tr()
-                            : LocaleKeys.autosalon,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText1!
-                            .copyWith(color: purple),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            ownerType == 'owner'
+                                ? LocaleKeys.private_person.tr()
+                                : LocaleKeys.autosalon.tr(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge!
+                                .copyWith(color: purple),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          if (isFromComparison)
+                            Padding(
+                              padding: const EdgeInsets.only(right: 16),
+                              child: Text(
+                                '$location • $publishTime',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .copyWith(color: grey),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                        ],
                       ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
             const SizedBox(height: 12),
-            Divider(
-              color: Theme.of(context)
-                  .extension<ThemedColors>()!
-                  .solitude2ToNightRider,
-              thickness: 1,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 16),
-              child: Row(
+            if (isFromComparison)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 4, right: 16),
+                child: ButtonAddToComparison(
+                    isAddedToComparison: initialComparsions, id: id),
+              )
+            else
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    '${widget.location}  •  ${widget.publishTime}',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1!
-                        .copyWith(color: grey),
+                  Divider(
+                    color: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .solitude2ToNightRider,
+                    thickness: 1,
                   ),
-                  const Spacer(),
-                  AddComparisonItem(
-                    id: widget.id,
-                    initialLike: widget.initialComparsions,
-                  ),
-                  const SizedBox(width: 8),
-                  AddWishlistItem(
-                    onTap: () {
-                      if (!isLiked) {
-                        context.read<WishlistAddBloc>().add(
-                            WishlistAddEvent.addWishlist(
-                                widget.id, widget.index));
-                        isLiked = true;
-                      } else {
-                        context.read<WishlistAddBloc>().add(
-                            WishlistAddEvent.removeWishlist(
-                                widget.id, widget.index));
-                        isLiked = false;
-                      }
-                      setState(() {});
-                    },
-                    initialLike: isLiked,
-                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 16),
+                    child: Row(
+                      children: [
+                        Text(
+                          '$location • $publishTime',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge!
+                              .copyWith(color: grey),
+                        ),
+                        const Spacer(),
+                        AddComparisonItem(
+                          id: id,
+                          initialLike: initialComparsions,
+                        ),
+                        const SizedBox(width: 8),
+                        BlocConsumer<WishlistAddBloc, WishlistAddState>(
+                          listener: (context, state) {},
+                          builder: (context, state) {
+                            final isLiked =
+                                state.map[id] ?? initialLike?? false;
+                            return AddWishlistItem(
+                              onTap: () {
+                                print('ontap info container');
+                                if (!isLiked) {
+                                  print('addd');
+                                  context.read<WishlistAddBloc>().add(
+                                      WishlistAddEvent.addWishlist(id, index));
+                                  context.read<WishlistAddBloc>().add(
+                                      WishlistAddEvent.addToMapFavorites(
+                                          id: id, value: true));
+                                } else {
+                                  print('remove');
+                                  context.read<WishlistAddBloc>().add(
+                                      WishlistAddEvent.removeWishlist(
+                                          id, index));
+                                  context.read<WishlistAddBloc>().add(
+                                      WishlistAddEvent.addToMapFavorites(
+                                          id: id, value: false));
+                                }
+                              },
+                              initialLike: isLiked,
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
-            )
           ],
         ),
       );

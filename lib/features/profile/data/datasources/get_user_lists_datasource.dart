@@ -18,8 +18,9 @@ abstract class GetUserListDatasource {
       required T Function(Map<String, dynamic>) fromJson,
       String? next,
       String? moderationStatus});
-  Future<List<NotificationsModel>> getNotifications(int? filter);
-  Future<List<MySearchesModel>> getMySearches();
+  Future<GenericPagination<NotificationsModel>> getNotifications(
+      {int? filter, String? next});
+  Future<GenericPagination<MySearchesModel>> getMySearches(String next);
   Future<List<DirectoryModel>> getDirectories(
       String search, String regions, String categories);
   Future<List<DirCategoryModel>> getDirCategory();
@@ -39,7 +40,7 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
       required T Function(Map<String, dynamic>) fromJson,
       String? next,
       String? moderationStatus}) async {
-        var query = <String, dynamic>{};
+    var query = <String, dynamic>{};
     if (moderationStatus != null) {
       query = {'moderation_status__in': moderationStatus};
     }
@@ -69,11 +70,16 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
   }
 
   @override
-  Future<List<NotificationsModel>> getNotifications(int? filter) async {
+  Future<GenericPagination<NotificationsModel>> getNotifications(
+      {int? filter, String? next}) async {
     var query = <String, dynamic>{};
     if (filter != null) {
       query = {'is_read': filter};
     }
+    if (next != null) {
+      query = {'next': next};
+    }
+
     try {
       final response = await dio.get(
         '/users/notification/list/',
@@ -83,10 +89,8 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
         }),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        return (response.data['results'] as List)
-            // ignore: unnecessary_lambdas
-            .map((e) => NotificationsModel.fromJson(e))
-            .toList();
+        return GenericPagination.fromJson(response.data,
+            (p0) => NotificationsModel.fromJson(p0 as Map<String, dynamic>));
       }
       throw ServerException(
           statusCode: response.statusCode ?? 0,
@@ -101,19 +105,17 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
   }
 
   @override
-  Future<List<MySearchesModel>> getMySearches() async {
+  Future<GenericPagination<MySearchesModel>> getMySearches(String next) async {
     try {
       final response = await dio.get(
-        '/users/filter-history/list/',
+        next.isEmpty ? '/users/filter-history/list/' : next,
         options: Options(headers: {
           'Authorization': 'Bearer ${StorageRepository.getString('token')}'
         }),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        return (response.data['results'] as List)
-            // ignore: unnecessary_lambdas
-            .map((e) => MySearchesModel.fromJson(e))
-            .toList();
+        return GenericPagination.fromJson(response.data,
+            (p0) => MySearchesModel.fromJson(p0 as Map<String, dynamic>));
       }
       throw ServerException(
           statusCode: response.statusCode ?? 0,

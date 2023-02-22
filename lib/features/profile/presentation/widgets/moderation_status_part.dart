@@ -59,7 +59,7 @@ class ModerationWidget extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: Theme.of(context).textTheme.headline4?.copyWith(
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                         fontWeight: FontWeight.w400, color: titleColor),
                   ),
                   if (svgPath == null)

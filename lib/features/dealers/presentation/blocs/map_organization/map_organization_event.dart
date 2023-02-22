@@ -19,5 +19,7 @@ class MapOrganizationEvent with _$MapOrganizationEvent {
       int? radius}) = _ChangeLatLong;
 
   factory MapOrganizationEvent.getAddressOfDealler(
-      {required double lat, required double long}) = _GetAddressOfDealler;
+      {required double lat,
+      required double long,
+      MapEntity? currentDealer}) = _GetAddressOfDealler;
 }

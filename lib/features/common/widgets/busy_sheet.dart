@@ -8,7 +8,10 @@ import 'package:flutter/services.dart';
 
 class BusySheet extends StatelessWidget {
   final String copyUrl;
-  const BusySheet({Key? key, required this.copyUrl}) : super(key: key);
+  const BusySheet({
+    required this.copyUrl,
+    Key? key,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -27,7 +30,7 @@ class BusySheet extends StatelessWidget {
           //       LocaleKeys.Complain.tr(),
           //       style: Theme.of(context)
           //           .textTheme
-          //           .headline1!
+          //           .displayLarge!
           //           .copyWith(fontWeight: FontWeight.w400, color: red),
           //     ),
           //     onPressed: () {
@@ -52,7 +55,7 @@ class BusySheet extends StatelessWidget {
                 LocaleKeys.copy_url.tr(),
                 style: Theme.of(context)
                     .textTheme
-                    .headline4!
+                    .headlineMedium!
                     .copyWith(fontWeight: FontWeight.w400, fontSize: 20),
               ),
               onPressed: () async {
@@ -69,7 +72,7 @@ class BusySheet extends StatelessWidget {
               color: blackRussian,
               textStyle: Theme.of(context)
                   .textTheme
-                  .headline4!
+                  .headlineMedium!
                   .copyWith(fontWeight: FontWeight.w400, fontSize: 20),
               onTap: () {
                 Navigator.pop(context);

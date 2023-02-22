@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 class AppImages {
   static const flagUzb = 'assets/images/global/flag_uzb.png';
   static const flagUzb2 = 'assets/images/global/flagUzb2.png';
@@ -12,6 +14,7 @@ class AppImages {
   static const placeholderImage = 'assets/images/global/placeholder-image.jpg';
   static const proverka = 'assets/images/global/proverka.png';
   static const pl = 'assets/images/global/pl.png';
+  static const pl2 = 'assets/images/global/pl2.png';
   static const audi = 'assets/images/global/audi.png';
   static const mainMap = 'assets/images/global/main_map.png';
   static const tahoe = 'assets/images/global/tahoe.png';
@@ -21,10 +24,6 @@ class AppImages {
   static const orangePolygon = 'assets/images/global/orange_polygon.png';
   static const chevrolet = 'assets/images/global/chevrolet.png';
   static const carcase = 'assets/images/global/carcase.png';
-  static const carFromLeft = 'assets/images/global/car_from_left.png';
-  static const carFromRight = 'assets/images/global/car_from_right.png';
-  static const carFromOpposite = 'assets/images/global/car_from_opposite.png';
-  static const carFromBack = 'assets/images/global/car_from_back.png';
   static const bmwInfo = 'assets/images/global/bmw_info.png';
   static const logo = 'assets/images/global/logo.png';
   static const editPassword = 'assets/images/global/edit_password.png';
@@ -55,9 +54,6 @@ class AppImages {
   static const paymepng = 'assets/images/car_single/payme.png';
   static const upaypng = 'assets/images/car_single/upay.png';
   static const vin_soon = 'assets/images/car_single/vin_soon.png';
-  static const car_from_back = 'assets/images/car_single/car_from_back.png';
-  static const car_from_opposite =
-      'assets/images/car_single/car_from_opposite.png';
   static const noItemFoundCar = 'assets/images/global/no_item_found_car.png';
   static const one_nice = 'assets/images/car_single/one_nice.png';
   static const nice_two = 'assets/images/car_single/nice_two.png';

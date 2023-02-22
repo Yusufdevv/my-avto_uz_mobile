@@ -12,7 +12,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 // ignore: must_be_immutable
 class AutoEntity extends Equatable {
-    AutoEntity({
+  AutoEntity({
     this.id = -1,
     this.make = const CarMakeEntity(),
     this.model = const CarModelEntity(),
@@ -62,7 +62,8 @@ class AutoEntity extends Equatable {
     this.registrationCertificate = '',
     this.registrationSerialNumber = '',
     this.isExpired = false,
-    this.stats =const StatsEntity(),
+    this.isRentWithPurchase = false,
+    this.stats = const StatsEntity(),
   });
 
   final int id;
@@ -113,11 +114,12 @@ class AutoEntity extends Equatable {
   final String currency;
   final List<String> gallery;
   final String publishedAt;
-  final String  expiredAt;
-  final bool  isExpired;
+  final String expiredAt;
+  final bool isExpired;
   final int viewsCount;
-    bool isWishlisted;
+  bool isWishlisted;
   final bool isComparison;
+  final bool isRentWithPurchase;
   final double discount;
   final String contactAvailableFrom;
   final String contactAvailableTo;
@@ -177,6 +179,7 @@ class AutoEntity extends Equatable {
         registrationSerialNumber,
         registrationVin,
         stats,
+        isRentWithPurchase
       ];
 }
 
@@ -239,5 +242,6 @@ class AutoConverter
         registrationSerialNumber: object.registrationSerialNumber,
         registrationVin: object.registrationVin,
         stats: object.stats,
+        isRentWithPurchase: object.isRentWithPurchase,
       ).toJson();
 }

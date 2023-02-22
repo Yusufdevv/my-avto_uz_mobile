@@ -2,24 +2,28 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/utils/size_config.dart';
-import 'package:auto/features/ad/presentation/posting_ad_screen.dart';
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/edit_ad/presentation/edit_ad_screen.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/profile/presentation/bloc/user_wishlists_notifications/user_wishlists_notification_bloc.dart';
 import 'package:auto/features/profile/presentation/widgets/information_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:share_plus/share_plus.dart';
 
 class MyAdDesc extends StatelessWidget {
   const MyAdDesc({
+    required this.moderationStatus,
     required this.item,
     Key? key,
   }) : super(key: key);
 
   final AutoEntity item;
+  final String moderationStatus;
 
   @override
   // ignore: prefer_expression_function_bodies
@@ -29,7 +33,7 @@ class MyAdDesc extends StatelessWidget {
       children: [
         const SizedBox(height: 16),
         InformationGrid(listData: [
-          '${(DateTime.parse(item.publishedAt).day ~/ 7) + 1} неделя',
+          '${(DateTime.parse(item.publishedAt).difference(DateTime.now()).inDays ~/ 7) + 1} неделя',
           '${item.stats.viewedContactsCount}',
           '${item.stats.viewsCount}',
           '${item.stats.wishlistCount}'
@@ -42,24 +46,25 @@ class MyAdDesc extends StatelessWidget {
               if (item.isExpired)
                 Text(
                   LocaleKeys.this_ad_has_expired.tr(),
-                  style: Theme.of(context).textTheme.headline5?.copyWith(
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                       fontSize: 12, fontWeight: FontWeight.w400, height: 1.3),
                 )
               else
                 RichText(
                   text: TextSpan(
                       text: LocaleKeys.sale_period_left.tr(),
-                      style: Theme.of(context).textTheme.headline2!.copyWith(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                          ),
+                      style:
+                          Theme.of(context).textTheme.displayMedium!.copyWith(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                              ),
                       children: [
                         TextSpan(
                           text:
-                              ' ${DateTime.now().difference(DateTime.parse(item.expiredAt)).inDays} дней',
+                              ' ${(DateTime.now().difference(DateTime.parse(item.expiredAt)).inDays).abs() + 1} ${LocaleKeys.day.tr()}',
                           style: Theme.of(context)
                               .textTheme
-                              .bodyText1!
+                              .bodyLarge!
                               .copyWith(
                                   fontWeight: FontWeight.w600, color: orange),
                         )
@@ -91,7 +96,7 @@ class MyAdDesc extends StatelessWidget {
                               LocaleKeys.extends_for_7.tr(),
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline2!
+                                  .displayMedium!
                                   .copyWith(
                                       color: mediumSeaGreen, fontSize: 15),
                             )
@@ -112,14 +117,16 @@ class MyAdDesc extends StatelessWidget {
                       borderRadius: 12,
                       padding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 11),
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            fade(
-                                page: PostingAdScreen(
-                              parentContext: context,
-                              announcementId: item.id,
-                            )));
+                      onTap: () async {
+                        final res = await Navigator.of(context,
+                                rootNavigator: true)
+                            .push(fade(
+                                page: EditAdScreen(announcementId: item.id)));
+                        if (res is bool && res) {
+                          context.read<UserWishListsBloc>().add(
+                              GetUserMyAdsEvent(
+                                  moderationStatus: moderationStatus));
+                        }
                       },
                       child: SvgPicture.asset(AppIcons.editProfile,
                           color: Theme.of(context)
@@ -162,7 +169,7 @@ class MyAdDesc extends StatelessWidget {
                 LocaleKeys.your_ad_will_be_available.tr(),
                 style: Theme.of(context)
                     .textTheme
-                    .bodyText1!
+                    .bodyLarge!
                     .copyWith(fontWeight: FontWeight.w400, color: orange),
               ),
               SizedBox(height: SizeConfig.v(12)),
@@ -181,16 +188,16 @@ class MyAdDesc extends StatelessWidget {
                       borderRadius: 12,
                       padding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 11),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          fade(
-                            page: PostingAdScreen(
-                              parentContext: context,
-                              announcementId: item.id,
-                            ),
-                          ),
-                        );
+                      onTap: () async {
+                        final res = await Navigator.of(context,
+                                rootNavigator: true)
+                            .push(fade(
+                                page: EditAdScreen(announcementId: item.id)));
+                        if (res is bool && res) {
+                          context.read<UserWishListsBloc>().add(
+                              GetUserMyAdsEvent(
+                                  moderationStatus: moderationStatus));
+                        }
                       },
                       child: Row(
                         children: [
@@ -205,7 +212,7 @@ class MyAdDesc extends StatelessWidget {
                             LocaleKeys.editing_ad.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .headline2!
+                                .displayMedium!
                                 .copyWith(fontSize: 15, color: secondary),
                           ),
                         ],

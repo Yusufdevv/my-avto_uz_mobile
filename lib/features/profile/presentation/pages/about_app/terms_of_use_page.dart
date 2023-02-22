@@ -14,7 +14,7 @@ class TermsOfUsePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar:   WAppBar(textWithButton: LocaleKeys.rules_of_using.tr()),
+        appBar: WAppBar(textWithButton: LocaleKeys.rules_of_using.tr()),
         body: BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
           if (state.status == FormzStatus.submissionInProgress) {
             return const Center(child: CupertinoActivityIndicator());
@@ -28,14 +28,14 @@ class TermsOfUsePage extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    if (state.termsOfUseEntity.title !=null)
+                    if (state.termsOfUseEntity.title != null)
                       Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: SizeConfig.h(16),
                         ),
                         child: Text(
                           state.termsOfUseEntity.title!,
-                          style: Theme.of(context).textTheme.headline1,
+                          style: Theme.of(context).textTheme.displayLarge,
                         ),
                       ),
                     SizedBox(height: SizeConfig.v(16)),

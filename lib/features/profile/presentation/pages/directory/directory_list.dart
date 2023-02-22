@@ -2,12 +2,13 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/profile/presentation/bloc/directory/directory_bloc.dart';
 import 'package:auto/features/profile/presentation/pages/directory/directory_card.dart';
 import 'package:auto/features/profile/presentation/widgets/empty_item_body.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:auto/generated/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
+
 class DirectoryList extends StatefulWidget {
   const DirectoryList({Key? key}) : super(key: key);
 
@@ -39,27 +40,27 @@ class _DirectoryListState extends State<DirectoryList> {
                       itemBuilder: (context, index) {
                         final item = directories[index];
                         return DirectoryCard(
-                          slug: item.slug!,
-                          region: item.region!,
-                          dealerType: item.category!.name!,
-                          dealerName: item.name!,
+                          slug: item.slug ?? '',
+                          region: item.region ?? '',
+                          dealerType: item.category?.name ?? '',
+                          dealerName: item.name ?? '',
                           phoneNumber: '',
                           dealerInfo: '',
-                          dealerImageUrl: item.avatar!,
+                          dealerImageUrl: item.avatar ?? '',
                           quantityOfCars: 0,
-                          latitude: item.latitude!,
-                          longitude: item.longitude!,
+                          latitude: (item.latitude ?? 0).toDouble(),
+                          longitude: (item.longitude ?? 0).toDouble(),
                           contractCode: '',
                           contractNumber: '',
-                          contactTo: item.contactTo!,
-                          contactFrom: item.contactFrom!,
+                          contactTo: item.contactTo ?? '',
+                          contactFrom: item.contactFrom ?? '',
                         );
                       },
                       separatorBuilder: (context, index) =>
                           const SizedBox(height: 16),
                       itemCount: directories.length,
                     )
-                  :   Center(
+                  : Center(
                       child: EmptyItemBody(
                           title: LocaleKeys.no_dealer.tr(),
                           subtitle: '',

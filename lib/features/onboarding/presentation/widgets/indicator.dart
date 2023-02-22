@@ -6,13 +6,14 @@ class Indicator extends StatelessWidget {
   const Indicator({this.isActive = false, Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => AnimatedContainer(duration: const Duration(milliseconds: 500),
-      margin: const EdgeInsets.symmetric(horizontal: 6),
-      height: 8,
-      width:isActive ? 8 : 8,
-      decoration: BoxDecoration(
-        color: isActive ? orange : orange.withOpacity(0.2),
-        borderRadius: BorderRadius.circular(20),
-      ),
-    );
+  Widget build(BuildContext context) => AnimatedContainer(
+        duration: const Duration(milliseconds: 500),
+        margin: const EdgeInsets.symmetric(horizontal: 6),
+        height: 8,
+        width: isActive ? 8 : 8,
+        decoration: BoxDecoration(
+          color: isActive ? orange : orange.withOpacity(0.2),
+          borderRadius: BorderRadius.circular(20),
+        ),
+      );
 }

@@ -21,8 +21,10 @@ class LoginHeader extends StatelessWidget {
           ),
           Text(
             title,
-            style:
-                Theme.of(context).textTheme.headline1!.copyWith(fontSize: 18),
+            style: Theme.of(context)
+                .textTheme
+                .displayLarge!
+                .copyWith(fontSize: 18),
           ),
           const SizedBox(
             height: 4,
@@ -31,7 +33,7 @@ class LoginHeader extends StatelessWidget {
             description,
             style: Theme.of(context)
                 .textTheme
-                .headline6!
+                .titleLarge!
                 .copyWith(fontSize: 13, fontWeight: FontWeight.w400),
           ),
         ],

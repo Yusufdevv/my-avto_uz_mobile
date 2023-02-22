@@ -17,6 +17,7 @@ class ElasticRegionEntity extends Equatable {
         title,
       ];
 }
+
 class ElasticRegionConverter<S>
     implements JsonConverter<ElasticRegionEntity, Map<String, dynamic>?> {
   const ElasticRegionConverter();

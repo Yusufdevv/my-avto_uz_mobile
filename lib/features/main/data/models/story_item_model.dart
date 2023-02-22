@@ -1,4 +1,5 @@
 import 'package:auto/features/main/domain/entities/story_item_entity.dart';
+import 'package:auto/features/main/domain/entities/story_redirect_data_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'story_item_model.g.dart';
@@ -15,6 +16,7 @@ class StoryItemModel extends StoryItemEntity {
     required super.expired,
     required super.redirectTo,
     required super.isRead,
+    required super.redirectData,
   });
 
   factory StoryItemModel.fromJson(Map<String, dynamic> json) =>

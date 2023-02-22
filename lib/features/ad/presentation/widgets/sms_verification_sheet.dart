@@ -6,7 +6,6 @@ import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/usecases/verify_contacts_usecase.dart';
 import 'package:auto/features/ad/presentation/bloc/virify_contacts/verify_contacts_bloc.dart';
 import 'package:auto/features/ad/presentation/widgets/edit_box_widget.dart';
-import 'package:auto/features/car_single/presentation/widgets/orange_button.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/profile/presentation/widgets/refresh_button.dart';
 import 'package:auto/features/profile/presentation/widgets/time_counter.dart';
@@ -81,7 +80,7 @@ class _SmsVerificationSheetState extends State<SmsVerificationSheet> {
                     children: [
                       Text(
                         LocaleKeys.confim_number.tr(),
-                        style: Theme.of(context).textTheme.headline1,
+                        style: Theme.of(context).textTheme.displayLarge,
                       ),
                       GestureDetector(
                         onTap: () {
@@ -106,7 +105,7 @@ class _SmsVerificationSheetState extends State<SmsVerificationSheet> {
                     LocaleKeys.enter_password_sms.tr(),
                     style: Theme.of(context)
                         .textTheme
-                        .caption!
+                        .bodySmall!
                         .copyWith(fontWeight: FontWeight.w400, fontSize: 13),
                   ),
                   const SizedBox(
@@ -140,11 +139,11 @@ class _SmsVerificationSheetState extends State<SmsVerificationSheet> {
                     enableActiveFill: false,
                     textStyle: Theme.of(context)
                         .textTheme
-                        .headline1!
+                        .displayLarge!
                         .copyWith(fontSize: 18),
                     hintStyle: Theme.of(context)
                         .textTheme
-                        .bodyText2!
+                        .bodyMedium!
                         .copyWith(fontSize: 4),
                     appContext: context,
                     showCursor: true,
@@ -155,7 +154,7 @@ class _SmsVerificationSheetState extends State<SmsVerificationSheet> {
                     children: [
                       Text(LocaleKeys.send_via_password.tr(),
                           style:
-                              Theme.of(context).textTheme.headline6!.copyWith(
+                              Theme.of(context).textTheme.titleLarge!.copyWith(
                                     fontSize: 14,
                                   )),
                       const SizedBox(

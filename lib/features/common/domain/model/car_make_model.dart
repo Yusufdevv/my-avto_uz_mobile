@@ -1,4 +1,3 @@
-
 import 'package:auto/features/common/domain/entity/car_make_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'car_make_model.g.dart';

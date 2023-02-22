@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
+
 class PeriodHeader extends StatelessWidget {
   final VoidCallback onTap;
   final String startDate;
@@ -38,7 +39,7 @@ class PeriodHeader extends StatelessWidget {
                   LocaleKeys.receipt.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText1!
+                      .bodyLarge!
                       .copyWith(fontSize: 13),
                 ),
                 const SizedBox(
@@ -50,7 +51,7 @@ class PeriodHeader extends StatelessWidget {
                       startDate,
                       style: Theme.of(context)
                           .textTheme
-                          .headline1!
+                          .displayLarge!
                           .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
                     ),
                     const SizedBox(
@@ -60,7 +61,7 @@ class PeriodHeader extends StatelessWidget {
                       startHour,
                       style: Theme.of(context)
                           .textTheme
-                          .bodyText1!
+                          .bodyLarge!
                           .copyWith(fontSize: 13),
                     )
                   ],
@@ -75,7 +76,7 @@ class PeriodHeader extends StatelessWidget {
                   LocaleKeys.receipt.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText1!
+                      .bodyLarge!
                       .copyWith(fontSize: 13),
                 ),
                 const SizedBox(
@@ -87,7 +88,7 @@ class PeriodHeader extends StatelessWidget {
                       endDate,
                       style: Theme.of(context)
                           .textTheme
-                          .headline1!
+                          .displayLarge!
                           .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
                     ),
                     const SizedBox(
@@ -97,7 +98,7 @@ class PeriodHeader extends StatelessWidget {
                       endHour,
                       style: Theme.of(context)
                           .textTheme
-                          .bodyText1!
+                          .bodyLarge!
                           .copyWith(fontSize: 13),
                     ),
                   ],

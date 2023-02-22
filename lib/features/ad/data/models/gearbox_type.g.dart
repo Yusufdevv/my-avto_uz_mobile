@@ -8,7 +8,7 @@ part of 'gearbox_type.dart';
 
 GearboxTypeModel _$GearboxTypeModelFromJson(Map<String, dynamic> json) =>
     GearboxTypeModel(
-      id: json['id'] as int? ?? 0,
+      id: json['id'] as int? ?? -1,
       type: json['type'] as String? ?? '',
       logo: json['logo'] as String? ?? '',
     );

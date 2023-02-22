@@ -3,11 +3,13 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/car_single/presentation/car_single_screen.dart';
+import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/search/presentation/widgets/add_wishlist_item.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class AdsItem extends StatelessWidget {
@@ -78,18 +80,22 @@ class AdsItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: Theme.of(context)
                       .textTheme
-                      .headline3
+                      .displaySmall
                       ?.copyWith(fontWeight: FontWeight.w600, fontSize: 12)),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                   '${MyFunctions.getFormatCost(price)} ${currency.toUpperCase()}',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: Theme.of(context)
                       .textTheme
-                      .headline1
+                      .displayLarge
                       ?.copyWith(fontSize: 16, fontWeight: FontWeight.w700)),
             ),
             const SizedBox(height: 8),
@@ -98,7 +104,7 @@ class AdsItem extends StatelessWidget {
               child: Text(description.isNotEmpty ? description : ' \n ',
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: Theme.of(context)
                           .extension<ThemedColors>()
                           ?.greySuitToWhite60)),
@@ -125,14 +131,39 @@ class AdsItem extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context)
                               .textTheme
-                              .headline6
+                              .titleLarge
                               ?.copyWith(
                                   fontSize: 12,
                                   color: Theme.of(context)
                                       .extension<ThemedColors>()
                                       ?.dolphinToGreySuit)),
                     ),
-                    AddWishlistItem(onTap: onTapLike, initialLike: isLiked),
+                    BlocConsumer<WishlistAddBloc, WishlistAddState>(
+                      listener: (context, state) {},
+                      builder: (context, state) {
+                        final isliked =
+                            state.map[id] ?? isLiked;
+                        return AddWishlistItem(
+                          onTap: () {
+                            if (!isliked) {
+                              context.read<WishlistAddBloc>().add(
+                                  WishlistAddEvent.addWishlist(id, 0));
+                              context.read<WishlistAddBloc>().add(
+                                  WishlistAddEvent.addToMapFavorites(
+                                      id: id, value: true));
+                            } else {
+                              context.read<WishlistAddBloc>().add(
+                                  WishlistAddEvent.removeWishlist(
+                                       id, 0));
+                              context.read<WishlistAddBloc>().add(
+                                  WishlistAddEvent.addToMapFavorites(
+                                      id:  id, value: false));
+                            }
+                          },
+                          initialLike: isliked,
+                        );
+                      },
+                    ),
                   ],
                 ),
               ),

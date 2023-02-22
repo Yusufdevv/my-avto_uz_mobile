@@ -1,4 +1,3 @@
-
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/image_preload_shimmer.dart';
@@ -19,7 +18,7 @@ class SearchItemShimmer extends StatelessWidget {
             color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
             boxShadow: [
               BoxShadow(
-                color: LightThemeColors.subTitle1.withOpacity(0.05),
+                color: LightThemeColors.titleMedium.withOpacity(0.05),
                 offset: const Offset(0, 4),
                 blurRadius: 16,
               ),

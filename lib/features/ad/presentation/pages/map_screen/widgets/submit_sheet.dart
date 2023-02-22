@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/ad/presentation/bloc/map/map_bloc.dart';
@@ -13,54 +15,54 @@ import 'package:formz/formz.dart';
 
 class PostingAdSubmitBox extends StatelessWidget {
   final VoidCallback onTab;
-  final String? address;
 
   const PostingAdSubmitBox({
     required this.onTab,
-    this.address,
     super.key,
   }) : super();
 
   @override
-  Widget build(BuildContext context) => Container(
-        width: MediaQuery.of(context).size.width,
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-                offset: const Offset(0, -8),
-                blurRadius: 24,
-                spreadRadius: 0,
-                color: profileContainers.withOpacity(.05)),
-            BoxShadow(
-                offset: const Offset(0, 1),
-                blurRadius: 24,
-                spreadRadius: 0,
-                color: profileContainers.withOpacity(.08))
-          ],
-          color: white,
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            MapPointName(
-                isWaiting: context.watch<MapBloc>().state.status ==
-                    FormzStatus.submissionInProgress,
-                name: context.watch<MapBloc>().state.address),
-            const SizedBox(height: 24),
-            WButton(
-              isDisabled: address?.isEmpty ?? true,
-              onTap: (address?.isNotEmpty ?? false)
-                  ? onTab
-                  : () {
-                      Navigator.of(context).pop();
-                    },
-              color: orange,
-              disabledColor: disabledButton,
-              text: LocaleKeys.confirm.tr(),
-            ),
-          ],
+  Widget build(BuildContext context) => BlocBuilder<MapBloc, MapState>(
+        builder: (context, state) => Container(
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                  offset: const Offset(0, -8),
+                  blurRadius: 24,
+                  spreadRadius: 0,
+                  color: profileContainers.withOpacity(.05)),
+              BoxShadow(
+                  offset: const Offset(0, 1),
+                  blurRadius: 24,
+                  spreadRadius: 0,
+                  color: profileContainers.withOpacity(.08))
+            ],
+            color: white,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              MapPointName(
+                  isWaiting: state.getPointNameStatus ==
+                      FormzStatus.submissionInProgress,
+                  name: state.address),
+              const SizedBox(height: 24),
+              WButton(
+                isDisabled: state.address?.isEmpty ?? true,
+                onTap: (state.address?.isNotEmpty ?? false)
+                    ? onTab
+                    : () {
+                        Navigator.of(context).pop();
+                      },
+                color: orange,
+                disabledColor: disabledButton,
+                text: LocaleKeys.confirm.tr(),
+              ),
+            ],
+          ),
         ),
       );
 }

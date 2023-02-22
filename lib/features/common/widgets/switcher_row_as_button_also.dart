@@ -6,7 +6,7 @@ class SwitcherRowAsButtonAlso extends StatelessWidget {
   final String title;
   final bool value;
   final VoidCallback onTap;
-  
+
   final Function(bool) onChanged;
   const SwitcherRowAsButtonAlso(
       {required this.value,
@@ -18,22 +18,21 @@ class SwitcherRowAsButtonAlso extends StatelessWidget {
   @override
   Widget build(BuildContext context) => GestureDetector(
         onTap: () {
-           print('=>=>=>=> $value <=<=<=<=');
-          
-            onChanged(!value);
+          onChanged(!value);
           if (value) {
             return;
           }
           onTap();
-        },    behavior: HitTestBehavior.opaque,
+        },
+        behavior: HitTestBehavior.opaque,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              title,
+              title.length > 36 ? '${title.substring(0, 35)}..' : title,
               style: Theme.of(context)
                   .textTheme
-                  .headline6!
+                  .titleLarge!
                   .copyWith(color: greyText),
             ),
             AnimatedContainer(

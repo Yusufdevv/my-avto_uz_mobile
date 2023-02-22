@@ -54,9 +54,10 @@ class _RegistrationLeaseScreenState extends State<RegistrationLeaseScreen> {
                   Navigator.popUntil(context, (route) => route.isFirst);
                 }
                 if (state.status == FormzStatus.submissionFailure) {
-                  context
-                      .read<ShowPopUpBloc>()
-                      .add(ShowPopUp(message: state.errorMessage,  status: PopStatus.error,));
+                  context.read<ShowPopUpBloc>().add(ShowPopUp(
+                        message: state.errorMessage,
+                        status: PopStatus.error,
+                      ));
                 }
               },
               builder: (context, state) {
@@ -90,7 +91,7 @@ class _RegistrationLeaseScreenState extends State<RegistrationLeaseScreen> {
                             '+998',
                             style: Theme.of(context)
                                 .textTheme
-                                .headline1!
+                                .displayLarge!
                                 .copyWith(
                                     fontSize: 14, fontWeight: FontWeight.w600),
                           ),

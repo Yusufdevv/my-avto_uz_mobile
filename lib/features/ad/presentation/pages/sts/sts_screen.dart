@@ -157,7 +157,7 @@ class _StsScreenState extends State<StsScreen> {
                             'Автомобиль находится на учёте РУ',
                             style: Theme.of(context)
                                 .textTheme
-                                .headline6!
+                                .titleLarge!
                                 .copyWith(color: greyText),
                           )
                         ],

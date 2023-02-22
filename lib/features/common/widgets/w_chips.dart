@@ -39,7 +39,8 @@ class _WChipsState extends State<WChips> {
           child: Row(
             children: [
               GestureDetector(
-                  onTap: () => setState(() => isChecked = !isChecked),    behavior: HitTestBehavior.opaque,
+                  onTap: () => setState(() => isChecked = !isChecked),
+                  behavior: HitTestBehavior.opaque,
                   child:
                       WCheckBox(isChecked: isChecked, checkBoxColor: purple)),
               const SizedBox(

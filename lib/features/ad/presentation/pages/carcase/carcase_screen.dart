@@ -34,9 +34,8 @@ class _BodyTypeScreenState extends State<BodyTypeScreen> {
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) => PostingRadioItem(
                   onTap: () => context.read<PostingAdBloc>().add(
-                      PostingAdChooseEvent(
-                          selectedBodyTypeId: state.bodyTypes[index].id)),
-                  selected: state.bodyTypes[index].id == state.bodyTypeId,
+                      PostingAdChooseEvent(bodyType: state.bodyTypes[index])),
+                  selected: state.bodyTypes[index].id == state.bodyType?.id,
                   title: state.bodyTypes[index].type,
                   image: state.bodyTypes[index].logo,
                 ),

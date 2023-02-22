@@ -5,6 +5,7 @@ class MapOrganizationState with _$MapOrganizationState {
   factory MapOrganizationState({
     @Default(null) String? address,
     @Default([]) List<MapModel> dealers,
+    @Default(MapEntity()) MapEntity? currentDealer,
     @Default([]) List<MapModel> directoriesPoints,
     @Default(0) int radius,
     @Default(FormzStatus.pure) FormzStatus status,

@@ -16,7 +16,8 @@ class RentCarItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-        onTap: onTap, behavior: HitTestBehavior.opaque,
+        onTap: onTap,
+        behavior: HitTestBehavior.opaque,
         child: Container(
           padding: const EdgeInsets.all(4),
           margin: const EdgeInsets.only(left: 12),
@@ -53,7 +54,7 @@ class RentCarItems extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Text(
                   '${rentEntity.rentCar.make.name} ${rentEntity.rentCar.model.name}',
-                  style: Theme.of(context).textTheme.headline1!.copyWith(
+                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
                       ),
@@ -70,7 +71,7 @@ class RentCarItems extends StatelessWidget {
                       '${MyFunctions.getFormatCost(rentEntity.price)} UZS',
                       style: Theme.of(context)
                           .textTheme
-                          .headline3!
+                          .displaySmall!
                           .copyWith(fontWeight: FontWeight.w600, fontSize: 14),
                     ),
                     const SizedBox(
@@ -80,7 +81,7 @@ class RentCarItems extends StatelessWidget {
                       LocaleKeys.per_day.tr(),
                       style: Theme.of(context)
                           .textTheme
-                          .headline2!
+                          .displayMedium!
                           .copyWith(fontSize: 11, color: grey),
                     ),
                   ],

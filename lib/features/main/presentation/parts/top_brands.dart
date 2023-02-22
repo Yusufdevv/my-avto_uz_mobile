@@ -1,3 +1,5 @@
+import 'package:auto/assets/colors/color.dart';
+import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/common/widgets/car_brand_item.dart';
 import 'package:auto/features/main/presentation/bloc/top_brand/top_brand_bloc.dart';
 import 'package:auto/features/main/presentation/widgets/brand_shimmer_item.dart';
@@ -10,7 +12,7 @@ import 'package:formz/formz.dart';
 
 class TopBrands extends StatelessWidget {
   final bool isText;
-  final Function() onTap;
+  final ValueChanged<MakeEntity> onTap;
   const TopBrands({
     required this.onTap,
     this.isText = true,
@@ -32,9 +34,10 @@ class TopBrands extends StatelessWidget {
                     child: Text(LocaleKeys.top_marks.tr(),
                         style: Theme.of(context)
                             .textTheme
-                            .headline1!
+                            .displayLarge!
                             .copyWith(fontSize: 18))),
-              SizedBox(
+              Container(
+                color: white,
                 height: isText ? 124 : 132,
                 child: Paginator(
                   separatorBuilder: (context, index) =>
@@ -46,7 +49,9 @@ class TopBrands extends StatelessWidget {
                   itemBuilder: (context, index) => CarBrandItem(
                     carBrandEntity: state.brands[index],
                     hasShadow: true,
-                    onTap: onTap,
+                    onTap: () {
+                      onTap(state.brands[index]);
+                    },
                   ),
                   itemCount: state.brands.length,
                   fetchMoreFunction: () {

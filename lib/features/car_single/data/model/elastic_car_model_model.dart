@@ -14,5 +14,4 @@ class ElasticCarModel extends ElasticCarModelEntity {
       _$ElasticCarModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$ElasticCarModelToJson(this);
-
 }

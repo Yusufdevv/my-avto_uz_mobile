@@ -21,45 +21,47 @@ class CarNameYearWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => RichText(
-        text: TextSpan(children: [
-      TextSpan(
-        text:  carName,
-        style: Theme.of(context).textTheme.headline2!.copyWith(
-            color: dark, fontSize: 16, fontWeight: FontWeight.w400),
-      ),
-      WidgetSpan(
-        alignment: PlaceholderAlignment.middle,
-        child: Padding(
-          padding: const EdgeInsets.only(left: 4),
-          child: CustomChip(
-            label: carYear,
-            backgroundColor:
-                LightThemeColors.navBarIndicator.withOpacity(0.1),
-            borderRadius: 4,
-            labelStyle: const TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-              color: LightThemeColors.navBarIndicator,
+          text: TextSpan(children: [
+        TextSpan(
+          text: carName,
+          style: Theme.of(context)
+              .textTheme
+              .displayMedium!
+              .copyWith(color: dark, fontSize: 16, fontWeight: FontWeight.w400),
+        ),
+        WidgetSpan(
+          alignment: PlaceholderAlignment.middle,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 4),
+            child: CustomChip(
+              label: carYear,
+              backgroundColor:
+                  LightThemeColors.navBarIndicator.withOpacity(0.1),
+              borderRadius: 4,
+              labelStyle: const TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.w600,
+                color: LightThemeColors.navBarIndicator,
+              ),
             ),
           ),
         ),
-      ),
-      if (isNew)
-        WidgetSpan(
-            alignment: PlaceholderAlignment.middle,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 4),
-              child: CustomChip(
-                leading: SvgPicture.asset(AppIcons.checkCurly),
-                label: LocaleKeys.neww.tr(),
-                backgroundColor: emerald.withOpacity(0.1),
-                borderRadius: 4,
-                labelStyle: const TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600,
-                  color: emerald,
+        if (isNew)
+          WidgetSpan(
+              alignment: PlaceholderAlignment.middle,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 4),
+                child: CustomChip(
+                  leading: SvgPicture.asset(AppIcons.checkCurly),
+                  label: LocaleKeys.neww.tr(),
+                  backgroundColor: emerald.withOpacity(0.1),
+                  borderRadius: 4,
+                  labelStyle: const TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w600,
+                    color: emerald,
+                  ),
                 ),
-              ),
-            ))
-    ]));
+              ))
+      ]));
 }

@@ -37,7 +37,7 @@ class EmptyItemBody extends StatelessWidget {
                 title!,
                 style: Theme.of(context)
                     .textTheme
-                    .headline6
+                    .titleLarge
                     ?.copyWith(color: black),
               ),
             )

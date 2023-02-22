@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 class AnnouncementPeriodItem extends StatelessWidget {
   final String days;
 
-  const AnnouncementPeriodItem({Key? key, required this.days})
-      : super(key: key);
+  const AnnouncementPeriodItem({
+    required this.days,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(
@@ -27,7 +29,7 @@ class AnnouncementPeriodItem extends StatelessWidget {
             text: TextSpan(children: [
           TextSpan(
             text: 'До окончания срока объявления \nосталось: ',
-            style: Theme.of(context).textTheme.headline1!.copyWith(
+            style: Theme.of(context).textTheme.displayLarge!.copyWith(
                   fontWeight: FontWeight.w600,
                   fontSize: 16,
                   color: const Color(
@@ -37,7 +39,7 @@ class AnnouncementPeriodItem extends StatelessWidget {
           ),
           TextSpan(
             text: days,
-            style: Theme.of(context).textTheme.headline1!.copyWith(
+            style: Theme.of(context).textTheme.displayLarge!.copyWith(
                   fontWeight: FontWeight.w600,
                   fontSize: 16,
                   color: const Color(
@@ -52,7 +54,7 @@ class AnnouncementPeriodItem extends StatelessWidget {
         //   children: [
         //     Text(
         //       'До окончания срока объявления \nосталось:',
-        //       style: Theme.of(context).textTheme.headline1!.copyWith(
+        //       style: Theme.of(context).textTheme.displayLarge!.copyWith(
         //             fontWeight: FontWeight.w600,
         //             fontSize: 16,
         //             color: const Color(

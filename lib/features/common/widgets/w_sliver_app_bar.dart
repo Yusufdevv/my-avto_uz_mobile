@@ -84,7 +84,7 @@ class WSliverAppBar extends StatelessWidget {
                       child: Text(
                         title ?? '',
                         style: titleStyle ??
-                            Theme.of(context).textTheme.headline1!.copyWith(
+                            Theme.of(context).textTheme.displayLarge!.copyWith(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
                                 ),

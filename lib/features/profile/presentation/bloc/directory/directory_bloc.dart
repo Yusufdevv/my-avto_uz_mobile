@@ -1,5 +1,5 @@
 import 'package:auto/core/usecases/usecase.dart';
-import 'package:auto/features/dealers/domain/entities/dealer_info_entity.dart';
+import 'package:auto/features/dealers/domain/entities/dealer_single_entity.dart';
 import 'package:auto/features/profile/domain/entities/dir_category_entity.dart';
 import 'package:auto/features/profile/domain/entities/directory_entity.dart';
 import 'package:auto/features/profile/domain/usecases/directory_single_usecase.dart';

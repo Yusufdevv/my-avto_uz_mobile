@@ -28,7 +28,7 @@ class InvoiceInProgress extends StatelessWidget {
                 ),
                 Text(
                   LocaleKeys.payment_pending.tr(),
-                  style: Theme.of(context).textTheme.headline1,
+                  style: Theme.of(context).textTheme.displayLarge,
                 ),
                 const Spacer(),
                 Column(
@@ -39,7 +39,7 @@ class InvoiceInProgress extends StatelessWidget {
                         content: Text(LocaleKeys.refresh_the_page.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .headline2!
+                                .displayMedium!
                                 .copyWith(
                                     fontSize: 14, fontWeight: FontWeight.w600)),
                         onTap: () {}),
@@ -52,7 +52,7 @@ class InvoiceInProgress extends StatelessWidget {
                         content: Text('Вернутся к объявлениям',
                             style: Theme.of(context)
                                 .textTheme
-                                .headline4!
+                                .headlineMedium!
                                 .copyWith(
                                     fontSize: 14, fontWeight: FontWeight.w600)),
                         onTap: () {

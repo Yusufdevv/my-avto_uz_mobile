@@ -1,13 +1,15 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/common/widgets/maps_list_in_app.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/features/dealers/presentation/widgets/dealer_single_info_part.dart';
+import 'package:auto/features/dealers/presentation/widgets/dealer_info_widget.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:map_launcher/map_launcher.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
@@ -39,10 +41,20 @@ class DirectoryInfoPart extends StatefulWidget {
 
 class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
   late YandexMapController controller;
-  double maxZoomLevel = 0;
-  double minZoomLevel = 0;
+
+  Future<void> openMapsSheet(
+      BuildContext context, double lat, double long, String title) async {
+    final coords = Coords(lat, long);
+    final availableMaps = await MapLauncher.installedMaps;
+
+    await showModalBottomSheet(
+      context: context,
+      builder: (context) => MapsListInApp(
+          availableMaps: availableMaps, coords: coords, title: title),
+    );
+  }
+
   bool isSelected = false;
-  bool toggledToCall = false;
 
   @override
   Widget build(BuildContext context) => Container(
@@ -66,27 +78,22 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
                 color: orange, fontSize: 16, fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 20),
-          Info(
-              text:
-                  '${LocaleKeys.every_day.tr()}, ${widget.contactFrom} - ${widget.contactTo}',
-              icon: AppIcons.clock),
+          if (widget.contactFrom != '')
+            DeaelerInfoWidget(
+                text:
+                    '${LocaleKeys.every_day.tr()}, ${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}',
+                icon: AppIcons.clock),
           const SizedBox(height: 16),
-          Row(
-            children: [
-              SvgPicture.asset(AppIcons.location1),
-              const SizedBox(width: 8),
-              Text(widget.address,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline1!
-                      .copyWith(fontSize: 14, fontWeight: FontWeight.w400))
-            ],
-          ),
+          if (widget.address != '')
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: DeaelerInfoWidget(
+                  icon: AppIcons.location1, text: widget.address),
+            ),
           if (widget.latitude > 1 && widget.longitude > 1)
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 16),
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(6),
@@ -100,14 +107,6 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
                       rotateGesturesEnabled: false,
                       onMapCreated: (controller) async {
                         controller = controller;
-                        // maxZoomLevel = await controller.getMaxZoom();
-                        // minZoomLevel = await controller.getMinZoom();
-                        // final camera = await controller.getCameraPosition();
-                        // final position = Point(
-                        //     latitude: StorageRepository.getDouble('lat',
-                        //         defValue: 41.310990),
-                        //     longitude: StorageRepository.getDouble('long',
-                        //         defValue: 69.281997));
                         await controller.moveCamera(
                           CameraUpdate.newCameraPosition(
                             CameraPosition(
@@ -122,6 +121,10 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
                       },
                       mapObjects: [
                         PlacemarkMapObject(
+                          onTap: (mapObject, point) {
+                            openMapsSheet(context, widget.latitude,
+                                widget.longitude, widget.name);
+                          },
                           icon: PlacemarkIcon.single(
                             PlacemarkIconStyle(
                               scale: 0.6,
@@ -141,7 +144,9 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
               ],
             ),
           const SizedBox(height: 16),
-          Info(icon: AppIcons.tablerInfo, text: widget.description),
+          if (widget.description != '')
+            DeaelerInfoWidget(
+                icon: AppIcons.tablerInfo, text: widget.description),
           const SizedBox(height: 16),
           if (!isSelected)
             WScaleAnimation(
@@ -158,7 +163,7 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
                 child: Text(LocaleKeys.show_contact.tr(),
                     style: Theme.of(context)
                         .textTheme
-                        .headline4!
+                        .headlineMedium!
                         .copyWith(fontSize: 14, height: 1.3)),
               ),
             )
@@ -173,7 +178,7 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
                       Text(MyFunctions.phoneFormat(widget.phone),
                           style: Theme.of(context)
                               .textTheme
-                              .headline1!
+                              .displayLarge!
                               .copyWith(
                                   fontSize: 16, fontWeight: FontWeight.w600)),
                     ],
@@ -192,7 +197,7 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
                     child: Text(LocaleKeys.call.tr(),
                         style: Theme.of(context)
                             .textTheme
-                            .headline4!
+                            .headlineMedium!
                             .copyWith(fontSize: 14, height: 1.3)),
                   ),
                 ),

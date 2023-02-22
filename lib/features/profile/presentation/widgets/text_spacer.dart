@@ -9,7 +9,7 @@ class TextSpacer extends StatelessWidget {
   const TextSpacer({
     required this.title,
     required this.value,
-    Key? key, 
+    Key? key,
     this.padding = EdgeInsets.zero,
   }) : super(key: key);
 
@@ -21,13 +21,13 @@ class TextSpacer extends StatelessWidget {
             Text(title,
                 style: Theme.of(context)
                     .textTheme
-                    .headline2!
+                    .displayMedium!
                     .copyWith(color: grey)),
             const Spacer(),
             Text(value,
                 style: Theme.of(context)
                     .textTheme
-                    .headline1!
+                    .displayLarge!
                     .copyWith(fontSize: 14, fontWeight: FontWeight.w600)),
           ],
         ),

@@ -45,7 +45,7 @@ class Paginator2 extends StatelessWidget {
                 loadingLabel!,
                 style: Theme.of(context)
                     .textTheme
-                    .headline2!
+                    .displayMedium!
                     .copyWith(fontSize: 12),
               )
           ],

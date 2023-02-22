@@ -6,13 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ModelItems extends StatelessWidget {
-  final String entity;
+  final String title;
   final bool isSelected;
   final String text;
   final VoidCallback onTap;
   final bool hasBorder;
+
   const ModelItems({
-    required this.entity,
+    required this.title,
     required this.isSelected,
     required this.text,
     required this.onTap,
@@ -22,13 +23,13 @@ class ModelItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-        onTap: onTap, behavior: HitTestBehavior.opaque,
+        onTap: onTap,
+        behavior: HitTestBehavior.opaque,
         child: Container(
           padding: const EdgeInsets.only(left: 16),
           color: isSelected
               ? Theme.of(context).extension<ThemedColors>()!.snowToNightRider
               : Colors.transparent,
-              
           child: Container(
             padding: const EdgeInsets.only(right: 16, top: 10, bottom: 10),
             decoration: BoxDecoration(
@@ -49,18 +50,18 @@ class ModelItems extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       HighlightedText(
-                        allText: entity,
+                        allText: title,
                         highlightedText: '',
                         terms: text.split(' '),
                         highlightColor:
                             const Color.fromARGB(255, 249, 228, 145),
                         textStyle: Theme.of(context)
                             .textTheme
-                            .headline1!
+                            .displayLarge!
                             .copyWith(
                                 fontSize: 16, fontWeight: FontWeight.w600),
                         textStyleHighlight:
-                            Theme.of(context).textTheme.headline1!.copyWith(
+                            Theme.of(context).textTheme.displayLarge!.copyWith(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
                                 ),

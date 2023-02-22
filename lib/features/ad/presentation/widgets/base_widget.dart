@@ -29,11 +29,11 @@ class BaseWidget extends StatelessWidget {
                 left: 16,
               ),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
                     headerText,
-                    style: Theme.of(context).textTheme.headline1,
+                    style: Theme.of(context).textTheme.displayLarge,
                   ),
                   if (extraAction != null) ...{...extraAction!}
                 ],

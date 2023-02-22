@@ -1,14 +1,13 @@
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/main/presentation/parts/top_brands.dart';
 import 'package:flutter/material.dart';
 
 class TopBrandSliverWidget extends SliverPersistentHeaderDelegate {
-  final bool isbak;
-  final VoidCallback onTap;
+  final ValueChanged<MakeEntity> onTap;
 
   TopBrandSliverWidget({
     required this.onTap,
-    required this.isbak,
   });
 
   @override
@@ -20,11 +19,7 @@ class TopBrandSliverWidget extends SliverPersistentHeaderDelegate {
       Column(
         children: [
           TopBrands(
-            onTap: isbak == true
-                ? () {
-                    Navigator.pop(context);
-                  }
-                : onTap,
+            onTap: onTap,
             isText: false,
           ),
           Transform.translate(

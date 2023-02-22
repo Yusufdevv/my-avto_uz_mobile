@@ -37,14 +37,14 @@ class _WRangeSliderState extends State<WRangeSlider> {
                 text: widget.title,
                 style: Theme.of(context)
                     .textTheme
-                    .headline2!
+                    .displayMedium!
                     .copyWith(fontWeight: FontWeight.w400),
                 children: [
                   TextSpan(
                     text: ' (${widget.description})',
                     style: Theme.of(context)
                         .textTheme
-                        .headline3!
+                        .displaySmall!
                         .copyWith(fontWeight: FontWeight.w400, fontSize: 14),
                   ),
                 ],
@@ -55,7 +55,7 @@ class _WRangeSliderState extends State<WRangeSlider> {
               widget.title,
               style: Theme.of(context)
                   .textTheme
-                  .headline2!
+                  .displayMedium!
                   .copyWith(fontWeight: FontWeight.w400),
             ),
           const SizedBox(
@@ -91,7 +91,7 @@ class _WRangeSliderState extends State<WRangeSlider> {
                         : widget.values.start.toInt().toString(),
                     style: Theme.of(context)
                         .textTheme
-                        .headline2!
+                        .displayMedium!
                         .copyWith(fontWeight: FontWeight.w600)),
                 Text(
                     widget.isForPrice
@@ -99,7 +99,7 @@ class _WRangeSliderState extends State<WRangeSlider> {
                         : widget.values.end.toInt().toString(),
                     style: Theme.of(context)
                         .textTheme
-                        .headline2!
+                        .displayMedium!
                         .copyWith(fontWeight: FontWeight.w600)),
               ],
             ),

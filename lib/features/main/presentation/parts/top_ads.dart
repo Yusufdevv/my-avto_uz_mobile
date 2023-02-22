@@ -25,7 +25,7 @@ class TopAds extends StatelessWidget {
                 child: Text(LocaleKeys.best_offers.tr(),
                     style: Theme.of(context)
                         .textTheme
-                        .headline1
+                        .displayLarge
                         ?.copyWith(fontSize: 18)),
               ),
               SizedBox(
@@ -50,7 +50,8 @@ class TopAds extends StatelessWidget {
                     },
                     builder: (context, stateWish) => AdsItem(
                       id: state.topAds[index].id,
-                      name: state.topAds[index].make,
+                      name:
+                          '${state.topAds[index].make} ${state.topAds[index].model} ${state.topAds[index].generation}',
                       price: state.topAds[index].price.toString(),
                       location: state.topAds[index].region,
                       description: state.topAds[index].description,

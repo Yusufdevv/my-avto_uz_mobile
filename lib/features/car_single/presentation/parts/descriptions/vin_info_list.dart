@@ -10,7 +10,6 @@
 // class VinInfoList extends StatelessWidget {
 //   const VinInfoList({Key? key}) : super(key: key);
 
-
 //   @override
 //   Widget build(BuildContext context) => Container(
 //         decoration: BoxDecoration(
@@ -28,7 +27,7 @@
 //               LocaleKeys.VIN_check_report.tr(),
 //               style: Theme.of(context)
 //                   .textTheme
-//                   .headline1!
+//                   .displayLarge!
 //                   .copyWith(fontWeight: FontWeight.w700, fontSize: 18),
 //             ),
 //             const SizedBox(

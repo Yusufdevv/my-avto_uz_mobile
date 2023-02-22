@@ -14,9 +14,14 @@ import 'package:flutter_svg/svg.dart';
 import 'package:formz/formz.dart';
 
 class ReelsScreen extends StatefulWidget {
-  const ReelsScreen({Key? key, this.isFromMain = false}) : super(key: key);
+  const ReelsScreen({
+    Key? key,
+    this.isForOfferDay = false,
+    this.context,
+  }) : super(key: key);
 
-  final bool isFromMain;
+  final bool isForOfferDay;
+  final BuildContext? context;
 
   @override
   State<ReelsScreen> createState() => _ReelsScreenState();
@@ -40,7 +45,7 @@ class _ReelsScreenState extends State<ReelsScreen>
 
   @override
   void initState() {
-    bloc = ReelsBloc()..add(InitialEvent(isFromMain: widget.isFromMain));
+    bloc = ReelsBloc()..add(InitialEvent(isForOfferDay: widget.isForOfferDay));
     _pageController = PageController(keepPage: true);
     _pageController.addListener(_scrollListener);
     isFirstTimeWatchReel = StorageRepository.getBool(
@@ -111,6 +116,12 @@ class _ReelsScreenState extends State<ReelsScreen>
                             pageIndex: index,
                             currentPageIndex: _currentPage,
                             isPaused: _isOnPageTurning,
+                            videoEnded: () {
+                              if (index == state.reels.length - 1 &&
+                                  !state.hasNext) {
+                                Navigator.pop(context);
+                              }
+                            },
                           ),
                         ),
                       Positioned(
@@ -120,12 +131,11 @@ class _ReelsScreenState extends State<ReelsScreen>
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            if (widget.isFromMain)
-                              WScaleAnimation(
-                                child:
-                                    SvgPicture.asset(AppIcons.chevronLeftWhite),
-                                onTap: () => Navigator.pop(context),
-                              ),
+                            WScaleAnimation(
+                              child:
+                                  SvgPicture.asset(AppIcons.chevronLeftWhite),
+                              onTap: () => Navigator.pop(context),
+                            ),
                             const Spacer(),
                             SvgPicture.asset(AppIcons.whiteLogo),
                           ],
@@ -182,7 +192,8 @@ class _ReelsScreenState extends State<ReelsScreen>
         !bloc.state.statusReelsGet.isSubmissionInProgress &&
         bloc.state.hasNext) {
       bloc.add(GetMoreReelsEvent(
-          isFromMain: widget.isFromMain, offset: bloc.state.reels.length - 1));
+          isForOfferDay: widget.isForOfferDay,
+          offset: bloc.state.reels.length - 1));
     }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class WHighlightedTextField extends StatelessWidget {
   final String allText;
   final String highlightedText;
@@ -59,6 +60,7 @@ class WHighlightedTextField extends StatelessWidget {
       );
     }
   }
+
   List<InlineSpan> getOtherText() {
     final list = [];
     for (final currentText in allText.split(highlightedText).skip(1).toList()) {
@@ -100,14 +102,3 @@ class WHighlightedTextField extends StatelessWidget {
     return list.cast<InlineSpan>();
   }
 }
-
-
-
-
-
-
-
-
-
-
-

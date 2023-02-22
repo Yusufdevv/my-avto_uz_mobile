@@ -3,12 +3,15 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/dealers/presentation/blocs/dealer_card_bloc/dealer_card_bloc.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DealerCard extends StatefulWidget {
   final String dealerInfo;
@@ -16,6 +19,7 @@ class DealerCard extends StatefulWidget {
   final String dealerImageUrl;
   final String phoneNumber;
   final int quantityOfCars;
+  final int dealerId;
   final String contactTo;
   final String contactFrom;
   final String contractCode;
@@ -29,6 +33,7 @@ class DealerCard extends StatefulWidget {
     required this.dealerName,
     required this.dealerImageUrl,
     required this.quantityOfCars,
+    required this.dealerId,
     required this.contactTo,
     required this.contactFrom,
     required this.contractCode,
@@ -77,8 +82,9 @@ class _DealerCardState extends State<DealerCard> {
                       child: CachedNetworkImage(
                         imageUrl: widget.dealerImageUrl,
                         fit: BoxFit.cover,
-                        errorWidget: (context, url, error) => SvgPicture.asset(
-                          AppImages.autoUz,
+                        errorWidget: (context, url, error) => Image.asset(
+                          AppImages.carPlaceHolder,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
@@ -90,10 +96,12 @@ class _DealerCardState extends State<DealerCard> {
                       SizedBox(
                         width: 200,
                         child: Text(widget.dealerName,
-                            style:
-                                Theme.of(context).textTheme.headline1!.copyWith(
-                                      fontSize: 16,
-                                    ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayLarge!
+                                .copyWith(
+                                  fontSize: 16,
+                                ),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1),
                       ),
@@ -123,7 +131,7 @@ class _DealerCardState extends State<DealerCard> {
                           : '${widget.quantityOfCars} ${LocaleKeys.carses.tr()}',
                       style: Theme.of(context)
                           .textTheme
-                          .headline1!
+                          .displayLarge!
                           .copyWith(fontSize: 14, fontWeight: FontWeight.w400)),
                 ],
               ),
@@ -136,7 +144,7 @@ class _DealerCardState extends State<DealerCard> {
                       '${LocaleKeys.every_day.tr()}, ${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}',
                       style: Theme.of(context)
                           .textTheme
-                          .headline1!
+                          .displayLarge!
                           .copyWith(fontSize: 14, fontWeight: FontWeight.w400))
                 ],
               ),
@@ -155,54 +163,71 @@ class _DealerCardState extends State<DealerCard> {
                             fontSize: 13,
                             color: warmerGrey),
                       )),
-                      Text(
-                        widget.contractCode,
-                        style: Theme.of(context).textTheme.headline1!.copyWith(
-                            fontSize: 16, fontWeight: FontWeight.w600),
+                      WScaleAnimation(
+                        isDisabled: !isSelected,
+                        onTap: () {
+                          if (isSelected) {
+                            launchUrl(Uri.parse('tel: ${widget.phoneNumber}'));
+                          }
+                        },
+                        child: Row(
+                          children: [
+                            Text(
+                              widget.contractCode,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayLarge!
+                                  .copyWith(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600),
+                            ),
+                            if (isSelected)
+                              Text(
+                                MyFunctions.phoneFormatter(
+                                    widget.contractNumber, [
+                                  4,
+                                  6,
+                                ]),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayLarge!
+                                    .copyWith(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600),
+                              ),
+                          ],
+                        ),
                       ),
                       if (isSelected)
                         const SizedBox(width: 3)
                       else
                         const SizedBox(width: 9),
-                      WScaleAnimation(
-                        onTap: () {
-                          setState(() => isSelected = true);
-                        },
-                        child: isSelected
-                            ? Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 5, 16, 5),
-                                child: Text(
-                                  MyFunctions.phoneFormatter(
-                                      widget.contractNumber, [
-                                    4,
-                                    6,
-                                  ]),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline1!
-                                      .copyWith(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600),
-                                ),
-                              )
-                            : Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16, vertical: 5),
-                                decoration: BoxDecoration(
-                                  color: emerald,
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  LocaleKeys.show_contact.tr(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline4!
-                                      .copyWith(
-                                        fontSize: 14,
-                                      ),
-                                ),
-                              ),
-                      ),
+                      if (!isSelected)
+                        WScaleAnimation(
+                          onTap: () {
+                            setState(() => isSelected = true);
+                            context.read<DealerCardBloc>().add(
+                                DealerCardEvent.watchContact(
+                                    id: widget.dealerId));
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 5),
+                            decoration: BoxDecoration(
+                              color: emerald,
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: Text(
+                              LocaleKeys.show_contact.tr(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineMedium!
+                                  .copyWith(
+                                    fontSize: 14,
+                                  ),
+                            ),
+                          ),
+                        ),
                     ],
                   ),
                 ],

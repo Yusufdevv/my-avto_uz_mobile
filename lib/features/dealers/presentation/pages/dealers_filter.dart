@@ -8,10 +8,10 @@ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/dealers/presentation/blocs/dealer_card_bloc/dealer_card_bloc.dart';
 import 'package:auto/features/dealers/presentation/blocs/filter_bloc/dealer_filter_bloc.dart';
+import 'package:auto/features/dealers/presentation/widgets/dealer_selector_item.dart';
 import 'package:auto/features/dealers/presentation/widgets/filter_radio.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_maker.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
-import 'package:auto/features/search/presentation/widgets/selector_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -61,21 +61,23 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
           builder: (context, state) => Scaffold(
             backgroundColor: white,
             appBar: WAppBar(
-               boxShadow: [
-              BoxShadow(
-                  offset: const Offset(0, 8),
-                  blurRadius: 24,
-                  color: dark.withOpacity(0.08)),
-              BoxShadow(
-                  offset: const Offset(0, -1), color: dark.withOpacity(0.08))
-            ],
-              titleStyle:
-                  Theme.of(context).textTheme.headline1!.copyWith(fontSize: 16),
+              boxShadow: [
+                BoxShadow(
+                    offset: const Offset(0, 8),
+                    blurRadius: 24,
+                    color: dark.withOpacity(0.08)),
+                BoxShadow(
+                    offset: const Offset(0, -1), color: dark.withOpacity(0.08))
+              ],
+              titleStyle: Theme.of(context)
+                  .textTheme
+                  .displayLarge!
+                  .copyWith(fontSize: 16),
               extraActions: [
                 Text(LocaleKeys.filter.tr(),
                     style: Theme.of(context)
                         .textTheme
-                        .headline1!
+                        .displayLarge!
                         .copyWith(fontSize: 16, fontWeight: FontWeight.w600)),
                 const Spacer(
                   flex: 30,
@@ -93,7 +95,7 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
                       LocaleKeys.clear.tr(),
                       style: Theme.of(context)
                           .textTheme
-                          .subtitle1!
+                          .titleMedium!
                           .copyWith(color: blue),
                     ),
                   ),
@@ -149,7 +151,7 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  SelectorItem(
+                  DealerSelectorItem(
                     onTap: () async {
                       await showModalBottomSheet<List<Region>>(
                         isDismissible: false,
@@ -165,13 +167,11 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
                             .add(DealerFilterSelectEvent(region: value));
                       });
                     },
-                    hintText: (state.region.isEmpty)
-                        ? LocaleKeys.choose_region.tr()
-                        : MyFunctions.text(state.region, true),
+                    hintText: MyFunctions.text(state.region, true),
                     title: LocaleKeys.region.tr(),
-                    hasArrowDown: true,
+                    defaultText: LocaleKeys.choose_region.tr(),
                   ),
-                  SelectorItem(
+                  DealerSelectorItem(
                     onTap: () async {
                       await showModalBottomSheet<MakeEntity>(
                         isDismissible: false,
@@ -185,22 +185,22 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
                             .add(DealerFilterSelectEvent(maker: value));
                       });
                     },
-                    hintText: state.maker.name.isEmpty
-                        ? LocaleKeys.choose_brand.tr()
-                        : state.maker.name,
+                    hintText: state.maker.name,
                     title: LocaleKeys.brand.tr(),
-                    hasArrowDown: true,
+                    defaultText: LocaleKeys.choose_brand.tr(),
                   ),
                   const Spacer(),
                   WButton(
                     textStyle: const TextStyle(
                         fontWeight: FontWeight.w600, fontSize: 14),
                     onTap: () {
-                      widget.dealerBloc.add(DealerCardEvent.getFilterResult(
+                      widget.dealerBloc.add(DealerCardEvent.getResults(
+                        isRefresh: false,
+                        search: '',
                         regionId: state.region.isEmpty
                             ? ''
                             : MyFunctions.text(state.region),
-                        mark: state.maker.id,
+                        mark: state.maker.id != -1 ? state.maker.id : null,
                         carType: selectedCategory,
                       ));
                       Navigator.pop(context);

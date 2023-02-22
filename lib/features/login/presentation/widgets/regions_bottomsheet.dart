@@ -17,7 +17,8 @@ Future<Region> showRegionsBottomSheet(
               (index) => GestureDetector(
                 onTap: () {
                   Navigator.pop(context, list[index]);
-                }, behavior: HitTestBehavior.opaque,
+                },
+                behavior: HitTestBehavior.opaque,
                 child: Container(
                   padding:
                       const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
@@ -27,8 +28,11 @@ Future<Region> showRegionsBottomSheet(
                     children: [
                       Text(
                         list[index].title,
-                        style: Theme.of(context).textTheme.headline1!.copyWith(
-                            fontWeight: FontWeight.w600, fontSize: 16),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayLarge!
+                            .copyWith(
+                                fontWeight: FontWeight.w600, fontSize: 16),
                       ),
                     ],
                   ),

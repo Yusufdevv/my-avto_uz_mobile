@@ -75,7 +75,9 @@ class CurrentLocationButton extends StatelessWidget {
           onTap: onCurrentLocationTap,
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 150),
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(8),
+            height: 36,
+            width: 36,
             decoration: BoxDecoration(
               color: state.getCurrentLocationStatus.isSubmissionInProgress
                   ? white.withOpacity(0.7)

@@ -26,7 +26,8 @@ class _RatingBottomsheetState extends State<RatingBottomsheet> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             GestureDetector(
-              onTap: () => Navigator.pop(context), behavior: HitTestBehavior.opaque,
+              onTap: () => Navigator.pop(context),
+              behavior: HitTestBehavior.opaque,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -89,27 +90,27 @@ class _RatingBottomsheetState extends State<RatingBottomsheet> {
               children: [
                 rateContainer(
                   _currentPage >= 0
-                      ? LightThemeColors.headline5
+                      ? LightThemeColors.headlineSmall
                       : LightThemeColors.solitudeToDarkGray95,
                 ),
                 rateContainer(
                   _currentPage >= 1
-                      ? LightThemeColors.headline5
+                      ? LightThemeColors.headlineSmall
                       : LightThemeColors.solitudeToDarkGray95,
                 ),
                 rateContainer(
                   _currentPage >= 2
-                      ? LightThemeColors.headline5
+                      ? LightThemeColors.headlineSmall
                       : LightThemeColors.solitudeToDarkGray95,
                 ),
                 rateContainer(
                   _currentPage >= 3
-                      ? LightThemeColors.headline5
+                      ? LightThemeColors.headlineSmall
                       : LightThemeColors.solitudeToDarkGray95,
                 ),
                 rateContainer(
                   _currentPage >= 4
-                      ? LightThemeColors.headline5
+                      ? LightThemeColors.headlineSmall
                       : LightThemeColors.solitudeToDarkGray95,
                 ),
               ],

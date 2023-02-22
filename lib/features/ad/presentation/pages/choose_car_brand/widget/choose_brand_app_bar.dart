@@ -62,7 +62,7 @@ class ChooseBrandAppBar extends StatelessWidget implements PreferredSizeWidget {
                                   : title,
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline2!
+                                  .displayMedium!
                                   .copyWith(fontWeight: FontWeight.w600),
                             ),
                           ],
@@ -94,7 +94,7 @@ class ChooseBrandAppBar extends StatelessWidget implements PreferredSizeWidget {
                                   : reverseTitle,
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline2!
+                                  .displayMedium!
                                   .copyWith(fontWeight: FontWeight.w600),
                             ),
                           ],

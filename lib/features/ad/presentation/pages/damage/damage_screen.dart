@@ -73,6 +73,7 @@ class _DamageScreenState extends State<DamageScreen>
                   const BoxDecoration(shape: BoxShape.circle, color: border),
               padding: const EdgeInsets.all(4),
               child: DamageButton(
+                placedOnCar: false,
                   damageType: DamageType.replaced,
                   onTap: () {
                     showModalBottomSheet<DamageType>(
@@ -96,7 +97,7 @@ class _DamageScreenState extends State<DamageScreen>
                 children: [
                   Text(
                     LocaleKeys.mark_all_the_colored_and_damaged_parts.tr(),
-                    style: Theme.of(context).textTheme.headline6!.copyWith(
+                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
                         fontSize: 14,
                         color: Theme.of(context)
                             .extension<ThemedColors>()!
@@ -105,13 +106,14 @@ class _DamageScreenState extends State<DamageScreen>
                   const SizedBox(height: 32),
                   DamageCarsItem(
                     onPressed: _showChoosDamageTypeSheet,
+                    damagedParts: state.damagedParts,
                   ),
                   // DOOR
                   CustomTabBar(
                       title: LocaleKeys.door.tr(),
                       tabController: doorController,
                       firstTab: LocaleKeys.left.tr(),
-                      secondTab:LocaleKeys.right.tr()),
+                      secondTab: LocaleKeys.right.tr()),
                   SizedBox(
                     height: 150,
                     child: TabBarView(
@@ -173,26 +175,26 @@ class _DamageScreenState extends State<DamageScreen>
                         SituationItem(
                             onTap: () {
                               _showChoosDamageTypeSheet(
-                                  DamagedParts.frontBumper);
-                            },
-                            position: LocaleKeys.front_bumper.tr(),
-                            damageType:
-                                state.damagedParts[DamagedParts.frontBumper]),
-                        SituationItem(
-                            onTap: () {
-                              _showChoosDamageTypeSheet(
                                   DamagedParts.rearBumper);
                             },
                             position: LocaleKeys.back_bumper.tr(),
                             damageType:
                                 state.damagedParts[DamagedParts.rearBumper]),
+                        SituationItem(
+                            onTap: () {
+                              _showChoosDamageTypeSheet(
+                                  DamagedParts.frontBumper);
+                            },
+                            position: LocaleKeys.front_bumper.tr(),
+                            damageType:
+                            state.damagedParts[DamagedParts.frontBumper]),
                       ],
                     ),
                   ),
 
                   // FENDER
                   CustomTabBar(
-                      title:LocaleKeys.fender.tr(),
+                      title: LocaleKeys.fender.tr(),
                       tabController: wingController,
                       firstTab: LocaleKeys.back.tr(),
                       secondTab: LocaleKeys.front.tr()),

@@ -45,15 +45,11 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
   }
 
-  // @override
-  // void dispose() {
-  //   phoneController.dispose();
-  //   passwordController.dispose();
-  //   super.dispose();
-  // }
-
-  void hidePopUp() {
-    context.read<ShowPopUpBloc>().add(HidePopUp());
+  @override
+  void dispose() {
+    phoneController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -86,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   LocaleKeys.enter_to_account.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .headline1!
+                      .displayLarge!
                       .copyWith(fontSize: 18),
                 ),
                 const SizedBox(height: 4),
@@ -97,27 +93,28 @@ class _LoginScreenState extends State<LoginScreen> {
                       LocaleKeys.d_y_h_account.tr(),
                       style: Theme.of(context)
                           .textTheme
-                          .headline6!
+                          .titleLarge!
                           .copyWith(fontSize: 13, fontWeight: FontWeight.w400),
                     ),
                     const SizedBox(width: 4),
                     WScaleAnimation(
                       onTap: () {
-                        hidePopUp();
                         Navigator.push(
                             context, fade(page: const RegisterScreen()));
                       },
                       child: Text(
                         LocaleKeys.register.tr(),
-                        style: Theme.of(context).textTheme.headline3!.copyWith(
-                            fontWeight: FontWeight.w600, fontSize: 13),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displaySmall!
+                            .copyWith(
+                                fontWeight: FontWeight.w600, fontSize: 13),
                       ),
                     )
                   ],
                 ),
                 const SizedBox(height: 36),
                 ZTextFormField(
-                  onTap: hidePopUp,
                   onChanged: (value) {
                     setState(() {});
                   },
@@ -132,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Text('+998',
                           style: Theme.of(context)
                               .textTheme
-                              .subtitle1!
+                              .titleMedium!
                               .copyWith(
                                   fontSize: 14, fontWeight: FontWeight.w400)),
                     ],
@@ -140,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   hintText: '00 000 00 00',
                   hintTextStyle: Theme.of(context)
                       .textTheme
-                      .subtitle1!
+                      .titleMedium!
                       .copyWith(
                           fontSize: 14,
                           color: warmerGrey,
@@ -149,12 +146,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   textInputFormatters: [phoneFormatter],
                   textStyle: Theme.of(context)
                       .textTheme
-                      .subtitle1!
+                      .titleMedium!
                       .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 16),
                 ZTextFormField(
-                  onTap: hidePopUp,
                   onChanged: (value) {
                     setState(() {});
                   },
@@ -163,20 +159,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   isObscure: true,
                   hintTextStyle: Theme.of(context)
                       .textTheme
-                      .subtitle1!
+                      .titleMedium!
                       .copyWith(
                           fontSize: 14,
                           color: warmerGrey,
                           fontWeight: FontWeight.w400),
                   textStyle: Theme.of(context)
                       .textTheme
-                      .subtitle1!
+                      .titleMedium!
                       .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                 ),
                 const SizedBox(height: 16),
                 WScaleAnimation(
                   onTap: () {
-                    hidePopUp();
                     Navigator.of(context)
                         .push(fade(page: const SendPhoneNumberPage()));
                   },
@@ -184,7 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     LocaleKeys.forgot_password.tr(),
                     style: Theme.of(context)
                         .textTheme
-                        .headline3!
+                        .displaySmall!
                         .copyWith(fontSize: 13, fontWeight: FontWeight.w600),
                   ),
                 ),
@@ -195,18 +190,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   onTap: passwordController.text.length >= 6 &&
                           phoneController.text.length == 12
                       ? () {
-                          hidePopUp();
                           context.read<AuthenticationBloc>().add(LoginUser(
                               onError: (text) {
                                 var error = text;
                                 if (error.toLowerCase().contains('dio') ||
                                     error.toLowerCase().contains('type')) {
                                   error = LocaleKeys.service_error.tr();
+                                } else if (error
+                                    .toLowerCase()
+                                    .contains('user')) {
+                                  error = LocaleKeys.user_already_exist.tr();
                                 }
                                 context.read<ShowPopUpBloc>().add(ShowPopUp(
                                       message: error,
                                       status: PopStatus.error,
-                                      dismissible: false,
                                     ));
                               },
                               password: passwordController.text,
@@ -242,7 +239,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                     child: Text(
                       LocaleKeys.another_ways.tr(),
-                      style: Theme.of(context).textTheme.headline6!.copyWith(
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
                             fontWeight: FontWeight.w400,
                             fontSize: 12,
                           ),
@@ -259,29 +256,47 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SocialMediaItem(
-                    // onTap: () {},
+                    onTap: () async {
+                      context.read<AuthenticationBloc>().add(LoginWithGoogle());
+                    },
                     icon: SvgPicture.asset(
                         Theme.of(context).extension<ThemedIcons>()!.google),
                   ),
                   const SizedBox(width: 24),
                   SocialMediaItem(
-                      // onTap: () {},
-                      icon: SvgPicture.asset(
-                    AppIcons.apple,
-                    color: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .blackToWhite80,
-                  )),
-                  const SizedBox(width: 24),
-                  SocialMediaItem(
-                    // onTap: () {},
+                    onTap: () async {
+                      context.read<AuthenticationBloc>().add(LoginWithAppLe());
+                    },
                     icon: SvgPicture.asset(
-                      AppIcons.imkon,
+                      AppIcons.apple,
                       color: Theme.of(context)
                           .extension<ThemedColors>()!
-                          .prussianBlueToWhite80,
+                          .blackToWhite80,
                     ),
                   ),
+                  const SizedBox(width: 24),
+                  SocialMediaItem(
+                    onTap: () async {
+                      context
+                          .read<AuthenticationBloc>()
+                          .add(LoginWithFaceBook());
+                    },
+                    icon: SvgPicture.asset(
+                      AppIcons.facebook,
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .dodgerBlueToWhite80,
+                    ),
+                  ),
+                  // SocialMediaItem(
+                  //   // onTap: () {},
+                  //   icon: SvgPicture.asset(
+                  //     AppIcons.imkon,
+                  //     color: Theme.of(context)
+                  //         .extension<ThemedColors>()!
+                  //         .prussianBlueToWhite80,
+                  //   ),
+                  // ),
                 ],
               ),
               SizedBox(height: 24 + mediaQuery.padding.bottom)

@@ -86,11 +86,14 @@ class RadioItem extends StatelessWidget {
                         Text(
                           title,
                           style: value == groupValue
-                              ? Theme.of(context).textTheme.headline1!.copyWith(
-                                  fontSize: 16, fontWeight: FontWeight.w600)
+                              ? Theme.of(context)
+                                  .textTheme
+                                  .displayLarge!
+                                  .copyWith(
+                                      fontSize: 16, fontWeight: FontWeight.w600)
                               : Theme.of(context)
                                   .textTheme
-                                  .headline6!
+                                  .titleLarge!
                                   .copyWith(color: greyText),
                         ),
                       ],
@@ -142,11 +145,11 @@ class RadioItem extends StatelessWidget {
                     Text(
                       title,
                       style: value == groupValue
-                          ? Theme.of(context).textTheme.headline1!.copyWith(
+                          ? Theme.of(context).textTheme.displayLarge!.copyWith(
                               fontSize: 16, fontWeight: FontWeight.w600)
                           : Theme.of(context)
                               .textTheme
-                              .headline6!
+                              .titleLarge!
                               .copyWith(color: greyText),
                     ),
                   ],

@@ -39,7 +39,7 @@ class _PublicationMyReviewState extends State<PublicationMyReview> {
           hasBackButton: true,
           title: 'Добавить отзыв',
           titleStyle:
-              Theme.of(context).textTheme.headline1!.copyWith(fontSize: 16),
+              Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 16),
           extraActions: [
             WButton(
               onTap: () {},
@@ -47,7 +47,7 @@ class _PublicationMyReviewState extends State<PublicationMyReview> {
               color: transparentButton,
               disabledColor: transparentButton,
               text: 'Сохранить',
-              textStyle: Theme.of(context).textTheme.headline2!.copyWith(
+              textStyle: Theme.of(context).textTheme.displayMedium!.copyWith(
                   fontSize: 13, color: isSaveDisabled ? warmerGrey : orange),
             ),
             const SizedBox(width: 16),
@@ -61,7 +61,7 @@ class _PublicationMyReviewState extends State<PublicationMyReview> {
             children: [
               WTextField(
                 title: 'Текст для отзыва',
-                titleTextStyle: Theme.of(context).textTheme.headline2,
+                titleTextStyle: Theme.of(context).textTheme.displayMedium,
                 borderColor: borderCircular,
                 margin: const EdgeInsets.symmetric(horizontal: 16),
                 borderRadius: 12,
@@ -70,10 +70,10 @@ class _PublicationMyReviewState extends State<PublicationMyReview> {
                 maxLines: 12,
                 height: 132,
                 textInputAction: TextInputAction.newline,
-                hintTextStyle: Theme.of(context).textTheme.headline2,
+                hintTextStyle: Theme.of(context).textTheme.displayMedium,
                 textStyle: Theme.of(context)
                     .textTheme
-                    .subtitle1!
+                    .titleMedium!
                     .copyWith(fontWeight: FontWeight.w400),
                 onChanged: (value) {
                   if (commentTextEditingController.text.isNotEmpty) {
@@ -94,7 +94,7 @@ class _PublicationMyReviewState extends State<PublicationMyReview> {
                 'Отзыв должен состоит не менее\n500 символов',
                 style: Theme.of(context)
                     .textTheme
-                    .headline2!
+                    .displayMedium!
                     .copyWith(fontSize: 13),
                 textAlign: TextAlign.center,
               ),
@@ -114,7 +114,7 @@ class _PublicationMyReviewState extends State<PublicationMyReview> {
                 isDisabled: isPublicationDisabled,
                 disabledColor: warmerGrey,
                 text: 'Опубликовать',
-                textStyle: Theme.of(context).textTheme.headline4!.copyWith(
+                textStyle: Theme.of(context).textTheme.headlineMedium!.copyWith(
                     fontSize: 14,
                     color: isPublicationDisabled ? dividerColor : white),
                 onTap: () {

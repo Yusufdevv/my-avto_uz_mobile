@@ -8,7 +8,7 @@ part of 'drive_type.dart';
 
 DriveTypeModel _$DriveTypeModelFromJson(Map<String, dynamic> json) =>
     DriveTypeModel(
-      id: json['id'] as int? ?? 0,
+      id: json['id'] as int? ?? -1,
       type: json['type'] as String? ?? '',
       logo: json['logo'] as String? ?? '',
     );

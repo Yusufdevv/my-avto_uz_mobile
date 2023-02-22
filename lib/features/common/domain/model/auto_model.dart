@@ -12,8 +12,9 @@ import 'package:json_annotation/json_annotation.dart';
 part 'auto_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
+// ignore: must_be_immutable
 class AutoModel extends AutoEntity {
-    AutoModel({
+  AutoModel({
     required super.id,
     required super.bodyType,
     required super.driveType,
@@ -64,6 +65,7 @@ class AutoModel extends AutoEntity {
     required super.registrationSerialNumber,
     required super.registrationVin,
     required super.stats,
+    required super.isRentWithPurchase,
   });
 
   factory AutoModel.fromJson(Map<String, dynamic> json) =>

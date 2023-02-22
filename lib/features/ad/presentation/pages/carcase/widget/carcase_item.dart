@@ -41,7 +41,7 @@ class BodyTypeItem extends StatelessWidget {
               title,
               style: Theme.of(context)
                   .textTheme
-                  .headline1!
+                  .displayLarge!
                   .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
             ),
             const Spacer(),

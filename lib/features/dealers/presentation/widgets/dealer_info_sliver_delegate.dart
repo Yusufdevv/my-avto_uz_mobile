@@ -181,7 +181,7 @@ class SellerSliverDelegate extends SliverPersistentHeaderDelegate {
                                   duration: _duration,
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline1!
+                                      .displayLarge!
                                       .copyWith(
                                           fontSize:
                                               shrinkOffset >= 158 ? 14 : 16),

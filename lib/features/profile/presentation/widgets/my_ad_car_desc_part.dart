@@ -23,47 +23,47 @@ class MyAdCarDescPart extends StatelessWidget {
         children: [
           SizedBox(height: SizeConfig.v(8)),
           RichText(
-                    text: TextSpan(children: [
-                  TextSpan(
-                    text: item.absoluteCarName,
-                    style: Theme.of(context).textTheme.headline2!.copyWith(
-                        color: dark, fontSize: 16, fontWeight: FontWeight.w400),
+              text: TextSpan(children: [
+            TextSpan(
+              text: item.absoluteCarName,
+              style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                  color: dark, fontSize: 16, fontWeight: FontWeight.w400),
+            ),
+            WidgetSpan(
+              alignment: PlaceholderAlignment.middle,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 4),
+                child: CustomChip(
+                  label: '${item.year}',
+                  backgroundColor:
+                      LightThemeColors.navBarIndicator.withOpacity(0.1),
+                  borderRadius: 4,
+                  labelStyle: const TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w600,
+                    color: LightThemeColors.navBarIndicator,
                   ),
-                  WidgetSpan(
-                    alignment: PlaceholderAlignment.middle,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 4),
-                      child: CustomChip(
-                        label: '${item.year}',
-                        backgroundColor:
-                            LightThemeColors.navBarIndicator.withOpacity(0.1),
-                        borderRadius: 4,
-                        labelStyle: const TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w600,
-                          color: LightThemeColors.navBarIndicator,
-                        ),
+                ),
+              ),
+            ),
+            if (item.isNew)
+              WidgetSpan(
+                  alignment: PlaceholderAlignment.middle,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 4),
+                    child: CustomChip(
+                      leading: SvgPicture.asset(AppIcons.checkCurly),
+                      label: LocaleKeys.neww.tr(),
+                      backgroundColor: emerald.withOpacity(0.1),
+                      borderRadius: 4,
+                      labelStyle: const TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600,
+                        color: emerald,
                       ),
                     ),
-                  ),
-                  if (item.isNew)
-                    WidgetSpan(
-                        alignment: PlaceholderAlignment.middle,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 4),
-                          child: CustomChip(
-                            leading: SvgPicture.asset(AppIcons.checkCurly),
-                            label: LocaleKeys.neww.tr(),
-                            backgroundColor: emerald.withOpacity(0.1),
-                            borderRadius: 4,
-                            labelStyle: const TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w600,
-                              color: emerald,
-                            ),
-                          ),
-                        ))
-                ])),
+                  ))
+          ])),
           SizedBox(height: SizeConfig.v(4)),
           Row(
             children: [
@@ -73,14 +73,14 @@ class MyAdCarDescPart extends StatelessWidget {
                     : '${item.price.floor()} ${item.currency.toUpperCase()}',
                 style: Theme.of(context)
                     .textTheme
-                    .headline5!
+                    .headlineSmall!
                     .copyWith(color: green, fontWeight: FontWeight.w600),
               ),
               const SizedBox(width: 4),
               if (item.discount > 0.0)
                 Text(
                   '${item.price.floor()} ${item.currency.toUpperCase()}',
-                  style: Theme.of(context).textTheme.headline2!.copyWith(
+                  style: Theme.of(context).textTheme.displayMedium!.copyWith(
                       decoration: TextDecoration.lineThrough, color: grey),
                 )
             ],
@@ -92,7 +92,7 @@ class MyAdCarDescPart extends StatelessWidget {
               maxLines: 2,
               style: Theme.of(context)
                   .textTheme
-                  .headline2!
+                  .displayMedium!
                   .copyWith(fontSize: 13)),
         ],
       );

@@ -21,6 +21,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
+
 class DirectoryPage extends StatefulWidget {
   const DirectoryPage({Key? key}) : super(key: key);
 
@@ -31,6 +32,7 @@ class DirectoryPage extends StatefulWidget {
 class _DirectoryPageState extends State<DirectoryPage> {
   late DirectoryBloc bloc;
   late TextEditingController controller;
+
   @override
   void initState() {
     controller = TextEditingController();
@@ -87,47 +89,65 @@ class _DirectoryPageState extends State<DirectoryPage> {
                             const SizedBox(width: 7),
                             Expanded(
                               child: WTextField(
-                                controller: controller,
-                                borderColor: Theme.of(context)
+                                contentPadding: const EdgeInsets.only(
+                                    left: 12, right: 12, top: 12),
+                                borderColor: purple,
+                                disabledBorderColor: Theme.of(context)
                                     .extension<ThemedColors>()!
-                                    .whiteSmokeToNightRider,
+                                    .whiteSmokeToEclipse,
                                 fillColor: Theme.of(context)
                                     .extension<ThemedColors>()!
-                                    .whiteSmokeToNightRider,
+                                    .whiteSmokeToEclipse,
                                 hintText: LocaleKeys.autosalon_autoservice.tr(),
                                 hintTextStyle: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,
                                     color: grey),
+                                textStyle: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  color: black,
+                                ),
+                                enabledBorderColor: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .whiteSmokeToEclipse,
                                 focusColor: Theme.of(context)
                                     .extension<ThemedColors>()!
-                                    .whiteSmokeToNightRider,
+                                    .whiteSmokeToEclipse,
                                 onChanged: (value) {
                                   bloc.add(GetDirectoriesEvent(search: value));
                                 },
+                                controller: controller,
                                 hasSearch: true,
                                 borderRadius: 8,
                               ),
                             ),
                             const SizedBox(width: 12),
                             WButton(
+                                height: 50,
+                                width: 50,
                                 onTap: () {
                                   FocusScope.of(context).unfocus();
                                   controller.text = '';
                                   Navigator.of(context, rootNavigator: true)
-                                      .push(fade(
-                                          page: BlocProvider.value(
-                                    value: bloc,
-                                    child: DirectoryFilterPage(bloc: bloc),
-                                  )));
+                                      .push(
+                                    fade(
+                                      page: BlocProvider.value(
+                                        value: bloc,
+                                        child: DirectoryFilterPage(bloc: bloc),
+                                      ),
+                                    ),
+                                  );
                                 },
                                 borderRadius: 12,
                                 color: Theme.of(context)
                                     .extension<ThemedColors>()!
                                     .whiteSmokeToNightRider,
-                                padding: const EdgeInsets.all(12),
-                                child: SvgPicture.asset(AppIcons.filter,
-                                    color: purple))
+                                padding: const EdgeInsets.all(8),
+                                child: SvgPicture.asset(
+                                  AppIcons.filter,
+                                  color: purple,
+                                ))
                           ],
                         ),
                       ),
@@ -141,7 +161,7 @@ class _DirectoryPageState extends State<DirectoryPage> {
                         physics: NeverScrollableScrollPhysics(),
                         children: [
                           DirectoryList(),
-                          MapScreen(isDirectoryPage: true),
+                          MapScreen(isFromDirectoryPage: true),
                         ],
                       ),
                     ),

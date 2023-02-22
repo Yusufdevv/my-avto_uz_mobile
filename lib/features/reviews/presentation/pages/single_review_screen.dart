@@ -38,7 +38,8 @@ class SingleReviewScreen extends StatelessWidget {
                   context: context,
                   builder: (context) => const EditDeleteBottomSheet(),
                 );
-              }, behavior: HitTestBehavior.opaque,
+              },
+              behavior: HitTestBehavior.opaque,
               child: SvgPicture.asset(
                 AppIcons.moreVertical,
                 color: const Color(0xff92929D),
