@@ -178,7 +178,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         state.copyWith(
           status: FormzStatus.submissionSuccess,
           modifications: result.right.results,
-          modification: result.right.results.isNotEmpty
+          modification: result.right.results.isNotEmpty && state.modification == null
               ? result.right.results.first
               : null,
         ),
@@ -282,7 +282,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         state.copyWith(
           status: FormzStatus.submissionSuccess,
           years: result.right.results,
-          yearEntity: result.right.results.isNotEmpty
+          yearEntity: result.right.results.isNotEmpty && state.yearEntity == null
               ? result.right.results.first
               : null,
         ),
@@ -452,7 +452,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         state.copyWith(
             status: FormzStatus.submissionSuccess,
             bodyTypes: result.right.results,
-            bodyType: bodies.isNotEmpty ? bodies.first : null),
+            bodyType: bodies.isNotEmpty && state.bodyType == null ? bodies.first : null),
       );
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
@@ -469,7 +469,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         state.copyWith(
             status: FormzStatus.submissionSuccess,
             gearBoxes: gearBoxes,
-            gearbox: gearBoxes.isNotEmpty ? gearBoxes.first : null),
+            gearbox: gearBoxes.isNotEmpty && state.gearbox == null ? gearBoxes.first : null),
       );
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
@@ -490,7 +490,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         state.copyWith(
           status: FormzStatus.submissionSuccess,
           driveTypes: driveTypes,
-          driveTypeId: driveTypes.isNotEmpty ? driveTypes.first.id : null,
+          driveTypeId: driveTypes.isNotEmpty && state.driveTypeId == null ? driveTypes.first.id : null,
         ),
       );
     } else {
@@ -512,7 +512,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         state.copyWith(
           status: FormzStatus.submissionSuccess,
           engines: engines,
-          engineId: engines.isNotEmpty ? engines.first.id : null,
+          engineId: engines.isNotEmpty && state.engineId == null ? engines.first.id : null,
         ),
       );
     } else {
@@ -549,7 +549,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       emit(state.copyWith(
           generations: generations,
           status: FormzStatus.submissionSuccess,
-          generationId: generations.isNotEmpty ? generations.first.id : null));
+          generationId: generations.isNotEmpty && state.generationId == null ? generations.first.id : null));
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
@@ -640,7 +640,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       emit(state.copyWith(
           equipments: equipments,
           status: FormzStatus.submissionSuccess,
-          equipmentId: equipments.isNotEmpty ? equipments.first.id : null));
+          equipmentId: equipments.isNotEmpty && state.equipmentId == null ? equipments.first.id : null));
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }

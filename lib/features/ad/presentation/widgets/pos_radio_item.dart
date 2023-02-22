@@ -8,6 +8,7 @@ class PostingRadioItem extends StatelessWidget {
   final String image;
   final String title;
   final bool selected;
+
   const PostingRadioItem(
       {required this.image,
       required this.selected,
@@ -29,7 +30,12 @@ class PostingRadioItem extends StatelessWidget {
                 : null,
             borderRadius: BorderRadius.circular(12),
           ),
-          margin: const EdgeInsets.all(16),
+          margin: const EdgeInsets.only(
+            left: 16,
+            right: 16,
+            top: 8,
+            bottom: 8,
+          ),
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
           child: Row(
             children: [
