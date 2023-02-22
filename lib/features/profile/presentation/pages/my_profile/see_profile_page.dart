@@ -3,7 +3,6 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/storage.dart';
-import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
 import 'package:auto/features/car_single/presentation/widgets/orange_button.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
@@ -42,13 +41,13 @@ class SeeProfilePage extends StatelessWidget {
               if (state.status.isSubmissionSuccess ||
                   state.status.isSubmissionFailure) {
                 return Container(
-                  margin: EdgeInsets.only(top: SizeConfig.v(16)),
-                  padding: EdgeInsets.symmetric(
-                      vertical: SizeConfig.v(24), horizontal: SizeConfig.h(16)),
+                  margin: const EdgeInsets.only(top: 16),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 24, horizontal: 16),
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(SizeConfig.h(20)),
-                        topRight: Radius.circular(SizeConfig.h(20)),
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
                       ),
                       color: Theme.of(context).appBarTheme.backgroundColor),
                   child: Column(
@@ -58,17 +57,17 @@ class SeeProfilePage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Spacer(),
-                          SizedBox(width: SizeConfig.h(44)),
+                         const SizedBox(width: 44),
                           ClipRRect(
                             borderRadius: BorderRadius.circular(50),
                             child: CachedNetworkImage(
                               imageUrl: state.profileEntity.image ?? '',
-                              width: SizeConfig.h(80),
-                              height: SizeConfig.v(80),
+                              width: 90,
+                              height: 90,
                               fit: BoxFit.cover,
                               errorWidget: (context, url, error) => SizedBox(
-                                  width: SizeConfig.h(80),
-                                  height: SizeConfig.v(80),
+                                  width: 90,
+                                  height: 90,
                                   child: ClipRRect(
                                       borderRadius: BorderRadius.circular(50),
                                       child: Image.asset(AppImages.defaultPhoto,
@@ -78,17 +77,17 @@ class SeeProfilePage extends StatelessWidget {
                           const Spacer(),
                           WScaleAnimation(
                             child: Container(
-                                padding: EdgeInsets.all(SizeConfig.h(10)),
+                                padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                   borderRadius:
-                                      BorderRadius.circular(SizeConfig.h(8)),
+                                      BorderRadius.circular(10),
                                   color: Theme.of(context)
                                       .extension<ThemedColors>()!
                                       .borderGreyToDark,
                                 ),
                                 child: SvgPicture.asset(AppIcons.edit,
-                                    height: SizeConfig.v(24),
-                                    width: SizeConfig.h(24),
+                                    height: 24,
+                                    width: 24,
                                     color: Theme.of(context)
                                         .extension<ThemedColors>()!
                                         .darkGreyToWhite)),
@@ -102,15 +101,18 @@ class SeeProfilePage extends StatelessWidget {
                           ),
                         ],
                       ),
+                      if(state.profileEntity.fullName!=null)
                       Padding(
-                        padding: EdgeInsets.only(
-                            top: SizeConfig.v(16), bottom: SizeConfig.v(2)),
+                        padding: const EdgeInsets.only(
+                            top: 16, bottom: 2),
                         child: Text(state.profileEntity.fullName ?? '',
                             style: Theme.of(context)
                                 .textTheme
                                 .displayLarge!
                                 .copyWith(fontSize: 18)),
                       ),
+                      if(state.profileEntity.fullName==null)
+                        const SizedBox(height: 8),
                       Text(
                           state.profileEntity.usercountdata
                                       .announcementsCount ==
@@ -132,15 +134,17 @@ class SeeProfilePage extends StatelessWidget {
                       TextSpacer(
                         title: LocaleKeys.tel_number.tr(),
                         value: state.profileEntity.phoneNumber ?? '',
-                        padding: EdgeInsets.only(
-                            top: SizeConfig.v(36), bottom: SizeConfig.v(16)),
+                        padding: const EdgeInsets.only(
+                            top: 36, bottom: 16),
                       ),
+                      if(state.profileEntity.region?.title!=null)
                       TextSpacer(
                         title: LocaleKeys.region.tr(),
                         value: state.profileEntity.region?.title ?? '',
-                        padding: EdgeInsets.only(bottom: SizeConfig.v(16)),
+                        padding: const EdgeInsets.only(bottom: 16),
                       ),
-                      TextSpacer(
+                      if(state.profileEntity.email!= '')
+                        TextSpacer(
                           title: LocaleKeys.email.tr(),
                           value: state.profileEntity.email ?? ''),
                       const Spacer(),
@@ -149,7 +153,7 @@ class SeeProfilePage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SvgPicture.asset(AppIcons.logout),
-                              SizedBox(width: SizeConfig.h(8)),
+                              const SizedBox(width: 8),
                               Text(LocaleKeys.exit_from_account.tr(),
                                   style: Theme.of(context)
                                       .textTheme
