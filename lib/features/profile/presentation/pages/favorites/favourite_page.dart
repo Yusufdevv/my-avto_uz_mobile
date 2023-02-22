@@ -114,6 +114,9 @@ class _FavouritePageState extends State<FavouritePage> {
                                   context.read<WishlistAddBloc>().add(
                                       WishlistAddEvent.removeWishlist(
                                           item.id, index));
+                                  context.read<WishlistAddBloc>().add(
+                                      WishlistAddEvent.addToMapFavorites(
+                                          id: item.id, value: false));
                                   context.read<UserWishListsBloc>().add(
                                       ChangeIsWishEvenet(
                                           index: index, id: item.id));
