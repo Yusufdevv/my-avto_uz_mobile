@@ -33,7 +33,7 @@ class MyAdDesc extends StatelessWidget {
       children: [
         const SizedBox(height: 16),
         InformationGrid(listData: [
-          '${(DateTime.parse(item.publishedAt).day ~/ 7) + 1} неделя',
+          '${(DateTime.parse(item.publishedAt).difference(DateTime.now()).inDays ~/ 7) + 1} неделя',
           '${item.stats.viewedContactsCount}',
           '${item.stats.viewsCount}',
           '${item.stats.wishlistCount}'
@@ -61,7 +61,7 @@ class MyAdDesc extends StatelessWidget {
                       children: [
                         TextSpan(
                           text:
-                              ' ${DateTime.now().difference(DateTime.parse(item.expiredAt)).inDays} дней',
+                              ' ${(DateTime.now().difference(DateTime.parse(item.expiredAt)).inDays).abs() + 1} ${LocaleKeys.day.tr()}',
                           style: Theme.of(context)
                               .textTheme
                               .bodyLarge!
@@ -190,9 +190,9 @@ class MyAdDesc extends StatelessWidget {
                           vertical: 10, horizontal: 11),
                       onTap: () async {
                         final res = await Navigator.of(context,
-                            rootNavigator: true)
+                                rootNavigator: true)
                             .push(fade(
-                            page: EditAdScreen(announcementId: item.id)));
+                                page: EditAdScreen(announcementId: item.id)));
                         if (res is bool && res) {
                           context.read<UserWishListsBloc>().add(
                               GetUserMyAdsEvent(
