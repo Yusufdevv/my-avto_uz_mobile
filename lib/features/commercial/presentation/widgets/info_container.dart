@@ -316,16 +316,19 @@ class InfoContainer extends StatelessWidget {
                           listener: (context, state) {},
                           builder: (context, state) {
                             final isLiked =
-                                state.map[id] ?? initialLike ?? false;
+                                state.map[id] ?? initialLike?? false;
                             return AddWishlistItem(
                               onTap: () {
+                                print('ontap info container');
                                 if (!isLiked) {
+                                  print('addd');
                                   context.read<WishlistAddBloc>().add(
                                       WishlistAddEvent.addWishlist(id, index));
                                   context.read<WishlistAddBloc>().add(
                                       WishlistAddEvent.addToMapFavorites(
                                           id: id, value: true));
                                 } else {
+                                  print('remove');
                                   context.read<WishlistAddBloc>().add(
                                       WishlistAddEvent.removeWishlist(
                                           id, index));

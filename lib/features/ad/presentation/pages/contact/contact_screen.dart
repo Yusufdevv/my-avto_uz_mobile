@@ -117,7 +117,7 @@ class _ContactScreenState extends State<ContactScreen> {
                               onTap: () {},
                               validate: (v) {
                                 if (v!.isEmpty) {
-                                  return 'Name can not to be empty';
+                                  return LocaleKeys.please_enter_your_name.tr();
                                 }
                                 return null;
                               },

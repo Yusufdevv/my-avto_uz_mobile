@@ -1,7 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
-import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
@@ -112,10 +111,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                         : disabledButton,
                     isLoading: stateProfile.editStatus.isSubmissionInProgress,
                     margin: EdgeInsets.fromLTRB(
-                        SizeConfig.h(16),
-                        SizeConfig.v(0),
-                        SizeConfig.h(16),
-                        SizeConfig.v(8) + mediaQuery.padding.bottom),
+                        16, 0, 16, 8 + mediaQuery.padding.bottom),
                     text: LocaleKeys.save.tr(),
                     onTap: () {
                       if (_nameCont.text !=
@@ -185,20 +181,17 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   ),
                   body: Container(
                     height: MediaQuery.of(context).size.height,
-                    margin: EdgeInsets.only(top: SizeConfig.v(16)),
-                    padding: EdgeInsets.only(
-                      left: SizeConfig.h(16),
-                      right: SizeConfig.h(16),
-                    ),
+                    margin: const EdgeInsets.only(top: 16),
+                    padding: const EdgeInsets.only(left: 16, right: 16),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(SizeConfig.h(20))),
+                      borderRadius:
+                          const BorderRadius.vertical(top: Radius.circular(20)),
                       color: Theme.of(context).appBarTheme.backgroundColor,
                     ),
                     child: SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),
                       child: Padding(
-                        padding: EdgeInsets.only(top: SizeConfig.v(24)),
+                        padding: EdgeInsets.only(top: 24),
                         child: Column(
                           children: [
                             Align(
@@ -233,26 +226,21 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                                                 .profileEntity
                                                                 .image ??
                                                             '',
-                                                        width: SizeConfig.h(80),
-                                                        height:
-                                                            SizeConfig.v(80),
+                                                        width: 90,
+                                                        height: 90,
                                                         fit: BoxFit.cover,
                                                         errorWidget: (context,
                                                                 url, error) =>
                                                             SizedBox(
-                                                                width:
-                                                                    SizeConfig
-                                                                        .h(80),
-                                                                height:
-                                                                    SizeConfig
-                                                                        .v(80),
+                                                                width: 90,
+                                                                height: 90,
                                                                 child:
                                                                     ClipRRect(
                                                                         borderRadius:
                                                                             BorderRadius.circular(
                                                                                 50),
-                                                                        child:
-                                                                            Image.asset(
+                                                                        child: Image
+                                                                            .asset(
                                                                           AppImages
                                                                               .defaultPhoto,
                                                                           fit: BoxFit
@@ -260,20 +248,18 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                                                         )))),
                                                   )
                                                 : SizedBox(
-                                                    height: SizeConfig.v(80),
-                                                    width: SizeConfig.h(80),
+                                                    height: 90,
+                                                    width: 90,
                                                     child: ClipRRect(
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(
-                                                                    SizeConfig
-                                                                        .h(50)),
+                                                                .circular(90),
                                                         child: Image.file(
                                                             stateImage.image,
                                                             fit: BoxFit.cover)),
                                                   ),
                                       ),
-                                      SizedBox(height: SizeConfig.h(8)),
+                                      const SizedBox(height: 8),
                                       Text(LocaleKeys.change_photo.tr(),
                                           style: Theme.of(context)
                                               .textTheme
@@ -361,7 +347,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                             //     icon: AppIcons.lock,
                             //     region:
                             //         stateProfile.profileEntity.email ?? ''),
-                            SizedBox(height: SizeConfig.v(32))
+                            const SizedBox(height: 32)
                           ],
                         ),
                       ),

@@ -550,7 +550,15 @@ class CodegenLoader extends AssetLoader{
   "gearbox_type": "Коробка передач",
   "power": "Власть",
   "volume": "Объем двигателя",
-  "not_shown": "Не показано"
+  "not_shown": "Не показано",
+  "enter_valid_phone_number": "Введите действительный номер телефона",
+  "please_enter_your_name": "Пожалуйста, введите Ваше имя",
+  "information": "Информация",
+  "info_ideal": "Практически как новое и не требует никаких доработок, или поправок.",
+  "info_scratched": "Данный элемент был заменен на другой",
+  "info_replacement": "Имеются не значительные вмятины",
+  "info_replacement_not_required": "Имеются определённқе повреждения и советуеся ремон, или замена",
+  "info_replacement_required": "Состояние плохое, ремонт сильно не поможет, трубется замена"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -577,8 +585,8 @@ static const Map<String,dynamic> uz = {
   "to": "gacha",
   "soon": "Tez kunlarda",
   "roof": "Tom",
-  "hood": "Kaput",
-  "trunk": "Magistral",
+  "hood": "Kapot",
+  "trunk": "Yukxona",
   "understandably": "Tushunarli",
   "left_front_door": "Chap old eshik",
   "left_rear_door": "Chap orqa eshik",
@@ -1028,7 +1036,7 @@ static const Map<String,dynamic> uz = {
   "fender": "Qanoti",
   "of_back": "Orqa",
   "left_back_fender": "Orqa chap qanot",
-  "right_back_fender": "Orqa o'ng qanot",
+  "right_back_fender": " ",
   "left_front_fender": "Old chap qanot",
   "right_front_fender": "Old o'ng qanot",
   "contact_data": "Aloqa ma'lumotlari",
@@ -1088,7 +1096,15 @@ static const Map<String,dynamic> uz = {
   "gearbox_type": "Uzatish qutisi",
   "power": "Quvvat",
   "volume": "Dvigatel quvvati",
-  "not_shown": "Ko'rsatilmagan"
+  "not_shown": "Ko'rsatilmagan",
+  "enter_valid_phone_number": "To'g'ri telefon raqam kiriting",
+  "please_enter_your_name": "Пожалуйста, введите Ваше имя",
+  "information": "Информация",
+  "info_ideal": "Практически как новое и не требует никаких доработок, или поправок.",
+  "info_scratched": "Данный элемент был заменен на другой",
+  "info_replacement": "Имеются не значительные вмятины",
+  "info_replacement_not_required": "Имеются определённқе повреждения и советуеся ремон, или замена",
+  "info_replacement_required": "Состояние плохое, ремонт сильно не поможет, трубется замена"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }

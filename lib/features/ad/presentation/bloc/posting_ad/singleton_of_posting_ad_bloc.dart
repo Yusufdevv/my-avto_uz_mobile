@@ -81,6 +81,7 @@ class PASingleton {
       return MapEntry('gallery[$i]', e);
     }));
 
+    print(announcementFields);
     final announcementFormData = FormData.fromMap(announcementFields);
 
     return announcementFormData;
@@ -349,26 +350,25 @@ class PASingleton {
         return state.model == null;
       // year
       case 2:
-        return false;
+        return state.yearEntity == null;
       // generation
       case 3:
-        return false;
-
+        return state.generationId == null;
       // body type
       case 4:
-        return false;
+        return state.bodyType == null;
       // engine
       case 5:
-        return false;
+        return state.engineId == null;
       // drive type
       case 6:
-        return false;
+        return state.driveTypeId == null;
       // gearbox
       case 7:
-        return false;
+        return state.gearbox == null;
       // ModificationScreen
       case 8:
-        return false;
+        return state.modification == null;
       // ColorsScreen
       case 9:
         return false;

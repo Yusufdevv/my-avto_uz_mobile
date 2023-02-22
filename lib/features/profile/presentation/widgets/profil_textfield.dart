@@ -1,5 +1,4 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +33,7 @@ class _ProfilTextFieldState extends State<ProfilTextField> {
             .textTheme
             .displayLarge!
             .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
-        borderRadius: SizeConfig.h(12),
+        borderRadius: 12,
         hintText: widget.hintText,
         suffix: widget.suffix,
         hintTextStyle: Theme.of(context)
@@ -45,6 +44,6 @@ class _ProfilTextFieldState extends State<ProfilTextField> {
           widget.onChanged(tmp);
         },
         controller: widget.controller,
-        contentPadding: EdgeInsets.symmetric(horizontal: SizeConfig.h(16)),
+        contentPadding: EdgeInsets.symmetric(horizontal: 16),
       );
 }
