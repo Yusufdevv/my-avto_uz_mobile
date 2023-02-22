@@ -81,6 +81,7 @@ class PASingleton {
       return MapEntry('gallery[$i]', e);
     }));
 
+    print(announcementFields);
     final announcementFormData = FormData.fromMap(announcementFields);
 
     return announcementFormData;
