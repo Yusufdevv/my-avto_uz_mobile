@@ -552,7 +552,13 @@ class CodegenLoader extends AssetLoader{
   "volume": "Объем двигателя",
   "not_shown": "Не показано",
   "enter_valid_phone_number": "Введите действительный номер телефона",
-  "please_enter_your_name": "Пожалуйста, введите Ваше имя"
+  "please_enter_your_name": "Пожалуйста, введите Ваше имя",
+  "information": "Информация",
+  "info_ideal": "Практически как новое и не требует никаких доработок, или поправок.",
+  "info_scratched": "Данный элемент был заменен на другой",
+  "info_replacement": "Имеются не значительные вмятины",
+  "info_replacement_not_required": "Имеются определённқе повреждения и советуеся ремон, или замена",
+  "info_replacement_required": "Состояние плохое, ремонт сильно не поможет, трубется замена"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -1092,7 +1098,13 @@ static const Map<String,dynamic> uz = {
   "volume": "Dvigatel quvvati",
   "not_shown": "Ko'rsatilmagan",
   "enter_valid_phone_number": "To'g'ri telefon raqam kiriting",
-  "please_enter_your_name": "Iltimos ismingizni kiriting"
+  "please_enter_your_name": "Пожалуйста, введите Ваше имя",
+  "information": "Информация",
+  "info_ideal": "Практически как новое и не требует никаких доработок, или поправок.",
+  "info_scratched": "Данный элемент был заменен на другой",
+  "info_replacement": "Имеются не значительные вмятины",
+  "info_replacement_not_required": "Имеются определённқе повреждения и советуеся ремон, или замена",
+  "info_replacement_required": "Состояние плохое, ремонт сильно не поможет, трубется замена"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }

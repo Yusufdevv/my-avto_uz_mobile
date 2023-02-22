@@ -539,5 +539,11 @@ abstract class  LocaleKeys {
   static const not_shown = 'not_shown';
   static const enter_valid_phone_number = 'enter_valid_phone_number';
   static const please_enter_your_name = 'please_enter_your_name';
+  static const information = 'information';
+  static const info_ideal = 'info_ideal';
+  static const info_scratched = 'info_scratched';
+  static const info_replacement = 'info_replacement';
+  static const info_replacement_not_required = 'info_replacement_not_required';
+  static const info_replacement_required = 'info_replacement_required';
 
 }

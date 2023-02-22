@@ -536,5 +536,11 @@
   "volume": "Dvigatel quvvati",
   "not_shown": "Ko'rsatilmagan",
   "enter_valid_phone_number": "To'g'ri telefon raqam kiriting",
-  "please_enter_your_name": "Iltimos ismingizni kiriting"
+  "please_enter_your_name": "Пожалуйста, введите Ваше имя",
+  "information": "Информация",
+  "info_ideal": "Практически как новое и не требует никаких доработок, или поправок.",
+  "info_scratched": "Данный элемент был заменен на другой",
+  "info_replacement": "Имеются не значительные вмятины",
+  "info_replacement_not_required": "Имеются определённқе повреждения и советуеся ремон, или замена",
+  "info_replacement_required": "Состояние плохое, ремонт сильно не поможет, трубется замена"
 }
