@@ -45,6 +45,6 @@ class _ProfilTextFieldState extends State<ProfilTextField> {
           widget.onChanged(tmp);
         },
         controller: widget.controller,
-        contentPadding: EdgeInsets.symmetric(horizontal: 16),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16),
       );
 }
