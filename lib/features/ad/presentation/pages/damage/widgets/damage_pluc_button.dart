@@ -9,9 +9,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 class DamageButton extends StatelessWidget {
   final DamageType? damageType;
   final VoidCallback? onTap;
+  final bool placedOnCar;
+
   const DamageButton({
     this.onTap,
     this.damageType,
+    this.placedOnCar = true,
     Key? key,
   }) : super(key: key);
 
@@ -23,6 +26,7 @@ class DamageButton extends StatelessWidget {
             ? Container(
                 height: 18,
                 width: 18,
+                margin: EdgeInsets.all(placedOnCar ? 5 : 0),
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: Theme.of(context)
@@ -39,6 +43,7 @@ class DamageButton extends StatelessWidget {
             : Container(
                 height: 18,
                 width: 18,
+                margin: EdgeInsets.all(placedOnCar ? 5 : 0),
                 padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,

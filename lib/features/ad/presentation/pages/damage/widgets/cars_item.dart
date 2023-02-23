@@ -28,8 +28,8 @@ class DamageCarsItem extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                   Positioned(
-                    left: 54,
-                    top: 27,
+                    left: 49,
+                    top: 22,
                     child: DamageButton(
                         damageType: damagedParts[DamagedParts.frontLeftFender],
                         onTap: () {
@@ -37,8 +37,8 @@ class DamageCarsItem extends StatelessWidget {
                         }),
                   ),
                   Positioned(
-                    left: 115,
-                    bottom: 37,
+                    left: 110,
+                    bottom: 32,
                     child: DamageButton(
                         damageType: damagedParts[DamagedParts.leftFrontDoor],
                         onTap: () {
@@ -46,8 +46,8 @@ class DamageCarsItem extends StatelessWidget {
                         }),
                   ),
                   Positioned(
-                    right: 92,
-                    bottom: 37,
+                    right: 87,
+                    bottom: 32,
                     child: DamageButton(
                         damageType: damagedParts[DamagedParts.leftRearDoor],
                         onTap: () {
@@ -55,8 +55,8 @@ class DamageCarsItem extends StatelessWidget {
                         }),
                   ),
                   Positioned(
-                    right: 37,
-                    top: 27,
+                    right: 32,
+                    top: 22,
                     child: DamageButton(
                         damageType: damagedParts[DamagedParts.rearLeftFender],
                         onTap: () {
@@ -76,7 +76,7 @@ class DamageCarsItem extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                   Positioned(
-                    top: 3,
+                    top: -2,
                     child: DamageButton(
                         damageType: damagedParts[DamagedParts.roof],
                         onTap: () {
@@ -84,7 +84,7 @@ class DamageCarsItem extends StatelessWidget {
                         }),
                   ),
                   Positioned(
-                    top: 30,
+                    top: 25,
                     child: DamageButton(
                         damageType: damagedParts[DamagedParts.hood],
                         onTap: () {
@@ -92,7 +92,7 @@ class DamageCarsItem extends StatelessWidget {
                         }),
                   ),
                   Positioned(
-                    bottom: 16,
+                    bottom: 11,
                     child: DamageButton(
                         damageType: damagedParts[DamagedParts.frontBumper],
                         onTap: () {
@@ -112,7 +112,7 @@ class DamageCarsItem extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                   Positioned(
-                    top: 24,
+                    top: 19,
                     child: DamageButton(
                         damageType: damagedParts[DamagedParts.trunk],
                         onTap: () {
@@ -120,7 +120,7 @@ class DamageCarsItem extends StatelessWidget {
                         }),
                   ),
                   Positioned(
-                    bottom: 16,
+                    bottom: 11,
                     child: DamageButton(
                         damageType: damagedParts[DamagedParts.rearBumper],
                         onTap: () {
@@ -139,8 +139,8 @@ class DamageCarsItem extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                   Positioned(
-                    left: 39,
-                    top: 27,
+                    left: 34,
+                    top: 22,
                     child: DamageButton(
                         damageType: damagedParts[DamagedParts.rearRightFender],
                         onTap: () {
@@ -148,8 +148,8 @@ class DamageCarsItem extends StatelessWidget {
                         }),
                   ),
                   Positioned(
-                    left: 95,
-                    bottom: 39,
+                    left: 90,
+                    bottom: 34,
                     child: DamageButton(
                         damageType: damagedParts[DamagedParts.rightRearDoor],
                         onTap: () {
@@ -157,8 +157,8 @@ class DamageCarsItem extends StatelessWidget {
                         }),
                   ),
                   Positioned(
-                    right: 116,
-                    bottom: 39,
+                    right: 111,
+                    bottom: 34,
                     child: DamageButton(
                         damageType: damagedParts[DamagedParts.rightFrontDoor],
                         onTap: () {
@@ -166,8 +166,8 @@ class DamageCarsItem extends StatelessWidget {
                         }),
                   ),
                   Positioned(
-                    right: 52,
-                    top: 27,
+                    right: 47,
+                    top: 22,
                     child: DamageButton(
                         damageType: damagedParts[DamagedParts.frontRightFender],
                         onTap: () {

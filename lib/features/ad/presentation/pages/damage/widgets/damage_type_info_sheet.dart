@@ -12,12 +12,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class DamageTypeInfoSheet extends StatelessWidget {
   final infos = [
-    'Практически как новое и не требует никаких доработок, или поправок.',
-    'Данный элемент был заменен на другой',
-    // 'Не новое, но и не имеется потребность к замене или ремонтированию',
-    'Имеются не значительные вмятины',
-    'Имеются определённқе повреждения и советуеся ремон, или замена',
-    'Состояние плохое, ремонт сильно не поможет, трубется замена',
+    LocaleKeys.info_ideal.tr(),
+    LocaleKeys.info_scratched.tr(),
+    LocaleKeys.info_replacement.tr(),
+    LocaleKeys.info_replacement_not_required.tr(),
+    LocaleKeys.info_replacement_required.tr(),
   ];
   @override
   Widget build(BuildContext context) => Padding(
@@ -37,7 +36,7 @@ class DamageTypeInfoSheet extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        'Информация',
+                        LocaleKeys.information.tr(),
                         style: Theme.of(context).textTheme.displayLarge,
                       ),
                     ),
