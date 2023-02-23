@@ -21,43 +21,32 @@ class DealerTime extends StatelessWidget {
         decoration: const BoxDecoration(
           color: white,
           borderRadius: BorderRadius.only(
-            topRight: Radius.circular(16),
-            topLeft: Radius.circular(16),
-          ),
+              topRight: Radius.circular(16), topLeft: Radius.circular(16)),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 children: [
-                  Text(
-                    LocaleKeys.avialable_hours.tr(),
-                    style: Theme.of(context).textTheme.displayLarge,
-                  ),
+                  Text(LocaleKeys.avialable_hours.tr(),
+                      style: Theme.of(context).textTheme.displayLarge),
                   const Spacer(),
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).pop();
                     },
                     behavior: HitTestBehavior.opaque,
-                    child: SvgPicture.asset(
-                      AppIcons.close,
-                      width: 32,
-                      height: 32,
-                    ),
+                    child:
+                        SvgPicture.asset(AppIcons.close, width: 32, height: 32),
                   ),
                 ],
               ),
             ),
-            const SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             const Divider(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -77,25 +66,28 @@ class DealerTime extends StatelessWidget {
                         const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(4),
-                      color: orange.withOpacity(
-                        0.2,
-                      ),
+                      color: orange.withOpacity(0.2),
                     ),
-                    child: Text(
-                      '${LocaleKeys.from.tr()} $timeFrom'
-                      ' - ${LocaleKeys.to.tr()} $timeTo',
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayMedium!
-                          .copyWith(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12,
-                              color: orange),
-                    ),
+                    child: Builder(builder: (context) {
+                      final callFrom = timeFrom.length > 5
+                          ? timeFrom.substring(0, 5)
+                          : timeFrom;
+                      final callTo =
+                          timeTo.length > 5 ? timeTo.substring(0, 5) : timeTo;
+                      return Text(
+                        '${LocaleKeys.from.tr()} $callFrom'
+                        ' - ${LocaleKeys.to.tr()} $callTo',
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium!
+                            .copyWith(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12,
+                                color: orange),
+                      );
+                    }),
                   ),
-                  const SizedBox(
-                    height: 28,
-                  ),
+                  const SizedBox(height: 28),
                   OrangeButton(
                     shadowColor: orange.withOpacity(0.2),
                     color: orange,
@@ -112,9 +104,7 @@ class DealerTime extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
           ],
         ),
       );

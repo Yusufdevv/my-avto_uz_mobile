@@ -69,8 +69,8 @@ class BottomItem extends StatelessWidget {
                               backgroundColor: Colors.transparent,
                               context: context,
                               builder: (context) => DealerTime(
-                                timeTo: callTo!.substring(0, 5),
-                                timeFrom: callFrom!.substring(0, 5),
+                                timeTo: callTo ?? '',
+                                timeFrom: callFrom ?? '',
                               ),
                             );
                           },
