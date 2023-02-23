@@ -125,7 +125,7 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                         borderWidth: 1,
                       ),
                       inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.allow(RegExp('[0-9a-zA-Z]')),
+                        FilteringTextInputFormatter.allow(RegExp(r'[\da-zA-Z!@#$&*~]')),
                       ],
                       cursorColor: black,
                       cursorWidth: 1,

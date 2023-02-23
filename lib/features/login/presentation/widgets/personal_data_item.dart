@@ -62,9 +62,6 @@ class PersonalDataItemm extends StatelessWidget {
                   onChanged: onChanged,
                   controller: controller,
                   hintText: hintText,
-                  textInputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.allow(RegExp(r'[\da-zA-Z!@#$&*~]')),
-                  ],
                   hintTextStyle: Theme.of(context)
                       .textTheme
                       .titleMedium!
@@ -76,7 +73,7 @@ class PersonalDataItemm extends StatelessWidget {
                       .textTheme
                       .displayLarge!
                       .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
-                )),
+                ),),
           ],
         ),
       );

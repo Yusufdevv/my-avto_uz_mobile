@@ -28,6 +28,7 @@ class PhoneNumberEditPage extends StatefulWidget {
   const PhoneNumberEditPage({this.phone, super.key});
 
   final String? phone;
+
   @override
   State<PhoneNumberEditPage> createState() => _PhoneNumberEditPageState();
 }
@@ -143,17 +144,18 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                                           Navigator.push(
                                             context,
                                             fade(
-                                                page: MultiBlocProvider(
-                                              providers: [
-                                                BlocProvider.value(
-                                                    value:
-                                                        changePhoneNumberBloc),
-                                              ],
-                                              child: PhoneVerifiyPage(
-                                                ctx: context,
-                                                phone: phoneNumber,
+                                              page: MultiBlocProvider(
+                                                providers: [
+                                                  BlocProvider.value(
+                                                      value:
+                                                          changePhoneNumberBloc),
+                                                ],
+                                                child: PhoneVerifiyPage(
+                                                  ctx: context,
+                                                  phone: phoneNumber,
+                                                ),
                                               ),
-                                            )),
+                                            ),
                                           );
                                         },
                                         onError: (message) {
