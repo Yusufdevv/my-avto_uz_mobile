@@ -129,6 +129,7 @@ class _AddPhotoItemState extends State<AddPhotoItem> {
 
     final image = await _picker.pickImage(
       source: type,
+      imageQuality: 90
     );
     return image?.path;
   }
