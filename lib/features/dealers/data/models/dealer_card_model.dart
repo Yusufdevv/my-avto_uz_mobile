@@ -20,6 +20,7 @@ class DealerCardModel extends DealerCardEntity {
     required super.latitude,
     required super.carCount,
     required super.district,
+    required super.address,
   });
 
   factory DealerCardModel.fromJson(Map<String, dynamic> json) =>

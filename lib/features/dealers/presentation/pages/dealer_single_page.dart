@@ -106,7 +106,7 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 16),
                           child: DealerSingleInfoPart(
-                            address: 'Toshkent',
+                            address: dealer.address,
                             daelerId: dealer.id,
                             dealerSingleBloc: dealerSingleBloc,
                             dealerName: dealer.name,
