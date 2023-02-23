@@ -85,9 +85,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                     hasSizedBox: false,
                   ),
                   const SizedBox(height: 36),
-                  AddPhotoItem(
-                    onTap: (){},
-                  ),
+                  AddPhotoItem(),
                   PersonalDataItemm(
                     isRequired: true,
                     onTap: (){},

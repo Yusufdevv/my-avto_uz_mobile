@@ -72,7 +72,7 @@ class _DirectoryPageState extends State<DirectoryPage> {
                           .whiteToNero,
                       leadingWidth: 0,
                       title: Padding(
-                        padding: const EdgeInsets.only(top: 12, bottom:  5),
+                        padding: const EdgeInsets.only(top: 12, bottom: 5),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [

@@ -17,8 +17,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddPhotoItem extends StatefulWidget {
-  final VoidCallback onTap;
-  const AddPhotoItem({required this.onTap, Key? key}) : super(key: key);
+
+  const AddPhotoItem({Key? key}) : super(key: key);
 
   @override
   State<AddPhotoItem> createState() => _AddPhotoItemState();
@@ -63,8 +63,11 @@ class _AddPhotoItemState extends State<AddPhotoItem> {
                 const SizedBox(height: 12),
                 WScaleAnimation(
                   onTap: () async {
-                    await takePhoto(isCamera: true)
-                        .then((value) => onSuccess(value));
+                    await takePhoto(isCamera: true).then((value) {
+                      if (value != null) {
+                        onSuccess(value);
+                      }
+                    });
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 12),
@@ -89,8 +92,11 @@ class _AddPhotoItemState extends State<AddPhotoItem> {
                 const SizedBox(height: 12),
                 WScaleAnimation(
                   onTap: () async {
-                    await takePhoto(isCamera: false)
-                        .then((value) => onSuccess(value));
+                    await takePhoto(isCamera: false).then((value) {
+                      if (value != null) {
+                        onSuccess(value);
+                      }
+                    });
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 12),
@@ -115,7 +121,7 @@ class _AddPhotoItemState extends State<AddPhotoItem> {
             ));
   }
 
-  Future<String> takePhoto({required bool isCamera}) async {
+  Future<String?> takePhoto({required bool isCamera}) async {
     var type = ImageSource.gallery;
     if (isCamera) {
       type = ImageSource.camera;
@@ -124,7 +130,7 @@ class _AddPhotoItemState extends State<AddPhotoItem> {
     final image = await _picker.pickImage(
       source: type,
     );
-    return image!.path;
+    return image?.path;
   }
 
   @override
@@ -172,7 +178,6 @@ class _AddPhotoItemState extends State<AddPhotoItem> {
                       const SizedBox(width: 21),
                       WButton(
                         onTap: () {
-                          widget.onTap();
                           showImageBottomSheet(
                               onSuccess: (image) {
                                 context.read<RegisterBloc>().add(

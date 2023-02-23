@@ -55,6 +55,8 @@ class PersonalDataItemm extends StatelessWidget {
             Expanded(
                 flex: 3,
                 child: ZTextFormField(
+                  maxLength: 40,
+                  hideCounterText: true,
                   onTap: onTap,
                   onChanged: onChanged,
                   controller: controller,
