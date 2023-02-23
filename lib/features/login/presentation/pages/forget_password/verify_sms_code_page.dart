@@ -19,6 +19,7 @@ import 'package:auto/features/profile/presentation/widgets/time_counter.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
@@ -171,6 +172,9 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                         fieldHeight: 44,
                         fieldWidth: 50,
                         borderWidth: 1),
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp(r'[\da-zA-Z!@#$&*~]')),
+                    ],
                     cursorColor: black,
                     cursorWidth: 1,
                     cursorHeight: 31,

@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class PersonalDataItemm extends StatelessWidget {
   final VoidCallback onTap;
@@ -61,6 +62,9 @@ class PersonalDataItemm extends StatelessWidget {
                   onChanged: onChanged,
                   controller: controller,
                   hintText: hintText,
+                  textInputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(RegExp(r'[\da-zA-Z!@#$&*~]')),
+                  ],
                   hintTextStyle: Theme.of(context)
                       .textTheme
                       .titleMedium!
