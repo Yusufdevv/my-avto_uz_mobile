@@ -3,7 +3,7 @@ import 'package:auto/features/dealers/domain/entities/dealer_type_entity.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'dealer_info_model.g.dart';
+part 'dealer_single_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class DealerSingleModel extends DealerSingleEntity {
@@ -22,6 +22,7 @@ class DealerSingleModel extends DealerSingleEntity {
     required super.contactTo,
     required super.contactFrom,
     required super.carCount,
+    required super.category,
     required super.district,
     required super.avatar,
     required super.locationUrl,

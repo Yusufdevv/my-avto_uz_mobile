@@ -9,7 +9,6 @@ import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:map_launcher/map_launcher.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
@@ -97,7 +96,6 @@ class _DealerSingleInfoPartState extends State<DealerSingleInfoPart> {
                     text:
                         '${LocaleKeys.every_day.tr()}, ${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}',
                     icon: AppIcons.clock,
-                    isTextBlue: true,
                   ),
                 if (widget.address != '')
                   Padding(
@@ -105,7 +103,6 @@ class _DealerSingleInfoPartState extends State<DealerSingleInfoPart> {
                     child: DeaelerInfoWidget(
                       icon: AppIcons.location1,
                       text: widget.address,
-                      isTextBlue: true,
                     ),
                   ),
                 if (widget.latitude > 1 && widget.longitude > 1)
@@ -172,6 +169,7 @@ class _DealerSingleInfoPartState extends State<DealerSingleInfoPart> {
                       },
                       text: MyFunctions.phoneFormat(widget.contact),
                       icon: AppIcons.tablerPhone,
+                      isTextBlue: true,
                     ),
                   ),
                 if (widget.additionalInfo != '')
