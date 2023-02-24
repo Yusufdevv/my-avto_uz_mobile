@@ -38,7 +38,6 @@ class AuthenticationBloc
       if (result.status == LoginStatus.success) {
         final accessToken = result.accessToken!;
         log('object: ${accessToken.token}');
-        log('object: ${accessToken.userId}');
         emit(AuthenticationState.loading());
         final authResult = await repository.loginWithFacebook(
             authToken: accessToken.token, code: '');
@@ -54,7 +53,8 @@ class AuthenticationBloc
       }
     });
     on<LoginWithAppLe>((event, emit) async {
-      final credential = await SignInWithApple.getAppleIDCredential(
+      print('call call')
+;      final credential = await SignInWithApple.getAppleIDCredential(
           scopes: [
             AppleIDAuthorizationScopes.email,
             AppleIDAuthorizationScopes.fullName,
@@ -68,6 +68,8 @@ class AuthenticationBloc
       log(credential.toString());
       log(credential.authorizationCode);
       log(credential.identityToken.toString());
+      log(credential.authorizationCode.toString());
+      log(credential.userIdentifier.toString());
       log(credential.toString());
       emit(AuthenticationState.loading());
       final result = await repository.loginWithApple(
