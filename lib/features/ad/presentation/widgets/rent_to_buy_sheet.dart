@@ -128,7 +128,7 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                                     break;
                                   case 3:
                                     {
-                                      if (!(value >= state.minimumSumma!)) {
+                                      if (value >= state.minimumSumma!) {
                                         return '${LocaleKeys.must_be.tr()} >= ${state.minimumSumma}';
                                       }
                                     }
