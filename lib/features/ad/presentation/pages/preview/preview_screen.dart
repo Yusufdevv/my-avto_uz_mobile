@@ -6,6 +6,7 @@ import 'package:auto/features/ad/presentation/pages/preview/widgets/date_and_vie
 import 'package:auto/features/ad/presentation/pages/preview/widgets/id_row.dart';
 import 'package:auto/features/ad/presentation/pages/preview/widgets/image_viewer.dart';
 import 'package:auto/generated/locale_keys.g.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,7 +41,7 @@ class PreviewScreen extends StatelessWidget {
                           text:
                               '${state.price} ${state.currency == 'uzs' ? LocaleKeys.sum.tr().toUpperCase() : 'USD'}'),
                       const SizedBox(height: 12),
-                      DateAndViewsRow(date: state.purchasedDate!),
+                      DateAndViewsRow(date: MyFunctions.getData(state.purchasedDate!)),
                       const SizedBox(height: 8),
                       //
                       if (state.id != null) IdRow(id: state.id ?? ''),

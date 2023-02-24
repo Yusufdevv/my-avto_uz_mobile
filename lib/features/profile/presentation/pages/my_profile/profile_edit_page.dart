@@ -134,7 +134,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                     .state
                                     .profileEntity
                                     .email &&
-                            !MyFunctions.isEmail(_emailCont.text)) {
+                            !MyFunctions.isEmail(_emailCont.text.trim())) {
                           context.read<ShowPopUpBloc>().add(ShowPopUp(
                               message: LocaleKeys.please_enter_valid_email.tr(),
                               status: PopStatus.error));

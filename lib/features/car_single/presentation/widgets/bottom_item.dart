@@ -18,9 +18,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class BottomItem extends StatelessWidget {
-  final String? callFrom;
+  final String callFrom;
   final String usertype;
-  final String? callTo;
+  final String callTo;
   final int id;
   final int userId;
   final String phoneNumber;
@@ -43,10 +43,10 @@ class BottomItem extends StatelessWidget {
   Widget build(BuildContext context) => Row(
         children: [
           Expanded(
-              child: callFrom != null && callTo != null
+              child: callFrom != '' && callTo != ''
                   ? MyFunctions.enableForCalling(
-                      callFrom: callFrom!,
-                      callTo: callTo!,
+                      callFrom: callFrom,
+                      callTo: callTo,
                     )
                       ? WButton(
                           onTap: () {
@@ -69,8 +69,8 @@ class BottomItem extends StatelessWidget {
                               backgroundColor: Colors.transparent,
                               context: context,
                               builder: (context) => DealerTime(
-                                timeTo: callTo ?? '',
-                                timeFrom: callFrom ?? '',
+                                timeTo: callTo,
+                                timeFrom: callFrom,
                               ),
                             );
                           },

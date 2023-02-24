@@ -179,7 +179,7 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                         else
                           const SliverToBoxAdapter(
                             child: Padding(
-                              padding: EdgeInsets.only(top: 100),
+                              padding: EdgeInsets.only(top: 100, bottom: 100),
                               child: NoDataWidget(),
                             ),
                           ),
