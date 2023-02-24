@@ -662,7 +662,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       'search': '',
       'limit': 100,
       'offset': 0,
-      'modelId': 3063 ?? state.model?.id,
+      'modelId': state.model?.id,
     });
     if (result.isRight) {
       final equipments = result.right.results;
