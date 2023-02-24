@@ -297,14 +297,10 @@ class _MainScreenState extends State<MainScreen> {
                     const CreateAdButton(),
                     if (context
                             .watch<MainBloc>()
-                            .state
-                            .statusStoriesGet
-                            .isSubmissionFailure &&
+                            .state.stories.isEmpty &&
                         context
                             .watch<TopBrandBloc>()
-                            .state
-                            .status
-                            .isSubmissionFailure) ...{
+                            .state.brands.isEmpty) ...{
                       const SizedBox(height: 200),
                     }
                   ],
