@@ -721,7 +721,7 @@ static const Map<String,dynamic> uz = {
   "confirm_password": "Parolni tasdiqlash",
   "recovery_password": "Parolni tiklash",
   "enter_password_sms": "SMS orqali yuborilgan tasdiqlash kodini kiriting. Tasdiqlash kodi shu raqamga yuborildi",
-  "send_via_password": "Kodni qayta yuboring",
+  "send_via_password": "Kodni qayta yuborish",
   "personal_data": "Shaxsiy ma'lumotlar",
   "create_password": "Kirish uchun parol kiriting",
   "name": "Ism-familiya",

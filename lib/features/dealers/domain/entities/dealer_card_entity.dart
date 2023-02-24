@@ -13,6 +13,7 @@ class DealerCardEntity extends Equatable {
   final String contactFrom;
   final String contactTo;
   final String locationUrl;
+  final String address;
   final double longitude;
   final double latitude;
   final int carCount;
@@ -28,6 +29,7 @@ class DealerCardEntity extends Equatable {
     this.avatar = '',
     this.contactFrom = '',
     this.contactTo = '',
+    this.address = '',
     this.locationUrl = '',
     this.longitude = 0.0,
     this.latitude = 0.0,
@@ -50,6 +52,7 @@ class DealerCardEntity extends Equatable {
         latitude,
         carCount,
         district,
+        address,
       ];
 }
 

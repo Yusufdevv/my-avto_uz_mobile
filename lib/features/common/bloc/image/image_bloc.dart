@@ -19,10 +19,10 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
       File? images = state.image;
       if (event.isFromGallery) {
         image = await picker.pickImage(
-            source: ImageSource.gallery, imageQuality: 100);
+            source: ImageSource.gallery, imageQuality: 90);
       } else {
         photo = await picker.pickImage(
-            source: ImageSource.camera, imageQuality: 100);
+            source: ImageSource.camera, imageQuality: 90);
       }
       if (event.isFromGallery) {
         images = File(image!.path);

@@ -2,7 +2,7 @@ import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
-import 'package:auto/features/dealers/data/models/dealer_info_model.dart';
+import 'package:auto/features/dealers/data/models/dealer_single_model.dart';
 import 'package:dio/dio.dart';
 
 class DealerSingleDataSource {

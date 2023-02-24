@@ -74,7 +74,7 @@ class _DealerScreenState extends State<DealerScreen> {
                             .whiteToNero,
                         leadingWidth: 0,
                         title: Padding(
-                          padding: const EdgeInsets.only(top: 12),
+                          padding: const EdgeInsets.only(top: 12, bottom: 5),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -98,7 +98,7 @@ class _DealerScreenState extends State<DealerScreen> {
                                   fillColor: Theme.of(context)
                                       .extension<ThemedColors>()!
                                       .whiteSmokeToEclipse,
-                                  hintText: LocaleKeys.model_brand.tr(),
+                                  hintText: LocaleKeys.autosalon.tr(),
                                   hintTextStyle: const TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w400,

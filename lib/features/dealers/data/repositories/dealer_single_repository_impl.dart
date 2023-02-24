@@ -3,7 +3,7 @@ import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/dealers/data/datasource/dealer_single_datasource.dart';
-import 'package:auto/features/dealers/data/models/dealer_info_model.dart';
+import 'package:auto/features/dealers/data/models/dealer_single_model.dart';
 import 'package:auto/features/dealers/domain/repositories/dealer_single_repository.dart';
 
 // ignore: one_member_abstracts

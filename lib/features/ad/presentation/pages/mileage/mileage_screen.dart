@@ -19,12 +19,13 @@ class MileageScreen extends StatefulWidget {
   final Function(String) onImageChange;
   final String initialMileage;
   final String? initialMileageImage;
-  const MileageScreen(
-      {required this.onImageChange,
-      required this.initialMileage,
-      required this.initialMileageImage,
-      Key? key})
-      : super(key: key);
+
+  const MileageScreen({
+    required this.onImageChange,
+    required this.initialMileage,
+    required this.initialMileageImage,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<MileageScreen> createState() => _MileageScreenState();

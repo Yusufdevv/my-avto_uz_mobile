@@ -191,7 +191,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                     child: SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),
                       child: Padding(
-                        padding: EdgeInsets.only(top: 24),
+                        padding: const EdgeInsets.only(top: 24),
                         child: Column(
                           children: [
                             Align(

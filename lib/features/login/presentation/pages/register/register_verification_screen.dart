@@ -15,6 +15,7 @@ import 'package:auto/features/profile/presentation/widgets/time_counter.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
@@ -141,6 +142,9 @@ class _RegisterVerificationScreenState
                   cursorHeight: 31,
                   keyboardType: TextInputType.number,
                   enableActiveFill: false,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(RegExp(r'[\da-zA-Z!@#$&*~]')),
+                  ],
                   textStyle: Theme.of(context)
                       .textTheme
                       .displayLarge!

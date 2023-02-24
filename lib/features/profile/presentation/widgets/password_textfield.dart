@@ -1,10 +1,9 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class PasswordTextField extends StatefulWidget {
   final TextEditingController controller;
-  final TextEditingController? secondController;
-  final TextEditingController? confirmController;
   final String hintText;
   final bool isOldPasword;
   final ValueChanged<String> onChanged;
@@ -12,8 +11,6 @@ class PasswordTextField extends StatefulWidget {
   const PasswordTextField({
     required this.onChanged,
     required this.controller,
-    this.secondController,
-    this.confirmController,
     this.isOldPasword = false,
     Key? key,
     this.hintText = '',
@@ -36,6 +33,9 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
         cursorColor: black,
         cursorWidth: 1,
         obscuringCharacter: '•',
+        inputFormatters: <TextInputFormatter>[
+          FilteringTextInputFormatter.allow(RegExp(r'[\da-zA-Z!@#$&*~]')),
+        ],
         onChanged: (value) {
           setState(() {});
         },

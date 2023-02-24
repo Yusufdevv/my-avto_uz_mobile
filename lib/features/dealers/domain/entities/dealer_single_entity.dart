@@ -1,4 +1,4 @@
-import 'package:auto/features/dealers/data/models/dealer_info_model.dart';
+import 'package:auto/features/dealers/data/models/dealer_single_model.dart';
 import 'package:auto/features/dealers/domain/entities/dealer_type_entity.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:equatable/equatable.dart';
@@ -16,6 +16,7 @@ class DealerSingleEntity extends Equatable {
   final String contactFrom;
   final String contactTo;
   final String locationUrl;
+  final dynamic category;
   final double longitude;
   final double latitude;
   final int carCount;
@@ -40,6 +41,7 @@ class DealerSingleEntity extends Equatable {
     this.longitude = 0.0,
     this.latitude = 0.0,
     this.carCount = 0,
+    this.category,
     this.district = const RegionEntity(),
     this.gallery = const [],
     this.dealerType = const DealerTypeEntity(),
@@ -66,6 +68,7 @@ class DealerSingleEntity extends Equatable {
         dealerType,
         address,
         description,
+    category
       ];
 }
 

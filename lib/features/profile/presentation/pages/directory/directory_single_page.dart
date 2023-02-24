@@ -1,5 +1,6 @@
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/profile/data/repositories/get_user_list_repo_impl.dart';
+import 'package:auto/features/profile/domain/entities/dir_category_entity.dart';
 import 'package:auto/features/profile/domain/usecases/directory_single_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_dir_categories_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_directories_usecase.dart';
@@ -45,6 +46,7 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
             builder: (context, state) {
               if (state.status.isSubmissionSuccess) {
                 final directory = state.directory;
+                final direCategory = DirCategoryEntity.fromJson(state.directory.category);
                 return NestedScrollView(
                   headerSliverBuilder: (context, innerBoxIsScrolled) =>
                       <Widget>[
@@ -56,7 +58,7 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
                             name: directory.name,
                             minHeight:
                                 MediaQuery.of(context).size.height * 0.11,
-                            category: directory.name)),
+                            category: direCategory.name ?? '')),
                   ],
                   body: SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
