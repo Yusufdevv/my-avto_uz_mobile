@@ -84,17 +84,14 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                       ),
                     ListView.builder(
                       physics: const BouncingScrollPhysics(),
-                      itemBuilder: (context, index) => const EquipmentCategory(
-                        categoryName: 'Безопасность',
-                        list: [
-                          'Система стабилизации (ESP)',
-                          'Антиблокировочная система (ABS)',
-                          'Блокировка замков задних дверей',
-                        ],
+                      itemBuilder: (context, index) => EquipmentCategory(
+                        categoryName: state.equipmentOptionsList[index].name,
+                        options: state.equipmentOptionsList[index].options,
                       ),
-                      itemCount: 5,
+                      itemCount: state.equipmentOptionsList.length,
                       shrinkWrap: true,
-                    )
+                    ),
+                    const SizedBox(height: 70),
                   ],
                 ),
               );

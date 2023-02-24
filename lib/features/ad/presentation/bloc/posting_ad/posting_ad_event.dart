@@ -232,3 +232,7 @@ class PostingAdGetGasEquipments extends PostingAdEvent {
 class PostingAdGetEquipments extends PostingAdEvent {
   PostingAdGetEquipments();
 }
+
+class PostingAdGetEquipmentOptionsList extends PostingAdEvent {
+  PostingAdGetEquipmentOptionsList();
+}

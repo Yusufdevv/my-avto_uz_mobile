@@ -9,12 +9,15 @@ class EquipmentOptionEntity extends Equatable {
   @EquipmentCategoryConverter()
   final EquipmentCategoryEntity category;
   final String type;
+  @EquipmentCategoryConverter()
+  final List<EquipmentCategoryEntity> items;
 
   const EquipmentOptionEntity({
     this.id = -1,
     this.name = '',
     this.category = const EquipmentCategoryEntity(),
     this.type = '',
+    this.items = const [],
   });
 
   @override
@@ -23,6 +26,7 @@ class EquipmentOptionEntity extends Equatable {
         name,
         category,
         type,
+        items,
       ];
 }
 

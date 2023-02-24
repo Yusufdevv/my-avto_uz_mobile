@@ -79,6 +79,7 @@ class PostingAdState extends Equatable {
   final int? gasEquipmentId;
   final List<EquipmentEntity> equipments;
   final int? equipmentId;
+  final List<EquipmentOptionsListEntity> equipmentOptionsList;
 
   const PostingAdState({
     required this.contactsFormKey,
@@ -155,6 +156,7 @@ class PostingAdState extends Equatable {
     this.gasEquipmentId,
     this.equipments = const [],
     this.equipmentId,
+    this.equipmentOptionsList = const [],
   });
 
   String? get districtTitle {
@@ -242,6 +244,7 @@ class PostingAdState extends Equatable {
     int? gasEquipmentId,
     List<EquipmentEntity>? equipments,
     int? equipmentId,
+    List<EquipmentOptionsListEntity>? equipmentOptionsList,
   }) =>
       PostingAdState(
         contactsFormKey: contactsFormKey ?? this.contactsFormKey,
@@ -320,6 +323,7 @@ class PostingAdState extends Equatable {
         gasEquipmentId: gasEquipmentId ?? this.gasEquipmentId,
         equipments: equipments ?? this.equipments,
         equipmentId: equipmentId ?? this.equipmentId,
+        equipmentOptionsList: equipmentOptionsList ?? this.equipmentOptionsList,
       );
 
   @override
@@ -395,6 +399,7 @@ class PostingAdState extends Equatable {
         gasEquipmentId,
         equipments,
         equipmentId,
+        equipmentOptionsList,
       ];
 
   bool buttonStatus(int page) => PASingleton.nextButtonIsDisabled(page, this);

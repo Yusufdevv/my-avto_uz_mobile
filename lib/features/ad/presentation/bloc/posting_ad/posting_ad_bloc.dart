@@ -4,6 +4,7 @@ import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_entity.dart';
+import 'package:auto/features/ad/domain/entities/equipment/equipment_options_list_entity.dart';
 import 'package:auto/features/ad/domain/entities/equipment/gas_equipment_entity.dart';
 import 'package:auto/features/ad/domain/entities/generation/generation.dart';
 import 'package:auto/features/ad/domain/entities/rent_with_purchase/rent_with_purchase_entity.dart';
@@ -20,6 +21,7 @@ import 'package:auto/features/ad/domain/usecases/get_body_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
 import 'package:auto/features/ad/domain/usecases/get_drive_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_engine_type.dart';
+import 'package:auto/features/ad/domain/usecases/get_equipment_options_list.dart';
 import 'package:auto/features/ad/domain/usecases/get_equipments.dart';
 import 'package:auto/features/ad/domain/usecases/get_gas_equipment.dart';
 import 'package:auto/features/ad/domain/usecases/get_generation.dart';
@@ -80,6 +82,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   final GetGasEquipmentsUseCase gasEquipmentsUseCase =
       GetGasEquipmentsUseCase();
   final GetEquipmentsUseCase getEquipmentsUseCase = GetEquipmentsUseCase();
+  final GetEquipmentOptionsListUseCase getEquipmentOptionsListUseCase =
+      GetEquipmentOptionsListUseCase();
 
   PostingAdBloc()
       : super(PostingAdState(
@@ -124,6 +128,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         _onRentWithPurchaseCondition);
     on<PostingAdGetGasEquipments>(_getGasEquipments);
     on<PostingAdGetEquipments>(_getEquipments);
+    on<PostingAdGetEquipmentOptionsList>(_getEquipmentOptionsList);
   }
 
   FutureOr<void> _onRentWithPurchaseCondition(
@@ -178,9 +183,10 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         state.copyWith(
           status: FormzStatus.submissionSuccess,
           modifications: result.right.results,
-          modification: result.right.results.isNotEmpty && state.modification == null
-              ? result.right.results.first
-              : null,
+          modification:
+              result.right.results.isNotEmpty && state.modification == null
+                  ? result.right.results.first
+                  : null,
         ),
       );
     } else {
@@ -244,6 +250,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         break;
       case 13:
         add(PostingAdGetEquipments());
+        add(PostingAdGetEquipmentOptionsList());
         break;
       case 16:
         if (state.regions.isEmpty) add(PostingAdGetRegionsEvent());
@@ -282,9 +289,10 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         state.copyWith(
           status: FormzStatus.submissionSuccess,
           years: result.right.results,
-          yearEntity: result.right.results.isNotEmpty && state.yearEntity == null
-              ? result.right.results.first
-              : null,
+          yearEntity:
+              result.right.results.isNotEmpty && state.yearEntity == null
+                  ? result.right.results.first
+                  : null,
         ),
       );
     } else {
@@ -452,7 +460,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         state.copyWith(
             status: FormzStatus.submissionSuccess,
             bodyTypes: result.right.results,
-            bodyType: bodies.isNotEmpty && state.bodyType == null ? bodies.first : null),
+            bodyType: bodies.isNotEmpty && state.bodyType == null
+                ? bodies.first
+                : null),
       );
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
@@ -469,7 +479,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         state.copyWith(
             status: FormzStatus.submissionSuccess,
             gearBoxes: gearBoxes,
-            gearbox: gearBoxes.isNotEmpty && state.gearbox == null ? gearBoxes.first : null),
+            gearbox: gearBoxes.isNotEmpty && state.gearbox == null
+                ? gearBoxes.first
+                : null),
       );
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
@@ -490,7 +502,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         state.copyWith(
           status: FormzStatus.submissionSuccess,
           driveTypes: driveTypes,
-          driveTypeId: driveTypes.isNotEmpty && state.driveTypeId == null ? driveTypes.first.id : null,
+          driveTypeId: driveTypes.isNotEmpty && state.driveTypeId == null
+              ? driveTypes.first.id
+              : null,
         ),
       );
     } else {
@@ -512,7 +526,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         state.copyWith(
           status: FormzStatus.submissionSuccess,
           engines: engines,
-          engineId: engines.isNotEmpty && state.engineId == null ? engines.first.id : null,
+          engineId: engines.isNotEmpty && state.engineId == null
+              ? engines.first.id
+              : null,
         ),
       );
     } else {
@@ -549,7 +565,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       emit(state.copyWith(
           generations: generations,
           status: FormzStatus.submissionSuccess,
-          generationId: generations.isNotEmpty && state.generationId == null ? generations.first.id : null));
+          generationId: generations.isNotEmpty && state.generationId == null
+              ? generations.first.id
+              : null));
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
@@ -633,14 +651,36 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       'search': '',
       'limit': 100,
       'offset': 0,
-      'modelId': state.model?.id,
+      'modelId': 3063 ?? state.model?.id,
     });
     if (result.isRight) {
       final equipments = result.right.results;
       emit(state.copyWith(
           equipments: equipments,
           status: FormzStatus.submissionSuccess,
-          equipmentId: equipments.isNotEmpty && state.equipmentId == null ? equipments.first.id : null));
+          equipmentId: equipments.isNotEmpty && state.equipmentId == null
+              ? equipments.first.id
+              : null));
+    } else {
+      emit(state.copyWith(status: FormzStatus.submissionFailure));
+    }
+  }
+
+  FutureOr<void> _getEquipmentOptionsList(
+      PostingAdGetEquipmentOptionsList event,
+      Emitter<PostingAdState> emit) async {
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    final result = await getEquipmentOptionsListUseCase.call({
+      'search': '',
+      'limit': 1000,
+      'offset': 0,
+    });
+    if (result.isRight) {
+      final equipmentOptionsList = result.right.results;
+      emit(state.copyWith(
+        equipmentOptionsList: equipmentOptionsList,
+        status: FormzStatus.submissionSuccess,
+      ));
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
