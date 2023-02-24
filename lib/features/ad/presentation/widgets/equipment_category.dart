@@ -7,21 +7,18 @@ import 'package:auto/features/common/widgets/w_check_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class EquipmentCategory extends StatefulWidget {
+class EquipmentCategory extends StatelessWidget {
   const EquipmentCategory({
     required this.categoryName,
     required this.options,
+    required this.onTap,
     Key? key,
   }) : super(key: key);
 
   final String categoryName;
   final List<EquipmentOptionEntity> options;
+  final Function(int index, int? id, String? itemName) onTap;
 
-  @override
-  State<EquipmentCategory> createState() => _EquipmentCategoryState();
-}
-
-class _EquipmentCategoryState extends State<EquipmentCategory> {
   @override
   Widget build(BuildContext context) => Column(
         mainAxisSize: MainAxisSize.min,
@@ -30,7 +27,7 @@ class _EquipmentCategoryState extends State<EquipmentCategory> {
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
             child: Text(
-              widget.categoryName,
+              categoryName,
               style: Theme.of(context)
                   .textTheme
                   .headlineMedium
@@ -42,8 +39,8 @@ class _EquipmentCategoryState extends State<EquipmentCategory> {
             itemBuilder: (context, index) => GestureDetector(
               behavior: HitTestBehavior.opaque,
               onTap: () {
-                if (widget.options[index].type == 'select') {
-                  showModalBottomSheet<int>(
+                if (options[index].type == 'select') {
+                  showModalBottomSheet<Map<int?, String?>>(
                     context: context,
                     useRootNavigator: true,
                     backgroundColor: LightThemeColors.appBarColor,
@@ -53,20 +50,24 @@ class _EquipmentCategoryState extends State<EquipmentCategory> {
                     ),
                     clipBehavior: Clip.hardEdge,
                     builder: (context) => EquipmentOptionSheet(
-                      selected: widget.options[index].selectedInfo.isNotEmpty
-                          ? widget.options[index].selectedInfo.keys.first
+                      selected: options[index].selectedInfo.isNotEmpty
+                          ? options[index].selectedInfo.keys.first
                           : -1,
-                      name: widget.options[index].name,
-                      items: widget.options[index].items,
+                      name: options[index].name,
+                      items: options[index].items,
                     ),
-                  ).then(
-                    (value) {},
-                  );
+                  ).then((value) {
+                    if(value != null) {
+                      onTap(index, value.keys.first, value.values.first);
+                    }
+                  });
+                } else {
+                  onTap(index, options[index].id, null);
                 }
               },
               child: Container(
-                color: widget.options[index].selectedInfo.isNotEmpty ||
-                        widget.options[index].type == 'radio'
+                color: options[index].selectedInfo.isNotEmpty ||
+                        options[index].type == 'radio'
                     ? null
                     : greyLight,
                 padding: const EdgeInsets.only(
@@ -77,15 +78,14 @@ class _EquipmentCategoryState extends State<EquipmentCategory> {
                   children: [
                     Expanded(
                       child: Text(
-                        widget.options[index].selectedInfo.isNotEmpty
-                            ? widget.options[index].selectedInfo.values.first
-                            : widget.options[index].name,
+                        options[index].selectedInfo.isNotEmpty
+                            ? options[index].selectedInfo.values.first
+                            : options[index].name,
                         style: TextStyle(
-                          color:
-                              widget.options[index].selectedInfo.isNotEmpty ||
-                                      widget.options[index].type == 'radio'
-                                  ? black
-                                  : grey,
+                          color: options[index].selectedInfo.isNotEmpty ||
+                                  options[index].type == 'radio'
+                              ? black
+                              : grey,
                           fontSize: 16,
                           overflow: TextOverflow.ellipsis,
                           fontWeight: FontWeight.w600,
@@ -93,9 +93,9 @@ class _EquipmentCategoryState extends State<EquipmentCategory> {
                         maxLines: 1,
                       ),
                     ),
-                    if (widget.options[index].type == 'radio')
+                    if (options[index].type == 'radio')
                       WCheckBox(
-                        isChecked: widget.options[index].selected,
+                        isChecked: options[index].selected,
                         checkBoxColor: orange,
                       )
                     else
@@ -112,7 +112,7 @@ class _EquipmentCategoryState extends State<EquipmentCategory> {
               indent: 16,
               height: 0,
             ),
-            itemCount: widget.options.length,
+            itemCount: options.length,
           ),
         ],
       );

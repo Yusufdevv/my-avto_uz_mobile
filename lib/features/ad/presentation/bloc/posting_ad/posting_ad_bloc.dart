@@ -136,6 +136,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdGetEquipments>(_getEquipments);
     on<PostingAdGetEquipmentOptionsList>(_getEquipmentOptionsList);
     on<PostingAdGetEquipmentOption>(_getEquipmentOption);
+    on<PostingAdChangeOption>(_getChangeOption);
   }
 
   FutureOr<void> _onRentWithPurchaseCondition(
@@ -177,7 +178,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
   FutureOr<void> _modification(
       PostingAdModificationsEvent event, Emitter<PostingAdState> emit) async {
-    emit(state.copyWith(getModificationStatus: FormzStatus.submissionInProgress));
+    emit(state.copyWith(
+        getModificationStatus: FormzStatus.submissionInProgress));
     final result = await modificationUseCase.call(ModificationTypeParams(
         bodyTypeId: state.bodyType?.id,
         driveTypeId: state.driveTypeId,
@@ -686,9 +688,11 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       'offset': 0,
     });
     if (result.isRight) {
+      final equipmentOptionsList =
+          makeOptionsSelected(result.right.results, state.equipmentOptions);
       emit(state.copyWith(
-        equipmentOptionsList:
-            makeOptionsSelected(result.right.results, state.equipmentOptions),
+        equipmentOptionsList: equipmentOptionsList,
+        equipmentOptionsListPrev: equipmentOptionsList,
         status: FormzStatus.submissionSuccess,
       ));
     } else {
@@ -730,14 +734,10 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         }
         final items = <EquipmentCategoryEntity>[];
         final selectedInfo = <int, String>{};
-        print('option: $option');
         for (final item in option.items) {
-          print('item: $item');
           for (final equipmentOption in equipmentOptions) {
-            print('equipmentOption: $equipmentOption');
             if (equipmentOption.option.id == option.id &&
                 equipmentOption.item.id == item.id) {
-              print('here we are');
               selectedInfo[equipmentOption.item.id] = equipmentOption.item.name;
               break;
             }
@@ -761,5 +761,39 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
           id: element.id, name: element.name, options: newOptionList));
     }
     return newList;
+  }
+
+  FutureOr<void> _getChangeOption(
+      PostingAdChangeOption event, Emitter<PostingAdState> emit) {
+    final newList = <EquipmentOptionsListEntity>[];
+    for (var i = 0; i < state.equipmentOptionsList.length; i++) {
+      final newOptionList = <EquipmentOptionEntity>[];
+      for (var j = 0; j < state.equipmentOptionsList[i].options.length; j++) {
+        newOptionList.add(EquipmentOptionEntity(
+          id: state.equipmentOptionsList[i].options[j].id,
+          name: state.equipmentOptionsList[i].options[j].name,
+          category: state.equipmentOptionsList[i].options[j].category,
+          type: state.equipmentOptionsList[i].options[j].type,
+          items: state.equipmentOptionsList[i].options[j].items,
+          selected: event.type == 'radio' &&
+                  event.categoryIndex == i &&
+                  event.optionIndex == j
+              ? !state.equipmentOptionsList[i].options[j].selected
+              : state.equipmentOptionsList[i].options[j].selected,
+          selectedInfo: event.type == 'select' &&
+                  event.categoryIndex == i &&
+                  event.optionIndex == j
+              ? event.id == -1
+                  ? {}
+                  : {event.id ?? -1: event.selectedItem ?? ''}
+              : state.equipmentOptionsList[i].options[j].selectedInfo,
+        ));
+      }
+      newList.add(EquipmentOptionsListEntity(
+          id: state.equipmentOptionsList[i].id,
+          name: state.equipmentOptionsList[i].name,
+          options: newOptionList));
+    }
+    emit(state.copyWith(equipmentOptionsList: newList));
   }
 }

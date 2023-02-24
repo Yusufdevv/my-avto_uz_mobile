@@ -26,6 +26,7 @@ class EquipmentOptionSheet extends StatefulWidget {
 
 class _EquipmentOptionSheetState extends State<EquipmentOptionSheet> {
   int? selected;
+  String? name;
 
   @override
   void initState() {
@@ -35,8 +36,8 @@ class _EquipmentOptionSheetState extends State<EquipmentOptionSheet> {
 
   @override
   Widget build(BuildContext context) => SingleChildScrollView(
-    physics: const NeverScrollableScrollPhysics(),
-    child: Column(
+        physics: const NeverScrollableScrollPhysics(),
+        child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
@@ -69,21 +70,22 @@ class _EquipmentOptionSheetState extends State<EquipmentOptionSheet> {
                   onTap: () {
                     setState(() {
                       selected = index == 0 ? -1 : widget.items[index - 1].id;
+                      name = index == 0 ? '' : widget.items[index - 1].name;
                     });
                   },
                   title: index == 0
                       ? LocaleKeys.not_necessary.tr()
                       : widget.items[index - 1].name,
                   selected: index == 0
-                      ? widget.selected == -1
-                      : widget.selected == widget.items[index - 1].id,
+                      ? selected == -1
+                      : selected == widget.items[index - 1].id,
                   image: '',
                 ),
                 itemCount: widget.items.length + 1,
               ),
             ),
             WButton(
-              onTap: () => Navigator.of(context).pop(selected),
+              onTap: () => Navigator.of(context).pop({selected: name}),
               color: orange,
               text: LocaleKeys.apply.tr(),
               textStyle: Theme.of(context)

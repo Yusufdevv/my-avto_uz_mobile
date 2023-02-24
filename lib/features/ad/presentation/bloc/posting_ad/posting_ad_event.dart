@@ -5,6 +5,7 @@ abstract class PostingAdEvent {}
 class PostingAdShowToastEvent extends PostingAdEvent {
   final String message;
   final PopStatus status;
+
   PostingAdShowToastEvent({required this.message, required this.status});
 }
 
@@ -14,11 +15,13 @@ class PostingAdClearStateEvent extends PostingAdEvent {}
 
 class PostingAdModificationsEvent extends PostingAdEvent {
   final String? name;
+
   PostingAdModificationsEvent({this.name});
 }
 
 class PostingAdAddEventForEveryPage extends PostingAdEvent {
   final int page;
+
   PostingAdAddEventForEveryPage({required this.page});
 }
 
@@ -26,6 +29,7 @@ class PostingAdGetMapScreenShotEvent extends PostingAdEvent {
   final double lat;
   final double long;
   final double zoomLevel;
+
   PostingAdGetMapScreenShotEvent(
       {required this.lat, required this.long, required this.zoomLevel});
 }
@@ -39,6 +43,7 @@ class PostingAdGetUserDataEvent extends PostingAdEvent {}
 class PostingAdSendCodeEvent extends PostingAdEvent {
   final String phone;
   final Function(String) onSuccess;
+
   PostingAdSendCodeEvent({required this.phone, required this.onSuccess});
 }
 
@@ -61,6 +66,7 @@ class PostingAdGetRegionsEvent extends PostingAdEvent {}
 
 class PostingAdGetDistritsEvent extends PostingAdEvent {
   final int? regionId;
+
   PostingAdGetDistritsEvent({this.regionId});
 }
 
@@ -72,6 +78,7 @@ class PostingAdGearBoxesEvent extends PostingAdEvent {}
 
 class PostingAdModelEvent extends PostingAdEvent {
   final String? name;
+
   PostingAdModelEvent({this.name});
 }
 
@@ -85,6 +92,7 @@ class PostingAdEnginesEvent extends PostingAdEvent {
 
 class PostingAdSearchMakesEvent extends PostingAdEvent {
   final String? name;
+
   PostingAdSearchMakesEvent({this.name});
 }
 
@@ -94,11 +102,13 @@ class PostingAdMakesEvent extends PostingAdEvent {
 
 class PostingAdTopMakesEvent extends PostingAdEvent {
   final String? name;
+
   PostingAdTopMakesEvent({this.name});
 }
 
 class PostingAdOnRentWithPurchaseConditionChangedEvent extends PostingAdEvent {
   final RentWithPurchaseEntity condition;
+
   PostingAdOnRentWithPurchaseConditionChangedEvent({required this.condition});
 }
 
@@ -224,6 +234,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
 
 class PostingAdChangeAppBarShadowEvent extends PostingAdEvent {
   final bool value;
+
   PostingAdChangeAppBarShadowEvent({required this.value});
 }
 
@@ -241,5 +252,22 @@ class PostingAdGetEquipmentOptionsList extends PostingAdEvent {
 
 class PostingAdGetEquipmentOption extends PostingAdEvent {
   final int? equipmentId;
+
   PostingAdGetEquipmentOption(this.equipmentId);
+}
+
+class PostingAdChangeOption extends PostingAdEvent {
+  final int categoryIndex;
+  final int optionIndex;
+  final String type;
+  final int? id;
+  final String? selectedItem;
+
+  PostingAdChangeOption({
+    required this.categoryIndex,
+    required this.optionIndex,
+    required this.type,
+    required this.id,
+    required this.selectedItem,
+  });
 }

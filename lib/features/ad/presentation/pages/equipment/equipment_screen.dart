@@ -9,14 +9,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class EquipmentScreen extends StatefulWidget {
+class EquipmentScreen extends StatelessWidget {
   const EquipmentScreen({Key? key}) : super(key: key);
 
-  @override
-  State<EquipmentScreen> createState() => _EquipmentScreenState();
-}
-
-class _EquipmentScreenState extends State<EquipmentScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: BaseWidget(
@@ -80,10 +75,20 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                     itemBuilder: (context, index) => EquipmentCategory(
                       categoryName: state.equipmentOptionsList[index].name,
                       options: state.equipmentOptionsList[index].options,
+                      onTap: (i, id, name) {
+                        context.read<PostingAdBloc>().add(PostingAdChangeOption(
+                            categoryIndex: index,
+                            optionIndex: i,
+                            type: state
+                                .equipmentOptionsList[index].options[i].type,
+                            id: id,
+                            selectedItem: name));
+                      },
                     ),
                     itemCount: state.equipmentOptionsList.length,
                     shrinkWrap: true,
-                    separatorBuilder: (context, index) => const SizedBox(height: 12),
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 12),
                   ),
                   const SizedBox(height: 70),
                 ],

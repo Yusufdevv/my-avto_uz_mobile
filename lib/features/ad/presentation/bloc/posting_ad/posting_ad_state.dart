@@ -80,6 +80,7 @@ class PostingAdState extends Equatable {
   final int? gasEquipmentId;
   final List<EquipmentEntity> equipments;
   final int? equipmentId;
+  final List<EquipmentOptionsListEntity> equipmentOptionsListPrev;
   final List<EquipmentOptionsListEntity> equipmentOptionsList;
 
   /// this is options for each selected equipment
@@ -161,6 +162,7 @@ class PostingAdState extends Equatable {
     this.gasEquipmentId,
     this.equipments = const [],
     this.equipmentId,
+    this.equipmentOptionsListPrev = const [],
     this.equipmentOptionsList = const [],
     this.equipmentOptions = const [],
   });
@@ -251,6 +253,7 @@ class PostingAdState extends Equatable {
     int? gasEquipmentId,
     List<EquipmentEntity>? equipments,
     int? equipmentId,
+    List<EquipmentOptionsListEntity>? equipmentOptionsListPrev,
     List<EquipmentOptionsListEntity>? equipmentOptionsList,
     List<EquipmentOptionsEntity>? equipmentOptions,
   }) =>
@@ -331,6 +334,8 @@ class PostingAdState extends Equatable {
         gasEquipmentId: gasEquipmentId ?? this.gasEquipmentId,
         equipments: equipments ?? this.equipments,
         equipmentId: equipmentId ?? this.equipmentId,
+        equipmentOptionsListPrev:
+            equipmentOptionsListPrev ?? this.equipmentOptionsListPrev,
         equipmentOptionsList: equipmentOptionsList ?? this.equipmentOptionsList,
         equipmentOptions: equipmentOptions ?? this.equipmentOptions,
         getModificationStatus:
@@ -410,6 +415,7 @@ class PostingAdState extends Equatable {
         gasEquipmentId,
         equipments,
         equipmentId,
+        equipmentOptionsListPrev,
         equipmentOptionsList,
         equipmentOptions,
         getModificationStatus,
