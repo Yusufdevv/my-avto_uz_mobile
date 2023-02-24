@@ -6,6 +6,7 @@ class PostingAdState extends Equatable {
   final FormzStatus getDistrictsStatus;
   final FormzStatus getMakesStatus;
   final FormzStatus createStatus;
+  final FormzStatus getModificationStatus;
 
   final FormzStatus getAnnouncementToEditStatus;
   final String? id;
@@ -81,6 +82,9 @@ class PostingAdState extends Equatable {
   final int? equipmentId;
   final List<EquipmentOptionsListEntity> equipmentOptionsList;
 
+  /// this is options for each selected equipment
+  final List<EquipmentOptionsEntity> equipmentOptions;
+
   const PostingAdState({
     required this.contactsFormKey,
     required this.status,
@@ -147,6 +151,7 @@ class PostingAdState extends Equatable {
     this.getDistrictsStatus = FormzStatus.pure,
     this.createStatus = FormzStatus.pure,
     this.getMakesStatus = FormzStatus.pure,
+    this.getModificationStatus = FormzStatus.pure,
     this.toastMessage,
     this.userModel,
     this.locationUrl,
@@ -157,6 +162,7 @@ class PostingAdState extends Equatable {
     this.equipments = const [],
     this.equipmentId,
     this.equipmentOptionsList = const [],
+    this.equipmentOptions = const [],
   });
 
   String? get districtTitle {
@@ -181,6 +187,7 @@ class PostingAdState extends Equatable {
     FormzStatus? getDistrictsStatus,
     FormzStatus? createStatus,
     FormzStatus? getMakesStatus,
+    FormzStatus? getModificationStatus,
     FormzStatus? getAnnouncementToEditStatus,
     PopStatus? popStatus,
     ModificationTypeEntity? modification,
@@ -245,6 +252,7 @@ class PostingAdState extends Equatable {
     List<EquipmentEntity>? equipments,
     int? equipmentId,
     List<EquipmentOptionsListEntity>? equipmentOptionsList,
+    List<EquipmentOptionsEntity>? equipmentOptions,
   }) =>
       PostingAdState(
         contactsFormKey: contactsFormKey ?? this.contactsFormKey,
@@ -324,6 +332,9 @@ class PostingAdState extends Equatable {
         equipments: equipments ?? this.equipments,
         equipmentId: equipmentId ?? this.equipmentId,
         equipmentOptionsList: equipmentOptionsList ?? this.equipmentOptionsList,
+        equipmentOptions: equipmentOptions ?? this.equipmentOptions,
+        getModificationStatus:
+            getModificationStatus ?? this.getModificationStatus,
       );
 
   @override
@@ -400,6 +411,8 @@ class PostingAdState extends Equatable {
         equipments,
         equipmentId,
         equipmentOptionsList,
+        equipmentOptions,
+        getModificationStatus,
       ];
 
   bool buttonStatus(int page) => PASingleton.nextButtonIsDisabled(page, this);

@@ -11,6 +11,8 @@ class EquipmentOptionEntity extends Equatable {
   final String type;
   @EquipmentCategoryConverter()
   final List<EquipmentCategoryEntity> items;
+  final bool selected;
+  final Map<int, String> selectedInfo;
 
   const EquipmentOptionEntity({
     this.id = -1,
@@ -18,6 +20,8 @@ class EquipmentOptionEntity extends Equatable {
     this.category = const EquipmentCategoryEntity(),
     this.type = '',
     this.items = const [],
+    this.selected = false,
+    this.selectedInfo = const {},
   });
 
   @override
@@ -27,6 +31,8 @@ class EquipmentOptionEntity extends Equatable {
         category,
         type,
         items,
+        selected,
+        selectedInfo,
       ];
 }
 

@@ -35,7 +35,8 @@ class _EquipmentOptionSheetState extends State<EquipmentOptionSheet> {
 
   @override
   Widget build(BuildContext context) => SingleChildScrollView(
-        child: Column(
+    physics: const NeverScrollableScrollPhysics(),
+    child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
@@ -62,9 +63,8 @@ class _EquipmentOptionSheetState extends State<EquipmentOptionSheet> {
             ),
             const Divider(color: border, thickness: 1, height: 1),
             SizedBox(
-              height: (widget.items.length + 1) * 70,
+              height: (widget.items.length + 1) * 66,
               child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) => PostingRadioItem(
                   onTap: () {
                     setState(() {

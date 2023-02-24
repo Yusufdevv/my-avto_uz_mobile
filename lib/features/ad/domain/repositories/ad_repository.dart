@@ -1,6 +1,7 @@
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_entity.dart';
+import 'package:auto/features/ad/domain/entities/equipment/equipment_options_entity.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_options_list_entity.dart';
 import 'package:auto/features/ad/domain/entities/equipment/gas_equipment_entity.dart';
 import 'package:auto/features/ad/domain/entities/foto_instruction_entity.dart';
@@ -119,5 +120,12 @@ abstract class AdRepository {
     String? search,
     int? limit,
     int? offset,
+  });
+
+  Future<Either<Failure, GenericPagination<EquipmentOptionsEntity>>> getEquipmentOptions({
+    String? search,
+    int? limit,
+    int? offset,
+    int? equipmentId,
   });
 }

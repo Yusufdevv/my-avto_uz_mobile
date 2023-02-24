@@ -1,7 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_option_entity.dart';
 import 'package:auto/features/ad/presentation/widgets/equipment_option_sheet.dart';
 import 'package:auto/features/common/widgets/w_check_box.dart';
@@ -38,78 +37,82 @@ class _EquipmentCategoryState extends State<EquipmentCategory> {
                   ?.copyWith(color: greyText),
             ),
           ),
-          SizedBox(
-            height: widget.options.length * 54,
-            child: ListView.separated(
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) => Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 16,
-                ),
-                child: GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () {
-                    showModalBottomSheet<int>(
-                      context: context,
-                      useRootNavigator: true,
-                      backgroundColor: LightThemeColors.appBarColor,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(20)),
-                      ),
-                      clipBehavior: Clip.hardEdge,
-                      builder: (context) => EquipmentOptionSheet(
-                        selected: -1,
-                        name: widget.options[index].name,
-                        items: widget.options[index].items,
-                      ),
-                    ).then(
-                      (value) {},
-                    );
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        widget.options[index].name,
-                        style: const TextStyle(
-                          color: black,
+          ListView.separated(
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) => GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
+                if (widget.options[index].type == 'select') {
+                  showModalBottomSheet<int>(
+                    context: context,
+                    useRootNavigator: true,
+                    backgroundColor: LightThemeColors.appBarColor,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(20)),
+                    ),
+                    clipBehavior: Clip.hardEdge,
+                    builder: (context) => EquipmentOptionSheet(
+                      selected: widget.options[index].selectedInfo.isNotEmpty
+                          ? widget.options[index].selectedInfo.keys.first
+                          : -1,
+                      name: widget.options[index].name,
+                      items: widget.options[index].items,
+                    ),
+                  ).then(
+                    (value) {},
+                  );
+                }
+              },
+              child: Container(
+                color: widget.options[index].selectedInfo.isNotEmpty ||
+                        widget.options[index].type == 'radio'
+                    ? null
+                    : greyLight,
+                padding: const EdgeInsets.only(
+                    left: 16, right: 16, top: 16, bottom: 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        widget.options[index].selectedInfo.isNotEmpty
+                            ? widget.options[index].selectedInfo.values.first
+                            : widget.options[index].name,
+                        style: TextStyle(
+                          color:
+                              widget.options[index].selectedInfo.isNotEmpty ||
+                                      widget.options[index].type == 'radio'
+                                  ? black
+                                  : grey,
                           fontSize: 16,
+                          overflow: TextOverflow.ellipsis,
                           fontWeight: FontWeight.w600,
                         ),
+                        maxLines: 1,
                       ),
-                      if (index % 2 == 0)
-                        WCheckBox(
-                          isChecked: false,
-                          checkBoxColor: orange,
-                        )
-                      else
-                        SvgPicture.asset(
-                          AppIcons.chevronRight,
-                          color: greyText,
-                        ),
-                    ],
-                  ),
+                    ),
+                    if (widget.options[index].type == 'radio')
+                      WCheckBox(
+                        isChecked: widget.options[index].selected,
+                        checkBoxColor: orange,
+                      )
+                    else
+                      SvgPicture.asset(
+                        AppIcons.chevronRight,
+                        color: greyText,
+                      ),
+                  ],
                 ),
               ),
-              separatorBuilder: (context, index) => const Divider(
-                indent: 16,
-                height: 0,
-              ),
-              itemCount: widget.options.length,
             ),
-          ),
-          const SizedBox(height: 12),
-          Container(
-            margin: const EdgeInsets.only(left: 16),
-            height: 1,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Theme.of(context)
-                  .extension<ThemedColors>()
-                  ?.solitude2ToNightRider,
+            shrinkWrap: true,
+            separatorBuilder: (context, index) => const Divider(
+              indent: 16,
+              height: 0,
             ),
+            itemCount: widget.options.length,
           ),
         ],
       );

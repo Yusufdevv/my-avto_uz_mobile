@@ -164,6 +164,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final bool? isNew;
   final int? gasEquipmentId;
   final int? equipmentId;
+  final FormzStatus? getModificationStatus;
 
   PostingAdChooseEvent({
     this.modification,
@@ -217,6 +218,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
     this.milageImage,
     this.gasEquipmentId,
     this.equipmentId,
+    this.getModificationStatus,
   });
 }
 
@@ -235,4 +237,9 @@ class PostingAdGetEquipments extends PostingAdEvent {
 
 class PostingAdGetEquipmentOptionsList extends PostingAdEvent {
   PostingAdGetEquipmentOptionsList();
+}
+
+class PostingAdGetEquipmentOption extends PostingAdEvent {
+  final int? equipmentId;
+  PostingAdGetEquipmentOption(this.equipmentId);
 }

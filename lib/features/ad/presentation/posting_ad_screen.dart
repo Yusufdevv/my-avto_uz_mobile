@@ -253,8 +253,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                           onTapBack: () {
                             if (currentTabIndex != 0) {
                               --currentTabIndex;
-                              postingAdBloc.add(PostingAdAddEventForEveryPage(
-                                  page: currentTabIndex));
+                              // postingAdBloc.add(PostingAdAddEventForEveryPage(
+                              //     page: currentTabIndex));
                               pageController.animateToPage(currentTabIndex,
                                   duration: const Duration(milliseconds: 150),
                                   curve: Curves.linear);
@@ -317,7 +317,30 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                               //7
                               const GearboxScreen(),
                               //8
-                              const ModificationScreen(),
+                              ModificationScreen(
+                                noData: () {
+                                  FocusScope.of(context).unfocus();
+                                  if (currentTabIndex < tabLength - 1) {
+                                    if (currentTabIndex == 0 &&
+                                        animeState.isCollapsed) {
+                                      animeState.animationController.reverse();
+                                    }
+                                    currentTabIndex++;
+                                    postingAdBloc.add(
+                                        PostingAdAddEventForEveryPage(
+                                            page: currentTabIndex));
+                                    pageController.animateToPage(
+                                        currentTabIndex,
+                                        duration:
+                                            const Duration(milliseconds: 60),
+                                        curve: Curves.linear);
+                                    setState(() {});
+                                    postingAdBloc.add(PostingAdChooseEvent(
+                                        getModificationStatus:
+                                            FormzStatus.pure));
+                                  }
+                                },
+                              ),
                               //9
                               const ColorsScreen(),
                               //10

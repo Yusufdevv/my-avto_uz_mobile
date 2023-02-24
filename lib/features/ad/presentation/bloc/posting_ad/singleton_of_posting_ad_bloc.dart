@@ -259,6 +259,7 @@ class PASingleton {
         description: event.description,
         gasEquipmentId: event.gasEquipmentId,
         equipmentId: event.equipmentId,
+        getModificationStatus: event.getModificationStatus,
       );
 
   static int? _getMakeLetterIndex(
