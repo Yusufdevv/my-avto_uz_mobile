@@ -236,34 +236,35 @@ class _PriceScreenState extends State<PriceScreen> {
                       height: 16,
                     ),
                     if (widget.rentToBuy && widget.conditions.isNotEmpty) ...{
-                      ...widget.conditions
-                          .map((entity) => RentToSaleDetailsBox(
-                                onTap: () {
-                                  showModalBottomSheet<RentWithPurchaseEntity>(
-                                      useRootNavigator: true,
-                                      isScrollControlled: true,
-                                      backgroundColor: Colors.transparent,
-                                      isDismissible: false,
-                                      context: context,
-                                      builder: (context) => RentToBuySheet(
-                                          idForNewCondition:
-                                              widget.conditions.length,
-                                          entityForEdit: entity,
-                                          price: int.tryParse(widget.price
-                                                  .replaceAll(' ', '')) ??
-                                              0)).then(
-                                    (value) {
-                                      if (value != null) {
-                                        widget.onConditionChanged(value);
-                                      }
-                                    },
-                                  );
-                                },
-                                monthlyPayment: entity.monthlyPayment,
-                                prePayment: entity.prepayment,
-                                rentalPeriod: entity.rentalPeriod,
-                              ))
-                          .toList(),
+                      ...List.generate(widget.conditions.length, (index) {
+                        final entity = widget.conditions[index];
+                        return RentToSaleDetailsBox(
+                          title: LocaleKeys.conditon_1.tr(args: ['${index++}']),
+                          onTap: () {
+                            showModalBottomSheet<RentWithPurchaseEntity>(
+                                useRootNavigator: true,
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                isDismissible: false,
+                                context: context,
+                                builder: (context) => RentToBuySheet(
+                                    idForNewCondition: widget.conditions.length,
+                                    entityForEdit: entity,
+                                    price: int.tryParse(
+                                            widget.price.replaceAll(' ', '')) ??
+                                        0)).then(
+                              (value) {
+                                if (value != null) {
+                                  widget.onConditionChanged(value);
+                                }
+                              },
+                            );
+                          },
+                          monthlyPayment: entity.monthlyPayment,
+                          prePayment: entity.prepayment,
+                          rentalPeriod: entity.rentalPeriod,
+                        );
+                      }),
                       WScaleAnimation(
                         onTap: () {
                           showModalBottomSheet<RentWithPurchaseEntity>(

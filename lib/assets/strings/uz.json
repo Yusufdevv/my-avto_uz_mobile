@@ -514,7 +514,7 @@
   "the_before_enter_price": "Avval narxni kiriting",
   "you_dont_have_featured_listings": "Sizda tanlangan e'lonlar yoʻq",
   "rent_to_buy": "Аренда c выкупом",
-  "conditon_1": "Shart 1",
+  "conditon_1": "Shart {}",
   "prepayment": "Oldindan to'lov",
   "lease_term_in_months": "Oy hisobida ijara muddati",
   "payment_per_month": "Oylik to'lov",

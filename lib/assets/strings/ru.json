@@ -514,7 +514,7 @@
   "the_before_enter_price": "Сначала введите цену",
   "you_dont_have_featured_listings": "У вас нет избранных объявлений",
   "rent_to_buy": "Аренда c выкупом",
-  "conditon_1": "Условия 1",
+  "conditon_1": "Условия {}",
   "prepayment": "Предоплата",
   "lease_term_in_months": "Срок аренды в месяцах",
   "payment_per_month": "Платеж в меяц",
