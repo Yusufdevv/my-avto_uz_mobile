@@ -57,7 +57,6 @@ dependencies:
   google_sign_in: ^5.4.4
   flutter_facebook_auth: ^5.0.7
   alice: ^0.3.2
-  firebase_crashlytics: ^3.0.14
   map_launcher: ^2.5.0+1
 
 dev_dependencies:

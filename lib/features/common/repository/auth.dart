@@ -78,8 +78,8 @@ class AuthRepository {
       data: {'access_token': authToken, 'code': code},
     );
     if (result.isRight) {
-      await StorageRepository.putString('token', result.right.access);
-      await StorageRepository.putString('refresh', result.right.refresh);
+      await StorageRepository.putString('token', result.right.accessToken);
+      await StorageRepository.putString('refresh', result.right.refreshToken);
       return Right(result.right);
     } else {
       return Left(result.left);
@@ -95,8 +95,8 @@ class AuthRepository {
       data: {'access_token': authToken, 'code': ''},
     );
     if (result.isRight) {
-      await StorageRepository.putString('token', result.right.access);
-      await StorageRepository.putString('refresh', result.right.refresh);
+      await StorageRepository.putString('token', result.right.accessToken);
+      await StorageRepository.putString('refresh', result.right.refreshToken);
       return Right(result.right);
     } else {
       return Left(result.left);
@@ -109,7 +109,7 @@ class AuthRepository {
       endpoint: 'users/social-auth/login/apple/',
       fromJson: TokenModel.fromJson,
       sendToken: false,
-      data: {'access_token': authToken, 'code': code},
+      data: {'code': code},
     );
     if (result.isRight) {
       await StorageRepository.putString('token', result.right.access);
