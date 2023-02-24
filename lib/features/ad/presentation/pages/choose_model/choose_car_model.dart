@@ -145,7 +145,7 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                       if (state.status == FormzStatus.submissionInProgress) ...{
                         const SliverToBoxAdapter(
                             child: Padding(
-                              padding: EdgeInsets.only(top: 50),
+                              padding: EdgeInsets.only(top: 100),
                               child: Center(child: CupertinoActivityIndicator()),
                             ))
                       } else ...{
@@ -186,13 +186,11 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                       },
 
                       /// JUST CONTAINER
-                      SliverToBoxAdapter(
-                        child: Container(
+                    const  SliverToBoxAdapter(
+                        child: SizedBox(
                           height: 60,
                           width: double.infinity,
-                          color: Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .whiteToDark,
+
                         ),
                       ),
 

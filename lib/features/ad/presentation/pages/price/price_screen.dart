@@ -33,19 +33,19 @@ class PriceScreen extends StatefulWidget {
   final bool rentToBuy;
   final String currency;
 
-  const PriceScreen(
-      {required this.price,
-      required this.onConditionChanged,
-      required this.onSwitchChanged,
-      required this.minimumPrice,
-      required this.conditions,
-      required this.initialPrice,
-      required this.rentToBuy,
-      required this.currency,
-      required this.onPriceChanged,
-      required this.onCurrencyChanged,
-      Key? key})
-      : super(key: key);
+  const PriceScreen({
+    required this.price,
+    required this.onConditionChanged,
+    required this.onSwitchChanged,
+    required this.minimumPrice,
+    required this.conditions,
+    required this.initialPrice,
+    required this.rentToBuy,
+    required this.currency,
+    required this.onPriceChanged,
+    required this.onCurrencyChanged,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<PriceScreen> createState() => _PriceScreenState();
@@ -145,8 +145,10 @@ class _PriceScreenState extends State<PriceScreen> {
                                     .copyWith(color: greyText),
                               ),
                               const SizedBox(width: 4),
-                              SvgPicture.asset(AppIcons.chevronDown,
-                                  color: greyText)
+                              SvgPicture.asset(
+                                AppIcons.chevronDown,
+                                color: greyText,
+                              )
                             ],
                           ),
                         ),
@@ -239,7 +241,7 @@ class _PriceScreenState extends State<PriceScreen> {
                       ...List.generate(widget.conditions.length, (index) {
                         final entity = widget.conditions[index];
                         return RentToSaleDetailsBox(
-                          title: LocaleKeys.conditon_1.tr(args: ['${index++}']),
+                          title: LocaleKeys.conditon_1.tr(args: ['${++index}']),
                           onTap: () {
                             showModalBottomSheet<RentWithPurchaseEntity>(
                                 useRootNavigator: true,

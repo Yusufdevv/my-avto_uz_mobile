@@ -139,6 +139,7 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                               },
                               autofocus: true,
                               focusNode: state.focusNode,
+                              maxLength: widget.price.toString().length,
                               inputFormatters: [
                                 FilteringTextInputFormatter.digitsOnly,
                                 ThousandsSeparatorInputFormatter()
@@ -154,6 +155,7 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                                       fontWeight: FontWeight.w400),
                               controller: state.controller,
                               decoration: InputDecoration(
+                                counterText: '',
                                 errorBorder: _border(),
                                 enabledBorder: _border(),
                                 focusedBorder: _border(),

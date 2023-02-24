@@ -100,7 +100,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                         children: [
                           PhotoItem(
                             images: state.images,
-                            onTap: () async {
+                            onTap:state.images.length<20 ? () async {
                               await showModalBottomSheet<ImageSource>(
                                   backgroundColor: Colors.transparent,
                                   context: context,
@@ -111,6 +111,13 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                                   imageBloc.add(PickImage(source: value));
                                 }
                               });
+                            } : (){
+                              context.read<PostingAdBloc>().add(
+                                PostingAdShowToastEvent(
+                                  message: "20 tadan ortiq rasm qo'ya olmaysiz",
+                                  status: PopStatus.warning,
+                                ),
+                              );
                             },
                           ),
                           const SizedBox(height: 16),
@@ -126,8 +133,15 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                           ),
                           PhotoItem(
                             images: state.panaramaImages,
-                            onTap: () async {
+                            onTap:state.panaramaImages.length<10 ? () async {
                               imageBloc.add(PickPanaramaImageEvent());
+                            } : (){
+                              context.read<PostingAdBloc>().add(
+                                PostingAdShowToastEvent(
+                                  message: "20 tadan ortiq rasm qo'ya olmaysiz",
+                                  status: PopStatus.warning,
+                                ),
+                              );
                             },
                           ),
                           const SizedBox(height: 64)
