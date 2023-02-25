@@ -17,11 +17,9 @@ class ReelsScreen extends StatefulWidget {
   const ReelsScreen({
     Key? key,
     this.isForOfferDay = false,
-    this.context,
   }) : super(key: key);
 
   final bool isForOfferDay;
-  final BuildContext? context;
 
   @override
   State<ReelsScreen> createState() => _ReelsScreenState();
