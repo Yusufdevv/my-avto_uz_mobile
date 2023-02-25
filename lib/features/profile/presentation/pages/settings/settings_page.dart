@@ -1,7 +1,6 @@
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
-import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/core/utils/size_config.dart';
@@ -110,14 +109,13 @@ class _SettingsPageState extends State<SettingsPage> {
                             constraints: BoxConstraints(
                                 minWidth: MediaQuery.of(context).size.width),
                             builder: (context) =>
-                                const LanguageBottomSheet()).then((value) {
+                                const LanguageBottomSheet()).then((value) async {
                           if (value is String) {
-                            context.setLocale(Locale(value.toString()));
+                            await context.setLocale(Locale(value.toString()));
                             setState(() {});
-                            serviceLocator<DioSettings>()
-                                .setBaseOptions(lang: value.toString());
-                            StorageRepository.putString(
+                            await StorageRepository.putString(
                                 'language', value.toString());
+                            await resetLocator();
                           }
                         });
                       },

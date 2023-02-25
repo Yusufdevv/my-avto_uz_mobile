@@ -3,7 +3,11 @@ import 'dart:async';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
+import 'package:auto/features/ad/domain/entities/equipment/equipment_category_entity.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_entity.dart';
+import 'package:auto/features/ad/domain/entities/equipment/equipment_option_entity.dart';
+import 'package:auto/features/ad/domain/entities/equipment/equipment_options_entity.dart';
+import 'package:auto/features/ad/domain/entities/equipment/equipment_options_list_entity.dart';
 import 'package:auto/features/ad/domain/entities/equipment/gas_equipment_entity.dart';
 import 'package:auto/features/ad/domain/entities/generation/generation.dart';
 import 'package:auto/features/ad/domain/entities/rent_with_purchase/rent_with_purchase_entity.dart';
@@ -20,6 +24,8 @@ import 'package:auto/features/ad/domain/usecases/get_body_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
 import 'package:auto/features/ad/domain/usecases/get_drive_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_engine_type.dart';
+import 'package:auto/features/ad/domain/usecases/get_equipment_options.dart';
+import 'package:auto/features/ad/domain/usecases/get_equipment_options_list.dart';
 import 'package:auto/features/ad/domain/usecases/get_equipments.dart';
 import 'package:auto/features/ad/domain/usecases/get_gas_equipment.dart';
 import 'package:auto/features/ad/domain/usecases/get_generation.dart';
@@ -80,6 +86,10 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   final GetGasEquipmentsUseCase gasEquipmentsUseCase =
       GetGasEquipmentsUseCase();
   final GetEquipmentsUseCase getEquipmentsUseCase = GetEquipmentsUseCase();
+  final GetEquipmentOptionsListUseCase getEquipmentOptionsListUseCase =
+      GetEquipmentOptionsListUseCase();
+  final GetEquipmentOptionsUseCase getEquipmentOptionsUseCase =
+      GetEquipmentOptionsUseCase();
 
   PostingAdBloc()
       : super(PostingAdState(
@@ -124,6 +134,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         _onRentWithPurchaseCondition);
     on<PostingAdGetGasEquipments>(_getGasEquipments);
     on<PostingAdGetEquipments>(_getEquipments);
+    on<PostingAdGetEquipmentOptionsList>(_getEquipmentOptionsList);
+    on<PostingAdGetEquipmentOption>(_getEquipmentOption);
+    on<PostingAdChangeOption>(_getChangeOption);
   }
 
   FutureOr<void> _onRentWithPurchaseCondition(
@@ -165,7 +178,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
   FutureOr<void> _modification(
       PostingAdModificationsEvent event, Emitter<PostingAdState> emit) async {
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    emit(state.copyWith(
+        getModificationStatus: FormzStatus.submissionInProgress));
     final result = await modificationUseCase.call(ModificationTypeParams(
         bodyTypeId: state.bodyType?.id,
         driveTypeId: state.driveTypeId,
@@ -176,17 +190,18 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     if (result.isRight) {
       emit(
         state.copyWith(
-          status: FormzStatus.submissionSuccess,
+          getModificationStatus: FormzStatus.submissionSuccess,
           modifications: result.right.results,
-          modification: result.right.results.isNotEmpty
-              ? result.right.results.first
-              : null,
+          modification:
+              result.right.results.isNotEmpty && state.modification == null
+                  ? result.right.results.first
+                  : null,
         ),
       );
     } else {
       emit(
         state.copyWith(
-          status: FormzStatus.submissionFailure,
+          getModificationStatus: FormzStatus.submissionFailure,
           toastMessage: MyFunctions.getErrorMessage(result.left),
           popStatus: PopStatus.error,
         ),
@@ -282,9 +297,10 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         state.copyWith(
           status: FormzStatus.submissionSuccess,
           years: result.right.results,
-          yearEntity: result.right.results.isNotEmpty
-              ? result.right.results.first
-              : null,
+          yearEntity:
+              result.right.results.isNotEmpty && state.yearEntity == null
+                  ? result.right.results.first
+                  : null,
         ),
       );
     } else {
@@ -452,7 +468,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         state.copyWith(
             status: FormzStatus.submissionSuccess,
             bodyTypes: result.right.results,
-            bodyType: bodies.isNotEmpty ? bodies.first : null),
+            bodyType: bodies.isNotEmpty && state.bodyType == null
+                ? bodies.first
+                : null),
       );
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
@@ -469,7 +487,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         state.copyWith(
             status: FormzStatus.submissionSuccess,
             gearBoxes: gearBoxes,
-            gearbox: gearBoxes.isNotEmpty ? gearBoxes.first : null),
+            gearbox: gearBoxes.isNotEmpty && state.gearbox == null
+                ? gearBoxes.first
+                : null),
       );
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
@@ -490,7 +510,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         state.copyWith(
           status: FormzStatus.submissionSuccess,
           driveTypes: driveTypes,
-          driveTypeId: driveTypes.isNotEmpty ? driveTypes.first.id : null,
+          driveTypeId: driveTypes.isNotEmpty && state.driveTypeId == null
+              ? driveTypes.first.id
+              : null,
         ),
       );
     } else {
@@ -512,7 +534,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         state.copyWith(
           status: FormzStatus.submissionSuccess,
           engines: engines,
-          engineId: engines.isNotEmpty ? engines.first.id : null,
+          engineId: engines.isNotEmpty && state.engineId == null
+              ? engines.first.id
+              : null,
         ),
       );
     } else {
@@ -549,7 +573,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       emit(state.copyWith(
           generations: generations,
           status: FormzStatus.submissionSuccess,
-          generationId: generations.isNotEmpty ? generations.first.id : null));
+          generationId: generations.isNotEmpty && state.generationId == null
+              ? generations.first.id
+              : null));
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
@@ -608,6 +634,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     if (event.currency != null) {
       add(PostingAdGetMinimumPriceEvent());
     }
+    if (event.equipmentId != null) {
+      add(PostingAdGetEquipmentOption(event.equipmentId));
+    }
     emit(PASingleton.choose(state, event));
   }
 
@@ -640,9 +669,131 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       emit(state.copyWith(
           equipments: equipments,
           status: FormzStatus.submissionSuccess,
-          equipmentId: equipments.isNotEmpty ? equipments.first.id : null));
+          equipmentId: equipments.isNotEmpty && state.equipmentId == null
+              ? equipments.first.id
+              : null));
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
+    add(PostingAdGetEquipmentOption(state.equipmentId));
+  }
+
+  FutureOr<void> _getEquipmentOptionsList(
+      PostingAdGetEquipmentOptionsList event,
+      Emitter<PostingAdState> emit) async {
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    final result = await getEquipmentOptionsListUseCase.call({
+      'search': '',
+      'limit': 1000,
+      'offset': 0,
+    });
+    if (result.isRight) {
+      final equipmentOptionsList =
+          makeOptionsSelected(result.right.results, state.equipmentOptions);
+      emit(state.copyWith(
+        equipmentOptionsList: equipmentOptionsList,
+        equipmentOptionsListPrev: equipmentOptionsList,
+        status: FormzStatus.submissionSuccess,
+      ));
+    } else {
+      emit(state.copyWith(status: FormzStatus.submissionFailure));
+    }
+  }
+
+  FutureOr<void> _getEquipmentOption(
+      PostingAdGetEquipmentOption event, Emitter<PostingAdState> emit) async {
+    final result = await getEquipmentOptionsUseCase.call({
+      'search': '',
+      'limit': 1000,
+      'offset': 0,
+      'equipmentId': event.equipmentId,
+    });
+    if (result.isRight) {
+      final equipmentOptions = result.right.results;
+      emit(state.copyWith(equipmentOptions: equipmentOptions));
+    } else {
+      emit(state.copyWith(equipmentOptions: []));
+    }
+    add(PostingAdGetEquipmentOptionsList());
+  }
+
+  List<EquipmentOptionsListEntity> makeOptionsSelected(
+    List<EquipmentOptionsListEntity> optionsList,
+    List<EquipmentOptionsEntity> equipmentOptions,
+  ) {
+    final newList = <EquipmentOptionsListEntity>[];
+    for (final element in optionsList) {
+      final newOptionList = <EquipmentOptionEntity>[];
+      for (final option in element.options) {
+        var hasOption = false;
+        for (final equipmentOption in equipmentOptions) {
+          if (equipmentOption.option.id == option.id) {
+            hasOption = true;
+            break;
+          }
+        }
+        final items = <EquipmentCategoryEntity>[];
+        final selectedInfo = <int, String>{};
+        for (final item in option.items) {
+          for (final equipmentOption in equipmentOptions) {
+            if (equipmentOption.option.id == option.id &&
+                equipmentOption.item.id == item.id) {
+              selectedInfo[equipmentOption.item.id] = equipmentOption.item.name;
+              break;
+            }
+          }
+          items.add(EquipmentCategoryEntity(
+            id: item.id,
+            name: item.name,
+          ));
+        }
+        newOptionList.add(EquipmentOptionEntity(
+          id: option.id,
+          name: option.name,
+          category: option.category,
+          type: option.type,
+          items: items,
+          selected: hasOption,
+          selectedInfo: selectedInfo,
+        ));
+      }
+      newList.add(EquipmentOptionsListEntity(
+          id: element.id, name: element.name, options: newOptionList));
+    }
+    return newList;
+  }
+
+  FutureOr<void> _getChangeOption(
+      PostingAdChangeOption event, Emitter<PostingAdState> emit) {
+    final newList = <EquipmentOptionsListEntity>[];
+    for (var i = 0; i < state.equipmentOptionsList.length; i++) {
+      final newOptionList = <EquipmentOptionEntity>[];
+      for (var j = 0; j < state.equipmentOptionsList[i].options.length; j++) {
+        newOptionList.add(EquipmentOptionEntity(
+          id: state.equipmentOptionsList[i].options[j].id,
+          name: state.equipmentOptionsList[i].options[j].name,
+          category: state.equipmentOptionsList[i].options[j].category,
+          type: state.equipmentOptionsList[i].options[j].type,
+          items: state.equipmentOptionsList[i].options[j].items,
+          selected: event.type == 'radio' &&
+                  event.categoryIndex == i &&
+                  event.optionIndex == j
+              ? !state.equipmentOptionsList[i].options[j].selected
+              : state.equipmentOptionsList[i].options[j].selected,
+          selectedInfo: event.type == 'select' &&
+                  event.categoryIndex == i &&
+                  event.optionIndex == j
+              ? event.id == -1
+                  ? {}
+                  : {event.id ?? -1: event.selectedItem ?? ''}
+              : state.equipmentOptionsList[i].options[j].selectedInfo,
+        ));
+      }
+      newList.add(EquipmentOptionsListEntity(
+          id: state.equipmentOptionsList[i].id,
+          name: state.equipmentOptionsList[i].name,
+          options: newOptionList));
+    }
+    emit(state.copyWith(equipmentOptionsList: newList));
   }
 }

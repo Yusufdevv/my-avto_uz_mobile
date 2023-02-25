@@ -11,6 +11,7 @@ class EquipmentOptionModel extends EquipmentOptionEntity {
     required super.name,
     required super.category,
     required super.type,
+    required super.items,
   });
 
   factory EquipmentOptionModel.fromJson(Map<String, dynamic> json) =>

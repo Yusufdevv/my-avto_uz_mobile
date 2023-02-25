@@ -558,7 +558,9 @@ class CodegenLoader extends AssetLoader{
   "info_scratched": "Данный элемент был заменен на другой",
   "info_replacement": "Имеются не значительные вмятины",
   "info_replacement_not_required": "Имеются определённқе повреждения и советуеся ремон, или замена",
-  "info_replacement_required": "Состояние плохое, ремонт сильно не поможет, трубется замена"
+  "info_replacement_required": "Состояние плохое, ремонт сильно не поможет, трубется замена",
+  "not_necessary": "Неважно",
+  "other": "Другая"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -1104,7 +1106,9 @@ static const Map<String,dynamic> uz = {
   "info_scratched": "Данный элемент был заменен на другой",
   "info_replacement": "Имеются не значительные вмятины",
   "info_replacement_not_required": "Имеются определённқе повреждения и советуеся ремон, или замена",
-  "info_replacement_required": "Состояние плохое, ремонт сильно не поможет, трубется замена"
+  "info_replacement_required": "Состояние плохое, ремонт сильно не поможет, трубется замена",
+  "not_necessary": "Неважно",
+  "other": "Другая"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }

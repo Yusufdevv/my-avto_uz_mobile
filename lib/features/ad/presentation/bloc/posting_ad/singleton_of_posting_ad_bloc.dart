@@ -7,6 +7,18 @@ class PASingleton {
   PASingleton._();
 
   static Future<FormData> create(PostingAdState v) async {
+    List<String> radios = [];
+    List<String> selects = [];
+    for (int i = 0; i < v.equipmentOptionsList.length; i++) {
+      for (int j = 0; j < v.equipmentOptionsList[i].options.length; j++) {
+        if (v.equipmentOptionsList[i].options[j].selected != v.equipmentOptionsListPrev[i].options[j].selected) {
+          radios.add(v.equipmentOptionsList[i].options[j].id.toString());
+        }
+        if (v.equipmentOptionsList[i].options[j].selectedInfo != v.equipmentOptionsListPrev[i].options[j].selectedInfo) {
+          selects.add(v.equipmentOptionsList[i].options[j].selectedInfo.keys.first.toString());
+        }
+      }
+    }
     // ignore: prefer_final_locals
     var announcementFields = <String, dynamic>{
       'make': v.make?.id,
@@ -48,8 +60,10 @@ class PASingleton {
       'rent_with_purchase': v.rentWithPurchaseConditions.entries
           .map((e) => e.value.toApi())
           .toList(),
-      'equipment' : v.equipmentId,
-      'gas_equipment' : v.gasEquipmentId,
+      'equipment': radios.isEmpty && selects.isEmpty ? v.equipmentId : null,
+      'gas_equipment': v.gasEquipmentId,
+      'options': radios,
+      'options_items': selects,
     };
     if (v.milageImage != null && v.milageImage!.isNotEmpty) {
       final milageImage = await MultipartFile.fromFile(v.milageImage!);
@@ -259,6 +273,7 @@ class PASingleton {
         description: event.description,
         gasEquipmentId: event.gasEquipmentId,
         equipmentId: event.equipmentId,
+        getModificationStatus: event.getModificationStatus,
       );
 
   static int? _getMakeLetterIndex(

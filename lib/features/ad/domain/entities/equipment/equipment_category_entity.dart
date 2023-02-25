@@ -12,10 +12,7 @@ class EquipmentCategoryEntity extends Equatable {
   });
 
   @override
-  List<Object?> get props => [
-        id,
-        name,
-      ];
+  List<Object?> get props => [id, name];
 }
 
 class EquipmentCategoryConverter

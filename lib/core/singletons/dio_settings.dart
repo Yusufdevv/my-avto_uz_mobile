@@ -30,9 +30,6 @@ class DioSettings {
     );
   }
 
-// final _dio = serviceLocator<DioSettings>().dio; ///sample
-  BaseOptions get dioBaseOptions => _dioBaseOptions;
-
   bool get chuck =>
       StorageRepository.getBool(StorageKeys.CHUCK, defValue: false);
 
