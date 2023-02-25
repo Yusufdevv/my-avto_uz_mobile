@@ -10,6 +10,7 @@ class PASingleton {
     List<String> radios = [];
     List<String> selects = [];
     bool deleted = false;
+    /// these lines of code calculates changed options and option items
     for (int i = 0; i < v.equipmentOptionsList.length; i++) {
       for (int j = 0; j < v.equipmentOptionsList[i].options.length; j++) {
         if (v.equipmentOptionsList[i].options[j].selected !=

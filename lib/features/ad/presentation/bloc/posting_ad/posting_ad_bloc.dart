@@ -764,6 +764,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     return newList;
   }
 
+  /// this function is for setting each equipment's options to all options
+  /// every single time when model's equipment changed whether it's valid or not
+  /// it will be called
   FutureOr<void> _getChangeOption(
       PostingAdChangeOption event, Emitter<PostingAdState> emit) {
     final newList = <EquipmentOptionsListEntity>[];
