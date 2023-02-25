@@ -19,7 +19,7 @@ class PASingleton {
           } else {
             radios.add(v.equipmentOptionsList[i].options[j].id.toString());
           }
-        } else {
+        } else if(v.equipmentOptionsList[i].options[j].selected){
           radios.add(v.equipmentOptionsList[i].options[j].id.toString());
         }
         //{32: a} {23:45}
@@ -99,8 +99,6 @@ class PASingleton {
           .toList(),
       'equipment': !deleted ? v.equipmentId : null,
       'gas_equipment': v.gasEquipmentId,
-      'options': radios,
-      'options_items': selects,
     };
     if (v.milageImage != null && v.milageImage!.isNotEmpty) {
       final milageImage = await MultipartFile.fromFile(v.milageImage!);
@@ -131,8 +129,18 @@ class PASingleton {
       i++;
       return MapEntry('gallery[$i]', e);
     }));
+    i = -1;
+    announcementFields.addEntries(radios.map((e) {
+      i++;
+      return MapEntry('options[$i]', e);
+    }));
+    i = -1;
+    announcementFields.addEntries(selects.map((e) {
+      i++;
+      return MapEntry('options_items[$i]', e);
+    }));
 
-    print(announcementFields);
+    log(announcementFields.toString());
     final announcementFormData = FormData.fromMap(announcementFields);
 
     return announcementFormData;
