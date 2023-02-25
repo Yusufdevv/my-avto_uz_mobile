@@ -156,7 +156,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     setState(() {});
                   },
                   textInputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.allow(RegExp(r'[\da-zA-Z!@#$&*~]')),
+                    FilteringTextInputFormatter.allow(
+                        RegExp(r'[\da-zA-Z!@#$&*~]')),
                   ],
                   hintText: LocaleKeys.password.tr(),
                   controller: passwordController,

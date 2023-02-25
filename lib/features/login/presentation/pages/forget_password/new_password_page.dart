@@ -53,160 +53,161 @@ class _LoginNewPasswordPageState extends State<LoginNewPasswordPage> {
 
   @override
   Widget build(BuildContext context) => CustomScreen(
-    child: KeyboardDismisser(
-      child: BlocProvider.value(
-        value: newPasswordBloc,
-        child: BlocConsumer<NewPasswordBloc, NewPasswordState>(
-          listener: (context, state) {
-            if (state.status == FormzStatus.submissionCanceled) {
-              var error = state.toastMessage;
-              if (error.toLowerCase().contains('dio') ||
-                  error.toLowerCase().contains('type')) {
-                error = LocaleKeys.service_error.tr();
-              }
-              context.read<ShowPopUpBloc>().add(ShowPopUp(
-                    message: error,
-                    status: PopStatus.error,
-                  ));
-            }
-            if (state.status == FormzStatus.submissionSuccess) {
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  fade(
-                    page: BlocProvider(
-                      create: (c) => RegisterBloc(
-                        sendCodeUseCase: SendCodeUseCase(),
-                        registerUseCase: RegisterUseCase(),
-                        verifyCodeUseCase: VerifyCodeUseCase(),
+        child: KeyboardDismisser(
+          child: BlocProvider.value(
+            value: newPasswordBloc,
+            child: BlocConsumer<NewPasswordBloc, NewPasswordState>(
+              listener: (context, state) {
+                if (state.status == FormzStatus.submissionCanceled) {
+                  var error = state.toastMessage;
+                  if (error.toLowerCase().contains('dio') ||
+                      error.toLowerCase().contains('type')) {
+                    error = LocaleKeys.service_error.tr();
+                  }
+                  context.read<ShowPopUpBloc>().add(ShowPopUp(
+                        message: error,
+                        status: PopStatus.error,
+                      ));
+                }
+                if (state.status == FormzStatus.submissionSuccess) {
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      fade(
+                        page: BlocProvider(
+                          create: (c) => RegisterBloc(
+                            sendCodeUseCase: SendCodeUseCase(),
+                            registerUseCase: RegisterUseCase(),
+                            verifyCodeUseCase: VerifyCodeUseCase(),
+                          ),
+                          child: const LoginScreen(),
+                        ),
                       ),
-                      child: const LoginScreen(),
+                      (route) => false);
+                }
+              },
+              builder: (context, state) => CustomScreen(
+                child: Scaffold(
+                  backgroundColor: white,
+                  appBar: WAppBar(
+                    title: LocaleKeys.forgot_password.tr(),
+                    boxShadow: [
+                      BoxShadow(
+                          offset: const Offset(0, 4),
+                          blurRadius: 16,
+                          color: darkGray.withOpacity(0.08)),
+                      BoxShadow(
+                          offset: const Offset(0, -1),
+                          color: darkGray.withOpacity(0.08))
+                    ],
+                  ),
+                  body: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        LoginHeader(
+                          title: LocaleKeys.new_password.tr(),
+                          description:
+                              LocaleKeys.create_password_a_no_forget.tr(),
+                        ),
+                        const SizedBox(height: 36),
+                        ZTextFormField(
+                          onChanged: (value) {
+                            setState(() {});
+                          },
+                          textInputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.allow(
+                                RegExp(r'[\da-zA-Z!@#$&*~]')),
+                          ],
+                          isObscure: true,
+                          hintText: LocaleKeys.new_password.tr(),
+                          controller: newPasswordController,
+                          hintTextStyle: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(
+                                  fontSize: 14,
+                                  color: warmerGrey,
+                                  fontWeight: FontWeight.w400),
+                          textStyle: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(
+                                  fontSize: 14, fontWeight: FontWeight.w400),
+                        ),
+                        const SizedBox(height: 16),
+                        ZTextFormField(
+                          onChanged: (value) {
+                            setState(() {});
+                          },
+                          textInputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.allow(
+                                RegExp('[0-9a-zA-Z]')),
+                          ],
+                          isObscure: true,
+                          hintText: LocaleKeys.confirm_password.tr(),
+                          controller: confirmPasswordController,
+                          hintTextStyle: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(
+                                  fontSize: 14,
+                                  color: warmerGrey,
+                                  fontWeight: FontWeight.w400),
+                          textStyle: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(
+                                  fontSize: 14, fontWeight: FontWeight.w400),
+                        ),
+                        const SizedBox(height: 36),
+                        WButton(
+                          isLoading:
+                              state.status == FormzStatus.submissionInProgress,
+                          onTap: () {
+                            if (newPasswordController.text.length >= 6 &&
+                                confirmPasswordController.text.length >= 6) {
+                              if (newPasswordController.text ==
+                                  confirmPasswordController.text) {
+                                newPasswordBloc.add(
+                                  NewPasswordEvent(
+                                      password: newPasswordController.text),
+                                );
+                              } else {
+                                context.read<ShowPopUpBloc>().add(ShowPopUp(
+                                      message:
+                                          LocaleKeys.passwords_didnt_match.tr(),
+                                      status: PopStatus.error,
+                                    ));
+                              }
+                            } else {
+                              context.read<ShowPopUpBloc>().add(
+                                    ShowPopUp(
+                                        message:
+                                            LocaleKeys.password_must_6.tr(),
+                                        status: PopStatus.error),
+                                  );
+                            }
+                          },
+                          margin: EdgeInsets.only(
+                              bottom:
+                                  4 + MediaQuery.of(context).padding.bottom),
+                          color: (newPasswordController.text.length < 6 &&
+                                  confirmPasswordController.text.length < 6)
+                              ? Theme.of(context)
+                                  .extension<ThemedColors>()!
+                                  .veryLightGreyToEclipse
+                              : orange,
+                          text: LocaleKeys.continuee.tr(),
+                          border: Border.all(width: 1, color: white),
+                        ),
+                      ],
                     ),
                   ),
-                  (route) => false);
-            }
-          },
-          builder: (context, state) => CustomScreen(
-            child: Scaffold(
-              backgroundColor: white,
-              appBar: WAppBar(
-                title: LocaleKeys.forgot_password.tr(),
-                boxShadow: [
-                  BoxShadow(
-                      offset: const Offset(0, 4),
-                      blurRadius: 16,
-                      color: darkGray.withOpacity(0.08)),
-                  BoxShadow(
-                      offset: const Offset(0, -1),
-                      color: darkGray.withOpacity(0.08))
-                ],
-              ),
-              body: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    LoginHeader(
-                      title: LocaleKeys.new_password.tr(),
-                      description:
-                          LocaleKeys.create_password_a_no_forget.tr(),
-                    ),
-                    const SizedBox(height: 36),
-                    ZTextFormField(
-                      onChanged: (value) {
-                        setState(() {});
-                      },
-                      textInputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.allow(RegExp(r'[\da-zA-Z!@#$&*~]')),
-                      ],
-                      isObscure: true,
-                      hintText: LocaleKeys.new_password.tr(),
-                      controller: newPasswordController,
-                      hintTextStyle: Theme.of(context)
-                          .textTheme
-                          .titleMedium!
-                          .copyWith(
-                              fontSize: 14,
-                              color: warmerGrey,
-                              fontWeight: FontWeight.w400),
-                      textStyle: Theme.of(context)
-                          .textTheme
-                          .titleMedium!
-                          .copyWith(
-                              fontSize: 14, fontWeight: FontWeight.w400),
-                    ),
-                    const SizedBox(height: 16),
-                    ZTextFormField(
-                      onChanged: (value) {
-                        setState(() {});
-                      },
-                      textInputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.allow(RegExp('[0-9a-zA-Z]')),
-                      ],
-                      isObscure: true,
-                      hintText: LocaleKeys.confirm_password.tr(),
-                      controller: confirmPasswordController,
-                      hintTextStyle: Theme.of(context)
-                          .textTheme
-                          .titleMedium!
-                          .copyWith(
-                              fontSize: 14,
-                              color: warmerGrey,
-                              fontWeight: FontWeight.w400),
-                      textStyle: Theme.of(context)
-                          .textTheme
-                          .titleMedium!
-                          .copyWith(
-                              fontSize: 14, fontWeight: FontWeight.w400),
-                    ),
-                    const SizedBox(height: 36),
-                    WButton(
-                      isLoading: state.status ==
-                          FormzStatus.submissionInProgress,
-                      onTap: () {
-                        if (newPasswordController.text.length >= 6 &&
-                            confirmPasswordController.text.length >= 6) {
-                          if (newPasswordController.text ==
-                              confirmPasswordController.text) {
-                            newPasswordBloc.add(
-                              NewPasswordEvent(
-                                  password: newPasswordController.text),
-                            );
-                          } else {
-                            context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                  message: LocaleKeys
-                                      .passwords_didnt_match
-                                      .tr(),
-                                  status: PopStatus.error,
-                                ));
-                          }
-                        } else {
-                          context.read<ShowPopUpBloc>().add(
-                                ShowPopUp(
-                                    message:
-                                        LocaleKeys.password_must_6.tr(),
-                                    status: PopStatus.error),
-                              );
-                        }
-                      },
-                      margin: EdgeInsets.only(
-                          bottom:
-                              4 + MediaQuery.of(context).padding.bottom),
-                      color: (newPasswordController.text.length < 6 &&
-                              confirmPasswordController.text.length < 6)
-                          ? Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .veryLightGreyToEclipse
-                          : orange,
-                      text: LocaleKeys.continuee.tr(),
-                      border: Border.all(width: 1, color: white),
-                    ),
-                  ],
                 ),
               ),
             ),
           ),
         ),
-      ),
-    ),
-  );
+      );
 }

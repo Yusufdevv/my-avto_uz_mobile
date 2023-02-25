@@ -53,8 +53,8 @@ class AuthenticationBloc
       }
     });
     on<LoginWithAppLe>((event, emit) async {
-      print('call call')
-;      final credential = await SignInWithApple.getAppleIDCredential(
+      print('call call');
+      final credential = await SignInWithApple.getAppleIDCredential(
           scopes: [
             AppleIDAuthorizationScopes.email,
             AppleIDAuthorizationScopes.fullName,
@@ -106,7 +106,7 @@ class AuthenticationBloc
             emit(AuthenticationState.cancelLoading());
           }
         });
-      // ignore: avoid_catches_without_on_clauses
+        // ignore: avoid_catches_without_on_clauses
       } catch (error) {
         log('error: $error');
       }

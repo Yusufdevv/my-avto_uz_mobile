@@ -114,7 +114,7 @@ class CarModelItem extends StatelessWidget {
                       ? LocaleKeys.show_offers.tr(args: [
                           MyFunctions.getThousandsSeparatedPrice('$count')
                         ], namedArgs: {
-                          'apendix' : MyFunctions.getAppendix(count)
+                          'apendix': MyFunctions.getAppendix(count)
                         })
                       : LocaleKeys.no_offers.tr(),
               textStyle: Theme.of(context).textTheme.titleLarge!.copyWith(

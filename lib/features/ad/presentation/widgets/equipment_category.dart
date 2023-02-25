@@ -57,7 +57,7 @@ class EquipmentCategory extends StatelessWidget {
                       items: options[index].items,
                     ),
                   ).then((value) {
-                    if(value != null) {
+                    if (value != null) {
                       onTap(index, value.keys.first, value.values.first);
                     }
                   });

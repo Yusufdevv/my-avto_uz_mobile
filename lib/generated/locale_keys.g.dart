@@ -546,6 +546,6 @@ abstract class  LocaleKeys {
   static const info_replacement_not_required = 'info_replacement_not_required';
   static const info_replacement_required = 'info_replacement_required';
   static const not_necessary = 'not_necessary';
-  static const other = 'other';
+  static const other1 = 'other1';
 
 }

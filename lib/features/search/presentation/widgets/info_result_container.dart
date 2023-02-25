@@ -74,7 +74,6 @@ class InfoResultContainer extends StatefulWidget {
 }
 
 class _InfoResultContainerState extends State<InfoResultContainer> {
-
   @override
   Widget build(BuildContext context) => GestureDetector(
         onTap: () {

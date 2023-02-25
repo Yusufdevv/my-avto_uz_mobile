@@ -116,13 +116,15 @@ abstract class AdRepository {
     int? modelId,
   });
 
-  Future<Either<Failure, GenericPagination<EquipmentOptionsListEntity>>> getEquipmentOptionsList({
+  Future<Either<Failure, GenericPagination<EquipmentOptionsListEntity>>>
+      getEquipmentOptionsList({
     String? search,
     int? limit,
     int? offset,
   });
 
-  Future<Either<Failure, GenericPagination<EquipmentOptionsEntity>>> getEquipmentOptions({
+  Future<Either<Failure, GenericPagination<EquipmentOptionsEntity>>>
+      getEquipmentOptions({
     String? search,
     int? limit,
     int? offset,

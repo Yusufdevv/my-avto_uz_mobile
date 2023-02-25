@@ -9,13 +9,50 @@ class PASingleton {
   static Future<FormData> create(PostingAdState v) async {
     List<String> radios = [];
     List<String> selects = [];
+    bool deleted = false;
     for (int i = 0; i < v.equipmentOptionsList.length; i++) {
       for (int j = 0; j < v.equipmentOptionsList[i].options.length; j++) {
-        if (v.equipmentOptionsList[i].options[j].selected != v.equipmentOptionsListPrev[i].options[j].selected) {
+        if (v.equipmentOptionsList[i].options[j].selected !=
+            v.equipmentOptionsListPrev[i].options[j].selected) {
+          if (v.equipmentOptionsListPrev[i].options[j].selected) {
+            deleted = true;
+          } else {
+            radios.add(v.equipmentOptionsList[i].options[j].id.toString());
+          }
+        } else {
           radios.add(v.equipmentOptionsList[i].options[j].id.toString());
         }
-        if (v.equipmentOptionsList[i].options[j].selectedInfo != v.equipmentOptionsListPrev[i].options[j].selectedInfo) {
-          selects.add(v.equipmentOptionsList[i].options[j].selectedInfo.keys.first.toString());
+        //{32: a} {23:45}
+        if (v.equipmentOptionsList[i].options[j].selectedInfo.isNotEmpty !=
+            v.equipmentOptionsListPrev[i].options[j].selectedInfo.isNotEmpty) {
+          if (v.equipmentOptionsList[i].options[j].selectedInfo.isNotEmpty) {
+            selects.add(v
+                .equipmentOptionsList[i].options[j].selectedInfo.keys.first
+                .toString());
+          } else {
+            deleted = true;
+          }
+        } else {
+          if (v.equipmentOptionsList[i].options[j].selectedInfo.isNotEmpty) {
+            selects.add(v
+                .equipmentOptionsList[i].options[j].selectedInfo.keys.first
+                .toString());
+            if (v.equipmentOptionsListPrev[i].options[j].selectedInfo
+                .isNotEmpty) {
+              if (v.equipmentOptionsList[i].options[j].selectedInfo.keys
+                      .first ==
+                  v.equipmentOptionsListPrev[i].options[j].selectedInfo.keys
+                      .first) {
+              } else {
+                deleted = true;
+              }
+            }
+          } else {
+            if (v.equipmentOptionsListPrev[i].options[j].selectedInfo
+                .isNotEmpty) {
+              deleted = true;
+            }
+          }
         }
       }
     }
@@ -60,7 +97,7 @@ class PASingleton {
       'rent_with_purchase': v.rentWithPurchaseConditions.entries
           .map((e) => e.value.toApi())
           .toList(),
-      'equipment': radios.isEmpty && selects.isEmpty ? v.equipmentId : null,
+      'equipment': !deleted ? v.equipmentId : null,
       'gas_equipment': v.gasEquipmentId,
       'options': radios,
       'options_items': selects,

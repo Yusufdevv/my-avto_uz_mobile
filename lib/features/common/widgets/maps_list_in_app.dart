@@ -16,29 +16,29 @@ class MapsListInApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SafeArea(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 20),
-          child: SizedBox(
-            child: Wrap(
-              children: <Widget>[
-                for (var map in availableMaps)
-                  ListTile(
-                    onTap: () => map.showMarker(
-                      coords: coords,
-                      title: title,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 20),
+            child: SizedBox(
+              child: Wrap(
+                children: <Widget>[
+                  for (var map in availableMaps)
+                    ListTile(
+                      onTap: () => map.showMarker(
+                        coords: coords,
+                        title: title,
+                      ),
+                      title: Text(map.mapName),
+                      leading: SvgPicture.asset(
+                        map.icon,
+                        height: 30,
+                        width: 30,
+                      ),
                     ),
-                    title: Text(map.mapName),
-                    leading: SvgPicture.asset(
-                      map.icon,
-                      height: 30,
-                      width: 30,
-                    ),
-                  ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
-      ),
-    );
+      );
 }

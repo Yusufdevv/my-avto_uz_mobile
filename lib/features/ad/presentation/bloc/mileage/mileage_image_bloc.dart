@@ -21,7 +21,8 @@ class MileageImageBloc extends Bloc<MileageImageEvent, MileageImageState> {
       final permission =
           await MyFunctions.getCameraPermission(Platform.isAndroid);
       if (permission.isGranted) {
-        final image = await imagePicker.pickImage(source: ImageSource.camera, imageQuality: 90);
+        final image = await imagePicker.pickImage(
+            source: ImageSource.camera, imageQuality: 90);
         if (image != null) {
           emit(state.copyWith(image: image.path));
         }

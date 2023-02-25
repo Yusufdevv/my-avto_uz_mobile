@@ -60,18 +60,16 @@ class CarSellerCard extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       if (userType == 'owner') {
-                                Navigator.of(context).push(fade(
-                                    page: UserSinglePage(
-                                  userId: userId,
-                                  announcementId: announcementId,
-                                )));
-                              }
-                              if (userType == 'dealer' &&
-                                   slug.isNotEmpty) {
-                                Navigator.of(context).push(fade(
-                                    page: DealerSinglePage(
-                                        slug:  slug)));
-                              }
+                        Navigator.of(context).push(fade(
+                            page: UserSinglePage(
+                          userId: userId,
+                          announcementId: announcementId,
+                        )));
+                      }
+                      if (userType == 'dealer' && slug.isNotEmpty) {
+                        Navigator.of(context)
+                            .push(fade(page: DealerSinglePage(slug: slug)));
+                      }
                     },
                     child: Row(
                       children: [

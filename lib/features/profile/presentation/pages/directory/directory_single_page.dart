@@ -46,7 +46,8 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
             builder: (context, state) {
               if (state.status.isSubmissionSuccess) {
                 final directory = state.directory;
-                final direCategory = DirCategoryEntity.fromJson(state.directory.category);
+                final direCategory =
+                    DirCategoryEntity.fromJson(state.directory.category);
                 return NestedScrollView(
                   headerSliverBuilder: (context, innerBoxIsScrolled) =>
                       <Widget>[

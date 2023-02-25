@@ -47,7 +47,7 @@ class EquipmentScreen extends StatelessWidget {
                                     : -1)),
                         title: index < state.equipments.length
                             ? state.equipments[index].name
-                            : LocaleKeys.other.tr(),
+                            : LocaleKeys.other1.tr(),
                         selected: index < state.equipments.length
                             ? state.equipmentId == state.equipments[index].id
                             : state.equipmentId == -1,

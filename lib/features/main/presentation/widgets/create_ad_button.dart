@@ -42,7 +42,6 @@ class CreateAdButton extends StatelessWidget {
         color: orange,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-
           children: [
             SvgPicture.asset(AppIcons.whitePlusCircle),
             const SizedBox(width: 12),

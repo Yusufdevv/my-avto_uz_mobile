@@ -17,7 +17,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddPhotoItem extends StatefulWidget {
-
   const AddPhotoItem({Key? key}) : super(key: key);
 
   @override
@@ -127,10 +126,7 @@ class _AddPhotoItemState extends State<AddPhotoItem> {
       type = ImageSource.camera;
     }
 
-    final image = await _picker.pickImage(
-      source: type,
-      imageQuality: 90
-    );
+    final image = await _picker.pickImage(source: type, imageQuality: 90);
     return image?.path;
   }
 

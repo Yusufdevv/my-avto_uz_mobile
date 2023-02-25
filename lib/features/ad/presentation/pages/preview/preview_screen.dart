@@ -41,7 +41,8 @@ class PreviewScreen extends StatelessWidget {
                           text:
                               '${state.price} ${state.currency == 'uzs' ? LocaleKeys.sum.tr().toUpperCase() : 'USD'}'),
                       const SizedBox(height: 12),
-                      DateAndViewsRow(date: MyFunctions.getData(state.purchasedDate!)),
+                      DateAndViewsRow(
+                          date: MyFunctions.getData(state.purchasedDate!)),
                       const SizedBox(height: 8),
                       //
                       if (state.id != null) IdRow(id: state.id ?? ''),

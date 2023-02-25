@@ -85,7 +85,8 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                                 '${state.announcementList[index].make} ${state.announcementList[index].model} ${state.announcementList[index].generation}',
                             hasDiscount:
                                 state.announcementList[index].discount != 0,
-                            location: state.announcementList[index].region.title,
+                            location:
+                                state.announcementList[index].region.title,
                             owner: state.announcementList[index].user.name
                                     .isNotEmpty
                                 ? state.announcementList[index].user.name

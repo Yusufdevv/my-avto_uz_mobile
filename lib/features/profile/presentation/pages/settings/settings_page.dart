@@ -109,7 +109,8 @@ class _SettingsPageState extends State<SettingsPage> {
                             constraints: BoxConstraints(
                                 minWidth: MediaQuery.of(context).size.width),
                             builder: (context) =>
-                                const LanguageBottomSheet()).then((value) async {
+                                const LanguageBottomSheet()).then(
+                            (value) async {
                           if (value is String) {
                             await context.setLocale(Locale(value.toString()));
                             setState(() {});

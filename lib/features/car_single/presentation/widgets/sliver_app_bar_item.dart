@@ -169,7 +169,7 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                           name: widget.dealerName,
                           position: widget.position,
                           image: widget.avatar ?? '',
-                          onShare: () {   
+                          onShare: () {
                             Share.share(
                               widget.shareUrl,
                             );

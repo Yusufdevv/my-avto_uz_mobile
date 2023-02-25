@@ -13,7 +13,12 @@ class TokenModel {
   @JsonKey(name: 'refresh_token', defaultValue: '')
   final String refreshToken;
 
-  TokenModel({required this.access, required this.refresh,required this.accessToken, required this.refreshToken});
+  TokenModel(
+      {required this.access,
+      required this.refresh,
+      required this.accessToken,
+      required this.refreshToken});
 
-  factory TokenModel.fromJson(Map<String, dynamic> json) => _$TokenModelFromJson(json);
+  factory TokenModel.fromJson(Map<String, dynamic> json) =>
+      _$TokenModelFromJson(json);
 }

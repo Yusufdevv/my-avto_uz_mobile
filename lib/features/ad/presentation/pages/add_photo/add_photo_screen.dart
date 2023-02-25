@@ -100,25 +100,29 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                         children: [
                           PhotoItem(
                             images: state.images,
-                            onTap:state.images.length<20 ? () async {
-                              await showModalBottomSheet<ImageSource>(
-                                  backgroundColor: Colors.transparent,
-                                  context: context,
-                                  useRootNavigator: true,
-                                  builder: (context) =>
-                                      const CameraBottomSheet()).then((value) {
-                                if (value != null) {
-                                  imageBloc.add(PickImage(source: value));
-                                }
-                              });
-                            } : (){
-                              context.read<PostingAdBloc>().add(
-                                PostingAdShowToastEvent(
-                                  message: "20 tadan ortiq rasm qo'ya olmaysiz",
-                                  status: PopStatus.warning,
-                                ),
-                              );
-                            },
+                            onTap: state.images.length < 20
+                                ? () async {
+                                    await showModalBottomSheet<ImageSource>(
+                                            backgroundColor: Colors.transparent,
+                                            context: context,
+                                            useRootNavigator: true,
+                                            builder: (context) =>
+                                                const CameraBottomSheet())
+                                        .then((value) {
+                                      if (value != null) {
+                                        imageBloc.add(PickImage(source: value));
+                                      }
+                                    });
+                                  }
+                                : () {
+                                    context.read<PostingAdBloc>().add(
+                                          PostingAdShowToastEvent(
+                                            message:
+                                                "20 tadan ortiq rasm qo'ya olmaysiz",
+                                            status: PopStatus.warning,
+                                          ),
+                                        );
+                                  },
                           ),
                           const SizedBox(height: 16),
                           Padding(
@@ -133,16 +137,19 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                           ),
                           PhotoItem(
                             images: state.panaramaImages,
-                            onTap:state.panaramaImages.length<10 ? () async {
-                              imageBloc.add(PickPanaramaImageEvent());
-                            } : (){
-                              context.read<PostingAdBloc>().add(
-                                PostingAdShowToastEvent(
-                                  message: "20 tadan ortiq rasm qo'ya olmaysiz",
-                                  status: PopStatus.warning,
-                                ),
-                              );
-                            },
+                            onTap: state.panaramaImages.length < 10
+                                ? () async {
+                                    imageBloc.add(PickPanaramaImageEvent());
+                                  }
+                                : () {
+                                    context.read<PostingAdBloc>().add(
+                                          PostingAdShowToastEvent(
+                                            message:
+                                                "20 tadan ortiq rasm qo'ya olmaysiz",
+                                            status: PopStatus.warning,
+                                          ),
+                                        );
+                                  },
                           ),
                           const SizedBox(height: 64)
                         ],

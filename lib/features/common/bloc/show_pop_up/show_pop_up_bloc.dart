@@ -31,7 +31,7 @@ class ShowPopUpBloc extends Bloc<ShowPopUpEvent, ShowPopUpState> {
         }
       });
     });
-    
+
     on<HidePopUp>((event, emit) {
       if (timer.isActive) {
         timer.cancel();

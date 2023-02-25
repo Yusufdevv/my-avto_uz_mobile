@@ -253,7 +253,10 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                   .singleEntity.priceAnalytics.averagePrice,
                               ration: state
                                   .singleEntity.priceAnalytics.priceDifference,
-                              dateBsh: DateFormat('d MMMM', StorageRepository.getString('language'),).format(DateTime.now()),
+                              dateBsh: DateFormat(
+                                'd MMMM',
+                                StorageRepository.getString('language'),
+                              ).format(DateTime.now()),
                               percent: MyFunctions.getFormatCost(
                                   '${100 - state.singleEntity.priceAnalytics.percentage}'),
                               isMine: state.singleEntity.isMine,

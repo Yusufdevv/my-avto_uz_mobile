@@ -64,9 +64,7 @@ void main() {
         child: const AppProvider(),
       ),
     );
-  }, (error, stack) => {
-
-  });
+  }, (error, stack) => {});
 }
 
 class AppProvider extends StatefulWidget {

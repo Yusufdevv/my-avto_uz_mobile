@@ -126,8 +126,9 @@ class CarPriceBottom extends StatelessWidget {
             CarsPrice(
               date: LocaleKeys.ratio.tr(),
               price: LocaleKeys.cheaper_sc.tr(),
-              totalPrice: LocaleKeys.on
-                  .tr(args: ['${MyFunctions.getFormatCost(ration.ceil().toString())} $currency ($percent%)']),
+              totalPrice: LocaleKeys.on.tr(args: [
+                '${MyFunctions.getFormatCost(ration.ceil().toString())} $currency ($percent%)'
+              ]),
               // 'на $ration ($percent %)',
               textColor: const Color(0xff5ECC81),
             ),

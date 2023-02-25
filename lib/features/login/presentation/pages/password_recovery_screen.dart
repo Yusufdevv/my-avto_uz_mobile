@@ -62,189 +62,186 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
   bool isError = false;
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
-    child: Scaffold(
-      backgroundColor: white,
-      appBar: WAppBar(
-        title: LocaleKeys.forgot_password.tr(),
-        boxShadow: [
-          BoxShadow(
-              offset: const Offset(0, 4),
-              blurRadius: 16,
-              color: darkGray.withOpacity(0.08)),
-          BoxShadow(
-              offset: const Offset(0, -1),
-              color: darkGray.withOpacity(0.08))
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            LoginHeader(
-              title: LocaleKeys.recovery_password.tr(),
-              description: LocaleKeys.enter_password_sms.tr(),
-            ),
-            const SizedBox(height: 12),
-            Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: Theme.of(context)
-                      .extension<ThemedColors>()!
-                      .solitudeToBastille),
-              child: Text(
-                '+998 ${widget.phone.replaceAll(' ', '')}',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge!
-                    .copyWith(fontWeight: FontWeight.w400, fontSize: 14),
-              ),
-            ),
-            const SizedBox(height: 35),
-            PinCodeTextField(
-              onChanged: (value) {
-                setState(() {
-                  isError = false;
-                });
-              },
-              controller: passwordRecoveryController,
-              length: 6,
-              pinTheme: PinTheme(
-                inactiveColor: Theme.of(context)
-                    .extension<ThemedColors>()!
-                    .solitudeToWhite35,
-                errorBorderColor: red,
-                activeColor: isError ? red : purple,
-                activeFillColor: isError ? red : purple,
-                selectedColor: isError ? red : purple,
-                shape: PinCodeFieldShape.underline,
-                fieldHeight: 44,
-                fieldWidth: 50,
-                borderWidth: 1,
-              ),
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.allow(RegExp(r'[\da-zA-Z!@#$&*~]')),
-              ],
-              cursorColor: black,
-              cursorWidth: 1,
-              cursorHeight: 31,
-              keyboardType: TextInputType.number,
-              enableActiveFill: false,
-              textStyle: Theme.of(context)
-                  .textTheme
-                  .displayLarge!
-                  .copyWith(fontSize: 24, fontWeight: FontWeight.w400),
-              hintStyle: Theme.of(context)
-                  .textTheme
-                  .bodyMedium!
-                  .copyWith(fontSize: 4),
-              appContext: context,
-              showCursor: true,
-            ),
-            const SizedBox(height: 18),
-            Row(
+        child: Scaffold(
+          backgroundColor: white,
+          appBar: WAppBar(
+            title: LocaleKeys.forgot_password.tr(),
+            boxShadow: [
+              BoxShadow(
+                  offset: const Offset(0, 4),
+                  blurRadius: 16,
+                  color: darkGray.withOpacity(0.08)),
+              BoxShadow(
+                  offset: const Offset(0, -1),
+                  color: darkGray.withOpacity(0.08))
+            ],
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(LocaleKeys.send_via_password.tr(),
+                LoginHeader(
+                  title: LocaleKeys.recovery_password.tr(),
+                  description: LocaleKeys.enter_password_sms.tr(),
+                ),
+                const SizedBox(height: 12),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .solitudeToBastille),
+                  child: Text(
+                    '+998 ${widget.phone.replaceAll(' ', '')}',
                     style: Theme.of(context)
                         .textTheme
                         .titleLarge!
-                        .copyWith(
-                            fontSize: 14, fontWeight: FontWeight.w400)),
-                const SizedBox(width: 6),
-                if (timeComplete)
-                  Container(
-                    height: 24,
-                    width: 24,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4),
-                        color: solitude),
-                    child: Center(
-                      child: RefreshButton(
-                        filteredPhone: widget.phone,
-                        onSucces: () {
-                          setState(() {
-                            timeComplete = false;
-                          });
-                        },
-                      ),
-                    ),
-                  )
-                else
-                  Container(
-                    height: 21,
-                    width: 41,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4),
-                        color: orange.withOpacity(0.1)),
-                    child: TimeCounter(
-                      onComplete: () {
-                        setState(() {
-                          timeComplete = true;
-                        });
-                      },
-                    ),
+                        .copyWith(fontWeight: FontWeight.w400, fontSize: 14),
                   ),
+                ),
+                const SizedBox(height: 35),
+                PinCodeTextField(
+                  onChanged: (value) {
+                    setState(() {
+                      isError = false;
+                    });
+                  },
+                  controller: passwordRecoveryController,
+                  length: 6,
+                  pinTheme: PinTheme(
+                    inactiveColor: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .solitudeToWhite35,
+                    errorBorderColor: red,
+                    activeColor: isError ? red : purple,
+                    activeFillColor: isError ? red : purple,
+                    selectedColor: isError ? red : purple,
+                    shape: PinCodeFieldShape.underline,
+                    fieldHeight: 44,
+                    fieldWidth: 50,
+                    borderWidth: 1,
+                  ),
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(
+                        RegExp(r'[\da-zA-Z!@#$&*~]')),
+                  ],
+                  cursorColor: black,
+                  cursorWidth: 1,
+                  cursorHeight: 31,
+                  keyboardType: TextInputType.number,
+                  enableActiveFill: false,
+                  textStyle: Theme.of(context)
+                      .textTheme
+                      .displayLarge!
+                      .copyWith(fontSize: 24, fontWeight: FontWeight.w400),
+                  hintStyle: Theme.of(context)
+                      .textTheme
+                      .bodyMedium!
+                      .copyWith(fontSize: 4),
+                  appContext: context,
+                  showCursor: true,
+                ),
+                const SizedBox(height: 18),
+                Row(
+                  children: [
+                    Text(LocaleKeys.send_via_password.tr(),
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                            fontSize: 14, fontWeight: FontWeight.w400)),
+                    const SizedBox(width: 6),
+                    if (timeComplete)
+                      Container(
+                        height: 24,
+                        width: 24,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                            color: solitude),
+                        child: Center(
+                          child: RefreshButton(
+                            filteredPhone: widget.phone,
+                            onSucces: () {
+                              setState(() {
+                                timeComplete = false;
+                              });
+                            },
+                          ),
+                        ),
+                      )
+                    else
+                      Container(
+                        height: 21,
+                        width: 41,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                            color: orange.withOpacity(0.1)),
+                        child: TimeCounter(
+                          onComplete: () {
+                            setState(() {
+                              timeComplete = true;
+                            });
+                          },
+                        ),
+                      ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 36),
+                  child: WButton(
+                    onTap: () {
+                      recoveryBloc.add(
+                        RecoveryEvent.verifyCode(
+                          VerifyParam(
+                              phone: widget.phone,
+                              code: passwordRecoveryController.text,
+                              session: sessions),
+                          onSuccess: () {
+                            Navigator.pushReplacement(
+                              context,
+                              fade(
+                                page: BlocProvider.value(
+                                  value: recoveryBloc,
+                                  child: NewPasswordScreen(
+                                    onSubmit: (password, confirmPassword) {
+                                      recoveryBloc.add(
+                                        RecoveryEvent.changePassword(
+                                          password: password,
+                                          onSuccess: () {
+                                            context
+                                                .read<AuthenticationBloc>()
+                                                .add(AuthenticationStatusChanged(
+                                                    status: AuthenticationStatus
+                                                        .authenticated));
+                                          },
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    },
+                    margin: EdgeInsets.only(
+                        bottom: 4 + MediaQuery.of(context).padding.bottom),
+                    color: (passwordRecoveryController.text.isNotEmpty)
+                        ? orange
+                        : Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .veryLightGreyToEclipse,
+                    text: LocaleKeys.continuee.tr(),
+                    border: Border.all(width: 1, color: white),
+                  ),
+                ),
+                const Spacer(),
+                const SignInWithSocials(),
+                const SizedBox(height: 42)
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 36),
-              child: WButton(
-                onTap: () {
-                  recoveryBloc.add(
-                    RecoveryEvent.verifyCode(
-                      VerifyParam(
-                          phone: widget.phone,
-                          code: passwordRecoveryController.text,
-                          session: sessions),
-                      onSuccess: () {
-                        Navigator.pushReplacement(
-                          context,
-                          fade(
-                            page: BlocProvider.value(
-                              value: recoveryBloc,
-                              child: NewPasswordScreen(
-                                onSubmit: (password, confirmPassword) {
-                                  recoveryBloc.add(
-                                    RecoveryEvent.changePassword(
-                                      password: password,
-                                      onSuccess: () {
-                                        context
-                                            .read<AuthenticationBloc>()
-                                            .add(AuthenticationStatusChanged(
-                                                status:
-                                                    AuthenticationStatus
-                                                        .authenticated));
-                                      },
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  );
-                },
-                margin: EdgeInsets.only(
-                    bottom: 4 + MediaQuery.of(context).padding.bottom),
-                color: (passwordRecoveryController.text.isNotEmpty)
-                    ? orange
-                    : Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .veryLightGreyToEclipse,
-                text: LocaleKeys.continuee.tr(),
-                border: Border.all(width: 1, color: white),
-              ),
-            ),
-            const Spacer(),
-            const SignInWithSocials(),
-            const SizedBox(height: 42)
-          ],
+          ),
         ),
-      ),
-    ),
-  );
+      );
 }

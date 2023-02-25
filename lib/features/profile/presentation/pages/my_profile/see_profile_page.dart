@@ -42,8 +42,8 @@ class SeeProfilePage extends StatelessWidget {
                   state.status.isSubmissionFailure) {
                 return Container(
                   margin: const EdgeInsets.only(top: 16),
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 24, horizontal: 16),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
                   decoration: BoxDecoration(
                       borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(20),
@@ -57,7 +57,7 @@ class SeeProfilePage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Spacer(),
-                         const SizedBox(width: 44),
+                          const SizedBox(width: 44),
                           ClipRRect(
                             borderRadius: BorderRadius.circular(50),
                             child: CachedNetworkImage(
@@ -79,8 +79,7 @@ class SeeProfilePage extends StatelessWidget {
                             child: Container(
                                 padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(10),
                                   color: Theme.of(context)
                                       .extension<ThemedColors>()!
                                       .borderGreyToDark,
@@ -101,17 +100,16 @@ class SeeProfilePage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      if(state.profileEntity.fullName!=null)
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 16, bottom: 2),
-                        child: Text(state.profileEntity.fullName ?? '',
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayLarge!
-                                .copyWith(fontSize: 18)),
-                      ),
-                      if(state.profileEntity.fullName==null)
+                      if (state.profileEntity.fullName != null)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 16, bottom: 2),
+                          child: Text(state.profileEntity.fullName ?? '',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayLarge!
+                                  .copyWith(fontSize: 18)),
+                        ),
+                      if (state.profileEntity.fullName == null)
                         const SizedBox(height: 8),
                       Text(
                           state.profileEntity.usercountdata
@@ -134,19 +132,18 @@ class SeeProfilePage extends StatelessWidget {
                       TextSpacer(
                         title: LocaleKeys.tel_number.tr(),
                         value: state.profileEntity.phoneNumber ?? '',
-                        padding: const EdgeInsets.only(
-                            top: 36, bottom: 16),
+                        padding: const EdgeInsets.only(top: 36, bottom: 16),
                       ),
-                      if(state.profileEntity.region?.title!=null)
-                      TextSpacer(
-                        title: LocaleKeys.region.tr(),
-                        value: state.profileEntity.region?.title ?? '',
-                        padding: const EdgeInsets.only(bottom: 16),
-                      ),
-                      if(state.profileEntity.email!= '')
+                      if (state.profileEntity.region?.title != null)
                         TextSpacer(
-                          title: LocaleKeys.email.tr(),
-                          value: state.profileEntity.email ?? ''),
+                          title: LocaleKeys.region.tr(),
+                          value: state.profileEntity.region?.title ?? '',
+                          padding: const EdgeInsets.only(bottom: 16),
+                        ),
+                      if (state.profileEntity.email != '')
+                        TextSpacer(
+                            title: LocaleKeys.email.tr(),
+                            value: state.profileEntity.email ?? ''),
                       const Spacer(),
                       OrangeButton(
                           content: Row(

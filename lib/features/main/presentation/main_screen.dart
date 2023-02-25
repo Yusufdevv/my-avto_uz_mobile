@@ -295,12 +295,8 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                     const MainMapPart(),
                     const CreateAdButton(),
-                    if (context
-                            .watch<MainBloc>()
-                            .state.stories.isEmpty &&
-                        context
-                            .watch<TopBrandBloc>()
-                            .state.brands.isEmpty) ...{
+                    if (context.watch<MainBloc>().state.stories.isEmpty &&
+                        context.watch<TopBrandBloc>().state.brands.isEmpty) ...{
                       const SizedBox(height: 200),
                     }
                   ],

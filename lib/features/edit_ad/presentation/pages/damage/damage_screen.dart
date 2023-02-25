@@ -186,7 +186,7 @@ class _DamageScreenState extends State<DamageScreen>
                             },
                             position: LocaleKeys.front_bumper.tr(),
                             damageType:
-                            state.damagedParts[DamagedParts.frontBumper]),
+                                state.damagedParts[DamagedParts.frontBumper]),
                       ],
                     ),
                   ),

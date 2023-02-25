@@ -48,129 +48,129 @@ class _SendPhoneNumberPageState extends State<SendPhoneNumberPage> {
 
   @override
   Widget build(BuildContext context) => CustomScreen(
-    child: KeyboardDismisser(
-      child: BlocProvider.value(
-        value: sendPhoneBloc,
-        child: BlocConsumer<SendPhoneBloc, SendPhoneState>(
-          listener: (context, state) {
-            if (state.status == FormzStatus.submissionCanceled) {
-              var error = state.toastMessage;
-              if (error.toLowerCase().contains('dio') ||
-                  error.toLowerCase().contains('type')) {
-                error = LocaleKeys.service_error.tr();
-              }
-              context.read<ShowPopUpBloc>().add(
-                    ShowPopUp(
-                      message: error,
-                      status: PopStatus.error,
+        child: KeyboardDismisser(
+          child: BlocProvider.value(
+            value: sendPhoneBloc,
+            child: BlocConsumer<SendPhoneBloc, SendPhoneState>(
+              listener: (context, state) {
+                if (state.status == FormzStatus.submissionCanceled) {
+                  var error = state.toastMessage;
+                  if (error.toLowerCase().contains('dio') ||
+                      error.toLowerCase().contains('type')) {
+                    error = LocaleKeys.service_error.tr();
+                  }
+                  context.read<ShowPopUpBloc>().add(
+                        ShowPopUp(
+                          message: error,
+                          status: PopStatus.error,
+                        ),
+                      );
+                }
+                if (state.status == FormzStatus.submissionSuccess) {
+                  Navigator.push(
+                    context,
+                    fade(
+                      page: BlocProvider.value(
+                        value: sendPhoneBloc,
+                        child: VerifySmsCodePage(
+                          phone: phoneController.text,
+                          session: state.session,
+                        ),
+                      ),
                     ),
                   );
-            }
-            if (state.status == FormzStatus.submissionSuccess) {
-              Navigator.push(
-                context,
-                fade(
-                  page: BlocProvider.value(
-                    value: sendPhoneBloc,
-                    child: VerifySmsCodePage(
-                      phone: phoneController.text,
-                      session: state.session,
-                    ),
+                }
+              },
+              builder: (context, state) => Scaffold(
+                backgroundColor: white,
+                appBar: WAppBar(
+                  backgroundColor: white,
+                  boxShadow: [
+                    BoxShadow(
+                        offset: const Offset(0, 4),
+                        blurRadius: 16,
+                        color: darkGray.withOpacity(0.08)),
+                    BoxShadow(
+                        offset: const Offset(0, -1),
+                        color: darkGray.withOpacity(0.08))
+                  ],
+                  title: LocaleKeys.forgot_password.tr(),
+                ),
+                body: Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 64, 16, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 64),
+                      Text(
+                        LocaleKeys.recovery_password.tr(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayLarge!
+                            .copyWith(
+                                fontSize: 18, fontWeight: FontWeight.w700),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        LocaleKeys.check_number.tr(),
+                        style: Theme.of(context).textTheme.displayMedium,
+                      ),
+                      const SizedBox(height: 36),
+                      ZTextFormField(
+                        onChanged: (onChanged) {
+                          setState(() {});
+                        },
+                        controller: phoneController,
+                        prefixIcon: Row(
+                          children: [
+                            SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: Image.asset(AppImages.flagUzb2)),
+                            const SizedBox(width: 8),
+                            Text(
+                              '+998',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium!
+                                  .copyWith(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400),
+                            ),
+                          ],
+                        ),
+                        hintTextStyle: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(
+                                fontSize: 14,
+                                color: warmerGrey,
+                                fontWeight: FontWeight.w400),
+                        hintText: '00 000 00 00',
+                        keyBoardType: TextInputType.number,
+                        textInputFormatters: [phoneFormatter],
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(
+                                fontSize: 14, fontWeight: FontWeight.w400),
+                      ),
+                      const SizedBox(height: 36),
+                      WButton(
+                        isLoading:
+                            state.status == FormzStatus.submissionInProgress,
+                        disabledColor: disabledButton,
+                        isDisabled: phoneController.text.length != 12,
+                        text: LocaleKeys.continuee.tr(),
+                        onTap: () => sendPhoneBloc
+                            .add(SendPhoneEvent(phone: phoneController.text)),
+                      ),
+                    ],
                   ),
                 ),
-              );
-            }
-          },
-          builder: (context, state) => Scaffold(
-            backgroundColor: white,
-            appBar: WAppBar(
-              backgroundColor: white,
-              boxShadow: [
-                BoxShadow(
-                    offset: const Offset(0, 4),
-                    blurRadius: 16,
-                    color: darkGray.withOpacity(0.08)),
-                BoxShadow(
-                    offset: const Offset(0, -1),
-                    color: darkGray.withOpacity(0.08))
-              ],
-              title: LocaleKeys.forgot_password.tr(),
-            ),
-            body: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 64, 16, 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 64),
-                  Text(
-                    LocaleKeys.recovery_password.tr(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .displayLarge!
-                        .copyWith(
-                            fontSize: 18, fontWeight: FontWeight.w700),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    LocaleKeys.check_number.tr(),
-                    style: Theme.of(context).textTheme.displayMedium,
-                  ),
-                  const SizedBox(height: 36),
-                  ZTextFormField(
-                    onChanged: (onChanged) {
-                      setState(() {});
-                    },
-                    controller: phoneController,
-                    prefixIcon: Row(
-                      children: [
-                        SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: Image.asset(AppImages.flagUzb2)),
-                        const SizedBox(width: 8),
-                        Text(
-                          '+998',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium!
-                              .copyWith(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400),
-                        ),
-                      ],
-                    ),
-                    hintTextStyle: Theme.of(context)
-                        .textTheme
-                        .titleMedium!
-                        .copyWith(
-                            fontSize: 14,
-                            color: warmerGrey,
-                            fontWeight: FontWeight.w400),
-                    hintText: '00 000 00 00',
-                    keyBoardType: TextInputType.number,
-                    textInputFormatters: [phoneFormatter],
-                    textStyle: Theme.of(context)
-                        .textTheme
-                        .titleMedium!
-                        .copyWith(
-                            fontSize: 14, fontWeight: FontWeight.w400),
-                  ),
-                  const SizedBox(height: 36),
-                  WButton(
-                    isLoading:
-                        state.status == FormzStatus.submissionInProgress,
-                    disabledColor: disabledButton,
-                    isDisabled: phoneController.text.length != 12,
-                    text: LocaleKeys.continuee.tr(),
-                    onTap: () => sendPhoneBloc
-                        .add(SendPhoneEvent(phone: phoneController.text)),
-                  ),
-                ],
               ),
             ),
           ),
         ),
-      ),
-    ),
-  );
+      );
 }
