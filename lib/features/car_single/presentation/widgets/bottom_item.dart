@@ -99,16 +99,39 @@ class BottomItem extends StatelessWidget {
                         )
                   : WButton(
                       onTap: () {
-                        launchUrl(Uri.parse('tel://$phoneNumber'));
-                        context
-                            .read<CarSingleBloc>()
-                            .add(CarSingleEvent.callCount(id));
+                        showModalBottomSheet(
+                          useRootNavigator: true,
+                          isScrollControlled: false,
+                          backgroundColor: Colors.transparent,
+                          context: context,
+                          builder: (context) => DealerTime(
+                            timeTo: callTo,
+                            timeFrom: callFrom,
+                          ),
+                        );
                       },
                       height: 44,
                       borderRadius: 8,
-                      color: const Color(0xff5ECC81),
+                      color: const Color(0xffB5B5BE),
                       text: LocaleKeys.call.tr(),
                       textColor: Colors.white,
+                      child: Row(
+                        children: [
+                          const Spacer(),
+                          SvgPicture.asset(
+                            AppIcons.info,
+                            color: white,
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          Text(
+                            LocaleKeys.call.tr(),
+                            style: const TextStyle(color: border),
+                          ),
+                          const Spacer(),
+                        ],
+                      ),
                     )),
           const SizedBox(
             width: 4,
