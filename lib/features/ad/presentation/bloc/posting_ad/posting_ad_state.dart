@@ -78,9 +78,9 @@ class PostingAdState extends Equatable {
   final bool? isWithoutMileage;
   final List<GasEquipmentEntity> gasEquipments;
   final int? gasEquipmentId;
+  final EquipmentEntity? equipment;
   final List<EquipmentEntity> equipments;
-  final int? equipmentId;
-  final List<EquipmentOptionsListEntity> equipmentOptionsListPrev;
+  final List<EquipmentOptionsListEntity> equipmentOptionsListPrevv;
   final List<EquipmentOptionsListEntity> equipmentOptionsList;
 
   /// this is options for each selected equipment
@@ -161,8 +161,8 @@ class PostingAdState extends Equatable {
     this.gasEquipments = const [],
     this.gasEquipmentId,
     this.equipments = const [],
-    this.equipmentId,
-    this.equipmentOptionsListPrev = const [],
+    this.equipment,
+    this.equipmentOptionsListPrevv = const [],
     this.equipmentOptionsList = const [],
     this.equipmentOptions = const [],
   });
@@ -252,7 +252,7 @@ class PostingAdState extends Equatable {
     List<GasEquipmentEntity>? gasEquipments,
     int? gasEquipmentId,
     List<EquipmentEntity>? equipments,
-    int? equipmentId,
+    EquipmentEntity? equipment,
     List<EquipmentOptionsListEntity>? equipmentOptionsListPrev,
     List<EquipmentOptionsListEntity>? equipmentOptionsList,
     List<EquipmentOptionsEntity>? equipmentOptions,
@@ -333,9 +333,9 @@ class PostingAdState extends Equatable {
         gasEquipments: gasEquipments ?? this.gasEquipments,
         gasEquipmentId: gasEquipmentId ?? this.gasEquipmentId,
         equipments: equipments ?? this.equipments,
-        equipmentId: equipmentId ?? this.equipmentId,
-        equipmentOptionsListPrev:
-            equipmentOptionsListPrev ?? this.equipmentOptionsListPrev,
+        equipment: equipment ?? this.equipment,
+        equipmentOptionsListPrevv:
+            equipmentOptionsListPrev ?? this.equipmentOptionsListPrevv,
         equipmentOptionsList: equipmentOptionsList ?? this.equipmentOptionsList,
         equipmentOptions: equipmentOptions ?? this.equipmentOptions,
         getModificationStatus:
@@ -414,8 +414,8 @@ class PostingAdState extends Equatable {
         gasEquipments,
         gasEquipmentId,
         equipments,
-        equipmentId,
-        equipmentOptionsListPrev,
+        equipment,
+        equipmentOptionsListPrevv,
         equipmentOptionsList,
         equipmentOptions,
         getModificationStatus,

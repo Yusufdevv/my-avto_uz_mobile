@@ -635,8 +635,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     if (event.currency != null) {
       add(PostingAdGetMinimumPriceEvent());
     }
-    if (event.equipmentId != null) {
-      add(PostingAdGetEquipmentOption(event.equipmentId));
+    if (event.equipment != null) {
+      add(PostingAdGetEquipmentOption(event.equipment!.id));
     }
     emit(PASingleton.choose(state, event));
   }
@@ -670,13 +670,13 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       emit(state.copyWith(
           equipments: equipments,
           status: FormzStatus.submissionSuccess,
-          equipmentId: equipments.isNotEmpty && state.equipmentId == null
-              ? equipments.first.id
+          equipment: equipments.isNotEmpty && state.equipment == null
+              ? equipments.first
               : null));
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
-    add(PostingAdGetEquipmentOption(state.equipmentId));
+    add(PostingAdGetEquipmentOption(state.equipment?.id ?? -1));
   }
 
   FutureOr<void> _getEquipmentOptionsList(
@@ -769,6 +769,11 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   /// it will be called
   FutureOr<void> _getChangeOption(
       PostingAdChangeOption event, Emitter<PostingAdState> emit) {
+    log(':::::::::: id:  ${event.id}  ::::::::::');
+    log(':::::::::: type:  ${event.type}  ::::::::::');
+    log(':::::::::: categoryIndex:  ${event.categoryIndex}  ::::::::::');
+    log(':::::::::: optionIndex:  ${event.optionIndex}  ::::::::::');
+    log(':::::::::: selectedItem:  ${event.selectedItem}  ::::::::::');
     final newList = <EquipmentOptionsListEntity>[];
     for (var i = 0; i < state.equipmentOptionsList.length; i++) {
       final newOptionList = <EquipmentOptionEntity>[];
@@ -798,6 +803,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
           name: state.equipmentOptionsList[i].name,
           options: newOptionList));
     }
+    log(':::::::::: NEW LIST LENTH:  ${newList.length}  ::::::::::');
     emit(state.copyWith(equipmentOptionsList: newList));
   }
 }

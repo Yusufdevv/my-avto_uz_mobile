@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
@@ -18,7 +20,9 @@ class EquipmentScreen extends StatelessWidget {
           headerText: LocaleKeys.complectation.tr(),
           padding: const EdgeInsets.only(top: 16),
           child: BlocBuilder<PostingAdBloc, PostingAdState>(
-            builder: (context, state) => SingleChildScrollView(
+              builder: (context, state) {
+            log(':::::::::: equipments lenth:  ${state.equipments.length}   ::::::::::');
+            return SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -42,15 +46,16 @@ class EquipmentScreen extends StatelessWidget {
                       itemBuilder: (context, index) => PostingRadioItem(
                         onTap: () => context.read<PostingAdBloc>().add(
                             PostingAdChooseEvent(
-                                equipmentId: index < state.equipments.length
-                                    ? state.equipments[index].id
-                                    : -1)),
+                                equipment: index < state.equipments.length
+                                    ? state.equipments[index]
+                                    : null)),
                         title: index < state.equipments.length
                             ? state.equipments[index].name
                             : LocaleKeys.other1.tr(),
                         selected: index < state.equipments.length
-                            ? state.equipmentId == state.equipments[index].id
-                            : state.equipmentId == -1,
+                            ? state.equipment?.id == state.equipments[index].id
+                            : state.equipment?.id
+                            == -1,
                         image: '',
                       ),
                       itemCount: state.equipments.length + 1,
@@ -76,13 +81,16 @@ class EquipmentScreen extends StatelessWidget {
                       categoryName: state.equipmentOptionsList[index].name,
                       options: state.equipmentOptionsList[index].options,
                       onTap: (i, id, name) {
-                        context.read<PostingAdBloc>().add(PostingAdChangeOption(
-                            categoryIndex: index,
-                            optionIndex: i,
-                            type: state
-                                .equipmentOptionsList[index].options[i].type,
-                            id: id,
-                            selectedItem: name));
+                        context.read<PostingAdBloc>().add(
+                              PostingAdChangeOption(
+                                categoryIndex: index,
+                                optionIndex: i,
+                                type: state.equipmentOptionsList[index]
+                                    .options[i].type,
+                                id: id,
+                                selectedItem: name,
+                              ),
+                            );
                       },
                     ),
                     itemCount: state.equipmentOptionsList.length,
@@ -93,8 +101,8 @@ class EquipmentScreen extends StatelessWidget {
                   const SizedBox(height: 70),
                 ],
               ),
-            ),
-          ),
+            );
+          }),
         ),
       );
 }

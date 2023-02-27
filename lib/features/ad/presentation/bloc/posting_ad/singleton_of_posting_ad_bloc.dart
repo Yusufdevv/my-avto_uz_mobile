@@ -14,8 +14,8 @@ class PASingleton {
     for (int i = 0; i < v.equipmentOptionsList.length; i++) {
       for (int j = 0; j < v.equipmentOptionsList[i].options.length; j++) {
         if (v.equipmentOptionsList[i].options[j].selected !=
-            v.equipmentOptionsListPrev[i].options[j].selected) {
-          if (v.equipmentOptionsListPrev[i].options[j].selected) {
+            v.equipmentOptionsListPrevv[i].options[j].selected) {
+          if (v.equipmentOptionsListPrevv[i].options[j].selected) {
             deleted = true;
           } else {
             radios.add(v.equipmentOptionsList[i].options[j].id.toString());
@@ -25,7 +25,7 @@ class PASingleton {
         }
         //{32: a} {23:45}
         if (v.equipmentOptionsList[i].options[j].selectedInfo.isNotEmpty !=
-            v.equipmentOptionsListPrev[i].options[j].selectedInfo.isNotEmpty) {
+            v.equipmentOptionsListPrevv[i].options[j].selectedInfo.isNotEmpty) {
           if (v.equipmentOptionsList[i].options[j].selectedInfo.isNotEmpty) {
             selects.add(v
                 .equipmentOptionsList[i].options[j].selectedInfo.keys.first
@@ -38,18 +38,18 @@ class PASingleton {
             selects.add(v
                 .equipmentOptionsList[i].options[j].selectedInfo.keys.first
                 .toString());
-            if (v.equipmentOptionsListPrev[i].options[j].selectedInfo
+            if (v.equipmentOptionsListPrevv[i].options[j].selectedInfo
                 .isNotEmpty) {
               if (v.equipmentOptionsList[i].options[j].selectedInfo.keys
                       .first ==
-                  v.equipmentOptionsListPrev[i].options[j].selectedInfo.keys
+                  v.equipmentOptionsListPrevv[i].options[j].selectedInfo.keys
                       .first) {
               } else {
                 deleted = true;
               }
             }
           } else {
-            if (v.equipmentOptionsListPrev[i].options[j].selectedInfo
+            if (v.equipmentOptionsListPrevv[i].options[j].selectedInfo
                 .isNotEmpty) {
               deleted = true;
             }
@@ -98,7 +98,7 @@ class PASingleton {
       'rent_with_purchase': v.rentWithPurchaseConditions.entries
           .map((e) => e.value.toApi())
           .toList(),
-      'equipment': !deleted ? v.equipmentId : null,
+      'equipment': !deleted ? v.equipment : null,
       'gas_equipment': v.gasEquipmentId,
     };
     if (v.milageImage != null && v.milageImage!.isNotEmpty) {
@@ -318,7 +318,7 @@ class PASingleton {
         eventMakeScrrollIndex: _getMakeLetterIndex(event, state.makes),
         description: event.description,
         gasEquipmentId: event.gasEquipmentId,
-        equipmentId: event.equipmentId,
+        equipment: event.equipment,
         getModificationStatus: event.getModificationStatus,
       );
 
