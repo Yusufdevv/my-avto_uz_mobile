@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/formatters.dart';
 import 'package:auto/assets/constants/icons.dart';
@@ -113,6 +115,7 @@ class _PriceScreenState extends State<PriceScreen> {
                               selected: widget.currency,
                             ),
                           ).then((value) {
+                            log(':::::::::::   goten curerncy is: $value    ::::::::::::::');
                             if (value != null) {
                               widget.onCurrencyChanged(value);
                             }
