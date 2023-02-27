@@ -27,7 +27,7 @@ class EquipmentCategory extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
             child: Text(
-              categoryName,
+              categoryName ,
               style: Theme.of(context)
                   .textTheme
                   .headlineMedium
@@ -110,7 +110,8 @@ class EquipmentCategory extends StatelessWidget {
             shrinkWrap: true,
             separatorBuilder: (context, index) => const Divider(
               indent: 16,
-              height: 0,
+              thickness: 1,
+              height: 1,
             ),
             itemCount: options.length,
           ),
