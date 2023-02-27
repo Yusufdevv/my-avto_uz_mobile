@@ -173,7 +173,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final bool? showExactAddress;
   final bool? isNew;
   final int? gasEquipmentId;
-  final int? equipmentId;
+  final EquipmentEntity? equipment;
   final FormzStatus? getModificationStatus;
 
   PostingAdChooseEvent({
@@ -227,7 +227,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
     this.isWithoutMileage,
     this.milageImage,
     this.gasEquipmentId,
-    this.equipmentId,
+    this.equipment,
     this.getModificationStatus,
   });
 }
