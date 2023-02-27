@@ -180,7 +180,8 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                     left: 16,
                     child: Text(
                       comparisonParameters
-                          .complectationParameters[index].comparisonParameters.tr(),
+                          .complectationParameters[index].comparisonParameters
+                          .tr(),
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 12,

@@ -1,4 +1,5 @@
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/features/ad/presentation/posting_ad_screen.dart';
 import 'package:auto/features/common/bloc/internet_bloc/internet_bloc.dart';
 import 'package:auto/features/common/widgets/internet_error_bottomsheet.dart';
 import 'package:auto/features/navigation/domain/entities/navbar.dart';
@@ -77,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 
   void onTabChange() {
-    if (_controller.index != 3) {
+    if (_controller.index != 3 && _controller.index != 2) {
       setState(() {
         _currentIndex = _controller.index;
         _navigatorKeys[NavItemEnum.values[_currentIndex]]
@@ -167,6 +168,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     if (index == 3) {
                       await Navigator.of(context, rootNavigator: true)
                           .push(fade(page: const ReelsScreen()));
+                      changePage(_currentIndex);
+                    } else if(index == 2) {
+                      await Navigator.of(context, rootNavigator: true)
+                          .push(fade(page: const PostingAdScreen()));
                       changePage(_currentIndex);
                     }
                   },

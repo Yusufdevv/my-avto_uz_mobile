@@ -381,7 +381,10 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                               ),
                               itemCount: state.makes.length,
                             )
-                          : const NoDataWidget(),
+                          : ListView(children: const [
+                              SizedBox(height: 100),
+                              NoDataWidget()
+                            ]),
                 ),
               ),
             ),

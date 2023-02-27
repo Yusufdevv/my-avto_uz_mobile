@@ -86,7 +86,6 @@ class _NewPasswordsPageState extends State<NewPasswordsPage> {
                         SizedBox(height: SizeConfig.v(8)),
                         PasswordTextField(
                           onChanged: (value) => setState(() {}),
-                          secondController: _newPassword2Controller,
                           controller: _newPassword1Controller,
                           hintText: LocaleKeys.enter_Passowrd.tr(),
                         ),
@@ -101,7 +100,6 @@ class _NewPasswordsPageState extends State<NewPasswordsPage> {
                         SizedBox(height: SizeConfig.v(8)),
                         PasswordTextField(
                           onChanged: (value) => setState(() {}),
-                          secondController: _newPassword1Controller,
                           controller: _newPassword2Controller,
                           hintText: LocaleKeys.write_again.tr(),
                         ),

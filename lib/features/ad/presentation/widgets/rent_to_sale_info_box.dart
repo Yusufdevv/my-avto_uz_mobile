@@ -10,6 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 class RentToSaleDetailsBox extends StatelessWidget {
   final String prePayment;
   final String monthlyPayment;
+  final String title;
   final int rentalPeriod;
   final VoidCallback onTap;
   const RentToSaleDetailsBox({
@@ -17,6 +18,7 @@ class RentToSaleDetailsBox extends StatelessWidget {
     required this.monthlyPayment,
     required this.prePayment,
     required this.rentalPeriod,
+    required this.title,
     Key? key,
   }) : super(key: key);
   @override
@@ -31,7 +33,7 @@ class RentToSaleDetailsBox extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  LocaleKeys.conditon_1.tr(),
+                  title,
                   style: Theme.of(context)
                       .textTheme
                       .displayLarge!

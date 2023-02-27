@@ -134,7 +134,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                     .state
                                     .profileEntity
                                     .email &&
-                            !MyFunctions.isEmail(_emailCont.text)) {
+                            !MyFunctions.isEmail(_emailCont.text.trim())) {
                           context.read<ShowPopUpBloc>().add(ShowPopUp(
                               message: LocaleKeys.please_enter_valid_email.tr(),
                               status: PopStatus.error));
@@ -191,7 +191,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                     child: SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),
                       child: Padding(
-                        padding: EdgeInsets.only(top: 24),
+                        padding: const EdgeInsets.only(top: 24),
                         child: Column(
                           children: [
                             Align(

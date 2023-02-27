@@ -1,4 +1,3 @@
-import 'package:auto/features/ad/presentation/posting_ad_screen.dart';
 import 'package:auto/features/main/presentation/main_screen.dart';
 import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:auto/features/profile/presentation/profile_screen.dart';
@@ -37,8 +36,7 @@ class _TabNavigatorState extends State<TabNavigator>
         };
       case NavItemEnum.newPost:
         return {
-          TabNavigatorRoutes.root: (context) =>
-              PostingAdScreen(parentContext: context)
+          TabNavigatorRoutes.root: (context) => Container(),
         };
       case NavItemEnum.reels:
         return {

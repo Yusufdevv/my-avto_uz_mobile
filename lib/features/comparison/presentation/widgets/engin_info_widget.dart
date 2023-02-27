@@ -99,35 +99,34 @@ class EngineParametersWidget extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     children: [
                       ...List.generate(
-                        numberOfAddedCars.length+1,
+                        numberOfAddedCars.length + 1,
                         (index) => Column(
                           children: [
                             ComparsionListTile(
                               info: index == numberOfAddedCars.length
                                   ? ''
-                                  :  numberOfAddedCars[index]
-                                  .announcement
-                                  .engineData
-                                  .engineType,
+                                  : numberOfAddedCars[index]
+                                      .announcement
+                                      .engineData
+                                      .engineType,
                               isGrey: true,
                             ),
                             ComparsionListTile(
-                              info:index == numberOfAddedCars.length
+                              info: index == numberOfAddedCars.length
                                   ? ''
-                                  :  numberOfAddedCars[index]
-                                  .announcement
-                                  .engineData
-                                  .power,
+                                  : numberOfAddedCars[index]
+                                      .announcement
+                                      .engineData
+                                      .power,
                               isGrey: false,
                             ),
                             ComparsionListTile(
-                              info:
-                              index == numberOfAddedCars.length
+                              info: index == numberOfAddedCars.length
                                   ? ''
-                                  :  numberOfAddedCars[index]
-                                  .announcement
-                                  .engineData
-                                  .volume,
+                                  : numberOfAddedCars[index]
+                                      .announcement
+                                      .engineData
+                                      .volume,
                               isGrey: true,
                             ),
                           ],
@@ -143,7 +142,8 @@ class EngineParametersWidget extends StatelessWidget {
                     left: 16,
                     child: Text(
                       comparisonParameters
-                          .complectationParameters[index].comparisonParameters.tr(),
+                          .complectationParameters[index].comparisonParameters
+                          .tr(),
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 12,

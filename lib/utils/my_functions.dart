@@ -353,8 +353,8 @@ class MyFunctions {
 
   static String getDateNamedMonth(String data) {
     final list = data.substring(0, 10).split('-');
-    if(list[2].startsWith('0')) {
-      list[2]= list[2].substring(1);
+    if (list[2].startsWith('0')) {
+      list[2] = list[2].substring(1);
     }
     return '${list[2]} ${getMonthByIndex(int.tryParse(list[1]) ?? -1)}, ${list[0]} г.';
   }
@@ -427,31 +427,31 @@ class MyFunctions {
 
     switch (door) {
       case 'left_front_door':
-        return lang=='ru' ?  'Левая передняя дверь' : 'Chap old eshik';
+        return lang == 'ru' ? 'Левая передняя дверь' : 'Chap old eshik';
       case 'rigth_front_door':
-        return lang=='ru' ?   'Правая передняя дверь': "O'ng old eshik";
+        return lang == 'ru' ? 'Правая передняя дверь' : "O'ng old eshik";
       case 'left_rear_door':
-        return lang=='ru' ?   'Левая задняя дверь': 'Chap orqa eshik';
+        return lang == 'ru' ? 'Левая задняя дверь' : 'Chap orqa eshik';
       case 'right_rear_door':
-        return  lang=='ru' ?  'Правая задняя дверь' : "O'ng orqa eshik";
+        return lang == 'ru' ? 'Правая задняя дверь' : "O'ng orqa eshik";
       case 'front_bumper':
-        return lang=='ru' ?  'Передний бамфер' : 'Old bamper';
+        return lang == 'ru' ? 'Передний бамфер' : 'Old bamper';
       case 'rear_bumper':
-        return lang=='ru' ?  'Задний бамфер' : 'Orqa bamper';
+        return lang == 'ru' ? 'Задний бамфер' : 'Orqa bamper';
       case 'front_left_fender':
-        return lang=='ru' ?  'Переднее левое крыло' : 'Old chap qanot';
+        return lang == 'ru' ? 'Переднее левое крыло' : 'Old chap qanot';
       case 'front_right_fender':
-        return lang=='ru' ?  'Переднее правое крыло' : "Old o'ng qanot";
+        return lang == 'ru' ? 'Переднее правое крыло' : "Old o'ng qanot";
       case 'rear_left_fender':
-        return lang=='ru' ?  'Заднее левое крыло' : 'Orqa chap qanot';
+        return lang == 'ru' ? 'Заднее левое крыло' : 'Orqa chap qanot';
       case 'rear_right_fender':
-        return lang=='ru' ?  'Заднее правое крыло' : "Orqa o'ng qanot";
+        return lang == 'ru' ? 'Заднее правое крыло' : "Orqa o'ng qanot";
       case 'roof':
-        return lang=='ru' ?  'Крыша' : 'Tom';
+        return lang == 'ru' ? 'Крыша' : 'Tom';
       case 'hood':
-        return lang=='ru' ?  'Капот' : 'Kapot';
+        return lang == 'ru' ? 'Капот' : 'Kapot';
       case 'trunk':
-        return lang=='ru' ?  'Багажник' : 'Yukxona';
+        return lang == 'ru' ? 'Багажник' : 'Yukxona';
     }
     return '';
   }
@@ -461,17 +461,19 @@ class MyFunctions {
 
     switch (status) {
       case 'ideal':
-        return language=='ru' ? 'Идеальное' : 'Ideal';
+        return language == 'ru' ? 'Идеальное' : 'Ideal';
       case 'scratched':
-        return language=='ru' ? 'Повреждено' : 'Shikastlangan';
+        return language == 'ru' ? 'Повреждено' : 'Shikastlangan';
       case 'replaced':
-        return  language=='ru' ? 'Заменено' : 'Almashtirilgan';
+        return language == 'ru' ? 'Заменено' : 'Almashtirilgan';
       case 'with_dents':
-        return  language=='ru' ? 'С вмятинами' : 'Chiziqlar bilan';
+        return language == 'ru' ? 'С вмятинами' : 'Chiziqlar bilan';
       case 'requires_replacement':
-        return  language=='ru' ? 'Требует замены' : "O'zgartirishni talab qiladi";
+        return language == 'ru'
+            ? 'Требует замены'
+            : "O'zgartirishni talab qiladi";
     }
-    return language=='ru' ? 'Не показано' : "Ko'rsatilmagan";
+    return language == 'ru' ? 'Не показано' : "Ko'rsatilmagan";
   }
 
   static String getErrorMessage(Failure failure) {
@@ -480,7 +482,9 @@ class MyFunctions {
     var err =
         (failure is ServerFailure) ? failure.errorMessage : failure.toString();
     if (err == 'Wrong code!') {
-      err = language=='ru' ?  'Код подтверждения введен неверно': "Tasdiqlash kodi noto'g'ri kiritilgan";
+      err = language == 'ru'
+          ? 'Код подтверждения введен неверно'
+          : "Tasdiqlash kodi noto'g'ri kiritilgan";
     }
     return err;
   }

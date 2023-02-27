@@ -253,107 +253,126 @@ class _SearchScreenState extends State<SearchScreen> {
                                       child: NothingFoundScreen(),
                                     )
                                   : Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: Paginator(
-                                        hasMoreToFetch: state.moreFetch,
-                                        fetchMoreFunction: () {
-                                          searchBloc.add(
-                                              SearchEvent.getMoreResults(
-                                                  searchText:
-                                                      searchController.text));
-                                        },
-                                        itemCount: state.searchResults.length,
-                                        paginatorStatus: state.status,
-                                        errorWidget: const SearchItemShimmer(
-                                            slideImageCount: 2),
-                                        separatorBuilder: (context, index) =>
-                                            Divider(
-                                              height: 12,
-                                              thickness: 0,
-                                              color: Theme.of(context)
-                                                  .extension<ThemedColors>()!
-                                                  .borderGreyToDark,
-                                            ),
-                                        itemBuilder: (context, index) =>
-                                            InfoResultContainer(
-                                              sellType: state.searchResults[index]
-                                                      .isRentWithPurchase
-                                                  ? LocaleKeys.rent_to_buy.tr()
-                                                  : LocaleKeys.car_sale.tr(),
-                                              currency: state
-                                                  .searchResults[index].currency,
-                                              discount: state
-                                                  .searchResults[index].discount,
-                                              callFrom: state.searchResults[index]
-                                                  .contactAvailableFrom,
-                                              callTo: state.searchResults[index]
-                                                  .contactAvailableTo,
-                                              gallery: state
-                                                  .searchResults[index].gallery,
-                                              carModelName:
-                                                  '${state.searchResults[index].make.name} ${state.searchResults[index].model.name} ${state.searchResults[index].generation.name}',
-                                              carYear:
-                                                  state.searchResults[index].year,
-                                              contactPhone: state
-                                                  .searchResults[index]
-                                                  .contactPhone,
-                                              description: state
-                                                  .searchResults[index]
-                                                  .description,
-                                              districtTitle: state
-                                                  .searchResults[index]
-                                                  .region
-                                                  .title,
-                                              isNew: state
-                                                  .searchResults[index].isNew,
-                                              isWishlisted: state
-                                                  .searchResults[index]
-                                                  .isWishlisted,
-                                              price: state
-                                                  .searchResults[index].price,
-                                              publishedAt: state
-                                                  .searchResults[index]
-                                                  .publishedAt,
-                                              userFullName: state
-                                                          .searchResults[index]
-                                                          .userType !=
-                                                      'owner'
-                                                  ? DealerFavEntity.fromJson(state
-                                                              .searchResults[
-                                                                  index]
-                                                              .dealer)
-                                                          .name ??
-                                                      ''
-                                                  : state
-                                                          .searchResults[index]
-                                                          .user
-                                                          .fullName
-                                                          .isNotEmpty
-                                                      ? state.searchResults[index]
-                                                          .user.fullName
-                                                      : state.searchResults[index]
-                                                          .contactName,
-                                              userImage: state
-                                                          .searchResults[index]
-                                                          .userType !=
-                                                      'owner'
-                                                  ? DealerFavEntity.fromJson(state
-                                                              .searchResults[
-                                                                  index]
-                                                              .dealer)
-                                                          .avatar ??
-                                                      ''
-                                                  : state.searchResults[index]
-                                                      .user.image,
-                                              userType: state
-                                                  .searchResults[index].userType,
-                                              hasComparison: state
-                                                  .searchResults[index]
-                                                  .isComparison,
-                                              id: state.searchResults[index].id,
-                                              index: index,
-                                            )),
-                                  )
+                                      padding: const EdgeInsets.only(top: 10),
+                                      child: Paginator(
+                                          hasMoreToFetch: state.moreFetch,
+                                          fetchMoreFunction: () {
+                                            searchBloc.add(
+                                                SearchEvent.getMoreResults(
+                                                    searchText:
+                                                        searchController.text));
+                                          },
+                                          itemCount: state.searchResults.length,
+                                          paginatorStatus: state.status,
+                                          errorWidget: const SearchItemShimmer(
+                                              slideImageCount: 2),
+                                          separatorBuilder: (context, index) =>
+                                              Divider(
+                                                height: 12,
+                                                thickness: 0,
+                                                color: Theme.of(context)
+                                                    .extension<ThemedColors>()!
+                                                    .borderGreyToDark,
+                                              ),
+                                          itemBuilder: (context, index) =>
+                                              InfoResultContainer(
+                                                sellType: state
+                                                        .searchResults[index]
+                                                        .isRentWithPurchase
+                                                    ? LocaleKeys.rent_to_buy
+                                                        .tr()
+                                                    : LocaleKeys.car_sale.tr(),
+                                                currency: state
+                                                    .searchResults[index]
+                                                    .currency,
+                                                discount: state
+                                                    .searchResults[index]
+                                                    .discount,
+                                                callFrom: state
+                                                    .searchResults[index]
+                                                    .contactAvailableFrom,
+                                                callTo: state
+                                                    .searchResults[index]
+                                                    .contactAvailableTo,
+                                                gallery: state
+                                                    .searchResults[index]
+                                                    .gallery,
+                                                carModelName:
+                                                    '${state.searchResults[index].make.name} ${state.searchResults[index].model.name} ${state.searchResults[index].generation.name}',
+                                                carYear: state
+                                                    .searchResults[index].year,
+                                                contactPhone: state
+                                                    .searchResults[index]
+                                                    .contactPhone,
+                                                description: state
+                                                    .searchResults[index]
+                                                    .description,
+                                                districtTitle: state
+                                                    .searchResults[index]
+                                                    .region
+                                                    .title,
+                                                isNew: state
+                                                    .searchResults[index].isNew,
+                                                isWishlisted: state
+                                                    .searchResults[index]
+                                                    .isWishlisted,
+                                                price: state
+                                                    .searchResults[index].price,
+                                                publishedAt: state
+                                                    .searchResults[index]
+                                                    .publishedAt,
+                                                userFullName: state
+                                                            .searchResults[
+                                                                index]
+                                                            .userType !=
+                                                        'owner'
+                                                    ? DealerFavEntity.fromJson(
+                                                                state
+                                                                    .searchResults[
+                                                                        index]
+                                                                    .dealer)
+                                                            .name ??
+                                                        ''
+                                                    : state
+                                                            .searchResults[
+                                                                index]
+                                                            .user
+                                                            .fullName
+                                                            .isNotEmpty
+                                                        ? state
+                                                            .searchResults[
+                                                                index]
+                                                            .user
+                                                            .fullName
+                                                        : state
+                                                            .searchResults[
+                                                                index]
+                                                            .contactName,
+                                                userImage: state
+                                                            .searchResults[
+                                                                index]
+                                                            .userType !=
+                                                        'owner'
+                                                    ? DealerFavEntity.fromJson(
+                                                                state
+                                                                    .searchResults[
+                                                                        index]
+                                                                    .dealer)
+                                                            .avatar ??
+                                                        ''
+                                                    : state.searchResults[index]
+                                                        .user.image,
+                                                userType: state
+                                                    .searchResults[index]
+                                                    .userType,
+                                                hasComparison: state
+                                                    .searchResults[index]
+                                                    .isComparison,
+                                                id: state
+                                                    .searchResults[index].id,
+                                                index: index,
+                                              )),
+                                    )
                           : LastPopularSearchesScreen(
                               searchController: searchController,
                               focusNode: focusNode,

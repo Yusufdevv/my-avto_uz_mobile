@@ -9,7 +9,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 class ModificationScreen extends StatefulWidget {
-  const ModificationScreen({Key? key}) : super(key: key);
+  const ModificationScreen({required this.noData, Key? key}) : super(key: key);
+
+  final VoidCallback noData;
 
   @override
   State<ModificationScreen> createState() => _ModificationScreenState();
@@ -21,9 +23,17 @@ class _ModificationScreenState extends State<ModificationScreen> {
         body: BaseWidget(
           headerText: LocaleKeys.modification.tr(),
           padding: const EdgeInsets.only(top: 16),
-          child: BlocBuilder<PostingAdBloc, PostingAdState>(
+          child: BlocConsumer<PostingAdBloc, PostingAdState>(
+            listener: (context, state) {
+              if (state.modifications.isEmpty &&
+                  state.getModificationStatus ==
+                      FormzStatus.submissionSuccess) {
+                widget.noData();
+              }
+            },
             builder: (context, state) {
-              if (state.status == FormzStatus.submissionInProgress) {
+              if (state.getModificationStatus ==
+                  FormzStatus.submissionInProgress) {
                 return const Center(child: CupertinoActivityIndicator());
               }
               if (state.modifications.isEmpty) {

@@ -61,3 +61,8 @@ void setupLocator() {
     ..registerLazySingleton(AdsDataSource.new)
     ..registerLazySingleton(AdsRepositoryImpl.new);
 }
+
+Future resetLocator() async {
+  await serviceLocator.reset();
+  setupLocator();
+}

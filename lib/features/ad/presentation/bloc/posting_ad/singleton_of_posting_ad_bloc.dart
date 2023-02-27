@@ -7,6 +7,56 @@ class PASingleton {
   PASingleton._();
 
   static Future<FormData> create(PostingAdState v) async {
+    List<String> radios = [];
+    List<String> selects = [];
+    bool deleted = false;
+    /// these lines of code calculates changed options and option items
+    for (int i = 0; i < v.equipmentOptionsList.length; i++) {
+      for (int j = 0; j < v.equipmentOptionsList[i].options.length; j++) {
+        if (v.equipmentOptionsList[i].options[j].selected !=
+            v.equipmentOptionsListPrev[i].options[j].selected) {
+          if (v.equipmentOptionsListPrev[i].options[j].selected) {
+            deleted = true;
+          } else {
+            radios.add(v.equipmentOptionsList[i].options[j].id.toString());
+          }
+        } else if(v.equipmentOptionsList[i].options[j].selected){
+          radios.add(v.equipmentOptionsList[i].options[j].id.toString());
+        }
+        //{32: a} {23:45}
+        if (v.equipmentOptionsList[i].options[j].selectedInfo.isNotEmpty !=
+            v.equipmentOptionsListPrev[i].options[j].selectedInfo.isNotEmpty) {
+          if (v.equipmentOptionsList[i].options[j].selectedInfo.isNotEmpty) {
+            selects.add(v
+                .equipmentOptionsList[i].options[j].selectedInfo.keys.first
+                .toString());
+          } else {
+            deleted = true;
+          }
+        } else {
+          if (v.equipmentOptionsList[i].options[j].selectedInfo.isNotEmpty) {
+            selects.add(v
+                .equipmentOptionsList[i].options[j].selectedInfo.keys.first
+                .toString());
+            if (v.equipmentOptionsListPrev[i].options[j].selectedInfo
+                .isNotEmpty) {
+              if (v.equipmentOptionsList[i].options[j].selectedInfo.keys
+                      .first ==
+                  v.equipmentOptionsListPrev[i].options[j].selectedInfo.keys
+                      .first) {
+              } else {
+                deleted = true;
+              }
+            }
+          } else {
+            if (v.equipmentOptionsListPrev[i].options[j].selectedInfo
+                .isNotEmpty) {
+              deleted = true;
+            }
+          }
+        }
+      }
+    }
     // ignore: prefer_final_locals
     var announcementFields = <String, dynamic>{
       'make': v.make?.id,
@@ -48,8 +98,8 @@ class PASingleton {
       'rent_with_purchase': v.rentWithPurchaseConditions.entries
           .map((e) => e.value.toApi())
           .toList(),
-      'equipment' : v.equipmentId,
-      'gas_equipment' : v.gasEquipmentId,
+      'equipment': !deleted ? v.equipmentId : null,
+      'gas_equipment': v.gasEquipmentId,
     };
     if (v.milageImage != null && v.milageImage!.isNotEmpty) {
       final milageImage = await MultipartFile.fromFile(v.milageImage!);
@@ -80,8 +130,18 @@ class PASingleton {
       i++;
       return MapEntry('gallery[$i]', e);
     }));
+    i = -1;
+    announcementFields.addEntries(radios.map((e) {
+      i++;
+      return MapEntry('options[$i]', e);
+    }));
+    i = -1;
+    announcementFields.addEntries(selects.map((e) {
+      i++;
+      return MapEntry('options_items[$i]', e);
+    }));
 
-    print(announcementFields);
+    log(announcementFields.toString());
     final announcementFormData = FormData.fromMap(announcementFields);
 
     return announcementFormData;
@@ -259,6 +319,7 @@ class PASingleton {
         description: event.description,
         gasEquipmentId: event.gasEquipmentId,
         equipmentId: event.equipmentId,
+        getModificationStatus: event.getModificationStatus,
       );
 
   static int? _getMakeLetterIndex(

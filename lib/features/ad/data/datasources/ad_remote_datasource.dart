@@ -9,6 +9,8 @@ import 'package:auto/features/ad/data/models/body_type.dart';
 import 'package:auto/features/ad/data/models/drive_type.dart';
 import 'package:auto/features/ad/data/models/engine_type.dart';
 import 'package:auto/features/ad/data/models/equipment/equipment_model.dart';
+import 'package:auto/features/ad/data/models/equipment/equipment_options_list_model.dart';
+import 'package:auto/features/ad/data/models/equipment/equipment_options_model.dart';
 import 'package:auto/features/ad/data/models/equipment/gas_equipment_model.dart';
 import 'package:auto/features/ad/data/models/foto_instruction_model.dart';
 import 'package:auto/features/ad/data/models/gearbox_type.dart';
@@ -112,6 +114,19 @@ abstract class AdRemoteDataSource {
     int? limit,
     int? offset,
     int? modelId,
+  });
+
+  Future<GenericPagination<EquipmentOptionsListModel>> getEquipmentOptionsList({
+    String? search,
+    int? limit,
+    int? offset,
+  });
+
+  Future<GenericPagination<EquipmentOptionsModel>> getEquipmentOptions({
+    String? search,
+    int? limit,
+    int? offset,
+    int? equipmentId,
   });
 }
 
@@ -785,6 +800,57 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
           ));
       return GenericPagination.fromJson(result.data,
           (json) => EquipmentModel.fromJson(json as Map<String, dynamic>));
+    } catch (e) {
+      throw const ServerException();
+    }
+  }
+
+  @override
+  Future<GenericPagination<EquipmentOptionsListModel>> getEquipmentOptionsList({
+    String? search,
+    int? limit,
+    int? offset,
+  }) async {
+    try {
+      final result = await _dio.get('car/equipments/options/list/',
+          queryParameters: {
+            'search': search,
+            'limit': limit,
+            'offset': offset,
+          },
+          options: Options(
+            headers: {
+              'Authorization': 'Bearer ${StorageRepository.getString('token')}',
+            },
+          ));
+      return GenericPagination.fromJson(
+          result.data,
+          (json) =>
+              EquipmentOptionsListModel.fromJson(json as Map<String, dynamic>));
+    } catch (e) {
+      throw const ServerException();
+    }
+  }
+
+  @override
+  Future<GenericPagination<EquipmentOptionsModel>> getEquipmentOptions(
+      {String? search, int? limit, int? offset, int? equipmentId}) async {
+    try {
+      final result = await _dio.get('car/equipments/options/$equipmentId/',
+          queryParameters: {
+            'search': search,
+            'limit': limit,
+            'offset': offset,
+          },
+          options: Options(
+            headers: {
+              'Authorization': 'Bearer ${StorageRepository.getString('token')}',
+            },
+          ));
+      return GenericPagination.fromJson(
+          result.data,
+          (json) =>
+              EquipmentOptionsModel.fromJson(json as Map<String, dynamic>));
     } catch (e) {
       throw const ServerException();
     }

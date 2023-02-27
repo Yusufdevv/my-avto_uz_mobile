@@ -5,7 +5,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'equipment_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class EquipmentModel extends EquipmentEntity{
+class EquipmentModel extends EquipmentEntity {
   const EquipmentModel({
     required super.id,
     required super.name,

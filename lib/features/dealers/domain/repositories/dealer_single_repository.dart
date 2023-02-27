@@ -1,7 +1,7 @@
 import 'package:auto/core/exceptions/failures.dart';
 
 import 'package:auto/core/utils/either.dart';
-import 'package:auto/features/dealers/data/models/dealer_info_model.dart';
+import 'package:auto/features/dealers/data/models/dealer_single_model.dart';
 
 abstract class DealerSingleRepository {
   Future<Either<Failure, DealerSingleModel>> getDealerSingle(String params);

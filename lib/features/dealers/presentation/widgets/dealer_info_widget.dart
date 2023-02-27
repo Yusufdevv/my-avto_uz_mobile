@@ -1,5 +1,4 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -27,7 +26,7 @@ class DeaelerInfoWidget extends StatelessWidget {
               onTap: onTap,
               child: Text(
                 text,
-                style: isTextBlue==true
+                style: isTextBlue == true
                     ? const TextStyle(
                         fontSize: 14, fontWeight: FontWeight.w600, color: blue)
                     : TextStyle(

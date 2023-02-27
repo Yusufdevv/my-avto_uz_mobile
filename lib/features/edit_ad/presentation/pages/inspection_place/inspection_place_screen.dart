@@ -53,7 +53,8 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                     // CHOOSE REGION
                     LoaderBox(
                       isActive: state.regionId != null,
-                      isLoading: state.status == FormzStatus.submissionInProgress,
+                      isLoading:
+                          state.status == FormzStatus.submissionInProgress,
                       onTap: () async {
                         hidePopUp();
                         await showModalBottomSheet<List<Region>>(
@@ -160,7 +161,6 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                       },
                     ),
                     const SizedBox(height: 70),
-
                   ],
                 ),
               ),

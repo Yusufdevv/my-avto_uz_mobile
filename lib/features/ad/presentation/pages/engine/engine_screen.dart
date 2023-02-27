@@ -53,7 +53,8 @@ class _EngineScreenState extends State<EngineScreen> {
                     ),
                   ),
                   const SizedBox(height: 13),
-                  if (state.gasEquipmentId != null && state.gasEquipmentId != -1) ...{
+                  if (state.gasEquipmentId != null &&
+                      state.gasEquipmentId != -1) ...{
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: SwitcherRow(

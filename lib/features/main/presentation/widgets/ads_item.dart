@@ -141,23 +141,23 @@ class AdsItem extends StatelessWidget {
                     BlocConsumer<WishlistAddBloc, WishlistAddState>(
                       listener: (context, state) {},
                       builder: (context, state) {
-                        final isliked =
-                            state.map[id] ?? isLiked;
+                        final isliked = state.map[id] ?? isLiked;
                         return AddWishlistItem(
                           onTap: () {
                             if (!isliked) {
-                              context.read<WishlistAddBloc>().add(
-                                  WishlistAddEvent.addWishlist(id, 0));
+                              context
+                                  .read<WishlistAddBloc>()
+                                  .add(WishlistAddEvent.addWishlist(id, 0));
                               context.read<WishlistAddBloc>().add(
                                   WishlistAddEvent.addToMapFavorites(
                                       id: id, value: true));
                             } else {
-                              context.read<WishlistAddBloc>().add(
-                                  WishlistAddEvent.removeWishlist(
-                                       id, 0));
+                              context
+                                  .read<WishlistAddBloc>()
+                                  .add(WishlistAddEvent.removeWishlist(id, 0));
                               context.read<WishlistAddBloc>().add(
                                   WishlistAddEvent.addToMapFavorites(
-                                      id:  id, value: false));
+                                      id: id, value: false));
                             }
                           },
                           initialLike: isliked,

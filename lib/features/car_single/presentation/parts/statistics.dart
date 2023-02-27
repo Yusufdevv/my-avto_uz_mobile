@@ -41,7 +41,9 @@ class CarStatistics extends StatelessWidget {
                       width: 8,
                     ),
                     Text(
-                      DateFormat('d MMMM yyyy', StorageRepository.getString('language')).format(DateTime.parse(date)),
+                      DateFormat('d MMMM yyyy',
+                              StorageRepository.getString('language'))
+                          .format(DateTime.parse(date)),
                       style: const TextStyle(
                         color: suvaGray,
                         fontSize: 12,

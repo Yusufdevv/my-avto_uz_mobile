@@ -98,7 +98,7 @@ class _SelectGasBalloonTypeSheetState extends State<SelectGasBalloonTypeSheet> {
               Navigator.of(context).pop(selected);
             },
             color: orange,
-            text: 'Применить',
+            text: LocaleKeys.apply.tr(),
             textStyle:
                 Theme.of(context).textTheme.titleMedium!.copyWith(color: white),
             margin: EdgeInsets.only(

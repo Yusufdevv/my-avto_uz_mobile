@@ -5,6 +5,8 @@ import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/ad/data/datasources/ad_remote_datasource.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_entity.dart';
+import 'package:auto/features/ad/domain/entities/equipment/equipment_options_entity.dart';
+import 'package:auto/features/ad/domain/entities/equipment/equipment_options_list_entity.dart';
 import 'package:auto/features/ad/domain/entities/foto_instruction_entity.dart';
 import 'package:auto/features/ad/domain/entities/equipment/gas_equipment_entity.dart';
 import 'package:auto/features/ad/domain/entities/generation/generation.dart';
@@ -451,6 +453,48 @@ class AdRepositoryImpl extends AdRepository {
         limit: limit,
         offset: offset,
         modelId: modelId,
+      );
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+          errorMessage: e.errorMessage, statusCode: e.statusCode));
+    } on DioException {
+      return Left(DioFailure());
+    } on DioError {
+      return Left(DioFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, GenericPagination<EquipmentOptionsListEntity>>>
+      getEquipmentOptionsList({String? search, int? limit, int? offset}) async {
+    try {
+      final result = await remoteDataSource.getEquipmentOptionsList(
+        search: search,
+        limit: limit,
+        offset: offset,
+      );
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+          errorMessage: e.errorMessage, statusCode: e.statusCode));
+    } on DioException {
+      return Left(DioFailure());
+    } on DioError {
+      return Left(DioFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, GenericPagination<EquipmentOptionsEntity>>>
+      getEquipmentOptions(
+          {String? search, int? limit, int? offset, int? equipmentId}) async {
+    try {
+      final result = await remoteDataSource.getEquipmentOptions(
+        search: search,
+        limit: limit,
+        offset: offset,
+        equipmentId: equipmentId,
       );
       return Right(result);
     } on ServerException catch (e) {

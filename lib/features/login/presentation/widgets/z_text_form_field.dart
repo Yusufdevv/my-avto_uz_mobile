@@ -176,8 +176,7 @@ class _ZTextFormFieldState extends State<ZTextFormField>
                       ? ''
                       : null,
               prefixIconConstraints: const BoxConstraints(maxWidth: 70),
-              contentPadding:
-                  const EdgeInsets.only(top: 12, bottom: 12.2),
+              contentPadding: const EdgeInsets.only(top: 12, bottom: 12.2),
               prefixIcon: widget.prefixIcon,
               hintText: widget.hintText,
               hintStyle: widget.hintTextStyle ??

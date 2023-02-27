@@ -73,7 +73,7 @@ class _DamageScreenState extends State<DamageScreen>
                   const BoxDecoration(shape: BoxShape.circle, color: border),
               padding: const EdgeInsets.all(4),
               child: DamageButton(
-                placedOnCar: false,
+                  placedOnCar: false,
                   damageType: DamageType.replaced,
                   onTap: () {
                     showModalBottomSheet<DamageType>(
@@ -187,7 +187,7 @@ class _DamageScreenState extends State<DamageScreen>
                             },
                             position: LocaleKeys.front_bumper.tr(),
                             damageType:
-                            state.damagedParts[DamagedParts.frontBumper]),
+                                state.damagedParts[DamagedParts.frontBumper]),
                       ],
                     ),
                   ),

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/formatters.dart';
 import 'package:auto/assets/constants/icons.dart';
@@ -33,19 +35,19 @@ class PriceScreen extends StatefulWidget {
   final bool rentToBuy;
   final String currency;
 
-  const PriceScreen(
-      {required this.price,
-      required this.onConditionChanged,
-      required this.onSwitchChanged,
-      required this.minimumPrice,
-      required this.conditions,
-      required this.initialPrice,
-      required this.rentToBuy,
-      required this.currency,
-      required this.onPriceChanged,
-      required this.onCurrencyChanged,
-      Key? key})
-      : super(key: key);
+  const PriceScreen({
+    required this.price,
+    required this.onConditionChanged,
+    required this.onSwitchChanged,
+    required this.minimumPrice,
+    required this.conditions,
+    required this.initialPrice,
+    required this.rentToBuy,
+    required this.currency,
+    required this.onPriceChanged,
+    required this.onCurrencyChanged,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<PriceScreen> createState() => _PriceScreenState();
@@ -113,6 +115,7 @@ class _PriceScreenState extends State<PriceScreen> {
                               selected: widget.currency,
                             ),
                           ).then((value) {
+                            log(':::::::::::   goten curerncy is: $value    ::::::::::::::');
                             if (value != null) {
                               widget.onCurrencyChanged(value);
                             }
@@ -145,8 +148,10 @@ class _PriceScreenState extends State<PriceScreen> {
                                     .copyWith(color: greyText),
                               ),
                               const SizedBox(width: 4),
-                              SvgPicture.asset(AppIcons.chevronDown,
-                                  color: greyText)
+                              SvgPicture.asset(
+                                AppIcons.chevronDown,
+                                color: greyText,
+                              )
                             ],
                           ),
                         ),
@@ -236,34 +241,35 @@ class _PriceScreenState extends State<PriceScreen> {
                       height: 16,
                     ),
                     if (widget.rentToBuy && widget.conditions.isNotEmpty) ...{
-                      ...widget.conditions
-                          .map((entity) => RentToSaleDetailsBox(
-                                onTap: () {
-                                  showModalBottomSheet<RentWithPurchaseEntity>(
-                                      useRootNavigator: true,
-                                      isScrollControlled: true,
-                                      backgroundColor: Colors.transparent,
-                                      isDismissible: false,
-                                      context: context,
-                                      builder: (context) => RentToBuySheet(
-                                          idForNewCondition:
-                                              widget.conditions.length,
-                                          entityForEdit: entity,
-                                          price: int.tryParse(widget.price
-                                                  .replaceAll(' ', '')) ??
-                                              0)).then(
-                                    (value) {
-                                      if (value != null) {
-                                        widget.onConditionChanged(value);
-                                      }
-                                    },
-                                  );
-                                },
-                                monthlyPayment: entity.monthlyPayment,
-                                prePayment: entity.prepayment,
-                                rentalPeriod: entity.rentalPeriod,
-                              ))
-                          .toList(),
+                      ...List.generate(widget.conditions.length, (index) {
+                        final entity = widget.conditions[index];
+                        return RentToSaleDetailsBox(
+                          title: LocaleKeys.conditon_1.tr(args: ['${++index}']),
+                          onTap: () {
+                            showModalBottomSheet<RentWithPurchaseEntity>(
+                                useRootNavigator: true,
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                isDismissible: false,
+                                context: context,
+                                builder: (context) => RentToBuySheet(
+                                    idForNewCondition: widget.conditions.length,
+                                    entityForEdit: entity,
+                                    price: int.tryParse(
+                                            widget.price.replaceAll(' ', '')) ??
+                                        0)).then(
+                              (value) {
+                                if (value != null) {
+                                  widget.onConditionChanged(value);
+                                }
+                              },
+                            );
+                          },
+                          monthlyPayment: entity.monthlyPayment,
+                          prePayment: entity.prepayment,
+                          rentalPeriod: entity.rentalPeriod,
+                        );
+                      }),
                       WScaleAnimation(
                         onTap: () {
                           showModalBottomSheet<RentWithPurchaseEntity>(

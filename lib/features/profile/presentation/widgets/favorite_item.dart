@@ -367,7 +367,7 @@ class _FavoriteItemState extends State<FavoriteItem> {
                       ),
                       const SizedBox(width: 8),
                       AddWishlistItem(
-                        onTap: widget.onTap?? (){},
+                        onTap: widget.onTap ?? () {},
                         initialLike: isLiked,
                       ),
                     ],

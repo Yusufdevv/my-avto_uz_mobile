@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class PersonalDataItemm extends StatelessWidget {
   final VoidCallback onTap;
@@ -53,24 +54,27 @@ class PersonalDataItemm extends StatelessWidget {
               ),
             ),
             Expanded(
-                flex: 3,
-                child: ZTextFormField(
-                  onTap: onTap,
-                  onChanged: onChanged,
-                  controller: controller,
-                  hintText: hintText,
-                  hintTextStyle: Theme.of(context)
-                      .textTheme
-                      .titleMedium!
-                      .copyWith(
-                          fontSize: 14,
-                          color: warmerGrey,
-                          fontWeight: FontWeight.w400),
-                  textStyle: Theme.of(context)
-                      .textTheme
-                      .displayLarge!
-                      .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
-                )),
+              flex: 3,
+              child: ZTextFormField(
+                maxLength: 40,
+                hideCounterText: true,
+                onTap: onTap,
+                onChanged: onChanged,
+                controller: controller,
+                hintText: hintText,
+                hintTextStyle: Theme.of(context)
+                    .textTheme
+                    .titleMedium!
+                    .copyWith(
+                        fontSize: 14,
+                        color: warmerGrey,
+                        fontWeight: FontWeight.w400),
+                textStyle: Theme.of(context)
+                    .textTheme
+                    .displayLarge!
+                    .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
+              ),
+            ),
           ],
         ),
       );

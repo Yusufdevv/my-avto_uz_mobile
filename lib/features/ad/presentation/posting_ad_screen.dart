@@ -30,13 +30,11 @@ import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -44,10 +42,8 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class PostingAdScreen extends StatefulWidget {
   final bool? isHaveToClearState;
-  final BuildContext parentContext;
 
   const PostingAdScreen({
-    required this.parentContext,
     this.isHaveToClearState,
     Key? key,
   }) : super(key: key);
@@ -130,9 +126,6 @@ class _PostingAdScreenState extends State<PostingAdScreen>
   Widget build(BuildContext context) => WillPopScope(
         onWillPop: () async {
           FocusScope.of(context).unfocus();
-          HomeTabControllerProvider.of(widget.parentContext)
-              .controller
-              .animateTo(0);
           return Future.value(false);
         },
         child: KeyboardDismisser(
@@ -176,9 +169,6 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                     context
                         .read<ProfileBloc>()
                         .add(ChangeCountDataEvent(adding: true, myAdsCount: 1));
-                    HomeTabControllerProvider.of(widget.parentContext)
-                        .controller
-                        .animateTo(4);
 
                     currentTabIndex = 0;
                     await Future.delayed(const Duration(milliseconds: 500));
@@ -253,16 +243,12 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                           onTapBack: () {
                             if (currentTabIndex != 0) {
                               --currentTabIndex;
-                              postingAdBloc.add(PostingAdAddEventForEveryPage(
-                                  page: currentTabIndex));
                               pageController.animateToPage(currentTabIndex,
                                   duration: const Duration(milliseconds: 150),
                                   curve: Curves.linear);
                               setState(() {});
                             } else {
-                              HomeTabControllerProvider.of(widget.parentContext)
-                                  .controller
-                                  .animateTo(0);
+                              Navigator.pop(context);
                             }
                           },
                           onTapCancel: () {
@@ -317,7 +303,30 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                               //7
                               const GearboxScreen(),
                               //8
-                              const ModificationScreen(),
+                              ModificationScreen(
+                                noData: () {
+                                  FocusScope.of(context).unfocus();
+                                  if (currentTabIndex < tabLength - 1) {
+                                    if (currentTabIndex == 0 &&
+                                        animeState.isCollapsed) {
+                                      animeState.animationController.reverse();
+                                    }
+                                    currentTabIndex++;
+                                    postingAdBloc.add(
+                                        PostingAdAddEventForEveryPage(
+                                            page: currentTabIndex));
+                                    pageController.animateToPage(
+                                        currentTabIndex,
+                                        duration:
+                                            const Duration(milliseconds: 60),
+                                        curve: Curves.linear);
+                                    setState(() {});
+                                    postingAdBloc.add(PostingAdChooseEvent(
+                                        getModificationStatus:
+                                            FormzStatus.pure));
+                                  }
+                                },
+                              ),
                               //9
                               const ColorsScreen(),
                               //10

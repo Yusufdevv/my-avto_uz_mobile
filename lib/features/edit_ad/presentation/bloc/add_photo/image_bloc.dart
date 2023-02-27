@@ -29,9 +29,8 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
       print('=> => => =>     permidssion is $permission    <= <= <= <=');
 
       if (permission.isGranted) {
-        final image = await imagePicker.pickImage(source: ImageSource.gallery);
-        print(
-            '=> => => => picked panarama image path    ${image?.path}    <= <= <= <=');
+        final image = await imagePicker.pickImage(
+            source: ImageSource.gallery, imageQuality: 90);
         if (image != null) {
           emit(state
               .copyWith(panaramaImages: [image.path, ...state.panaramaImages]));
@@ -48,7 +47,8 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
           : await MyFunctions.getPhotosPermission(Platform.isAndroid);
 
       if (permission.isGranted) {
-        final image = await imagePicker.pickImage(source: event.source);
+        final image =
+            await imagePicker.pickImage(source: event.source, imageQuality: 90);
         if (image != null) {
           emit(state.copyWith(images: [image.path, ...state.images]));
         }
@@ -73,7 +73,8 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
       emit(state.copyWith(image: File('')));
     });
     on<GetImage>((event, emit) async {
-      final image = await imagePicker.pickImage(source: event.source);
+      final image =
+          await imagePicker.pickImage(source: event.source, imageQuality: 90);
       if (image != null) {
         emit(state.copyWith(image: File(image.path)));
       }

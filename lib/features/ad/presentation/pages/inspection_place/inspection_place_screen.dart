@@ -28,8 +28,6 @@ class InspectionPlaceScreen extends StatefulWidget {
 }
 
 class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
-
-
   late GlobalKey globalKey;
   @override
   void initState() {
@@ -51,7 +49,8 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                     // CHOOSE REGION
                     LoaderBox(
                       isActive: state.regionId != null,
-                      isLoading: state.status == FormzStatus.submissionInProgress,
+                      isLoading:
+                          state.status == FormzStatus.submissionInProgress,
                       onTap: () async {
                         await showModalBottomSheet<List<Region>>(
                           isDismissible: false,
@@ -67,9 +66,8 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                           ),
                         ).then((value) {
                           if (value != null && value.isNotEmpty) {
-                            context
-                                .read<PostingAdBloc>()
-                                .add(PostingAdChooseEvent(regionId: value[0].id));
+                            context.read<PostingAdBloc>().add(
+                                PostingAdChooseEvent(regionId: value[0].id));
                           }
                         });
                       },

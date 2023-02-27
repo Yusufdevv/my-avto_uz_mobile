@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'dealer_info_model.dart';
+part of 'dealer_single_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
@@ -28,6 +28,7 @@ DealerSingleModel _$DealerSingleModelFromJson(Map<String, dynamic> json) =>
       contactTo: json['contact_to'] as String? ?? '',
       contactFrom: json['contact_from'] as String? ?? '',
       carCount: json['car_count'] as int? ?? 0,
+      category: json['category'],
       district: json['district'] == null
           ? const RegionEntity()
           : const RegionConverter()
@@ -49,6 +50,7 @@ Map<String, dynamic> _$DealerSingleModelToJson(DealerSingleModel instance) =>
       'contact_from': instance.contactFrom,
       'contact_to': instance.contactTo,
       'location_url': instance.locationUrl,
+      'category': instance.category,
       'longitude': instance.longitude,
       'latitude': instance.latitude,
       'car_count': instance.carCount,
