@@ -219,27 +219,27 @@ class MyAdDesc extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 8),
-                  WButton(
-                    border: Border.all(
-                        color: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .borderGreyToDark),
-                    color: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .whiteToDarkRider,
-                    borderRadius: 12,
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 11),
-                    onTap: () {
-                      Share.share(
-                          'https://panel.avto.uz/api/v1/car/announcement/${item.id}/detail/');
-                    },
-                    child: SvgPicture.asset(AppIcons.share,
-                        color: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .mediumSlateBlueToWhite),
-                  ),
+                  // const SizedBox(width: 8),
+                  // WButton(
+                  //   border: Border.all(
+                  //       color: Theme.of(context)
+                  //           .extension<ThemedColors>()!
+                  //           .borderGreyToDark),
+                  //   color: Theme.of(context)
+                  //       .extension<ThemedColors>()!
+                  //       .whiteToDarkRider,
+                  //   borderRadius: 12,
+                  //   padding: const EdgeInsets.symmetric(
+                  //       vertical: 10, horizontal: 11),
+                  //   onTap: () {
+                  //     Share.share(
+                  //         'https://panel.avto.uz/api/v1/car/announcement/${item.id}/detail/');
+                  //   },
+                  //   child: SvgPicture.asset(AppIcons.share,
+                  //       color: Theme.of(context)
+                  //           .extension<ThemedColors>()!
+                  //           .mediumSlateBlueToWhite),
+                  // ),
                 ],
               )
             ],

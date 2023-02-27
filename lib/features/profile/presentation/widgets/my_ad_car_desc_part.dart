@@ -5,6 +5,7 @@ import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/commercial/presentation/widgets/custom_chip.dart';
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:auto/generated/locale_keys.g.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -69,8 +70,8 @@ class MyAdCarDescPart extends StatelessWidget {
             children: [
               Text(
                 item.discount > 0.0
-                    ? '${item.discount.floor()} ${item.currency.toUpperCase()}'
-                    : '${item.price.floor()} ${item.currency.toUpperCase()}',
+                    ? '${MyFunctions.getFormatCost((item.price.floor()-item.discount.floor()).toString())} ${item.currency.toUpperCase()}'
+                    : '${MyFunctions.getFormatCost(item.price.floor().toString())} ${item.currency.toUpperCase()}',
                 style: Theme.of(context)
                     .textTheme
                     .headlineSmall!
@@ -79,7 +80,7 @@ class MyAdCarDescPart extends StatelessWidget {
               const SizedBox(width: 4),
               if (item.discount > 0.0)
                 Text(
-                  '${item.price.floor()} ${item.currency.toUpperCase()}',
+                  '${MyFunctions.getFormatCost(item.price.floor().toString())} ${item.currency.toUpperCase()}',
                   style: Theme.of(context).textTheme.displayMedium!.copyWith(
                       decoration: TextDecoration.lineThrough, color: grey),
                 )

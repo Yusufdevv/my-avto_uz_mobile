@@ -43,7 +43,7 @@ class PreviewScreen extends StatelessWidget {
                         '${state.make?.name ?? ''} ${state.model?.name ?? ''} ${state.generations.first.name}'),
                     CarPriceText(
                         text:
-                        '${state.price} ${state.currency.toUpperCase()}'),
+                        '${MyFunctions.getFormatCost(state.price.toString())} ${state.currency.toUpperCase()}'),
                     const SizedBox(height: 12),
                     DateAndViewsRow(
                         date: MyFunctions.getData(state.purchasedDate!)),

@@ -115,7 +115,6 @@ class _PriceScreenState extends State<PriceScreen> {
                               selected: widget.currency,
                             ),
                           ).then((value) {
-                            log(':::::::::::   goten curerncy is: $value    ::::::::::::::');
                             if (value != null) {
                               widget.onCurrencyChanged(value);
                             }

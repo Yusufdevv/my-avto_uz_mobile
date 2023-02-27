@@ -8,6 +8,7 @@ class SwitcherRowAsButtonAlso extends StatelessWidget {
   final VoidCallback onTap;
 
   final Function(bool) onChanged;
+
   const SwitcherRowAsButtonAlso(
       {required this.value,
       required this.onChanged,
@@ -15,6 +16,7 @@ class SwitcherRowAsButtonAlso extends StatelessWidget {
       required this.onTap,
       Key? key})
       : super(key: key);
+
   @override
   Widget build(BuildContext context) => GestureDetector(
         onTap: () {
@@ -28,13 +30,17 @@ class SwitcherRowAsButtonAlso extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              title.length > 36 ? '${title.substring(0, 35)}..' : title,
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge!
-                  .copyWith(color: greyText),
+            Expanded(
+              child: Text(
+                title,
+                maxLines: 2,
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge!
+                    .copyWith(color: greyText),
+              ),
             ),
+            const SizedBox(width: 16),
             AnimatedContainer(
               duration: const Duration(milliseconds: 150),
               alignment: value ? Alignment.centerRight : Alignment.centerLeft,
