@@ -78,8 +78,8 @@ class ComparisonSliverDelegete extends SliverPersistentHeaderDelegate {
                               : state
                                   .cars[index].announcement.mainData.gallery[0],
                           carSalary:
-                              '${state.cars[index].announcement.price} ${state.cars[index].announcement.currency}',
-                          name: state.cars[index].announcement.mainData.make,
+                              '${MyFunctions.getFormatCost(state.cars[index].announcement.price)} ${state.cars[index].announcement.currency.toUpperCase()}',
+                          name: '${state.cars[index].announcement.mainData.make} ${state.cars[index].announcement.mainData.model} ${state.cars[index].announcement.mainData.generation}',
                         ),
                       )),
                 )
@@ -143,7 +143,7 @@ class ComparisonSliverDelegete extends SliverPersistentHeaderDelegate {
                                               item!.announcement.ownership,
                                           hasCallCard: true,
                                           carName:
-                                              item.announcement.mainData.model,
+                                              '${item.announcement.mainData.make} ${item.announcement.mainData.model} ${item.announcement.mainData.generation}',
                                           carSalary:
                                               '${MyFunctions.getFormatCost(item.announcement.price)} ${item.announcement.currency.toUpperCase()}',
                                           imageUrl: item

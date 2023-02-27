@@ -48,12 +48,14 @@ class MainEmptyFavourite extends StatelessWidget {
                   child: SvgPicture.asset(AppIcons.heartWhite),
                 ),
                 const SizedBox(width: 8),
-                SizedBox(
+                Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         LocaleKeys.You_dont_have_favorites.tr(),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                         style: Theme.of(context)
                             .textTheme
                             .displayLarge!

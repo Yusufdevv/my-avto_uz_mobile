@@ -157,7 +157,7 @@ class _MySearchesPageState extends State<MySearchesPage> {
                             )
                           : Center(
                               child: EmptyItemBody(
-                                  title: LocaleKeys.no_notice.tr(),
+                                  title: LocaleKeys.no_results.tr(),
                                   subtitle:
                                       LocaleKeys.your_saved_searches_will.tr(),
                                   image: AppIcons.emptyFolder),

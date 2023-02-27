@@ -100,7 +100,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                         children: [
                           PhotoItem(
                             images: state.images,
-                            onTap: state.images.length < 20
+                            onTap: state.images.length < 30
                                 ? () async {
                                     await showModalBottomSheet<ImageSource>(
                                             backgroundColor: Colors.transparent,
@@ -118,7 +118,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                                     context.read<PostingAdBloc>().add(
                                           PostingAdShowToastEvent(
                                             message:
-                                                "20 tadan ortiq rasm qo'ya olmaysiz",
+                                                "30 tadan ortiq rasm qo'ya olmaysiz",
                                             status: PopStatus.warning,
                                           ),
                                         );
@@ -137,7 +137,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                           ),
                           PhotoItem(
                             images: state.panaramaImages,
-                            onTap: state.panaramaImages.length < 10
+                            onTap: state.panaramaImages.length < 20
                                 ? () async {
                                     imageBloc.add(PickPanaramaImageEvent());
                                   }
