@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/preview/widgets/car_info_row.dart';
 import 'package:auto/features/ad/presentation/pages/preview/widgets/car_model_price_text.dart';
@@ -19,9 +17,7 @@ class PreviewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: BlocBuilder<PostingAdBloc, PostingAdState>(
-            builder: (context, state) {
-          log(':::::::::: the currency in review state: ${state.currency}  ::::::::::');
-          return SingleChildScrollView(
+            builder: (context, state) => SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.only(bottom: 66),
             child: Column(
@@ -41,7 +37,7 @@ class PreviewScreen extends StatelessWidget {
                     text:
                         '${state.make?.name ?? ''} ${state.model?.name ?? ''} ${state.generations.first.name}'),
                 CarPriceText(
-                    text: '${state.price} ${state.currency.toUpperCase()}'),
+                    text: '${MyFunctions.getFormatCost(state.price.toString())} ${state.currency.toUpperCase()}'),
                 const SizedBox(height: 12),
                 DateAndViewsRow(
                     date: MyFunctions.getData(state.purchasedDate!)),
@@ -88,7 +84,6 @@ class PreviewScreen extends StatelessWidget {
                 const SizedBox(height: 36)
               ],
             ),
-          );
-        }),
+          )),
       );
 }

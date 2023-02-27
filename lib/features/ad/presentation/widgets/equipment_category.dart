@@ -43,6 +43,7 @@ class EquipmentCategory extends StatelessWidget {
                   showModalBottomSheet<Map<int?, String?>>(
                     context: context,
                     useRootNavigator: true,
+                    isScrollControlled: true,
                     backgroundColor: LightThemeColors.appBarColor,
                     shape: const RoundedRectangleBorder(
                       borderRadius:
@@ -87,10 +88,9 @@ class EquipmentCategory extends StatelessWidget {
                               ? black
                               : grey,
                           fontSize: 16,
-                          overflow: TextOverflow.ellipsis,
                           fontWeight: FontWeight.w600,
                         ),
-                        maxLines: 1,
+                        maxLines: 3,
                       ),
                     ),
                     if (options[index].type == 'radio')

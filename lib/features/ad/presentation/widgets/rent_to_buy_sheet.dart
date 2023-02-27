@@ -138,7 +138,7 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                               },
                               autofocus: true,
                               focusNode: state.focusNode,
-                              maxLength: MyFunctions.getFormatCost( widget.price.toString()).length,
+                              maxLength: MyFunctions.getFormatCost( widget.price.toString()).length+1,
                               inputFormatters: [
                                 FilteringTextInputFormatter.digitsOnly,
                                 ThousandsSeparatorInputFormatter()
