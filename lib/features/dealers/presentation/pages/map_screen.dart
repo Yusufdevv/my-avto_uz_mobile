@@ -390,12 +390,13 @@ class _MapScreenState extends State<MapScreen>
             PlacemarkIconStyle(
               image: BitmapDescriptor.fromBytes(
                 await MyFunctions.getBytesFromCanvas(
-                    image: AppIcons.dealersLocIcon,
-                    width: 170,
-                    height: 410,
-                    placeCount: cluster.placemarks.length,
-                    context: context,
-                    shouldAddText: true),
+                  image: AppIcons.dealersLocIcon,
+                  width: 200,
+                  height: 410,
+                  placeCount: cluster.placemarks.length,
+                  context: context,
+                  shouldAddText: true,
+                ),
               ),
               scale: 0.6,
             ),

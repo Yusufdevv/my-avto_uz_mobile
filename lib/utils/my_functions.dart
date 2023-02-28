@@ -175,7 +175,7 @@ class MyFunctions {
         paint);
 
     if (shouldAddText) {
-      final painter = TextPainter(textDirection: ui.TextDirection.ltr);
+      final painter = TextPainter(textDirection: ui.TextDirection.ltr, textAlign: TextAlign.center);
       painter
         ..text = TextSpan(
           text: placeCount.toString(),
@@ -184,7 +184,7 @@ class MyFunctions {
         ..layout()
         ..paint(
           canvas,
-          Offset((width * 0.47) - painter.width * 0.2,
+          Offset((width * 0.47) - painter.width * 0.6,
               (height * 0.1) - painter.height * 0.1),
         );
     }
