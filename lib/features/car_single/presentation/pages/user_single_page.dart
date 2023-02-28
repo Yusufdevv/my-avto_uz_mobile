@@ -7,7 +7,6 @@ import 'package:auto/features/dealers/presentation/widgets/dealer_info_widget.da
 import 'package:auto/features/profile/presentation/pages/directory/directory_sliver_delegete.dart';
 import 'package:auto/features/search/presentation/widgets/info_result_container.dart';
 import 'package:auto/generated/locale_keys.g.dart';
-import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -71,6 +70,7 @@ class _UserSinglePageState extends State<UserSinglePage> {
               }
               if (state.status.isSubmissionSuccess) {
                 final item = state.userSingleEntity;
+                print('++++++ ${item.announcement?.contactPhone}');
                 return NestedScrollView(
                   headerSliverBuilder: (context, innerBoxIsScrolled) =>
                       <Widget>[
@@ -219,9 +219,10 @@ class _UserSinglePageState extends State<UserSinglePage> {
                                           launchUrl(Uri.parse(
                                               'tel: ${item.announcement?.contactPhone}'));
                                         },
-                                        text: MyFunctions.phoneFormat(
-                                            item.announcement?.contactPhone ??
-                                                ''),
+                                        text: item.announcement?.contactPhone.toString() ?? '',
+                                        // MyFunctions.phoneFormat(
+                                        //     item.announcement?.contactPhone ??
+                                        //         ''),
                                         icon: AppIcons.tablerPhone,
                                       ),
                                     ),

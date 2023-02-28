@@ -52,8 +52,8 @@ class AllCarsInDealerScreen extends StatelessWidget {
                     publishTime: MyFunctions.getAutoPublishDate(item.createdAt),
                     subtitle: item.description,
                     year: item.year,
-                    price: item.price,
-                    discountPrice: item.price,
+                    price: double.parse(item.price),
+                    discountPrice: double.parse(item.discount),
                     sellType: item.isRentWithPurchase
                         ? LocaleKeys.rent_to_buy.tr()
                         : LocaleKeys.car_sale.tr(),

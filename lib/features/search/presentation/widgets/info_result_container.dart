@@ -236,8 +236,8 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                 children: [
                   Text(
                     widget.discount > 0.0
-                        ? '${(widget.price - widget.discount).floor()} ${widget.currency.toUpperCase()}'
-                        : '${widget.price.floor()} ${widget.currency.toUpperCase()}',
+                        ? '${MyFunctions.getFormatCost((widget.price - widget.discount).floor().toString())} ${widget.currency.toUpperCase()}'
+                        : '${MyFunctions.getFormatCost(widget.price.floor().toString())} ${widget.currency.toUpperCase()}',
                     style: Theme.of(context)
                         .textTheme
                         .headlineSmall
@@ -246,7 +246,7 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                   const SizedBox(width: 4),
                   if (widget.discount > 0.0)
                     Text(
-                      '${widget.price.floor()} ${widget.currency.toUpperCase()}',
+                      '${MyFunctions.getFormatCost(widget.price.floor().toString())} ${widget.currency.toUpperCase()}',
                       style: Theme.of(context)
                           .textTheme
                           .displayMedium

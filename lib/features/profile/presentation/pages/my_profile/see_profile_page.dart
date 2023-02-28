@@ -116,14 +116,14 @@ class SeeProfilePage extends StatelessWidget {
                                       .announcementsCount ==
                                   0
                               ? LocaleKeys.no_ads.tr()
-                              : '${state.profileEntity.usercountdata.announcementsCount} ${LocaleKeys.how_many_ads.tr(args: [
+                              : LocaleKeys.how_many_ads.tr(args: [
                                       '${state.profileEntity.usercountdata.announcementsCount}'
                                     ], namedArgs: {
                                       'appendix': MyFunctions.getAppendix(state
                                           .profileEntity
                                           .usercountdata
                                           .announcementsCount)
-                                    })}',
+                                    }),
                           style: Theme.of(context)
                               .textTheme
                               .displayMedium!
