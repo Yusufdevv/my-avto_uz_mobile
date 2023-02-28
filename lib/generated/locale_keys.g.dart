@@ -471,7 +471,9 @@ abstract class  LocaleKeys {
   static const right = 'right';
   static const bamper = 'bamper';
   static const back = 'back';
+  static const backk = 'backk';
   static const front = 'front';
+  static const frontt = 'frontt';
   static const back_bumper = 'back_bumper';
   static const fender = 'fender';
   static const of_back = 'of_back';

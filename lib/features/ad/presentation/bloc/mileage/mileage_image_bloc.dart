@@ -15,22 +15,32 @@ class MileageImageBloc extends Bloc<MileageImageEvent, MileageImageState> {
 
   MileageImageBloc(String? mileageImage)
       : super(MileageImageState(image: mileageImage)) {
+
     on<MakeToastMessageNullEvent>(
         (event, emit) => emit(state.copyWith(toastMessage: '')));
+
     on<PickMileageImage>((event, emit) async {
-      final permission =
-          await MyFunctions.getCameraPermission(Platform.isAndroid);
+      final permission = event.source == ImageSource.camera
+          ? await MyFunctions.getCameraPermission(Platform.isAndroid)
+          : await MyFunctions.getPhotosPermission(Platform.isAndroid);
       if (permission.isGranted) {
-        final image = await imagePicker.pickImage(
-            source: ImageSource.camera, imageQuality: 90);
+        final image =await imagePicker.pickImage(source: event.source, imageQuality: 90);
+
         if (image != null) {
           emit(state.copyWith(image: image.path));
         }
       } else {
+        final what = event.source == ImageSource.camera
+            ? 'taking picture'
+            : 'picking image';
         final how = permission.isPermanentlyDenied ? 'permanently' : '';
-        emit(state.copyWith(
-            toastMessage: 'You have denied taking picture $how'));
+        emit(state.copyWith(toastMessage: 'You have denied $what $how'));
       }
     });
+
+    on<DeleteImage>((event, emit) {
+      emit(state.copyWith(image: ''));
+    });
   }
+
 }

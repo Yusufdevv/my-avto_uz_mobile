@@ -58,6 +58,7 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
         emit(state.copyWith(toastMessage: 'You have denied $what $how'));
       }
     });
+
     on<DeleteImage>((event, emit) {
       final image = <String>[...state.images];
       final panarama = <String>[...state.panaramaImages];

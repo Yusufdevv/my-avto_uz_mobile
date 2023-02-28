@@ -1,5 +1,4 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -25,6 +24,7 @@ class ChooseDistrictSheet extends StatefulWidget {
 
 class _ChooseDistrictSheetState extends State<ChooseDistrictSheet> {
   int selected = -1;
+
   @override
   void initState() {
     selected = widget.selectedId;
@@ -33,7 +33,7 @@ class _ChooseDistrictSheetState extends State<ChooseDistrictSheet> {
 
   @override
   Widget build(BuildContext context) => Container(
-        margin: EdgeInsets.only(top: SizeConfig.v(24)),
+        margin: const EdgeInsets.only(top: 48),
         decoration: const BoxDecoration(
           color: white,
           borderRadius: BorderRadius.vertical(top: Radius.circular(20)),

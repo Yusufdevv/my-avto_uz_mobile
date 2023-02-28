@@ -470,7 +470,7 @@ class PASingleton {
 
         final v = !(milage > 0 ||
             (state.isWithoutMileage ?? false) ||
-            state.milageImage != null);
+            state.milageImage != null && state.milageImage!.isNotEmpty);
         return v;
       // PreviewScreen
       case 19:

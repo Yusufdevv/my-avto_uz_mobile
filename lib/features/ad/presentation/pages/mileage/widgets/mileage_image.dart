@@ -1,12 +1,16 @@
 import 'dart:io';
 
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/bloc/mileage/mileage_image_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/add_photo/widgets/plus_circle.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/profile/presentation/widgets/camera_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
 
 class MileageImageItem extends StatefulWidget {
   final String? image;
@@ -22,13 +26,24 @@ class _MileageImageItemState extends State<MileageImageItem> {
   Widget build(BuildContext context) =>
       widget.image == null || widget.image!.isEmpty
           ? WScaleAnimation(
-              onTap: () {
-                context.read<MileageImageBloc>().add(PickMileageImage());
+              onTap: () async {
+                await showModalBottomSheet<ImageSource>(
+                        backgroundColor: Colors.transparent,
+                        context: context,
+                        useRootNavigator: true,
+                        builder: (context) => const CameraBottomSheet())
+                    .then((value) {
+                  if (value != null) {
+                    context
+                        .read<MileageImageBloc>()
+                        .add(PickMileageImage(source: value));
+                  }
+                });
               },
               child: Container(
                 alignment: Alignment.center,
                 height: 82,
-                width: double.infinity,
+                width: double.maxFinite,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(width: 1, color: purple),
@@ -39,17 +54,30 @@ class _MileageImageItemState extends State<MileageImageItem> {
                 child: const PlusCircle(),
               ),
             )
-          : Container(
-              height: 140,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: FileImage(
-                    File(widget.image!),
+          : Stack(
+              children: [
+                Container(
+                  height: 140,
+                  width: double.maxFinite,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: FileImage(File(widget.image ?? '')),
+                    ),
                   ),
                 ),
-              ),
+                Positioned(
+                  top: 4,
+                  right: 4,
+                  child: WScaleAnimation(
+                      onTap: () {
+                        context
+                            .read<MileageImageBloc>()
+                            .add(DeleteImage());
+                      },
+                      child: SvgPicture.asset(AppIcons.closeSquare)),
+                ),
+              ],
             );
 }

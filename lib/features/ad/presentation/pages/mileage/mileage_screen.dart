@@ -56,12 +56,10 @@ class _MileageScreenState extends State<MileageScreen> {
           child: Scaffold(
             body: BlocConsumer<MileageImageBloc, MileageImageState>(
               listener: (context, state) {
-                if (state.image != null && state.image!.isNotEmpty) {
                   widget.onImageChange(state.image!);
-                }
+
                 if (state.toastMessage != null &&
                     state.toastMessage!.isNotEmpty) {
-                  print('toast is showing');
                   context.read<PostingAdBloc>().add(PostingAdShowToastEvent(
                       message: state.toastMessage!, status: PopStatus.warning));
                   mileageImageBloc.add(MakeToastMessageNullEvent());

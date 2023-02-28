@@ -1,5 +1,4 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -30,6 +29,7 @@ class RentChooseRegionBottomSheet extends StatefulWidget {
 class _RentChooseRegionBottomSheetState
     extends State<RentChooseRegionBottomSheet> {
   Map<int, Region> checkStatus = <int, Region>{};
+
   @override
   void initState() {
     checkStatus =
@@ -41,7 +41,7 @@ class _RentChooseRegionBottomSheetState
   Widget build(BuildContext context) {
     final isAllChecked = checkStatus.length == widget.list.length;
     return Container(
-      margin: EdgeInsets.only(top: SizeConfig.v(48)),
+      margin: const EdgeInsets.only(top: 48),
       decoration: const BoxDecoration(
         color: white,
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),

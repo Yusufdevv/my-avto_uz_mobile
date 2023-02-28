@@ -165,8 +165,8 @@ class _DamageScreenState extends State<DamageScreen>
                   CustomTabBar(
                       title: LocaleKeys.bamper.tr(),
                       tabController: bumperController,
-                      firstTab: LocaleKeys.back.tr(),
-                      secondTab: LocaleKeys.front.tr()),
+                      firstTab: LocaleKeys.backk.tr(),
+                      secondTab: LocaleKeys.frontt.tr()),
                   SizedBox(
                     height: 100,
                     child: TabBarView(

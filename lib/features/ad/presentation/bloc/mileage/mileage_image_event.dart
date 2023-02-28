@@ -5,5 +5,12 @@ abstract class MileageImageEvent {}
 class MakeToastMessageNullEvent extends MileageImageEvent {}
 
 class PickMileageImage extends MileageImageEvent {
-  PickMileageImage();
+  final ImageSource source;
+
+   PickMileageImage({required this.source});
+}
+
+class DeleteImage extends MileageImageEvent {
+
+   DeleteImage();
 }
