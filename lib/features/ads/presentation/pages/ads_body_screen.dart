@@ -96,13 +96,8 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                                 state.announcementList[index].publishedAt),
                             subtitle: state.announcementList[index].description,
                             year: state.announcementList[index].year,
-                            price: MyFunctions.getFormatCost(
-                                state.announcementList[index].price.toString()),
-                            discountPrice:
-                                state.announcementList[index].discount == 0
-                                    ? ''
-                                    : state.announcementList[index].discount
-                                        .toString(),
+                            price: state.announcementList[index].price,
+                            discountPrice: state.announcementList[index].discount ?? 0,
                             sellType:
                                 state.announcementList[index].isRentWithPurchase
                                     ? LocaleKeys.rent_to_buy.tr()

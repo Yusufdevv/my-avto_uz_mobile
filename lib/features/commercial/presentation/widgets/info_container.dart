@@ -11,6 +11,7 @@ import 'package:auto/features/search/presentation/part/bottom_sheet_for_calling.
 import 'package:auto/features/search/presentation/widgets/add_comparison_item.dart';
 import 'package:auto/features/search/presentation/widgets/add_wishlist_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,9 @@ class InfoContainer extends StatelessWidget {
     required this.index,
     required this.initialComparsions,
     required this.id,
+    required this.price,
+   required this.discountPrice,
+   required this.currency,
     this.year,
     this.avatarPicture,
     this.hasDiscount = true,
@@ -33,13 +37,10 @@ class InfoContainer extends StatelessWidget {
     this.ownerType,
     this.location,
     this.publishTime,
-    this.price,
-    this.discountPrice,
     this.sellType,
     this.hasStatusInfo = true,
     this.hasCallCard = true,
     super.key,
-    this.currency,
     this.gallery,
     this.initialLike,
     this.phone,
@@ -56,11 +57,11 @@ class InfoContainer extends StatelessWidget {
   final String? ownerType;
   final String? location;
   final String? publishTime;
-  final String? price;
-  final String? discountPrice;
+  final double price;
+  final double discountPrice;
   final String? sellType;
   final String? phone;
-  final String? currency;
+  final String currency;
   final List<String>? gallery;
   final bool hasStatusInfo;
   final bool hasCallCard;
@@ -166,42 +167,29 @@ class InfoContainer extends StatelessWidget {
                 carYear: '$year',
                 isNew: hasStatusInfo),
             const SizedBox(height: 4),
-            RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text: discountPrice!.isEmpty
-                        ? '$price ${currency!.toUpperCase()}'
-                        : '${discountPrice!} ${currency!.toUpperCase()}',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: hasDiscount
-                          ? green
-                          : Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .darkToWhite,
-                    ),
-                  ),
-                  const WidgetSpan(
-                      alignment: PlaceholderAlignment.middle,
-                      child: SizedBox(width: 4)),
-                  WidgetSpan(
-                    alignment: PlaceholderAlignment.middle,
-                    child: Visibility(
-                      visible: hasDiscount,
-                      child: Text(
-                        discountPrice == null ? '' : price!,
-                        style:
-                            Theme.of(context).textTheme.displayMedium!.copyWith(
-                                  decoration: TextDecoration.lineThrough,
-                                  color: grey,
-                                ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+            Row(
+              children: [
+                Text(
+                  discountPrice > 0.0
+                      ? '${MyFunctions.getFormatCost((price - discountPrice).floor().toString())} ${currency.toUpperCase()}'
+                      : '${MyFunctions.getFormatCost(price.floor().toString())} ${currency.toUpperCase()}',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineSmall
+                      ?.copyWith(color: green, fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(width: 4),
+                if (discountPrice > 0.0)
+                  Text(
+                    '${MyFunctions.getFormatCost(price.floor().toString())} ${currency.toUpperCase()}',
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayMedium
+                        ?.copyWith(
+                        decoration: TextDecoration.lineThrough,
+                        color: grey),
+                  )
+              ],
             ),
             const SizedBox(height: 8),
             Text(
