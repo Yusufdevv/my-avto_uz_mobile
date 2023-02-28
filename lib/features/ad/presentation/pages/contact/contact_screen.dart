@@ -1,5 +1,7 @@
 // ignore_for_file: unused_import
 
+import 'dart:developer';
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
@@ -116,7 +118,11 @@ class _ContactScreenState extends State<ContactScreen> {
                             WTextField(
                               onTap: () {},
                               validate: (v) {
+                                log('::::::::::  NAME INPUT VALUE:  ${postingAdState.nameController.text}  ::::::::::');
+                                log('::::::::::  NAME INPUT VALUE:  $v  ::::::::::');
+                                log('::::::::::  NAME INPUT VALUE:  ${postingAdState.ownerName}  ::::::::::');
                                 if (v!.isEmpty) {
+
                                   return LocaleKeys.please_enter_your_name.tr();
                                 }
                                 return null;

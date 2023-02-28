@@ -156,6 +156,7 @@ class PASingleton {
 
   static PostingAdState initUserFromApi(UserModel user, PostingAdState state) =>
       state.copyWith(
+        contactsFormKey: GlobalKey<FormState>(),
         isContactsVerified: true,
         showOwnerContacts: true,
         status: FormzStatus.submissionSuccess,
@@ -171,6 +172,7 @@ class PASingleton {
 
   static PostingAdState initUserFromState(PostingAdState state) =>
       state.copyWith(
+          contactsFormKey: GlobalKey<FormState>(),
           phoneController: TextEditingController(
               text: MyFunctions.phoneFormat(
                   state.userModel!.phoneNumber.substring(4))),
@@ -454,8 +456,10 @@ class PASingleton {
         return state.damagedParts.isEmpty;
       // ContactsScreen
       case 15:
-        return !((state.contactsFormKey.currentState?.validate() ?? false) &&
+        final v = !((state.contactsFormKey.currentState?.validate() ?? false) &&
             state.isContactsVerified);
+        log(':::::::::: ownername in validation of next button: ${state.ownerName}  ::::::::::');
+        return v;
 // InspectionPlaceScreen
       case 16:
         return !(state.regionId != null || state.mapPointBytes != null);

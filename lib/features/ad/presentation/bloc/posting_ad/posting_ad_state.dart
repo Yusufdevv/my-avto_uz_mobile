@@ -7,11 +7,11 @@ class PostingAdState extends Equatable {
   final FormzStatus getMakesStatus;
   final FormzStatus createStatus;
   final FormzStatus getModificationStatus;
+  final GlobalKey<FormState> contactsFormKey;
 
   final FormzStatus getAnnouncementToEditStatus;
   final String? id;
 
-  final GlobalKey<FormState> contactsFormKey;
   final TextEditingController phoneController;
   final TextEditingController emailController;
   final TextEditingController nameController;
