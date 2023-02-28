@@ -99,6 +99,11 @@ CarSingleModel _$CarSingleModelFromJson(Map<String, dynamic> json) =>
           ? const PriceAnalyticsEntity()
           : const PriceAnalyticsConverter()
               .fromJson(json['price_analytics'] as Map<String, dynamic>?),
+      rentWithPurchase: (json['rent_with_purchase'] as List<dynamic>?)
+              ?.map((e) => const RentWithPurchaseEntityConverter()
+                  .fromJson(e as Map<String, dynamic>?))
+              .toList() ??
+          const <RentWithPurchaseEntity>[],
     );
 
 Map<String, dynamic> _$CarSingleModelToJson(CarSingleModel instance) =>
@@ -161,4 +166,7 @@ Map<String, dynamic> _$CarSingleModelToJson(CarSingleModel instance) =>
       'expired_at': instance.expiredAt,
       'price_analytics':
           const PriceAnalyticsConverter().toJson(instance.priceAnalytics),
+      'rent_with_purchase': instance.rentWithPurchase
+          .map(const RentWithPurchaseEntityConverter().toJson)
+          .toList(),
     };
