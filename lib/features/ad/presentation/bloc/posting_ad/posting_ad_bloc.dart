@@ -315,6 +315,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       phoneController: TextEditingController(),
       emailController: TextEditingController(),
       nameController: TextEditingController(),
+      contactsFormKey: GlobalKey<FormState>(),
     ));
   }
 

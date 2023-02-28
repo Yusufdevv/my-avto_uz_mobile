@@ -122,7 +122,6 @@ class _ContactScreenState extends State<ContactScreen> {
                                 log('::::::::::  NAME INPUT VALUE:  $v  ::::::::::');
                                 log('::::::::::  NAME INPUT VALUE:  ${postingAdState.ownerName}  ::::::::::');
                                 if (v!.isEmpty) {
-
                                   return LocaleKeys.please_enter_your_name.tr();
                                 }
                                 return null;

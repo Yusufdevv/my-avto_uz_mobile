@@ -41,10 +41,8 @@ import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class PostingAdScreen extends StatefulWidget {
-  final bool? isHaveToClearState;
 
   const PostingAdScreen({
-    this.isHaveToClearState,
     Key? key,
   }) : super(key: key);
 

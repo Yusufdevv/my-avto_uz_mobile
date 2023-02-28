@@ -192,7 +192,7 @@ class EASingleton {
           v.price.split('.').toList().first),
       mileage: MyFunctions.getThousandsSeparatedPrice('${v.distanceTraveled}'),
       purchasedDate: v.purchaseDate,
-      notRegisteredInUzbekistan: v.registeredInUzbekistan,
+      notRegisteredInUzbekistan: !v.registeredInUzbekistan,
       yearEntity: YearsEntity(
         id: v.generation.id,
         modelId: v.generation.model,

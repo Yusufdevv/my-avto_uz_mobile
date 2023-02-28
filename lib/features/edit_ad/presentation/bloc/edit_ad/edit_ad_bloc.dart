@@ -128,6 +128,7 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
         phoneController: TextEditingController(),
         emailController: TextEditingController(),
         nameController: TextEditingController(),
+
       ),
     );
   }
