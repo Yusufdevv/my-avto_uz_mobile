@@ -326,9 +326,10 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                           page: const PhoneNumberEditPage()));
                                 },
                                 child: PhoneContainer(
-                                    phoneNumber: stateProfile
-                                            .profileEntity.phoneNumber ??
-                                        '')),
+                                    phoneNumber: MyFunctions.phoneFormat(
+                                        stateProfile
+                                                .profileEntity.phoneNumber ??
+                                            ''))),
                             //
                             TitleTextFieldTop(title: LocaleKeys.email.tr()),
                             ProfilTextField(

@@ -42,25 +42,29 @@ class MyFunctions {
   }
 
   static String phoneFormat(String phone) {
-    var formattedPhone = '';
+    final formattedPhone = StringBuffer();
+
     if (phone.length == 9) {
       //!input = 904781717
-      formattedPhone += '${phone.substring(0, 2)} '; //90
-      formattedPhone += '${phone.substring(2, 5)} '; // 478
-      formattedPhone += '${phone.substring(5, 7)} '; // 17
-      formattedPhone += phone.substring(7); // 17
+      formattedPhone
+        ..write('${phone.substring(0, 2)} ')
+        ..write('${phone.substring(2, 5)} ')
+        ..write('${phone.substring(5, 7)} ')
+        ..write(phone.substring(7));
+
       //!result 90 487 17 17
     } else if (phone.length == 13) {
       //!input = +998904781717
-      formattedPhone += '${phone.substring(0, 4)} '; //+998
-      formattedPhone += '${phone.substring(4, 6)} '; //90
-      formattedPhone += '${phone.substring(6, 9)} '; // 478
-      formattedPhone += '${phone.substring(9, 11)} '; // 17
-      formattedPhone += phone.substring(11);
+      formattedPhone
+        ..write('${phone.substring(0, 4)} ')
+        ..write('${phone.substring(4, 6)} ')
+        ..write('${phone.substring(6, 9)} ')
+        ..write('${phone.substring(9, 11)} ')
+        ..write(phone.substring(11));
+
       //!result +998 90 487 17 17
     }
-
-    return formattedPhone;
+    return formattedPhone.toString();
   }
 
   static String text(List<Region>? list, [bool doName = false]) {
@@ -175,7 +179,8 @@ class MyFunctions {
         paint);
 
     if (shouldAddText) {
-      final painter = TextPainter(textDirection: ui.TextDirection.ltr, textAlign: TextAlign.center);
+      final painter = TextPainter(
+          textDirection: ui.TextDirection.ltr, textAlign: TextAlign.center);
       painter
         ..text = TextSpan(
           text: placeCount.toString(),
@@ -419,7 +424,7 @@ class MyFunctions {
   }
 
   static bool isEmail(String email) => RegExp(
-          r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+          r'^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z\-\d]+\.)+[a-zA-Z]{2,}))$')
       .hasMatch(email);
 
   static String getDamagedPartName(String door) {

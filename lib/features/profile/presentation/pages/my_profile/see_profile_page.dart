@@ -131,7 +131,7 @@ class SeeProfilePage extends StatelessWidget {
                                   fontWeight: FontWeight.w600, color: grey)),
                       TextSpacer(
                         title: LocaleKeys.tel_number.tr(),
-                        value: state.profileEntity.phoneNumber ?? '',
+                        value: MyFunctions.phoneFormat(state.profileEntity.phoneNumber ?? ''),
                         padding: const EdgeInsets.only(top: 36, bottom: 16),
                       ),
                       if (state.profileEntity.region?.title != null)
