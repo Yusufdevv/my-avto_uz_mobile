@@ -133,6 +133,7 @@ class EASingleton {
   }
 
   static Future<EditAdState> stateForEdit(CarSingleEntity v) async {
+    log('::::::::::  CAR SINGLE ENTITY RENT WITH PURCHASE CONDITIONS LENTH:  ${v.rentWithPurchase.length}  ::::::::::');
     String? phone = '';
     try {
       phone = MyFunctions.phoneFormat(v.user.phoneNumber.substring(4));
@@ -146,6 +147,12 @@ class EASingleton {
       if (path != null) {
         gallery.add(path);
       }
+    }
+    Map<int, RentWithPurchaseEntity> rentWithPurchaseConditions = {};
+
+    for (int i = 0; i < v.rentWithPurchase.length; i++) {
+      rentWithPurchaseConditions[v.rentWithPurchase[i].id] =
+          v.rentWithPurchase[i];
     }
     log('STATE FOR EDIT : ${v.year}');
 
@@ -200,6 +207,7 @@ class EASingleton {
         yearEnd: v.generation.yearEnd,
       ),
       modification: v.modificationType,
+      rentWithPurchaseConditions: rentWithPurchaseConditions,
     );
   }
 
