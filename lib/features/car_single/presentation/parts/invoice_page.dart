@@ -3,9 +3,9 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/car_single/presentation/widgets/invoice_in_progress.dart';
-import 'package:auto/features/car_single/presentation/widgets/orange_button.dart';
 import 'package:auto/features/car_single/presentation/widgets/select_pay_way.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
+import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:dotted_line/dotted_line.dart';
@@ -151,9 +151,7 @@ class _InvoicePageState extends State<InvoicePage> {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 16,
-              ),
+              const SizedBox(height: 16),
               Text(
                 LocaleKeys.payment_method.tr(),
                 style: Theme.of(context)
@@ -161,9 +159,7 @@ class _InvoicePageState extends State<InvoicePage> {
                     .displayMedium!
                     .copyWith(fontSize: 14),
               ),
-              const SizedBox(
-                height: 8,
-              ),
+              const SizedBox(height: 8),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 12),
                 child: Row(
@@ -248,17 +244,12 @@ class _InvoicePageState extends State<InvoicePage> {
                           ])),
                     ],
                   ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  OrangeButton(
-                    shadowColor: white,
+                  const SizedBox(height: 16),
+                  WButton(
+                    isDisabled: value < 1,
+                    disabledColor: disabledButton,
+                    text: LocaleKeys.confirm.tr(),
                     color: orange,
-                    content: Text(LocaleKeys.confirm.tr(),
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium!
-                            .copyWith(fontSize: 14)),
                     onTap: () {
                       Navigator.of(context)
                           .push(fade(page: const InvoiceInProgress()));
