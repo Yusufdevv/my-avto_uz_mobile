@@ -1,5 +1,7 @@
 // ignore_for_file: unused_import
 
+import 'dart:developer';
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
@@ -116,7 +118,11 @@ class _ContactScreenState extends State<ContactScreen> {
                             WTextField(
                               onTap: () {},
                               validate: (v) {
+                                log('::::::::::  NAME INPUT VALUE:  ${postingAdState.nameController.text}  ::::::::::');
+                                log('::::::::::  NAME INPUT VALUE:  $v  ::::::::::');
+                                log('::::::::::  NAME INPUT VALUE:  ${postingAdState.ownerName}  ::::::::::');
                                 if (v!.isEmpty) {
+
                                   return LocaleKeys.please_enter_your_name.tr();
                                 }
                                 return null;
@@ -160,16 +166,20 @@ class _ContactScreenState extends State<ContactScreen> {
                             WTextField(
                               onTap: () {},
                               controller: postingAdState.emailController,
-                              onChanged: (value) => context
-                                  .read<PostingAdBloc>()
-                                  .add(PostingAdChooseEvent(ownerEmail: value)),
+                              onChanged: (value) {
+                                context.read<PostingAdBloc>().add(
+                                    PostingAdChooseEvent(ownerEmail: value));
+                              },
                               title: 'E-mail',
                               maxLength: 40,
                               hideCounterText: true,
                               hintText: LocaleKeys.add_email.tr(),
                               borderRadius: 12,
                               validate: (value) {
-                                if (value?.isEmpty ?? true) return null;
+                                if (value?.isEmpty ?? true) {
+                                  setState(() {});
+                                  return null;
+                                }
                                 if ((value?.isNotEmpty ?? false) &&
                                     (value == null ||
                                         value.isEmpty ||
@@ -200,12 +210,6 @@ class _ContactScreenState extends State<ContactScreen> {
                             ),
                             const SizedBox(height: 16),
                             WTextField(
-                              // validate: (v) {
-                              //   if (v?.length != 12) {
-                              //     return 'Enter valid phone number';
-                              //   }
-                              //   return null;
-                              // },
                               onTap: () {},
                               onChanged: (value) {
                                 final v = postingAdState.isContactsVerified

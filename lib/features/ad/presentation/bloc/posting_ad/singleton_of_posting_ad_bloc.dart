@@ -10,6 +10,7 @@ class PASingleton {
     List<String> radios = [];
     List<String> selects = [];
     bool deleted = false;
+
     /// these lines of code calculates changed options and option items
     for (int i = 0; i < v.equipmentOptionsList.length; i++) {
       for (int j = 0; j < v.equipmentOptionsList[i].options.length; j++) {
@@ -20,7 +21,7 @@ class PASingleton {
           } else {
             radios.add(v.equipmentOptionsList[i].options[j].id.toString());
           }
-        } else if(v.equipmentOptionsList[i].options[j].selected){
+        } else if (v.equipmentOptionsList[i].options[j].selected) {
           radios.add(v.equipmentOptionsList[i].options[j].id.toString());
         }
         //{32: a} {23:45}
@@ -155,6 +156,7 @@ class PASingleton {
 
   static PostingAdState initUserFromApi(UserModel user, PostingAdState state) =>
       state.copyWith(
+        contactsFormKey: GlobalKey<FormState>(),
         isContactsVerified: true,
         showOwnerContacts: true,
         status: FormzStatus.submissionSuccess,
@@ -170,6 +172,7 @@ class PASingleton {
 
   static PostingAdState initUserFromState(PostingAdState state) =>
       state.copyWith(
+          contactsFormKey: GlobalKey<FormState>(),
           phoneController: TextEditingController(
               text: MyFunctions.phoneFormat(
                   state.userModel!.phoneNumber.substring(4))),
@@ -453,9 +456,10 @@ class PASingleton {
         return state.damagedParts.isEmpty;
       // ContactsScreen
       case 15:
-        return !((state.isContactsVerified &&
-                (state.contactsFormKey.currentState?.validate() ?? false)) ||
-            state.nameController.text.isNotEmpty);
+        final v = !((state.contactsFormKey.currentState?.validate() ?? false) &&
+            state.isContactsVerified);
+        log(':::::::::: ownername in validation of next button: ${state.ownerName}  ::::::::::');
+        return v;
 // InspectionPlaceScreen
       case 16:
         return !(state.regionId != null || state.mapPointBytes != null);
