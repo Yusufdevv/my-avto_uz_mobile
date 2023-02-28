@@ -133,6 +133,7 @@ class EASingleton {
   }
 
   static Future<EditAdState> stateForEdit(CarSingleEntity v) async {
+    log('::::::::::  CAR SINGLE ENTITY latitude langitude:  ${v.latitude} / ${v.longitude}  ::::::::::');
     String? phone = '';
     try {
       phone = MyFunctions.phoneFormat(v.user.phoneNumber.substring(4));
@@ -147,9 +148,16 @@ class EASingleton {
         gallery.add(path);
       }
     }
-    log('STATE FOR EDIT : ${v.year}');
+    Map<int, RentWithPurchaseEntity> rentWithPurchaseConditions = {};
+
+    for (int i = 0; i < v.rentWithPurchase.length; i++) {
+      rentWithPurchaseConditions[v.rentWithPurchase[i].id] =
+          v.rentWithPurchase[i];
+    }
+
 
     return EditAdState(
+      showExactAddress: v.longitude > 0 && v.latitude > 0,
       getAnnouncementToEditStatus: FormzStatus.submissionSuccess,
       licenceType: v.licenceType,
       gallery: gallery,
@@ -200,6 +208,7 @@ class EASingleton {
         yearEnd: v.generation.yearEnd,
       ),
       modification: v.modificationType,
+      rentWithPurchaseConditions: rentWithPurchaseConditions,
     );
   }
 

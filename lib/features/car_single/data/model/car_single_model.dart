@@ -1,3 +1,4 @@
+import 'package:auto/features/ad/domain/entities/rent_with_purchase/rent_with_purchase_entity.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/ad/domain/entities/types/modification_type.dart';
 import 'package:auto/features/car_single/domain/entities/car_single_entity.dart';
@@ -16,6 +17,8 @@ part 'car_single_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class CarSingleModel extends CarSingleEntity {
+
+
   const CarSingleModel({
     super.description,
     super.contactAvailableFrom,
@@ -68,6 +71,7 @@ class CarSingleModel extends CarSingleEntity {
     super.expiredAt,
     super.isRentWithPurchase,
     super.priceAnalytics,
+    super.rentWithPurchase
   });
 
   factory CarSingleModel.fromJson(Map<String, dynamic> json) =>

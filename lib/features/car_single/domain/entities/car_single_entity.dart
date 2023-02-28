@@ -1,3 +1,4 @@
+import 'package:auto/features/ad/domain/entities/rent_with_purchase/rent_with_purchase_entity.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/ad/domain/entities/types/modification_type.dart';
 import 'package:auto/features/car_single/data/model/car_single_model.dart';
@@ -116,8 +117,11 @@ class CarSingleEntity extends Equatable {
   final String expiredAt;
   @PriceAnalyticsConverter()
   final PriceAnalyticsEntity priceAnalytics;
+  @RentWithPurchaseEntityConverter()
+  final List<RentWithPurchaseEntity> rentWithPurchase;
 
   const CarSingleEntity({
+    this.rentWithPurchase = const <RentWithPurchaseEntity>[],
     this.isComparison = false,
     this.isRentWithPurchase = false,
     this.isExpired = false,
