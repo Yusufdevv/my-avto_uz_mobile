@@ -280,7 +280,7 @@ class PASingleton {
         mapPointBytes: event.bodyBytes,
         years: event.years,
         yearEntity: event.yearEntity,
-        locationUrl: event.locationUrl,
+        locationUrl: event.locationUrll,
         toastMessage: event.toastMessage,
         damagedParts: event.damagedParts,
         gallery: event.gallery,

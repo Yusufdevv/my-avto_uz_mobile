@@ -161,7 +161,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final String? callTimeTo;
   final String? where;
   final String? toastMessage;
-  final String? locationUrl;
+  final String? locationUrll;
 
   final bool? hasGasBalloon;
   final bool? isRastamojen;
@@ -182,7 +182,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
     this.panaramaGallery,
     this.bodyBytes,
     this.yearEntity,
-    this.locationUrl,
+    this.locationUrll,
     this.phoneController,
     this.emailController,
     this.nameController,
