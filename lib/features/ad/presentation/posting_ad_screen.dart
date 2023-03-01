@@ -41,7 +41,6 @@ import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class PostingAdScreen extends StatefulWidget {
-
   const PostingAdScreen({
     Key? key,
   }) : super(key: key);
@@ -175,6 +174,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                         curve: Curves.linear);
                     postingAdBloc.add(PostingAdClearStateEvent());
                     setState(() {});
+                    Navigator.of(context).pop(true);
+
                     return;
                   }
 

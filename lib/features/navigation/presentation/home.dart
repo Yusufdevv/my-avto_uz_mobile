@@ -169,9 +169,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       await Navigator.of(context, rootNavigator: true)
                           .push(fade(page: const ReelsScreen()));
                       changePage(_currentIndex);
-                    } else if(index == 2) {
+                    } else if (index == 2) {
                       await Navigator.of(context, rootNavigator: true)
-                          .push(fade(page: const PostingAdScreen()));
+                          .push(fade(page: const PostingAdScreen()))
+                          .then((value) {
+                            if(value is bool && value){
+                              changePage(4);
+                            }
+                      });
                       changePage(_currentIndex);
                     }
                   },
