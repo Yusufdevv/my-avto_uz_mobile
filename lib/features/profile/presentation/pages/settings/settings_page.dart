@@ -3,7 +3,6 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
-import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
@@ -28,6 +27,7 @@ class _SettingsPageState extends State<SettingsPage> {
       LocaleKeys.language.tr(),
     ]
   ];
+
   @override
   Widget build(BuildContext context) => WillPopScope(
         onWillPop: () async {
@@ -45,8 +45,8 @@ class _SettingsPageState extends State<SettingsPage> {
           body: Column(
             children: [
               Padding(
-                padding:const EdgeInsets.symmetric(
-                    vertical: 12, horizontal: 16),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -60,8 +60,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 16),
+                            horizontal: 12, vertical: 12),
                         decoration: BoxDecoration(
                           color: Theme.of(context)
                               .extension<ThemedColors>()!
@@ -72,34 +71,29 @@ class _SettingsPageState extends State<SettingsPage> {
                                   .extension<WTextFieldStyle>()!
                                   .borderColor),
                         ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
-                              children: [
-                                Text(
-                                  LocaleKeys.change_password.tr(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displayLarge!
-                                      .copyWith(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w600),
-                                ),
-                                const Spacer(),
-                                SvgPicture.asset(
-                                  AppIcons.chevronRightBlack,
-                                  color: Theme.of(context)
-                                      .extension<ThemedColors>()!
-                                      .darkGreyToWhite,
-                                )
-                              ],
+                            Text(
+                              LocaleKeys.change_password.tr(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayLarge!
+                                  .copyWith(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600),
                             ),
+                            SvgPicture.asset(
+                              AppIcons.chevronRightBlack,
+                              color: Theme.of(context)
+                                  .extension<ThemedColors>()!
+                                  .darkGreyToWhite,
+                            )
                           ],
                         ),
                       ),
                     ),
-                    SizedBox(height: SizeConfig.h(12)),
+                    const SizedBox(height: 12),
                     WScaleAnimation(
                       onTap: () {
                         showModalBottomSheet(
@@ -122,8 +116,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 12),
+                            horizontal: 12, vertical: 12),
                         decoration: BoxDecoration(
                           color: Theme.of(context)
                               .extension<ThemedColors>()!
