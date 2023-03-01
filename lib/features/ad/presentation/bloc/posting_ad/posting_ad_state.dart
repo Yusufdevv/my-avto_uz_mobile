@@ -9,7 +9,6 @@ class PostingAdState extends Equatable {
   final FormzStatus getModificationStatus;
   final GlobalKey<FormState> contactsFormKey;
 
-  final FormzStatus getAnnouncementToEditStatus;
   final String? id;
 
   final TextEditingController phoneController;
@@ -80,7 +79,7 @@ class PostingAdState extends Equatable {
   final int? gasEquipmentId;
   final EquipmentEntity? equipment;
   final List<EquipmentEntity> equipments;
-  final List<EquipmentOptionsListEntity> equipmentOptionsListPrevv;
+  final List<EquipmentOptionsListEntity> equipmentOptionsListPrev;
   final List<EquipmentOptionsListEntity> equipmentOptionsList;
 
   /// this is options for each selected equipment
@@ -89,7 +88,6 @@ class PostingAdState extends Equatable {
   const PostingAdState({
     required this.contactsFormKey,
     required this.status,
-    required this.getAnnouncementToEditStatus,
     required this.searchController,
     required this.phoneController,
     required this.emailController,
@@ -162,7 +160,7 @@ class PostingAdState extends Equatable {
     this.gasEquipmentId,
     this.equipments = const [],
     this.equipment,
-    this.equipmentOptionsListPrevv = const [],
+    this.equipmentOptionsListPrev = const [],
     this.equipmentOptionsList = const [],
     this.equipmentOptions = const [],
   });
@@ -190,7 +188,6 @@ class PostingAdState extends Equatable {
     FormzStatus? createStatus,
     FormzStatus? getMakesStatus,
     FormzStatus? getModificationStatus,
-    FormzStatus? getAnnouncementToEditStatus,
     PopStatus? popStatus,
     ModificationTypeEntity? modification,
     List<ModificationTypeEntity>? modifications,
@@ -253,14 +250,12 @@ class PostingAdState extends Equatable {
     int? gasEquipmentId,
     List<EquipmentEntity>? equipments,
     EquipmentEntity? equipment,
-    List<EquipmentOptionsListEntity>? equipmentOptionsListPrev,
+    List<EquipmentOptionsListEntity>? equipmentOptionsListPrevv,
     List<EquipmentOptionsListEntity>? equipmentOptionsList,
     List<EquipmentOptionsEntity>? equipmentOptions,
   }) =>
       PostingAdState(
         contactsFormKey: contactsFormKey ?? this.contactsFormKey,
-        getAnnouncementToEditStatus:
-            getAnnouncementToEditStatus ?? this.getAnnouncementToEditStatus,
         popStatus: popStatus ?? this.popStatus,
         milageImage: milageImage ?? this.milageImage,
         modification: modification ?? this.modification,
@@ -334,8 +329,8 @@ class PostingAdState extends Equatable {
         gasEquipmentId: gasEquipmentId ?? this.gasEquipmentId,
         equipments: equipments ?? this.equipments,
         equipment: equipment ?? this.equipment,
-        equipmentOptionsListPrevv:
-            equipmentOptionsListPrev ?? this.equipmentOptionsListPrevv,
+        equipmentOptionsListPrev:
+            equipmentOptionsListPrev ?? this.equipmentOptionsListPrev,
         equipmentOptionsList: equipmentOptionsList ?? this.equipmentOptionsList,
         equipmentOptions: equipmentOptions ?? this.equipmentOptions,
         getModificationStatus:
@@ -345,7 +340,6 @@ class PostingAdState extends Equatable {
   @override
   List<Object?> get props => [
         contactsFormKey,
-        getAnnouncementToEditStatus,
         popStatus,
         milageImage,
         modification,
@@ -415,7 +409,7 @@ class PostingAdState extends Equatable {
         gasEquipmentId,
         equipments,
         equipment,
-        equipmentOptionsListPrevv,
+        equipmentOptionsListPrev,
         equipmentOptionsList,
         equipmentOptions,
         getModificationStatus,
