@@ -51,7 +51,6 @@ class _CarCharacteristicItemState extends State<CarCharacteristicItem>
 
   @override
   Widget build(BuildContext context) => Container(
-        padding: const EdgeInsets.only(bottom: 16),
         margin: const EdgeInsets.only(bottom: 8),
         decoration: BoxDecoration(
           color: Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
