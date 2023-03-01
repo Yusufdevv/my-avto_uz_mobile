@@ -237,7 +237,9 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                     'https://panel.avto.uz/api/v1/car/announcement/${state.singleEntity.id}/detail/');
                               },
                               year: '${state.singleEntity.year}',
-                              mileage: MyFunctions.getThousandsSeparatedPrice(state.singleEntity.distanceTraveled.toString()),
+                              mileage: MyFunctions.getThousandsSeparatedPrice(
+                                  state.singleEntity.distanceTraveled
+                                      .toString()),
                               body: state.singleEntity.bodyType.type,
                               color: state.singleEntity.color,
                               complectation: '',
