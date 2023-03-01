@@ -249,9 +249,10 @@ class PostingAdGetEquipmentOptionsList extends PostingAdEvent {
 }
 
 class PostingAdGetEquipmentOption extends PostingAdEvent {
+  final String where ;
   final int? equipmentId;
 
-  PostingAdGetEquipmentOption(this.equipmentId);
+  PostingAdGetEquipmentOption(this.equipmentId,this.where);
 }
 
 class PostingAdChangeOption extends PostingAdEvent {

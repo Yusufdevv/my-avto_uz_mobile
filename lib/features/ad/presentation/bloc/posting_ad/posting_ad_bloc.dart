@@ -371,8 +371,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     }
   }
 
-
-
   FutureOr<void> _getDistricts(
       PostingAdGetDistritsEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(getDistrictsStatus: FormzStatus.submissionInProgress));
@@ -620,7 +618,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       add(PostingAdGetMinimumPriceEvent());
     }
     if (event.equipment != null) {
-      add(PostingAdGetEquipmentOption(event.equipment!.id));
+      add(PostingAdGetEquipmentOption(
+          event.equipment!.id, 'FROM CHOOSE EVENT'));
     }
     emit(PASingleton.choose(state, event));
   }
@@ -649,7 +648,12 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       'offset': 0,
       'modelId': state.model?.id,
     });
+
     if (result.isRight) {
+      log(':::::::::: GOTTEN EQUIPMENT ENTITIES LENGTH:  ${result.right.results.length}  ::::::::::');
+      for (var i = 0; i < result.right.results.length; i++) {
+        log(':::::::::: GOTTEN EQUIPMENT ENTITIES:  ${result.right.results[i]}  ::::::::::');
+      }
       final equipments = result.right.results;
       emit(state.copyWith(
           equipments: equipments,
@@ -660,7 +664,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
-    add(PostingAdGetEquipmentOption(state.equipment?.id ?? -1));
+    add(PostingAdGetEquipmentOption(
+        state.equipment?.id ?? -1, 'THE EVENT PostingAdGetEquipments'));
   }
 
   FutureOr<void> _getEquipmentOptionsList(
@@ -673,6 +678,26 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       'offset': 0,
     });
     if (result.isRight) {
+      log('::::::::::   PostingAdGetEquipmentOptionsList   ::::::::::');
+      for (var i = 0; i < result.right.results.length; i++) {
+        log('::::::::::   EquipmentOptionsListEntity: id ${result.right.results[i].id}  ::::::::::');
+        log('::::::::::   EquipmentOptionsListEntity: name ${result.right.results[i].name}  ::::::::::');
+        for (var n = 0; n < result.right.results[i].options.length; n++) {
+          log(':::::::::: OPTIONS name: ${result.right.results[i].options[n].name}  ::::::::::');
+          log(':::::::::: OPTIONS id: ${result.right.results[i].options[n].id}  ::::::::::');
+          log(':::::::::: OPTIONS selectedInfo: ${result.right.results[i].options[n].selectedInfo}  ::::::::::');
+          log(':::::::::: OPTIONS selected: ${result.right.results[i].options[n].selected}  ::::::::::');
+          log(':::::::::: OPTIONS type: ${result.right.results[i].options[n].type}  ::::::::::');
+          log(':::::::::: OPTIONS items.length: ${result.right.results[i].options[n].items.length}  ::::::::::');
+
+          for (var m = 0;
+              m < result.right.results[i].options[n].items.length;
+              m++) {
+            log('::::::::::  OPTIONS ITEMS id: ${result.right.results[i].options[n].items[m].id}  ::::::::::');
+            log('::::::::::  OPTIONS ITEMS name: ${result.right.results[i].options[n].items[m].name}  ::::::::::');
+          }
+        }
+      }
       final equipmentOptionsList =
           makeOptionsSelectedd(result.right.results, state.equipmentOptions);
       emit(state.copyWith(
@@ -687,13 +712,20 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
   FutureOr<void> _getEquipmentOption(
       PostingAdGetEquipmentOption event, Emitter<PostingAdState> emit) async {
+    log(':::::::::: PostingAdGetEquipmentOption where: ${event.where}  ::::::::::');
     final result = await getEquipmentOptionsUseCase.call({
       'search': '',
       'limit': 1000,
       'offset': 0,
       'equipmentId': event.equipmentId,
     });
+    log(':::::::::: GOTTEN EQUIPMENT OPTION RESULT IS : ${result.isRight}  ::::::::::');
     if (result.isRight) {
+      log(':::::::::: GOTTEN EQUIPMENT OPTION LENGTH: ${result.right.results.length}  ::::::::::');
+      for (int i = 0; i < result.right.results.length; i++) {
+        log(':::::::::: GOTTEN EQUIPMENT OPTION: ${result.right.results[i]}  ::::::::::');
+      }
+
       final equipmentOptions = result.right.results;
       emit(state.copyWith(equipmentOptions: equipmentOptions));
     } else {

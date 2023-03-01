@@ -158,7 +158,6 @@ class CarCharacteristicImage extends StatelessWidget {
                   child: InformationAboutDoors(
                     partName: MyFunctions.getDamagedPartName(
                         informAboutDoors[countIndex(index)].part),
-
                     damageName: MyFunctions.getStatusTitle(
                         informAboutDoors[countIndex(index)].damageType),
                   ),
@@ -170,7 +169,6 @@ class CarCharacteristicImage extends StatelessWidget {
                     child: InformationAboutDoors(
                       partName: MyFunctions.getDamagedPartName(
                           informAboutDoors[countIndex(index) + 1].part),
-
                       damageName: MyFunctions.getStatusTitle(
                           informAboutDoors[countIndex(index) + 1].damageType),
                     ),
