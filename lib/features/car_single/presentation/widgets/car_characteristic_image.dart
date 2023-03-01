@@ -25,6 +25,7 @@ class CarCharacteristicImage extends StatelessWidget {
           border: Border(
             bottom: BorderSide(
               width: 1,
+              // color: Colors.teal,
               color: Theme.of(context)
                   .extension<ThemedColors>()!
                   .solitudeToDarkRider,
