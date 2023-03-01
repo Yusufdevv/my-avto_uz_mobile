@@ -52,7 +52,18 @@ class _CarCharacteristicItemState extends State<CarCharacteristicItem>
   @override
   Widget build(BuildContext context) => Container(
         padding: const EdgeInsets.only(bottom: 16),
-        color: Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
+        margin: const EdgeInsets.only(bottom: 8),
+        decoration: BoxDecoration(
+          color: Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
+          border: Border(
+            bottom: BorderSide(
+              width: 1,
+              color: Theme.of(context)
+                  .extension<ThemedColors>()!
+                  .solitudeToDarkRider,
+            ),
+          ),
+        ),
         child: Column(
           children: [
             CharacteristicTable(
@@ -70,8 +81,8 @@ class _CarCharacteristicItemState extends State<CarCharacteristicItem>
                 widget.driveType,
                 widget.engineType,
                 widget.gearboxType,
-                '${widget.enginePower} л.с',
-                '${widget.engineVolume} л',
+                '${widget.enginePower} ',
+                '${widget.engineVolume} ${LocaleKeys.litre.tr()}',
                 widget.milleage,
               ],
               title: LocaleKeys.auto_characters.tr(),

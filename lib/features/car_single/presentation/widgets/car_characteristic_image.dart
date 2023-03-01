@@ -22,11 +22,13 @@ class CarCharacteristicImage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
-          border: Border.all(
-            width: 1,
-            color: Theme.of(context)
-                .extension<ThemedColors>()!
-                .solitudeToDarkRider,
+          border: Border(
+            bottom: BorderSide(
+              width: 1,
+              color: Theme.of(context)
+                  .extension<ThemedColors>()!
+                  .solitudeToDarkRider,
+            ),
           ),
           color: Theme.of(context).extension<ThemedColors>()!.whiteToNero),
       child: Column(

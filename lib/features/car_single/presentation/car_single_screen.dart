@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_null_comparison
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/core/singletons/service_locator.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/car_single/data/repository/car_single_repository_impl.dart';
 import 'package:auto/features/car_single/domain/usecases/call_count_usecase.dart';
 import 'package:auto/features/car_single/domain/usecases/get_ads_usecase.dart';
@@ -11,7 +12,6 @@ import 'package:auto/features/car_single/presentation/pages/user_single_page.dar
 import 'package:auto/features/car_single/presentation/parts/car_seller_card.dart';
 import 'package:auto/features/car_single/presentation/parts/descriptions/seller_comment.dart';
 import 'package:auto/features/car_single/presentation/parts/owner_actions.dart';
-import 'package:auto/features/car_single/presentation/widgets/sliver_app_bar_item.dart';
 import 'package:auto/features/car_single/presentation/widgets/bottom_item.dart';
 import 'package:auto/features/car_single/presentation/widgets/car_characteristic_image.dart';
 import 'package:auto/features/car_single/presentation/widgets/car_name_widget.dart';
@@ -19,6 +19,7 @@ import 'package:auto/features/car_single/presentation/widgets/cars_characteristi
 import 'package:auto/features/car_single/presentation/widgets/confirm_bottomsheet.dart';
 import 'package:auto/features/car_single/presentation/widgets/other_ads_item.dart';
 import 'package:auto/features/car_single/presentation/widgets/persistant_header.dart';
+import 'package:auto/features/car_single/presentation/widgets/sliver_app_bar_item.dart';
 import 'package:auto/features/car_single/presentation/widgets/vin_soon_item.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
@@ -34,8 +35,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:share_plus/share_plus.dart';
-
-import '../../../core/singletons/storage.dart';
 
 class CarSingleScreen extends StatefulWidget {
   final int id;
@@ -238,7 +237,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                     'https://panel.avto.uz/api/v1/car/announcement/${state.singleEntity.id}/detail/');
                               },
                               year: '${state.singleEntity.year}',
-                              mileage: '${state.singleEntity.distanceTraveled}',
+                              mileage: MyFunctions.getThousandsSeparatedPrice(state.singleEntity.distanceTraveled.toString()),
                               body: state.singleEntity.bodyType.type,
                               color: state.singleEntity.color,
                               complectation: '',
