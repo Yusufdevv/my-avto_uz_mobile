@@ -1,7 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
-import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/profile/domain/entities/my_searches_entity.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -30,19 +29,19 @@ class MySearchItem extends StatelessWidget {
         onTap: onTap,
         child: Container(
           margin: EdgeInsets.only(
-            left: SizeConfig.h(16),
-            right: SizeConfig.h(16),
-            top: index == 0 ? SizeConfig.v(20) : 0,
-            bottom: SizeConfig.v(12),
+            left: 16,
+            right: 16,
+            top: index == 0 ? 20 : 0,
+            bottom: 12,
           ),
-          padding: EdgeInsets.only(
-              left: SizeConfig.h(16),
-              right: SizeConfig.h(12),
-              top: SizeConfig.v(16),
-              bottom: SizeConfig.v(16)),
+          padding: const EdgeInsets.only(
+              left: 16 ,
+              right:  12 ,
+              top:  16 ,
+              bottom:  16 ),
           decoration: BoxDecoration(
               color: white,
-              borderRadius: BorderRadius.circular(SizeConfig.h(12)),
+              borderRadius: BorderRadius.circular( 12 ),
               boxShadow: [
                 BoxShadow(
                     offset: const Offset(0, 8),
@@ -52,10 +51,10 @@ class MySearchItem extends StatelessWidget {
           child: Row(
             children: [
               SizedBox(
-                height: SizeConfig.v(38),
-                width: SizeConfig.h(38),
+                height: 38 ,
+                width:  38  ,
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(SizeConfig.h(50)),
+                  borderRadius: BorderRadius.circular( 50 ),
                   child: CachedNetworkImage(
                     imageUrl: item.make?.logo ?? '',
                     errorWidget: (context, url, error) => Image.asset(
@@ -64,7 +63,7 @@ class MySearchItem extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: SizeConfig.h(6)),
+              const SizedBox(width:  6 ),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,7 +74,7 @@ class MySearchItem extends StatelessWidget {
                               .textTheme
                               .titleLarge
                               ?.copyWith(color: dark)),
-                    SizedBox(height: SizeConfig.v(2)),
+                    const SizedBox(height: 2),
                     if (item.make?.name != null && item.model?[0]?.name != null)
                       Text('${item.make?.name} • ${item.model?[0]?.name}',
                           style: Theme.of(context)

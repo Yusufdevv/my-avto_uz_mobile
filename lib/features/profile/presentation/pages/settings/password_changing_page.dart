@@ -1,6 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
-import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -21,8 +20,7 @@ class PasswordChangingPage extends StatelessWidget {
             textWithButton: LocaleKeys.settings.tr(),
           ),
           body: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: SizeConfig.h(16), vertical: SizeConfig.v(36)),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 36),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -33,15 +31,15 @@ class PasswordChangingPage extends StatelessWidget {
                       .displayLarge!
                       .copyWith(fontSize: 24),
                 ),
-                SizedBox(height: SizeConfig.v(4)),
+                const SizedBox(height: 4),
                 Text(
                   LocaleKeys.need_code_from_sms.tr(),
                   style: Theme.of(context).textTheme.displayMedium,
                 ),
                 Container(
-                    margin: EdgeInsets.only(top: SizeConfig.v(64)),
+                    margin: const EdgeInsets.only(top: 64),
                     alignment: Alignment.center,
-                    height: SizeConfig.v(249),
+                    height: 249,
                     child: Image.asset(AppImages.editPassword)),
               ],
             ),
@@ -54,11 +52,10 @@ class PasswordChangingPage extends StatelessWidget {
                 color: orange.withOpacity(0.2),
               ),
             ],
-            margin: EdgeInsets.fromLTRB(SizeConfig.h(16), SizeConfig.v(20),
-                SizeConfig.h(16), SizeConfig.v(20)),
+            margin: const EdgeInsets.fromLTRB(16, 20, 16, 20),
             onTap: () {
               Navigator.of(context, rootNavigator: true)
-                  .push(fade(page: NewPasswordsPage()));
+                  .push(fade(page: const NewPasswordsPage()));
             },
             child: Text(
               LocaleKeys.change_password.tr(),

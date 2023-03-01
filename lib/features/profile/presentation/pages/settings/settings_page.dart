@@ -45,8 +45,8 @@ class _SettingsPageState extends State<SettingsPage> {
           body: Column(
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(
-                    vertical: SizeConfig.v(16), horizontal: SizeConfig.h(16)),
+                padding:const EdgeInsets.symmetric(
+                    vertical: 12, horizontal: 16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -59,9 +59,9 @@ class _SettingsPageState extends State<SettingsPage> {
                         );
                       },
                       child: Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: SizeConfig.h(12),
-                            vertical: SizeConfig.v(16)),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 16),
                         decoration: BoxDecoration(
                           color: Theme.of(context)
                               .extension<ThemedColors>()!
@@ -121,14 +121,14 @@ class _SettingsPageState extends State<SettingsPage> {
                         });
                       },
                       child: Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: SizeConfig.h(12),
-                            vertical: SizeConfig.v(16)),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 12),
                         decoration: BoxDecoration(
                           color: Theme.of(context)
                               .extension<ThemedColors>()!
                               .whiteToNero1,
-                          borderRadius: BorderRadius.circular(SizeConfig.h(12)),
+                          borderRadius: BorderRadius.circular(12),
                           border: Border.all(
                               color: Theme.of(context)
                                   .extension<WTextFieldStyle>()!
@@ -153,7 +153,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                     style: Theme.of(context)
                                         .textTheme
                                         .displayMedium),
-                                SizedBox(width: SizeConfig.h(12)),
+                                const SizedBox(width: 12),
                                 SvgPicture.asset(
                                   AppIcons.chevronRightBlack,
                                   color: Theme.of(context)

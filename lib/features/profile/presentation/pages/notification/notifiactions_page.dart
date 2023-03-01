@@ -1,6 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
@@ -83,8 +82,8 @@ class _NotificationPageState extends State<NotificationPage> {
                       }
                     },
                     child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: SizeConfig.h(16)),
+                      padding:const
+                          EdgeInsets.symmetric(horizontal: 16),
                       child: SizedBox(
                           height: 20,
                           width: 20,

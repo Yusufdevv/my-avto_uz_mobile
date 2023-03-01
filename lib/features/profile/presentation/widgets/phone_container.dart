@@ -2,7 +2,6 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
-import 'package:auto/core/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -17,13 +16,13 @@ class PhoneContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
         padding: EdgeInsets.only(
-            left: SizeConfig.h(16),
-            top: SizeConfig.v(4),
-            bottom: SizeConfig.v(4),
-            right: SizeConfig.h(4)),
+            left: 16,
+            top: 4,
+            bottom: 4,
+            right: 4),
         decoration: BoxDecoration(
             color: Theme.of(context).scaffoldBackgroundColor,
-            borderRadius: BorderRadius.circular(SizeConfig.h(12)),
+            borderRadius: BorderRadius.circular(12),
             border: Border.all(
                 color: Theme.of(context)
                     .extension<WTextFieldStyle>()!
@@ -39,7 +38,7 @@ class PhoneContainer extends StatelessWidget {
             ),
             const Spacer(),
             Container(
-                padding: EdgeInsets.all(SizeConfig.h(8)),
+                padding: EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
@@ -47,14 +46,14 @@ class PhoneContainer extends StatelessWidget {
                         blurRadius: 20,
                         color: dividerColor.withOpacity(0.2))
                   ],
-                  borderRadius: BorderRadius.circular(SizeConfig.h(8)),
+                  borderRadius: BorderRadius.circular(8),
                   color: Theme.of(context)
                       .extension<ThemedColors>()!
                       .borderGreyToDark,
                 ),
                 child: SvgPicture.asset(AppIcons.edit,
-                    height: SizeConfig.v(20),
-                    width: SizeConfig.h(20),
+                    height: 20,
+                    width: 20,
                     color: Theme.of(context)
                         .extension<ThemedColors>()!
                         .darkGreyToWhite)),

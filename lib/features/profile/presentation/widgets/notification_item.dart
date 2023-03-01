@@ -1,6 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/core/utils/size_config.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -23,19 +22,19 @@ class NotificationItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
         margin: EdgeInsets.only(
-          left: SizeConfig.h(16),
-          right: SizeConfig.h(16),
-          top: currentIndex == 0 ? SizeConfig.v(16) : 0,
-          bottom: SizeConfig.v(12),
+          left:  16 ,
+          right:  16 ,
+          top: currentIndex == 0 ?  16  : 0,
+          bottom:  12 ,
         ),
-        padding: EdgeInsets.only(
-            left: SizeConfig.h(8),
-            right: SizeConfig.h(12),
-            top: SizeConfig.v(8),
-            bottom: SizeConfig.v(8)),
+        padding: const EdgeInsets.only(
+            left:  8 ,
+            right:  12 ,
+            top:  8 ,
+            bottom:  8 ),
         decoration: BoxDecoration(
             color: white,
-            borderRadius: BorderRadius.circular(SizeConfig.h(12)),
+            borderRadius: BorderRadius.circular(  12),
             boxShadow: [
               BoxShadow(
                   offset: const Offset(0, 8),
@@ -45,8 +44,8 @@ class NotificationItem extends StatelessWidget {
         child: Stack(
           children: [
             Positioned(
-                top: SizeConfig.v(4),
-                right: SizeConfig.h(0),
+                top:  4 ,
+                right:  0,
                 child: SvgPicture.asset(
                   AppIcons.ellipseRed,
                   color: isRead ? warmerGrey : orange,
@@ -54,10 +53,10 @@ class NotificationItem extends StatelessWidget {
             Row(
               children: [
                 SizedBox(
-                  height: SizeConfig.v(72),
-                  width: SizeConfig.h(72),
+                  height:  72 ,
+                  width:  72,
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(SizeConfig.h(6)),
+                    borderRadius: BorderRadius.circular( 6 ),
                     child: CachedNetworkImage(
                       imageUrl: image,
                       fit: BoxFit.cover,
@@ -66,7 +65,7 @@ class NotificationItem extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(width: SizeConfig.h(12)),
+                const SizedBox(width:  12 ),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,7 +75,7 @@ class NotificationItem extends StatelessWidget {
                               .textTheme
                               .bodyLarge
                               ?.copyWith(color: greyText)),
-                      SizedBox(height: SizeConfig.v(8)),
+                      const SizedBox(height: 8 ),
                       Text(
                         title,
                         style: Theme.of(context)

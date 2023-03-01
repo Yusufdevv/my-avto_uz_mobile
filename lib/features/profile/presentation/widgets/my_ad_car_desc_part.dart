@@ -1,7 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/commercial/presentation/widgets/custom_chip.dart';
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -22,7 +21,7 @@ class MyAdCarDescPart extends StatelessWidget {
   Widget build(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: SizeConfig.v(8)),
+          const SizedBox(height:  8 ),
           RichText(
               text: TextSpan(children: [
             TextSpan(
@@ -65,7 +64,7 @@ class MyAdCarDescPart extends StatelessWidget {
                     ),
                   ))
           ])),
-          SizedBox(height: SizeConfig.v(4)),
+          const SizedBox(height:  4 ),
           Row(
             children: [
               Text(

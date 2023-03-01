@@ -1,7 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
@@ -52,8 +51,8 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
             appBar:
                 WAppBar(hasBackButton: true, title: LocaleKeys.tel_number.tr()),
             body: Padding(
-              padding: EdgeInsets.symmetric(
-                  vertical: SizeConfig.v(16), horizontal: SizeConfig.h(16)),
+              padding: const EdgeInsets.symmetric(
+                  vertical:16, horizontal: 16),
               child: Form(
                 key: _formKey,
                 child: Column(
@@ -63,15 +62,15 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                       title: LocaleKeys.confim_number.tr(),
                       description: LocaleKeys.enter_password_sms.tr(),
                     ),
-                    SizedBox(height: SizeConfig.v(12)),
+                    const SizedBox(height: 12),
                     Container(
-                      padding: EdgeInsets.only(
-                          left: SizeConfig.h(8),
-                          right: SizeConfig.h(4),
-                          top: SizeConfig.v(4),
-                          bottom: SizeConfig.v(4)),
+                      padding: const EdgeInsets.only(
+                          left: 8,
+                          right: 4,
+                          top: 4,
+                          bottom: 4),
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(SizeConfig.h(8)),
+                          borderRadius: BorderRadius.circular(8),
                           color: border),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -84,25 +83,23 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                                 .copyWith(
                                     fontWeight: FontWeight.w400, fontSize: 14),
                           ),
-                          SizedBox(width: SizeConfig.h(12)),
+                          const SizedBox(width: 12),
                           WButton(
                             onTap: () {
                               Navigator.pop(context);
                             },
-                            padding: EdgeInsets.symmetric(
-                                horizontal: SizeConfig.h(4),
-                                vertical: SizeConfig.v(4)),
+                            padding: const EdgeInsets.all(4),
                             color: Theme.of(context)
                                 .extension<ThemedColors>()!
                                 .solitudeToSolitude14,
-                            height: SizeConfig.v(24),
-                            width: SizeConfig.v(24),
+                            height: 24,
+                            width: 24,
                             child: SvgPicture.asset(AppIcons.edit, color: grey),
                           )
                         ],
                       ),
                     ),
-                    SizedBox(height: SizeConfig.v(35)),
+                    const SizedBox(height: 35),
                     PinCodeTextField(
                       onChanged: (value) {
                         setState(() {
@@ -217,7 +214,7 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                           ),
                       ],
                     ),
-                    SizedBox(height: SizeConfig.v(24)),
+                    const SizedBox(height: 24),
                     const Spacer(),
                     BlocBuilder<ChangePhoneNumberBloc, ChangePhoneNumberState>(
                       builder: (context, state) => WButton(

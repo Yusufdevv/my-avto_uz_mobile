@@ -1,5 +1,4 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
@@ -37,10 +36,10 @@ class _NewPasswordsPageState extends State<NewPasswordsPage> {
               textWithButton: LocaleKeys.change_password.tr(),
             ),
             body: Padding(
-              padding: EdgeInsets.only(
-                  left: SizeConfig.h(16),
-                  right: SizeConfig.h(16),
-                  top: SizeConfig.v(24)),
+              padding: const EdgeInsets.only(
+                  left: 16,
+                  right: 16,
+                  top: 16),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -56,11 +55,11 @@ class _NewPasswordsPageState extends State<NewPasswordsPage> {
                               .displayLarge
                               ?.copyWith(fontSize: 32),
                         ),
-                        SizedBox(height: SizeConfig.v(6)),
+                        const SizedBox(height:6),
                         Text(LocaleKeys.create_unfoget.tr(),
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.displayMedium),
-                        SizedBox(height: SizeConfig.v(36)),
+                        const SizedBox(height: 36),
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -68,14 +67,14 @@ class _NewPasswordsPageState extends State<NewPasswordsPage> {
                             style: Theme.of(context).textTheme.displayMedium,
                           ),
                         ),
-                        SizedBox(height: SizeConfig.v(8)),
+                        const SizedBox(height: 8),
                         PasswordTextField(
                           onChanged: (value) => setState(() {}),
                           isOldPasword: true,
                           controller: _oldPasswordController,
                           hintText: LocaleKeys.write_old_password.tr(),
                         ),
-                        SizedBox(height: SizeConfig.v(20)),
+                        const SizedBox(height: 20),
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -83,13 +82,13 @@ class _NewPasswordsPageState extends State<NewPasswordsPage> {
                             style: Theme.of(context).textTheme.displayMedium,
                           ),
                         ),
-                        SizedBox(height: SizeConfig.v(8)),
+                        const SizedBox(height: 8),
                         PasswordTextField(
                           onChanged: (value) => setState(() {}),
                           controller: _newPassword1Controller,
                           hintText: LocaleKeys.enter_Passowrd.tr(),
                         ),
-                        SizedBox(height: SizeConfig.v(20)),
+                        const SizedBox(height: 20),
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -97,7 +96,7 @@ class _NewPasswordsPageState extends State<NewPasswordsPage> {
                             style: Theme.of(context).textTheme.displayMedium,
                           ),
                         ),
-                        SizedBox(height: SizeConfig.v(8)),
+                        const SizedBox(height: 8),
                         PasswordTextField(
                           onChanged: (value) => setState(() {}),
                           controller: _newPassword2Controller,
@@ -109,7 +108,7 @@ class _NewPasswordsPageState extends State<NewPasswordsPage> {
                   BlocBuilder<ProfileBloc, ProfileState>(
                     builder: (context, state) => Padding(
                       padding: EdgeInsets.only(
-                          bottom: SizeConfig.v(24) +
+                          bottom: 24+
                               MediaQuery.of(context).viewInsets.bottom),
                       child: WButton(
                         border: Border.all(width: 1, color: white),

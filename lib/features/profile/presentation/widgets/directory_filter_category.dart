@@ -1,6 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/profile/domain/entities/dir_category_entity.dart';
 import 'package:auto/features/profile/presentation/bloc/directory/directory_bloc.dart';
@@ -34,17 +33,17 @@ class _DirectoryFilterCategoryState extends State<DirectoryFilterCategory> {
                       .greySuitToWhite,
                   fontSize: 14,
                   fontWeight: FontWeight.w400)),
-          SizedBox(height: SizeConfig.v(12)),
+          const SizedBox(height:  12 ),
           Wrap(
-            spacing: SizeConfig.v(16),
-            runSpacing: SizeConfig.h(12),
+            spacing:  16 ,
+            runSpacing:  12 ,
             children: List.generate(
               widget.category.isEmpty ? 0 : widget.category.length,
               (index) {
                 final item = widget.category[index];
                 return WButton(
                   width: (MediaQuery.of(context).size.width / 2) -
-                      SizeConfig.h(24),
+                       24 ,
                   borderRadius: 8,
                   border: Border.all(
                       color: context
@@ -82,8 +81,8 @@ class _DirectoryFilterCategoryState extends State<DirectoryFilterCategory> {
                     }
                     setState(() {});
                   },
-                  padding: EdgeInsets.symmetric(
-                    horizontal: SizeConfig.h(12),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal:  12 ,
                   ),
                   color: white,
                   child: Stack(
@@ -106,8 +105,8 @@ class _DirectoryFilterCategoryState extends State<DirectoryFilterCategory> {
                         child: Row(
                           children: [
                             Container(
-                              height: SizeConfig.v(21),
-                              width: SizeConfig.h(24),
+                              height:  21 ,
+                              width:  24 ,
                               decoration: BoxDecoration(
                                   gradient: LinearGradient(colors: [
                                 white.withOpacity(0),
@@ -118,7 +117,7 @@ class _DirectoryFilterCategoryState extends State<DirectoryFilterCategory> {
                               color: white,
                               child: Row(
                                 children: [
-                                  SizedBox(width: SizeConfig.h(10)),
+                                  const SizedBox(width:  10 ),
                                   Container(
                                     height: 25,
                                     width: 24,
@@ -131,7 +130,7 @@ class _DirectoryFilterCategoryState extends State<DirectoryFilterCategory> {
                                             ? lavender2
                                             : seashell,
                                         borderRadius: BorderRadius.circular(
-                                            SizeConfig.h(4))),
+                                            4 )),
                                     child: Center(
                                       child: Text(
                                         item.carPlaceCount.toString(),

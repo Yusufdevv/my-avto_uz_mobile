@@ -1,6 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
-import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/profile/presentation/bloc/user_wishlists_notifications/user_wishlists_notification_bloc.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -32,12 +31,12 @@ class NotificationSinglePage extends StatelessWidget {
               return SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: Padding(
-                  padding: EdgeInsets.only(top: SizeConfig.v(16)),
+                  padding: const EdgeInsets.only(top: 16),
                   child: Column(
                     children: [
                       SizedBox(
-                        width: SizeConfig.h(375),
-                        height: SizeConfig.v(219),
+                        width: 375,
+                        height: 219,
                         child: CachedNetworkImage(
                           imageUrl: notification.cover ?? '',
                           fit: BoxFit.cover,
@@ -49,24 +48,24 @@ class NotificationSinglePage extends StatelessWidget {
                       ),
                       Padding(
                         padding:
-                            EdgeInsets.symmetric(horizontal: SizeConfig.h(16)),
+                            const EdgeInsets.symmetric(horizontal: 16),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(height: SizeConfig.v(16)),
+                            const SizedBox(height: 16),
                             Text(
                                 '#${notification.category?.name} • ${MyFunctions.getAutoPublishDate(notification.createdAt!)}',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge
                                     ?.copyWith(color: greyText, fontSize: 13)),
-                            SizedBox(height: SizeConfig.v(8)),
+                            const SizedBox(height: 8),
                             if (notification.title != null)
                               Text(
                                 notification.title!,
                                 style: Theme.of(context).textTheme.displayLarge,
                               ),
-                            SizedBox(height: SizeConfig.v(6)),
+                            const SizedBox(height: 6),
                             const Divider(height: 12),
                           ],
                         ),
@@ -75,14 +74,14 @@ class NotificationSinglePage extends StatelessWidget {
                         data: notification.content,
                         style: {
                           'p': Style(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: SizeConfig.h(6)),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 6),
                               color: dark,
                               fontSize: FontSize(13),
                               fontWeight: FontWeight.w400)
                         },
                       ),
-                      SizedBox(height: SizeConfig.v(16)),
+                      const SizedBox(height: 16),
                     ],
                   ),
                 ),

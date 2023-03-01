@@ -12,7 +12,6 @@ import 'package:formz/formz.dart';
 // ignore: directives_ordering
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/dealers/presentation/dealers_screen.dart';
@@ -95,7 +94,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 var usercountData = profileData.usercountdata;
                 return SingleChildScrollView(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: SizeConfig.h(16)),
+                    padding: EdgeInsets.symmetric(horizontal: 16),
                     child: Column(
                       children: [
                         ProfileDataWidget(
@@ -114,8 +113,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   }),
                             imageUrl: profileData.image ?? '',
                             margin: EdgeInsets.only(
-                                top: SizeConfig.v(16),
-                                bottom: SizeConfig.v(12))),
+                                top: 16,
+                                bottom:  12 )),
                         // izbrannoe va sravnenie
                         ProfilItemsBox(widgets: [
                           ProfileMenuTile(
@@ -137,7 +136,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ]),
 
                         // moi obnovleniya
-                        ProfilItemsBox(marginTop: SizeConfig.v(12), widgets: [
+                        ProfilItemsBox(marginTop:  12 , widgets: [
                           ProfileMenuTile(
                               name: LocaleKeys.my_ads.tr(),
                               onTap: () {
@@ -169,7 +168,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ]),
 
                         //Дилеры - Справочник - Чат
-                        ProfilItemsBox(marginTop: SizeConfig.v(12), widgets: [
+                        ProfilItemsBox(marginTop: 12, widgets: [
                           ProfileMenuTile(
                               name: LocaleKeys.dealers.tr(),
                               onTap: () {
@@ -218,8 +217,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ]),
                         //
                         ProfilItemsBox(
-                            marginBottom: SizeConfig.v(20),
-                            marginTop: SizeConfig.v(12),
+                            marginBottom:  20,
+                            marginTop: 12,
                             widgets: [
                               ProfileMenuTile(
                                   name: LocaleKeys.about_app.tr(),

@@ -2,7 +2,6 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/service_locator.dart';
-import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
@@ -76,7 +75,7 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                             title: LocaleKeys.tel_number.tr(),
                             description:
                                 LocaleKeys.we_will_send_a_verification.tr()),
-                        SizedBox(height: SizeConfig.v(50)),
+                       const SizedBox(height: 50),
                         ZTextFormField(
                           disabledBorderColor: border,
                           onChanged: (value) {

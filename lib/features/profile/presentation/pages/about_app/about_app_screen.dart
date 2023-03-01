@@ -6,7 +6,6 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
 import 'package:auto/core/singletons/storage.dart';
-import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
@@ -72,16 +71,15 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
                 Navigator.of(context).push(fade(page: const TermsOfUsePage()));
               },
               child: Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: SizeConfig.h(16), vertical: SizeConfig.v(12)),
-                margin: EdgeInsets.fromLTRB(SizeConfig.h(16), SizeConfig.v(20),
-                    SizeConfig.h(16), SizeConfig.v(12)),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                margin: const EdgeInsets.fromLTRB(16, 20, 16, 12),
                 decoration: BoxDecoration(
                     border: Border.all(
                         color: Theme.of(context)
                             .extension<WTextFieldStyle>()!
                             .borderColor),
-                    borderRadius: BorderRadius.circular(SizeConfig.h(12)),
+                    borderRadius: BorderRadius.circular(12),
                     color: Theme.of(context)
                         .extension<ThemedColors>()!
                         .whiteToNero1),
@@ -91,7 +89,7 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
                         color: Theme.of(context)
                             .extension<ThemedColors>()!
                             .darkToGrey),
-                    SizedBox(width: SizeConfig.h(8)),
+                    const SizedBox(width: 8),
                     Text(LocaleKeys.terms_use.tr(),
                         style: Theme.of(context)
                             .textTheme
@@ -124,10 +122,9 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
                 Theme.of(context).extension<ThemedIcons>()!.autoUzLightDark,
               ),
             ),
-            SizedBox(height: SizeConfig.v(12)),
+            const SizedBox(height: 12),
             Padding(
-                padding: EdgeInsets.only(
-                    top: SizeConfig.v(2), bottom: SizeConfig.v(36)),
+                padding: const EdgeInsets.only(top: 2, bottom: 36),
                 child: Text(
                     '${LocaleKeys.version.tr()} ${_packageInfo.version}',
                     textAlign: TextAlign.center,

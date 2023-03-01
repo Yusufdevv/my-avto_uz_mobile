@@ -1,6 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/ads/presentation/pages/ads_screen.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
@@ -169,9 +168,7 @@ class _MySearchesPageState extends State<MySearchesPage> {
                       ? WButton(
                           text: LocaleKeys.delete.tr(),
                           color: deletedList.isNotEmpty ? orange : grey,
-                          margin: EdgeInsets.symmetric(
-                              horizontal: SizeConfig.h(16),
-                              vertical: SizeConfig.v(16)),
+                          margin:const EdgeInsets.all(16),
                           onTap: () {
                             deletedList.isNotEmpty
                                 ? showModalBottomSheet(

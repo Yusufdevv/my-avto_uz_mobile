@@ -1,6 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/core/utils/size_config.dart';
 import 'package:flutter/material.dart';
 
 class EmptyItemBody extends StatelessWidget {
@@ -20,8 +19,8 @@ class EmptyItemBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            height: SizeConfig.v(92),
-            width: SizeConfig.v(92),
+            height:  92 ,
+            width:  92,
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Theme.of(context)
@@ -32,7 +31,7 @@ class EmptyItemBody extends StatelessWidget {
           const SizedBox(height: 24),
           if (title != null)
             Padding(
-              padding: EdgeInsets.only(bottom: SizeConfig.v(8)),
+              padding: const EdgeInsets.only(bottom:  8),
               child: Text(
                 title!,
                 style: Theme.of(context)

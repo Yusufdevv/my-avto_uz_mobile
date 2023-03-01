@@ -1,7 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/edit_ad/presentation/edit_ad_screen.dart';
@@ -172,7 +171,7 @@ class MyAdDesc extends StatelessWidget {
                     .bodyLarge!
                     .copyWith(fontWeight: FontWeight.w400, color: orange),
               ),
-              SizedBox(height: SizeConfig.v(12)),
+              const SizedBox(height: 12),
               Row(
                 children: [
                   Expanded(
@@ -207,7 +206,7 @@ class MyAdDesc extends StatelessWidget {
                                   .iconPearlToWhite,
                               height: 20,
                               width: 20),
-                          SizedBox(width: SizeConfig.h(8)),
+                          const SizedBox(width: 8),
                           Text(
                             LocaleKeys.editing_ad.tr(),
                             style: Theme.of(context)

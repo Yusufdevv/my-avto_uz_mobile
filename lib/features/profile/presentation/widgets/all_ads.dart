@@ -1,6 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/pagination/presentation/paginator.dart';
 import 'package:auto/features/profile/presentation/bloc/user_wishlists_notifications/user_wishlists_notification_bloc.dart';
 import 'package:auto/features/profile/presentation/widgets/empty_item_body.dart';
@@ -59,10 +58,10 @@ class _AllAdsState extends State<AllAds> {
                     final item = state.myAds[index];
                     return Padding(
                       padding: EdgeInsets.only(
-                          bottom: SizeConfig.v(12),
-                          top: index == 0 ? SizeConfig.v(12) : 0),
+                          bottom:  12 ,
+                          top: index == 0 ?  12  : 0),
                       child: Container(
-                        padding: EdgeInsets.only(top: SizeConfig.v(12)),
+                        padding: EdgeInsets.only(top:  12 ),
                         color: white,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,7 +69,7 @@ class _AllAdsState extends State<AllAds> {
                             MyAdImagesPart(item: item),
                             Padding(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: SizeConfig.v(16)),
+                                  horizontal:  16 ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
