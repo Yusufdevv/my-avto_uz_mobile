@@ -100,10 +100,10 @@ class _AdsScreenState extends State<AdsScreen>
         bodyType: widget.queryData?.bodyType ?? const BodyTypeEntity(),
         gearboxType: widget.queryData?.gearboxType ?? const GearboxTypeEntity(),
         driveType: widget.queryData?.driveType ?? const DriveTypeEntity(),
-        yearValues: RangeValues(widget.queryData?.yearFrom?.toDouble() ?? -1,
-            widget.queryData?.yearTo?.toDouble() ?? -1),
-        priceValues: RangeValues(widget.queryData?.priceFrom?.toDouble() ?? -1,
-            widget.queryData?.priceTo?.toDouble() ?? -1),
+        yearValues: RangeValues(widget.queryData?.yearFrom?.toDouble() ?? 0,
+            widget.queryData?.yearTo?.toDouble() ?? 0),
+        priceValues: RangeValues(widget.queryData?.priceFrom?.toDouble() ?? 0,
+            widget.queryData?.priceTo?.toDouble() ?? 0),
         currency: currency,
       ));
 
