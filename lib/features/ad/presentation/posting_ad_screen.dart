@@ -88,7 +88,6 @@ class _PostingAdScreenState extends State<PostingAdScreen>
       animationController: animeController,
     );
     globalKey = GlobalKey();
-
     postingAdBloc = PostingAdBloc();
     currentTabIndex = initialPage;
     postingAdBloc.add(PostingAdMakesEvent());
@@ -141,332 +140,323 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                 ],
                 child: BlocConsumer<PostingAdBloc, PostingAdState>(
                     listener: (context, state) async {
-                  if (state.createStatus == FormzStatus.submissionSuccess) {
-                    FocusScope.of(context).unfocus();
-                    var error = state.toastMessage ?? '';
-                    if (error.toLowerCase().contains('dio') ||
-                        error.toLowerCase().contains('type')) {
-                      error = LocaleKeys.service_error.tr();
-                    } else if (error.toLowerCase().contains('bad')) {
-                      error = LocaleKeys.bad_request.tr();
-                    } else if (error.toLowerCase().contains('internal') ||
-                        error.toLowerCase().contains('internet')) {
-                      error = LocaleKeys.internal_error_server.tr();
-                    }
-                    context.read<ShowPopUpBloc>().add(
-                          ShowPopUp(
-                            message: error,
-                            status: PopStatus.success,
-                          ),
-                        );
-                    await Future.delayed(const Duration(milliseconds: 1000));
-                    context
-                        .read<WishlistAddBloc>()
-                        .add(WishlistAddEvent.goToAdds(1));
-                    context
-                        .read<ProfileBloc>()
-                        .add(ChangeCountDataEvent(adding: true, myAdsCount: 1));
+                      if (state.createStatus == FormzStatus.submissionSuccess) {
+                        FocusScope.of(context).unfocus();
+                        var error = state.toastMessage ?? '';
+                        if (error.toLowerCase().contains('dio') ||
+                            error.toLowerCase().contains('type')) {
+                          error = LocaleKeys.service_error.tr();
+                        } else if (error.toLowerCase().contains('bad')) {
+                          error = LocaleKeys.bad_request.tr();
+                        } else if (error.toLowerCase().contains('internal') ||
+                            error.toLowerCase().contains('internet')) {
+                          error = LocaleKeys.internal_error_server.tr();
+                        }
+                        context.read<ShowPopUpBloc>().add(
+                              ShowPopUp(
+                                message: error,
+                                status: PopStatus.success,
+                              ),
+                            );
+                        await Future.delayed(
+                            const Duration(milliseconds: 1000));
+                        context
+                            .read<WishlistAddBloc>()
+                            .add(WishlistAddEvent.goToAdds(1));
+                        context.read<ProfileBloc>().add(
+                            ChangeCountDataEvent(adding: true, myAdsCount: 1));
 
-                    currentTabIndex = 0;
-                    await Future.delayed(const Duration(milliseconds: 500));
-                    await pageController.animateToPage(currentTabIndex,
-                        duration: const Duration(milliseconds: 150),
-                        curve: Curves.linear);
-                    postingAdBloc.add(PostingAdClearStateEvent());
-                    setState(() {});
-                    Navigator.of(context).pop(true);
+                        currentTabIndex = 0;
+                        await Future.delayed(const Duration(milliseconds: 500));
+                        await pageController.animateToPage(currentTabIndex,
+                            duration: const Duration(milliseconds: 150),
+                            curve: Curves.linear);
+                        postingAdBloc.add(PostingAdClearStateEvent());
+                        setState(() {});
+                        Navigator.of(context).pop(true);
 
-                    return;
-                  }
+                        return;
+                      }
 
-                  if (state.toastMessage != null &&
-                      state.toastMessage!.isNotEmpty) {
-                    var error = state.toastMessage ?? '';
-                    if (error.toLowerCase().contains('dio') ||
-                        error.toLowerCase().contains('type')) {
-                      error = LocaleKeys.service_error.tr();
-                    } else if (error.toLowerCase().contains('bad')) {
-                      error = LocaleKeys.bad_request.tr();
-                    } else if (error.toLowerCase().contains('internal') ||
-                        error.toLowerCase().contains('internet')) {
-                      error = LocaleKeys.internal_error_server.tr();
-                    }
-                    context.read<ShowPopUpBloc>().add(
-                          ShowPopUp(
-                            message: error,
-                            status: state.popStatus,
-                          ),
-                        );
-                    postingAdBloc.add(PostingAdShowToastEvent(
-                        message: '', status: PopStatus.success));
-                  }
-                }, builder: (context, state) {
-                  if (state.getAnnouncementToEditStatus ==
-                      FormzStatus.submissionFailure) {
-                    return Scaffold(
-                        body: Center(
-                            child: Padding(
-                                padding: const EdgeInsets.all(20),
-                                child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        state.toastMessage ??
-                                            'something went wrong',
-                                        textAlign: TextAlign.center,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .displayLarge!
-                                            .copyWith(fontSize: 24),
-                                      ),
-                                      const SizedBox(height: 20),
-                                      WButton(
-                                          text: 'OK',
-                                          onTap: () {
-                                            Navigator.pop(context);
-                                          })
-                                    ]))));
-                  }
-                  return BlocBuilder<ChooseMakeAnimeBloc, ChooseMakeAnimeState>(
-                    builder: (context, animeState) => Scaffold(
-                      appBar: PreferredSize(
-                        preferredSize: const Size.fromHeight(54),
-                        child: PostingAdAppBar(
-                          hasCancelButton: currentTabIndex != 0,
-                          currentTabIndex: currentTabIndex,
-                          reversScaleAnimation: animeState.reversScaleAnimation,
-                          reverseTitle: LocaleKeys.choose_brand_auto.tr(),
-                          scaleAnimation: animeState.scaleAnimation,
-                          tabLength: tabLength,
-                          hasShadow: state.hasAppBarShadow,
-                          onTapBack: () {
-                            if (currentTabIndex != 0) {
-                              --currentTabIndex;
-                              pageController.animateToPage(currentTabIndex,
-                                  duration: const Duration(milliseconds: 150),
-                                  curve: Curves.linear);
-                              setState(() {});
-                            } else {
-                              Navigator.pop(context);
-                            }
-                          },
-                          onTapCancel: () {
-                            postingAdBloc.add(PostingAdClearStateEvent());
-                            currentTabIndex = 0;
-                            pageController.animateToPage(currentTabIndex,
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.linear);
-                            setState(() {});
-                          },
-                          title: currentTabIndex == 0
-                              ? LocaleKeys.get_back.tr()
-                              : tabs[currentTabIndex - 1],
-                        ),
-                      ),
-                      body: Stack(
-                        children: [
-                          PageView(
-                            controller: pageController,
-                            physics: const NeverScrollableScrollPhysics(),
-                            children: [
-                              //0
-                              ChooseCarBrand(
+                      if (state.toastMessage != null &&
+                          state.toastMessage!.isNotEmpty) {
+                        var error = state.toastMessage ?? '';
+                        if (error.toLowerCase().contains('dio') ||
+                            error.toLowerCase().contains('type')) {
+                          error = LocaleKeys.service_error.tr();
+                        } else if (error.toLowerCase().contains('bad')) {
+                          error = LocaleKeys.bad_request.tr();
+                        } else if (error.toLowerCase().contains('internal') ||
+                            error.toLowerCase().contains('internet')) {
+                          error = LocaleKeys.internal_error_server.tr();
+                        }
+                        context.read<ShowPopUpBloc>().add(
+                              ShowPopUp(
+                                message: error,
+                                status: state.popStatus,
+                              ),
+                            );
+                        postingAdBloc.add(PostingAdShowToastEvent(
+                            message: '', status: PopStatus.success));
+                      }
+                    },
+                    builder: (context, state) =>
+                        BlocBuilder<ChooseMakeAnimeBloc, ChooseMakeAnimeState>(
+                          builder: (context, animeState) => Scaffold(
+                            appBar: PreferredSize(
+                              preferredSize: const Size.fromHeight(54),
+                              child: PostingAdAppBar(
+                                hasCancelButton: currentTabIndex != 0,
+                                currentTabIndex: currentTabIndex,
+                                reversScaleAnimation:
+                                    animeState.reversScaleAnimation,
+                                reverseTitle: LocaleKeys.choose_brand_auto.tr(),
+                                scaleAnimation: animeState.scaleAnimation,
                                 tabLength: tabLength,
-                                postingAddBloc: postingAdBloc,
-                                onTopBrandPressed: (makeId) {
-                                  postingAdBloc
-                                      .add(PostingAdChooseEvent(make: makeId));
-                                  currentTabIndex++;
-                                  postingAdBloc.add(
-                                      PostingAdAddEventForEveryPage(
-                                          page: currentTabIndex));
-                                  pageController.animateToPage(currentTabIndex,
-                                      duration:
-                                          const Duration(milliseconds: 150),
-                                      curve: Curves.linear);
-                                  setState(() {});
-                                },
-                              ),
-                              //1
-                              const ChooseCarModelScreen(),
-                              //2
-                              const YearIssueScreenn(),
-                              //3
-                              const GenerationScreen(),
-                              //4
-                              const BodyTypeScreen(),
-                              //5
-                              const EngineScreen(),
-                              //6
-                              const DriveTypeScreen(),
-                              //7
-                              const GearboxScreen(),
-                              //8
-                              ModificationScreen(
-                                noData: () {
-                                  FocusScope.of(context).unfocus();
-                                  if (currentTabIndex < tabLength - 1) {
-                                    if (currentTabIndex == 0 &&
-                                        animeState.isCollapsed) {
-                                      animeState.animationController.reverse();
-                                    }
-                                    currentTabIndex++;
-                                    postingAdBloc.add(
-                                        PostingAdAddEventForEveryPage(
-                                            page: currentTabIndex));
-                                    pageController.animateToPage(
-                                        currentTabIndex,
-                                        duration:
-                                            const Duration(milliseconds: 60),
-                                        curve: Curves.linear);
-                                    setState(() {});
-                                    postingAdBloc.add(PostingAdChooseEvent(
-                                        getModificationStatus:
-                                            FormzStatus.pure));
-                                  }
-                                },
-                              ),
-                              //9
-                              const ColorsScreen(),
-                              //10
-                              const AddPhotoScreen(),
-                              //11
-                              const PtsScreen(),
-                              //12
-                              DescriptionScreen(
-                                  initialText: state.description ?? ''),
-                              //13
-                              const EquipmentScreen(),
-                              //14
-                              const DamageScreen(),
-                              //15
-                              const ContactScreen(),
-                              //16
-                              InspectionPlaceScreen(
-                                onToMapPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    fade(page: const MapScreenPostingAd()),
-                                  ).then(
-                                    (latLongZoom) {
-                                      if (latLongZoom is List<double>) {
-                                        postingAdBloc.add(
-                                          PostingAdGetMapScreenShotEvent(
-                                            lat: latLongZoom[0],
-                                            long: latLongZoom[1],
-                                            zoomLevel: latLongZoom[2],
-                                          ),
-                                        );
-                                      }
-                                    },
-                                  );
-                                },
-                              ),
-                              //17
-                              PriceScreen(
-                                  currency: state.currency,
-                                  minimumPrice: state.minimumPrice,
-                                  price: state.price ?? '',
-                                  rentToBuy: state.rentToBuy ?? false,
-                                  onCurrencyChanged: (currency) =>
-                                      postingAdBloc.add(PostingAdChooseEvent(
-                                          currency: currency)),
-                                  onSwitchChanged: (v) => postingAdBloc
-                                      .add(PostingAdChooseEvent(rentToBuy: v)),
-                                  onConditionChanged: (condition) =>
-                                      postingAdBloc.add(
-                                          PostingAdOnRentWithPurchaseConditionChangedEvent(
-                                              condition: condition)),
-                                  onPriceChanged: (price) => postingAdBloc
-                                      .add(PostingAdChooseEvent(price: price)),
-                                  initialPrice: state.price ?? '',
-                                  conditions: state
-                                      .rentWithPurchaseConditions.entries
-                                      .map((e) => e.value)
-                                      .toList()),
-                              //18
-                              MileageScreen(
-                                  onImageChange: (image) {
-                                    postingAdBloc.add(PostingAdChooseEvent(
-                                        milageImage: image));
-                                  },
-                                  initialMileageImage: state.milageImage,
-                                  initialMileage: state.mileage ?? ''),
-                              // //19
-                              // const StsScreen(),
-                              //19
-                              const PreviewScreen(),
-                            ],
-                          ),
-                          if (currentTabIndex < tabLength - 1) ...{
-                            Positioned(
-                              bottom:
-                                  MediaQuery.of(context).padding.bottom + 16,
-                              right: 16,
-                              left: 16,
-                              child: WButton(
-                                disabledColor: disabledButton,
-                                isDisabled: state.buttonStatus(currentTabIndex),
-                                onTap: () {
-                                  FocusScope.of(context).unfocus();
-                                  if (currentTabIndex < tabLength - 1) {
-                                    if (currentTabIndex == 0 &&
-                                        animeState.isCollapsed) {
-                                      animeState.animationController.reverse();
-                                    }
-                                    currentTabIndex++;
-                                    postingAdBloc.add(
-                                        PostingAdAddEventForEveryPage(
-                                            page: currentTabIndex));
+                                hasShadow: state.hasAppBarShadow,
+                                onTapBack: () {
+                                  if (currentTabIndex != 0) {
+                                    --currentTabIndex;
                                     pageController.animateToPage(
                                         currentTabIndex,
                                         duration:
                                             const Duration(milliseconds: 150),
                                         curve: Curves.linear);
                                     setState(() {});
+                                  } else {
+                                    Navigator.pop(context);
                                   }
                                 },
-                                text: LocaleKeys.further.tr(),
-                                shadow: state.buttonStatus(currentTabIndex)
-                                    ? null
-                                    : [
-                                        BoxShadow(
-                                            offset: const Offset(0, 4),
-                                            blurRadius: 20,
-                                            color: orange.withOpacity(0.2)),
-                                      ],
-                              ),
-                            ),
-                          } else ...{
-                            Positioned(
-                              bottom:
-                                  MediaQuery.of(context).padding.bottom + 16,
-                              right: 16,
-                              left: 16,
-                              child: WButton(
-                                isDisabled: state.createStatus ==
-                                    FormzStatus.submissionSuccess,
-                                isLoading: state.createStatus ==
-                                    FormzStatus.submissionInProgress,
-                                onTap: () async {
-                                  postingAdBloc.add(PostingAdCreateEvent());
+                                onTapCancel: () {
+                                  postingAdBloc.add(PostingAdClearStateEvent());
+                                  currentTabIndex = 0;
+                                  pageController.animateToPage(currentTabIndex,
+                                      duration:
+                                          const Duration(milliseconds: 300),
+                                      curve: Curves.linear);
+                                  setState(() {});
                                 },
-                                text: LocaleKeys.start_free_week.tr(),
-                                shadow: [
-                                  BoxShadow(
-                                    offset: const Offset(0, 4),
-                                    blurRadius: 20,
-                                    color: orange.withOpacity(0.2),
-                                  ),
-                                ],
+                                title: currentTabIndex == 0
+                                    ? LocaleKeys.get_back.tr()
+                                    : tabs[currentTabIndex - 1],
                               ),
                             ),
-                          }
-                        ],
-                      ),
-                    ),
-                  );
-                }),
+                            body: Stack(
+                              children: [
+                                PageView(
+                                  controller: pageController,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  children: [
+                                    //0
+                                    ChooseCarBrand(
+                                      tabLength: tabLength,
+                                      postingAddBloc: postingAdBloc,
+                                      onTopBrandPressed: (makeId) {
+                                        postingAdBloc.add(
+                                            PostingAdChooseEvent(make: makeId));
+                                        currentTabIndex++;
+                                        postingAdBloc.add(
+                                            PostingAdAddEventForEveryPage(
+                                                page: currentTabIndex));
+                                        pageController.animateToPage(
+                                            currentTabIndex,
+                                            duration: const Duration(
+                                                milliseconds: 150),
+                                            curve: Curves.linear);
+                                        setState(() {});
+                                      },
+                                    ),
+                                    //1
+                                    const ChooseCarModelScreen(),
+                                    //2
+                                    const YearIssueScreenn(),
+                                    //3
+                                    const GenerationScreen(),
+                                    //4
+                                    const BodyTypeScreen(),
+                                    //5
+                                    const EngineScreen(),
+                                    //6
+                                    const DriveTypeScreen(),
+                                    //7
+                                    const GearboxScreen(),
+                                    //8
+                                    ModificationScreen(
+                                      noData: () {
+                                        FocusScope.of(context).unfocus();
+                                        if (currentTabIndex < tabLength - 1) {
+                                          if (currentTabIndex == 0 &&
+                                              animeState.isCollapsed) {
+                                            animeState.animationController
+                                                .reverse();
+                                          }
+                                          currentTabIndex++;
+                                          postingAdBloc.add(
+                                              PostingAdAddEventForEveryPage(
+                                                  page: currentTabIndex));
+                                          pageController.animateToPage(
+                                              currentTabIndex,
+                                              duration: const Duration(
+                                                  milliseconds: 60),
+                                              curve: Curves.linear);
+                                          setState(() {});
+                                          postingAdBloc.add(
+                                              PostingAdChooseEvent(
+                                                  getModificationStatus:
+                                                      FormzStatus.pure));
+                                        }
+                                      },
+                                    ),
+                                    //9
+                                    const ColorsScreen(),
+                                    //10
+                                    const AddPhotoScreen(),
+                                    //11
+                                    const PtsScreen(),
+                                    //12
+                                    DescriptionScreen(
+                                        initialText: state.description ?? ''),
+                                    //13
+                                    const EquipmentScreen(),
+                                    //14
+                                    const DamageScreen(),
+                                    //15
+                                    const ContactScreen(),
+                                    //16
+                                    InspectionPlaceScreen(
+                                      onToMapPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          fade(
+                                              page: const MapScreenPostingAd()),
+                                        ).then(
+                                          (latLongZoom) {
+                                            if (latLongZoom is List<double>) {
+                                              postingAdBloc.add(
+                                                PostingAdGetMapScreenShotEvent(
+                                                  lat: latLongZoom[0],
+                                                  long: latLongZoom[1],
+                                                  zoomLevel: latLongZoom[2],
+                                                ),
+                                              );
+                                            }
+                                          },
+                                        );
+                                      },
+                                    ),
+                                    //17
+                                    PriceScreen(
+                                        currency: state.currency,
+                                        minimumPrice: state.minimumPrice,
+                                        price: state.price ?? '',
+                                        rentToBuy: state.rentToBuy ?? false,
+                                        onCurrencyChanged: (currency) =>
+                                            postingAdBloc.add(
+                                                PostingAdChooseEvent(
+                                                    currency: currency)),
+                                        onSwitchChanged: (v) => postingAdBloc.add(
+                                            PostingAdChooseEvent(rentToBuy: v)),
+                                        onConditionChanged: (condition) =>
+                                            postingAdBloc.add(
+                                                PostingAdOnRentWithPurchaseConditionChangedEvent(
+                                                    condition: condition)),
+                                        onPriceChanged: (price) => postingAdBloc.add(
+                                            PostingAdChooseEvent(price: price)),
+                                        initialPrice: state.price ?? '',
+                                        conditions: state
+                                            .rentWithPurchaseConditions.entries
+                                            .map((e) => e.value)
+                                            .toList()),
+                                    //18
+                                    MileageScreen(
+                                        onImageChange: (image) {
+                                          postingAdBloc.add(
+                                              PostingAdChooseEvent(
+                                                  milageImage: image));
+                                        },
+                                        initialMileageImage: state.milageImage,
+                                        initialMileage: state.mileage ?? ''),
+                                    // //19
+                                    // const StsScreen(),
+                                    //19
+                                    const PreviewScreen(),
+                                  ],
+                                ),
+                                if (currentTabIndex < tabLength - 1) ...{
+                                  Positioned(
+                                    bottom:
+                                        MediaQuery.of(context).padding.bottom +
+                                            16,
+                                    right: 16,
+                                    left: 16,
+                                    child: WButton(
+                                      disabledColor: disabledButton,
+                                      isDisabled:
+                                          state.buttonStatus(currentTabIndex),
+                                      onTap: () {
+                                        FocusScope.of(context).unfocus();
+                                        if (currentTabIndex < tabLength - 1) {
+                                          if (currentTabIndex == 0 &&
+                                              animeState.isCollapsed) {
+                                            animeState.animationController
+                                                .reverse();
+                                          }
+                                          currentTabIndex++;
+                                          postingAdBloc.add(
+                                              PostingAdAddEventForEveryPage(
+                                                  page: currentTabIndex));
+                                          pageController.animateToPage(
+                                              currentTabIndex,
+                                              duration: const Duration(
+                                                  milliseconds: 150),
+                                              curve: Curves.linear);
+                                          setState(() {});
+                                        }
+                                      },
+                                      text: LocaleKeys.further.tr(),
+                                      shadow: state
+                                              .buttonStatus(currentTabIndex)
+                                          ? null
+                                          : [
+                                              BoxShadow(
+                                                  offset: const Offset(0, 4),
+                                                  blurRadius: 20,
+                                                  color:
+                                                      orange.withOpacity(0.2)),
+                                            ],
+                                    ),
+                                  ),
+                                } else ...{
+                                  Positioned(
+                                    bottom:
+                                        MediaQuery.of(context).padding.bottom +
+                                            16,
+                                    right: 16,
+                                    left: 16,
+                                    child: WButton(
+                                      isDisabled: state.createStatus ==
+                                          FormzStatus.submissionSuccess,
+                                      isLoading: state.createStatus ==
+                                          FormzStatus.submissionInProgress,
+                                      onTap: () async {
+                                        postingAdBloc
+                                            .add(PostingAdCreateEvent());
+                                      },
+                                      text: LocaleKeys.start_free_week.tr(),
+                                      shadow: [
+                                        BoxShadow(
+                                          offset: const Offset(0, 4),
+                                          blurRadius: 20,
+                                          color: orange.withOpacity(0.2),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                }
+                              ],
+                            ),
+                          ),
+                        )),
               ),
             ),
           ),

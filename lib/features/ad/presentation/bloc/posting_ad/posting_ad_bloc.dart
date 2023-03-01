@@ -95,7 +95,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   PostingAdBloc()
       : super(PostingAdState(
             contactsFormKey: GlobalKey<FormState>(),
-            getAnnouncementToEditStatus: FormzStatus.pure,
             popStatus: PopStatus.success,
             colorName: LocaleKeys.white.tr(),
             status: FormzStatus.pure,
@@ -118,7 +117,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdDamageEvent>(_damage);
     on<PostingAdGetRegionsEvent>(_getRegions);
     on<PostingAdGetDistritsEvent>(_getDistricts);
-    on<PostingAdGetAnnouncementEvent>(_getAnnouncement);
     on<PostingAdGetMinimumPriceEvent>(_getMinimumPrice);
     on<PostingAdSendCodeEvent>(_sendCode);
     on<PostingAdGetUserDataEvent>(_getUser);
@@ -164,7 +162,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     emit(
       PostingAdState(
         contactsFormKey: GlobalKey<FormState>(),
-        getAnnouncementToEditStatus: FormzStatus.pure,
         popStatus: PopStatus.success,
         status: FormzStatus.submissionSuccess,
         phoneController: TextEditingController(),
@@ -374,22 +371,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     }
   }
 
-  FutureOr<void> _getAnnouncement(
-      PostingAdGetAnnouncementEvent event, Emitter<PostingAdState> emit) async {
-    emit(state.copyWith(
-        getAnnouncementToEditStatus: FormzStatus.submissionInProgress));
-    final result = await announcementUseCase.call(event.id);
-    if (result.isRight) {
-      final stateForEdit = await PASingleton.stateForEdit(result.right);
-      emit(stateForEdit);
-    } else {
-      emit(state.copyWith(
-        getAnnouncementToEditStatus: FormzStatus.submissionFailure,
-        toastMessage: MyFunctions.getErrorMessage(result.left),
-        popStatus: PopStatus.error,
-      ));
-    }
-  }
+
 
   FutureOr<void> _getDistricts(
       PostingAdGetDistritsEvent event, Emitter<PostingAdState> emit) async {
@@ -443,6 +425,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       PostingAdCreateEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(createStatus: FormzStatus.submissionInProgress));
     final result = await createUseCase.call(await PASingleton.create(state));
+
     if (result.isRight) {
       emit(state.copyWith(
         createStatus: FormzStatus.submissionSuccess,
@@ -691,10 +674,10 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     });
     if (result.isRight) {
       final equipmentOptionsList =
-          makeOptionsSelected(result.right.results, state.equipmentOptions);
+          makeOptionsSelectedd(result.right.results, state.equipmentOptions);
       emit(state.copyWith(
         equipmentOptionsList: equipmentOptionsList,
-        equipmentOptionsListPrev: equipmentOptionsList,
+        equipmentOptionsListPrevv: equipmentOptionsList,
         status: FormzStatus.submissionSuccess,
       ));
     } else {
@@ -719,7 +702,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     add(PostingAdGetEquipmentOptionsList());
   }
 
-  List<EquipmentOptionsListEntity> makeOptionsSelected(
+  List<EquipmentOptionsListEntity> makeOptionsSelectedd(
     List<EquipmentOptionsListEntity> optionsList,
     List<EquipmentOptionsEntity> equipmentOptions,
   ) {
@@ -770,11 +753,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   /// it will be called
   FutureOr<void> _getChangeOption(
       PostingAdChangeOption event, Emitter<PostingAdState> emit) {
-    log(':::::::::: id:  ${event.id}  ::::::::::');
-    log(':::::::::: type:  ${event.type}  ::::::::::');
-    log(':::::::::: categoryIndex:  ${event.categoryIndex}  ::::::::::');
-    log(':::::::::: optionIndex:  ${event.optionIndex}  ::::::::::');
-    log(':::::::::: selectedItem:  ${event.selectedItem}  ::::::::::');
     final newList = <EquipmentOptionsListEntity>[];
     for (var i = 0; i < state.equipmentOptionsList.length; i++) {
       final newOptionList = <EquipmentOptionEntity>[];

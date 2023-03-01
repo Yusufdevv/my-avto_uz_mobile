@@ -49,11 +49,7 @@ class PostingAdSendCodeEvent extends PostingAdEvent {
 
 class PostingAdGetMinimumPriceEvent extends PostingAdEvent {}
 
-class PostingAdGetAnnouncementEvent extends PostingAdEvent {
-  final int id;
 
-  PostingAdGetAnnouncementEvent({required this.id});
-}
 
 class PostingAdDamageEvent extends PostingAdEvent {
   final DamagedParts part;
@@ -175,8 +171,10 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final int? gasEquipmentId;
   final EquipmentEntity? equipment;
   final FormzStatus? getModificationStatus;
+  final FormzStatus? createStatus;
 
   PostingAdChooseEvent({
+    this.createStatus,
     this.modification,
     this.searchController,
     this.panaramaGallery,
