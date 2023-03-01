@@ -16,5 +16,8 @@ class GetDistrictsUseCase
         fromJson: DistrictModel.fromJson,
         next: '',
         sendToken: false,
+        query: {
+          'limit' : 20
+        }
       );
 }
