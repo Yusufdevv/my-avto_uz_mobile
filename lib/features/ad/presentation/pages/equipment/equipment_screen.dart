@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/domain/entities/equipment/equipment_entity.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/ad/presentation/widgets/equipment_category.dart';
@@ -45,17 +46,18 @@ class EquipmentScreen extends StatelessWidget {
                       physics: const BouncingScrollPhysics(),
                       itemBuilder: (context, index) => PostingRadioItem(
                         onTap: () => context.read<PostingAdBloc>().add(
-                            PostingAdChooseEvent(
+                              PostingAdChooseEvent(
                                 equipment: index < state.equipments.length
                                     ? state.equipments[index]
-                                    : null)),
+                                    : const EquipmentEntity(),
+                              ),
+                            ),
                         title: index < state.equipments.length
                             ? state.equipments[index].name
                             : LocaleKeys.other1.tr(),
                         selected: index < state.equipments.length
                             ? state.equipment?.id == state.equipments[index].id
-                            : state.equipment?.id
-                            == -1,
+                            : state.equipment?.id == -1,
                         image: '',
                       ),
                       itemCount: state.equipments.length + 1,
