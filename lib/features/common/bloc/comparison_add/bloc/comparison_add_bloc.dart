@@ -17,6 +17,7 @@ class ComparisonAddBloc extends Bloc<ComparisonAddEvent, ComparisonAddState> {
   ComparisonAddBloc() : super(ComparisonAddState()) {
     on<_PostComparisonCars>((event, emit) async {
       emit(state.copyWith(addStatus: FormzStatus.submissionInProgress));
+      print('object ${event.id}');
       final result = await addUseCase(event.id);
       if (result.isRight) {
         emit(state.copyWith(
@@ -43,9 +44,6 @@ class ComparisonAddBloc extends Bloc<ComparisonAddEvent, ComparisonAddState> {
     });
 
     on<_AddToMapComparison>((event, emit) async {
-      print('======= id bef ${state.map[event.id]}');
-      print('=======ev bef ${event.value}');
-
       final map = {...state.map};
       map[event.id] = event.value;
 
