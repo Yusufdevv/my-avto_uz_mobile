@@ -35,7 +35,7 @@ class WFilterButton extends StatelessWidget {
         height: 38,
         width: size.width * 0.45,
         borderRadius: 8,
-        padding: const EdgeInsets.only(top: 8, bottom: 8, left: 12, right: 10),
+        padding: const EdgeInsets.only(top: 8, bottom: 8, left: 12),
         border: Border.all(color: theme.dividerColorToGrey),
         color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
         child: Row(
@@ -48,10 +48,10 @@ class WFilterButton extends StatelessWidget {
               fit: BoxFit.cover,
             ),
             const SizedBox(width: 8),
-            SizedBox(
-              width: size.width * 0.27,
+            Expanded(
               child: Text(
                 name.isEmpty ? defaultTitle : name,
+                maxLines: 1,
                 style: Theme.of(context)
                     .textTheme
                     .titleMedium!
@@ -59,8 +59,8 @@ class WFilterButton extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            const Spacer(),
-            if (claerA)
+            const SizedBox(width: 10),
+            if (claerA) ...{
               CircleAvatar(
                 backgroundColor: warmerGrey,
                 radius: 10,
@@ -74,7 +74,10 @@ class WFilterButton extends StatelessWidget {
                     width: 16,
                   ),
                 ),
-              )
+              ),
+              const SizedBox(width: 10),
+            }
+
           ],
         ),
       );

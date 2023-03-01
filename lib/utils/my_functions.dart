@@ -510,6 +510,23 @@ class MyFunctions {
     return const SizedBox();
   }
 
+  static DamageType stringToDamageType(String status) {
+ print(':::::::::: fasdfas $status  ::::::::::');
+    switch (status) {
+      case 'ideal':
+        return DamageType.ideal;
+      case 'scratched':
+        return DamageType.scratched;
+      case 'replaced':
+        return DamageType.replaced;
+      case 'with_dents':
+        return DamageType.withDents;
+      case 'requires_replacement':
+        return DamageType.requiresReplacement;
+    }
+    return DamageType.ideal;
+  }
+
   static Color getStatusColor(DamageType? status) {
     if (status == null) return emerald;
 

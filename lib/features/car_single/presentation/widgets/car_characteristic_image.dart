@@ -1,9 +1,13 @@
+import 'dart:developer';
+
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/presentation/pages/damage/widgets/damage_pluc_button.dart';
 import 'package:auto/features/car_single/domain/entities/damaged_parts_entity.dart';
 import 'package:auto/features/car_single/presentation/widgets/car_status_icon.dart';
 import 'package:auto/features/car_single/presentation/widgets/information_about_doors.dart';
 import 'package:auto/generated/locale_keys.g.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -25,6 +29,7 @@ class CarCharacteristicImage extends StatelessWidget {
           border: Border(
             bottom: BorderSide(
               width: 1,
+              // color: Colors.teal,
               color: Theme.of(context)
                   .extension<ThemedColors>()!
                   .solitudeToDarkRider,
@@ -151,26 +156,36 @@ class CarCharacteristicImage extends StatelessWidget {
               children: [
                 Expanded(
                   child: InformationAboutDoors(
-                    informAboutDoors: informAboutDoors,
-                    index: index,
+                    partName: MyFunctions.getDamagedPartName(
+                        informAboutDoors[countIndex(index)].part),
+
+                    damageName: MyFunctions.getStatusTitle(
+                        informAboutDoors[countIndex(index)].damageType),
                   ),
                 ),
-                if (index > 12)
+                if (index == countLength(informAboutDoors.length) - 1)
                   const SizedBox()
                 else
                   Expanded(
                     child: InformationAboutDoors(
-                      informAboutDoors: informAboutDoors,
-                      index: index + informAboutDoors.length ~/ 2,
+                      partName: MyFunctions.getDamagedPartName(
+                          informAboutDoors[countIndex(index) + 1].part),
+
+                      damageName: MyFunctions.getStatusTitle(
+                          informAboutDoors[countIndex(index) + 1].damageType),
                     ),
                   ),
               ],
             ),
             separatorBuilder: (context, index) => const Divider(),
-            itemCount: informAboutDoors.length ~/ 2,
+            itemCount: countLength(informAboutDoors.length),
           )
         ],
       ),
     );
   }
+
+  int countIndex(int v) => v == 0 ? 0 : v * 2;
+
+  int countLength(int v) => v.isEven ? v ~/ 2 : (v ~/ 2) + 1;
 }

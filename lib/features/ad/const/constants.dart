@@ -23,7 +23,7 @@ enum DamagedParts {
 }
 
 enum DamageType {
-  ideal('ideal'),
+  ideal( 'ideal'),
   withDents('with_dents'),
   scratched('scratched'),
   replaced('replaced'),
