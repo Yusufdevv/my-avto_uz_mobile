@@ -82,6 +82,7 @@ class SellerSliverDelegate extends SliverPersistentHeaderDelegate {
                 images: gallery,
                 screenWidth: MediaQuery.of(context).size.width),
           ),
+          /// back button
           Positioned(
               top: 60,
               left: 16,
@@ -92,6 +93,7 @@ class SellerSliverDelegate extends SliverPersistentHeaderDelegate {
                   behavior: HitTestBehavior.opaque,
                   child:
                       SvgPicture.asset(AppIcons.chevronLeft, color: solitude))),
+
           Positioned(
             bottom: 0,
             right: 0,
