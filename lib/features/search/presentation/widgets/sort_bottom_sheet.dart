@@ -49,7 +49,13 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () => Navigator.pop(context),
+                  onTap: () {
+                    if (groupValue != SortStatus.none) {
+                      groupValue = SortStatus.none;
+                      widget.onChanged(groupValue!);
+                    }
+                    Navigator.pop(context);
+                  },
                   behavior: HitTestBehavior.opaque,
                   child: SvgPicture.asset(
                     AppIcons.close,

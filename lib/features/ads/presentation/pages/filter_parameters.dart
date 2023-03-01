@@ -248,12 +248,10 @@ class _FilterParametersState extends State<FilterParameters> {
                     const SizedBox(height: 16),
                     WButton(
                       onTap: () {
-                        var isFilter = state.bodyType != widget.bodyType ||
-                            state.gearboxType != widget.gearboxType;
-                        isFilter = state.carDriveType != widget.carDriveType ||
-                            state.yearValues != widget.yearValues;
-                        isFilter = state.currency != widget.currency ||
-                            state.isCheck != widget.isCheck;
+                        var isFilter = (state.bodyType?.id != -1 && state.bodyType?.id != null) ||
+                            (state.gearboxType?.id != -1  && state.gearboxType?.id != null) || (state.carDriveType?.id !=-1  && state.carDriveType?.id !=null) ||
+                            state.yearValues.start != 0 ||  state.yearValues.end != 0 || state.priceValues.start != 0 ||  state.priceValues.end != 0  || state.currency != Currency.none;
+                        ///
                         Navigator.of(context).pop({
                           'bodyType': state.bodyType,
                           'gearboxType': state.gearboxType,
