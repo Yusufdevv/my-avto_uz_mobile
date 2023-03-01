@@ -7,16 +7,27 @@ class PASingleton {
   PASingleton._();
 
   static Future<FormData> create(PostingAdState v) async {
+    log(':::::::::::   CREATE ANNOUNCEMENT TRIGGERED IN SINGLETON:    ::::::::::::::');
     List<String> radios = [];
     List<String> selects = [];
     bool deleted = false;
 
     /// these lines of code calculates changed options and option items
+    log(':::::::::::   EQIPMENT FOR STATERTED    ::::::::::::::');
+    log('::::::::::  ${v.equipmentOptionsList.length} in ${v.equipmentOptionsListPrev.length}  ::::::::::');
     for (int i = 0; i < v.equipmentOptionsList.length; i++) {
+
+      log(':::::::::: options lenth: ${v.equipmentOptionsList[i].options.length}  ::::::::::');
       for (int j = 0; j < v.equipmentOptionsList[i].options.length; j++) {
+        log(':::::::::::   id:  ${v.equipmentOptionsList[i].options[j].id}    ::::::::::::::');
+        log(':::::::::::   name:  ${v.equipmentOptionsList[i].options[j].name}    ::::::::::::::');
+        log(':::::::::::   type:  ${v.equipmentOptionsList[i].options[j].type}    ::::::::::::::');
+        log(':::::::::::   selected:  ${v.equipmentOptionsList[i].options[j].selected}    ::::::::::::::');
+        log(':::::::::::   category:  ${v.equipmentOptionsList[i].options[j].category}    ::::::::::::::');
+        log(':::::::::::   selectedInfo:  ${v.equipmentOptionsList[i].options[j].selectedInfo}    ::::::::::::::');
         if (v.equipmentOptionsList[i].options[j].selected !=
-            v.equipmentOptionsListPrevv[i].options[j].selected) {
-          if (v.equipmentOptionsListPrevv[i].options[j].selected) {
+            v.equipmentOptionsListPrev[i].options[j].selected) {
+          if (v.equipmentOptionsListPrev[i].options[j].selected) {
             deleted = true;
           } else {
             radios.add(v.equipmentOptionsList[i].options[j].id.toString());
@@ -26,7 +37,7 @@ class PASingleton {
         }
         //{32: a} {23:45}
         if (v.equipmentOptionsList[i].options[j].selectedInfo.isNotEmpty !=
-            v.equipmentOptionsListPrevv[i].options[j].selectedInfo.isNotEmpty) {
+            v.equipmentOptionsListPrev[i].options[j].selectedInfo.isNotEmpty) {
           if (v.equipmentOptionsList[i].options[j].selectedInfo.isNotEmpty) {
             selects.add(v
                 .equipmentOptionsList[i].options[j].selectedInfo.keys.first
@@ -39,25 +50,28 @@ class PASingleton {
             selects.add(v
                 .equipmentOptionsList[i].options[j].selectedInfo.keys.first
                 .toString());
-            if (v.equipmentOptionsListPrevv[i].options[j].selectedInfo
+            if (v.equipmentOptionsListPrev[i].options[j].selectedInfo
                 .isNotEmpty) {
               if (v.equipmentOptionsList[i].options[j].selectedInfo.keys
                       .first ==
-                  v.equipmentOptionsListPrevv[i].options[j].selectedInfo.keys
+                  v.equipmentOptionsListPrev[i].options[j].selectedInfo.keys
                       .first) {
               } else {
                 deleted = true;
               }
             }
           } else {
-            if (v.equipmentOptionsListPrevv[i].options[j].selectedInfo
+            if (v.equipmentOptionsListPrev[i].options[j].selectedInfo
                 .isNotEmpty) {
               deleted = true;
             }
           }
         }
+
       }
     }
+
+    log(':::::::::::   EQIPMENT FOR COMPLETED    ::::::::::::::');
     // ignore: prefer_final_locals
     var announcementFields = <String, dynamic>{
       'make': v.make?.id,
@@ -102,12 +116,15 @@ class PASingleton {
       'equipment': !deleted ? v.equipment : null,
       'gas_equipment': v.gasEquipmentId,
     };
+
+    log(':::::::::::   BASICS INITIALIZED    ::::::::::::::');
     if (v.milageImage != null && v.milageImage!.isNotEmpty) {
       final milageImage = await MultipartFile.fromFile(v.milageImage!);
       final List<MultipartFile> list = [milageImage];
       announcementFields
           .addEntries(list.map((e) => MapEntry('mileage_image', e)));
     }
+    log(':::::::::::   MILAGE IMAGE INITIALIZED    ::::::::::::::');
 
     var i = -1;
     announcementFields.addEntries(v.damagedParts.entries.map((e) {
@@ -119,6 +136,7 @@ class PASingleton {
       i++;
       return MapEntry('damaged_parts[$i]damage_type', e.value.value);
     }));
+    log(':::::::::::   DAMAGED PARTS INITIALIZED    ::::::::::::::');
 
     var images = <MultipartFile>[];
 
@@ -126,6 +144,7 @@ class PASingleton {
       final multiParFile = await MultipartFile.fromFile(element);
       images.add(multiParFile);
     }
+    log(':::::::::::   IMAGES INITIALIZED    ::::::::::::::');
     i = -1;
     announcementFields.addEntries(images.map((e) {
       i++;
@@ -136,13 +155,15 @@ class PASingleton {
       i++;
       return MapEntry('options[$i]', e);
     }));
+    log(':::::::::::   OPTIONS INITIALIZED    ::::::::::::::');
     i = -1;
     announcementFields.addEntries(selects.map((e) {
       i++;
       return MapEntry('options_items[$i]', e);
     }));
+    log(':::::::::::   OPTION ITEMS  INITIALIZED    ::::::::::::::');
 
-    log(announcementFields.toString());
+    log('ANNOUNCEMENT FIELDS BEFORE FORMDATALIZE: ${announcementFields.toString()} \n Seperator Seperator Seperator Seperator Seperator Seperator Seperator Seperator Seperator ');
     final announcementFormData = FormData.fromMap(announcementFields);
 
     return announcementFormData;
@@ -199,81 +220,11 @@ class PASingleton {
     return result;
   }
 
-  static Future<PostingAdState> stateForEdit(CarSingleEntity v) async {
-    String? phone = '';
-    try {
-      phone = MyFunctions.phoneFormat(v.user.phoneNumber.substring(4));
-      // ignore: avoid_catches_without_on_clauses
-    } catch (e) {
-      phone = null;
-    }
-    var gallery = <String>[];
-    for (var i = 0; i < v.gallery.length; i++) {
-      final path = await MyFunctions.urlToFilePath(v.gallery[i]);
-      if (path != null) {
-        gallery.add(path);
-      }
-    }
-
-    return PostingAdState(
-      contactsFormKey: GlobalKey<FormState>(),
-      getAnnouncementToEditStatus: FormzStatus.submissionSuccess,
-      licenceType: v.licenceType,
-      gallery: gallery,
-      popStatus: PopStatus.success,
-      isContactsVerified: true,
-      searchController: TextEditingController(),
-      phoneController: TextEditingController(text: phone ?? v.user.phoneNumber),
-      emailController: TextEditingController(text: v.contactEmail),
-      nameController: TextEditingController(
-          text: v.user.name.isEmpty ? v.user.fullName : v.user.name),
-      status: FormzStatus.pure,
-      bodyType: BodyTypeEntity(
-          logo: v.bodyType.logo ?? '',
-          id: v.bodyType.id,
-          type: v.bodyType.type),
-      callTimeFrom: v.contactAvailableFrom.trim().length > 5
-          ? v.contactAvailableFrom.trim().substring(0, 5)
-          : null,
-      callTimeTo: v.contactAvailableTo.trim().length > 5
-          ? v.contactAvailableTo.trim().substring(0, 5)
-          : null,
-      isCallTimed: v.contactAvailableFrom.isNotEmpty &&
-          v.contactAvailableFrom.isNotEmpty,
-      colorName: v.color,
-      damagedParts: damagedPartAdopter(v.damagedParts),
-      currency: v.currency,
-      description: v.description,
-      driveTypeId: v.driveType.id,
-      engineId: v.engineType.id,
-      gearbox: v.gearboxType,
-      generationId: v.gearboxType.id,
-      isWithoutMileage: !(v.distanceTraveled > 0),
-      make:
-          MakeEntity(id: v.make.id, logo: v.make.logo ?? '', name: v.make.name),
-      model: MakeEntity(id: v.model.id, name: v.model.name),
-      ownerName: v.user.name.isEmpty ? v.user.fullName : v.user.name,
-      ownerPhone: phone ?? v.user.phoneNumber,
-      ownerEmail: v.contactEmail,
-      ownerStep: v.ownership,
-      price: MyFunctions.getThousandsSeparatedPrice(
-          v.price.split('.').toList().first),
-      mileage: MyFunctions.getThousandsSeparatedPrice('${v.distanceTraveled}'),
-      purchasedDate: v.purchaseDate,
-      notRegisteredInUzbekistan: v.registeredInUzbekistan,
-      yearEntity: YearsEntity(
-        id: v.generation.id,
-        modelId: v.generation.model,
-        yearBegin: v.generation.yearBegin,
-        yearEnd: v.generation.yearEnd,
-      ),
-      modification: v.modificationType,
-    );
-  }
 
   static PostingAdState choose(
           PostingAdState state, PostingAdChooseEvent event) =>
       state.copyWith(
+        createStatus: event.createStatus,
         milageImage: event.milageImage,
         modification: event.modification,
         panaramaGallery: event.panaramaGallery,
