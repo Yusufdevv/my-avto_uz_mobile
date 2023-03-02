@@ -7,7 +7,7 @@ part of 'region_model.dart';
 // **************************************************************************
 
 RegionModel _$RegionModelFromJson(Map<String, dynamic> json) => RegionModel(
-      id: json['id'] as int? ?? 0,
+      id: json['id'] as int? ?? -1,
       title: json['title'] as String? ?? '',
       soato: json['soato'] as String? ?? '',
     );

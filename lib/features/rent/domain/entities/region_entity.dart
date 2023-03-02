@@ -8,7 +8,7 @@ class RegionEntity extends Equatable {
   final String soato;
 
   const RegionEntity({
-    this.id = 0,
+    this.id = -1,
     this.title = '',
     this.soato = '',
   });

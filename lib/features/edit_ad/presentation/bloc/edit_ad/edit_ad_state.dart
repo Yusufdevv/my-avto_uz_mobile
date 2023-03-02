@@ -19,12 +19,12 @@ class EditAdState extends Equatable {
   final MakeEntity? make;
   final CarGenerationEntity? generationEntity;
   final BodyTypeEntity? bodyType;
-  final int? regionId;
+  final Region? region;
   final List<Region> regions;
   final List<DistrictEntity> districts;
 
   final YearsEntity? yearEntity;
-  final int? districtId;
+  final DistrictEntity? district;
   final List<String> gallery;
   final List<String> panaramaGallery;
   final Map<int, RentWithPurchaseEntity> rentWithPurchaseConditions;
@@ -93,7 +93,7 @@ class EditAdState extends Equatable {
     this.ownerEmail,
     this.ownerPhone,
     this.city,
-    this.regionId,
+    this.region,
     this.price,
     this.currency = 'usd',
     this.mileage,
@@ -104,7 +104,7 @@ class EditAdState extends Equatable {
     this.isContactsVerified = false,
     this.rentToBuy,
     this.isWithoutMileage,
-    this.districtId,
+    this.district,
     this.districts = const <DistrictEntity>[],
     this.getDistrictsStatus = FormzStatus.pure,
     this.createStatus = FormzStatus.pure,
@@ -117,14 +117,6 @@ class EditAdState extends Equatable {
     this.equipmentId,
   });
 
-  String? get districtTitle {
-    final index =
-        districts.indexWhere((element) => element.id == (districtId ?? -1));
-    if (index >= 0) {
-      return districts[index].title;
-    }
-    return null;
-  }
 
   EditAdState copyWith({
     TextEditingController? phoneController,
@@ -132,8 +124,8 @@ class EditAdState extends Equatable {
     TextEditingController? nameController,
     Map<DamagedParts, DamageType>? damagedParts,
     Map<int, RentWithPurchaseEntity>? rentWithPurchaseConditions,
-    int? districtId,
-    int? regionId,
+    DistrictEntity? district,
+    Region? regionId,
     FormzStatus? status,
     FormzStatus? getDistrictsStatus,
     FormzStatus? createStatus,
@@ -207,9 +199,9 @@ class EditAdState extends Equatable {
         rentWithPurchaseConditions:
             rentWithPurchaseConditions ?? this.rentWithPurchaseConditions,
         showExactAddress: showExactAddress ?? this.showExactAddress,
-        districtId: districtId ?? this.districtId,
+        district: district ?? this.district,
         city: city ?? this.city,
-        regionId: regionId ?? this.regionId,
+        region: regionId ?? this.region,
         gearbox: gearbox ?? this.gearbox,
         driveTypeId: driveTypeId ?? this.driveTypeId,
         engineId: engineId ?? this.engineId,
@@ -269,13 +261,13 @@ class EditAdState extends Equatable {
         rentWithPurchaseConditions,
         gallery,
         showExactAddress,
-        districtId,
+        district,
         isWithoutMileage,
         rentToBuy,
         callTimeTo,
         callTimeFrom,
         city,
-        regionId,
+        region,
         gearbox,
         driveTypeId,
         engineId,
@@ -306,9 +298,4 @@ class EditAdState extends Equatable {
 
   bool buttonStatus(int page) => EASingleton.nextButtonIsDisabled(page, this);
 
-  Region get getSelectedRegion {
-    final v = regions.firstWhere((e) => e.id == regionId,
-        orElse: () => const Region(id: -1, name: '', title: ''));
-    return v;
-  }
 }

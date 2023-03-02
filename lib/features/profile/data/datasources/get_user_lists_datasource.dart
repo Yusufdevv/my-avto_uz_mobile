@@ -53,6 +53,7 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
         }),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
+
         final data = GenericPagination<T>.fromJson(
             response.data!, (data) => fromJson(data as Map<String, dynamic>));
         return Right(data);

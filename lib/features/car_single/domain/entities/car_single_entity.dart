@@ -1,3 +1,4 @@
+import 'package:auto/features/ad/domain/entities/district_entity.dart';
 import 'package:auto/features/ad/domain/entities/rent_with_purchase/rent_with_purchase_entity.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/ad/domain/entities/types/modification_type.dart';
@@ -8,6 +9,7 @@ import 'package:auto/features/car_single/domain/entities/drive_type_entity.dart'
 import 'package:auto/features/car_single/domain/entities/engine_type_entity.dart';
 import 'package:auto/features/car_single/domain/entities/price_analytics_entity.dart';
 import 'package:auto/features/common/domain/entity/car_generation_entity.dart';
+import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_bodytype_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_make_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_models_entity.dart';
@@ -119,8 +121,14 @@ class CarSingleEntity extends Equatable {
   final PriceAnalyticsEntity priceAnalytics;
   @RentWithPurchaseEntityConverter()
   final List<RentWithPurchaseEntity> rentWithPurchase;
+  @RegionConverter()
+  final RegionEntity region;
+  @DistrictConverter()
+  final DistrictEntity district;
 
   const CarSingleEntity({
+    this.district =const  DistrictEntity(),
+    this.region = const RegionEntity(),
     this.rentWithPurchase = const <RentWithPurchaseEntity>[],
     this.isComparison = false,
     this.isRentWithPurchase = false,
