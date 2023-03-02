@@ -812,6 +812,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
     int? limit,
     int? offset,
   }) async {
+    // equipment opt
     try {
       final result = await _dio.get('car/equipments/options/list/',
           queryParameters: {

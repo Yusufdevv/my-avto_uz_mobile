@@ -4,9 +4,7 @@ import 'dart:developer';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
-import 'package:auto/features/ad/domain/entities/equipment/id_name_entity.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_entity.dart';
-import 'package:auto/features/ad/domain/entities/equipment/equipment_option_entity.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_options_entity.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_options_list_entity.dart';
 import 'package:auto/features/ad/domain/entities/equipment/gas_equipment_entity.dart';
@@ -652,7 +650,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     if (result.isRight) {
       log(':::::::::: GOTTEN EQUIPMENT ENTITIES LENGTH:  ${result.right.results.length}  ::::::::::');
       for (var i = 0; i < result.right.results.length; i++) {
-        log(':::::::::: GOTTEN EQUIPMENT ENTITIES:  ${result.right.results[i] }  ::::::::::');
+        log(':::::::::: GOTTEN EQUIPMENT ENTITIES:  ${result.right.results[i]}  ::::::::::');
       }
 
       final equipments = result.right.results;
@@ -679,11 +677,10 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       'offset': 0,
     });
     if (result.isRight) {
-
-      final equipmentOptionsList =
-          makeOptionsSelected(result.right.results, state.equipmentOptions);
       emit(state.copyWith(
-        equipmentOptionsList: equipmentOptionsList,
+        radioOptions: makeRadiosSelected(optionsList: result.right.results),
+        selectOptions: makeSelectsSelected(optionsList: result.right.results),
+        equipmentOptionsList: result.right.results,
         status: FormzStatus.submissionSuccess,
       ));
     } else {
@@ -715,49 +712,32 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     add(PostingAdGetEquipmentOptionsList());
   }
 
-  List<EquipmentOptionsListEntity> makeOptionsSelected(
-    List<EquipmentOptionsListEntity> optionsList,
-    List<EquipmentOptionsEntity> equipmentOptions,
-  ) {
-    final newList = <EquipmentOptionsListEntity>[];
-    for (final element in optionsList) {
-      final newOptionList = <EquipmentOptionEntity>[];
-      for (final option in element.options) {
-        var hasOption = false;
-        for (final equipmentOption in equipmentOptions) {
-          if (equipmentOption.option.id == option.id) {
-            hasOption = true;
-            break;
-          }
+  Map<int, String> makeRadiosSelected(
+      {required List<EquipmentOptionsListEntity> optionsList}) {
+    var data = <int, String>{};
+    for (var i = 0; i < optionsList.length; i++) {
+      for (var n = 0; n < optionsList[i].options.length; n++) {
+        if (optionsList[i].options[n].type == 'radio') {
+          data[optionsList[i].options[n].id] = optionsList[i].options[n].name;
         }
-        final items = <IdNameEntity>[];
-        final selectedInfo = <int, String>{};
-        for (final item in option.items) {
-          for (final equipmentOption in equipmentOptions) {
-            if (equipmentOption.option.id == option.id &&
-                equipmentOption.item.id == item.id) {
-              selectedInfo[equipmentOption.item.id] = equipmentOption.item.name;
-              break;
-            }
-          }
-          items.add(IdNameEntity(
-            id: item.id,
-            name: item.name,
-          ));
-        }
-        newOptionList.add(EquipmentOptionEntity(
-          id: option.id,
-          name: option.name,
-          category: option.category,
-          type: option.type,
-          items: items,
-
-        ));
       }
-      newList.add(EquipmentOptionsListEntity(
-          id: element.id, name: element.name, options: newOptionList));
     }
-    return newList;
+    return data;
+  }
+
+  Map<int, SO> makeSelectsSelected(
+      {required List<EquipmentOptionsListEntity> optionsList}) {
+    var data = <int, SO>{};
+    for (var i = 0; i < optionsList.length; i++) {
+      for (var n = 0; n < optionsList[i].options.length; n++) {
+        if (optionsList[i].options[n].type == 'select') {
+          data[optionsList[i].options[n].id] = SO(
+              id: optionsList[i].options[n].id,
+              optionName: optionsList[i].options[n].name);
+        }
+      }
+    }
+    return data;
   }
 
   /// this function is for setting each equipment's options to all options
