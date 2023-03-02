@@ -2,7 +2,7 @@
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/features/car_single/presentation/widgets/invoice_in_progress.dart';
+import 'package:auto/features/car_single/presentation/parts/invoice_in_progress.dart';
 import 'package:auto/features/car_single/presentation/widgets/select_pay_way.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -10,9 +10,7 @@ import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class InvoicePage extends StatefulWidget {
   const InvoicePage({Key? key}) : super(key: key);
@@ -166,7 +164,7 @@ class _InvoicePageState extends State<InvoicePage> {
                   children: [
                     Expanded(
                       child: SelectPaymentItem(
-                        onTap: (val) {
+                        onTap: (val)  {
                           setState(() {
                             value = val;
                           });
@@ -202,13 +200,14 @@ class _InvoicePageState extends State<InvoicePage> {
               Column(
                 children: [
                   Column(
-                    children: [
-                      Text.rich(TextSpan(
-                          style: const TextStyle(
-                            fontSize: 27,
-                          ),
+                    children: const  [
+                      Text.rich(
+                          TextSpan(
+                          // style: const TextStyle(
+                          //   fontSize: 27,
+                          // ),
                           children: [
-                            const TextSpan(
+                            TextSpan(
                               text: 'Вы соглашаетесь с ',
                               style: TextStyle(
                                   color: Colors.black,
@@ -216,25 +215,15 @@ class _InvoicePageState extends State<InvoicePage> {
                                   fontSize: 12),
                             ),
                             TextSpan(
-                                style: const TextStyle(
+                                style: TextStyle(
                                     color: Colors.blue,
                                     fontWeight: FontWeight.w400,
                                     fontSize: 12),
                                 //make link blue and underline
                                 text:
                                     'Условиями использования и Политикой конфиденциальности',
-                                recognizer: TapGestureRecognizer()
-                                  // ignore: duplicate_ignore, duplicate_ignore
-                                  ..onTap = () async {
-                                    const url =
-                                        'https://jobo.uz/companies/limonpay-1';
-                                    // ignore: deprecated_member_use
-                                    final urllaunchable = await canLaunch(url);
-                                    if (urllaunchable) {
-                                      await launch(url);
-                                    } else {}
-                                  }),
-                            const TextSpan(
+                                ),
+                            TextSpan(
                               text: ' вы подтверждаете свое согласие',
                               style: TextStyle(
                                   color: Colors.black,
@@ -256,7 +245,7 @@ class _InvoicePageState extends State<InvoicePage> {
                     },
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).padding.bottom + 16,
+                    height: MediaQuery.of(context).padding.bottom,
                   )
                 ],
               ),

@@ -1,4 +1,5 @@
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/car_single/domain/entities/car_statistic.dart';
 import 'package:auto/features/car_single/presentation/widgets/car_action_box.dart';
 import 'package:auto/features/search/presentation/widgets/add_comparison_item.dart';
@@ -32,7 +33,9 @@ class CarActions extends StatelessWidget {
             carStatistic: CarStatistic(
                 valueText: LocaleKeys.report_vin.tr(), icon: AppIcons.file),
             widget: SvgPicture.asset(
-              AppIcons.vin_soon,
+              StorageRepository.getString('language') == 'uz'
+                  ? AppIcons.vin_tezorada
+                  : AppIcons.vin_skoro,
               height: 28,
               width: 28,
             ),

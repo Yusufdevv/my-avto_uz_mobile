@@ -1,14 +1,17 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/core/singletons/storage.dart';
+import 'package:auto/features/car_single/presentation/parts/invoice_page.dart';
 import 'package:auto/features/car_single/presentation/widgets/more_action_item.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
 
-class MoreBottomSheet extends StatelessWidget {
+class MineMoreBottomSheet extends StatelessWidget {
   final int id;
   final FormzStatus status;
   final String name;
@@ -19,7 +22,7 @@ class MoreBottomSheet extends StatelessWidget {
   final VoidCallback onDealer;
   final VoidCallback onSold;
 
-  const MoreBottomSheet({
+  const MineMoreBottomSheet({
     required this.name,
     required this.position,
     required this.image,
@@ -44,14 +47,10 @@ class MoreBottomSheet extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             Row(
               children: [
-                const SizedBox(
-                  width: 16,
-                ),
+                const SizedBox(width: 16),
                 Text(
                   LocaleKeys.actions_single.tr(),
                   style: Theme.of(context).textTheme.displayLarge!.copyWith(
@@ -71,18 +70,12 @@ class MoreBottomSheet extends StatelessWidget {
                     height: 28,
                   ),
                 ),
-                const SizedBox(
-                  width: 16,
-                ),
+                const SizedBox(width: 16),
               ],
             ),
-            const SizedBox(
-              height: 8,
-            ),
+            const SizedBox(height: 8),
             const Divider(),
-            const SizedBox(
-              height: 4,
-            ),
+            const SizedBox(height: 4),
             Row(
               children: [
                 const SizedBox(
@@ -96,15 +89,15 @@ class MoreBottomSheet extends StatelessWidget {
                     ),
                     decoration: BoxDecoration(
                       color: const Color(0xffF0EFFD),
-                      borderRadius: BorderRadius.circular(
-                        8,
-                      ),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     child: Center(
                       child: Column(
                         children: [
                           SvgPicture.asset(
-                            AppIcons.blue_vin_soon,
+                            StorageRepository.getString('language') == 'uz'
+                                ? AppIcons.blue_vin_tezorada
+                                : AppIcons.blue_vin_skoro,
                           ),
                           Text(
                             LocaleKeys.report_vin.tr(),
@@ -112,21 +105,18 @@ class MoreBottomSheet extends StatelessWidget {
                                 .textTheme
                                 .displayLarge!
                                 .copyWith(
-                                  color: const Color(
-                                    0xff171725,
-                                  ),
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 12,
-                                ),
+                                    color: const Color(
+                                      0xff171725,
+                                    ),
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 12),
                           ),
                         ],
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(
-                  width: 8,
-                ),
+                const SizedBox(width: 8),
                 Expanded(
                   child: WScaleAnimation(
                     onTap: onShare,
@@ -137,9 +127,7 @@ class MoreBottomSheet extends StatelessWidget {
                       ),
                       decoration: BoxDecoration(
                         color: const Color(0xffFDEFEB),
-                        borderRadius: BorderRadius.circular(
-                          8,
-                        ),
+                        borderRadius: BorderRadius.circular(8),
                       ),
                       child: Center(
                         child: Column(
@@ -147,9 +135,7 @@ class MoreBottomSheet extends StatelessWidget {
                             SvgPicture.asset(
                               AppIcons.share,
                               height: 28,
-                              color: const Color(
-                                0xffEA5930,
-                              ),
+                              color: const Color(0xffEA5930),
                             ),
                             Text(
                               LocaleKeys.share.tr(),
@@ -157,9 +143,7 @@ class MoreBottomSheet extends StatelessWidget {
                                   .textTheme
                                   .displayLarge!
                                   .copyWith(
-                                    color: const Color(
-                                      0xff171725,
-                                    ),
+                                    color: const Color(0xff171725),
                                     fontWeight: FontWeight.w600,
                                     fontSize: 12,
                                   ),
@@ -170,53 +154,44 @@ class MoreBottomSheet extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  width: 16,
-                ),
+                const SizedBox(width: 16),
               ],
             ),
             MoreActionItem(
               icon: AppIcons.refresh,
               text: LocaleKeys.extends_for_7.tr(),
-              color: const Color(
-                0xffF0FAF6,
-              ),
-              onTap: () {},
+              color: const Color(0xffF0FAF6),
+              onTap: () {
+                Navigator.of(context, rootNavigator: true)
+                    .push(fade(page: const InvoicePage()));
+              },
               borderColor: const Color(0xff5ECC81).withOpacity(0.12),
             ),
             MoreActionItem(
               icon: AppIcons.crown,
               text: LocaleKeys.become_vip_for_3_days.tr(),
-              color: const Color(
-                0xffFFF6E1,
-              ),
+              color: const Color(0xffFFF6E1),
               onTap: () {},
               borderColor: const Color(0xffFFC137).withOpacity(0.12),
             ),
             MoreActionItem(
               icon: AppIcons.rocket,
               text: LocaleKeys.send_to_top.tr(),
-              color: const Color(
-                0xffFFECE7,
-              ),
+              color: const Color(0xffFFECE7),
               onTap: () {},
               borderColor: const Color(0xffF63C07).withOpacity(0.12),
             ),
             MoreActionItem(
               icon: AppIcons.blue_fire,
               text: LocaleKeys.in_hot_one_line.tr(),
-              color: const Color(
-                0xffDFEFFF,
-              ),
+              color: const Color(0xffDFEFFF),
               borderColor: const Color(0xff4D88C8).withOpacity(0.12),
               onTap: () {},
             ),
             MoreActionItem(
               icon: AppIcons.surface,
               text: LocaleKeys.close_ad.tr(),
-              color: const Color(
-                0xff55BB00,
-              ).withOpacity(0.12),
+              color: const Color(0xff55BB00).withOpacity(0.12),
               onTap: onSold,
               borderColor: const Color(0xff55BB00).withOpacity(0.12),
             ),

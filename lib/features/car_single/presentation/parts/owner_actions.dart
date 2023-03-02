@@ -22,9 +22,7 @@ class OwnerActions extends StatelessWidget {
             children: [
               Expanded(
                 child: WScaleAnimation(
-                  onTap: () {
-                    Navigator.of(context).push(fade(page: const InvoicePage()));
-                  },
+                  onTap: () {},
                   child: OwnerActionBox(
                       color: accentYellow,
                       entity: OwnerActionEntity(
@@ -32,13 +30,12 @@ class OwnerActions extends StatelessWidget {
                           icon: AppIcons.crown)),
                 ),
               ),
-              const SizedBox(
-                width: 8,
-              ),
+              const SizedBox(width: 8),
               Expanded(
                 child: WScaleAnimation(
                   onTap: () {
-                    Navigator.of(context).push(fade(page: const InvoicePage()));
+                    Navigator.of(context, rootNavigator: true)
+                        .push(fade(page: const InvoicePage()));
                   },
                   child: OwnerActionBox(
                       color: accentGreen,
@@ -50,9 +47,7 @@ class OwnerActions extends StatelessWidget {
               const SizedBox(width: 8),
               Expanded(
                 child: WScaleAnimation(
-                  onTap: () {
-                    Navigator.of(context).push(fade(page: const InvoicePage()));
-                  },
+                  onTap: () {},
                   child: OwnerActionBox(
                       color: accentRed,
                       entity: OwnerActionEntity(
@@ -65,9 +60,7 @@ class OwnerActions extends StatelessWidget {
               ),
               Expanded(
                 child: WScaleAnimation(
-                  onTap: () {
-                    Navigator.of(context).push(fade(page: const InvoicePage()));
-                  },
+                  onTap: () {},
                   child: OwnerActionBox(
                       color: const Color(0xffDFEFFF),
                       entity: OwnerActionEntity(

@@ -8,7 +8,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class MineMoreActions extends StatefulWidget {
+class MoreActionsBottomsheet extends StatefulWidget {
   final String name;
   final String position;
   final String image;
@@ -18,7 +18,7 @@ class MineMoreActions extends StatefulWidget {
   final int id;
   final bool? isCompare;
 
-  const MineMoreActions({
+  const MoreActionsBottomsheet({
     required this.name,
     required this.position,
     required this.image,
@@ -31,10 +31,10 @@ class MineMoreActions extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<MineMoreActions> createState() => _MineMoreActionsState();
+  State<MoreActionsBottomsheet> createState() => _MoreActionsBottomsheetState();
 }
 
-class _MineMoreActionsState extends State<MineMoreActions> {
+class _MoreActionsBottomsheetState extends State<MoreActionsBottomsheet> {
   bool isLiked = false;
 
   @override

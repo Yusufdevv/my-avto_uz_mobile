@@ -1,7 +1,7 @@
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/ad/presentation/posting_ad_screen.dart';
-import 'package:auto/features/car_single/presentation/widgets/mine_more_actions_bottomsheet.dart';
-import 'package:auto/features/car_single/presentation/widgets/more_bottomsheet.dart';
+import 'package:auto/features/car_single/presentation/widgets/more_actions_bottomsheet.dart';
+import 'package:auto/features/car_single/presentation/widgets/mine_more_bottomsheet.dart';
 import 'package:auto/features/car_single/presentation/widgets/sliver_images_item.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -162,10 +162,10 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                 showModalBottomSheet(
                   useRootNavigator: true,
                   backgroundColor: Colors.transparent,
-                  isScrollControlled: false,
+                  isScrollControlled: true,
                   context: context,
                   builder: (context) => widget.isMine == true
-                      ? MoreBottomSheet(
+                      ? MineMoreBottomSheet(
                           name: widget.dealerName,
                           position: widget.position,
                           image: widget.avatar ?? '',
@@ -180,7 +180,7 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                           status: widget.status,
                           onSold: widget.onSold,
                         )
-                      : MineMoreActions(
+                      : MoreActionsBottomsheet(
                           name: widget.dealerName,
                           position: widget.position == 'owner'
                               ? LocaleKeys.private_person.tr()

@@ -229,7 +229,11 @@ class AppIcons {
   static const soon = 'assets/icons/car_single/soon.svg';
   static const blue_fire = 'assets/icons/car_single/blue_fire.svg';
   static const vin_soon = 'assets/icons/car_single/vin_soon.svg';
+  static const vin_skoro = 'assets/icons/car_single/vin_skoro.svg';
+  static const vin_tezorada = 'assets/icons/car_single/vin_tezorada.svg';
   static const blue_vin_soon = 'assets/icons/car_single/blue_vin_soon.svg';
+  static const blue_vin_skoro = 'assets/icons/car_single/blue_vin_skoro.svg';
+  static const blue_vin_tezorada = 'assets/icons/car_single/blue_vin_tezorada.svg';
   static const safe = 'assets/icons/car_single/safety.svg';
   static const autoModel = 'assets/icons/car_single/auto_model.svg';
   static const shieldCheckOutlined =
