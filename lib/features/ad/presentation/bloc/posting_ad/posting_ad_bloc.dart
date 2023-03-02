@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
-import 'package:auto/features/ad/domain/entities/equipment/equipment_category_entity.dart';
+import 'package:auto/features/ad/domain/entities/equipment/id_name_entity.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_entity.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_option_entity.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_options_entity.dart';
@@ -39,12 +39,12 @@ import 'package:auto/features/car_single/domain/entities/damaged_parts_entity.da
 import 'package:auto/features/car_single/domain/usecases/get_ads_usecase.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/domain/model/user.dart';
-import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/repository/auth.dart';
 import 'package:auto/features/common/usecases/get_districts_usecase.dart';
 import 'package:auto/features/common/usecases/get_regions_usecase.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
+import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
@@ -652,7 +652,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     if (result.isRight) {
       log(':::::::::: GOTTEN EQUIPMENT ENTITIES LENGTH:  ${result.right.results.length}  ::::::::::');
       for (var i = 0; i < result.right.results.length; i++) {
-        log(':::::::::: GOTTEN EQUIPMENT ENTITIES:  ${result.right.results[i]}  ::::::::::');
+        log(':::::::::: GOTTEN EQUIPMENT ENTITIES:  ${result.right.results[i] }  ::::::::::');
       }
 
       final equipments = result.right.results;
@@ -679,31 +679,11 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       'offset': 0,
     });
     if (result.isRight) {
-      log('::::::::::   PostingAdGetEquipmentOptionsList   ::::::::::');
-      for (var i = 0; i < result.right.results.length; i++) {
-        log('::::::::::   EquipmentOptionsListEntity: id ${result.right.results[i].id}  ::::::::::');
-        log('::::::::::   EquipmentOptionsListEntity: name ${result.right.results[i].name}  ::::::::::');
-        for (var n = 0; n < result.right.results[i].options.length; n++) {
-          log(':::::::::: OPTIONS name: ${result.right.results[i].options[n].name}  ::::::::::');
-          log(':::::::::: OPTIONS id: ${result.right.results[i].options[n].id}  ::::::::::');
-          log(':::::::::: OPTIONS selectedInfo: ${result.right.results[i].options[n].selectedInfoo}  ::::::::::');
-          log(':::::::::: OPTIONS selected: ${result.right.results[i].options[n].selected}  ::::::::::');
-          log(':::::::::: OPTIONS type: ${result.right.results[i].options[n].type}  ::::::::::');
-          log(':::::::::: OPTIONS items.length: ${result.right.results[i].options[n].items.length}  ::::::::::');
 
-          for (var m = 0;
-              m < result.right.results[i].options[n].items.length;
-              m++) {
-            log('::::::::::  OPTIONS ITEMS id: ${result.right.results[i].options[n].items[m].id}  ::::::::::');
-            log('::::::::::  OPTIONS ITEMS name: ${result.right.results[i].options[n].items[m].name}  ::::::::::');
-          }
-        }
-      }
       final equipmentOptionsList =
-          makeOptionsSelectedd(result.right.results, state.equipmentOptions);
+          makeOptionsSelected(result.right.results, state.equipmentOptions);
       emit(state.copyWith(
         equipmentOptionsList: equipmentOptionsList,
-        equipmentOptionsListPrev: equipmentOptionsList,
         status: FormzStatus.submissionSuccess,
       ));
     } else {
@@ -735,7 +715,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     add(PostingAdGetEquipmentOptionsList());
   }
 
-  List<EquipmentOptionsListEntity> makeOptionsSelectedd(
+  List<EquipmentOptionsListEntity> makeOptionsSelected(
     List<EquipmentOptionsListEntity> optionsList,
     List<EquipmentOptionsEntity> equipmentOptions,
   ) {
@@ -750,7 +730,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
             break;
           }
         }
-        final items = <EquipmentCategoryEntity>[];
+        final items = <IdNameEntity>[];
         final selectedInfo = <int, String>{};
         for (final item in option.items) {
           for (final equipmentOption in equipmentOptions) {
@@ -760,7 +740,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
               break;
             }
           }
-          items.add(EquipmentCategoryEntity(
+          items.add(IdNameEntity(
             id: item.id,
             name: item.name,
           ));
@@ -771,8 +751,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
           category: option.category,
           type: option.type,
           items: items,
-          selected: hasOption,
-          selectedInfoo: selectedInfo,
+
         ));
       }
       newList.add(EquipmentOptionsListEntity(
@@ -788,27 +767,27 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       PostingAdChangeOption event, Emitter<PostingAdState> emit) {
     if (event.isAdd) {
       if (event.type == 'select') {
-        final m = state.selectOptions.map(MapEntry.new);
-        m[event.id] = event.selectedItem;
+        var m = state.selectOptions.map(MapEntry.new);
+        if (event.selectOption?.id == -1) {
+          m.remove(event.id);
+        } else {
+          m[event.id] = event.selectOption!;
+        }
+
         emit(state.copyWith(selectOptions: m));
       } else {
-        final m = state.radioOptions.map(MapEntry.new);
-        m[event.id] = event.selectedItem;
+        var m = state.radioOptions.map(MapEntry.new);
+        m[event.id] = event.itemName;
         emit(state.copyWith(radioOptions: m));
       }
     } else {
       if (event.type == 'select') {
-        emit(state.copyWith(
-            selectOptions: state.selectOptions.map(MapEntry.new)
-              ..remove(event.id)));
+        final v = state.selectOptions.map(MapEntry.new)..remove(event.id);
+        emit(state.copyWith(selectOptions: v));
       } else {
-        emit(state.copyWith(
-            radioOptions: state.selectOptions.map(MapEntry.new)
-              ..remove(event.id)));
+        final v = state.radioOptions.map(MapEntry.new)..remove(event.id);
+        emit(state.copyWith(radioOptions: v));
       }
     }
-
-    log(':::::::::: NEW LIST LENTH:   {newList.length}  ::::::::::');
-    // emit(state.copyWith(equipmentOptionsList: newList));
   }
 }

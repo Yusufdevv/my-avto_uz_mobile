@@ -7,6 +7,7 @@ abstract class EditAdEvent {
 class EditAdShowToastEvent extends EditAdEvent {
   final String message;
   final PopStatus status;
+
   EditAdShowToastEvent({required this.message, required this.status});
 }
 
@@ -14,6 +15,7 @@ class EditAdClearStateEvent extends EditAdEvent {}
 
 class EditAdAddEventForEveryPage extends EditAdEvent {
   final int page;
+
   EditAdAddEventForEveryPage({required this.page});
 }
 
@@ -21,6 +23,7 @@ class EditAdGetMapScreenShotEvent extends EditAdEvent {
   final double lat;
   final double long;
   final double zoomLevel;
+
   EditAdGetMapScreenShotEvent(
       {required this.lat, required this.long, required this.zoomLevel});
 }
@@ -32,6 +35,7 @@ class EditAdGetUserDataEvent extends EditAdEvent {}
 class EditAdSendCodeEvent extends EditAdEvent {
   final String phone;
   final Function(String) onSuccess;
+
   EditAdSendCodeEvent({required this.phone, required this.onSuccess});
 }
 
@@ -53,7 +57,8 @@ class EditAdDamageEvent extends EditAdEvent {
 class EditAdGetRegionsEvent extends EditAdEvent {}
 
 class EditAdGetDistritsEvent extends EditAdEvent {
-  final int  regionId;
+  final int regionId;
+
   EditAdGetDistritsEvent({required this.regionId});
 }
 
@@ -65,6 +70,7 @@ class EditAdCreateEvent extends EditAdEvent {
 
 class EditAdOnRentWithPurchaseEvent extends EditAdEvent {
   final RentWithPurchaseEntity condition;
+
   EditAdOnRentWithPurchaseEvent({required this.condition});
 }
 
@@ -75,7 +81,7 @@ class EditAdChooseEvent extends EditAdEvent {
   final TextEditingController? searchController;
   final List<String>? gallery;
   final List<String>? panaramaGallery;
-  final Region? region;
+  final RegionEntity? region;
   final List<YearsEntity>? years;
   final DistrictEntity? district;
   final Map<DamagedParts, DamageType>? damagedParts;
@@ -179,6 +185,7 @@ class EditAdChooseEvent extends EditAdEvent {
 
 class EditAdChangeAppBarShadowEvent extends EditAdEvent {
   final bool value;
+
   EditAdChangeAppBarShadowEvent({required this.value});
 }
 

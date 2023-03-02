@@ -20,7 +20,7 @@ class GetMoreAnnouncementList extends AnnouncementListEvent {
 
 class SetRegions extends AnnouncementListEvent {
   final bool? isNew;
-  final List<Region> regions;
+  final List<RegionEntity> regions;
 
   const SetRegions({
     required this.regions,

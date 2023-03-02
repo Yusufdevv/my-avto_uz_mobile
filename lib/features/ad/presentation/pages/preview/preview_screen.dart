@@ -36,14 +36,7 @@ class PreviewScreen extends StatelessWidget {
                       ImageViewer(
                           images: [...state.gallery, ...state.panaramaGallery]),
                       const SizedBox(height: 12),
-                      WButton(
-                        onTap: () {
-                          context
-                              .read<PostingAdBloc>()
-                              .add(PostingAdChooseEvent(createStatus: FormzStatus.pure));
-                        },
-                        text: 'asdf',
-                      ),
+
                       CarModelText(
                           text:
                               '${state.make?.name ?? ''} ${state.model?.name ?? ''} ${state.generations.first.name}'),

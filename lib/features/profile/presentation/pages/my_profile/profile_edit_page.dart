@@ -4,7 +4,6 @@ import 'package:auto/assets/constants/images.dart';
 import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
-import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -13,6 +12,7 @@ import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/features/profile/presentation/pages/my_profile/phone_number_edit_page.dart';
 import 'package:auto/features/profile/presentation/widgets/widgets.dart';
+import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
@@ -39,7 +39,7 @@ class ProfileEditPage extends StatefulWidget {
 class _ProfileEditPageState extends State<ProfileEditPage> {
   late TextEditingController _nameCont;
   late TextEditingController _emailCont;
-  Region? newRegion;
+  RegionEntity? newRegion;
 
   @override
   void initState() {
@@ -286,7 +286,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                             TitleTextFieldTop(title: LocaleKeys.region.tr()),
                             WScaleAnimation(
                                 onTap: () async {
-                                  await showModalBottomSheet<List<Region>>(
+                                  await showModalBottomSheet<List<RegionEntity>>(
                                       isDismissible: false,
                                       context: context,
                                       useRootNavigator: true,

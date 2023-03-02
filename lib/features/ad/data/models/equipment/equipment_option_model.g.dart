@@ -12,15 +12,15 @@ EquipmentOptionModel _$EquipmentOptionModelFromJson(
       id: json['id'] as int? ?? -1,
       name: json['name'] as String? ?? '',
       category: json['category'] == null
-          ? const EquipmentCategoryEntity()
-          : const EquipmentCategoryConverter()
+          ? const IdNameEntity()
+          : const IdNameConverter()
               .fromJson(json['category'] as Map<String, dynamic>?),
       type: json['type'] as String? ?? '',
       items: (json['items'] as List<dynamic>?)
-              ?.map((e) => const EquipmentCategoryConverter()
-                  .fromJson(e as Map<String, dynamic>?))
+              ?.map((e) =>
+                  const IdNameConverter().fromJson(e as Map<String, dynamic>?))
               .toList() ??
-          const [],
+          const <IdNameEntity>[],
     );
 
 Map<String, dynamic> _$EquipmentOptionModelToJson(
@@ -28,9 +28,7 @@ Map<String, dynamic> _$EquipmentOptionModelToJson(
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'category': const EquipmentCategoryConverter().toJson(instance.category),
+      'category': const IdNameConverter().toJson(instance.category),
       'type': instance.type,
-      'items': instance.items
-          .map(const EquipmentCategoryConverter().toJson)
-          .toList(),
+      'items': instance.items.map(const IdNameConverter().toJson).toList(),
     };

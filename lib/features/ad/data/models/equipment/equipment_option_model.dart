@@ -1,4 +1,4 @@
-import 'package:auto/features/ad/domain/entities/equipment/equipment_category_entity.dart';
+import 'package:auto/features/ad/domain/entities/equipment/id_name_entity.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_option_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -11,7 +11,7 @@ class EquipmentOptionModel extends EquipmentOptionEntity {
     required super.name,
     required super.category,
     required super.type,
-    required super.items,
+    required super.items ,
   });
 
   factory EquipmentOptionModel.fromJson(Map<String, dynamic> json) =>

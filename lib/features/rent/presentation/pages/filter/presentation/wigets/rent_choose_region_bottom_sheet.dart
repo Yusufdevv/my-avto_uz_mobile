@@ -1,7 +1,8 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/rent/data/models/region_model.dart';
+import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/region_sheet_all_select_item.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/region_sheet_item.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/sheet_header.dart';
@@ -10,14 +11,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class RentChooseRegionBottomSheet extends StatefulWidget {
-  final List<Region> list;
+  final List<RegionEntity> list;
   final bool isMultiChoice;
-  final Map<int, Region> checkedRegions;
+  final Map<int, RegionEntity> checkedRegions;
 
   const RentChooseRegionBottomSheet({
     required this.list,
     this.isMultiChoice = true,
-    this.checkedRegions = const <int, Region>{},
+    this.checkedRegions = const <int, RegionEntity>{},
     super.key,
   }) : super();
 
@@ -28,7 +29,7 @@ class RentChooseRegionBottomSheet extends StatefulWidget {
 
 class _RentChooseRegionBottomSheetState
     extends State<RentChooseRegionBottomSheet> {
-  Map<int, Region> checkStatus = <int, Region>{};
+  Map<int, RegionEntity> checkStatus = <int, RegionEntity>{};
 
   @override
   void initState() {

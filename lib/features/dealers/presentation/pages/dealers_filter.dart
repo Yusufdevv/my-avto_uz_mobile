@@ -2,7 +2,6 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
-import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -10,6 +9,7 @@ import 'package:auto/features/dealers/presentation/blocs/dealer_card_bloc/dealer
 import 'package:auto/features/dealers/presentation/blocs/filter_bloc/dealer_filter_bloc.dart';
 import 'package:auto/features/dealers/presentation/widgets/dealer_selector_item.dart';
 import 'package:auto/features/dealers/presentation/widgets/filter_radio.dart';
+import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_maker.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DealersFilterScreen extends StatefulWidget {
-  final List<Region>? regions;
+  final List<RegionEntity>? regions;
   final MakeEntity? maker;
   final DealerCardBloc dealerBloc;
   final DealerFilterBloc dealerFilterBloc;
@@ -153,7 +153,7 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
                   const SizedBox(height: 16),
                   DealerSelectorItem(
                     onTap: () async {
-                      await showModalBottomSheet<List<Region>>(
+                      await showModalBottomSheet<List<RegionEntity>>(
                         isDismissible: false,
                         context: context,
                         useRootNavigator: true,

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
@@ -19,7 +21,7 @@ class EquipmentCategory extends StatelessWidget {
 
   final String categoryName;
   final List<EquipmentOptionEntity> options;
-  final Function(int index, int id, String? itemName, bool isAdd) onTap;
+  final Function(PostingAdChangeOption) onTap;
 
   @override
   Widget build(BuildContext context) =>
@@ -31,7 +33,7 @@ class EquipmentCategory extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
               child: Text(
-                categoryName,
+                categoryName ,
                 style: Theme.of(context)
                     .textTheme
                     .headlineMedium
@@ -55,29 +57,41 @@ class EquipmentCategory extends StatelessWidget {
                       ),
                       clipBehavior: Clip.hardEdge,
                       builder: (context) => EquipmentOptionSheet(
-                        selected: options[index].selectedInfoo.isNotEmpty
-                            ? options[index].selectedInfoo.keys.first
+                        selected: state.isOptionSelected(
+                                type: 'select', id: options[index].id)
+                            ? state.selectOptions[options[index].id]?.id ?? -1
                             : -1,
                         name: options[index].name,
                         items: options[index].items,
                       ),
                     ).then((value) {
                       if (value != null) {
-                        onTap(index, value.keys.first ?? -1, value.values.first,
-                            true);
+                        onTap(PostingAdChangeOption(
+                            isAdd: true,
+                            id: options[index].id,
+                            itemName: options[index].name,
+                            selectOption: SO(
+                                optionName: value.values.first!,
+                                id: value.keys.first!),
+                            type: 'select'));
                       }
                     });
                   } else {
-                    onTap(
-                        index,
-                        options[index].id,
-                        null,
-                        state.isOptionSelected(
-                            type: options[index].type, id: options[index].id));
+                    final v = PostingAdChangeOption(
+                      itemName: options[index].name,
+                      id: options[index].id,
+                      type: 'radio',
+                      isAdd: !state.isOptionSelected(
+                          type: 'radio', id: options[index].id),
+                    );
+                    log('::::::::::  on radio tap in in: $v  ::::::::::');
+                    onTap(v);
                   }
                 },
                 child: Container(
-                  color: options[index].selectedInfoo.isNotEmpty ||
+                  color: state.isOptionSelected(
+                              type: options[index].type,
+                              id: options[index].id) ||
                           options[index].type == 'radio'
                       ? null
                       : greyLight,
@@ -89,11 +103,18 @@ class EquipmentCategory extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(
-                          options[index].selectedInfoo.isNotEmpty
-                              ? options[index].selectedInfoo.values.first
+                          state.isOptionSelected(
+                                      type: options[index].type,
+                                      id: options[index].id) &&
+                                  options[index].type == 'select'
+                              ? state.selectOptions[options[index].id]
+                                      ?.optionName ??
+                                  ''
                               : options[index].name,
                           style: TextStyle(
-                            color: options[index].selectedInfoo.isNotEmpty ||
+                            color: state.isOptionSelected(
+                                        type: options[index].type,
+                                        id: options[index].id) ||
                                     options[index].type == 'radio'
                                 ? black
                                 : grey,

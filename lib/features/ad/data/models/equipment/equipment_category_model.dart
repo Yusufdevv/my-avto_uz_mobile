@@ -1,17 +1,17 @@
-import 'package:auto/features/ad/domain/entities/equipment/equipment_category_entity.dart';
+import 'package:auto/features/ad/domain/entities/equipment/id_name_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'equipment_category_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class EquipmentCategoryModel extends EquipmentCategoryEntity {
-  const EquipmentCategoryModel({
+class IdNameModel extends IdNameEntity {
+  const IdNameModel({
     required super.id,
     required super.name,
   });
 
-  factory EquipmentCategoryModel.fromJson(Map<String, dynamic> json) =>
-      _$EquipmentCategoryModelFromJson(json);
+  factory IdNameModel.fromJson(Map<String, dynamic> json) =>
+      _$IdNameModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$EquipmentCategoryModelToJson(this);
+  Map<String, dynamic> toJson() => _$IdNameModelToJson(this);
 }

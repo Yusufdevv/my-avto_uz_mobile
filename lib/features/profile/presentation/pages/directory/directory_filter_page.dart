@@ -2,13 +2,13 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
-import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/profile/presentation/bloc/directory/directory_bloc.dart';
 import 'package:auto/features/profile/presentation/widgets/directory_filter_category.dart';
 import 'package:auto/features/profile/presentation/widgets/edit_item_container.dart';
+import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
@@ -33,7 +33,7 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
     super.initState();
   }
 
-  List<Region> _checkedRegions = <Region>[];
+  List<RegionEntity> _checkedRegions = <RegionEntity>[];
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -93,7 +93,7 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
                       const SizedBox(height: 8),
                       WScaleAnimation(
                         onTap: () async {
-                          await showModalBottomSheet<List<Region>>(
+                          await showModalBottomSheet<List<RegionEntity>>(
                             isDismissible: false,
                             context: context,
                             isScrollControlled: true,

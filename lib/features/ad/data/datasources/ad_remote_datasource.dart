@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_catches_without_on_clauses, prefer_final_locals
 
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:auto/core/exceptions/exceptions.dart';
@@ -823,6 +824,8 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
               'Authorization': 'Bearer ${StorageRepository.getString('token')}',
             },
           ));
+      log(':::::::::: Gotten EquipmentOptionsListModels: ${result.data}  ::::::::::');
+      log(':::::::::::   Seperator Seperator Seperator Seperator Seperator Seperator Seperator Seperator     ::::::::::::::');
       return GenericPagination.fromJson(
           result.data,
           (json) =>

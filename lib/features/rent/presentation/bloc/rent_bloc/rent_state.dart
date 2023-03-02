@@ -11,7 +11,7 @@ class RentState extends Equatable {
   final int hasBabySeat;
   final int rentCarIsClean;
   final int rentCarIsFullFuel;
-  final List<Region> regions;
+  final List<RegionEntity> regions;
   final MakeEntity? maker;
   final BodyTypeEntity? bodyType;
   final DriveTypeEntity? carDriveType;
@@ -41,7 +41,7 @@ class RentState extends Equatable {
   });
 
   RentState copyWith({
-    List<Region>? regions,
+    List<RegionEntity>? regions,
     MakeEntity? maker,
     BodyTypeEntity? bodyType,
     DriveTypeEntity? carDriveType,
