@@ -35,7 +35,6 @@ import 'package:auto/features/ad/domain/usecases/get_map_screenshot_usecase.dart
 import 'package:auto/features/ad/domain/usecases/get_modification_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_years.dart';
 import 'package:auto/features/ad/domain/usecases/minimum_price_usecase.dart';
-import 'package:auto/features/car_single/domain/entities/car_single_entity.dart';
 import 'package:auto/features/car_single/domain/entities/damaged_parts_entity.dart';
 import 'package:auto/features/car_single/domain/usecases/get_ads_usecase.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
@@ -654,6 +653,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       for (var i = 0; i < result.right.results.length; i++) {
         log(':::::::::: GOTTEN EQUIPMENT ENTITIES:  ${result.right.results[i]}  ::::::::::');
       }
+
       final equipments = result.right.results;
       emit(state.copyWith(
           equipments: equipments,
@@ -685,7 +685,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         for (var n = 0; n < result.right.results[i].options.length; n++) {
           log(':::::::::: OPTIONS name: ${result.right.results[i].options[n].name}  ::::::::::');
           log(':::::::::: OPTIONS id: ${result.right.results[i].options[n].id}  ::::::::::');
-          log(':::::::::: OPTIONS selectedInfo: ${result.right.results[i].options[n].selectedInfo}  ::::::::::');
+          log(':::::::::: OPTIONS selectedInfo: ${result.right.results[i].options[n].selectedInfoo}  ::::::::::');
           log(':::::::::: OPTIONS selected: ${result.right.results[i].options[n].selected}  ::::::::::');
           log(':::::::::: OPTIONS type: ${result.right.results[i].options[n].type}  ::::::::::');
           log(':::::::::: OPTIONS items.length: ${result.right.results[i].options[n].items.length}  ::::::::::');
@@ -702,7 +702,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
           makeOptionsSelectedd(result.right.results, state.equipmentOptions);
       emit(state.copyWith(
         equipmentOptionsList: equipmentOptionsList,
-        equipmentOptionsListPrevv: equipmentOptionsList,
+        equipmentOptionsListPrev: equipmentOptionsList,
         status: FormzStatus.submissionSuccess,
       ));
     } else {
@@ -722,7 +722,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     log(':::::::::: GOTTEN EQUIPMENT OPTION RESULT IS : ${result.isRight}  ::::::::::');
     if (result.isRight) {
       log(':::::::::: GOTTEN EQUIPMENT OPTION LENGTH: ${result.right.results.length}  ::::::::::');
-      for (int i = 0; i < result.right.results.length; i++) {
+      for (var i = 0; i < result.right.results.length; i++) {
         log(':::::::::: GOTTEN EQUIPMENT OPTION: ${result.right.results[i]}  ::::::::::');
       }
 
@@ -771,7 +771,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
           type: option.type,
           items: items,
           selected: hasOption,
-          selectedInfo: selectedInfo,
+          selectedInfoo: selectedInfo,
         ));
       }
       newList.add(EquipmentOptionsListEntity(
@@ -785,36 +785,29 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   /// it will be called
   FutureOr<void> _getChangeOption(
       PostingAdChangeOption event, Emitter<PostingAdState> emit) {
-    final newList = <EquipmentOptionsListEntity>[];
-    for (var i = 0; i < state.equipmentOptionsList.length; i++) {
-      final newOptionList = <EquipmentOptionEntity>[];
-      for (var j = 0; j < state.equipmentOptionsList[i].options.length; j++) {
-        newOptionList.add(EquipmentOptionEntity(
-          id: state.equipmentOptionsList[i].options[j].id,
-          name: state.equipmentOptionsList[i].options[j].name,
-          category: state.equipmentOptionsList[i].options[j].category,
-          type: state.equipmentOptionsList[i].options[j].type,
-          items: state.equipmentOptionsList[i].options[j].items,
-          selected: event.type == 'radio' &&
-                  event.categoryIndex == i &&
-                  event.optionIndex == j
-              ? !state.equipmentOptionsList[i].options[j].selected
-              : state.equipmentOptionsList[i].options[j].selected,
-          selectedInfo: event.type == 'select' &&
-                  event.categoryIndex == i &&
-                  event.optionIndex == j
-              ? event.id == -1
-                  ? {}
-                  : {event.id ?? -1: event.selectedItem ?? ''}
-              : state.equipmentOptionsList[i].options[j].selectedInfo,
-        ));
+    if (event.isAdd) {
+      if (event.type == 'select') {
+        final m = state.selectOptions.map(MapEntry.new);
+        m[event.id] = event.selectedItem;
+        emit(state.copyWith(selectOptions: m));
+      } else {
+        final m = state.radioOptions.map(MapEntry.new);
+        m[event.id] = event.selectedItem;
+        emit(state.copyWith(radioOptions: m));
       }
-      newList.add(EquipmentOptionsListEntity(
-          id: state.equipmentOptionsList[i].id,
-          name: state.equipmentOptionsList[i].name,
-          options: newOptionList));
+    } else {
+      if (event.type == 'select') {
+        emit(state.copyWith(
+            selectOptions: state.selectOptions.map(MapEntry.new)
+              ..remove(event.id)));
+      } else {
+        emit(state.copyWith(
+            radioOptions: state.selectOptions.map(MapEntry.new)
+              ..remove(event.id)));
+      }
     }
-    log(':::::::::: NEW LIST LENTH:  ${newList.length}  ::::::::::');
-    emit(state.copyWith(equipmentOptionsList: newList));
+
+    log(':::::::::: NEW LIST LENTH:   {newList.length}  ::::::::::');
+    // emit(state.copyWith(equipmentOptionsList: newList));
   }
 }
