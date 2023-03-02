@@ -24,7 +24,7 @@ class PASingleton {
         log(':::::::::::   type:  ${v.equipmentOptionsList[i].options[j].type}    ::::::::::::::');
         log(':::::::::::   selected:  ${v.equipmentOptionsList[i].options[j].selected}    ::::::::::::::');
         log(':::::::::::   category:  ${v.equipmentOptionsList[i].options[j].category}    ::::::::::::::');
-        log(':::::::::::   selectedInfo:  ${v.equipmentOptionsList[i].options[j].selectedInfo}    ::::::::::::::');
+        log(':::::::::::   selectedInfo:  ${v.equipmentOptionsList[i].options[j].selectedInfoo}    ::::::::::::::');
         if (v.equipmentOptionsList[i].options[j].selected !=
             v.equipmentOptionsListPrev[i].options[j].selected) {
           if (v.equipmentOptionsListPrev[i].options[j].selected) {
@@ -36,32 +36,32 @@ class PASingleton {
           radios.add(v.equipmentOptionsList[i].options[j].id.toString());
         }
         //{32: a} {23:45}
-        if (v.equipmentOptionsList[i].options[j].selectedInfo.isNotEmpty !=
-            v.equipmentOptionsListPrev[i].options[j].selectedInfo.isNotEmpty) {
-          if (v.equipmentOptionsList[i].options[j].selectedInfo.isNotEmpty) {
+        if (v.equipmentOptionsList[i].options[j].selectedInfoo.isNotEmpty !=
+            v.equipmentOptionsListPrev[i].options[j].selectedInfoo.isNotEmpty) {
+          if (v.equipmentOptionsList[i].options[j].selectedInfoo.isNotEmpty) {
             selects.add(v
-                .equipmentOptionsList[i].options[j].selectedInfo.keys.first
+                .equipmentOptionsList[i].options[j].selectedInfoo.keys.first
                 .toString());
           } else {
             deleted = true;
           }
         } else {
-          if (v.equipmentOptionsList[i].options[j].selectedInfo.isNotEmpty) {
+          if (v.equipmentOptionsList[i].options[j].selectedInfoo.isNotEmpty) {
             selects.add(v
-                .equipmentOptionsList[i].options[j].selectedInfo.keys.first
+                .equipmentOptionsList[i].options[j].selectedInfoo.keys.first
                 .toString());
-            if (v.equipmentOptionsListPrev[i].options[j].selectedInfo
+            if (v.equipmentOptionsListPrev[i].options[j].selectedInfoo
                 .isNotEmpty) {
-              if (v.equipmentOptionsList[i].options[j].selectedInfo.keys
+              if (v.equipmentOptionsList[i].options[j].selectedInfoo.keys
                       .first ==
-                  v.equipmentOptionsListPrev[i].options[j].selectedInfo.keys
+                  v.equipmentOptionsListPrev[i].options[j].selectedInfoo.keys
                       .first) {
               } else {
                 deleted = true;
               }
             }
           } else {
-            if (v.equipmentOptionsListPrev[i].options[j].selectedInfo
+            if (v.equipmentOptionsListPrev[i].options[j].selectedInfoo
                 .isNotEmpty) {
               deleted = true;
             }

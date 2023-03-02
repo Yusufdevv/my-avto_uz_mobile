@@ -82,15 +82,16 @@ class EquipmentScreen extends StatelessWidget {
                     itemBuilder: (context, index) => EquipmentCategory(
                       categoryName: state.equipmentOptionsList[index].name,
                       options: state.equipmentOptionsList[index].options,
-                      onTap: (i, id, name) {
+                      onTap: (i, index, itemName, isAdd) {
                         context.read<PostingAdBloc>().add(
                               PostingAdChangeOption(
+                                isAdd: isAdd,
                                 categoryIndex: index,
                                 optionIndex: i,
                                 type: state.equipmentOptionsList[index]
                                     .options[i].type,
-                                id: id,
-                                selectedItem: name,
+                                id: i,
+                                selectedItem: itemName ?? '',
                               ),
                             );
                       },

@@ -49,8 +49,6 @@ class PostingAdSendCodeEvent extends PostingAdEvent {
 
 class PostingAdGetMinimumPriceEvent extends PostingAdEvent {}
 
-
-
 class PostingAdDamageEvent extends PostingAdEvent {
   final DamagedParts part;
   final DamageType type;
@@ -249,18 +247,20 @@ class PostingAdGetEquipmentOptionsList extends PostingAdEvent {
 }
 
 class PostingAdGetEquipmentOption extends PostingAdEvent {
-  final String where ;
+  final String where;
+
   final int? equipmentId;
 
-  PostingAdGetEquipmentOption(this.equipmentId,this.where);
+  PostingAdGetEquipmentOption(this.equipmentId, this.where);
 }
 
 class PostingAdChangeOption extends PostingAdEvent {
   final int categoryIndex;
   final int optionIndex;
   final String type;
-  final int? id;
-  final String? selectedItem;
+  final int id;
+  final String selectedItem;
+  final bool isAdd;
 
   PostingAdChangeOption({
     required this.categoryIndex,
@@ -268,5 +268,6 @@ class PostingAdChangeOption extends PostingAdEvent {
     required this.type,
     required this.id,
     required this.selectedItem,
+    required this.isAdd,
   });
 }

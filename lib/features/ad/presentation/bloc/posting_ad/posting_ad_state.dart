@@ -44,6 +44,8 @@ class PostingAdState extends Equatable {
   final Map<int, RentWithPurchaseEntity> rentWithPurchaseConditions;
 
   final Map<DamagedParts, DamageType> damagedParts;
+  final Map<int, String> selectOptions;
+  final Map<int, String> radioOptions;
   final UserModel? userModel;
   final Uint8List? mapPointBytes;
   final num minimumPrice;
@@ -93,6 +95,8 @@ class PostingAdState extends Equatable {
     required this.emailController,
     required this.nameController,
     required this.popStatus,
+    this.radioOptions = const <int, String>{},
+    this.selectOptions = const <int, String>{},
     this.id,
     this.makeLetterIndex,
     this.minimumPrice = 0,
@@ -167,7 +171,7 @@ class PostingAdState extends Equatable {
 
   String? get districtTitle {
     final index =
-        districts.indexWhere((element) => element.id == (districtId ?? -1));
+    districts.indexWhere((element) => element.id == (districtId ?? -1));
     if (index >= 0) {
       return districts[index].title;
     }
@@ -179,6 +183,8 @@ class PostingAdState extends Equatable {
     TextEditingController? emailController,
     TextEditingController? nameController,
     TextEditingController? searchController,
+    Map<int, String>? selectOptions,
+    Map<int, String>? radioOptions,
     Map<DamagedParts, DamageType>? damagedParts,
     Map<int, RentWithPurchaseEntity>? rentWithPurchaseConditions,
     int? districtId,
@@ -250,11 +256,13 @@ class PostingAdState extends Equatable {
     int? gasEquipmentId,
     List<EquipmentEntity>? equipments,
     EquipmentEntity? equipment,
-    List<EquipmentOptionsListEntity>? equipmentOptionsListPrevv,
+    List<EquipmentOptionsListEntity>? equipmentOptionsListPrev,
     List<EquipmentOptionsListEntity>? equipmentOptionsList,
     List<EquipmentOptionsEntity>? equipmentOptions,
   }) =>
       PostingAdState(
+        selectOptions: selectOptions ?? this.selectOptions,
+        radioOptions: radioOptions ?? this.radioOptions,
         contactsFormKey: contactsFormKey ?? this.contactsFormKey,
         popStatus: popStatus ?? this.popStatus,
         milageImage: milageImage ?? this.milageImage,
@@ -277,7 +285,7 @@ class PostingAdState extends Equatable {
         districts: districts ?? this.districts,
         damagedParts: damagedParts ?? this.damagedParts,
         rentWithPurchaseConditions:
-            rentWithPurchaseConditions ?? this.rentWithPurchaseConditions,
+        rentWithPurchaseConditions ?? this.rentWithPurchaseConditions,
         showExactAddress: showExactAddress ?? this.showExactAddress,
         districtId: districtId ?? this.districtId,
         city: city ?? this.city,
@@ -307,7 +315,7 @@ class PostingAdState extends Equatable {
         ownerStep: ownerStep ?? this.ownerStep,
         purchasedDate: purchasedDate ?? this.purchasedDate,
         notRegisteredInUzbekistan:
-            notRegisteredInUzbekistan ?? this.notRegisteredInUzbekistan,
+        notRegisteredInUzbekistan ?? this.notRegisteredInUzbekistan,
         description: description ?? this.description,
         ownerEmail: ownerEmail ?? this.ownerEmail,
         ownerName: ownerName ?? this.ownerName,
@@ -330,15 +338,18 @@ class PostingAdState extends Equatable {
         equipments: equipments ?? this.equipments,
         equipment: equipment ?? this.equipment,
         equipmentOptionsListPrev:
-            equipmentOptionsListPrev ?? this.equipmentOptionsListPrev,
+        equipmentOptionsListPrev ?? this.equipmentOptionsListPrev,
         equipmentOptionsList: equipmentOptionsList ?? this.equipmentOptionsList,
         equipmentOptions: equipmentOptions ?? this.equipmentOptions,
         getModificationStatus:
-            getModificationStatus ?? this.getModificationStatus,
+        getModificationStatus ?? this.getModificationStatus,
       );
 
   @override
-  List<Object?> get props => [
+  List<Object?> get props =>
+      [
+        selectOptions,
+        radioOptions,
         contactsFormKey,
         popStatus,
         milageImage,
@@ -414,6 +425,13 @@ class PostingAdState extends Equatable {
         equipmentOptions,
         getModificationStatus,
       ];
+
+  bool isOptionSelected({required String type, required int id}){
+    if(type == 'select'){
+      return selectOptions.containsKey(id);
+    }
+    return radioOptions.containsKey(id);
+  }
 
   bool buttonStatus(int page) => PASingleton.nextButtonIsDisabled(page, this);
 
