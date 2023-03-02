@@ -1,7 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
-import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
-import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -41,9 +39,9 @@ class AdsAppBarTitle extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    if (context.read<GetMakesBloc>().state.name.isNotEmpty)
+                    if (context.read<AnnouncementListBloc>().state.makeName!=null)
                       Text(
-                        '${context.read<GetMakesBloc>().state.name}  ${context.read<GetCarModelBloc>().state.name}',
+                        '${context.read<AnnouncementListBloc>().state.makeName ?? ''}  ${context.read<AnnouncementListBloc>().state.modelName ?? ''}',
                         style: Theme.of(context)
                             .textTheme
                             .displayLarge!
@@ -57,14 +55,6 @@ class AdsAppBarTitle extends StatelessWidget {
                             .displayLarge!
                             .copyWith(fontSize: 16),
                       ),
-                    if (context.read<GetMakesBloc>().state.name.isNotEmpty)
-                      Text(
-                        '${context.read<AnnouncementListBloc>().state.count} ${LocaleKeys.offers.tr()}',
-                        style:
-                            Theme.of(context).textTheme.displayMedium!.copyWith(
-                                  color: grey,
-                                ),
-                      )
                   ],
                 ),
               ),

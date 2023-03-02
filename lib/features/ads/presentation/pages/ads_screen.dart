@@ -185,16 +185,10 @@ class _AdsScreenState extends State<AdsScreen>
                           },
                           child: Container(
                             padding: const EdgeInsets.only(
-                              right: 16,
-                              left: 16,
-                              top: 8,
-                              bottom: 8,
-                            ),
+                                right: 16, left: 16, top: 8, bottom: 8),
                             alignment: Alignment.center,
-                            child: SvgPicture.asset(
-                              AppIcons.arrowsSort,
-                              color: orange,
-                            ),
+                            child: SvgPicture.asset(AppIcons.arrowsSort,
+                                color: orange),
                           ),
                         ),
                       ],
