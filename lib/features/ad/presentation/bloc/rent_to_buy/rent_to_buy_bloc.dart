@@ -1,3 +1,4 @@
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/domain/entities/rent_with_purchase/rent_with_purchase_entity.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:bloc/bloc.dart';
@@ -15,7 +16,7 @@ class RentToBuyBloc extends Bloc<RentToBuyEvent, RentToBuyState> {
             entityForEdit: entityForEdit,
             focusNode: FocusNode(),
             step: 1,
-            title: 'Предоплата',
+            title: StorageRepository.getString('language')=='ru' ? 'Предоплата' : "Oldindan to'lov",
             controller: TextEditingController(
                 text: MyFunctions.getFormatCost(
                     entityForEdit?.prepayment ?? '')))) {

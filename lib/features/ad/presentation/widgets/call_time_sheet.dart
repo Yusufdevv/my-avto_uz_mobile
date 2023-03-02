@@ -55,7 +55,7 @@ class _CallTimeSheetState extends State<CallTimeSheet> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Выберите время',
+                  LocaleKeys.choose_time.tr(),
                   style: Theme.of(context).textTheme.displayLarge,
                 ),
                 GestureDetector(
@@ -83,13 +83,13 @@ class _CallTimeSheetState extends State<CallTimeSheet> {
                   HourPickerWidget(
                       defaultHour: 8,
                       initialItem: widget.timeFrom,
-                      title: 'от',
+                      title: LocaleKeys.from.tr(),
                       onChanged: (value) => setState(() => from = value)),
                   Container(width: 1, height: 120, color: border),
                   HourPickerWidget(
                       defaultHour: 17,
                       initialItem: widget.timeTo,
-                      title: 'до',
+                      title: LocaleKeys.to.tr(),
                       onChanged: (value) => setState(() => to = value)),
                 ],
               ),

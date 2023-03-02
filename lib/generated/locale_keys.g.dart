@@ -550,5 +550,6 @@ abstract class  LocaleKeys {
   static const not_necessary = 'not_necessary';
   static const other1 = 'other1';
   static const litre = 'litre';
+  static const choose_time = 'choose_time';
 
 }

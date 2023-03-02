@@ -546,5 +546,6 @@
   "info_replacement_required": "Yomon holatda, remont yordam bermaydi, almashtirish zarar",
   "not_necessary": "Ahamiyatsiz",
   "other1": "Boshqa",
-  "litre": "l"
+  "litre": "l",
+  "choose_time": "Vaqtni tanlang"
 }

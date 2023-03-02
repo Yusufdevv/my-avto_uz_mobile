@@ -23,6 +23,7 @@ class ColorsItem extends StatelessWidget {
         child: Container(
           margin: const EdgeInsets.all(8),
           padding: const EdgeInsets.all(8),
+          height: 106,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
@@ -52,7 +53,7 @@ class ColorsItem extends StatelessWidget {
                                 .extension<ThemedColors>()!
                                 .solitudeToBastille
                             : dividerColor)),
-                width: double.infinity,
+                width: double.maxFinite,
                 height: 54,
               ),
               const SizedBox(

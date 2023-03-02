@@ -60,7 +60,7 @@ class _ColorsScreenState extends State<ColorsScreen> {
                 shrinkWrap: true,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  childAspectRatio: 1.5,
+                  childAspectRatio: 1.7,
                 ),
               );
             },
