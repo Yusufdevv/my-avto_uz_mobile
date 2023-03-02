@@ -90,42 +90,29 @@ class CarNameWidget extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
               child: Text(
                 fullname,
-                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                      color: dark,
-                    ),
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineMedium!
+                    .copyWith(color: dark),
               ),
             ),
             Container(
               margin: const EdgeInsets.only(
-                top: 8,
-                bottom: 12,
-                left: 16,
-                right: 16,
-              ),
+                  top: 8, bottom: 12, left: 16, right: 16),
               child: Row(
                 children: [
                   Text(
                     price,
                     style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w700,
-                          color: dark,
-                        ),
+                        fontSize: 24, fontWeight: FontWeight.w700, color: dark),
                   ),
-                  const SizedBox(
-                    width: 4,
-                  ),
+                  const SizedBox(width: 4),
                   Text(
                     currency,
                     style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w700,
-                          color: dark,
-                        ),
+                        fontSize: 24, fontWeight: FontWeight.w700, color: dark),
                   ),
-                  const SizedBox(
-                    width: 12,
-                  ),
+                  const SizedBox(width: 12),
                   WButton(
                     onTap: () {
                       showModalBottomSheet(
@@ -149,42 +136,28 @@ class CarNameWidget extends StatelessWidget {
                     borderRadius: 6,
                     color: blue,
                     width: 24,
-                    child: SvgPicture.asset(
-                      AppIcons.chevronDown,
-                      color: Colors.white,
-                    ),
+                    child: SvgPicture.asset(AppIcons.chevronDown,
+                        color: Colors.white),
                   ),
                 ],
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(
-                16,
-                0,
-                16,
-                0,
-              ),
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
               child: CarStatistics(
-                date: date,
-                views: view,
-                todayViewedCount: todayViewedCount,
-                id: id,
-              ),
+                  date: date,
+                  views: view,
+                  todayViewedCount: todayViewedCount,
+                  id: id),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(
-                16,
-                0,
-                16,
-                0,
-              ),
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
               child: Divider(
-                height: 32,
-                thickness: 1,
-                color: Theme.of(context)
-                    .extension<ThemedColors>()!
-                    .solitudeToDarkRider,
-              ),
+                  height: 32,
+                  thickness: 1,
+                  color: Theme.of(context)
+                      .extension<ThemedColors>()!
+                      .solitudeToDarkRider),
             ),
             CarActions(
               onVin: onVin,
@@ -194,16 +167,12 @@ class CarNameWidget extends StatelessWidget {
               isComparised: isCompared,
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                left: 16,
-                right: 16,
-              ),
+              padding: const EdgeInsets.only(left: 16, right: 16),
               child: Divider(
-                thickness: 1,
-                color: Theme.of(context)
-                    .extension<ThemedColors>()!
-                    .solitudeToDarkRider,
-              ),
+                  thickness: 1,
+                  color: Theme.of(context)
+                      .extension<ThemedColors>()!
+                      .solitudeToDarkRider),
             ),
             CarDetails(
               year: year,
@@ -219,27 +188,20 @@ class CarNameWidget extends StatelessWidget {
               Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(
-                      left: 16,
-                      right: 16,
-                    ),
+                    padding: const EdgeInsets.only(left: 16, right: 16),
                     child: Divider(
-                      thickness: 1,
-                      color: Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .solitudeToDarkRider,
-                    ),
+                        thickness: 1,
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .solitudeToDarkRider),
                   ),
                   DayLikeCallItem(
-                    days: saleDays,
-                    likes: addToFavorite,
-                    calls: callToNumber,
-                    leftDays: daysLeft,
-                  ),
+                      days: saleDays,
+                      likes: addToFavorite,
+                      calls: callToNumber,
+                      leftDays: daysLeft),
                 ],
               )
-            else
-              const SizedBox()
           ],
         ),
       );

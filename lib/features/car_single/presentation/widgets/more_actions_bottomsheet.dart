@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/car_single/presentation/widgets/dealer_item.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/search/presentation/widgets/add_comparison_item.dart';
@@ -121,7 +122,9 @@ class _MoreActionsBottomsheetState extends State<MoreActionsBottomsheet> {
                       child: Column(
                         children: [
                           SvgPicture.asset(
-                            AppIcons.blue_vin_soon,
+                            StorageRepository.getString('language') == 'uz'
+                                ? AppIcons.blue_vin_tezorada
+                                : AppIcons.blue_vin_skoro,
                           ),
                           Text(
                             LocaleKeys.report_vin.tr(),
@@ -129,21 +132,18 @@ class _MoreActionsBottomsheetState extends State<MoreActionsBottomsheet> {
                                 .textTheme
                                 .displayLarge!
                                 .copyWith(
-                                  color: const Color(
-                                    0xff171725,
-                                  ),
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 12,
-                                ),
+                                    color: const Color(
+                                      0xff171725,
+                                    ),
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 12),
                           ),
                         ],
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(
-                  width: 8,
-                ),
+                const SizedBox(width: 8),
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.only(
@@ -152,9 +152,7 @@ class _MoreActionsBottomsheetState extends State<MoreActionsBottomsheet> {
                     ),
                     decoration: BoxDecoration(
                       color: const Color(0xffEFFAF3),
-                      borderRadius: BorderRadius.circular(
-                        8,
-                      ),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     child: AddComparisonItem(
                       id: widget.id,
@@ -164,9 +162,7 @@ class _MoreActionsBottomsheetState extends State<MoreActionsBottomsheet> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  width: 8,
-                ),
+                const SizedBox(width: 8),
                 Expanded(
                   child: WScaleAnimation(
                     onTap: () {
@@ -179,9 +175,7 @@ class _MoreActionsBottomsheetState extends State<MoreActionsBottomsheet> {
                       ),
                       decoration: BoxDecoration(
                         color: const Color(0xffFDEFEB),
-                        borderRadius: BorderRadius.circular(
-                          8,
-                        ),
+                        borderRadius: BorderRadius.circular(8),
                       ),
                       child: Center(
                         child: Column(
@@ -189,9 +183,7 @@ class _MoreActionsBottomsheetState extends State<MoreActionsBottomsheet> {
                             SvgPicture.asset(
                               AppIcons.share,
                               height: 28,
-                              color: const Color(
-                                0xffEA5930,
-                              ),
+                              color: const Color(0xffEA5930),
                             ),
                             Text(
                               LocaleKeys.share.tr(),
@@ -199,9 +191,7 @@ class _MoreActionsBottomsheetState extends State<MoreActionsBottomsheet> {
                                   .textTheme
                                   .displayLarge!
                                   .copyWith(
-                                    color: const Color(
-                                      0xff171725,
-                                    ),
+                                    color: const Color(0xff171725),
                                     fontWeight: FontWeight.w600,
                                     fontSize: 12,
                                   ),

@@ -215,23 +215,18 @@ class AppIcons {
   static const scalesRed = 'assets/icons/search/scales_red.svg';
   static const crown = 'assets/icons/car_single/crown.svg';
 
-  // static const calendar = 'assets/icons/car_single/calendar.svg';
   static const doubleCheck = 'assets/icons/car_single/double_check.svg';
   static const equals = 'assets/icons/car_single/equals.svg';
   static const lockVin = 'assets/icons/car_single/lock.svg';
 
-  // static const eye = 'assets/icons/car_single/eye.svg';
   static const fire = 'assets/icons/car_single/fire.svg';
 
-  // static const id = 'assets/icons/car_single/id.svg';
   static const refresher = 'assets/icons/car_single/refreshers.svg';
   static const rocket = 'assets/icons/car_single/rocket.svg';
   static const soon = 'assets/icons/car_single/soon.svg';
   static const blue_fire = 'assets/icons/car_single/blue_fire.svg';
-  static const vin_soon = 'assets/icons/car_single/vin_soon.svg';
   static const vin_skoro = 'assets/icons/car_single/vin_skoro.svg';
   static const vin_tezorada = 'assets/icons/car_single/vin_tezorada.svg';
-  static const blue_vin_soon = 'assets/icons/car_single/blue_vin_soon.svg';
   static const blue_vin_skoro = 'assets/icons/car_single/blue_vin_skoro.svg';
   static const blue_vin_tezorada = 'assets/icons/car_single/blue_vin_tezorada.svg';
   static const safe = 'assets/icons/car_single/safety.svg';

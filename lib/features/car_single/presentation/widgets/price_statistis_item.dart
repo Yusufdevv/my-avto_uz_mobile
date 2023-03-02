@@ -28,6 +28,7 @@ class PriceStatisticItem extends StatelessWidget {
       itemColor = Colors.green;
       alighment = CrossAxisAlignment.start;
       return 0.07;
+    // ignore: invariant_booleans
     } else if (percent > 90 && percent < 94) {
       itemColor = Colors.green;
       alighment = CrossAxisAlignment.center;
@@ -54,7 +55,6 @@ class PriceStatisticItem extends StatelessWidget {
       return 0.52;
     } else if (percent >= 107 && percent < 110) {
       itemColor = Colors.red;
-
       alighment = CrossAxisAlignment.end;
       return 0.62;
     } else if (percent > 100) {

@@ -55,12 +55,11 @@ class StoryItem extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.all(2),
                     child: CachedImage(
-                      fit: BoxFit.cover,
-                      height: 40,
-                      width: 40,
-                      imageUrl: image,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
+                        fit: BoxFit.cover,
+                        height: 40,
+                        width: 40,
+                        imageUrl: image,
+                        borderRadius: BorderRadius.circular(8)),
                   ),
                 ),
                 Container(
@@ -75,13 +74,11 @@ class StoryItem extends StatelessWidget {
                   ),
                   child: Align(
                     alignment: Alignment.bottomLeft,
-                    child: Text(
-                      title,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineMedium!
-                          .copyWith(fontSize: 10),
-                    ),
+                    child: Text(title,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium!
+                            .copyWith(fontSize: 10)),
                   ),
                 ),
               ],
