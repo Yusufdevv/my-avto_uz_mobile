@@ -167,7 +167,7 @@ abstract class _GetRegions implements RegionsEvent {
 /// @nodoc
 mixin _$RegionsState {
   FormzStatus get status => throw _privateConstructorUsedError;
-  List<Region> get regions => throw _privateConstructorUsedError;
+  List<RegionEntity> get regions => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RegionsStateCopyWith<RegionsState> get copyWith =>
@@ -180,7 +180,7 @@ abstract class $RegionsStateCopyWith<$Res> {
           RegionsState value, $Res Function(RegionsState) then) =
       _$RegionsStateCopyWithImpl<$Res, RegionsState>;
   @useResult
-  $Res call({FormzStatus status, List<Region> regions});
+  $Res call({FormzStatus status, List<RegionEntity> regions});
 }
 
 /// @nodoc
@@ -207,7 +207,7 @@ class _$RegionsStateCopyWithImpl<$Res, $Val extends RegionsState>
       regions: null == regions
           ? _value.regions
           : regions // ignore: cast_nullable_to_non_nullable
-              as List<Region>,
+              as List<RegionEntity>,
     ) as $Val);
   }
 }
@@ -220,7 +220,7 @@ abstract class _$$_RegionsStateCopyWith<$Res>
       __$$_RegionsStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({FormzStatus status, List<Region> regions});
+  $Res call({FormzStatus status, List<RegionEntity> regions});
 }
 
 /// @nodoc
@@ -245,7 +245,7 @@ class __$$_RegionsStateCopyWithImpl<$Res>
       regions: null == regions
           ? _value._regions
           : regions // ignore: cast_nullable_to_non_nullable
-              as List<Region>,
+              as List<RegionEntity>,
     ));
   }
 }
@@ -254,16 +254,17 @@ class __$$_RegionsStateCopyWithImpl<$Res>
 
 class _$_RegionsState implements _RegionsState {
   _$_RegionsState(
-      {this.status = FormzStatus.pure, final List<Region> regions = const []})
+      {this.status = FormzStatus.pure,
+      final List<RegionEntity> regions = const []})
       : _regions = regions;
 
   @override
   @JsonKey()
   final FormzStatus status;
-  final List<Region> _regions;
+  final List<RegionEntity> _regions;
   @override
   @JsonKey()
-  List<Region> get regions {
+  List<RegionEntity> get regions {
     if (_regions is EqualUnmodifiableListView) return _regions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_regions);
@@ -296,12 +297,13 @@ class _$_RegionsState implements _RegionsState {
 
 abstract class _RegionsState implements RegionsState {
   factory _RegionsState(
-      {final FormzStatus status, final List<Region> regions}) = _$_RegionsState;
+      {final FormzStatus status,
+      final List<RegionEntity> regions}) = _$_RegionsState;
 
   @override
   FormzStatus get status;
   @override
-  List<Region> get regions;
+  List<RegionEntity> get regions;
   @override
   @JsonKey(ignore: true)
   _$$_RegionsStateCopyWith<_$_RegionsState> get copyWith =>

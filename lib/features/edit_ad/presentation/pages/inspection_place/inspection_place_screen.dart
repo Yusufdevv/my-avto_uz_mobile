@@ -10,9 +10,9 @@ import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/ad/presentation/widgets/choose_district_sheet.dart';
 import 'package:auto/features/ad/presentation/widgets/loader_box.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
-import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/widgets/switcher_row_as_button_also.dart';
 import 'package:auto/features/edit_ad/presentation/bloc/edit_ad/edit_ad_bloc.dart';
+import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -61,7 +61,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                           state.status == FormzStatus.submissionInProgress,
                       onTap: () async {
                         hidePopUp();
-                        await showModalBottomSheet<List<Region>>(
+                        await showModalBottomSheet<List<RegionEntity>>(
                           isDismissible: false,
                           context: context,
                           isScrollControlled: true,
@@ -69,7 +69,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                           builder: (c) => RentChooseRegionBottomSheet(
                             isMultiChoice: false,
                             checkedRegions: state.region == null
-                                ? <int, Region>{}
+                                ? <int, RegionEntity>{}
                                 : {state.region!.id: state.region!},
                             list: state.regions,
                           ),

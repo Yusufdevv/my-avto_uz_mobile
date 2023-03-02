@@ -1,7 +1,7 @@
 part of 'dealer_filter_bloc.dart';
 
 class DealerFilterState extends Equatable {
-  final List<Region> region;
+  final List<RegionEntity> region;
   final MakeEntity maker;
   final String? carType;
 
@@ -12,7 +12,7 @@ class DealerFilterState extends Equatable {
   });
 
   DealerFilterState copyWith({
-    List<Region>? region,
+    List<RegionEntity>? region,
     MakeEntity? maker,
     String? carType,
   }) =>

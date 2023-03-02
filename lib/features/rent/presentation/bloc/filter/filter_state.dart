@@ -1,7 +1,7 @@
 part of 'filter_bloc.dart';
 
 class FilterState extends Equatable {
-  final List<Region> regions;
+  final List<RegionEntity> regions;
   final MakeEntity? maker;
   final BodyTypeEntity? bodyType;
   final DriveTypeEntity? carDriveType;
@@ -32,7 +32,7 @@ class FilterState extends Equatable {
   });
 
   FilterState copyWith({
-    List<Region>? regions,
+    List<RegionEntity>? regions,
     MakeEntity? maker,
     BodyTypeEntity? bodyType,
     DriveTypeEntity? carDriveType,

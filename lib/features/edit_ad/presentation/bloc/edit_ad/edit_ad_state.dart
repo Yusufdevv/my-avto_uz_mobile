@@ -19,8 +19,8 @@ class EditAdState extends Equatable {
   final MakeEntity? make;
   final CarGenerationEntity? generationEntity;
   final BodyTypeEntity? bodyType;
-  final Region? region;
-  final List<Region> regions;
+  final RegionEntity? region;
+  final List<RegionEntity> regions;
   final List<DistrictEntity> districts;
 
   final YearsEntity? yearEntity;
@@ -80,7 +80,7 @@ class EditAdState extends Equatable {
     this.gallery = const <String>[],
     this.panaramaGallery = const <String>[],
     this.rentWithPurchaseConditions = const <int, RentWithPurchaseEntity>{},
-    this.regions = const <Region>[],
+    this.regions = const <RegionEntity>[],
     this.damagedParts = const <DamagedParts, DamageType>{},
     this.colorName,
     this.licenceType,
@@ -125,7 +125,7 @@ class EditAdState extends Equatable {
     Map<DamagedParts, DamageType>? damagedParts,
     Map<int, RentWithPurchaseEntity>? rentWithPurchaseConditions,
     DistrictEntity? district,
-    Region? regionId,
+    RegionEntity? region,
     FormzStatus? status,
     FormzStatus? getDistrictsStatus,
     FormzStatus? createStatus,
@@ -139,7 +139,7 @@ class EditAdState extends Equatable {
     CarGenerationEntity? generationEntity,
     BodyTypeEntity? bodyType,
     MakeEntity? make,
-    List<Region>? regions,
+    List<RegionEntity>? regions,
     List<DistrictEntity>? districts,
     List<String>? gallery,
     List<String>? panaramaGallery,
@@ -201,7 +201,7 @@ class EditAdState extends Equatable {
         showExactAddress: showExactAddress ?? this.showExactAddress,
         district: district ?? this.district,
         city: city ?? this.city,
-        region: regionId ?? this.region,
+        region: region ?? this.region,
         gearbox: gearbox ?? this.gearbox,
         driveTypeId: driveTypeId ?? this.driveTypeId,
         engineId: engineId ?? this.engineId,

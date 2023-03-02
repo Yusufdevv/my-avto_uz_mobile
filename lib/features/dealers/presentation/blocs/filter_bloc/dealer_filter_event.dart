@@ -5,7 +5,7 @@ abstract class DealerFilterEvent {}
 class DealerFilterClearEvent extends DealerFilterEvent {}
 
 class DealerFilterSelectEvent extends DealerFilterEvent {
-  List<Region>? region;
+  List<RegionEntity>? region;
   final MakeEntity? maker;
   final String? carType;
   DealerFilterSelectEvent({

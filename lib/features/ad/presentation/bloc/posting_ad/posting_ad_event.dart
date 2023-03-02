@@ -255,19 +255,20 @@ class PostingAdGetEquipmentOption extends PostingAdEvent {
 }
 
 class PostingAdChangeOption extends PostingAdEvent {
-  final int categoryIndex;
-  final int optionIndex;
+
+
   final String type;
   final int id;
-  final String selectedItem;
+  final String itemName;
   final bool isAdd;
+  final SO? selectOption;
 
   PostingAdChangeOption({
-    required this.categoryIndex,
-    required this.optionIndex,
+
     required this.type,
     required this.id,
-    required this.selectedItem,
+    required this.itemName,
     required this.isAdd,
+    this.selectOption,
   });
 }

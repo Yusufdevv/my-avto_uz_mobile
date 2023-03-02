@@ -4,11 +4,11 @@ import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
-import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/widgets/range_slider.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:auto/features/rent/presentation/bloc/filter/filter_bloc.dart';
 import 'package:auto/features/rent/presentation/bloc/rent_bloc/rent_bloc.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_body_type.dart';
@@ -23,7 +23,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RentFilterScreen extends StatefulWidget {
-  final List<Region>? regions;
+  final List<RegionEntity>? regions;
   final MakeEntity? maker;
   final BodyTypeEntity? bodyType;
   final DriveTypeEntity? carDriveType;
@@ -98,7 +98,7 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
                 children: [
                   SelectorItem(
                     onTap: () async {
-                      await showModalBottomSheet<List<Region>>(
+                      await showModalBottomSheet<List<RegionEntity>>(
                         isDismissible: false,
                         context: context,
                         isScrollControlled: true,

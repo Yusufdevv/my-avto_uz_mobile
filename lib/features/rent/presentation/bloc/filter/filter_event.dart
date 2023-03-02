@@ -12,7 +12,7 @@ class FilterClearEvent extends FilterEvent {
 }
 
 class FilterSelectEvent extends FilterEvent {
-  List<Region>? regions;
+  List<RegionEntity>? regions;
   final MakeEntity? maker;
   final BodyTypeEntity? bodyType;
   final DriveTypeEntity? carDriveType;

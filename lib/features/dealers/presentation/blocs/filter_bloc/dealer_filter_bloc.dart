@@ -1,5 +1,5 @@
 import 'package:auto/features/ad/domain/entities/types/make.dart';
-import 'package:auto/features/common/models/region.dart';
+import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -8,7 +8,7 @@ part 'dealer_filter_event.dart';
 part 'dealer_filter_state.dart';
 
 class DealerFilterBloc extends Bloc<DealerFilterEvent, DealerFilterState> {
-  final List<Region>? region;
+  final List<RegionEntity>? region;
   final MakeEntity? maker;
   final String? carType;
 
@@ -18,11 +18,11 @@ class DealerFilterBloc extends Bloc<DealerFilterEvent, DealerFilterState> {
     this.carType,
   }) : super(DealerFilterState(
           maker: maker ?? const MakeEntity(),
-          region: region ?? <Region>[],
+          region: region ?? <RegionEntity>[],
           carType: carType,
         )) {
     on<DealerFilterClearEvent>((event, emit) => emit(const DealerFilterState(
-          region: <Region>[],
+          region: <RegionEntity>[],
           carType: '',
           maker: MakeEntity(),
         )));

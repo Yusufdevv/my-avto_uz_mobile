@@ -7,8 +7,9 @@ import 'package:auto/features/ads/data/models/save_filter_model.dart';
 import 'package:auto/features/ads/domain/usecases/get_announcement_list_usecase.dart';
 import 'package:auto/features/ads/domain/usecases/get_min_max_price_use_case.dart';
 import 'package:auto/features/ads/domain/usecases/save_filter_history_usecase.dart';
-import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/comparison/domain/entities/announcement_list_entity.dart';
+import 'package:auto/features/rent/data/models/region_model.dart';
+import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -219,7 +220,7 @@ class AnnouncementListBloc
     });
   }
 
-  String getRegionsId(List<Region> list) {
+  String getRegionsId(List<RegionEntity> list) {
     if (list.isEmpty) {
       return '';
     }

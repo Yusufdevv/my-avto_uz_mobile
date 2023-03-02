@@ -1,13 +1,16 @@
+import 'dart:developer';
+
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
-import 'package:auto/features/common/models/region.dart';
+import 'package:auto/features/rent/data/models/region_model.dart';
+import 'package:auto/features/rent/domain/entities/region_entity.dart';
 
 import 'package:dio/dio.dart';
 
 // ignore: one_member_abstracts
 abstract class GetRegionsDatasourse {
-  Future<List<Region>> getRegions();
+  Future<List<RegionEntity>> getRegions();
 }
 
 class GetRegionsDatasourceImpl extends GetRegionsDatasourse {
@@ -16,7 +19,7 @@ class GetRegionsDatasourceImpl extends GetRegionsDatasourse {
   GetRegionsDatasourceImpl();
 
   @override
-  Future<List<Region>> getRegions() async {
+  Future<List<RegionEntity>> getRegions() async {
     try {
       final response = await _dio.get(
         '/common/regions/',
@@ -28,9 +31,10 @@ class GetRegionsDatasourceImpl extends GetRegionsDatasourse {
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
+        log(':::::::::: Gotten regions in sadfasd: ${response.data}  ::::::::::');
         return (response.data['results'] as List)
             // ignore: unnecessary_lambdas
-            .map((e) => Region.fromJson(e))
+            .map((e) => RegionModel.fromJson(e))
             .toList();
       } else {
         throw ServerException(

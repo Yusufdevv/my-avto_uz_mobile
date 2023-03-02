@@ -33,7 +33,7 @@ class PostingAdState extends Equatable {
   final BodyTypeEntity? bodyType;
   final List<BodyTypeEntity> bodyTypes;
   final int? regionId;
-  final List<Region> regions;
+  final List<RegionEntity> regions;
   final List<DistrictEntity> districts;
 
   final YearsEntity? yearEntity;
@@ -44,7 +44,7 @@ class PostingAdState extends Equatable {
   final Map<int, RentWithPurchaseEntity> rentWithPurchaseConditions;
 
   final Map<DamagedParts, DamageType> damagedParts;
-  final Map<int, String> selectOptions;
+  final Map<int, SO> selectOptions;
   final Map<int, String> radioOptions;
   final UserModel? userModel;
   final Uint8List? mapPointBytes;
@@ -81,7 +81,6 @@ class PostingAdState extends Equatable {
   final int? gasEquipmentId;
   final EquipmentEntity? equipment;
   final List<EquipmentEntity> equipments;
-  final List<EquipmentOptionsListEntity> equipmentOptionsListPrev;
   final List<EquipmentOptionsListEntity> equipmentOptionsList;
 
   /// this is options for each selected equipment
@@ -96,7 +95,7 @@ class PostingAdState extends Equatable {
     required this.nameController,
     required this.popStatus,
     this.radioOptions = const <int, String>{},
-    this.selectOptions = const <int, String>{},
+    this.selectOptions = const <int, SO>{},
     this.id,
     this.makeLetterIndex,
     this.minimumPrice = 0,
@@ -122,7 +121,7 @@ class PostingAdState extends Equatable {
     this.gallery = const <String>[],
     this.panaramaGallery = const <String>[],
     this.rentWithPurchaseConditions = const <int, RentWithPurchaseEntity>{},
-    this.regions = const <Region>[],
+    this.regions = const <RegionEntity>[],
     this.damagedParts = const <DamagedParts, DamageType>{},
     this.letter,
     this.colorName,
@@ -164,14 +163,13 @@ class PostingAdState extends Equatable {
     this.gasEquipmentId,
     this.equipments = const [],
     this.equipment,
-    this.equipmentOptionsListPrev = const [],
     this.equipmentOptionsList = const [],
     this.equipmentOptions = const [],
   });
 
   String? get districtTitle {
     final index =
-    districts.indexWhere((element) => element.id == (districtId ?? -1));
+        districts.indexWhere((element) => element.id == (districtId ?? -1));
     if (index >= 0) {
       return districts[index].title;
     }
@@ -183,7 +181,7 @@ class PostingAdState extends Equatable {
     TextEditingController? emailController,
     TextEditingController? nameController,
     TextEditingController? searchController,
-    Map<int, String>? selectOptions,
+    Map<int, SO>? selectOptions,
     Map<int, String>? radioOptions,
     Map<DamagedParts, DamageType>? damagedParts,
     Map<int, RentWithPurchaseEntity>? rentWithPurchaseConditions,
@@ -211,7 +209,7 @@ class PostingAdState extends Equatable {
     List<BodyTypeEntity>? bodyTypes,
     MakeEntity? make,
     List<MakeEntity>? makes,
-    List<Region>? regions,
+    List<RegionEntity>? regions,
     List<MakeEntity>? topMakes,
     List<DistrictEntity>? districts,
     List<String>? gallery,
@@ -256,7 +254,6 @@ class PostingAdState extends Equatable {
     int? gasEquipmentId,
     List<EquipmentEntity>? equipments,
     EquipmentEntity? equipment,
-    List<EquipmentOptionsListEntity>? equipmentOptionsListPrev,
     List<EquipmentOptionsListEntity>? equipmentOptionsList,
     List<EquipmentOptionsEntity>? equipmentOptions,
   }) =>
@@ -285,7 +282,7 @@ class PostingAdState extends Equatable {
         districts: districts ?? this.districts,
         damagedParts: damagedParts ?? this.damagedParts,
         rentWithPurchaseConditions:
-        rentWithPurchaseConditions ?? this.rentWithPurchaseConditions,
+            rentWithPurchaseConditions ?? this.rentWithPurchaseConditions,
         showExactAddress: showExactAddress ?? this.showExactAddress,
         districtId: districtId ?? this.districtId,
         city: city ?? this.city,
@@ -315,7 +312,7 @@ class PostingAdState extends Equatable {
         ownerStep: ownerStep ?? this.ownerStep,
         purchasedDate: purchasedDate ?? this.purchasedDate,
         notRegisteredInUzbekistan:
-        notRegisteredInUzbekistan ?? this.notRegisteredInUzbekistan,
+            notRegisteredInUzbekistan ?? this.notRegisteredInUzbekistan,
         description: description ?? this.description,
         ownerEmail: ownerEmail ?? this.ownerEmail,
         ownerName: ownerName ?? this.ownerName,
@@ -337,17 +334,14 @@ class PostingAdState extends Equatable {
         gasEquipmentId: gasEquipmentId ?? this.gasEquipmentId,
         equipments: equipments ?? this.equipments,
         equipment: equipment ?? this.equipment,
-        equipmentOptionsListPrev:
-        equipmentOptionsListPrev ?? this.equipmentOptionsListPrev,
         equipmentOptionsList: equipmentOptionsList ?? this.equipmentOptionsList,
         equipmentOptions: equipmentOptions ?? this.equipmentOptions,
         getModificationStatus:
-        getModificationStatus ?? this.getModificationStatus,
+            getModificationStatus ?? this.getModificationStatus,
       );
 
   @override
-  List<Object?> get props =>
-      [
+  List<Object?> get props => [
         selectOptions,
         radioOptions,
         contactsFormKey,
@@ -420,24 +414,41 @@ class PostingAdState extends Equatable {
         gasEquipmentId,
         equipments,
         equipment,
-        equipmentOptionsListPrev,
         equipmentOptionsList,
         equipmentOptions,
         getModificationStatus,
       ];
 
-  bool isOptionSelected({required String type, required int id}){
-    if(type == 'select'){
-      return selectOptions.containsKey(id);
+  bool isOptionSelected(
+      {required String type, required int id }) {
+     if (type == 'select') {
+      final v = selectOptions.containsKey(id);
+    return v;
     }
-    return radioOptions.containsKey(id);
+    final v = radioOptions.containsKey(id);
+   return v;
   }
 
   bool buttonStatus(int page) => PASingleton.nextButtonIsDisabled(page, this);
 
-  Region get getSelectedRegion {
-    final v = regions.firstWhere((e) => e.id == regionId,
-        orElse: () => const Region(id: -1, name: '', title: ''));
-    return v;
+  RegionEntity get getSelectedRegion {
+    RegionEntity? v;
+    try {
+      return regions.firstWhere((e) => e.id == regionId);
+    } catch (e) {
+      return const RegionEntity();
+    }
   }
+}
+
+class SO extends Equatable{
+  final int id;
+  final String optionName;
+const   SO({required this.id,required this.optionName});
+
+  @override
+  List<Object?> get props =>[id,
+    optionName];
+
+
 }

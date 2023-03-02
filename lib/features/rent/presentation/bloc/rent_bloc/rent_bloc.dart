@@ -3,7 +3,7 @@ import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
-import 'package:auto/features/common/models/region.dart';
+import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_main_entity.dart';
 import 'package:auto/features/rent/domain/usecases/rent_usecase.dart';
 import 'package:bloc/bloc.dart';
@@ -18,7 +18,7 @@ class RentBloc extends Bloc<RentEvent, RentState> {
 
   RentBloc({required this.rentUseCase, required int id})
       : super(RentState(
-          regions: const <Region>[],
+          regions: const <RegionEntity>[],
           categoryId: id,
           count: 5,
           hasAirConditioners: 0,

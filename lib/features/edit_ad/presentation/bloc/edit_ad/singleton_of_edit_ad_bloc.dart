@@ -158,8 +158,7 @@ class EASingleton {
     }
 
     return EditAdState(
-      region:
-          Region(title: v.region.title, name: v.region.title, id: v.region.id),
+      region:v.region,
       district: v.district,
       showExactAddress: v.longitude > 0 && v.latitude > 0,
       getAnnouncementToEditStatus: FormzStatus.submissionSuccess,
@@ -252,7 +251,7 @@ class EASingleton {
         ownerName: event.ownerName,
         ownerPhone: event.ownerPhone,
         city: event.city,
-        regionId: event.region,
+        region: event.region,
         price: event.price,
         currency: event.currency,
         gasBalloonType: event.gasBalloonType,
