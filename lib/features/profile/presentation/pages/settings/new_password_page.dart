@@ -35,170 +35,157 @@ class _NewPasswordsPageState extends State<NewPasswordsPage> {
             appBar: WAppBar(
               textWithButton: LocaleKeys.change_password.tr(),
             ),
-            body: Padding(
-              padding: const EdgeInsets.only(
-                  left: 16,
-                  right: 16,
-                  top: 16),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 20),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          LocaleKeys.change_password.tr(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayLarge
-                              ?.copyWith(fontSize: 32),
-                        ),
-                        const SizedBox(height:6),
-                        Text(LocaleKeys.create_unfoget.tr(),
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.displayMedium),
-                        const SizedBox(height: 36),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            LocaleKeys.old_password.tr(),
-                            style: Theme.of(context).textTheme.displayMedium,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        PasswordTextField(
-                          onChanged: (value) => setState(() {}),
-                          isOldPasword: true,
-                          controller: _oldPasswordController,
-                          hintText: LocaleKeys.write_old_password.tr(),
-                        ),
-                        const SizedBox(height: 20),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            LocaleKeys.new_password.tr(),
-                            style: Theme.of(context).textTheme.displayMedium,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        PasswordTextField(
-                          onChanged: (value) => setState(() {}),
-                          controller: _newPassword1Controller,
-                          hintText: LocaleKeys.enter_Passowrd.tr(),
-                        ),
-                        const SizedBox(height: 20),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            LocaleKeys.confirm_password.tr(),
-                            style: Theme.of(context).textTheme.displayMedium,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        PasswordTextField(
-                          onChanged: (value) => setState(() {}),
-                          controller: _newPassword2Controller,
-                          hintText: LocaleKeys.write_again.tr(),
-                        ),
-                      ],
-                    ),
+            body: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    left: 16,
+                    right: 16,
+                    top: 16,
+                    bottom: 20,
                   ),
-                  BlocBuilder<ProfileBloc, ProfileState>(
-                    builder: (context, state) => Padding(
-                      padding: EdgeInsets.only(
-                          bottom: 24+
-                              MediaQuery.of(context).viewInsets.bottom),
-                      child: WButton(
-                        border: Border.all(width: 1, color: white),
-                        color: _oldPasswordController.text.length > 5 &&
-                                _newPassword1Controller.text.length > 5 &&
-                                _newPassword2Controller.text.length > 5
-                            ? orange
-                            : disabledButton,
-                        isLoading: state.changeStatus.isSubmissionInProgress,
-                        onTap: () {
-                          if (_oldPasswordController.text.length < 6 ||
-                              _newPassword1Controller.text.length < 6 ||
-                              _newPassword2Controller.text.length < 6) {
-                            context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                  message: LocaleKeys.password_must_6.tr(),
-                                  status: PopStatus.error,
-                                ));
-                          } else if (_oldPasswordController.text.isEmpty ||
-                              _newPassword1Controller.text.isEmpty ||
-                              _newPassword2Controller.text.isEmpty) {
-                            context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                  message: LocaleKeys.password_must_6.tr(),
-                                  status: PopStatus.error,
-                                ));
-                          } else if (_oldPasswordController.text.length >= 6 &&
-                              _newPassword1Controller.text.length >= 6 &&
-                              _newPassword2Controller.text.length >= 6) {
-                            if (_newPassword1Controller.text !=
-                                _newPassword2Controller.text) {
-                              context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                    message:
-                                        LocaleKeys.passwords_didnt_match.tr(),
-                                    status: PopStatus.error,
-                                  ));
-                            } else {
-                              context.read<ProfileBloc>().add(
-                                    ChangePasswordEvent(
-                                      newPassword: _newPassword1Controller.text,
-                                      oldPassword: _oldPasswordController.text,
-                                      newPasswordConfirm:
-                                          _newPassword2Controller.text,
-                                      onSuccess: (message) {
-                                        context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                            message: message.isNotEmpty
-                                                ? message
-                                                : LocaleKeys
-                                                    .password_changed_successfully
-                                                    .tr(),
-                                            status: PopStatus.success));
-                                        //after pasword changing get new token
-                                        context.read<ProfileBloc>().add(
-                                            LoginUser(
-                                                password:
-                                                    _newPassword1Controller
-                                                        .text,
-                                                phone: state
-                                                    .profileEntity.phoneNumber!
-                                                    .replaceAll('+998', '')
-                                                    .replaceAll('', ' ')));
-                                        Navigator.of(context).pop();
-                                      },
-                                      onError: (message) {
-                                        var error = message;
-                                        if (error
-                                                .toLowerCase()
-                                                .contains('dio') ||
-                                            error
-                                                .toLowerCase()
-                                                .contains('type')) {
-                                          error = LocaleKeys.service_error.tr();
-                                        }
-                                        context
-                                            .read<ShowPopUpBloc>()
-                                            .add(ShowPopUp(
-                                              message: error,
-                                              status: PopStatus.error,
-                                            ));
-                                      },
-                                    ),
-                                  );
-                            }
-                          }
-                        },
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        LocaleKeys.change_password.tr(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayLarge
+                            ?.copyWith(fontSize: 32),
+                      ),
+                      const SizedBox(height: 6),
+                      Text(LocaleKeys.create_unfoget.tr(),
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.displayMedium),
+                      const SizedBox(height: 36),
+                      Align(
+                        alignment: Alignment.centerLeft,
                         child: Text(
-                          LocaleKeys.further.tr(),
+                          LocaleKeys.old_password.tr(),
+                          style: Theme.of(context).textTheme.displayMedium,
                         ),
                       ),
-                    ),
+                      const SizedBox(height: 8),
+                      PasswordTextField(
+                        onChanged: (value) => setState(() {}),
+                        isOldPasword: true,
+                        controller: _oldPasswordController,
+                        hintText: LocaleKeys.write_old_password.tr(),
+                      ),
+                      const SizedBox(height: 20),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          LocaleKeys.new_password.tr(),
+                          style: Theme.of(context).textTheme.displayMedium,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      PasswordTextField(
+                        onChanged: (value) => setState(() {}),
+                        controller: _newPassword1Controller,
+                        hintText: LocaleKeys.enter_Passowrd.tr(),
+                      ),
+                      const SizedBox(height: 20),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          LocaleKeys.confirm_password.tr(),
+                          style: Theme.of(context).textTheme.displayMedium,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      PasswordTextField(
+                        onChanged: (value) => setState(() {}),
+                        controller: _newPassword2Controller,
+                        hintText: LocaleKeys.write_again.tr(),
+                      ),
+                    ],
                   ),
-                ],
+                ),
+              ),
+            ),
+            bottomNavigationBar: BlocBuilder<ProfileBloc, ProfileState>(
+              builder: (context, state) => WButton(
+                margin: EdgeInsets.only(
+                    right: 16,
+                    left: 16,
+                    bottom: 20 + MediaQuery.of(context).viewInsets.bottom),
+                border: Border.all(width: 1, color: white),
+                disabledColor: disabledButton,
+                isDisabled: _oldPasswordController.text.length < 6 ||
+                    _newPassword1Controller.text.length < 6 ||
+                    _newPassword2Controller.text.length < 6,
+                isLoading: state.changeStatus.isSubmissionInProgress,
+                onTap: () {
+                  if (_oldPasswordController.text.length < 6 ||
+                      _newPassword1Controller.text.length < 6 ||
+                      _newPassword2Controller.text.length < 6) {
+                    context.read<ShowPopUpBloc>().add(ShowPopUp(
+                          message: LocaleKeys.password_must_6.tr(),
+                          status: PopStatus.error,
+                        ));
+                  } else if (_oldPasswordController.text.isEmpty ||
+                      _newPassword1Controller.text.isEmpty ||
+                      _newPassword2Controller.text.isEmpty) {
+                    context.read<ShowPopUpBloc>().add(ShowPopUp(
+                          message: LocaleKeys.password_must_6.tr(),
+                          status: PopStatus.error,
+                        ));
+                  } else if (_oldPasswordController.text.length >= 6 &&
+                      _newPassword1Controller.text.length >= 6 &&
+                      _newPassword2Controller.text.length >= 6) {
+                    if (_newPassword1Controller.text !=
+                        _newPassword2Controller.text) {
+                      context.read<ShowPopUpBloc>().add(ShowPopUp(
+                            message: LocaleKeys.passwords_didnt_match.tr(),
+                            status: PopStatus.error,
+                          ));
+                    } else {
+                      context.read<ProfileBloc>().add(
+                            ChangePasswordEvent(
+                              newPassword: _newPassword1Controller.text,
+                              oldPassword: _oldPasswordController.text,
+                              newPasswordConfirm: _newPassword2Controller.text,
+                              onSuccess: (message) {
+                                context.read<ShowPopUpBloc>().add(ShowPopUp(
+                                    message: message.isNotEmpty
+                                        ? message
+                                        : LocaleKeys
+                                            .password_changed_successfully
+                                            .tr(),
+                                    status: PopStatus.success));
+
+                                /// after password changing get new token
+                                context.read<ProfileBloc>().add(LoginUser(
+                                    password: _newPassword1Controller.text,
+                                    phone: state.profileEntity.phoneNumber!
+                                        .replaceAll('+998', '')
+                                        .replaceAll('', ' ')));
+                                Navigator.of(context).pop();
+                              },
+                              onError: (message) {
+                                var error = message;
+                                if (error.toLowerCase().contains('dio') ||
+                                    error.toLowerCase().contains('type')) {
+                                  error = LocaleKeys.service_error.tr();
+                                }
+                                context.read<ShowPopUpBloc>().add(ShowPopUp(
+                                      message: error,
+                                      status: PopStatus.error,
+                                    ));
+                              },
+                            ),
+                          );
+                    }
+                  }
+                },
+                child: Text(
+                  LocaleKeys.further.tr(),
+                ),
               ),
             ),
           ),

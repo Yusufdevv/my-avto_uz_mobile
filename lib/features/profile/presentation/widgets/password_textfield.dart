@@ -36,9 +36,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
         inputFormatters: <TextInputFormatter>[
           FilteringTextInputFormatter.allow(RegExp(r'[\da-zA-Z!@#$&*~]')),
         ],
-        onChanged: (value) {
-          setState(() {});
-        },
+        onChanged:widget.onChanged,
         decoration: InputDecoration(
           filled: true,
           hoverColor: const Color(0xFFFAFAFB),

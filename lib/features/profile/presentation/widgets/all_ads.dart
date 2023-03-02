@@ -1,5 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/features/car_single/presentation/car_single_screen.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/pagination/presentation/paginator.dart';
 import 'package:auto/features/profile/presentation/bloc/user_wishlists_notifications/user_wishlists_notification_bloc.dart';
 import 'package:auto/features/profile/presentation/widgets/empty_item_body.dart';
@@ -57,38 +59,49 @@ class _AllAdsState extends State<AllAds> {
                   itemBuilder: (context, index) {
                     final item = state.myAds[index];
                     return Padding(
-                      padding: EdgeInsets.only(
-                          bottom:  12 ,
-                          top: index == 0 ?  12  : 0),
-                      child: Container(
-                        padding: EdgeInsets.only(top:  12 ),
-                        color: white,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            MyAdImagesPart(item: item),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal:  16 ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  ModerationStatusPart(
-                                      moderationStatus: item.moderationStatus),
-                                  //
-                                  MyAdCarDescPart(item: item),
-                                  //
-                                  if (item.moderationStatus != 'blocked')
-                                    MyAdDesc(
-                                      moderationStatus: widget.moderationStatus,
-                                      item: item,
-                                    )
-                                  else
-                                    ReSendPart(item: item)
-                                ],
+                      padding:
+                          EdgeInsets.only(bottom: 12, top: index == 0 ? 12 : 0),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context)
+                              .push(fade(page: CarSingleScreen(id: item.id)));
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.only(top: 12),
+                          color: white,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              MyAdImagesPart(item: item),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ModerationStatusPart(
+                                        moderationStatus:
+                                            item.moderationStatus),
+                                    //
+                                    MyAdCarDescPart(item: item),
+                                    //
+                                    if (item.moderationStatus != 'blocked')
+                                      MyAdDesc(
+                                        moderationStatus:
+                                            widget.moderationStatus,
+                                        item: item,
+                                      )
+                                    else
+                                      ReSendPart(
+                                        item: item,
+                                        moderationStatus:
+                                            widget.moderationStatus,
+                                      )
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     );

@@ -2,18 +2,24 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/edit_ad/presentation/edit_ad_screen.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/profile/presentation/bloc/user_wishlists_notifications/user_wishlists_notification_bloc.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ReSendPart extends StatelessWidget {
   const ReSendPart({
     required this.item,
+    required this.moderationStatus,
     Key? key,
   }) : super(key: key);
 
   final AutoEntity item;
+  final String moderationStatus;
 
   @override
   // ignore: prefer_expression_function_bodies
@@ -41,7 +47,15 @@ class ReSendPart extends StatelessWidget {
         WButton(
           border: Border.all(color: yellowSea.withOpacity(0.48)),
           width: double.maxFinite,
-          onTap: () {},
+          onTap: () async {
+            final res = await Navigator.of(context, rootNavigator: true)
+                .push(fade(page: EditAdScreen(announcementId: item.id)));
+            if (res is bool && res) {
+              context
+                  .read<UserWishListsBloc>()
+                  .add(GetUserMyAdsEvent(moderationStatus: moderationStatus));
+            }
+          },
           color: yellowSea.withOpacity(0.08),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
