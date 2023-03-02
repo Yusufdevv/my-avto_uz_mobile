@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_catches_without_on_clauses
 
+import 'dart:developer';
+
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';

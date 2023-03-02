@@ -93,7 +93,6 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
     on<EditAdDamageEvent>(_damage);
     on<EditAdGetRegionsEvent>(_getRegions);
     on<EditAdGetDistritsEvent>(_getDistricts);
-    on<EditAdGetAnnouncementEvent>(_getAnnouncement);
     on<EditAdGetMinimumPriceEvent>(_getMinimumPrice);
     on<EditAdSendCodeEvent>(_sendCode);
     on<EditAdGetUserDataEvent>(_getUser);
@@ -104,6 +103,7 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
     on<EditAdShowToastEvent>(_showToast);
     on<EditAdOnRentWithPurchaseEvent>(_onRentWithPurchaseConditionChanged);
     on<EditAdGetEquipments>(_getEquipments);
+    on<EditAdGetAnnouncementEvent>(_getAnnouncement);
   }
 
   FutureOr<void> _onRentWithPurchaseConditionChanged(
@@ -236,6 +236,7 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
         getAnnouncementToEditStatus: FormzStatus.submissionInProgress));
     final result = await announcementUseCase.call(event.id);
     if (result.isRight) {
+
       final stateForEdit = await EASingleton.stateForEdit(result.right);
       emit(stateForEdit);
     } else {
@@ -324,8 +325,8 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
   }
 
   void _choose(EditAdChooseEvent event, Emitter<EditAdState> emit) {
-    if (event.regionId != null) {
-      add(EditAdGetDistritsEvent(regionId: event.regionId));
+    if (event.region != null) {
+      add(EditAdGetDistritsEvent(regionId: event.region!.id ));
     }
     if (event.currency != null) {
       add(EditAdGetMinimumPriceEvent());

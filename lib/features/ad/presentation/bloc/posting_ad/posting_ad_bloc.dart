@@ -375,6 +375,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     emit(state.copyWith(getDistrictsStatus: FormzStatus.submissionInProgress));
     final result = await districtUseCase.call(event.regionId);
     if (result.isRight) {
+      log('::::::::::  ${result.right.results}  ::::::::::');
       emit(
         state.copyWith(
           getDistrictsStatus: FormzStatus.submissionSuccess,
