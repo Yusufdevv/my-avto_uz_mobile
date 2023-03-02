@@ -102,6 +102,9 @@ class _EditAdScreenState extends State<EditAdScreen>
                 providers: [BlocProvider(create: (c) => editAdBloc)],
                 child: BlocConsumer<EditAdBloc, EditAdState>(
                     listener: (context, state) async {
+                      if(state.region !=null&&state.districts.isEmpty){
+                        editAdBloc.add(EditAdGetDistritsEvent(regionId:state.region!.id ));
+                      }
                   if (state.createStatus == FormzStatus.submissionSuccess) {
                     FocusScope.of(context).unfocus();
                     context.read<ShowPopUpBloc>().add(

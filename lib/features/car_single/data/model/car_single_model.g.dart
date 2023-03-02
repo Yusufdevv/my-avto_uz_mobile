@@ -104,6 +104,14 @@ CarSingleModel _$CarSingleModelFromJson(Map<String, dynamic> json) =>
                   .fromJson(e as Map<String, dynamic>?))
               .toList() ??
           const <RentWithPurchaseEntity>[],
+      region: json['region'] == null
+          ? const RegionEntity()
+          : const RegionConverter()
+              .fromJson(json['region'] as Map<String, dynamic>?),
+      district: json['district'] == null
+          ? const DistrictEntity()
+          : const DistrictConverter()
+              .fromJson(json['district'] as Map<String, dynamic>?),
     );
 
 Map<String, dynamic> _$CarSingleModelToJson(CarSingleModel instance) =>
@@ -169,4 +177,6 @@ Map<String, dynamic> _$CarSingleModelToJson(CarSingleModel instance) =>
       'rent_with_purchase': instance.rentWithPurchase
           .map(const RentWithPurchaseEntityConverter().toJson)
           .toList(),
+      'region': const RegionConverter().toJson(instance.region),
+      'district': const DistrictConverter().toJson(instance.district),
     };

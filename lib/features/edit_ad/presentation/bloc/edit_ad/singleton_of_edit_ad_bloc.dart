@@ -27,8 +27,8 @@ class EASingleton {
       'contact_name': v.ownerName,
       'contact_email': v.ownerEmail,
       'contact_phone': v.ownerPhone,
-      'region': v.regionId,
-      'district': v.districtId,
+      'region': v.region,
+      'district': v.district,
       'location_url': v.locationUrl,
       'price': v.price?.replaceAll(' ', ''),
       'currency': v.currency,
@@ -134,6 +134,8 @@ class EASingleton {
 
   static Future<EditAdState> stateForEdit(CarSingleEntity v) async {
     log('::::::::::  CAR SINGLE ENTITY latitude langitude:  ${v.latitude} / ${v.longitude}  ::::::::::');
+    log('::::::::::  CAR SINGLE ENTITY district and region: ${v.district} / ${v.region}  ::::::::::');
+    // DistrictModel(407, Ходжейлийский район, RegionEntity(-1, , )) / RegionModel(34, Республика Каракалпакстан, 1735)
     String? phone = '';
     try {
       phone = MyFunctions.phoneFormat(v.user.phoneNumber.substring(4));
@@ -155,8 +157,10 @@ class EASingleton {
           v.rentWithPurchase[i];
     }
 
-
     return EditAdState(
+      region:
+          Region(title: v.region.title, name: v.region.title, id: v.region.id),
+      district: v.district,
       showExactAddress: v.longitude > 0 && v.latitude > 0,
       getAnnouncementToEditStatus: FormzStatus.submissionSuccess,
       licenceType: v.licenceType,
@@ -248,11 +252,11 @@ class EASingleton {
         ownerName: event.ownerName,
         ownerPhone: event.ownerPhone,
         city: event.city,
-        regionId: event.regionId,
+        regionId: event.region,
         price: event.price,
         currency: event.currency,
         gasBalloonType: event.gasBalloonType,
-        districtId: event.districtId,
+        district: event.district,
         phoneController: event.phoneController,
         emailController: event.emailController,
         nameController: event.nameController,
@@ -351,7 +355,7 @@ class EASingleton {
         return !state.isContactsVerified;
 // InspectionPlaceScreen
       case 6:
-        return !(state.regionId != null || state.mapPointBytes != null);
+        return !(state.region != null || state.mapPointBytes != null);
 
       // PriceScreen
       case 7:

@@ -53,8 +53,8 @@ class EditAdDamageEvent extends EditAdEvent {
 class EditAdGetRegionsEvent extends EditAdEvent {}
 
 class EditAdGetDistritsEvent extends EditAdEvent {
-  final int? regionId;
-  EditAdGetDistritsEvent({this.regionId});
+  final int  regionId;
+  EditAdGetDistritsEvent({required this.regionId});
 }
 
 class EditAdCreateEvent extends EditAdEvent {
@@ -75,9 +75,9 @@ class EditAdChooseEvent extends EditAdEvent {
   final TextEditingController? searchController;
   final List<String>? gallery;
   final List<String>? panaramaGallery;
-  final int? regionId;
+  final Region? region;
   final List<YearsEntity>? years;
-  final int? districtId;
+  final DistrictEntity? district;
   final Map<DamagedParts, DamageType>? damagedParts;
   final ModificationTypeEntity? modification;
   final MakeEntity? model;
@@ -139,7 +139,7 @@ class EditAdChooseEvent extends EditAdEvent {
     this.isNew,
     this.gallery,
     this.showExactAddress,
-    this.districtId,
+    this.district,
     this.driveTypeId,
     this.generationEntity,
     this.bodyType,
@@ -159,7 +159,7 @@ class EditAdChooseEvent extends EditAdEvent {
     this.ownerName,
     this.ownerPhone,
     this.city,
-    this.regionId,
+    this.region,
     this.price,
     this.currency,
     this.mileage,

@@ -1,5 +1,7 @@
 // ignore_for_file: unused_import
 
+import 'dart:developer';
+
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
 
@@ -20,6 +22,7 @@ import 'package:formz/formz.dart';
 
 class InspectionPlaceScreen extends StatefulWidget {
   final VoidCallback onToMapPressed;
+
   const InspectionPlaceScreen({required this.onToMapPressed, Key? key})
       : super(key: key);
 
@@ -33,6 +36,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
   }
 
   late GlobalKey globalKey;
+
   @override
   void initState() {
     globalKey = GlobalKey();
@@ -52,7 +56,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                   children: [
                     // CHOOSE REGION
                     LoaderBox(
-                      isActive: state.regionId != null,
+                      isActive: state.region != null,
                       isLoading:
                           state.status == FormzStatus.submissionInProgress,
                       onTap: () async {
@@ -64,29 +68,29 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                           backgroundColor: Colors.transparent,
                           builder: (c) => RentChooseRegionBottomSheet(
                             isMultiChoice: false,
-                            checkedRegions: state.getSelectedRegion.id > -1
-                                ? {0: state.getSelectedRegion}
-                                : <int, Region>{},
+                            checkedRegions: state.region == null
+                                ? <int, Region>{}
+                                : {state.region!.id: state.region!},
                             list: state.regions,
                           ),
                         ).then((value) {
                           if (value != null && value.isNotEmpty) {
+                            log(':::::::::: SELECTED REGION ID:  ${value[0].id}  ::::::::::');
                             context
                                 .read<EditAdBloc>()
-                                .add(EditAdChooseEvent(regionId: value[0].id));
+                                .add(EditAdChooseEvent(region: value[0]));
                           }
                         });
                       },
-                      hintText: (state.getSelectedRegion.id == -1)
-                          ? LocaleKeys.choose_region.tr()
-                          : state.getSelectedRegion.title,
+                      hintText:
+                          state.region?.title ?? LocaleKeys.choose_region.tr(),
                       title: LocaleKeys.area.tr(),
                     ),
                     const SizedBox(height: 16),
 
                     // CHOOSE DISTRICT
                     LoaderBox(
-                      isActive: state.districtTitle != null,
+                      isActive: state.district != null,
                       isLoading: state.getDistrictsStatus ==
                           FormzStatus.submissionInProgress,
                       onTap: () async {
@@ -108,19 +112,19 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                           isScrollControlled: true,
                           backgroundColor: Colors.transparent,
                           builder: (c) => ChooseDistrictSheet(
-                            selectedId: state.districtId ?? -1,
+                            selectedId: state.district?.id ?? -1,
                             districts: state.districts,
                           ),
                         ).then((value) {
                           if (value != null) {
                             context.read<EditAdBloc>().add(EditAdChooseEvent(
-                                  districtId: value.id,
+                                  district: value,
                                 ));
                           }
                         });
                       },
                       hintText:
-                          state.districtTitle ?? LocaleKeys.choose_area.tr(),
+                          state.district?.title ?? LocaleKeys.choose_area.tr(),
                       title:
                           '${LocaleKeys.area.tr()} / ${LocaleKeys.city.tr().toLowerCase()}',
                     ),

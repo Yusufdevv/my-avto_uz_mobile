@@ -15,61 +15,61 @@ class PASingleton {
     /// these lines of code calculates changed options and option items
     log(':::::::::::   EQIPMENT FOR STATERTED    ::::::::::::::');
     log('::::::::::  ${v.equipmentOptionsList.length} in ${v.equipmentOptionsListPrev.length}  ::::::::::');
-    for (int i = 0; i < v.equipmentOptionsList.length; i++) {
-
-      log(':::::::::: options lenth: ${v.equipmentOptionsList[i].options.length}  ::::::::::');
-      for (int j = 0; j < v.equipmentOptionsList[i].options.length; j++) {
-        log(':::::::::::   id:  ${v.equipmentOptionsList[i].options[j].id}    ::::::::::::::');
-        log(':::::::::::   name:  ${v.equipmentOptionsList[i].options[j].name}    ::::::::::::::');
-        log(':::::::::::   type:  ${v.equipmentOptionsList[i].options[j].type}    ::::::::::::::');
-        log(':::::::::::   selected:  ${v.equipmentOptionsList[i].options[j].selected}    ::::::::::::::');
-        log(':::::::::::   category:  ${v.equipmentOptionsList[i].options[j].category}    ::::::::::::::');
-        log(':::::::::::   selectedInfo:  ${v.equipmentOptionsList[i].options[j].selectedInfoo}    ::::::::::::::');
-        if (v.equipmentOptionsList[i].options[j].selected !=
-            v.equipmentOptionsListPrev[i].options[j].selected) {
-          if (v.equipmentOptionsListPrev[i].options[j].selected) {
-            deleted = true;
-          } else {
-            radios.add(v.equipmentOptionsList[i].options[j].id.toString());
-          }
-        } else if (v.equipmentOptionsList[i].options[j].selected) {
-          radios.add(v.equipmentOptionsList[i].options[j].id.toString());
-        }
-        //{32: a} {23:45}
-        if (v.equipmentOptionsList[i].options[j].selectedInfoo.isNotEmpty !=
-            v.equipmentOptionsListPrev[i].options[j].selectedInfoo.isNotEmpty) {
-          if (v.equipmentOptionsList[i].options[j].selectedInfoo.isNotEmpty) {
-            selects.add(v
-                .equipmentOptionsList[i].options[j].selectedInfoo.keys.first
-                .toString());
-          } else {
-            deleted = true;
-          }
-        } else {
-          if (v.equipmentOptionsList[i].options[j].selectedInfoo.isNotEmpty) {
-            selects.add(v
-                .equipmentOptionsList[i].options[j].selectedInfoo.keys.first
-                .toString());
-            if (v.equipmentOptionsListPrev[i].options[j].selectedInfoo
-                .isNotEmpty) {
-              if (v.equipmentOptionsList[i].options[j].selectedInfoo.keys
-                      .first ==
-                  v.equipmentOptionsListPrev[i].options[j].selectedInfoo.keys
-                      .first) {
-              } else {
-                deleted = true;
-              }
-            }
-          } else {
-            if (v.equipmentOptionsListPrev[i].options[j].selectedInfoo
-                .isNotEmpty) {
-              deleted = true;
-            }
-          }
-        }
-
-      }
-    }
+    // for (int i = 0; i < v.equipmentOptionsList.length; i++) {
+    //
+    //   log(':::::::::: options lenth: ${v.equipmentOptionsList[i].options.length}  ::::::::::');
+    //   for (int j = 0; j < v.equipmentOptionsList[i].options.length; j++) {
+    //     log(':::::::::::   id:  ${v.equipmentOptionsList[i].options[j].id}    ::::::::::::::');
+    //     log(':::::::::::   name:  ${v.equipmentOptionsList[i].options[j].name}    ::::::::::::::');
+    //     log(':::::::::::   type:  ${v.equipmentOptionsList[i].options[j].type}    ::::::::::::::');
+    //     log(':::::::::::   selected:  ${v.equipmentOptionsList[i].options[j].selected}    ::::::::::::::');
+    //     log(':::::::::::   category:  ${v.equipmentOptionsList[i].options[j].category}    ::::::::::::::');
+    //     log(':::::::::::   selectedInfo:  ${v.equipmentOptionsList[i].options[j].selectedInfoo}    ::::::::::::::');
+    //     if (v.equipmentOptionsList[i].options[j].selected !=
+    //         v.equipmentOptionsListPrev[i].options[j].selected) {
+    //       if (v.equipmentOptionsListPrev[i].options[j].selected) {
+    //         deleted = true;
+    //       } else {
+    //         radios.add(v.equipmentOptionsList[i].options[j].id.toString());
+    //       }
+    //     } else if (v.equipmentOptionsList[i].options[j].selected) {
+    //       radios.add(v.equipmentOptionsList[i].options[j].id.toString());
+    //     }
+    //     //{32: a} {23:45}
+    //     if (v.equipmentOptionsList[i].options[j].selectedInfoo.isNotEmpty !=
+    //         v.equipmentOptionsListPrev[i].options[j].selectedInfoo.isNotEmpty) {
+    //       if (v.equipmentOptionsList[i].options[j].selectedInfoo.isNotEmpty) {
+    //         selects.add(v
+    //             .equipmentOptionsList[i].options[j].selectedInfoo.keys.first
+    //             .toString());
+    //       } else {
+    //         deleted = true;
+    //       }
+    //     } else {
+    //       if (v.equipmentOptionsList[i].options[j].selectedInfoo.isNotEmpty) {
+    //         selects.add(v
+    //             .equipmentOptionsList[i].options[j].selectedInfoo.keys.first
+    //             .toString());
+    //         if (v.equipmentOptionsListPrev[i].options[j].selectedInfoo
+    //             .isNotEmpty) {
+    //           if (v.equipmentOptionsList[i].options[j].selectedInfoo.keys
+    //                   .first ==
+    //               v.equipmentOptionsListPrev[i].options[j].selectedInfoo.keys
+    //                   .first) {
+    //           } else {
+    //             deleted = true;
+    //           }
+    //         }
+    //       } else {
+    //         if (v.equipmentOptionsListPrev[i].options[j].selectedInfoo
+    //             .isNotEmpty) {
+    //           deleted = true;
+    //         }
+    //       }
+    //     }
+    //
+    //   }
+    // }
 
     log(':::::::::::   EQIPMENT FOR COMPLETED    ::::::::::::::');
     // ignore: prefer_final_locals
