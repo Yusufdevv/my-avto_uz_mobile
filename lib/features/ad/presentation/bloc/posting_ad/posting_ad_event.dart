@@ -64,6 +64,12 @@ class PostingAdGetDistritsEvent extends PostingAdEvent {
   PostingAdGetDistritsEvent({this.regionId});
 }
 
+class PostingAdEmptySelectedOptions extends PostingAdEvent {
+  final EquipmentEntity? equipment;
+
+  PostingAdEmptySelectedOptions({required this.equipment});
+}
+
 class PostingAdCreateEvent extends PostingAdEvent {}
 
 class PostingAdBodyTypesEvent extends PostingAdEvent {}
@@ -166,12 +172,14 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final bool? isWithoutMileage;
   final bool? showExactAddress;
   final bool? isNew;
+  final bool? isEquipmentToNull;
   final int? gasEquipmentId;
   final EquipmentEntity? equipment;
   final FormzStatus? getModificationStatus;
   final FormzStatus? createStatus;
 
   PostingAdChooseEvent({
+    this.isEquipmentToNull,
     this.createStatus,
     this.modification,
     this.searchController,
@@ -246,17 +254,9 @@ class PostingAdGetEquipmentOptionsList extends PostingAdEvent {
   PostingAdGetEquipmentOptionsList();
 }
 
-class PostingAdGetEquipmentOption extends PostingAdEvent {
-  final String where;
 
-  final int? equipmentId;
-
-  PostingAdGetEquipmentOption(this.equipmentId, this.where);
-}
 
 class PostingAdChangeOption extends PostingAdEvent {
-
-
   final String type;
   final int id;
   final String itemName;
@@ -264,7 +264,6 @@ class PostingAdChangeOption extends PostingAdEvent {
   final SO? selectOption;
 
   PostingAdChangeOption({
-
     required this.type,
     required this.id,
     required this.itemName,

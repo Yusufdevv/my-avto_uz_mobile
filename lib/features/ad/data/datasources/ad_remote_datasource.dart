@@ -799,6 +799,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
               'Authorization': 'Bearer ${StorageRepository.getString('token')}',
             },
           ));
+      log(':::::::::: GOTTEN EQUIPMENTS: ${result.data}  ::::::::::');
       return GenericPagination.fromJson(result.data,
           (json) => EquipmentModel.fromJson(json as Map<String, dynamic>));
     } catch (e) {
@@ -852,6 +853,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
               'Authorization': 'Bearer ${StorageRepository.getString('token')}',
             },
           ));
+      log(':::::::::: GOTTEN EQUIPMETN OPTIONS:  ${result.data}  ::::::::::');
       return GenericPagination.fromJson(
           result.data,
           (json) =>

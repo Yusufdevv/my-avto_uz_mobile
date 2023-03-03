@@ -46,6 +46,8 @@ class PostingAdState extends Equatable {
   final Map<DamagedParts, DamageType> damagedParts;
   final Map<int, SO> selectOptions;
   final Map<int, String> radioOptions;
+  final Map<int, SO> additionalSelects;
+  final Map<int, String> additionalRadios;
   final UserModel? userModel;
   final Uint8List? mapPointBytes;
   final num minimumPrice;
@@ -96,6 +98,8 @@ class PostingAdState extends Equatable {
     required this.popStatus,
     this.radioOptions = const <int, String>{},
     this.selectOptions = const <int, SO>{},
+    this.additionalRadios = const <int, String>{},
+    this.additionalSelects = const <int, SO>{},
     this.id,
     this.makeLetterIndex,
     this.minimumPrice = 0,
@@ -183,6 +187,8 @@ class PostingAdState extends Equatable {
     TextEditingController? searchController,
     Map<int, SO>? selectOptions,
     Map<int, String>? radioOptions,
+    Map<int, SO>? additionalSelects,
+    Map<int, String>? additionalRadios,
     Map<DamagedParts, DamageType>? damagedParts,
     Map<int, RentWithPurchaseEntity>? rentWithPurchaseConditions,
     int? districtId,
@@ -256,8 +262,11 @@ class PostingAdState extends Equatable {
     EquipmentEntity? equipment,
     List<EquipmentOptionsListEntity>? equipmentOptionsList,
     List<EquipmentOptionsEntity>? equipmentOptions,
+    bool isEquipmentToNull = false,
   }) =>
       PostingAdState(
+        additionalRadios: additionalRadios ?? this.additionalRadios,
+        additionalSelects: additionalSelects ?? this.additionalSelects,
         selectOptions: selectOptions ?? this.selectOptions,
         radioOptions: radioOptions ?? this.radioOptions,
         contactsFormKey: contactsFormKey ?? this.contactsFormKey,
@@ -333,7 +342,7 @@ class PostingAdState extends Equatable {
         gasEquipments: gasEquipments ?? this.gasEquipments,
         gasEquipmentId: gasEquipmentId ?? this.gasEquipmentId,
         equipments: equipments ?? this.equipments,
-        equipment: equipment ?? this.equipment,
+        equipment: isEquipmentToNull ? null : equipment ?? this.equipment,
         equipmentOptionsList: equipmentOptionsList ?? this.equipmentOptionsList,
         equipmentOptions: equipmentOptions ?? this.equipmentOptions,
         getModificationStatus:
@@ -342,6 +351,8 @@ class PostingAdState extends Equatable {
 
   @override
   List<Object?> get props => [
+        additionalRadios,
+        additionalSelects,
         selectOptions,
         radioOptions,
         contactsFormKey,
@@ -419,14 +430,13 @@ class PostingAdState extends Equatable {
         getModificationStatus,
       ];
 
-  bool isOptionSelected(
-      {required String type, required int id }) {
-     if (type == 'select') {
+  bool isOptionSelected({required String type, required int id}) {
+    if (type == 'select') {
       final v = selectOptions.containsKey(id);
-    return v;
+      return v;
     }
     final v = radioOptions.containsKey(id);
-   return v;
+    return v;
   }
 
   bool buttonStatus(int page) => PASingleton.nextButtonIsDisabled(page, this);
@@ -441,14 +451,12 @@ class PostingAdState extends Equatable {
   }
 }
 
-class SO extends Equatable{
+class SO extends Equatable {
   final int id;
   final String optionName;
-const   SO({required this.id,required this.optionName});
+
+  const SO({required this.id, required this.optionName});
 
   @override
-  List<Object?> get props =>[id,
-    optionName];
-
-
+  List<Object?> get props => [id, optionName];
 }
