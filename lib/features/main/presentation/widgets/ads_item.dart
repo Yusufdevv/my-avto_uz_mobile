@@ -119,7 +119,7 @@ class AdsItem extends StatelessWidget {
                     .extension<ThemedColors>()
                     ?.solitudeToWhite35),
             Padding(
-              padding: const EdgeInsets.only(right: 12, left: 16),
+              padding: const EdgeInsets.only(right: 12, left: 16, top: 10, bottom: 10),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
