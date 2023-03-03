@@ -47,9 +47,11 @@ class EquipmentScreen extends StatelessWidget {
                       itemBuilder: (context, index) => PostingRadioItem(
                         onTap: () => context.read<PostingAdBloc>().add(
                               PostingAdChooseEvent(
+                                isEquipmentToNull:
+                                    !(index < state.equipments.length),
                                 equipment: index < state.equipments.length
                                     ? state.equipments[index]
-                                    : const EquipmentEntity(),
+                                    : null,
                               ),
                             ),
                         title: index < state.equipments.length
@@ -57,7 +59,7 @@ class EquipmentScreen extends StatelessWidget {
                             : LocaleKeys.other1.tr(),
                         selected: index < state.equipments.length
                             ? state.equipment?.id == state.equipments[index].id
-                            : state.equipment?.id == -1,
+                            : state.equipment == null,
                         image: '',
                       ),
                       itemCount: state.equipments.length + 1,
