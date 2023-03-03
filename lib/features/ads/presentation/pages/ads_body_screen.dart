@@ -82,7 +82,7 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                             avatarPicture:
                                 state.announcementList[index].user.avatar,
                             carModel:
-                                '${state.announcementList[index].make} ${state.announcementList[index].model} ${state.announcementList[index].generation}',
+                                '${state.announcementList[index].make} ${state.announcementList[index].model} ${state.announcementList[index].generation.name}',
                             hasDiscount:
                                 state.announcementList[index].discount != 0,
                             location:

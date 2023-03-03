@@ -5,14 +5,14 @@ import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/car_single/data/model/car_single_model.dart';
-import 'package:auto/features/car_single/data/model/elastic_search_model.dart';
+import 'package:auto/features/common/domain/model/auto_model.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:dio/dio.dart';
 
 abstract class CarSingleDataSource {
   Future<CarSingleModel> getCarSingle({required int id});
 
-  Future<GenericPagination<ElasticSearchModel>> getOtherAds({required int id});
+  Future<GenericPagination<AutoModel>> getOtherAds({required Map<String, dynamic> params});
 
   Future<CarSingleModel> payInvoice();
 
@@ -33,8 +33,6 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
           'Authorization': 'Bearer ${StorageRepository.getString('token')}'
         }),
       );
-      log(':::::::::: RESPONSE OF GOTTEN ANNOUNCEMENT FOR EDIT: ${response.data}  ::::::::::');
-      log(':::::::::::   Seperator  Seperator  Seperator  Seperator  Seperator  Seperator  Seperator  Seperator  Seperator  Seperator   ::::::::::::::');
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
@@ -55,11 +53,11 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
   }
 
   @override
-  Future<GenericPagination<ElasticSearchModel>> getOtherAds(
-      {required int id}) async {
+  Future<GenericPagination<AutoModel>> getOtherAds(
+      {required Map<String , dynamic> params}) async {
     try {
       final response = await _dio.get('/es/AnnouncementElasticSearch/',
-          queryParameters: {'car_model': id},
+          queryParameters: params,
           options: Options(headers: {
             'Authorization': 'Token ${StorageRepository.getString('token')}'
           }));
@@ -67,7 +65,7 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
         return GenericPagination.fromJson(response.data,
-            (p0) => ElasticSearchModel.fromJson(p0 as Map<String, dynamic>));
+            (p0) => AutoModel.fromJson(p0 as Map<String, dynamic>));
       } else if (response.data is Map) {
         throw ServerException(
             statusCode: response.statusCode!,

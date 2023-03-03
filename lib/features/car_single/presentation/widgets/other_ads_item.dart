@@ -24,9 +24,6 @@ class OtherAdsItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
         height: 400,
-        padding: const EdgeInsets.only(
-          bottom: 20,
-        ),
         decoration: BoxDecoration(
             color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
             border: Border.all(color: border)),

@@ -9,7 +9,7 @@ class CarSingleState with _$CarSingleState {
     @Default('') String succMessage,
     @Default('') String errorMessage,
     @Default(CarSingleEntity()) CarSingleEntity singleEntity,
-    @Default([]) List<ElasticSearchEntity> elasticSearchEntity,
+    @Default([]) List<AutoEntity> elasticSearchEntity,
     @Default(false) fetchMore,
   }) = _CarSingleState;
 }

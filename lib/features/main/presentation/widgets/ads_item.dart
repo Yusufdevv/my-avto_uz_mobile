@@ -99,15 +99,17 @@ class AdsItem extends StatelessWidget {
                       ?.copyWith(fontSize: 16, fontWeight: FontWeight.w700)),
             ),
             const SizedBox(height: 8),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(description.isNotEmpty ? description : ' \n ',
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: Theme.of(context)
-                          .extension<ThemedColors>()
-                          ?.greySuitToWhite60)),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Text(description.isNotEmpty ? description : ' \n ',
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()
+                            ?.greySuitToWhite60)),
+              ),
             ),
             const SizedBox(height: 10),
             Container(
@@ -116,56 +118,54 @@ class AdsItem extends StatelessWidget {
                 color: Theme.of(context)
                     .extension<ThemedColors>()
                     ?.solitudeToWhite35),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(right: 12, left: 16),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SvgPicture.asset(AppIcons.location),
-                    const SizedBox(width: 4),
-                    Expanded(
-                      child: Text(location,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleLarge
-                              ?.copyWith(
-                                  fontSize: 12,
-                                  color: Theme.of(context)
-                                      .extension<ThemedColors>()
-                                      ?.dolphinToGreySuit)),
-                    ),
-                    BlocConsumer<WishlistAddBloc, WishlistAddState>(
-                      listener: (context, state) {},
-                      builder: (context, state) {
-                        final isliked = state.map[id] ?? isLiked;
-                        return AddWishlistItem(
-                          onTap: () {
-                            if (!isliked) {
-                              context
-                                  .read<WishlistAddBloc>()
-                                  .add(WishlistAddEvent.addWishlist(id, 0));
-                              context.read<WishlistAddBloc>().add(
-                                  WishlistAddEvent.addToMapFavorites(
-                                      id: id, value: true));
-                            } else {
-                              context
-                                  .read<WishlistAddBloc>()
-                                  .add(WishlistAddEvent.removeWishlist(id, 0));
-                              context.read<WishlistAddBloc>().add(
-                                  WishlistAddEvent.addToMapFavorites(
-                                      id: id, value: false));
-                            }
-                          },
-                          initialLike: isliked,
-                        );
-                      },
-                    ),
-                  ],
-                ),
+            Padding(
+              padding: const EdgeInsets.only(right: 12, left: 16),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SvgPicture.asset(AppIcons.location),
+                  const SizedBox(width: 4),
+                  Expanded(
+                    child: Text(location,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleLarge
+                            ?.copyWith(
+                                fontSize: 12,
+                                color: Theme.of(context)
+                                    .extension<ThemedColors>()
+                                    ?.dolphinToGreySuit)),
+                  ),
+                  BlocConsumer<WishlistAddBloc, WishlistAddState>(
+                    listener: (context, state) {},
+                    builder: (context, state) {
+                      final isliked = state.map[id] ?? isLiked;
+                      return AddWishlistItem(
+                        onTap: () {
+                          if (!isliked) {
+                            context
+                                .read<WishlistAddBloc>()
+                                .add(WishlistAddEvent.addWishlist(id, 0));
+                            context.read<WishlistAddBloc>().add(
+                                WishlistAddEvent.addToMapFavorites(
+                                    id: id, value: true));
+                          } else {
+                            context
+                                .read<WishlistAddBloc>()
+                                .add(WishlistAddEvent.removeWishlist(id, 0));
+                            context.read<WishlistAddBloc>().add(
+                                WishlistAddEvent.addToMapFavorites(
+                                    id: id, value: false));
+                          }
+                        },
+                        initialLike: isliked,
+                      );
+                    },
+                  ),
+                ],
               ),
             )
           ],

@@ -16,11 +16,11 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CarSingleEvent {
-  int get id => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int id) getSingle,
-    required TResult Function(int id) getOtherAds,
+    required TResult Function(String makeModel) getOtherAds,
+    required TResult Function(String makeModel) getMoreOtherAds,
     required TResult Function(int id, dynamic Function(String) onSucc,
             dynamic Function(String) onError)
         soldAds,
@@ -30,7 +30,8 @@ mixin _$CarSingleEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int id)? getSingle,
-    TResult? Function(int id)? getOtherAds,
+    TResult? Function(String makeModel)? getOtherAds,
+    TResult? Function(String makeModel)? getMoreOtherAds,
     TResult? Function(int id, dynamic Function(String) onSucc,
             dynamic Function(String) onError)?
         soldAds,
@@ -40,7 +41,8 @@ mixin _$CarSingleEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int id)? getSingle,
-    TResult Function(int id)? getOtherAds,
+    TResult Function(String makeModel)? getOtherAds,
+    TResult Function(String makeModel)? getMoreOtherAds,
     TResult Function(int id, dynamic Function(String) onSucc,
             dynamic Function(String) onError)?
         soldAds,
@@ -52,6 +54,7 @@ mixin _$CarSingleEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetSingle value) getSingle,
     required TResult Function(_GetAds value) getOtherAds,
+    required TResult Function(_GetMoreAds value) getMoreOtherAds,
     required TResult Function(_SoldAds value) soldAds,
     required TResult Function(_CallCount value) callCount,
   }) =>
@@ -60,6 +63,7 @@ mixin _$CarSingleEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetSingle value)? getSingle,
     TResult? Function(_GetAds value)? getOtherAds,
+    TResult? Function(_GetMoreAds value)? getMoreOtherAds,
     TResult? Function(_SoldAds value)? soldAds,
     TResult? Function(_CallCount value)? callCount,
   }) =>
@@ -68,14 +72,11 @@ mixin _$CarSingleEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetSingle value)? getSingle,
     TResult Function(_GetAds value)? getOtherAds,
+    TResult Function(_GetMoreAds value)? getMoreOtherAds,
     TResult Function(_SoldAds value)? soldAds,
     TResult Function(_CallCount value)? callCount,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $CarSingleEventCopyWith<CarSingleEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -84,8 +85,6 @@ abstract class $CarSingleEventCopyWith<$Res> {
   factory $CarSingleEventCopyWith(
           CarSingleEvent value, $Res Function(CarSingleEvent) then) =
       _$CarSingleEventCopyWithImpl<$Res, CarSingleEvent>;
-  @useResult
-  $Res call({int id});
 }
 
 /// @nodoc
@@ -97,28 +96,13 @@ class _$CarSingleEventCopyWithImpl<$Res, $Val extends CarSingleEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-  }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$_GetSingleCopyWith<$Res>
-    implements $CarSingleEventCopyWith<$Res> {
+abstract class _$$_GetSingleCopyWith<$Res> {
   factory _$$_GetSingleCopyWith(
           _$_GetSingle value, $Res Function(_$_GetSingle) then) =
       __$$_GetSingleCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({int id});
 }
@@ -179,7 +163,8 @@ class _$_GetSingle implements _GetSingle {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int id) getSingle,
-    required TResult Function(int id) getOtherAds,
+    required TResult Function(String makeModel) getOtherAds,
+    required TResult Function(String makeModel) getMoreOtherAds,
     required TResult Function(int id, dynamic Function(String) onSucc,
             dynamic Function(String) onError)
         soldAds,
@@ -192,7 +177,8 @@ class _$_GetSingle implements _GetSingle {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int id)? getSingle,
-    TResult? Function(int id)? getOtherAds,
+    TResult? Function(String makeModel)? getOtherAds,
+    TResult? Function(String makeModel)? getMoreOtherAds,
     TResult? Function(int id, dynamic Function(String) onSucc,
             dynamic Function(String) onError)?
         soldAds,
@@ -205,7 +191,8 @@ class _$_GetSingle implements _GetSingle {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int id)? getSingle,
-    TResult Function(int id)? getOtherAds,
+    TResult Function(String makeModel)? getOtherAds,
+    TResult Function(String makeModel)? getMoreOtherAds,
     TResult Function(int id, dynamic Function(String) onSucc,
             dynamic Function(String) onError)?
         soldAds,
@@ -223,6 +210,7 @@ class _$_GetSingle implements _GetSingle {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetSingle value) getSingle,
     required TResult Function(_GetAds value) getOtherAds,
+    required TResult Function(_GetMoreAds value) getMoreOtherAds,
     required TResult Function(_SoldAds value) soldAds,
     required TResult Function(_CallCount value) callCount,
   }) {
@@ -234,6 +222,7 @@ class _$_GetSingle implements _GetSingle {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetSingle value)? getSingle,
     TResult? Function(_GetAds value)? getOtherAds,
+    TResult? Function(_GetMoreAds value)? getMoreOtherAds,
     TResult? Function(_SoldAds value)? soldAds,
     TResult? Function(_CallCount value)? callCount,
   }) {
@@ -245,6 +234,7 @@ class _$_GetSingle implements _GetSingle {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetSingle value)? getSingle,
     TResult Function(_GetAds value)? getOtherAds,
+    TResult Function(_GetMoreAds value)? getMoreOtherAds,
     TResult Function(_SoldAds value)? soldAds,
     TResult Function(_CallCount value)? callCount,
     required TResult orElse(),
@@ -259,22 +249,18 @@ class _$_GetSingle implements _GetSingle {
 abstract class _GetSingle implements CarSingleEvent {
   factory _GetSingle(final int id) = _$_GetSingle;
 
-  @override
   int get id;
-  @override
   @JsonKey(ignore: true)
   _$$_GetSingleCopyWith<_$_GetSingle> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_GetAdsCopyWith<$Res>
-    implements $CarSingleEventCopyWith<$Res> {
+abstract class _$$_GetAdsCopyWith<$Res> {
   factory _$$_GetAdsCopyWith(_$_GetAds value, $Res Function(_$_GetAds) then) =
       __$$_GetAdsCopyWithImpl<$Res>;
-  @override
   @useResult
-  $Res call({int id});
+  $Res call({String makeModel});
 }
 
 /// @nodoc
@@ -287,13 +273,13 @@ class __$$_GetAdsCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? makeModel = null,
   }) {
     return _then(_$_GetAds(
-      null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
+      null == makeModel
+          ? _value.makeModel
+          : makeModel // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -301,14 +287,14 @@ class __$$_GetAdsCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_GetAds implements _GetAds {
-  _$_GetAds(this.id);
+  _$_GetAds(this.makeModel);
 
   @override
-  final int id;
+  final String makeModel;
 
   @override
   String toString() {
-    return 'CarSingleEvent.getOtherAds(id: $id)';
+    return 'CarSingleEvent.getOtherAds(makeModel: $makeModel)';
   }
 
   @override
@@ -316,11 +302,12 @@ class _$_GetAds implements _GetAds {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_GetAds &&
-            (identical(other.id, id) || other.id == id));
+            (identical(other.makeModel, makeModel) ||
+                other.makeModel == makeModel));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id);
+  int get hashCode => Object.hash(runtimeType, makeModel);
 
   @JsonKey(ignore: true)
   @override
@@ -332,33 +319,36 @@ class _$_GetAds implements _GetAds {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int id) getSingle,
-    required TResult Function(int id) getOtherAds,
+    required TResult Function(String makeModel) getOtherAds,
+    required TResult Function(String makeModel) getMoreOtherAds,
     required TResult Function(int id, dynamic Function(String) onSucc,
             dynamic Function(String) onError)
         soldAds,
     required TResult Function(int id) callCount,
   }) {
-    return getOtherAds(id);
+    return getOtherAds(makeModel);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int id)? getSingle,
-    TResult? Function(int id)? getOtherAds,
+    TResult? Function(String makeModel)? getOtherAds,
+    TResult? Function(String makeModel)? getMoreOtherAds,
     TResult? Function(int id, dynamic Function(String) onSucc,
             dynamic Function(String) onError)?
         soldAds,
     TResult? Function(int id)? callCount,
   }) {
-    return getOtherAds?.call(id);
+    return getOtherAds?.call(makeModel);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int id)? getSingle,
-    TResult Function(int id)? getOtherAds,
+    TResult Function(String makeModel)? getOtherAds,
+    TResult Function(String makeModel)? getMoreOtherAds,
     TResult Function(int id, dynamic Function(String) onSucc,
             dynamic Function(String) onError)?
         soldAds,
@@ -366,7 +356,7 @@ class _$_GetAds implements _GetAds {
     required TResult orElse(),
   }) {
     if (getOtherAds != null) {
-      return getOtherAds(id);
+      return getOtherAds(makeModel);
     }
     return orElse();
   }
@@ -376,6 +366,7 @@ class _$_GetAds implements _GetAds {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetSingle value) getSingle,
     required TResult Function(_GetAds value) getOtherAds,
+    required TResult Function(_GetMoreAds value) getMoreOtherAds,
     required TResult Function(_SoldAds value) soldAds,
     required TResult Function(_CallCount value) callCount,
   }) {
@@ -387,6 +378,7 @@ class _$_GetAds implements _GetAds {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetSingle value)? getSingle,
     TResult? Function(_GetAds value)? getOtherAds,
+    TResult? Function(_GetMoreAds value)? getMoreOtherAds,
     TResult? Function(_SoldAds value)? soldAds,
     TResult? Function(_CallCount value)? callCount,
   }) {
@@ -398,6 +390,7 @@ class _$_GetAds implements _GetAds {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetSingle value)? getSingle,
     TResult Function(_GetAds value)? getOtherAds,
+    TResult Function(_GetMoreAds value)? getMoreOtherAds,
     TResult Function(_SoldAds value)? soldAds,
     TResult Function(_CallCount value)? callCount,
     required TResult orElse(),
@@ -410,23 +403,177 @@ class _$_GetAds implements _GetAds {
 }
 
 abstract class _GetAds implements CarSingleEvent {
-  factory _GetAds(final int id) = _$_GetAds;
+  factory _GetAds(final String makeModel) = _$_GetAds;
 
-  @override
-  int get id;
-  @override
+  String get makeModel;
   @JsonKey(ignore: true)
   _$$_GetAdsCopyWith<_$_GetAds> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_SoldAdsCopyWith<$Res>
-    implements $CarSingleEventCopyWith<$Res> {
+abstract class _$$_GetMoreAdsCopyWith<$Res> {
+  factory _$$_GetMoreAdsCopyWith(
+          _$_GetMoreAds value, $Res Function(_$_GetMoreAds) then) =
+      __$$_GetMoreAdsCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String makeModel});
+}
+
+/// @nodoc
+class __$$_GetMoreAdsCopyWithImpl<$Res>
+    extends _$CarSingleEventCopyWithImpl<$Res, _$_GetMoreAds>
+    implements _$$_GetMoreAdsCopyWith<$Res> {
+  __$$_GetMoreAdsCopyWithImpl(
+      _$_GetMoreAds _value, $Res Function(_$_GetMoreAds) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? makeModel = null,
+  }) {
+    return _then(_$_GetMoreAds(
+      null == makeModel
+          ? _value.makeModel
+          : makeModel // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_GetMoreAds implements _GetMoreAds {
+  _$_GetMoreAds(this.makeModel);
+
+  @override
+  final String makeModel;
+
+  @override
+  String toString() {
+    return 'CarSingleEvent.getMoreOtherAds(makeModel: $makeModel)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_GetMoreAds &&
+            (identical(other.makeModel, makeModel) ||
+                other.makeModel == makeModel));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, makeModel);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_GetMoreAdsCopyWith<_$_GetMoreAds> get copyWith =>
+      __$$_GetMoreAdsCopyWithImpl<_$_GetMoreAds>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int id) getSingle,
+    required TResult Function(String makeModel) getOtherAds,
+    required TResult Function(String makeModel) getMoreOtherAds,
+    required TResult Function(int id, dynamic Function(String) onSucc,
+            dynamic Function(String) onError)
+        soldAds,
+    required TResult Function(int id) callCount,
+  }) {
+    return getMoreOtherAds(makeModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int id)? getSingle,
+    TResult? Function(String makeModel)? getOtherAds,
+    TResult? Function(String makeModel)? getMoreOtherAds,
+    TResult? Function(int id, dynamic Function(String) onSucc,
+            dynamic Function(String) onError)?
+        soldAds,
+    TResult? Function(int id)? callCount,
+  }) {
+    return getMoreOtherAds?.call(makeModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int id)? getSingle,
+    TResult Function(String makeModel)? getOtherAds,
+    TResult Function(String makeModel)? getMoreOtherAds,
+    TResult Function(int id, dynamic Function(String) onSucc,
+            dynamic Function(String) onError)?
+        soldAds,
+    TResult Function(int id)? callCount,
+    required TResult orElse(),
+  }) {
+    if (getMoreOtherAds != null) {
+      return getMoreOtherAds(makeModel);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetSingle value) getSingle,
+    required TResult Function(_GetAds value) getOtherAds,
+    required TResult Function(_GetMoreAds value) getMoreOtherAds,
+    required TResult Function(_SoldAds value) soldAds,
+    required TResult Function(_CallCount value) callCount,
+  }) {
+    return getMoreOtherAds(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetSingle value)? getSingle,
+    TResult? Function(_GetAds value)? getOtherAds,
+    TResult? Function(_GetMoreAds value)? getMoreOtherAds,
+    TResult? Function(_SoldAds value)? soldAds,
+    TResult? Function(_CallCount value)? callCount,
+  }) {
+    return getMoreOtherAds?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetSingle value)? getSingle,
+    TResult Function(_GetAds value)? getOtherAds,
+    TResult Function(_GetMoreAds value)? getMoreOtherAds,
+    TResult Function(_SoldAds value)? soldAds,
+    TResult Function(_CallCount value)? callCount,
+    required TResult orElse(),
+  }) {
+    if (getMoreOtherAds != null) {
+      return getMoreOtherAds(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetMoreAds implements CarSingleEvent {
+  factory _GetMoreAds(final String makeModel) = _$_GetMoreAds;
+
+  String get makeModel;
+  @JsonKey(ignore: true)
+  _$$_GetMoreAdsCopyWith<_$_GetMoreAds> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_SoldAdsCopyWith<$Res> {
   factory _$$_SoldAdsCopyWith(
           _$_SoldAds value, $Res Function(_$_SoldAds) then) =
       __$$_SoldAdsCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call(
       {int id,
@@ -505,7 +652,8 @@ class _$_SoldAds implements _SoldAds {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int id) getSingle,
-    required TResult Function(int id) getOtherAds,
+    required TResult Function(String makeModel) getOtherAds,
+    required TResult Function(String makeModel) getMoreOtherAds,
     required TResult Function(int id, dynamic Function(String) onSucc,
             dynamic Function(String) onError)
         soldAds,
@@ -518,7 +666,8 @@ class _$_SoldAds implements _SoldAds {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int id)? getSingle,
-    TResult? Function(int id)? getOtherAds,
+    TResult? Function(String makeModel)? getOtherAds,
+    TResult? Function(String makeModel)? getMoreOtherAds,
     TResult? Function(int id, dynamic Function(String) onSucc,
             dynamic Function(String) onError)?
         soldAds,
@@ -531,7 +680,8 @@ class _$_SoldAds implements _SoldAds {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int id)? getSingle,
-    TResult Function(int id)? getOtherAds,
+    TResult Function(String makeModel)? getOtherAds,
+    TResult Function(String makeModel)? getMoreOtherAds,
     TResult Function(int id, dynamic Function(String) onSucc,
             dynamic Function(String) onError)?
         soldAds,
@@ -549,6 +699,7 @@ class _$_SoldAds implements _SoldAds {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetSingle value) getSingle,
     required TResult Function(_GetAds value) getOtherAds,
+    required TResult Function(_GetMoreAds value) getMoreOtherAds,
     required TResult Function(_SoldAds value) soldAds,
     required TResult Function(_CallCount value) callCount,
   }) {
@@ -560,6 +711,7 @@ class _$_SoldAds implements _SoldAds {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetSingle value)? getSingle,
     TResult? Function(_GetAds value)? getOtherAds,
+    TResult? Function(_GetMoreAds value)? getMoreOtherAds,
     TResult? Function(_SoldAds value)? soldAds,
     TResult? Function(_CallCount value)? callCount,
   }) {
@@ -571,6 +723,7 @@ class _$_SoldAds implements _SoldAds {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetSingle value)? getSingle,
     TResult Function(_GetAds value)? getOtherAds,
+    TResult Function(_GetMoreAds value)? getMoreOtherAds,
     TResult Function(_SoldAds value)? soldAds,
     TResult Function(_CallCount value)? callCount,
     required TResult orElse(),
@@ -586,23 +739,19 @@ abstract class _SoldAds implements CarSingleEvent {
   factory _SoldAds(final int id, final dynamic Function(String) onSucc,
       final dynamic Function(String) onError) = _$_SoldAds;
 
-  @override
   int get id;
   dynamic Function(String) get onSucc;
   dynamic Function(String) get onError;
-  @override
   @JsonKey(ignore: true)
   _$$_SoldAdsCopyWith<_$_SoldAds> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_CallCountCopyWith<$Res>
-    implements $CarSingleEventCopyWith<$Res> {
+abstract class _$$_CallCountCopyWith<$Res> {
   factory _$$_CallCountCopyWith(
           _$_CallCount value, $Res Function(_$_CallCount) then) =
       __$$_CallCountCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({int id});
 }
@@ -663,7 +812,8 @@ class _$_CallCount implements _CallCount {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int id) getSingle,
-    required TResult Function(int id) getOtherAds,
+    required TResult Function(String makeModel) getOtherAds,
+    required TResult Function(String makeModel) getMoreOtherAds,
     required TResult Function(int id, dynamic Function(String) onSucc,
             dynamic Function(String) onError)
         soldAds,
@@ -676,7 +826,8 @@ class _$_CallCount implements _CallCount {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int id)? getSingle,
-    TResult? Function(int id)? getOtherAds,
+    TResult? Function(String makeModel)? getOtherAds,
+    TResult? Function(String makeModel)? getMoreOtherAds,
     TResult? Function(int id, dynamic Function(String) onSucc,
             dynamic Function(String) onError)?
         soldAds,
@@ -689,7 +840,8 @@ class _$_CallCount implements _CallCount {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int id)? getSingle,
-    TResult Function(int id)? getOtherAds,
+    TResult Function(String makeModel)? getOtherAds,
+    TResult Function(String makeModel)? getMoreOtherAds,
     TResult Function(int id, dynamic Function(String) onSucc,
             dynamic Function(String) onError)?
         soldAds,
@@ -707,6 +859,7 @@ class _$_CallCount implements _CallCount {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetSingle value) getSingle,
     required TResult Function(_GetAds value) getOtherAds,
+    required TResult Function(_GetMoreAds value) getMoreOtherAds,
     required TResult Function(_SoldAds value) soldAds,
     required TResult Function(_CallCount value) callCount,
   }) {
@@ -718,6 +871,7 @@ class _$_CallCount implements _CallCount {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetSingle value)? getSingle,
     TResult? Function(_GetAds value)? getOtherAds,
+    TResult? Function(_GetMoreAds value)? getMoreOtherAds,
     TResult? Function(_SoldAds value)? soldAds,
     TResult? Function(_CallCount value)? callCount,
   }) {
@@ -729,6 +883,7 @@ class _$_CallCount implements _CallCount {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetSingle value)? getSingle,
     TResult Function(_GetAds value)? getOtherAds,
+    TResult Function(_GetMoreAds value)? getMoreOtherAds,
     TResult Function(_SoldAds value)? soldAds,
     TResult Function(_CallCount value)? callCount,
     required TResult orElse(),
@@ -743,9 +898,7 @@ class _$_CallCount implements _CallCount {
 abstract class _CallCount implements CarSingleEvent {
   factory _CallCount(final int id) = _$_CallCount;
 
-  @override
   int get id;
-  @override
   @JsonKey(ignore: true)
   _$$_CallCountCopyWith<_$_CallCount> get copyWith =>
       throw _privateConstructorUsedError;
@@ -759,7 +912,7 @@ mixin _$CarSingleState {
   String get succMessage => throw _privateConstructorUsedError;
   String get errorMessage => throw _privateConstructorUsedError;
   CarSingleEntity get singleEntity => throw _privateConstructorUsedError;
-  List<ElasticSearchEntity> get elasticSearchEntity =>
+  List<AutoEntity> get elasticSearchEntity =>
       throw _privateConstructorUsedError;
   dynamic get fetchMore => throw _privateConstructorUsedError;
 
@@ -781,7 +934,7 @@ abstract class $CarSingleStateCopyWith<$Res> {
       String succMessage,
       String errorMessage,
       CarSingleEntity singleEntity,
-      List<ElasticSearchEntity> elasticSearchEntity,
+      List<AutoEntity> elasticSearchEntity,
       dynamic fetchMore});
 }
 
@@ -835,7 +988,7 @@ class _$CarSingleStateCopyWithImpl<$Res, $Val extends CarSingleState>
       elasticSearchEntity: null == elasticSearchEntity
           ? _value.elasticSearchEntity
           : elasticSearchEntity // ignore: cast_nullable_to_non_nullable
-              as List<ElasticSearchEntity>,
+              as List<AutoEntity>,
       fetchMore: freezed == fetchMore
           ? _value.fetchMore
           : fetchMore // ignore: cast_nullable_to_non_nullable
@@ -859,7 +1012,7 @@ abstract class _$$_CarSingleStateCopyWith<$Res>
       String succMessage,
       String errorMessage,
       CarSingleEntity singleEntity,
-      List<ElasticSearchEntity> elasticSearchEntity,
+      List<AutoEntity> elasticSearchEntity,
       dynamic fetchMore});
 }
 
@@ -911,7 +1064,7 @@ class __$$_CarSingleStateCopyWithImpl<$Res>
       elasticSearchEntity: null == elasticSearchEntity
           ? _value._elasticSearchEntity
           : elasticSearchEntity // ignore: cast_nullable_to_non_nullable
-              as List<ElasticSearchEntity>,
+              as List<AutoEntity>,
       fetchMore: freezed == fetchMore ? _value.fetchMore! : fetchMore,
     ));
   }
@@ -927,7 +1080,7 @@ class _$_CarSingleState implements _CarSingleState {
       this.succMessage = '',
       this.errorMessage = '',
       this.singleEntity = const CarSingleEntity(),
-      final List<ElasticSearchEntity> elasticSearchEntity = const [],
+      final List<AutoEntity> elasticSearchEntity = const [],
       this.fetchMore = false})
       : _elasticSearchEntity = elasticSearchEntity;
 
@@ -949,10 +1102,10 @@ class _$_CarSingleState implements _CarSingleState {
   @override
   @JsonKey()
   final CarSingleEntity singleEntity;
-  final List<ElasticSearchEntity> _elasticSearchEntity;
+  final List<AutoEntity> _elasticSearchEntity;
   @override
   @JsonKey()
-  List<ElasticSearchEntity> get elasticSearchEntity {
+  List<AutoEntity> get elasticSearchEntity {
     if (_elasticSearchEntity is EqualUnmodifiableListView)
       return _elasticSearchEntity;
     // ignore: implicit_dynamic_type
@@ -1016,7 +1169,7 @@ abstract class _CarSingleState implements CarSingleState {
       final String succMessage,
       final String errorMessage,
       final CarSingleEntity singleEntity,
-      final List<ElasticSearchEntity> elasticSearchEntity,
+      final List<AutoEntity> elasticSearchEntity,
       final dynamic fetchMore}) = _$_CarSingleState;
 
   @override
@@ -1032,7 +1185,7 @@ abstract class _CarSingleState implements CarSingleState {
   @override
   CarSingleEntity get singleEntity;
   @override
-  List<ElasticSearchEntity> get elasticSearchEntity;
+  List<AutoEntity> get elasticSearchEntity;
   @override
   dynamic get fetchMore;
   @override
