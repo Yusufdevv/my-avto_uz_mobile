@@ -1,32 +1,27 @@
 import 'package:auto/features/ad/data/models/equipment/equipment_option_model.dart';
-import 'package:auto/features/ad/domain/entities/equipment/equipment_category_entity.dart';
+import 'package:auto/features/ad/domain/entities/equipment/id_name_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 class EquipmentOptionEntity extends Equatable {
   final int id;
   final String name;
-  @EquipmentCategoryConverter()
-  final EquipmentCategoryEntity category;
+  @IdNameConverter()
+  final IdNameEntity category;
   final String type;
-  @EquipmentCategoryConverter()
-  final List<EquipmentCategoryEntity> items;
-  final bool selected;
-  final Map<int, String> selectedInfoo;
+  @IdNameConverter()
+  final List<IdNameEntity> items;
 
   const EquipmentOptionEntity({
     this.id = -1,
     this.name = '',
-    this.category = const EquipmentCategoryEntity(),
+    this.category = const IdNameEntity(),
     this.type = '',
-    this.items = const [],
-    this.selected = false,
-    this.selectedInfoo = const {},
+    this.items = const <IdNameEntity>[],
   });
 
   @override
-  List<Object?> get props =>
-      [id, name, category, type, items, selected, selectedInfoo];
+  List<Object?> get props => [id, name, category, type, items];
 }
 
 class EquipmentOptionConverter

@@ -5,7 +5,7 @@ class AnnouncementListState extends Equatable {
   final bool next;
   final int? historyId;
   final int count;
-  final List<Region> regions;
+  final List<RegionEntity> regions;
   final bool isFilter;
   final bool historySaved;
   final List<AnnouncementListEntity> announcementList;
@@ -58,7 +58,7 @@ class AnnouncementListState extends Equatable {
     bool? next,
     int? historyId,
     int? count,
-    List<Region>? regions,
+    List<RegionEntity>? regions,
     bool? isFilter,
     bool? historySaved,
     List<AnnouncementListEntity>? announcementList,

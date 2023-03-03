@@ -34,7 +34,7 @@ class RentGetMoreEvent extends RentEvent {
 }
 
 class RentSetParamFromFilterEvent extends RentEvent {
-  List<Region>? regions;
+  List<RegionEntity>? regions;
   MakeEntity? maker;
   BodyTypeEntity? bodyType;
   DriveTypeEntity? carDriveType;

@@ -9,8 +9,9 @@ import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/ad/presentation/widgets/choose_district_sheet.dart';
 import 'package:auto/features/ad/presentation/widgets/loader_box.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
-import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/widgets/switcher_row_as_button_also.dart';
+import 'package:auto/features/rent/data/models/region_model.dart';
+import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -20,6 +21,7 @@ import 'package:formz/formz.dart';
 
 class InspectionPlaceScreen extends StatefulWidget {
   final VoidCallback onToMapPressed;
+
   const InspectionPlaceScreen({required this.onToMapPressed, Key? key})
       : super(key: key);
 
@@ -29,6 +31,7 @@ class InspectionPlaceScreen extends StatefulWidget {
 
 class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
   late GlobalKey globalKey;
+
   @override
   void initState() {
     globalKey = GlobalKey();
@@ -52,7 +55,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                       isLoading:
                           state.status == FormzStatus.submissionInProgress,
                       onTap: () async {
-                        await showModalBottomSheet<List<Region>>(
+                        await showModalBottomSheet<List<RegionEntity>>(
                           isDismissible: false,
                           context: context,
                           isScrollControlled: true,
@@ -61,7 +64,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                             isMultiChoice: false,
                             checkedRegions: state.getSelectedRegion.id > -1
                                 ? {0: state.getSelectedRegion}
-                                : <int, Region>{},
+                                : <int, RegionEntity>{},
                             list: state.regions,
                           ),
                         ).then((value) {

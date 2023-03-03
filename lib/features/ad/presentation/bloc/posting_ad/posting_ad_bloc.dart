@@ -4,9 +4,7 @@ import 'dart:developer';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
-import 'package:auto/features/ad/domain/entities/equipment/equipment_category_entity.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_entity.dart';
-import 'package:auto/features/ad/domain/entities/equipment/equipment_option_entity.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_options_entity.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_options_list_entity.dart';
 import 'package:auto/features/ad/domain/entities/equipment/gas_equipment_entity.dart';
@@ -39,12 +37,12 @@ import 'package:auto/features/car_single/domain/entities/damaged_parts_entity.da
 import 'package:auto/features/car_single/domain/usecases/get_ads_usecase.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/domain/model/user.dart';
-import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/repository/auth.dart';
 import 'package:auto/features/common/usecases/get_districts_usecase.dart';
 import 'package:auto/features/common/usecases/get_regions_usecase.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
+import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
@@ -679,31 +677,10 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       'offset': 0,
     });
     if (result.isRight) {
-      log('::::::::::   PostingAdGetEquipmentOptionsList   ::::::::::');
-      for (var i = 0; i < result.right.results.length; i++) {
-        log('::::::::::   EquipmentOptionsListEntity: id ${result.right.results[i].id}  ::::::::::');
-        log('::::::::::   EquipmentOptionsListEntity: name ${result.right.results[i].name}  ::::::::::');
-        for (var n = 0; n < result.right.results[i].options.length; n++) {
-          log(':::::::::: OPTIONS name: ${result.right.results[i].options[n].name}  ::::::::::');
-          log(':::::::::: OPTIONS id: ${result.right.results[i].options[n].id}  ::::::::::');
-          log(':::::::::: OPTIONS selectedInfo: ${result.right.results[i].options[n].selectedInfoo}  ::::::::::');
-          log(':::::::::: OPTIONS selected: ${result.right.results[i].options[n].selected}  ::::::::::');
-          log(':::::::::: OPTIONS type: ${result.right.results[i].options[n].type}  ::::::::::');
-          log(':::::::::: OPTIONS items.length: ${result.right.results[i].options[n].items.length}  ::::::::::');
-
-          for (var m = 0;
-              m < result.right.results[i].options[n].items.length;
-              m++) {
-            log('::::::::::  OPTIONS ITEMS id: ${result.right.results[i].options[n].items[m].id}  ::::::::::');
-            log('::::::::::  OPTIONS ITEMS name: ${result.right.results[i].options[n].items[m].name}  ::::::::::');
-          }
-        }
-      }
-      final equipmentOptionsList =
-          makeOptionsSelectedd(result.right.results, state.equipmentOptions);
       emit(state.copyWith(
-        equipmentOptionsList: equipmentOptionsList,
-        equipmentOptionsListPrev: equipmentOptionsList,
+        radioOptions: makeRadiosSelected(optionsList: result.right.results),
+        selectOptions: makeSelectsSelected(optionsList: result.right.results),
+        equipmentOptionsList: result.right.results,
         status: FormzStatus.submissionSuccess,
       ));
     } else {
@@ -735,50 +712,32 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     add(PostingAdGetEquipmentOptionsList());
   }
 
-  List<EquipmentOptionsListEntity> makeOptionsSelectedd(
-    List<EquipmentOptionsListEntity> optionsList,
-    List<EquipmentOptionsEntity> equipmentOptions,
-  ) {
-    final newList = <EquipmentOptionsListEntity>[];
-    for (final element in optionsList) {
-      final newOptionList = <EquipmentOptionEntity>[];
-      for (final option in element.options) {
-        var hasOption = false;
-        for (final equipmentOption in equipmentOptions) {
-          if (equipmentOption.option.id == option.id) {
-            hasOption = true;
-            break;
-          }
+  Map<int, String> makeRadiosSelected(
+      {required List<EquipmentOptionsListEntity> optionsList}) {
+    var data = <int, String>{};
+    for (var i = 0; i < optionsList.length; i++) {
+      for (var n = 0; n < optionsList[i].options.length; n++) {
+        if (optionsList[i].options[n].type == 'radio') {
+          data[optionsList[i].options[n].id] = optionsList[i].options[n].name;
         }
-        final items = <EquipmentCategoryEntity>[];
-        final selectedInfo = <int, String>{};
-        for (final item in option.items) {
-          for (final equipmentOption in equipmentOptions) {
-            if (equipmentOption.option.id == option.id &&
-                equipmentOption.item.id == item.id) {
-              selectedInfo[equipmentOption.item.id] = equipmentOption.item.name;
-              break;
-            }
-          }
-          items.add(EquipmentCategoryEntity(
-            id: item.id,
-            name: item.name,
-          ));
-        }
-        newOptionList.add(EquipmentOptionEntity(
-          id: option.id,
-          name: option.name,
-          category: option.category,
-          type: option.type,
-          items: items,
-          selected: hasOption,
-          selectedInfoo: selectedInfo,
-        ));
       }
-      newList.add(EquipmentOptionsListEntity(
-          id: element.id, name: element.name, options: newOptionList));
     }
-    return newList;
+    return data;
+  }
+
+  Map<int, SO> makeSelectsSelected(
+      {required List<EquipmentOptionsListEntity> optionsList}) {
+    var data = <int, SO>{};
+    for (var i = 0; i < optionsList.length; i++) {
+      for (var n = 0; n < optionsList[i].options.length; n++) {
+        if (optionsList[i].options[n].type == 'select') {
+          data[optionsList[i].options[n].id] = SO(
+              id: optionsList[i].options[n].id,
+              optionName: optionsList[i].options[n].name);
+        }
+      }
+    }
+    return data;
   }
 
   /// this function is for setting each equipment's options to all options
@@ -788,27 +747,27 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       PostingAdChangeOption event, Emitter<PostingAdState> emit) {
     if (event.isAdd) {
       if (event.type == 'select') {
-        final m = state.selectOptions.map(MapEntry.new);
-        m[event.id] = event.selectedItem;
+        var m = state.selectOptions.map(MapEntry.new);
+        if (event.selectOption?.id == -1) {
+          m.remove(event.id);
+        } else {
+          m[event.id] = event.selectOption!;
+        }
+
         emit(state.copyWith(selectOptions: m));
       } else {
-        final m = state.radioOptions.map(MapEntry.new);
-        m[event.id] = event.selectedItem;
+        var m = state.radioOptions.map(MapEntry.new);
+        m[event.id] = event.itemName;
         emit(state.copyWith(radioOptions: m));
       }
     } else {
       if (event.type == 'select') {
-        emit(state.copyWith(
-            selectOptions: state.selectOptions.map(MapEntry.new)
-              ..remove(event.id)));
+        final v = state.selectOptions.map(MapEntry.new)..remove(event.id);
+        emit(state.copyWith(selectOptions: v));
       } else {
-        emit(state.copyWith(
-            radioOptions: state.selectOptions.map(MapEntry.new)
-              ..remove(event.id)));
+        final v = state.radioOptions.map(MapEntry.new)..remove(event.id);
+        emit(state.copyWith(radioOptions: v));
       }
     }
-
-    log(':::::::::: NEW LIST LENTH:   {newList.length}  ::::::::::');
-    // emit(state.copyWith(equipmentOptionsList: newList));
   }
 }

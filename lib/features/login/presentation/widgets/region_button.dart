@@ -1,8 +1,8 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
-import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/login/presentation/bloc/register/register_bloc.dart';
+import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -22,7 +22,7 @@ class RegionButton extends StatefulWidget {
 }
 
 class _RegionButtonState extends State<RegionButton> {
-  List<Region> currentRegion = <Region>[];
+  List<RegionEntity> currentRegion = <RegionEntity>[];
 
   @override
   void initState() {
@@ -35,7 +35,7 @@ class _RegionButtonState extends State<RegionButton> {
         behavior: HitTestBehavior.opaque,
         onTap: () {
           widget.onTap();
-          showModalBottomSheet<List<Region>>(
+          showModalBottomSheet<List<RegionEntity>>(
             context: context,
             isDismissible: false,
             useRootNavigator: true,

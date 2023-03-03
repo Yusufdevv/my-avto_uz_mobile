@@ -2,11 +2,12 @@ import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/common/data/datasources/get_regions_datasource.dart';
-import 'package:auto/features/common/models/region.dart';
+import 'package:auto/features/rent/data/models/region_model.dart';
+import 'package:auto/features/rent/domain/entities/region_entity.dart';
 
 // ignore: one_member_abstracts
 abstract class GetRegionsRepository {
-  Future<Either<Failure, List<Region>>> getRegions();
+  Future<Either<Failure, List<RegionEntity>>> getRegions();
 }
 
 class GetRegionsRepositoryImpl extends GetRegionsRepository {
@@ -15,7 +16,7 @@ class GetRegionsRepositoryImpl extends GetRegionsRepository {
   GetRegionsRepositoryImpl({required this.dataSource});
 
   @override
-  Future<Either<Failure, List<Region>>> getRegions() async {
+  Future<Either<Failure, List<RegionEntity>>> getRegions() async {
     try {
       final result = await dataSource.getRegions();
       return Right(result);

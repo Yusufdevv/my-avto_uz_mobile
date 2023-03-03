@@ -10,9 +10,10 @@ import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/const/constants.dart';
-import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/models/yandex_search_model.dart';
 import 'package:auto/features/profile/domain/entities/dir_category_entity.dart';
+import 'package:auto/features/rent/data/models/region_model.dart';
+import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -67,7 +68,7 @@ class MyFunctions {
     return formattedPhone.toString();
   }
 
-  static String text(List<Region>? list, [bool doName = false]) {
+  static String text(List<RegionEntity>? list, [bool doName = false]) {
     var result = '';
     if (list != null) {
       if (doName) {
@@ -511,7 +512,7 @@ class MyFunctions {
   }
 
   static DamageType stringToDamageType(String status) {
- print(':::::::::: fasdfas $status  ::::::::::');
+    print(':::::::::: fasdfas $status  ::::::::::');
     switch (status) {
       case 'ideal':
         return DamageType.ideal;

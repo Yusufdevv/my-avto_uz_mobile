@@ -4,7 +4,7 @@ import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ads/domain/usecases/get_min_max_price_use_case.dart';
-import 'package:auto/features/common/models/region.dart';
+import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +14,7 @@ part 'filter_event.dart';
 part 'filter_state.dart';
 
 class FilterBloc extends Bloc<FilterEvent, FilterState> {
-  final List<Region>? regions;
+  final List<RegionEntity>? regions;
   final MakeEntity? maker;
   final BodyTypeEntity? bodyType;
   final DriveTypeEntity? carDriveType;
@@ -41,7 +41,7 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
           carDriveType: carDriveType,
           gearboxType: gearboxType,
           maker: maker,
-          regions: regions ?? <Region>[],
+          regions: regions ?? <RegionEntity>[],
           yearValues: yearValues ?? RangeValues(1960, DateTime.now().year + 0),
           priceValues: priceValues ?? const RangeValues(1000, 500000),
           isCheck: isCheck,

@@ -4,6 +4,6 @@ part of 'regions_bloc.dart';
 class RegionsState with _$RegionsState {
   factory RegionsState({
     @Default(FormzStatus.pure) FormzStatus status,
-    @Default([]) List<Region> regions,
+    @Default([]) List<RegionEntity> regions,
   }) = _RegionsState;
 }
