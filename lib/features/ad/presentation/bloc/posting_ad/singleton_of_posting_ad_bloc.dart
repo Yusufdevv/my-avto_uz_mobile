@@ -7,7 +7,7 @@ class PASingleton {
   PASingleton._();
 
   static Future<FormData> create(PostingAdState v) async {
-    log(':::::::::::   CREATE ANNOUNCEMENT TRIGGERED IN SINGLETON:    ::::::::::::::');
+    log(':::::::::::   CREATE ANNOUNCEMENT TRIGGERED IN SINGLETON:     ::::::::::::::');
 
     log(':::::::::::   EQIPMENT FOR COMPLETED    ::::::::::::::');
     // ignore: prefer_final_locals
@@ -210,7 +210,6 @@ class PASingleton {
         eventMakeScrrollIndex: _getMakeLetterIndex(event, state.makes),
         description: event.description,
         gasEquipmentId: event.gasEquipmentId,
-        equipment: event.equipment,
         getModificationStatus: event.getModificationStatus,
       );
 
@@ -372,15 +371,47 @@ class PASingleton {
 
     return false;
   }
-//
-// static RemoveRadio removeRadio(
-//     {required PostingAdState state}){
-//
-// }  static RemoveSelect removeSelect(
-//     {required PostingAdState state}){
-//   if(state.equipment !=null){
-//
-//   }
-//
-// }
+
+  static EquipmentEntity? isEquipmentFull(
+      {required EquipmentEntity? equipment,
+      required Map<int, String> sR,
+      required Map<int, SO> sS,required String where}) {
+    log('::::::::::: where:    $where    ::::::::::::::');
+    log(':::::::::: selected SS: $sS  ::::::::::');
+    log(':::::::::: selected radios: $sR  ::::::::::');
+    log(':::::::::: equipment options:  ${equipment?.options}  ::::::::::');
+
+    if (equipment == null) {
+      log(':::::::::::   returning due to equipment is null    ::::::::::::::');
+      return null;
+    }
+
+    var i = 0;
+    for (final e in equipment.options) {
+      log(':::::::::::   option dot id: ${e.option.id}    ::::::::::::::');
+      if (e.option.type == 'select') {
+        if (sS.containsKey(e.option.id)) {
+          log(':::::::::::   PLUCING FROM SELECT    ::::::::::::::');
+
+          i++;
+          continue;
+        }
+      } else {
+        if (sR.containsKey(e.option.id)) {
+          log(':::::::::::   PLUCING FROM RADIO    ::::::::::::::');
+          i++;
+          continue;
+        }
+      }
+    }
+    log(':::::::::: IS EQUIPMENT TO NULL I IS:  $i  equipment options length: ${equipment.options.length}::::::::::');
+    log(':::::::::: selected radios length:  ${sR.length}  selects lenth: ${sS.length}::::::::::');
+    if (i == equipment.options.length) {
+      log(':::::::::::   returning equipment    ::::::::::::::');
+      return equipment;
+    } else {
+      log(':::::::::::   returning  null    ::::::::::::::');
+      return null;
+    }
+  }
 }

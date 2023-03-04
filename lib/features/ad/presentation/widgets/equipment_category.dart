@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/colors/light.dart';
@@ -33,7 +32,7 @@ class EquipmentCategory extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
               child: Text(
-                categoryName ,
+                categoryName,
                 style: Theme.of(context)
                     .textTheme
                     .headlineMedium
@@ -84,7 +83,6 @@ class EquipmentCategory extends StatelessWidget {
                       isAdd: !state.isOptionSelected(
                           type: 'radio', id: options[index].id),
                     );
-                    log('::::::::::  on radio tap in in: $v  ::::::::::');
                     onTap(v);
                   }
                 },

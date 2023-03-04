@@ -46,12 +46,12 @@ class PostingAdState extends Equatable {
   final Map<DamagedParts, DamageType> damagedParts;
   final Map<int, SO> selectOptions;
   final Map<int, String> radioOptions;
-  final Map<int, SO> additionalSelects;
-  final Map<int, String> additionalRadios;
+
   final UserModel? userModel;
   final Uint8List? mapPointBytes;
   final num minimumPrice;
   final int? makeLetterIndex;
+  final int? lastEquipmentId;
   final String? milageImage;
   final String? letter;
   final String? ownerName;
@@ -79,14 +79,12 @@ class PostingAdState extends Equatable {
   final bool showExactAddress;
   final bool? rentToBuy;
   final bool? isWithoutMileage;
-  final List<GasEquipmentEntity> gasEquipments;
   final int? gasEquipmentId;
+  final List<GasEquipmentEntity> gasEquipments;
   final EquipmentEntity? equipment;
   final List<EquipmentEntity> equipments;
   final List<EquipmentOptionsListEntity> equipmentOptionsList;
 
-  /// this is options for each selected equipment
-  final List<EquipmentOptionsEntity> equipmentOptions;
 
   const PostingAdState({
     required this.contactsFormKey,
@@ -98,8 +96,7 @@ class PostingAdState extends Equatable {
     required this.popStatus,
     this.radioOptions = const <int, String>{},
     this.selectOptions = const <int, SO>{},
-    this.additionalRadios = const <int, String>{},
-    this.additionalSelects = const <int, SO>{},
+    this.lastEquipmentId,
     this.id,
     this.makeLetterIndex,
     this.minimumPrice = 0,
@@ -168,7 +165,6 @@ class PostingAdState extends Equatable {
     this.equipments = const [],
     this.equipment,
     this.equipmentOptionsList = const [],
-    this.equipmentOptions = const [],
   });
 
   String? get districtTitle {
@@ -187,8 +183,7 @@ class PostingAdState extends Equatable {
     TextEditingController? searchController,
     Map<int, SO>? selectOptions,
     Map<int, String>? radioOptions,
-    Map<int, SO>? additionalSelects,
-    Map<int, String>? additionalRadios,
+    int? lastEquipmentId,
     Map<DamagedParts, DamageType>? damagedParts,
     Map<int, RentWithPurchaseEntity>? rentWithPurchaseConditions,
     int? districtId,
@@ -263,10 +258,12 @@ class PostingAdState extends Equatable {
     List<EquipmentOptionsListEntity>? equipmentOptionsList,
     List<EquipmentOptionsEntity>? equipmentOptions,
     bool isEquipmentToNull = false,
+    bool isLastEquipmentIdToNull = false,
   }) =>
       PostingAdState(
-        additionalRadios: additionalRadios ?? this.additionalRadios,
-        additionalSelects: additionalSelects ?? this.additionalSelects,
+        lastEquipmentId: isLastEquipmentIdToNull
+            ? null
+            : lastEquipmentId ?? this.lastEquipmentId,
         selectOptions: selectOptions ?? this.selectOptions,
         radioOptions: radioOptions ?? this.radioOptions,
         contactsFormKey: contactsFormKey ?? this.contactsFormKey,
@@ -344,15 +341,13 @@ class PostingAdState extends Equatable {
         equipments: equipments ?? this.equipments,
         equipment: isEquipmentToNull ? null : equipment ?? this.equipment,
         equipmentOptionsList: equipmentOptionsList ?? this.equipmentOptionsList,
-        equipmentOptions: equipmentOptions ?? this.equipmentOptions,
         getModificationStatus:
             getModificationStatus ?? this.getModificationStatus,
       );
 
   @override
   List<Object?> get props => [
-        additionalRadios,
-        additionalSelects,
+        lastEquipmentId,
         selectOptions,
         radioOptions,
         contactsFormKey,
@@ -426,7 +421,6 @@ class PostingAdState extends Equatable {
         equipments,
         equipment,
         equipmentOptionsList,
-        equipmentOptions,
         getModificationStatus,
       ];
 
