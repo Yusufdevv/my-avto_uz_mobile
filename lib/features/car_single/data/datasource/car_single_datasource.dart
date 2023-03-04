@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
@@ -13,8 +11,6 @@ abstract class CarSingleDataSource {
   Future<CarSingleModel> getCarSingle({required int id});
 
   Future<GenericPagination<AutoModel>> getOtherAds({required Map<String, dynamic> params});
-
-  Future<CarSingleModel> payInvoice();
 
   Future soldAd({required int id});
 
@@ -36,7 +32,6 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
-        log('THIS IS CAR SINGLE DATA: ${response.data}');
         return CarSingleModel.fromJson(response.data);
       } else {
         throw ServerException(
@@ -59,7 +54,7 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
       final response = await _dio.get('/es/AnnouncementElasticSearch/',
           queryParameters: params,
           options: Options(headers: {
-            'Authorization': 'Token ${StorageRepository.getString('token')}'
+            'Authorization': 'Bearer ${StorageRepository.getString('token')}'
           }));
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
@@ -97,38 +92,7 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
     }
   }
 
-  @override
-  Future<CarSingleModel> payInvoice() async {
-    try {
-      final response = await _dio.get('',
-          options: Options(headers: {
-            'Authorization': 'Token ${StorageRepository.getString('token')}'
-          }));
-      if (response.statusCode != null &&
-          response.statusCode! >= 200 &&
-          response.statusCode! < 300) {
-        return CarSingleModel.fromJson(response.data);
-      }
-      if (response.data is Map) {
-        throw ServerException(
-            statusCode: response.statusCode!,
-            errorMessage: ((response.data as Map).values.isNotEmpty
-                    ? (response.data as Map).values.first
-                    : 'Error get CarAds')
-                .toString());
-      } else {
-        throw ServerException(
-            statusCode: response.statusCode!,
-            errorMessage: response.data.toString());
-      }
-    } on ServerException {
-      rethrow;
-    } on DioError {
-      throw DioException();
-    } on Exception catch (e) {
-      throw ParsingException(errorMessage: e.toString());
-    }
-  }
+
 
   @override
   Future soldAd({required int id}) async {

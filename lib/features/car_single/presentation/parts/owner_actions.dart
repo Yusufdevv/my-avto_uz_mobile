@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/car_single/domain/entities/owner_action.dart';
+import 'package:auto/features/car_single/presentation/bloc/car_single_bloc.dart';
 import 'package:auto/features/car_single/presentation/parts/invoice_page.dart';
 import 'package:auto/features/car_single/presentation/widgets/owner_action_box.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -8,6 +9,7 @@ import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OwnerActions extends StatelessWidget {
   const OwnerActions({Key? key}) : super(key: key);
@@ -34,8 +36,13 @@ class OwnerActions extends StatelessWidget {
               Expanded(
                 child: WScaleAnimation(
                   onTap: () {
-                    Navigator.of(context, rootNavigator: true)
-                        .push(fade(page: const InvoicePage()));
+                    Navigator.of(context, rootNavigator: true).push(fade(
+                        page: InvoicePage(
+                            announcementId: context
+                                .read<CarSingleBloc>()
+                                .state
+                                .singleEntity
+                                .id)));
                   },
                   child: OwnerActionBox(
                       color: accentGreen,

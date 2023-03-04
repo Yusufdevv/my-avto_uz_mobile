@@ -47,20 +47,7 @@ class CarSingleRepositoryImpl extends CarSingleRepository {
     }
   }
 
-  @override
-  Future<Either<Failure, CarSingleEntity>> payInvoice() async {
-    try {
-      final result = await dataSource.payInvoice();
-      return Right(result);
-    } on DioException {
-      return Left(DioFailure());
-    } on ParsingException catch (e) {
-      return Left(ParsingFailure(errorMessage: e.errorMessage));
-    } on ServerException catch (e) {
-      return Left(ServerFailure(
-          errorMessage: e.errorMessage, statusCode: e.statusCode));
-    }
-  }
+
 
   @override
   Future<Either<Failure, dynamic>> soldAds({required int id}) async {

@@ -163,7 +163,7 @@ class MineMoreBottomSheet extends StatelessWidget {
               color: const Color(0xffF0FAF6),
               onTap: () {
                 Navigator.of(context, rootNavigator: true)
-                    .push(fade(page: const InvoicePage()));
+                    .push(fade(page:   InvoicePage(announcementId: id)));
               },
               borderColor: const Color(0xff5ECC81).withOpacity(0.12),
             ),

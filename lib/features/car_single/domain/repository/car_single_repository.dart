@@ -10,8 +10,6 @@ abstract class CarSingleRepository {
   Future<Either<Failure, GenericPagination<AutoEntity>>> getOtherAds(
       {required Map<String, dynamic> params});
 
-  Future<Either<Failure, CarSingleEntity>> payInvoice();
-
   Future<Either<Failure, dynamic>> soldAds({required int id});
 
   Future<Either<Failure, dynamic>> callCount({required int id});
