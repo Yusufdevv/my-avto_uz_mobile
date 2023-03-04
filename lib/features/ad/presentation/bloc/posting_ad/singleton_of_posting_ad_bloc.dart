@@ -161,6 +161,7 @@ class PASingleton {
   static PostingAdState choose(
           PostingAdState state, PostingAdChooseEvent event) =>
       state.copyWith(
+        isEquipmentToNull: event.isEquipmentToNull ?? false,
         createStatus: event.createStatus,
         milageImage: event.milageImage,
         modification: event.modification,
@@ -371,4 +372,15 @@ class PASingleton {
 
     return false;
   }
+//
+// static RemoveRadio removeRadio(
+//     {required PostingAdState state}){
+//
+// }  static RemoveSelect removeSelect(
+//     {required PostingAdState state}){
+//   if(state.equipment !=null){
+//
+//   }
+//
+// }
 }
