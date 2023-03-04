@@ -26,7 +26,7 @@ class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
           payStatus: FormzStatus.pure,
           invoiceStatus: '',
           fetchMoreTarifs: false,
-          paymentEntity:const PaymentEntity(),
+          paymentEntity: const PaymentEntity(),
         )) {
     ///
     on<PayInvoiceEvent>((event, emit) async {
@@ -40,10 +40,14 @@ class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
         },
       );
       if (result.isRight) {
+        emit(state.copyWith(
+            paymentEntity: result.right,
+            status: FormzStatus.submissionSuccess));
       } else {
         emit(state.copyWith(payStatus: FormzStatus.submissionFailure));
       }
     });
+
     ///
     on<GetTarifsEvent>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
@@ -58,15 +62,15 @@ class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     });
+
     ///
     on<GetInvoiceStatusEvent>((event, emit) async {
       // emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await _getStatusInvoiceUseCase.call(NoParams());
       if (result.isRight) {
         emit(state.copyWith(
-          // status: FormzStatus.submissionSuccess,
-          invoiceStatus: result.right
-        ));
+            // status: FormzStatus.submissionSuccess,
+            invoiceStatus: result.right));
       } else {
         // emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
