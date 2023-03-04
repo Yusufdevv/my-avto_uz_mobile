@@ -5,7 +5,6 @@ import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_entity.dart';
-import 'package:auto/features/ad/domain/entities/equipment/equipment_option_entity.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_options_entity.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_options_list_entity.dart';
 import 'package:auto/features/ad/domain/entities/equipment/gas_equipment_entity.dart';
@@ -133,15 +132,23 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdGetEquipments>(_getEquipments);
     on<PostingAdGetEquipmentOptionsList>(_getEquipmentOptionsList);
     on<PostingAdChangeOption>(_getChangeOption);
-    on<PostingAdEmptySelectedOptions>(_emptySelectedOptions);
+    on<PostingAdSelectEquipmentEvent>(_selectEquipment);
   }
 
-  FutureOr<void> _emptySelectedOptions(
-      PostingAdEmptySelectedOptions event, Emitter<PostingAdState> emit) async {
-    if (event.equipment == null) {
-      emit(state.copyWith(selectOptions: {}, radioOptions: {}));
+  FutureOr<void> _selectEquipment(
+      PostingAdSelectEquipmentEvent event, Emitter<PostingAdState> emit) async {
+    if (event.equipment.id == -1) {
+      emit(
+        state.copyWith(
+          isLastEquipmentIdToNull: true,
+          isEquipmentToNull: true,
+          selectOptions: {},
+          radioOptions: {},
+        ),
+      );
     } else {
       emit(state.copyWith(
+          equipment: event.equipment,
           selectOptions: makeSelectsSelected(v: event.equipment!.options),
           radioOptions: makeRadiosSelected(v: event.equipment!.options)));
     }
@@ -627,7 +634,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       add(PostingAdGetMinimumPriceEvent());
     }
 
-    add(PostingAdEmptySelectedOptions(equipment: event.equipment));
     emit(PASingleton.choose(state, event));
   }
 
@@ -702,7 +708,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     var data = <int, String>{};
 
     for (var i = 0; i < v.length; i++) {
-      if (v[i].option.type == 'select') {
+      if (v[i].option.type == 'radio') {
         data[v[i].option.id] = v[i].option.name;
       }
     }
@@ -725,52 +731,122 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   /// it will be called
   FutureOr<void> _getChangeOption(
       PostingAdChangeOption event, Emitter<PostingAdState> emit) {
+    log(':::::::::::   get change option triggered    ::::::::::::::');
     if (event.isAdd) {
       if (event.type == 'select') {
         var isEquipmentToNull = false;
-        var aS = state.additionalSelects.map(MapEntry.new);
         var m = state.selectOptions.map(MapEntry.new);
+        int? lastEquipmentId;
+        EquipmentEntity? equipment;
 
         if (event.selectOption?.id == -1) {
-          isEquipmentToNull = !aS.containsKey(event.id);
-          aS.remove(event.id);
+          /// if unnecessary selected -> remove select
+
+          lastEquipmentId = state.equipment?.id;
+
           m.remove(event.id);
+          equipment = PASingleton.isEquipmentFull(
+              equipment: state.equipment ??
+                  state.equipments
+                      .firstWhere((e) => e.id == state.lastEquipmentId),
+              sR: state.radioOptions,
+              sS: m,
+              where: 'line 754');
         } else {
+          log(':::::::::::  contains lastEquipmentId: ${state.equipments.any((e) => e.id == state.lastEquipmentId)}  lastEquipmentId: ${state.lastEquipmentId}  ::::::::::::::');
           m[event.id] = event.selectOption!;
+          equipment = PASingleton.isEquipmentFull(
+            where: 'line 756',
+            equipment: state.equipment ??
+                state.equipments
+                    .firstWhere((e) => e.id == state.lastEquipmentId),
+            sS: m,
+            sR: state.radioOptions,
+          );
         }
+
         emit(
           state.copyWith(
+            equipment: equipment,
+            lastEquipmentId: lastEquipmentId,
             selectOptions: m,
-            additionalSelects: aS,
-            isEquipmentToNull: isEquipmentToNull,
+            isEquipmentToNull: equipment == null,
           ),
         );
       } else {
+        /// for add radios
         var m = state.radioOptions.map(MapEntry.new);
-        var aR = state.additionalRadios.map(MapEntry.new);
-        if (state.equipment != null) {
-          aR[event.id] = event.itemName;
-        }
+        EquipmentEntity? equipment;
+
+        log(':::::::::::  contains lastEquipmentId radio: ${state.equipments.any((e) => e.id == state.lastEquipmentId)}  lastEquipmentId in radio: ${state.lastEquipmentId}  ::::::::::::::');
         m[event.id] = event.itemName;
-        emit(state.copyWith(radioOptions: m, additionalRadios: aR));
+        if (state.equipments.any((e) => e.id == state.lastEquipmentId)) {
+          equipment = PASingleton.isEquipmentFull(
+            where: 'line 788',
+            equipment: state.equipments
+                .firstWhere((e) => e.id == state.lastEquipmentId),
+            sR: m,
+            sS: state.selectOptions,
+          );
+        }
+
+        emit(state.copyWith(
+          isLastEquipmentIdToNull: equipment != null,
+          radioOptions: m,
+          equipment: equipment,
+        ));
       }
     } else {
+      /// ELSE OF isAdd -> for remove
+      var lastEquipmentId;
       if (event.type == 'select') {
+        /// remove for -> selects
+
+        var m = state.selectOptions.map(MapEntry.new)..remove(event.id);
+        final equipment = PASingleton.isEquipmentFull(
+            equipment: state.equipment ??
+                state.equipments
+                    .firstWhere((e) => e.id == state.lastEquipmentId),
+            sR: state.radioOptions,
+            sS: m,
+            where: 'line 833');
+
+        if (equipment == null) {
+          lastEquipmentId = state.equipment?.id;
+        }
+
         emit(
           state.copyWith(
-            isEquipmentToNull: !state.additionalSelects.containsKey(event.id),
-            selectOptions: state.selectOptions.map(MapEntry.new)
-              ..remove(event.id),
-            additionalSelects: state.additionalSelects.map(MapEntry.new)
-              ..remove(event.id),
+            equipment: equipment,
+            isEquipmentToNull: equipment == null,
+            lastEquipmentId: lastEquipmentId,
+            selectOptions: m,
           ),
         );
       } else {
-        emit(state.copyWith(
-            isEquipmentToNull: !state.additionalRadios.containsKey(event.id),
-            radioOptions: state.radioOptions.map(MapEntry.new)
-              ..remove(event.id),
-            additionalRadios: state.additionalRadios.map(MapEntry.new)));
+        /// for remove -> radios
+
+        var m = state.radioOptions.map(MapEntry.new)..remove(event.id);
+        final equipment = PASingleton.isEquipmentFull(
+            equipment: state.equipment ??
+                state.equipments
+                    .firstWhere((e) => e.id == state.lastEquipmentId),
+            sR: m,
+            sS: state.selectOptions,
+            where: 'line 866');
+
+        if (equipment == null) {
+          lastEquipmentId = state.equipment?.id;
+        }
+
+        emit(
+          state.copyWith(
+            equipment: equipment,
+            isEquipmentToNull: equipment == null,
+            lastEquipmentId: lastEquipmentId,
+            radioOptions: m,
+          ),
+        );
       }
     }
   }
