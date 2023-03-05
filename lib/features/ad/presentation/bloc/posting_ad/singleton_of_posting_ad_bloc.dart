@@ -12,8 +12,8 @@ class PASingleton {
     log(':::::::::::   EQIPMENT FOR COMPLETED    ::::::::::::::');
     // ignore: prefer_final_locals
     var announcementFields = <String, dynamic>{
-      'longitude':v.long,
-      'latitude':v.lat,
+      'longitude': v.long,
+      'latitude': v.lat,
       'make': v.make?.id,
       'model': v.model?.id,
       'generation': v.generationId,
@@ -60,14 +60,12 @@ class PASingleton {
       'gas_equipment': v.gasEquipmentId,
     };
 
-    log(':::::::::::   BASICS INITIALIZED    ::::::::::::::');
     if (v.milageImage != null && v.milageImage!.isNotEmpty) {
       final milageImage = await MultipartFile.fromFile(v.milageImage!);
       final List<MultipartFile> list = [milageImage];
       announcementFields
           .addEntries(list.map((e) => MapEntry('mileage_image', e)));
     }
-    log(':::::::::::   MILAGE IMAGE INITIALIZED    ::::::::::::::');
 
     var i = -1;
     announcementFields.addEntries(v.damagedParts.entries.map((e) {
@@ -79,7 +77,6 @@ class PASingleton {
       i++;
       return MapEntry('damaged_parts[$i]damage_type', e.value.value);
     }));
-    log(':::::::::::   DAMAGED PARTS INITIALIZED    ::::::::::::::');
 
     var images = <MultipartFile>[];
 
@@ -87,20 +84,30 @@ class PASingleton {
       final multiParFile = await MultipartFile.fromFile(element);
       images.add(multiParFile);
     }
-    log(':::::::::::   IMAGES INITIALIZED    ::::::::::::::');
     i = -1;
     announcementFields.addEntries(images.map((e) {
       i++;
       return MapEntry('gallery[$i]', e);
     }));
     i = -1;
-    announcementFields.addEntries(v.radioOptions.entries.map((e) {
+    log(':::::::::: selected radios lenth before: ${v.radioOptions.length}  ::::::::::');
+    Map<int, String> rO = v.equipment == null
+        ? v.radioOptions
+        : _removeEquipmentContainingRadios(v.equipment!, v.radioOptions);
+    log(':::::::::: selected radios lenth after: ${rO.length}  ::::::::::');
+    announcementFields.addEntries(rO.entries.map((e) {
       i++;
       return MapEntry('options[$i]', e.key);
     }));
     log(':::::::::::   OPTIONS INITIALIZED    ::::::::::::::');
     i = -1;
-    announcementFields.addEntries(v.selectOptions.entries.map((e) {
+
+    log(':::::::::: selected options length before:  ${v.selectOptions.length}  ::::::::::');
+    Map<int, SO> selectedOptions = v.equipment == null
+        ? v.selectOptions
+        : _removeEquipmentContainingSelects(v.equipment!, v.selectOptions);
+    log(':::::::::: selected options length after:  ${selectedOptions.length}  ::::::::::');
+    announcementFields.addEntries(selectedOptions.entries.map((e) {
       i++;
       return MapEntry('option_items[$i]', e.value.id);
     }));
@@ -427,5 +434,33 @@ class PASingleton {
       log(':::::::::::   returning  null    ::::::::::::::');
       return null;
     }
+  }
+
+  static Map<int, String> _removeEquipmentContainingRadios(
+      EquipmentEntity equipment, Map<int, String> radios) {
+    Map<int, String> rO = radios;
+    for (final e in equipment.options) {
+      if (e.option.type == 'radio') {
+        if (rO.containsKey(e.option.id)) {
+          rO.remove(e.option.id);
+        }
+      }
+    }
+    return rO;
+  }
+
+  static Map<int, SO> _removeEquipmentContainingSelects(
+      EquipmentEntity equipment, Map<int, SO> selects) {
+    Map<int, SO> selectedOptions = selects;
+    for (final e in equipment.options) {
+      if (e.option.type == 'select') {
+        if (selectedOptions.containsKey(e.option.id)) {
+          if (selectedOptions[e.option.id]?.id == e.item.id) {
+            selectedOptions.remove(e.option.id);
+          }
+        }
+      }
+    }
+    return selectedOptions;
   }
 }

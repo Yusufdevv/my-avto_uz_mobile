@@ -443,6 +443,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   FutureOr<void> _create(
       PostingAdCreateEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(createStatus: FormzStatus.submissionInProgress));
+
     final result = await createUseCase.call(await PASingleton.create(state));
 
     if (result.isRight) {
