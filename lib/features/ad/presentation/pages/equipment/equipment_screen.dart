@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_entity.dart';
@@ -7,7 +5,6 @@ import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.da
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/ad/presentation/widgets/equipment_category.dart';
 import 'package:auto/features/ad/presentation/widgets/pos_radio_item.dart';
-import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -26,16 +23,6 @@ class EquipmentScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        WButton(
-                          onTap: () {
-                            log(':::::::::: in equipment screen equipment: ${state.equipment}  ::::::::::');
-                            log(':::::::::: in equipment screen lastEquipmentId: ${state.lastEquipmentId}  ::::::::::');
-                            log(':::::::::: in equipment screen selectOptions: ${state.selectOptions}  ::::::::::');
-                            log(':::::::::: in equipment screen radioOptions: ${state.radioOptions}  ::::::::::');
-                            log(':::::::::: in equipment screen id: ${state.id}  ::::::::::');
-                          },
-                          text: 'fse',
-                        ),
                         if (state.equipments.isNotEmpty)
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 16),

@@ -19,7 +19,9 @@ class PASingleton {
       'drive_type': v.driveTypeId,
       'engine_type': v.engineId,
       'gearbox_type': v.gearbox?.id,
-      'year': v.yearEntity?.id,
+
+      /// yearBegin is not true
+      'year': v.yearEntity?.yearBegin,
       'modification_type': v.modification?.id,
       'color': v.colorName,
       'licence_type': v.licenceType,
@@ -375,38 +377,48 @@ class PASingleton {
   static EquipmentEntity? isEquipmentFull(
       {required EquipmentEntity? equipment,
       required Map<int, String> sR,
-      required Map<int, SO> sS,required String where}) {
+      required Map<int, SO> sS,
+      required String where}) {
     log('::::::::::: where:    $where    ::::::::::::::');
     log(':::::::::: selected SS: $sS  ::::::::::');
     log(':::::::::: selected radios: $sR  ::::::::::');
-    log(':::::::::: equipment options:  ${equipment?.options}  ::::::::::');
 
     if (equipment == null) {
       log(':::::::::::   returning due to equipment is null    ::::::::::::::');
       return null;
     }
+    log('::::::::::  ${equipment.id}  ::::::::::');
+    for (var i = 0; i < equipment!.options.length; i++) {
+      log('::::::::::options id:  ${equipment.options[i].id}  ::::::::::');
+      log('::::::::::options option:  ${equipment.options[i].option}  ::::::::::');
+      log('::::::::::options item:  ${equipment.options[i].item}  ::::::::::');
+      for (var n = 0; n < equipment.options[i].option.items.length; n++) {
+        log('::::::::::items  id: ${equipment.options[i].option.items[n].id}  ::::::::::');
+        log('::::::::::items name:  ${equipment.options[i].option.items[n].name}  ::::::::::');
+      }
+    }
 
-    var i = 0;
+    var idf = 0;
     for (final e in equipment.options) {
       log(':::::::::::   option dot id: ${e.option.id}    ::::::::::::::');
       if (e.option.type == 'select') {
         if (sS.containsKey(e.option.id)) {
-          log(':::::::::::   PLUCING FROM SELECT    ::::::::::::::');
-
-          i++;
-          continue;
+          if (e.item.id == sS[e.option.id]?.id) {
+            idf++;
+            continue;
+          }
         }
       } else {
         if (sR.containsKey(e.option.id)) {
           log(':::::::::::   PLUCING FROM RADIO    ::::::::::::::');
-          i++;
+          idf++;
           continue;
         }
       }
     }
-    log(':::::::::: IS EQUIPMENT TO NULL I IS:  $i  equipment options length: ${equipment.options.length}::::::::::');
+    log(':::::::::: IS EQUIPMENT TO NULL I IS:  $idf  equipment options length: ${equipment.options.length}::::::::::');
     log(':::::::::: selected radios length:  ${sR.length}  selects lenth: ${sS.length}::::::::::');
-    if (i == equipment.options.length) {
+    if (idf == equipment.options.length) {
       log(':::::::::::   returning equipment    ::::::::::::::');
       return equipment;
     } else {
