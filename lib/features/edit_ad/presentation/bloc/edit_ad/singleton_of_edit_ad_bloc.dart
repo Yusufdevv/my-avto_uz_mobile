@@ -132,10 +132,8 @@ class EASingleton {
     return result;
   }
 
-  static Future<EditAdState> stateForEdit(CarSingleEntity v, bool showExactAddress) async {
-    log('::::::::::  CAR SINGLE ENTITY latitude langitude:  ${v.latitude} / ${v.longitude}  ::::::::::');
-    log('::::::::::  CAR SINGLE ENTITY district and region: ${v.district} / ${v.region}  ::::::::::');
-    // DistrictModel(407, Ходжейлийский район, RegionEntity(-1, , )) / RegionModel(34, Республика Каракалпакстан, 1735)
+  static Future<EditAdState> stateForEdit(
+      CarSingleEntity v, bool showExactAddress) async {
     String? phone = '';
     try {
       phone = MyFunctions.phoneFormat(v.user.phoneNumber.substring(4));
@@ -212,6 +210,7 @@ class EASingleton {
       ),
       modification: v.modificationType,
       rentWithPurchaseConditions: rentWithPurchaseConditions,
+      rentToBuy: rentWithPurchaseConditions.isNotEmpty,
     );
   }
 
