@@ -156,6 +156,7 @@ class EASingleton {
     }
 
     return EditAdState(
+
       region: v.region,
       district: v.district,
       showExactAddress: showExactAddress,

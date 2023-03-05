@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
@@ -331,6 +332,9 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                               page: const MapScreenPostingAd()),
                                         ).then(
                                           (latLongZoom) {
+                                            log('::::::::::sdfg  ${ latLongZoom[0]}  ::::::::::');
+                                            log('::::::::::fs  ${ latLongZoom[1]}  ::::::::::');
+                                            log(':::::::::: fes ${ latLongZoom[2]}  ::::::::::');
                                             if (latLongZoom is List<double>) {
                                               postingAdBloc.add(
                                                 PostingAdGetMapScreenShotEvent(

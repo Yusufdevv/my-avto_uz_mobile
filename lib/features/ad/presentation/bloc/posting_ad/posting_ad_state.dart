@@ -7,6 +7,7 @@ class PostingAdState extends Equatable {
   final FormzStatus getMakesStatus;
   final FormzStatus createStatus;
   final FormzStatus getModificationStatus;
+  final FormzStatus getLocationImage;
   final GlobalKey<FormState> contactsFormKey;
 
   final String? id;
@@ -155,6 +156,7 @@ class PostingAdState extends Equatable {
     this.createStatus = FormzStatus.pure,
     this.getMakesStatus = FormzStatus.pure,
     this.getModificationStatus = FormzStatus.pure,
+    this.getLocationImage = FormzStatus.pure,
     this.toastMessage,
     this.userModel,
     this.lat,
@@ -194,6 +196,7 @@ class PostingAdState extends Equatable {
     FormzStatus? createStatus,
     FormzStatus? getMakesStatus,
     FormzStatus? getModificationStatus,
+    FormzStatus? getLocationImage,
     PopStatus? popStatus,
     ModificationTypeEntity? modification,
     List<ModificationTypeEntity>? modifications,
@@ -263,6 +266,7 @@ class PostingAdState extends Equatable {
     bool isLastEquipmentIdToNull = false,
   }) =>
       PostingAdState(
+        getLocationImage: getLocationImage ?? this.getLocationImage,
         lat: lat ?? this.lat,
         long: long ?? this.long,
         lastEquipmentId: isLastEquipmentIdToNull
@@ -350,6 +354,7 @@ class PostingAdState extends Equatable {
 
   @override
   List<Object?> get props => [
+        getLocationImage,
         lastEquipmentId,
         selectOptions,
         radioOptions,

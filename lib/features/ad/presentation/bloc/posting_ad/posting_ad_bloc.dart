@@ -287,22 +287,21 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       Emitter<PostingAdState> emit) async {
     emit(state.copyWith(
       showExactAddress: true,
-      status: FormzStatus.submissionInProgress,
+      getLocationImage: FormzStatus.submissionInProgress,
     ));
     final result = await screenShotUseCase
         .call({'longitude': '${event.long}', 'latitude': '${event.lat}'});
-
     if (result.isRight) {
       emit(
         state.copyWith(
-          status: FormzStatus.submissionSuccess,
+          getLocationImage: FormzStatus.submissionSuccess,
           mapPointBytes: result.right,
           lat: event.lat,
           long: event.long,
         ),
       );
     } else {
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
+      emit(state.copyWith(getLocationImage: FormzStatus.submissionFailure));
     }
   }
 
