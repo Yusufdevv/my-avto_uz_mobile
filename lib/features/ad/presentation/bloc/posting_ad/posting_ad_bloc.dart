@@ -149,8 +149,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     } else {
       emit(state.copyWith(
           equipment: event.equipment,
-          selectOptions: makeSelectsSelected(v: event.equipment!.options),
-          radioOptions: makeRadiosSelected(v: event.equipment!.options)));
+          selectOptions: makeSelectsSelected(v: event.equipment.options),
+          radioOptions: makeRadiosSelected(v: event.equipment.options)));
     }
   }
 
@@ -737,10 +737,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   /// it will be called
   FutureOr<void> _getChangeOption(
       PostingAdChangeOption event, Emitter<PostingAdState> emit) {
-    log(':::::::::::   get change option triggered    ::::::::::::::');
+    log(':::::::::::   get change option triggered  isAdd: ${event.isAdd}  event.type: ${event.type}  event.selected option id: ${event.selectOption}::::::::::::::');
     if (event.isAdd) {
       if (event.type == 'select') {
-        var isEquipmentToNull = false;
         var m = state.selectOptions.map(MapEntry.new);
         int? lastEquipmentId;
         EquipmentEntity? equipment;
@@ -752,25 +751,16 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
           m.remove(event.id);
           equipment = PASingleton.isEquipmentFull(
-              equipment: state.equipment ??
-                  state.equipments
-                      .firstWhere((e) => e.id == state.lastEquipmentId),
-              sR: state.radioOptions,
-              sS: m,
-              where: 'line 754');
+              state: state, sR: state.radioOptions, sS: m, where: 'line 754');
         } else {
-          log(':::::::::::  contains lastEquipmentId: ${state.equipments.any((e) => e.id == state.lastEquipmentId)}  lastEquipmentId: ${state.lastEquipmentId}  ::::::::::::::');
           m[event.id] = event.selectOption!;
           equipment = PASingleton.isEquipmentFull(
             where: 'line 756',
-            equipment: state.equipment ??
-                state.equipments
-                    .firstWhere((e) => e.id == state.lastEquipmentId),
+            state: state,
             sS: m,
             sR: state.radioOptions,
           );
         }
-
         emit(
           state.copyWith(
             equipment: equipment,
@@ -784,13 +774,11 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         var m = state.radioOptions.map(MapEntry.new);
         EquipmentEntity? equipment;
 
-        log(':::::::::::  contains lastEquipmentId radio: ${state.equipments.any((e) => e.id == state.lastEquipmentId)}  lastEquipmentId in radio: ${state.lastEquipmentId}  ::::::::::::::');
         m[event.id] = event.itemName;
         if (state.equipments.any((e) => e.id == state.lastEquipmentId)) {
           equipment = PASingleton.isEquipmentFull(
             where: 'line 788',
-            equipment: state.equipments
-                .firstWhere((e) => e.id == state.lastEquipmentId),
+            state: state,
             sR: m,
             sS: state.selectOptions,
           );
@@ -810,12 +798,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
         var m = state.selectOptions.map(MapEntry.new)..remove(event.id);
         final equipment = PASingleton.isEquipmentFull(
-            equipment: state.equipment ??
-                state.equipments
-                    .firstWhere((e) => e.id == state.lastEquipmentId),
-            sR: state.radioOptions,
-            sS: m,
-            where: 'line 833');
+            state: state, sR: state.radioOptions, sS: m, where: 'line 833');
 
         if (equipment == null) {
           lastEquipmentId = state.equipment?.id;
@@ -834,12 +817,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
         var m = state.radioOptions.map(MapEntry.new)..remove(event.id);
         final equipment = PASingleton.isEquipmentFull(
-            equipment: state.equipment ??
-                state.equipments
-                    .firstWhere((e) => e.id == state.lastEquipmentId),
-            sR: m,
-            sS: state.selectOptions,
-            where: 'line 866');
+            state: state, sR: m, sS: state.selectOptions, where: 'line 866');
 
         if (equipment == null) {
           lastEquipmentId = state.equipment?.id;

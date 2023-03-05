@@ -56,6 +56,7 @@ class PASingleton {
       'rent_with_purchase': v.rentWithPurchaseConditions.entries
           .map((e) => e.value.toApi())
           .toList(),
+
       'equipment': v.equipment?.id,
       'gas_equipment': v.gasEquipmentId,
     };
@@ -90,31 +91,27 @@ class PASingleton {
       return MapEntry('gallery[$i]', e);
     }));
     i = -1;
-    log(':::::::::: selected radios lenth before: ${v.radioOptions.length}  ::::::::::');
     Map<int, String> rO = v.equipment == null
         ? v.radioOptions
         : _removeEquipmentContainingRadios(v.equipment!, v.radioOptions);
-    log(':::::::::: selected radios lenth after: ${rO.length}  ::::::::::');
-    announcementFields.addEntries(rO.entries.map((e) {
+     announcementFields.addEntries(rO.entries.map((e) {
       i++;
       return MapEntry('options[$i]', e.key);
     }));
-    log(':::::::::::   OPTIONS INITIALIZED    ::::::::::::::');
-    i = -1;
+     i = -1;
 
-    log(':::::::::: selected options length before:  ${v.selectOptions.length}  ::::::::::');
-    Map<int, SO> selectedOptions = v.equipment == null
+     Map<int, SO> selectedOptions = v.equipment == null
         ? v.selectOptions
         : _removeEquipmentContainingSelects(v.equipment!, v.selectOptions);
-    log(':::::::::: selected options length after:  ${selectedOptions.length}  ::::::::::');
     announcementFields.addEntries(selectedOptions.entries.map((e) {
       i++;
       return MapEntry('option_items[$i]', e.value.id);
     }));
-    log(':::::::::::   OPTION ITEMS  INITIALIZED    ::::::::::::::');
+
 
     log('ANNOUNCEMENT FIELDS BEFORE FORMDATALIZE: ${announcementFields.toString()} \n Seperator Seperator Seperator Seperator Seperator Seperator Seperator Seperator Seperator ');
-    final announcementFormData = FormData.fromMap(announcementFields);
+    final announcementFormData =
+        FormData.fromMap(announcementFields, ListFormat.multiCompatible);
 
     return announcementFormData;
   }
@@ -384,13 +381,17 @@ class PASingleton {
   }
 
   static EquipmentEntity? isEquipmentFull(
-      {required EquipmentEntity? equipment,
+      {required PostingAdState state,
       required Map<int, String> sR,
       required Map<int, SO> sS,
       required String where}) {
     log('::::::::::: where:    $where    ::::::::::::::');
     log(':::::::::: selected SS: $sS  ::::::::::');
     log(':::::::::: selected radios: $sR  ::::::::::');
+    final equipment = state.equipment ??
+        (state.equipments.any((e) => e.id == state.lastEquipmentId)
+            ? state.equipments.firstWhere((e) => e.id == state.lastEquipmentId)
+            : null);
 
     if (equipment == null) {
       log(':::::::::::   returning due to equipment is null    ::::::::::::::');
