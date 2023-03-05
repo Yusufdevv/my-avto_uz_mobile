@@ -69,7 +69,8 @@ class PostingAdState extends Equatable {
   final String? callTimeFrom;
   final String? callTimeTo;
   final String? toastMessage;
-  final String? locationUrl;
+  final double? long;
+  final double? lat;
   final bool hasAppBarShadow;
   final bool isSortByLetter;
   final bool notRegisteredInUzbekistan;
@@ -84,7 +85,6 @@ class PostingAdState extends Equatable {
   final EquipmentEntity? equipment;
   final List<EquipmentEntity> equipments;
   final List<EquipmentOptionsListEntity> equipmentOptionsList;
-
 
   const PostingAdState({
     required this.contactsFormKey,
@@ -157,7 +157,8 @@ class PostingAdState extends Equatable {
     this.getModificationStatus = FormzStatus.pure,
     this.toastMessage,
     this.userModel,
-    this.locationUrl,
+    this.lat,
+    this.long,
     this.mapPointBytes,
     this.milageImage,
     this.gasEquipments = const [],
@@ -240,7 +241,8 @@ class PostingAdState extends Equatable {
     String? callTimeTo,
     String? session,
     String? toastMessage,
-    String? locationUrl,
+    double? long,
+    double? lat,
     bool? hasAppBarShadow,
     bool? notRegisteredInUzbekistan,
     bool? isCallTimed,
@@ -261,6 +263,8 @@ class PostingAdState extends Equatable {
     bool isLastEquipmentIdToNull = false,
   }) =>
       PostingAdState(
+        lat: lat ?? this.lat,
+        long: long ?? this.long,
         lastEquipmentId: isLastEquipmentIdToNull
             ? null
             : lastEquipmentId ?? this.lastEquipmentId,
@@ -278,7 +282,6 @@ class PostingAdState extends Equatable {
         mapPointBytes: mapPointBytes ?? this.mapPointBytes,
         makeLetterIndex: eventMakeScrrollIndex,
         yearEntity: yearEntity ?? this.yearEntity,
-        locationUrl: locationUrl ?? this.locationUrl,
         phoneController: phoneController ?? this.phoneController,
         emailController: emailController ?? this.emailController,
         nameController: nameController ?? this.nameController,
@@ -362,7 +365,8 @@ class PostingAdState extends Equatable {
         mapPointBytes,
         id,
         makeLetterIndex,
-        locationUrl,
+        long,
+        lat,
         phoneController,
         emailController,
         nameController,

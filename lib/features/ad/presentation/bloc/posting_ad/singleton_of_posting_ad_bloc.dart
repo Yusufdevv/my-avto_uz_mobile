@@ -12,6 +12,8 @@ class PASingleton {
     log(':::::::::::   EQIPMENT FOR COMPLETED    ::::::::::::::');
     // ignore: prefer_final_locals
     var announcementFields = <String, dynamic>{
+      'longitude':v.long,
+      'latitude':v.lat,
       'make': v.make?.id,
       'model': v.model?.id,
       'generation': v.generationId,
@@ -34,7 +36,8 @@ class PASingleton {
       'contact_phone': v.ownerPhone,
       'region': v.regionId,
       'district': v.districtId,
-      'location_url': v.locationUrl,
+      'location_url':
+          'https://yandex.com/maps/10335/tashkent/?ll=${v.long}%2C${v.lat}&z=15',
       'price': v.price?.replaceAll(' ', ''),
       'currency': v.currency,
       'distance_traveled': (v.isWithoutMileage ?? false)
@@ -171,7 +174,6 @@ class PASingleton {
         mapPointBytes: event.bodyBytes,
         years: event.years,
         yearEntity: event.yearEntity,
-        locationUrl: event.locationUrll,
         toastMessage: event.toastMessage,
         damagedParts: event.damagedParts,
         gallery: event.gallery,

@@ -62,7 +62,7 @@ part 'singleton_of_posting_ad_bloc.dart';
 
 class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   final GetModificationTypeUseCase modificationUseCase =
-  GetModificationTypeUseCase();
+      GetModificationTypeUseCase();
   final GetMapScreenShotUseCase screenShotUseCase = GetMapScreenShotUseCase();
   final GetYearsUseCase getYearsUseCase = GetYearsUseCase();
   final CreateAnnouncementUseCase createUseCase = CreateAnnouncementUseCase();
@@ -82,23 +82,23 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   final GetTopBrandUseCase topMakesUseCase = GetTopBrandUseCase();
   final GetBodyTypeUseCase bodyTypesUseCase = GetBodyTypeUseCase();
   final GetGasEquipmentsUseCase gasEquipmentsUseCase =
-  GetGasEquipmentsUseCase();
+      GetGasEquipmentsUseCase();
   final GetEquipmentsUseCase getEquipmentsUseCase = GetEquipmentsUseCase();
   final GetEquipmentOptionsListUseCase getEquipmentOptionsListUseCase =
-  GetEquipmentOptionsListUseCase();
+      GetEquipmentOptionsListUseCase();
   final GetEquipmentOptionsUseCase getEquipmentOptionsUseCase =
-  GetEquipmentOptionsUseCase();
+      GetEquipmentOptionsUseCase();
 
   PostingAdBloc()
       : super(PostingAdState(
-      contactsFormKey: GlobalKey<FormState>(),
-      popStatus: PopStatus.success,
-      colorName: LocaleKeys.white.tr(),
-      status: FormzStatus.pure,
-      phoneController: TextEditingController(),
-      emailController: TextEditingController(),
-      nameController: TextEditingController(),
-      searchController: TextEditingController())) {
+            contactsFormKey: GlobalKey<FormState>(),
+            popStatus: PopStatus.success,
+            colorName: LocaleKeys.white.tr(),
+            status: FormzStatus.pure,
+            phoneController: TextEditingController(),
+            emailController: TextEditingController(),
+            nameController: TextEditingController(),
+            searchController: TextEditingController())) {
     on<PostingAdChooseEvent>(_choose);
     on<PostingAdMakesEvent>(_makes);
     on<PostingAdTopMakesEvent>(_topMakes);
@@ -135,8 +135,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdSelectEquipmentEvent>(_selectEquipment);
   }
 
-  FutureOr<void> _selectEquipment(PostingAdSelectEquipmentEvent event,
-      Emitter<PostingAdState> emit) async {
+  FutureOr<void> _selectEquipment(
+      PostingAdSelectEquipmentEvent event, Emitter<PostingAdState> emit) async {
     if (event.equipment.id == -1) {
       emit(
         state.copyWith(
@@ -162,8 +162,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     emit(state.copyWith(rentWithPurchaseConditions: map));
   }
 
-  FutureOr<void> _showToast(PostingAdShowToastEvent event,
-      Emitter<PostingAdState> emit) {
+  FutureOr<void> _showToast(
+      PostingAdShowToastEvent event, Emitter<PostingAdState> emit) {
     emit(state.copyWith(toastMessage: event.message, popStatus: event.status));
   }
 
@@ -173,8 +173,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     emit(state.copyWith(searchController: TextEditingController()));
   }
 
-  FutureOr<void> _clearState(PostingAdClearStateEvent event,
-      Emitter<PostingAdState> emit) {
+  FutureOr<void> _clearState(
+      PostingAdClearStateEvent event, Emitter<PostingAdState> emit) {
     emit(
       PostingAdState(
         contactsFormKey: GlobalKey<FormState>(),
@@ -190,8 +190,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     add(PostingAdMakesEvent());
   }
 
-  FutureOr<void> _modification(PostingAdModificationsEvent event,
-      Emitter<PostingAdState> emit) async {
+  FutureOr<void> _modification(
+      PostingAdModificationsEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(
         getModificationStatus: FormzStatus.submissionInProgress));
     final result = await modificationUseCase.call(ModificationTypeParams(
@@ -207,9 +207,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
           getModificationStatus: FormzStatus.submissionSuccess,
           modifications: result.right.results,
           modification:
-          result.right.results.isNotEmpty && state.modification == null
-              ? result.right.results.first
-              : null,
+              result.right.results.isNotEmpty && state.modification == null
+                  ? result.right.results.first
+                  : null,
         ),
       );
     } else {
@@ -223,8 +223,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     }
   }
 
-  FutureOr<void> _searchMake(PostingAdSearchMakesEvent event,
-      Emitter<PostingAdState> emit) async {
+  FutureOr<void> _searchMake(
+      PostingAdSearchMakesEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(getMakesStatus: FormzStatus.submissionInProgress));
     final result = await makeUseCase.call(event.name);
     if (result.isRight) {
@@ -240,8 +240,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     }
   }
 
-  FutureOr<void> _addEvent(PostingAdAddEventForEveryPage event,
-      Emitter<PostingAdState> emit) {
+  FutureOr<void> _addEvent(
+      PostingAdAddEventForEveryPage event, Emitter<PostingAdState> emit) {
     switch (event.page) {
       case 0:
         if (state.makes.isEmpty) add(PostingAdMakesEvent());
@@ -286,36 +286,40 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   FutureOr<void> _screenShot(PostingAdGetMapScreenShotEvent event,
       Emitter<PostingAdState> emit) async {
     emit(state.copyWith(
-        showExactAddress: true,
-        status: FormzStatus.submissionInProgress,
-        locationUrl:
-        'https://yandex.com/maps/10335/tashkent/?ll=${event.long}%2C${event
-            .lat}&z=${event.zoomLevel}'));
+      showExactAddress: true,
+      status: FormzStatus.submissionInProgress,
+    ));
     final result = await screenShotUseCase
         .call({'longitude': '${event.long}', 'latitude': '${event.lat}'});
 
     if (result.isRight) {
-      emit(state.copyWith(
-          status: FormzStatus.submissionSuccess, mapPointBytes: result.right));
+      emit(
+        state.copyWith(
+          status: FormzStatus.submissionSuccess,
+          mapPointBytes: result.right,
+          lat: event.lat,
+          long: event.long,
+        ),
+      );
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
   }
 
-  FutureOr<void> _getYears(PostingAdGetYearsEvent event,
-      Emitter<PostingAdState> emit) async {
+  FutureOr<void> _getYears(
+      PostingAdGetYearsEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result =
-    await getYearsUseCase.call(YearsParams(modelId: state.model!.id));
+        await getYearsUseCase.call(YearsParams(modelId: state.model!.id));
     if (result.isRight) {
       emit(
         state.copyWith(
           status: FormzStatus.submissionSuccess,
           years: result.right.results,
           yearEntity:
-          result.right.results.isNotEmpty && state.yearEntity == null
-              ? result.right.results.first
-              : null,
+              result.right.results.isNotEmpty && state.yearEntity == null
+                  ? result.right.results.first
+                  : null,
         ),
       );
     } else {
@@ -333,8 +337,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     ));
   }
 
-  FutureOr<void> _getUser(PostingAdGetUserDataEvent event,
-      Emitter<PostingAdState> emit) async {
+  FutureOr<void> _getUser(
+      PostingAdGetUserDataEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     if (state.userModel != null) {
       emit(PASingleton.initUserFromState(state));
@@ -354,12 +358,12 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     }
   }
 
-  FutureOr<void> _sendCode(PostingAdSendCodeEvent event,
-      Emitter<PostingAdState> emit) async {
+  FutureOr<void> _sendCode(
+      PostingAdSendCodeEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
 
     final result =
-    await contactsUseCase.call('+998${event.phone.replaceAll(' ', '')}');
+        await contactsUseCase.call('+998${event.phone.replaceAll(' ', '')}');
     if (result.isRight) {
       event.onSuccess(result.right);
       emit(state.copyWith(
@@ -373,11 +377,11 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     }
   }
 
-  FutureOr<void> _getMinimumPrice(PostingAdGetMinimumPriceEvent event,
-      Emitter<PostingAdState> emit) async {
+  FutureOr<void> _getMinimumPrice(
+      PostingAdGetMinimumPriceEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result =
-    await minimumPriceUseCase.call(PASingleton.getMiniPrice(state));
+        await minimumPriceUseCase.call(PASingleton.getMiniPrice(state));
 
     if (result.isRight) {
       emit(state.copyWith(
@@ -388,8 +392,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     }
   }
 
-  FutureOr<void> _getDistricts(PostingAdGetDistritsEvent event,
-      Emitter<PostingAdState> emit) async {
+  FutureOr<void> _getDistricts(
+      PostingAdGetDistritsEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(getDistrictsStatus: FormzStatus.submissionInProgress));
     final result = await districtUseCase.call(event.regionId);
     if (result.isRight) {
@@ -408,8 +412,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     }
   }
 
-  FutureOr<void> _getRegions(PostingAdGetRegionsEvent event,
-      Emitter<PostingAdState> emit) async {
+  FutureOr<void> _getRegions(
+      PostingAdGetRegionsEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await regionsUseCase.call(NoParams());
     if (result.isRight) {
@@ -429,15 +433,15 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     }
   }
 
-  FutureOr<void> _damage(PostingAdDamageEvent event,
-      Emitter<PostingAdState> emit) {
+  FutureOr<void> _damage(
+      PostingAdDamageEvent event, Emitter<PostingAdState> emit) {
     final damages = state.damagedParts.map(MapEntry.new);
     damages[event.part] = event.type;
     emit(state.copyWith(damagedParts: damages));
   }
 
-  FutureOr<void> _create(PostingAdCreateEvent event,
-      Emitter<PostingAdState> emit) async {
+  FutureOr<void> _create(
+      PostingAdCreateEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(createStatus: FormzStatus.submissionInProgress));
     final result = await createUseCase.call(await PASingleton.create(state));
 
@@ -456,8 +460,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     }
   }
 
-  FutureOr<void> _bodyTypes(PostingAdBodyTypesEvent event,
-      Emitter<PostingAdState> emit) async {
+  FutureOr<void> _bodyTypes(
+      PostingAdBodyTypesEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await bodyTypesUseCase
         .call(BodyTypeParams(generationId: state.generationId));
@@ -477,8 +481,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     }
   }
 
-  FutureOr<void> _gearBoxes(PostingAdGearBoxesEvent event,
-      Emitter<PostingAdState> emit) async {
+  FutureOr<void> _gearBoxes(
+      PostingAdGearBoxesEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await gearboxUseCase.call(NoParams());
     if (result.isRight) {
@@ -496,8 +500,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     }
   }
 
-  FutureOr<void> _driveTypes(PostingAdDriveTypesEvent event,
-      Emitter<PostingAdState> emit) async {
+  FutureOr<void> _driveTypes(
+      PostingAdDriveTypesEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await driveTypeUseCase.call(DriveTypeParams(
       generationId: state.generationId,
@@ -520,8 +524,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     }
   }
 
-  FutureOr<void> _engines(PostingAdEnginesEvent event,
-      Emitter<PostingAdState> emit) async {
+  FutureOr<void> _engines(
+      PostingAdEnginesEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await engineUseCase.call(EngineTypeParams(
       bodyTypeId: state.bodyType?.id,
@@ -544,11 +548,11 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     }
   }
 
-  FutureOr<void> _models(PostingAdModelEvent event,
-      Emitter<PostingAdState> emit) async {
+  FutureOr<void> _models(
+      PostingAdModelEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result =
-    await modelsUseCase.call(state.make?.id ?? -1, name: event.name);
+        await modelsUseCase.call(state.make?.id ?? -1, name: event.name);
     if (result.isRight) {
       emit(
         state.copyWith(
@@ -561,8 +565,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     }
   }
 
-  FutureOr<void> _generations(PostingAdGenerationsEvent event,
-      Emitter<PostingAdState> emit) async {
+  FutureOr<void> _generations(
+      PostingAdGenerationsEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await generationUseCase.call(GenerationParams(
       modelId: state.model?.id,
@@ -581,8 +585,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     }
   }
 
-  FutureOr<void> _topMakes(PostingAdTopMakesEvent event,
-      Emitter<PostingAdState> emit) async {
+  FutureOr<void> _topMakes(
+      PostingAdTopMakesEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
 
     final result = await topMakesUseCase.call(event.name);
@@ -600,8 +604,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     }
   }
 
-  FutureOr<void> _makes(PostingAdMakesEvent event,
-      Emitter<PostingAdState> emit) async {
+  FutureOr<void> _makes(
+      PostingAdMakesEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(getMakesStatus: FormzStatus.submissionInProgress));
 
     final result = await makeUseCase.call(null);
@@ -622,8 +626,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     add(PostingAdTopMakesEvent());
   }
 
-  void _changeAppBarShadow(PostingAdChangeAppBarShadowEvent event,
-      Emitter<PostingAdState> emit) {
+  void _changeAppBarShadow(
+      PostingAdChangeAppBarShadowEvent event, Emitter<PostingAdState> emit) {
     emit(state.copyWith(hasAppBarShadow: event.value));
   }
 
@@ -638,8 +642,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     emit(PASingleton.choose(state, event));
   }
 
-  FutureOr<void> _getGasEquipments(PostingAdGetGasEquipments event,
-      Emitter<PostingAdState> emit) async {
+  FutureOr<void> _getGasEquipments(
+      PostingAdGetGasEquipments event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await gasEquipmentsUseCase.call({'limit': 100, 'offset': 0});
     if (result.isRight) {
@@ -653,8 +657,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     }
   }
 
-  FutureOr<void> _getEquipments(PostingAdGetEquipments event,
-      Emitter<PostingAdState> emit) async {
+  FutureOr<void> _getEquipments(
+      PostingAdGetEquipments event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await getEquipmentsUseCase.call({
       'search': '',
@@ -730,8 +734,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   /// this function is for setting each equipment's options to all options
   /// every single time when model's equipment changed whether it's valid or not
   /// it will be called
-  FutureOr<void> _getChangeOption(PostingAdChangeOption event,
-      Emitter<PostingAdState> emit) {
+  FutureOr<void> _getChangeOption(
+      PostingAdChangeOption event, Emitter<PostingAdState> emit) {
     log(':::::::::::   get change option triggered    ::::::::::::::');
     if (event.isAdd) {
       if (event.type == 'select') {
@@ -754,9 +758,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
               sS: m,
               where: 'line 754');
         } else {
-          log(':::::::::::  contains lastEquipmentId: ${state.equipments.any((
-              e) => e.id == state.lastEquipmentId)}  lastEquipmentId: ${state
-              .lastEquipmentId}  ::::::::::::::');
+          log(':::::::::::  contains lastEquipmentId: ${state.equipments.any((e) => e.id == state.lastEquipmentId)}  lastEquipmentId: ${state.lastEquipmentId}  ::::::::::::::');
           m[event.id] = event.selectOption!;
           equipment = PASingleton.isEquipmentFull(
             where: 'line 756',
@@ -781,10 +783,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         var m = state.radioOptions.map(MapEntry.new);
         EquipmentEntity? equipment;
 
-        log(':::::::::::  contains lastEquipmentId radio: ${state.equipments
-            .any((e) =>
-        e.id == state.lastEquipmentId)}  lastEquipmentId in radio: ${state
-            .lastEquipmentId}  ::::::::::::::');
+        log(':::::::::::  contains lastEquipmentId radio: ${state.equipments.any((e) => e.id == state.lastEquipmentId)}  lastEquipmentId in radio: ${state.lastEquipmentId}  ::::::::::::::');
         m[event.id] = event.itemName;
         if (state.equipments.any((e) => e.id == state.lastEquipmentId)) {
           equipment = PASingleton.isEquipmentFull(
@@ -808,8 +807,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       if (event.type == 'select') {
         /// remove for -> selects
 
-        var m = state.selectOptions.map(MapEntry.new)
-          ..remove(event.id);
+        var m = state.selectOptions.map(MapEntry.new)..remove(event.id);
         final equipment = PASingleton.isEquipmentFull(
             equipment: state.equipment ??
                 state.equipments
@@ -833,8 +831,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       } else {
         /// for remove -> radios
 
-        var m = state.radioOptions.map(MapEntry.new)
-          ..remove(event.id);
+        var m = state.radioOptions.map(MapEntry.new)..remove(event.id);
         final equipment = PASingleton.isEquipmentFull(
             equipment: state.equipment ??
                 state.equipments
