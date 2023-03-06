@@ -347,7 +347,9 @@ class _WTextFieldState extends State<WTextField>
                                     .borderColor
                                 : widget.hasError
                                     ? Theme.of(context).colorScheme.error
-                                    : widget.borderColor ??
+                                    : widget.readOnly ? Theme.of(context)
+                                .extension<WTextFieldStyle>()!
+                                .borderColor :  widget.borderColor ??
                                         Theme.of(context)
                                             .extension<WTextFieldStyle>()!
                                             .borderColor,

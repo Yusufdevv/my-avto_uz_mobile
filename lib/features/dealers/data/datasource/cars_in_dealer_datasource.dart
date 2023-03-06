@@ -11,14 +11,9 @@ class CarsInDealerDataSource {
     required String slug,
     String? next,
   }) async {
-    var query = <String, dynamic>{};
-    if (next != null) {
-      query = {'next': next};
-    }
     try {
       final results = await _dio.get(
-        'users/dealers/$slug/cars/',
-        queryParameters: query,
+       next ?? 'users/dealers/$slug/cars/',
         options: Options(headers: {
           'Authorization': 'Bearer ${StorageRepository.getString('token')}'
         }),

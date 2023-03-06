@@ -15,6 +15,8 @@ class DealerCardEvent with _$DealerCardEvent {
     String? carType,
   }) = _GetFilterParams;
 
+  factory DealerCardEvent.changeTabIndex(
+      {required int index}) = _ChangeTabIndex;
   factory DealerCardEvent.getMoreResults() = _GetMoreResults;
   factory DealerCardEvent.watchContact({required int id}) = _WatchContact;
 }

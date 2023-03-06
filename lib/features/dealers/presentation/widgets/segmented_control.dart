@@ -5,10 +5,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class SegmentedControl extends SliverPersistentHeaderDelegate {
-  SegmentedControl({required this.maxHeight, required this.minHeight});
+  SegmentedControl({required this.maxHeight, required this.minHeight, required this.tabController});
 
   final double maxHeight;
   final double minHeight;
+  final TabController tabController;
 
   @override
   Widget build(
@@ -35,6 +36,8 @@ class SegmentedControl extends SliverPersistentHeaderDelegate {
                 .whiteLilacToNightRider,
           ),
           child: TabBar(
+            onTap: (index){},
+            controller: tabController,
             indicator: BoxDecoration(
               borderRadius: BorderRadius.circular(7),
               color: Theme.of(context).extension<ThemedColors>()!.whiteToSmoky,

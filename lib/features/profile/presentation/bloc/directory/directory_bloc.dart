@@ -60,6 +60,10 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
       }
     });
 
+    on<ChangeTabIndexEvent>((event, emit) {
+      emit(state.copyWith(isIndexOne: event.index==1));
+    });
+
     on<DirectoryFilterEvent>((event, emit) {
       emit(state.copyWith(
           regions: event.regions ?? state.regions,

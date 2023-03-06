@@ -9,14 +9,9 @@ class MarksInDealerDataSource {
   MarksInDealerDataSource(this._dio);
   Future<GenericPagination<MarksWithAdsModel>> getMarks(
       {required String slug, String? next}) async {
-    var query = <String, dynamic>{};
-    if (next != null) {
-      query = {'next': next};
-    }
     try {
       final results = await _dio.get(
-        'users/dealers/$slug/marks/',
-        queryParameters: query,
+       next ?? 'users/dealers/$slug/marks/',
         options: Options(headers: {
           'Authorization': 'Bearer ${StorageRepository.getString('token')}'
         }),

@@ -47,7 +47,7 @@ class _HourPickerWidgetState extends State<HourPickerWidget> {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8), color: Colors.white),
         height: 120,
-        width: 140,
+        // width: 170,
         child: Row(
           children: [
             Align(

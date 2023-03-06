@@ -13,6 +13,10 @@ class GetDirectorySingleEvent extends DirectoryEvent {
   final String slug;
   GetDirectorySingleEvent({required this.slug});
 }
+class ChangeTabIndexEvent extends DirectoryEvent {
+  final int index;
+  ChangeTabIndexEvent({required this.index});
+}
 
 class DirectoryFilterEvent extends DirectoryEvent {
   String? regions;

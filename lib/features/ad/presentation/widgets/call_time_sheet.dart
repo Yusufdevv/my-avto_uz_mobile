@@ -78,14 +78,17 @@ class _CallTimeSheetState extends State<CallTimeSheet> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   HourPickerWidget(
                       defaultHour: 8,
                       initialItem: widget.timeFrom,
                       title: LocaleKeys.from.tr(),
                       onChanged: (value) => setState(() => from = value)),
-                  Container(width: 1, height: 120, color: border),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16, right: 6),
+                    child: Container(width: 1, height: 120, color: border),
+                  ),
                   HourPickerWidget(
                       defaultHour: 17,
                       initialItem: widget.timeTo,

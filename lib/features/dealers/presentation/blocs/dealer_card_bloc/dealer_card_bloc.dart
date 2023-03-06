@@ -49,23 +49,13 @@ class DealerCardBloc extends Bloc<DealerCardEvent, DealerCardState> {
         ));
       }
     });
-    // on<_GetFilter>((event, emit) async {
-    //   final result = await dealerUseCase(DealerParams(
-    //       filter:));
-
-    //   if (result.isRight) {
-    //     emit(state.copyWith(
-    //       list: result.right.results,
-    //       count: result.right.count,
-    //       next: result.right.next,
-    //     ));
-    //   } else {
-    //     emit(state.copyWith(status: FormzStatus.submissionFailure));
-    //   }
-    // });
 
     on<_WatchContact>((event, emit) async {
       await dealerSingleWatchContactUseCase.call(event.id);
+    });
+
+    on<_ChangeTabIndex>((event, emit) async {
+      emit(state.copyWith(isIndexOne: event.index==1));
     });
   }
 }

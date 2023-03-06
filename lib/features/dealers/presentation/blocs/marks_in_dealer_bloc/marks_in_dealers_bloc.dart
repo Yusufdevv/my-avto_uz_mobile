@@ -16,7 +16,6 @@ class MarksInDealersBloc
       : super(MarksInDealersState()) {
     on<_GetResults>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
-
       final result = await marksInDealerUseCase.call(Params(slug: event.slug));
       if (result.isRight) {
         emit(

@@ -8,6 +8,7 @@ class DirectoryState extends Equatable {
   List<DirCategoryEntity> selectedCategories;
   String regions;
   String regionId;
+  final bool isIndexOne;
 
   DirectoryState({
     required this.status,
@@ -17,6 +18,7 @@ class DirectoryState extends Equatable {
     this.selectedCategories = const <DirCategoryEntity>[],
     this.regions = '',
     this.regionId = '',
+    this.isIndexOne = false,
   });
 
   DirectoryState copyWith({
@@ -27,6 +29,7 @@ class DirectoryState extends Equatable {
     List<DirCategoryEntity>? selectedCategories,
     String? regions,
     String? regionId,
+    bool? isIndexOne,
   }) =>
       DirectoryState(
         directories: directories ?? this.directories,
@@ -36,6 +39,7 @@ class DirectoryState extends Equatable {
         status: status ?? this.status,
         regions: regions ?? this.regions,
         regionId: regionId ?? this.regionId,
+        isIndexOne: isIndexOne ?? this.isIndexOne,
       );
 
   @override
@@ -46,6 +50,7 @@ class DirectoryState extends Equatable {
         categories,
         selectedCategories,
         regions,
-        regionId
+        regionId,
+        isIndexOne
       ];
 }

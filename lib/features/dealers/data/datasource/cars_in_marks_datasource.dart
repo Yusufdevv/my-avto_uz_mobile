@@ -11,14 +11,10 @@ class CarsInMarksDataSource {
 
   Future<GenericPagination<CarsInMarksModel>> getCars(
       {required CarMarkParams params}) async {
-    var query = <String, dynamic>{};
-    if (params.next != null) {
-      query = {'next': params.next};
-    }
+
     try {
       final results = await _dio.get(
-        'users/dealers/${params.dealer}/mark/${params.mark}/cars/',
-        queryParameters: query,
+       params.next ?? 'users/dealers/${params.dealer}/mark/${params.mark}/cars/',
         options: Options(headers: {
           'Authorization': 'Bearer ${StorageRepository.getString('token')}'
         }),

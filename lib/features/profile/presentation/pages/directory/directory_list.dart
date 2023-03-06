@@ -72,39 +72,3 @@ class _DirectoryListState extends State<DirectoryList> {
         ),
       );
 }
-// Paginator(
-//                     itemBuilder: (BuildContext context, int index) {
-//                       return TeachersItem(entity: state.entity.results[index]);
-//                     },
-//                     paginatorStatus: state.status,
-//                     itemCount: state.entity.results.length,
-//                     hasMoreToFetch: state.fetchMore,
-//                     errorWidget: const SizedBox(),
-//                     fetchMoreFunction: () {},
-//                     loadingWidget: const MainSchoolPageShimmer(),
-//                   ),
-
-// Paginator(
-//                                             hasMoreToFetch: state.moreFetch,
-//                                             fetchMoreFunction: () {},
-//                                             itemCount: state.count,
-//                                             paginatorStatus: state.status,
-//                                             errorWidget:
-//                                                 const SearchItemShimmer(
-//                                                     slideImageCount: 2),
-//                                             separatorBuilder:
-//                                                 (context, index) => Divider(
-//                                               height: 12,
-//                                               thickness: 0,
-//                                               color: Theme.of(context)
-//                                                   .extension<ThemedColors>()!
-//                                                   .borderGreyToDark,
-//                                             ),
-//                                             itemBuilder: (context, index) =>
-//                                                 SortResultsCard(
-//                                               searchResults:
-//                                                   state.searchResults,
-//                                               index: index,
-//                                               status: sortingValue,
-//                                             ),
-//                                           ),

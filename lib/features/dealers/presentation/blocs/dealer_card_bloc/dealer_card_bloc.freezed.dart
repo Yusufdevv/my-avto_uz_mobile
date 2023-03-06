@@ -23,6 +23,7 @@ mixin _$DealerCardEvent {
         getResults,
     required TResult Function(String? regions, String? maker, String? carType)
         getFilterParams,
+    required TResult Function(int index) changeTabIndex,
     required TResult Function() getMoreResults,
     required TResult Function(int id) watchContact,
   }) =>
@@ -34,6 +35,7 @@ mixin _$DealerCardEvent {
         getResults,
     TResult? Function(String? regions, String? maker, String? carType)?
         getFilterParams,
+    TResult? Function(int index)? changeTabIndex,
     TResult? Function()? getMoreResults,
     TResult? Function(int id)? watchContact,
   }) =>
@@ -45,6 +47,7 @@ mixin _$DealerCardEvent {
         getResults,
     TResult Function(String? regions, String? maker, String? carType)?
         getFilterParams,
+    TResult Function(int index)? changeTabIndex,
     TResult Function()? getMoreResults,
     TResult Function(int id)? watchContact,
     required TResult orElse(),
@@ -54,6 +57,7 @@ mixin _$DealerCardEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetResults value) getResults,
     required TResult Function(_GetFilterParams value) getFilterParams,
+    required TResult Function(_ChangeTabIndex value) changeTabIndex,
     required TResult Function(_GetMoreResults value) getMoreResults,
     required TResult Function(_WatchContact value) watchContact,
   }) =>
@@ -62,6 +66,7 @@ mixin _$DealerCardEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetResults value)? getResults,
     TResult? Function(_GetFilterParams value)? getFilterParams,
+    TResult? Function(_ChangeTabIndex value)? changeTabIndex,
     TResult? Function(_GetMoreResults value)? getMoreResults,
     TResult? Function(_WatchContact value)? watchContact,
   }) =>
@@ -70,6 +75,7 @@ mixin _$DealerCardEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetResults value)? getResults,
     TResult Function(_GetFilterParams value)? getFilterParams,
+    TResult Function(_ChangeTabIndex value)? changeTabIndex,
     TResult Function(_GetMoreResults value)? getMoreResults,
     TResult Function(_WatchContact value)? watchContact,
     required TResult orElse(),
@@ -209,6 +215,7 @@ class _$_GetResults implements _GetResults {
         getResults,
     required TResult Function(String? regions, String? maker, String? carType)
         getFilterParams,
+    required TResult Function(int index) changeTabIndex,
     required TResult Function() getMoreResults,
     required TResult Function(int id) watchContact,
   }) {
@@ -223,6 +230,7 @@ class _$_GetResults implements _GetResults {
         getResults,
     TResult? Function(String? regions, String? maker, String? carType)?
         getFilterParams,
+    TResult? Function(int index)? changeTabIndex,
     TResult? Function()? getMoreResults,
     TResult? Function(int id)? watchContact,
   }) {
@@ -237,6 +245,7 @@ class _$_GetResults implements _GetResults {
         getResults,
     TResult Function(String? regions, String? maker, String? carType)?
         getFilterParams,
+    TResult Function(int index)? changeTabIndex,
     TResult Function()? getMoreResults,
     TResult Function(int id)? watchContact,
     required TResult orElse(),
@@ -252,6 +261,7 @@ class _$_GetResults implements _GetResults {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetResults value) getResults,
     required TResult Function(_GetFilterParams value) getFilterParams,
+    required TResult Function(_ChangeTabIndex value) changeTabIndex,
     required TResult Function(_GetMoreResults value) getMoreResults,
     required TResult Function(_WatchContact value) watchContact,
   }) {
@@ -263,6 +273,7 @@ class _$_GetResults implements _GetResults {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetResults value)? getResults,
     TResult? Function(_GetFilterParams value)? getFilterParams,
+    TResult? Function(_ChangeTabIndex value)? changeTabIndex,
     TResult? Function(_GetMoreResults value)? getMoreResults,
     TResult? Function(_WatchContact value)? watchContact,
   }) {
@@ -274,6 +285,7 @@ class _$_GetResults implements _GetResults {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetResults value)? getResults,
     TResult Function(_GetFilterParams value)? getFilterParams,
+    TResult Function(_ChangeTabIndex value)? changeTabIndex,
     TResult Function(_GetMoreResults value)? getMoreResults,
     TResult Function(_WatchContact value)? watchContact,
     required TResult orElse(),
@@ -388,6 +400,7 @@ class _$_GetFilterParams implements _GetFilterParams {
         getResults,
     required TResult Function(String? regions, String? maker, String? carType)
         getFilterParams,
+    required TResult Function(int index) changeTabIndex,
     required TResult Function() getMoreResults,
     required TResult Function(int id) watchContact,
   }) {
@@ -402,6 +415,7 @@ class _$_GetFilterParams implements _GetFilterParams {
         getResults,
     TResult? Function(String? regions, String? maker, String? carType)?
         getFilterParams,
+    TResult? Function(int index)? changeTabIndex,
     TResult? Function()? getMoreResults,
     TResult? Function(int id)? watchContact,
   }) {
@@ -416,6 +430,7 @@ class _$_GetFilterParams implements _GetFilterParams {
         getResults,
     TResult Function(String? regions, String? maker, String? carType)?
         getFilterParams,
+    TResult Function(int index)? changeTabIndex,
     TResult Function()? getMoreResults,
     TResult Function(int id)? watchContact,
     required TResult orElse(),
@@ -431,6 +446,7 @@ class _$_GetFilterParams implements _GetFilterParams {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetResults value) getResults,
     required TResult Function(_GetFilterParams value) getFilterParams,
+    required TResult Function(_ChangeTabIndex value) changeTabIndex,
     required TResult Function(_GetMoreResults value) getMoreResults,
     required TResult Function(_WatchContact value) watchContact,
   }) {
@@ -442,6 +458,7 @@ class _$_GetFilterParams implements _GetFilterParams {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetResults value)? getResults,
     TResult? Function(_GetFilterParams value)? getFilterParams,
+    TResult? Function(_ChangeTabIndex value)? changeTabIndex,
     TResult? Function(_GetMoreResults value)? getMoreResults,
     TResult? Function(_WatchContact value)? watchContact,
   }) {
@@ -453,6 +470,7 @@ class _$_GetFilterParams implements _GetFilterParams {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetResults value)? getResults,
     TResult Function(_GetFilterParams value)? getFilterParams,
+    TResult Function(_ChangeTabIndex value)? changeTabIndex,
     TResult Function(_GetMoreResults value)? getMoreResults,
     TResult Function(_WatchContact value)? watchContact,
     required TResult orElse(),
@@ -475,6 +493,166 @@ abstract class _GetFilterParams implements DealerCardEvent {
   String? get carType;
   @JsonKey(ignore: true)
   _$$_GetFilterParamsCopyWith<_$_GetFilterParams> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_ChangeTabIndexCopyWith<$Res> {
+  factory _$$_ChangeTabIndexCopyWith(
+          _$_ChangeTabIndex value, $Res Function(_$_ChangeTabIndex) then) =
+      __$$_ChangeTabIndexCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int index});
+}
+
+/// @nodoc
+class __$$_ChangeTabIndexCopyWithImpl<$Res>
+    extends _$DealerCardEventCopyWithImpl<$Res, _$_ChangeTabIndex>
+    implements _$$_ChangeTabIndexCopyWith<$Res> {
+  __$$_ChangeTabIndexCopyWithImpl(
+      _$_ChangeTabIndex _value, $Res Function(_$_ChangeTabIndex) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? index = null,
+  }) {
+    return _then(_$_ChangeTabIndex(
+      index: null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_ChangeTabIndex implements _ChangeTabIndex {
+  _$_ChangeTabIndex({required this.index});
+
+  @override
+  final int index;
+
+  @override
+  String toString() {
+    return 'DealerCardEvent.changeTabIndex(index: $index)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_ChangeTabIndex &&
+            (identical(other.index, index) || other.index == index));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, index);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_ChangeTabIndexCopyWith<_$_ChangeTabIndex> get copyWith =>
+      __$$_ChangeTabIndexCopyWithImpl<_$_ChangeTabIndex>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool isRefresh, String search, int? mark,
+            String? regionId, String? carType)
+        getResults,
+    required TResult Function(String? regions, String? maker, String? carType)
+        getFilterParams,
+    required TResult Function(int index) changeTabIndex,
+    required TResult Function() getMoreResults,
+    required TResult Function(int id) watchContact,
+  }) {
+    return changeTabIndex(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool isRefresh, String search, int? mark,
+            String? regionId, String? carType)?
+        getResults,
+    TResult? Function(String? regions, String? maker, String? carType)?
+        getFilterParams,
+    TResult? Function(int index)? changeTabIndex,
+    TResult? Function()? getMoreResults,
+    TResult? Function(int id)? watchContact,
+  }) {
+    return changeTabIndex?.call(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool isRefresh, String search, int? mark, String? regionId,
+            String? carType)?
+        getResults,
+    TResult Function(String? regions, String? maker, String? carType)?
+        getFilterParams,
+    TResult Function(int index)? changeTabIndex,
+    TResult Function()? getMoreResults,
+    TResult Function(int id)? watchContact,
+    required TResult orElse(),
+  }) {
+    if (changeTabIndex != null) {
+      return changeTabIndex(index);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetResults value) getResults,
+    required TResult Function(_GetFilterParams value) getFilterParams,
+    required TResult Function(_ChangeTabIndex value) changeTabIndex,
+    required TResult Function(_GetMoreResults value) getMoreResults,
+    required TResult Function(_WatchContact value) watchContact,
+  }) {
+    return changeTabIndex(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetResults value)? getResults,
+    TResult? Function(_GetFilterParams value)? getFilterParams,
+    TResult? Function(_ChangeTabIndex value)? changeTabIndex,
+    TResult? Function(_GetMoreResults value)? getMoreResults,
+    TResult? Function(_WatchContact value)? watchContact,
+  }) {
+    return changeTabIndex?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetResults value)? getResults,
+    TResult Function(_GetFilterParams value)? getFilterParams,
+    TResult Function(_ChangeTabIndex value)? changeTabIndex,
+    TResult Function(_GetMoreResults value)? getMoreResults,
+    TResult Function(_WatchContact value)? watchContact,
+    required TResult orElse(),
+  }) {
+    if (changeTabIndex != null) {
+      return changeTabIndex(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ChangeTabIndex implements DealerCardEvent {
+  factory _ChangeTabIndex({required final int index}) = _$_ChangeTabIndex;
+
+  int get index;
+  @JsonKey(ignore: true)
+  _$$_ChangeTabIndexCopyWith<_$_ChangeTabIndex> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -521,6 +699,7 @@ class _$_GetMoreResults implements _GetMoreResults {
         getResults,
     required TResult Function(String? regions, String? maker, String? carType)
         getFilterParams,
+    required TResult Function(int index) changeTabIndex,
     required TResult Function() getMoreResults,
     required TResult Function(int id) watchContact,
   }) {
@@ -535,6 +714,7 @@ class _$_GetMoreResults implements _GetMoreResults {
         getResults,
     TResult? Function(String? regions, String? maker, String? carType)?
         getFilterParams,
+    TResult? Function(int index)? changeTabIndex,
     TResult? Function()? getMoreResults,
     TResult? Function(int id)? watchContact,
   }) {
@@ -549,6 +729,7 @@ class _$_GetMoreResults implements _GetMoreResults {
         getResults,
     TResult Function(String? regions, String? maker, String? carType)?
         getFilterParams,
+    TResult Function(int index)? changeTabIndex,
     TResult Function()? getMoreResults,
     TResult Function(int id)? watchContact,
     required TResult orElse(),
@@ -564,6 +745,7 @@ class _$_GetMoreResults implements _GetMoreResults {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetResults value) getResults,
     required TResult Function(_GetFilterParams value) getFilterParams,
+    required TResult Function(_ChangeTabIndex value) changeTabIndex,
     required TResult Function(_GetMoreResults value) getMoreResults,
     required TResult Function(_WatchContact value) watchContact,
   }) {
@@ -575,6 +757,7 @@ class _$_GetMoreResults implements _GetMoreResults {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetResults value)? getResults,
     TResult? Function(_GetFilterParams value)? getFilterParams,
+    TResult? Function(_ChangeTabIndex value)? changeTabIndex,
     TResult? Function(_GetMoreResults value)? getMoreResults,
     TResult? Function(_WatchContact value)? watchContact,
   }) {
@@ -586,6 +769,7 @@ class _$_GetMoreResults implements _GetMoreResults {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetResults value)? getResults,
     TResult Function(_GetFilterParams value)? getFilterParams,
+    TResult Function(_ChangeTabIndex value)? changeTabIndex,
     TResult Function(_GetMoreResults value)? getMoreResults,
     TResult Function(_WatchContact value)? watchContact,
     required TResult orElse(),
@@ -670,6 +854,7 @@ class _$_WatchContact implements _WatchContact {
         getResults,
     required TResult Function(String? regions, String? maker, String? carType)
         getFilterParams,
+    required TResult Function(int index) changeTabIndex,
     required TResult Function() getMoreResults,
     required TResult Function(int id) watchContact,
   }) {
@@ -684,6 +869,7 @@ class _$_WatchContact implements _WatchContact {
         getResults,
     TResult? Function(String? regions, String? maker, String? carType)?
         getFilterParams,
+    TResult? Function(int index)? changeTabIndex,
     TResult? Function()? getMoreResults,
     TResult? Function(int id)? watchContact,
   }) {
@@ -698,6 +884,7 @@ class _$_WatchContact implements _WatchContact {
         getResults,
     TResult Function(String? regions, String? maker, String? carType)?
         getFilterParams,
+    TResult Function(int index)? changeTabIndex,
     TResult Function()? getMoreResults,
     TResult Function(int id)? watchContact,
     required TResult orElse(),
@@ -713,6 +900,7 @@ class _$_WatchContact implements _WatchContact {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetResults value) getResults,
     required TResult Function(_GetFilterParams value) getFilterParams,
+    required TResult Function(_ChangeTabIndex value) changeTabIndex,
     required TResult Function(_GetMoreResults value) getMoreResults,
     required TResult Function(_WatchContact value) watchContact,
   }) {
@@ -724,6 +912,7 @@ class _$_WatchContact implements _WatchContact {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetResults value)? getResults,
     TResult? Function(_GetFilterParams value)? getFilterParams,
+    TResult? Function(_ChangeTabIndex value)? changeTabIndex,
     TResult? Function(_GetMoreResults value)? getMoreResults,
     TResult? Function(_WatchContact value)? watchContact,
   }) {
@@ -735,6 +924,7 @@ class _$_WatchContact implements _WatchContact {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetResults value)? getResults,
     TResult Function(_GetFilterParams value)? getFilterParams,
+    TResult Function(_ChangeTabIndex value)? changeTabIndex,
     TResult Function(_GetMoreResults value)? getMoreResults,
     TResult Function(_WatchContact value)? watchContact,
     required TResult orElse(),
@@ -763,6 +953,7 @@ mixin _$DealerCardState {
   String get maker => throw _privateConstructorUsedError;
   String get region => throw _privateConstructorUsedError;
   String get carType => throw _privateConstructorUsedError;
+  bool? get isIndexOne => throw _privateConstructorUsedError;
   String? get next => throw _privateConstructorUsedError;
   int get count => throw _privateConstructorUsedError;
 
@@ -784,6 +975,7 @@ abstract class $DealerCardStateCopyWith<$Res> {
       String maker,
       String region,
       String carType,
+      bool? isIndexOne,
       String? next,
       int count});
 }
@@ -807,6 +999,7 @@ class _$DealerCardStateCopyWithImpl<$Res, $Val extends DealerCardState>
     Object? maker = null,
     Object? region = null,
     Object? carType = null,
+    Object? isIndexOne = freezed,
     Object? next = freezed,
     Object? count = null,
   }) {
@@ -835,6 +1028,10 @@ class _$DealerCardStateCopyWithImpl<$Res, $Val extends DealerCardState>
           ? _value.carType
           : carType // ignore: cast_nullable_to_non_nullable
               as String,
+      isIndexOne: freezed == isIndexOne
+          ? _value.isIndexOne
+          : isIndexOne // ignore: cast_nullable_to_non_nullable
+              as bool?,
       next: freezed == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
@@ -862,6 +1059,7 @@ abstract class _$$_DealerCardStateCopyWith<$Res>
       String maker,
       String region,
       String carType,
+      bool? isIndexOne,
       String? next,
       int count});
 }
@@ -883,6 +1081,7 @@ class __$$_DealerCardStateCopyWithImpl<$Res>
     Object? maker = null,
     Object? region = null,
     Object? carType = null,
+    Object? isIndexOne = freezed,
     Object? next = freezed,
     Object? count = null,
   }) {
@@ -911,6 +1110,10 @@ class __$$_DealerCardStateCopyWithImpl<$Res>
           ? _value.carType
           : carType // ignore: cast_nullable_to_non_nullable
               as String,
+      isIndexOne: freezed == isIndexOne
+          ? _value.isIndexOne
+          : isIndexOne // ignore: cast_nullable_to_non_nullable
+              as bool?,
       next: freezed == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
@@ -933,6 +1136,7 @@ class _$_DealerCardState implements _DealerCardState {
       this.maker = '',
       this.region = '',
       this.carType = '',
+      this.isIndexOne = false,
       this.next,
       this.count = 0})
       : _list = list;
@@ -962,6 +1166,9 @@ class _$_DealerCardState implements _DealerCardState {
   @JsonKey()
   final String carType;
   @override
+  @JsonKey()
+  final bool? isIndexOne;
+  @override
   final String? next;
   @override
   @JsonKey()
@@ -969,7 +1176,7 @@ class _$_DealerCardState implements _DealerCardState {
 
   @override
   String toString() {
-    return 'DealerCardState(list: $list, status: $status, paginationStatus: $paginationStatus, maker: $maker, region: $region, carType: $carType, next: $next, count: $count)';
+    return 'DealerCardState(list: $list, status: $status, paginationStatus: $paginationStatus, maker: $maker, region: $region, carType: $carType, isIndexOne: $isIndexOne, next: $next, count: $count)';
   }
 
   @override
@@ -984,6 +1191,8 @@ class _$_DealerCardState implements _DealerCardState {
             (identical(other.maker, maker) || other.maker == maker) &&
             (identical(other.region, region) || other.region == region) &&
             (identical(other.carType, carType) || other.carType == carType) &&
+            (identical(other.isIndexOne, isIndexOne) ||
+                other.isIndexOne == isIndexOne) &&
             (identical(other.next, next) || other.next == next) &&
             (identical(other.count, count) || other.count == count));
   }
@@ -997,6 +1206,7 @@ class _$_DealerCardState implements _DealerCardState {
       maker,
       region,
       carType,
+      isIndexOne,
       next,
       count);
 
@@ -1015,6 +1225,7 @@ abstract class _DealerCardState implements DealerCardState {
       final String maker,
       final String region,
       final String carType,
+      final bool? isIndexOne,
       final String? next,
       final int count}) = _$_DealerCardState;
 
@@ -1030,6 +1241,8 @@ abstract class _DealerCardState implements DealerCardState {
   String get region;
   @override
   String get carType;
+  @override
+  bool? get isIndexOne;
   @override
   String? get next;
   @override

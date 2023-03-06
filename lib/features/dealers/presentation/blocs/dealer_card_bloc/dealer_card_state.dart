@@ -9,6 +9,7 @@ class DealerCardState with _$DealerCardState {
     @Default('') String maker,
     @Default('') String region,
     @Default('') String carType,
+    @Default(false) bool? isIndexOne,
     String? next,
     @Default(0) int count,
   }) = _DealerCardState;

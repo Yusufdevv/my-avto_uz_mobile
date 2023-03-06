@@ -29,26 +29,37 @@ class DirectoryPage extends StatefulWidget {
   State<DirectoryPage> createState() => _DirectoryPageState();
 }
 
-class _DirectoryPageState extends State<DirectoryPage> {
+class _DirectoryPageState extends State<DirectoryPage>
+    with TickerProviderStateMixin {
   late DirectoryBloc bloc;
   late TextEditingController controller;
+  late TabController _tabController;
 
   @override
   void initState() {
     controller = TextEditingController();
+    _tabController = TabController(length: 2, vsync: this);
     final repo = serviceLocator<GetUserListRepoImpl>();
     bloc = DirectoryBloc(
         getDirCategoriesUseCase: GetDirCategoriesUseCase(repository: repo),
         getDirectoriesUseCase: GetDirectoriesUseCase(repository: repo),
         directorySingleSingleUseCase:
             DirectorySingleSingleUseCase(repository: repo));
-
+    _tabController.addListener(() {
+      if (_tabController.index == 1) {
+        FocusScope.of(context).unfocus();
+        controller.clear();
+      }
+      bloc.add(ChangeTabIndexEvent(index: _tabController.index));
+    });
     super.initState();
   }
 
   @override
   void dispose() {
     bloc.close();
+    controller.dispose();
+    _tabController.dispose();
     super.dispose();
   }
 
@@ -59,36 +70,37 @@ class _DirectoryPageState extends State<DirectoryPage> {
           value: const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
           child: KeyboardDismisser(
             child: Scaffold(
-              body: DefaultTabController(
-                length: 2,
-                child: CustomScrollView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  slivers: [
-                    SliverAppBar(
-                      pinned: true,
-                      automaticallyImplyLeading: false,
-                      backgroundColor: Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .whiteToNero,
-                      leadingWidth: 0,
-                      title: Padding(
-                        padding: const EdgeInsets.only(top: 12, bottom: 5),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            GestureDetector(
-                              behavior: HitTestBehavior.opaque,
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 5),
-                                child: SvgPicture.asset(AppIcons.chevronLeft),
-                              ),
+              body: CustomScrollView(
+                physics: const NeverScrollableScrollPhysics(),
+                slivers: [
+                  SliverAppBar(
+                    pinned: true,
+                    automaticallyImplyLeading: false,
+                    backgroundColor: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .whiteToNero,
+                    leadingWidth: 0,
+                    title: Padding(
+                      padding: const EdgeInsets.only(top: 12, bottom: 5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          GestureDetector(
+                            behavior: HitTestBehavior.opaque,
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 5),
+                              child: SvgPicture.asset(AppIcons.chevronLeft),
                             ),
-                            const SizedBox(width: 7),
-                            Expanded(
+                          ),
+                          const SizedBox(width: 7),
+                          BlocConsumer<DirectoryBloc, DirectoryState>(
+                            listener: (context, state) {},
+                            builder: (context, state) => Expanded(
                               child: WTextField(
+                                readOnly: state.isIndexOne,
                                 contentPadding: const EdgeInsets.only(
                                     left: 12, right: 12, top: 12),
                                 borderColor: purple,
@@ -122,51 +134,54 @@ class _DirectoryPageState extends State<DirectoryPage> {
                                 borderRadius: 8,
                               ),
                             ),
-                            const SizedBox(width: 12),
-                            WButton(
-                                height: 50,
-                                width: 50,
-                                onTap: () {
-                                  FocusScope.of(context).unfocus();
-                                  controller.text = '';
-                                  Navigator.of(context, rootNavigator: true)
-                                      .push(
-                                    fade(
-                                      page: BlocProvider.value(
-                                        value: bloc,
-                                        child: DirectoryFilterPage(bloc: bloc),
-                                      ),
+                          ),
+                          const SizedBox(width: 12),
+                          WButton(
+                              height: 50,
+                              width: 50,
+                              onTap: () {
+                                FocusScope.of(context).unfocus();
+                                controller.clear();
+                                Navigator.of(context, rootNavigator: true).push(
+                                  fade(
+                                    page: BlocProvider.value(
+                                      value: bloc,
+                                      child: DirectoryFilterPage(bloc: bloc),
                                     ),
-                                  );
-                                },
-                                borderRadius: 12,
-                                color: Theme.of(context)
-                                    .extension<ThemedColors>()!
-                                    .whiteSmokeToNightRider,
-                                padding: const EdgeInsets.all(8),
-                                child: SvgPicture.asset(
-                                  AppIcons.filter,
-                                  color: purple,
-                                ))
-                          ],
-                        ),
-                      ),
-                    ),
-                    SliverPersistentHeader(
-                      pinned: true,
-                      delegate: SegmentedControl(maxHeight: 64, minHeight: 64),
-                    ),
-                    const SliverFillRemaining(
-                      child: TabBarView(
-                        physics: NeverScrollableScrollPhysics(),
-                        children: [
-                          DirectoryList(),
-                          MapScreen(isFromDirectoryPage: true),
+                                  ),
+                                );
+                              },
+                              borderRadius: 12,
+                              color: Theme.of(context)
+                                  .extension<ThemedColors>()!
+                                  .whiteSmokeToNightRider,
+                              padding: const EdgeInsets.all(8),
+                              child: SvgPicture.asset(
+                                AppIcons.filter,
+                                color: purple,
+                              ))
                         ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  SliverPersistentHeader(
+                    pinned: true,
+                    delegate: SegmentedControl(
+                        maxHeight: 64,
+                        minHeight: 64,
+                        tabController: _tabController),
+                  ),
+                  SliverFillRemaining(
+                    child: TabBarView(
+                      controller: _tabController,
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: const [
+                        DirectoryList(),
+                        MapScreen(isFromDirectoryPage: true),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
