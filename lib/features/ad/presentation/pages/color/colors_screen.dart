@@ -38,6 +38,7 @@ class _ColorsScreenState extends State<ColorsScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: BaseWidget(
+          isBgColorIsNull: true,
           headerText: LocaleKeys.car_color.tr(),
           padding: const EdgeInsets.only(top: 16),
           child: BlocBuilder<PostingAdBloc, PostingAdState>(
@@ -48,6 +49,7 @@ class _ColorsScreenState extends State<ColorsScreen> {
                 );
               }
               return GridView.builder(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) => ColorsItem(
                   color: colorsList[index],
@@ -59,6 +61,9 @@ class _ColorsScreenState extends State<ColorsScreen> {
                 itemCount: 6,
                 shrinkWrap: true,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisSpacing: 8,
+                  mainAxisSpacing: 8,
+                  mainAxisExtent: 106,
                   crossAxisCount: 2,
                   childAspectRatio: 1.7,
                 ),

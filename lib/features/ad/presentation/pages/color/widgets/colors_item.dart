@@ -21,11 +21,8 @@ class ColorsItem extends StatelessWidget {
   Widget build(BuildContext context) => WScaleAnimation(
         onTap: onTap,
         child: Container(
-          margin: const EdgeInsets.all(8),
           padding: const EdgeInsets.all(8),
-          height: 106,
           decoration: BoxDecoration(
-
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
               width: 1,
@@ -43,34 +40,40 @@ class ColorsItem extends StatelessWidget {
           ),
           child: Column(
             children: [
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: color,
-                    border: Border.all(
-                        width: 1,
-                        color: colorName == 'Черный'
-                            ? Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .solitudeToBastille
-                            : dividerColor)),
-                width: double.maxFinite,
-                height: 54,
+              Expanded(
+                flex: 3,
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: color,
+                      border: Border.all(
+                          width: 1,
+                          color: colorName == 'Черный'
+                              ? Theme.of(context)
+                                  .extension<ThemedColors>()!
+                                  .solitudeToBastille
+                              : dividerColor)),
+                ),
               ),
-              const SizedBox(
-                height: 12,
-              ),
-              Text(
-                colorName,
-                style: isSelected
-                    ? Theme.of(context)
-                        .textTheme
-                        .displayLarge!
-                        .copyWith(fontWeight: FontWeight.w600, fontSize: 14)
-                    : Theme.of(context)
-                        .textTheme
-                        .titleMedium!
-                        .copyWith(color: grey),
+              Expanded(
+                flex: 2,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    colorName,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: isSelected
+                        ? Theme.of(context)
+                            .textTheme
+                            .displayLarge!
+                            .copyWith(fontWeight: FontWeight.w600, fontSize: 14)
+                        : Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(color: grey),
+                  ),
+                ),
               )
             ],
           ),
