@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/presentation/pages/equipment/equipment_screen.dart';
 import 'package:auto/features/ad/presentation/pages/map_screen/map_screen_posting_ad.dart';
 import 'package:auto/features/ad/presentation/pages/price/price_screen.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
@@ -12,7 +14,6 @@ import 'package:auto/features/edit_ad/presentation/pages/add_photo/add_photo_scr
 import 'package:auto/features/edit_ad/presentation/pages/contact/contact_screen.dart';
 import 'package:auto/features/edit_ad/presentation/pages/damage/damage_screen.dart';
 import 'package:auto/features/edit_ad/presentation/pages/description/description_screen.dart';
-import 'package:auto/features/edit_ad/presentation/pages/equipment/equipment_screen.dart';
 import 'package:auto/features/edit_ad/presentation/pages/inspection_place/inspection_place_screen.dart';
 import 'package:auto/features/edit_ad/presentation/pages/mileage/mileage_screen.dart';
 import 'package:auto/features/edit_ad/presentation/pages/preview/preview_screen.dart';
@@ -72,6 +73,7 @@ class _EditAdScreenState extends State<EditAdScreen>
   void hidePopUp() {
     context.read<ShowPopUpBloc>().add(HidePopUp());
   }
+  bool isDistrictsGotten = false;
 
   @override
   Widget build(BuildContext context) => WillPopScope(
@@ -102,9 +104,11 @@ class _EditAdScreenState extends State<EditAdScreen>
                 providers: [BlocProvider(create: (c) => editAdBloc)],
                 child: BlocConsumer<EditAdBloc, EditAdState>(
                     listener: (context, state) async {
-                      if(state.region !=null&&state.districts.isEmpty){
-                        editAdBloc.add(EditAdGetDistritsEvent(regionId:state.region!.id ));
-                      }
+                  if (state.region != null && state.districts.isEmpty && !isDistrictsGotten) {
+                    isDistrictsGotten = true;
+                    editAdBloc.add(
+                        EditAdGetDistritsEvent(regionId: state.region!.id));
+                  }
                   if (state.createStatus == FormzStatus.submissionSuccess) {
                     FocusScope.of(context).unfocus();
                     context.read<ShowPopUpBloc>().add(
@@ -200,7 +204,35 @@ class _EditAdScreenState extends State<EditAdScreen>
                             DescriptionScreen(
                                 initialText: state.description ?? ''),
                             // 3
-                            const EquipmentScreen(),
+                            EquipmentScreen(
+                              selectOptions: state.selectOptions,
+                              onEquipmentOptionPressed: ({
+                                required id,
+                                required isAdd,
+                                required type,
+                                required itemName,
+                                selectOption,
+                              }) {
+                                log('::::::::::  ON EQUIPMENT OPTION PRESSED: id: $id, isAdd: $isAdd, type: $type, itemName: $itemName, sectOPtion: $selectOption  ::::::::::');
+                                context.read<EditAdBloc>().add(
+                                    EditAdChangeOption(
+                                        id: id,
+                                        type: type,
+                                        itemName: itemName,
+                                        isAdd: isAdd,
+                                        selectOption: selectOption));
+                              },
+                              isOptionSelected: state.isOptionSelected,
+                              onEquipmentSelected: (equipment) {
+                                context.read<EditAdBloc>().add(
+                                      EditAdSelectEquipmentEvent(
+                                          equipment: equipment),
+                                    );
+                              },
+                              equipmentOptionsList: state.equipmentOptionsList,
+                              equipments: state.equipments,
+                              equipment: state.equipment,
+                            ),
                             // 4
                             const DamageScreen(),
                             // 5
@@ -307,7 +339,7 @@ class _EditAdScreenState extends State<EditAdScreen>
                               onTap: () async {
                                 hidePopUp();
                                 editAdBloc.add(
-                                    EditAdCreateEvent(widget.announcementId));
+                                    EditAdSubmitEvent(widget.announcementId));
                               },
                               text: LocaleKeys.confirmation.tr(),
                               shadow: [

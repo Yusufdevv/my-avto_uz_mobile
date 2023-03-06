@@ -6,7 +6,7 @@ part of 'edit_ad_bloc.dart';
 class EASingleton {
   EASingleton._();
 
-  static Future<FormData> create(EditAdState v) async {
+  static Future<FormData> submit(EditAdState v) async {
     // ignore: prefer_final_locals
     var announcementFields = <String, dynamic>{
       'make': v.make?.id,
@@ -16,7 +16,7 @@ class EASingleton {
       'drive_type': v.driveTypeId,
       'engine_type': v.engineId,
       'gearbox_type': v.gearbox?.id,
-      'year': v.yearEntity?.id,
+      'year': v.yearEntity?.yearBegin,
       'modification_type': v.modification!.id,
       'color': v.colorName,
       'licence_type': v.licenceType,
@@ -27,8 +27,8 @@ class EASingleton {
       'contact_name': v.ownerName,
       'contact_email': v.ownerEmail,
       'contact_phone': v.ownerPhone,
-      'region': v.region,
-      'district': v.district,
+      'region': v.region?.id,
+      'district': v.district?.id,
       'location_url': v.locationUrl,
       'price': v.price?.replaceAll(' ', ''),
       'currency': v.currency,
@@ -48,7 +48,7 @@ class EASingleton {
       'rent_with_purchase': v.rentWithPurchaseConditions.entries
           .map((e) => e.value.toApi())
           .toList(),
-      'equipment': v.equipmentId,
+      'equipment': v.equipment?.id,
     };
     if (v.milageImage != null && v.milageImage!.isNotEmpty) {
       final milageImage = await MultipartFile.fromFile(v.milageImage!);
@@ -134,6 +134,7 @@ class EASingleton {
 
   static Future<EditAdState> stateForEdit(
       CarSingleEntity v, bool showExactAddress) async {
+    log(':::::::::: GOTTEN options IN EDIT: ${v.options}  ::::::::::');
     String? phone = '';
     try {
       phone = MyFunctions.phoneFormat(v.user.phoneNumber.substring(4));
@@ -156,7 +157,11 @@ class EASingleton {
     }
 
     return EditAdState(
-
+      selectOptions: PASingleton.makeSelectsSelected(
+          v: [...v.equipment.options, ...v.options]),
+      radioOptions: PASingleton.makeRadiosSelected(
+          v: [...v.equipment.options, ...v.options]),
+      equipment: v.equipment,
       region: v.region,
       district: v.district,
       showExactAddress: showExactAddress,

@@ -149,8 +149,10 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     } else {
       emit(state.copyWith(
           equipment: event.equipment,
-          selectOptions: makeSelectsSelected(v: event.equipment.options),
-          radioOptions: makeRadiosSelected(v: event.equipment.options)));
+          selectOptions:
+              PASingleton.makeSelectsSelected(v: event.equipment.options),
+          radioOptions:
+              PASingleton.makeRadiosSelected(v: event.equipment.options)));
     }
   }
 
@@ -671,10 +673,10 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       final equipments = result.right.results;
       final selects = equipments.isEmpty
           ? <int, SO>{}
-          : makeSelectsSelected(v: equipments.first.options);
+          : PASingleton.makeSelectsSelected(v: equipments.first.options);
       final radios = equipments.isEmpty
           ? <int, String>{}
-          : makeRadiosSelected(v: equipments.first.options);
+          : PASingleton.makeRadiosSelected(v: equipments.first.options);
       emit(state.copyWith(
           radioOptions: radios,
           selectOptions: selects,
@@ -708,35 +710,11 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     }
   }
 
-  Map<int, String> makeRadiosSelected(
-      {required List<EquipmentOptionsEntity> v}) {
-    var data = <int, String>{};
-
-    for (var i = 0; i < v.length; i++) {
-      if (v[i].option.type == 'radio') {
-        data[v[i].option.id] = v[i].option.name;
-      }
-    }
-    return data;
-  }
-
-  Map<int, SO> makeSelectsSelected({required List<EquipmentOptionsEntity> v}) {
-    var data = <int, SO>{};
-
-    for (var i = 0; i < v.length; i++) {
-      if (v[i].option.type == 'select') {
-        data[v[i].option.id] = SO(id: v[i].item.id, optionName: v[i].item.name);
-      }
-    }
-    return data;
-  }
-
   /// this function is for setting each equipment's options to all options
   /// every single time when model's equipment changed whether it's valid or not
   /// it will be called
   FutureOr<void> _getChangeOption(
       PostingAdChangeOption event, Emitter<PostingAdState> emit) {
-    log(':::::::::::   get change option triggered  isAdd: ${event.isAdd}  event.type: ${event.type}  event.selected option id: ${event.selectOption}::::::::::::::');
     if (event.isAdd) {
       if (event.type == 'select') {
         var m = state.selectOptions.map(MapEntry.new);
@@ -746,24 +724,37 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         if (event.selectOption?.id == -1) {
           /// if unnecessary selected -> remove select
 
-          lastEquipmentId = state.equipment?.id;
+          lastEquipmentId = state.lastEquipmentId ?? state.equipment?.id;
 
           m.remove(event.id);
           equipment = PASingleton.isEquipmentFull(
-              state: state, sR: state.radioOptions, sS: m, where: 'line 754');
+              equipment: state.equipment ??
+                  PASingleton.isEquipmentAvailable(
+                      where: 'line 734',
+                      equipments: state.equipments,
+                      lastEquipmentId: lastEquipmentId),
+              sR: state.radioOptions,
+              sS: m,
+              wheree: ' pa line 754');
         } else {
           m[event.id] = event.selectOption!;
           equipment = PASingleton.isEquipmentFull(
-            where: 'line 756',
-            state: state,
+            wheree: 'pa line 756',
+            equipment: state.equipment ??
+                PASingleton.isEquipmentAvailable(
+                    where: 'line 749',
+                    equipments: state.equipments,
+                    lastEquipmentId: state.lastEquipmentId),
             sS: m,
             sR: state.radioOptions,
           );
+          lastEquipmentId =
+              equipment == null ? state.equipment?.id : equipment.id;
         }
         emit(
           state.copyWith(
             equipment: equipment,
-            lastEquipmentId: lastEquipmentId,
+            lastEquipmentId: lastEquipmentId ?? state.lastEquipmentId,
             selectOptions: m,
             isEquipmentToNull: equipment == null,
           ),
@@ -774,30 +765,40 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         EquipmentEntity? equipment;
 
         m[event.id] = event.itemName;
-        if (state.equipments.any((e) => e.id == state.lastEquipmentId)) {
-          equipment = PASingleton.isEquipmentFull(
-            where: 'line 788',
-            state: state,
-            sR: m,
-            sS: state.selectOptions,
-          );
-        }
+
+        equipment = PASingleton.isEquipmentFull(
+          wheree: 'pa line 788',
+          equipment: state.equipment ??
+              PASingleton.isEquipmentAvailable(
+                  where: 'line 775',
+                  equipments: state.equipments,
+                  lastEquipmentId: state.lastEquipmentId),
+          sR: m,
+          sS: state.selectOptions,
+        );
 
         emit(state.copyWith(
-          isLastEquipmentIdToNull: equipment != null,
+          // isLastEquipmentIdToNull: equipment != null,
           radioOptions: m,
           equipment: equipment,
         ));
       }
     } else {
       /// ELSE OF isAdd -> for remove
-      var lastEquipmentId;
+      int? lastEquipmentId;
       if (event.type == 'select') {
         /// remove for -> selects
 
         var m = state.selectOptions.map(MapEntry.new)..remove(event.id);
         final equipment = PASingleton.isEquipmentFull(
-            state: state, sR: state.radioOptions, sS: m, where: 'line 833');
+            equipment: state.equipment ??
+                PASingleton.isEquipmentAvailable(
+                    where: 'line 800',
+                    equipments: state.equipments,
+                    lastEquipmentId: state.lastEquipmentId),
+            sR: state.radioOptions,
+            sS: m,
+            wheree: 'pa line 833');
 
         if (equipment == null) {
           lastEquipmentId = state.equipment?.id;
@@ -816,7 +817,14 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
         var m = state.radioOptions.map(MapEntry.new)..remove(event.id);
         final equipment = PASingleton.isEquipmentFull(
-            state: state, sR: m, sS: state.selectOptions, where: 'line 866');
+            equipment: state.equipment ??
+                PASingleton.isEquipmentAvailable(
+                    where: 'line 826',
+                    equipments: state.equipments,
+                    lastEquipmentId: state.lastEquipmentId),
+            sR: m,
+            sS: state.selectOptions,
+            wheree: 'pa line 866');
 
         if (equipment == null) {
           lastEquipmentId = state.equipment?.id;

@@ -5,6 +5,8 @@ import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_entity.dart';
+import 'package:auto/features/ad/domain/entities/equipment/equipment_options_entity.dart';
+import 'package:auto/features/ad/domain/entities/equipment/equipment_options_list_entity.dart';
 import 'package:auto/features/ad/domain/entities/rent_with_purchase/rent_with_purchase_entity.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
@@ -16,6 +18,7 @@ import 'package:auto/features/ad/domain/usecases/get_body_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
 import 'package:auto/features/ad/domain/usecases/get_drive_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_engine_type.dart';
+import 'package:auto/features/ad/domain/usecases/get_equipment_options_list.dart';
 import 'package:auto/features/ad/domain/usecases/get_equipments.dart';
 import 'package:auto/features/ad/domain/usecases/get_generation.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
@@ -23,6 +26,7 @@ import 'package:auto/features/ad/domain/usecases/get_map_screenshot_usecase.dart
 import 'package:auto/features/ad/domain/usecases/get_modification_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_years.dart';
 import 'package:auto/features/ad/domain/usecases/minimum_price_usecase.dart';
+import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/car_single/domain/entities/car_single_entity.dart';
 import 'package:auto/features/car_single/domain/entities/damaged_parts_entity.dart';
 import 'package:auto/features/car_single/domain/usecases/get_ads_usecase.dart';
@@ -55,6 +59,8 @@ part 'edit_ad_state.dart';
 part 'singleton_of_edit_ad_bloc.dart';
 
 class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
+  final GetEquipmentOptionsListUseCase getEquipmentOptionsListUseCase =
+      GetEquipmentOptionsListUseCase();
   final GetModificationTypeUseCase modificationUseCase =
       GetModificationTypeUseCase();
   final GetMapScreenShotUseCase screenShotUseCase = GetMapScreenShotUseCase();
@@ -90,7 +96,7 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
     on<EditAdChooseEvent>(_choose);
     on<EditAdChangeAppBarShadowEvent>(_changeAppBarShadow);
     // CREATE
-    on<EditAdCreateEvent>(_create);
+    on<EditAdSubmitEvent>(_submit);
     on<EditAdDamageEvent>(_damage);
     on<EditAdGetRegionsEvent>(_getRegions);
     on<EditAdGetDistritsEvent>(_getDistricts);
@@ -104,7 +110,163 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
     on<EditAdShowToastEvent>(_showToast);
     on<EditAdOnRentWithPurchaseEvent>(_onRentWithPurchaseConditionChanged);
     on<EditAdGetEquipments>(_getEquipments);
+    on<EditAdSelectEquipmentEvent>(_selectEquipment);
+    on<EditAdGetEquipmentOptionsList>(_getEquipmentOptionsList);
+    on<EditAdChangeOption>(_onOptionChanged);
     on<EditAdGetAnnouncementEvent>(_getAnnouncement);
+  }
+
+  /// this function is for setting each equipment's options to all options
+  /// every single time when model's equipment changed whether it's valid or not
+  /// it will be called
+  FutureOr<void> _onOptionChanged(
+      EditAdChangeOption event, Emitter<EditAdState> emit) {
+    log(':::::::::::   get change option triggered  isAdd: ${event.isAdd}  event.type: ${event.type}  event.selected option id: ${event.selectOption}::::::::::::::');
+    if (event.isAdd) {
+      if (event.type == 'select') {
+        var m = state.selectOptions.map(MapEntry.new);
+        int? lastEquipmentId;
+        EquipmentEntity? equipment;
+
+        if (event.selectOption?.id == -1) {
+          /// if unnecessary selected -> remove select
+
+          lastEquipmentId = state.equipment?.id;
+
+          m.remove(event.id);
+          equipment = PASingleton.isEquipmentFull(
+              equipment: state.equipment ??
+                  PASingleton.isEquipmentAvailable(
+                      where: 'line ea 139',
+                      equipments: state.equipments,
+                      lastEquipmentId: state.lastEquipmentId),
+              sR: state.radioOptions,
+              sS: m,
+              wheree: 'ea line 754');
+        } else {
+          m[event.id] = event.selectOption!;
+          equipment = PASingleton.isEquipmentFull(
+            wheree: 'ea line 756',
+            equipment: state.equipment ??
+                PASingleton.isEquipmentAvailable(
+                    where: 'line ea 150',
+                    equipments: state.equipments,
+                    lastEquipmentId: state.lastEquipmentId),
+            sS: m,
+            sR: state.radioOptions,
+          );
+        }
+        emit(
+          state.copyWith(
+            equipment: equipment,
+            lastEquipmentId: lastEquipmentId,
+            selectOptions: m,
+            isEquipmentToNull: equipment == null,
+          ),
+        );
+      } else {
+        /// for add radios
+        var m = state.radioOptions.map(MapEntry.new);
+        EquipmentEntity? equipment;
+
+        m[event.id] = event.itemName;
+        if (state.equipments.any((e) => e.id == state.lastEquipmentId)) {
+          equipment = PASingleton.isEquipmentFull(
+            wheree: 'ea line 788',
+            equipment: state.equipment ??
+                PASingleton.isEquipmentAvailable(
+                    where: 'line ea 175',
+                    equipments: state.equipments,
+                    lastEquipmentId: state.lastEquipmentId),
+            sR: m,
+            sS: state.selectOptions,
+          );
+        }
+
+        emit(state.copyWith(
+          isLastEquipmentIdToNull: equipment != null,
+          radioOptions: m,
+          equipment: equipment,
+        ));
+      }
+    } else {
+      /// ELSE OF isAdd -> for remove
+      var lastEquipmentId;
+      if (event.type == 'select') {
+        /// remove for -> selects
+
+        var m = state.selectOptions.map(MapEntry.new)..remove(event.id);
+
+        final equipment = PASingleton.isEquipmentFull(
+            equipment: state.equipment ??
+                PASingleton.isEquipmentAvailable(
+                    where: 'line ea 199',
+                    equipments: state.equipments,
+                    lastEquipmentId: state.lastEquipmentId),
+            sR: state.radioOptions,
+            sS: m,
+            wheree: 'ea line 833');
+        if (equipment == null) {
+          lastEquipmentId = state.equipment?.id;
+        }
+
+        emit(
+          state.copyWith(
+            equipment: equipment,
+            isEquipmentToNull: equipment == null,
+            lastEquipmentId: lastEquipmentId,
+            selectOptions: m,
+          ),
+        );
+      } else {
+        /// for remove -> radios
+
+        var m = state.radioOptions.map(MapEntry.new)..remove(event.id);
+        final equipment = PASingleton.isEquipmentFull(
+            equipment: state.equipment ??
+                PASingleton.isEquipmentAvailable(
+                    where: 'line ea 223',
+                    equipments: state.equipments,
+                    lastEquipmentId: state.lastEquipmentId),
+            sR: m,
+            sS: state.selectOptions,
+            wheree: 'ea line 866');
+
+        if (equipment == null) {
+          lastEquipmentId = state.equipment?.id;
+        }
+
+        emit(
+          state.copyWith(
+            equipment: equipment,
+            isEquipmentToNull: equipment == null,
+            lastEquipmentId: lastEquipmentId,
+            radioOptions: m,
+          ),
+        );
+      }
+    }
+  }
+
+  FutureOr<void> _selectEquipment(
+      EditAdSelectEquipmentEvent event, Emitter<EditAdState> emit) async {
+    if (event.equipment.id == -1) {
+      emit(
+        state.copyWith(
+          isLastEquipmentIdToNull: true,
+          isEquipmentToNull: true,
+          selectOptions: {},
+          radioOptions: {},
+        ),
+      );
+    } else {
+      emit(state.copyWith(
+          equipment: event.equipment,
+          selectOptions:
+              PASingleton.makeSelectsSelected(v: event.equipment.options),
+          radioOptions:
+              PASingleton.makeRadiosSelected(v: event.equipment.options)));
+    }
   }
 
   FutureOr<void> _onRentWithPurchaseConditionChanged(
@@ -135,8 +297,9 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
 
   FutureOr<void> _addEvent(
       EditAdAddEventForEveryPage event, Emitter<EditAdState> emit) {
+    log('::::::::::  ADD EVENT FOR EVERY PAGE TRIGGERED: ${event.page}');
     switch (event.page) {
-      case 5:
+      case 3:
         add(EditAdGetEquipments());
         break;
       case 6:
@@ -307,11 +470,11 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
     emit(state.copyWith(damagedParts: damages));
   }
 
-  FutureOr<void> _create(
-      EditAdCreateEvent event, Emitter<EditAdState> emit) async {
+  FutureOr<void> _submit(
+      EditAdSubmitEvent event, Emitter<EditAdState> emit) async {
     emit(state.copyWith(createStatus: FormzStatus.submissionInProgress));
     final result = await updateUseCase.call({
-      'form_data': await EASingleton.create(state),
+      'form_data': await EASingleton.submit(state),
       'id': event.announcementId
     });
     if (result.isRight) {
@@ -349,14 +512,36 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
   FutureOr<void> _getEquipments(
       EditAdGetEquipments event, Emitter<EditAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    final result = await getEquipmentsUseCase
-        .call({'search': '', 'limit': 100, 'offset': 0, 'modelId': 3063});
+    final result = await getEquipmentsUseCase.call(
+        {'search': '', 'limit': 100, 'offset': 0, 'modelId': state.model?.id});
+    log(':::::::::: GOTTEN EQUIPMENT RESULT:  ${result}  ::::::::::');
     if (result.isRight) {
+      log(':::::::::: EQUIPMENT RESULT IS RIGHT:  ${result.right.results}  ::::::::::');
+
       final equipments = result.right.results;
       emit(state.copyWith(
           equipments: equipments,
           status: FormzStatus.submissionSuccess,
-          equipmentId: equipments.isNotEmpty ? equipments.first.id : null));
+          equipment: equipments.isNotEmpty ? equipments.first : null));
+    } else {
+      emit(state.copyWith(status: FormzStatus.submissionFailure));
+    }
+    add(EditAdGetEquipmentOptionsList());
+  }
+
+  FutureOr<void> _getEquipmentOptionsList(
+      EditAdGetEquipmentOptionsList event, Emitter<EditAdState> emit) async {
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    final result = await getEquipmentOptionsListUseCase.call({
+      'search': '',
+      'limit': 1000,
+      'offset': 0,
+    });
+    if (result.isRight) {
+      emit(state.copyWith(
+        equipmentOptionsList: result.right.results,
+        status: FormzStatus.submissionSuccess,
+      ));
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }

@@ -94,20 +94,19 @@ class PASingleton {
     Map<int, String> rO = v.equipment == null
         ? v.radioOptions
         : _removeEquipmentContainingRadios(v.equipment!, v.radioOptions);
-     announcementFields.addEntries(rO.entries.map((e) {
+    announcementFields.addEntries(rO.entries.map((e) {
       i++;
       return MapEntry('options[$i]', e.key);
     }));
-     i = -1;
+    i = -1;
 
-     Map<int, SO> selectedOptions = v.equipment == null
+    Map<int, SO> selectedOptions = v.equipment == null
         ? v.selectOptions
         : _removeEquipmentContainingSelects(v.equipment!, v.selectOptions);
     announcementFields.addEntries(selectedOptions.entries.map((e) {
       i++;
       return MapEntry('option_items[$i]', e.value.id);
     }));
-
 
     log('ANNOUNCEMENT FIELDS BEFORE FORMDATALIZE: ${announcementFields.toString()} \n Seperator Seperator Seperator Seperator Seperator Seperator Seperator Seperator Seperator ');
     final announcementFormData =
@@ -352,8 +351,10 @@ class PASingleton {
         return state.damagedParts.isEmpty;
       // ContactsScreen
       case 15:
-        final v = !((state.contactsFormKey.currentState?.validate() ?? false) ||
-            state.isContactsVerified);
+        final v = !(((state.contactsFormKey.currentState?.validate() ??
+                    false) &&
+                state.isContactsVerified) ||
+            state.nameController.text.isNotEmpty && state.isContactsVerified);
         log(':::::::::: ownername in validation of next button: ${state.ownerName}  ::::::::::');
         return v;
 // InspectionPlaceScreen
@@ -380,18 +381,26 @@ class PASingleton {
     return false;
   }
 
+  static EquipmentEntity? isEquipmentAvailable({
+    required List<EquipmentEntity> equipments,
+    required int? lastEquipmentId,
+    required String where,
+  }) {
+    final v = equipments.any((e) => e.id == lastEquipmentId)
+        ? equipments.firstWhere((e) => e.id == lastEquipmentId)
+        : null;
+    log(':::::::::: is equiopment available: returning: equipment: $v, lastId: $lastEquipmentId where: $where ::::::::::');
+    return v;
+  }
+
   static EquipmentEntity? isEquipmentFull(
-      {required PostingAdState state,
+      {required EquipmentEntity? equipment,
       required Map<int, String> sR,
       required Map<int, SO> sS,
-      required String where}) {
-    log('::::::::::: where:    $where    ::::::::::::::');
+      required String wheree}) {
+    log('::::::::::: where:    $wheree    ::::::::::::::');
     log(':::::::::: selected SS: $sS  ::::::::::');
     log(':::::::::: selected radios: $sR  ::::::::::');
-    final equipment = state.equipment ??
-        (state.equipments.any((e) => e.id == state.lastEquipmentId)
-            ? state.equipments.firstWhere((e) => e.id == state.lastEquipmentId)
-            : null);
 
     if (equipment == null) {
       log(':::::::::::   returning due to equipment is null    ::::::::::::::');
@@ -463,5 +472,29 @@ class PASingleton {
       }
     }
     return selectedOptions;
+  }
+
+  static Map<int, SO> makeSelectsSelected(
+      {required List<EquipmentOptionsEntity> v}) {
+    var data = <int, SO>{};
+
+    for (var i = 0; i < v.length; i++) {
+      if (v[i].option.type == 'select') {
+        data[v[i].option.id] = SO(id: v[i].item.id, optionName: v[i].item.name);
+      }
+    }
+    return data;
+  }
+
+  static Map<int, String> makeRadiosSelected(
+      {required List<EquipmentOptionsEntity> v}) {
+    var data = <int, String>{};
+
+    for (var i = 0; i < v.length; i++) {
+      if (v[i].option.type == 'radio') {
+        data[v[i].option.id] = v[i].option.name;
+      }
+    }
+    return data;
   }
 }

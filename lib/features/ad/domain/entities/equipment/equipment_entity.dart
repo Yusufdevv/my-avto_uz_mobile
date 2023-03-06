@@ -1,5 +1,7 @@
+import 'package:auto/features/ad/data/models/equipment/equipment_model.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_options_entity.dart';
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 class EquipmentEntity extends Equatable {
   final int id;
@@ -22,4 +24,21 @@ class EquipmentEntity extends Equatable {
         model,
         options,
       ];
+}
+
+class EquipmentConverter
+    implements JsonConverter<EquipmentEntity, Map<String, dynamic>?> {
+  const EquipmentConverter();
+
+  @override
+  EquipmentEntity fromJson(Map<String, dynamic>? json) =>
+      EquipmentModel.fromJson(json ?? {});
+
+  @override
+  Map<String, dynamic>? toJson(EquipmentEntity object) => EquipmentModel(
+        id: object.id,
+        name: object.name,
+        model: object.model,
+        options: object.options,
+      ).toJson();
 }

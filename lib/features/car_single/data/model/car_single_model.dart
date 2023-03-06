@@ -1,4 +1,6 @@
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
+import 'package:auto/features/ad/domain/entities/equipment/equipment_entity.dart';
+import 'package:auto/features/ad/domain/entities/equipment/equipment_options_entity.dart';
 import 'package:auto/features/ad/domain/entities/rent_with_purchase/rent_with_purchase_entity.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/ad/domain/entities/types/modification_type.dart';
@@ -22,6 +24,8 @@ class CarSingleModel extends CarSingleEntity {
 
 
   const CarSingleModel({
+    super.options,
+    super.equipment,
     super.description,
     super.contactAvailableFrom,
     super.absoluteCarName,

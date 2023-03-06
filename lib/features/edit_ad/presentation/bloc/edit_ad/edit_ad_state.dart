@@ -5,8 +5,9 @@ class EditAdState extends Equatable {
   final FormzStatus status;
   final FormzStatus getDistrictsStatus;
   final FormzStatus createStatus;
-
   final FormzStatus getAnnouncementToEditStatus;
+  final Map<int, SO> selectOptions;
+  final Map<int, String> radioOptions;
   final String? id;
   final TextEditingController phoneController;
   final TextEditingController emailController;
@@ -32,6 +33,7 @@ class EditAdState extends Equatable {
   final UserModel? userModel;
   final Uint8List? mapPointBytes;
   final num minimumPrice;
+  final int? lastEquipmentId;
   final String? milageImage;
   final String? ownerName;
   final String? ownerEmail;
@@ -57,7 +59,8 @@ class EditAdState extends Equatable {
   final bool? rentToBuy;
   final bool? isWithoutMileage;
   final List<EquipmentEntity> equipments;
-  final int? equipmentId;
+  final EquipmentEntity? equipment;
+  final List<EquipmentOptionsListEntity> equipmentOptionsList;
 
   const EditAdState({
     required this.status,
@@ -66,6 +69,9 @@ class EditAdState extends Equatable {
     required this.emailController,
     required this.nameController,
     required this.popStatus,
+    this.lastEquipmentId,
+    this.radioOptions = const <int, String>{},
+    this.selectOptions = const <int, SO>{},
     this.id,
     this.minimumPrice = 0,
     this.modification,
@@ -77,6 +83,7 @@ class EditAdState extends Equatable {
     this.generationEntity,
     this.bodyType,
     this.yearEntity,
+    this.equipmentOptionsList = const <EquipmentOptionsListEntity>[],
     this.gallery = const <String>[],
     this.panaramaGallery = const <String>[],
     this.rentWithPurchaseConditions = const <int, RentWithPurchaseEntity>{},
@@ -114,14 +121,18 @@ class EditAdState extends Equatable {
     this.mapPointBytes,
     this.milageImage,
     this.equipments = const [],
-    this.equipmentId,
+    this.equipment,
   });
 
-
   EditAdState copyWith({
+    List<EquipmentOptionsEntity>? equipmentOptions,
+    bool isEquipmentToNull = false,
+    bool isLastEquipmentIdToNull = false,
     TextEditingController? phoneController,
     TextEditingController? emailController,
     TextEditingController? nameController,
+    Map<int, SO>? selectOptions,
+    Map<int, String>? radioOptions,
     Map<DamagedParts, DamageType>? damagedParts,
     Map<int, RentWithPurchaseEntity>? rentWithPurchaseConditions,
     DistrictEntity? district,
@@ -146,6 +157,7 @@ class EditAdState extends Equatable {
     YearsEntity? yearEntity,
     UserModel? userModel,
     num? minimumPrice,
+    int? lastEquipmentId,
     String? milageImage,
     String? colorName,
     String? licenceType,
@@ -175,9 +187,14 @@ class EditAdState extends Equatable {
     bool? isWithoutMileage,
     bool? showExactAddress,
     List<EquipmentEntity>? equipments,
-    int? equipmentId,
+    EquipmentEntity? equipment,
+    List<EquipmentOptionsListEntity>? equipmentOptionsList,
   }) =>
       EditAdState(
+        lastEquipmentId: lastEquipmentId ?? this.lastEquipmentId,
+        radioOptions: radioOptions ?? this.radioOptions,
+        selectOptions: selectOptions ?? this.selectOptions,
+        equipmentOptionsList: equipmentOptionsList ?? this.equipmentOptionsList,
         getAnnouncementToEditStatus:
             getAnnouncementToEditStatus ?? this.getAnnouncementToEditStatus,
         popStatus: popStatus ?? this.popStatus,
@@ -234,11 +251,15 @@ class EditAdState extends Equatable {
         regions: regions ?? this.regions,
         toastMessage: toastMessage,
         equipments: equipments ?? this.equipments,
-        equipmentId: equipmentId ?? this.equipmentId,
+        equipment: isEquipmentToNull ? null : equipment ?? this.equipment,
       );
 
   @override
   List<Object?> get props => [
+        lastEquipmentId,
+        radioOptions,
+        selectOptions,
+        equipmentOptionsList,
         getAnnouncementToEditStatus,
         popStatus,
         milageImage,
@@ -293,9 +314,17 @@ class EditAdState extends Equatable {
         showOwnerContacts,
         isContactsVerified,
         equipments,
-        equipmentId,
+        equipment,
       ];
 
   bool buttonStatus(int page) => EASingleton.nextButtonIsDisabled(page, this);
 
+  bool isOptionSelected({required String type, required int id}) {
+    if (type == 'select') {
+      final v = selectOptions.containsKey(id);
+      return v;
+    }
+    final v = radioOptions.containsKey(id);
+    return v;
+  }
 }
