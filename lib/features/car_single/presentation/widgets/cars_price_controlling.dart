@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 class CarsPrice extends StatelessWidget {
@@ -35,12 +36,18 @@ class CarsPrice extends StatelessWidget {
                       .headlineMedium!
                       .copyWith(color: profileContainers),
                 ),
-                Text(
-                  totalPrice,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineMedium!
-                      .copyWith(color: textColor),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: AutoSizeText(
+                    totalPrice,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineMedium!
+                        .copyWith(color: textColor),
+                    maxLines: 1,
+                    minFontSize: 8,
+                    maxFontSize: 16,
+                  ),
                 ),
               ],
             ),
