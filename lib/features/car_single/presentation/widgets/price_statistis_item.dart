@@ -8,10 +8,12 @@ import 'package:flutter/material.dart';
 class PriceStatisticItem extends StatelessWidget {
   final double percent;
   final String price;
+  final String currency;
 
   PriceStatisticItem({
     required this.percent,
     required this.price,
+    required this.currency,
     Key? key,
   }) : super(key: key);
 
@@ -81,7 +83,7 @@ class PriceStatisticItem extends StatelessWidget {
 
   double getPointTop(double percent) {
     if (percent <= 90) {
-      return 0.117;
+      return 0.121;
     } else if (percent > 90 && percent < 94) {
       return 0.113;
     } else if (percent >= 94 && percent < 98) {
@@ -103,7 +105,9 @@ class PriceStatisticItem extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => Stack(
+  Widget build(BuildContext context) {
+    print('====${percent}');
+    return Stack(
         children: [
           Stack(
             children: [
@@ -112,7 +116,7 @@ class PriceStatisticItem extends StatelessWidget {
                 child: Column(
                   children: [
                     const SizedBox(
-                      height: 20,
+                      height: 30,
                     ),
                     Image.asset(
                       AppImages.price_cases,
@@ -176,7 +180,7 @@ class PriceStatisticItem extends StatelessWidget {
                   crossAxisAlignment: alighment,
                   children: [
                     Text(
-                      '$price USD',
+                      '$price $currency',
                       style: Theme.of(context).textTheme.displayLarge!.copyWith(
                             color: dark,
                             fontSize: 12,
@@ -202,4 +206,5 @@ class PriceStatisticItem extends StatelessWidget {
           ),
         ],
       );
+  }
 }

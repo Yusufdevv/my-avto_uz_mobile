@@ -121,6 +121,7 @@ class CarPriceBottom extends StatelessWidget {
             PriceStatisticItem(
               percent: percenti,
               price: MyFunctions.getFormatCost(price),
+              currency: currency,
             ),
             const SizedBox(height: 16),
             const Divider(indent: 16, endIndent: 16, height: 1),
