@@ -25,6 +25,7 @@ class ColorsItem extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           height: 106,
           decoration: BoxDecoration(
+
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
               width: 1,

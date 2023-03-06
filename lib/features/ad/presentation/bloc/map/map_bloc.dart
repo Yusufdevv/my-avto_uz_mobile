@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:auto/core/exceptions/exceptions.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/usecases/yandex_get_address_use_case.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:bloc/bloc.dart';
@@ -28,6 +29,9 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   FutureOr<void> _getPointName(
       GetPointName event, Emitter<MapState> emit) async {
     emit(state.copyWith(getPointNameStatus: FormzStatus.submissionInProgress));
+    await StorageRepository.putDouble('lat', event.lat);
+    await StorageRepository.putDouble('long', event.long);
+
     final result = await useCase
         .call({'type': 'geo', 'long': '${event.long}', 'lat': '${event.lat}'});
     if (result.isRight) {

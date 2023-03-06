@@ -129,7 +129,6 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
         phoneController: TextEditingController(),
         emailController: TextEditingController(),
         nameController: TextEditingController(),
-
       ),
     );
   }
@@ -237,8 +236,20 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
         getAnnouncementToEditStatus: FormzStatus.submissionInProgress));
     final result = await announcementUseCase.call(event.id);
     if (result.isRight) {
+      final isLatLongAvailable =
+          result.right.latitude != 0 && result.right.longitude != 0;
+      if (isLatLongAvailable) {
+        add(
+          EditAdGetMapScreenShotEvent(
+            long: result.right.longitude,
+            lat: result.right.latitude,
+            zoomLevel: 15,
+          ),
+        );
+      }
 
-      final stateForEdit = await EASingleton.stateForEdit(result.right);
+      final stateForEdit =
+          await EASingleton.stateForEdit(result.right, isLatLongAvailable);
       emit(stateForEdit);
     } else {
       emit(state.copyWith(
@@ -327,7 +338,7 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
 
   void _choose(EditAdChooseEvent event, Emitter<EditAdState> emit) {
     if (event.region != null) {
-      add(EditAdGetDistritsEvent(regionId: event.region!.id ));
+      add(EditAdGetDistritsEvent(regionId: event.region!.id));
     }
     if (event.currency != null) {
       add(EditAdGetMinimumPriceEvent());

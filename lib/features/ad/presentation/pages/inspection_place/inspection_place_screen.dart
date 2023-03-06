@@ -1,5 +1,6 @@
 // ignore_for_file: unused_import
 
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
 
@@ -15,9 +16,11 @@ import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:shimmer/shimmer.dart';
 
 class InspectionPlaceScreen extends StatefulWidget {
   final VoidCallback onToMapPressed;
@@ -123,10 +126,30 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                     ),
 
                     const SizedBox(height: 17),
-                    if (state.mapPointBytes != null &&
+
+                    if (state.getLocationImage.isSubmissionInProgress) ...{
+                      Shimmer.fromColors(
+                        baseColor: grey.withOpacity(0.15),
+                        highlightColor: grey.withOpacity(0.26),
+                        child: Container(
+                          margin: const EdgeInsets.only(bottom: 17),
+                          height: 200,
+                          width: double.maxFinite,
+                          decoration: BoxDecoration(
+                            color: Colors.amber,
+                            borderRadius: BorderRadius.circular(12),
+                            image: DecorationImage(
+                              image: MemoryImage(state.mapPointBytes!),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                    } else if (state.mapPointBytes != null &&
                         (state.mapPointBytes?.isNotEmpty ?? false) &&
                         state.showExactAddress) ...{
                       Container(
+                        margin: const EdgeInsets.only(bottom: 17),
                         height: 200,
                         width: double.maxFinite,
                         decoration: BoxDecoration(
@@ -138,7 +161,6 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                             )),
                         // child:Image.asset(AppIcons.currentLoc),
                       ),
-                      const SizedBox(height: 17),
                     },
 
                     SwitcherRowAsButtonAlso(

@@ -40,17 +40,20 @@ class PostingAdSubmitBox extends StatelessWidget {
                   color: profileContainers.withOpacity(.08))
             ],
             color: white,
+            // color: Colors.teal,
             borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               MapPointName(
-                  isWaiting: state.getPointNameStatus ==
-                      FormzStatus.submissionInProgress,
+                  isWaiting: state.getPointNameStatus.isSubmissionInProgress,
                   name: state.address),
               const SizedBox(height: 24),
               WButton(
+                isLoading:
+                    state.getCurrentLocationStatus.isSubmissionInProgress ||
+                        state.getPointNameStatus.isSubmissionInProgress,
                 isDisabled: state.address?.isEmpty ?? true,
                 onTap: (state.address?.isNotEmpty ?? false)
                     ? onTab

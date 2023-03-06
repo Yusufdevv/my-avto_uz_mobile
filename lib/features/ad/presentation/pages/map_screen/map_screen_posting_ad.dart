@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/singletons/storage.dart';
@@ -77,7 +79,7 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                       .copyWith(fontWeight: FontWeight.w600, fontSize: 16),
                 )),
             body: BlocBuilder<MapBloc, MapState>(
-              builder: (context, state) => Stack(
+              builder: (context, statee) => Stack(
                 children: [
                   Positioned.fill(
                     top: -24,
@@ -154,49 +156,52 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                               duration: 0.15, type: MapAnimationType.smooth),
                         );
                         setState(() {});
-                        mapBloc.add(
-                          MapGetCurrentLocationEvent(
-                            onError: (message) {
-                              context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                    message: message,
-                                    status: PopStatus.warning,
-                                  ));
-                            },
-                            onSuccess: (position) async {
-                              myPoint = Point(
-                                latitude: position.latitude,
-                                longitude: position.longitude,
-                              );
-                              final myPlaceMark = await MyFunctions.getMyPoint(
-                                  myPoint, context);
-                              setState(() {
-                                _mapObjects.add(myPlaceMark);
-                              });
-                              accuracy = position.accuracy;
-                              await _mapController.moveCamera(
-                                CameraUpdate.newCameraPosition(
-                                  CameraPosition(
-                                    target: Point(
-                                        latitude: position.latitude,
-                                        longitude: position.longitude),
+                        if(41.310990 == lat){
+                          mapBloc.add(
+                            MapGetCurrentLocationEvent(
+                              onError: (message) {
+                                context.read<ShowPopUpBloc>().add(ShowPopUp(
+                                      message: message,
+                                      status: PopStatus.warning,
+                                    ));
+                              },
+                              onSuccess: (position) async {
+                                myPoint = Point(
+                                  latitude: position.latitude,
+                                  longitude: position.longitude,
+                                );
+                                final myPlaceMark =
+                                    await MyFunctions.getMyPoint(
+                                        myPoint, context);
+                                setState(() {
+                                  _mapObjects.add(myPlaceMark);
+                                });
+                                accuracy = position.accuracy;
+                                await _mapController.moveCamera(
+                                  CameraUpdate.newCameraPosition(
+                                    CameraPosition(
+                                      target: Point(
+                                          latitude: position.latitude,
+                                          longitude: position.longitude),
+                                    ),
                                   ),
-                                ),
-                                animation: const MapAnimation(
-                                    duration: 0.15,
-                                    type: MapAnimationType.smooth),
-                              );
-                              mapBloc.add(
-                                MapChangeLatLongEvent(
-                                  lat: position.latitude,
-                                  long: position.longitude,
-                                  radius:
-                                      MyFunctions.getRadiusFromZoom(camera.zoom)
-                                          .floor(),
-                                ),
-                              );
-                            },
-                          ),
-                        );
+                                  animation: const MapAnimation(
+                                      duration: 0.15,
+                                      type: MapAnimationType.smooth),
+                                );
+                                mapBloc.add(
+                                  MapChangeLatLongEvent(
+                                    lat: position.latitude,
+                                    long: position.longitude,
+                                    radius: MyFunctions.getRadiusFromZoom(
+                                            camera.zoom)
+                                        .floor(),
+                                  ),
+                                );
+                              },
+                            ),
+                          );
+                        }
                       },
                     ),
                   ),
@@ -233,9 +238,10 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                     bottom: 0,
                     child: PostingAdSubmitBox(
                       onTab: () {
-                        if (state.lat == 0) return;
-                        Navigator.of(context)
-                            .pop([state.lat, state.long, zoomLevel]);
+                        log(':::::::::: asfqefawefesf  ${statee.lat}  ::::::::::');
+                        Navigator.of(context).pop(statee.lat == 0
+                            ? null
+                            : [statee.lat, statee.long, zoomLevel]);
                       },
                     ),
                   ),

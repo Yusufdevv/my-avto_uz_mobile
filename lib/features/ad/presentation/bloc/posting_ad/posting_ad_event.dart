@@ -64,12 +64,6 @@ class PostingAdGetDistritsEvent extends PostingAdEvent {
   PostingAdGetDistritsEvent({this.regionId});
 }
 
-class PostingAdEmptySelectedOptions extends PostingAdEvent {
-  final EquipmentEntity? equipment;
-
-  PostingAdEmptySelectedOptions({required this.equipment});
-}
-
 class PostingAdCreateEvent extends PostingAdEvent {}
 
 class PostingAdBodyTypesEvent extends PostingAdEvent {}
@@ -156,13 +150,10 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final String? price;
   final String? currency;
   final String? mileage;
-
   final String? callTimeFrom;
   final String? callTimeTo;
   final String? where;
   final String? toastMessage;
-  final String? locationUrll;
-
   final bool? hasGasBalloon;
   final bool? isRastamojen;
   final bool? isCallTimed;
@@ -174,7 +165,6 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final bool? isNew;
   final bool? isEquipmentToNull;
   final int? gasEquipmentId;
-  final EquipmentEntity? equipment;
   final FormzStatus? getModificationStatus;
   final FormzStatus? createStatus;
 
@@ -186,7 +176,6 @@ class PostingAdChooseEvent extends PostingAdEvent {
     this.panaramaGallery,
     this.bodyBytes,
     this.yearEntity,
-    this.locationUrll,
     this.phoneController,
     this.emailController,
     this.nameController,
@@ -231,9 +220,14 @@ class PostingAdChooseEvent extends PostingAdEvent {
     this.isWithoutMileage,
     this.milageImage,
     this.gasEquipmentId,
-    this.equipment,
     this.getModificationStatus,
   });
+}
+
+class PostingAdSelectEquipmentEvent extends PostingAdEvent {
+  final EquipmentEntity equipment;
+
+  PostingAdSelectEquipmentEvent({required this.equipment});
 }
 
 class PostingAdChangeAppBarShadowEvent extends PostingAdEvent {
@@ -253,8 +247,6 @@ class PostingAdGetEquipments extends PostingAdEvent {
 class PostingAdGetEquipmentOptionsList extends PostingAdEvent {
   PostingAdGetEquipmentOptionsList();
 }
-
-
 
 class PostingAdChangeOption extends PostingAdEvent {
   final String type;

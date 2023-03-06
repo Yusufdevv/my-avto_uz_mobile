@@ -7,11 +7,13 @@ class PASingleton {
   PASingleton._();
 
   static Future<FormData> create(PostingAdState v) async {
-    log(':::::::::::   CREATE ANNOUNCEMENT TRIGGERED IN SINGLETON:    ::::::::::::::');
+    log(':::::::::::   CREATE ANNOUNCEMENT TRIGGERED IN SINGLETON:     ::::::::::::::');
 
     log(':::::::::::   EQIPMENT FOR COMPLETED    ::::::::::::::');
     // ignore: prefer_final_locals
     var announcementFields = <String, dynamic>{
+      'longitude': v.long,
+      'latitude': v.lat,
       'make': v.make?.id,
       'model': v.model?.id,
       'generation': v.generationId,
@@ -19,7 +21,9 @@ class PASingleton {
       'drive_type': v.driveTypeId,
       'engine_type': v.engineId,
       'gearbox_type': v.gearbox?.id,
-      'year': v.yearEntity?.id,
+
+      /// yearBegin is not true
+      'year': v.yearEntity?.yearBegin,
       'modification_type': v.modification?.id,
       'color': v.colorName,
       'licence_type': v.licenceType,
@@ -32,7 +36,8 @@ class PASingleton {
       'contact_phone': v.ownerPhone,
       'region': v.regionId,
       'district': v.districtId,
-      'location_url': v.locationUrl,
+      'location_url':
+          'https://yandex.com/maps/10335/tashkent/?ll=${v.long}%2C${v.lat}&z=15',
       'price': v.price?.replaceAll(' ', ''),
       'currency': v.currency,
       'distance_traveled': (v.isWithoutMileage ?? false)
@@ -51,18 +56,17 @@ class PASingleton {
       'rent_with_purchase': v.rentWithPurchaseConditions.entries
           .map((e) => e.value.toApi())
           .toList(),
+
       'equipment': v.equipment?.id,
       'gas_equipment': v.gasEquipmentId,
     };
 
-    log(':::::::::::   BASICS INITIALIZED    ::::::::::::::');
     if (v.milageImage != null && v.milageImage!.isNotEmpty) {
       final milageImage = await MultipartFile.fromFile(v.milageImage!);
       final List<MultipartFile> list = [milageImage];
       announcementFields
           .addEntries(list.map((e) => MapEntry('mileage_image', e)));
     }
-    log(':::::::::::   MILAGE IMAGE INITIALIZED    ::::::::::::::');
 
     var i = -1;
     announcementFields.addEntries(v.damagedParts.entries.map((e) {
@@ -74,7 +78,6 @@ class PASingleton {
       i++;
       return MapEntry('damaged_parts[$i]damage_type', e.value.value);
     }));
-    log(':::::::::::   DAMAGED PARTS INITIALIZED    ::::::::::::::');
 
     var images = <MultipartFile>[];
 
@@ -82,27 +85,33 @@ class PASingleton {
       final multiParFile = await MultipartFile.fromFile(element);
       images.add(multiParFile);
     }
-    log(':::::::::::   IMAGES INITIALIZED    ::::::::::::::');
     i = -1;
     announcementFields.addEntries(images.map((e) {
       i++;
       return MapEntry('gallery[$i]', e);
     }));
     i = -1;
-    announcementFields.addEntries(v.radioOptions.entries.map((e) {
+    Map<int, String> rO = v.equipment == null
+        ? v.radioOptions
+        : _removeEquipmentContainingRadios(v.equipment!, v.radioOptions);
+     announcementFields.addEntries(rO.entries.map((e) {
       i++;
       return MapEntry('options[$i]', e.key);
     }));
-    log(':::::::::::   OPTIONS INITIALIZED    ::::::::::::::');
-    i = -1;
-    announcementFields.addEntries(v.selectOptions.entries.map((e) {
+     i = -1;
+
+     Map<int, SO> selectedOptions = v.equipment == null
+        ? v.selectOptions
+        : _removeEquipmentContainingSelects(v.equipment!, v.selectOptions);
+    announcementFields.addEntries(selectedOptions.entries.map((e) {
       i++;
       return MapEntry('option_items[$i]', e.value.id);
     }));
-    log(':::::::::::   OPTION ITEMS  INITIALIZED    ::::::::::::::');
+
 
     log('ANNOUNCEMENT FIELDS BEFORE FORMDATALIZE: ${announcementFields.toString()} \n Seperator Seperator Seperator Seperator Seperator Seperator Seperator Seperator Seperator ');
-    final announcementFormData = FormData.fromMap(announcementFields);
+    final announcementFormData =
+        FormData.fromMap(announcementFields, ListFormat.multiCompatible);
 
     return announcementFormData;
   }
@@ -169,7 +178,6 @@ class PASingleton {
         mapPointBytes: event.bodyBytes,
         years: event.years,
         yearEntity: event.yearEntity,
-        locationUrl: event.locationUrll,
         toastMessage: event.toastMessage,
         damagedParts: event.damagedParts,
         gallery: event.gallery,
@@ -210,7 +218,6 @@ class PASingleton {
         eventMakeScrrollIndex: _getMakeLetterIndex(event, state.makes),
         description: event.description,
         gasEquipmentId: event.gasEquipmentId,
-        equipment: event.equipment,
         getModificationStatus: event.getModificationStatus,
       );
 
@@ -372,15 +379,89 @@ class PASingleton {
 
     return false;
   }
-//
-// static RemoveRadio removeRadio(
-//     {required PostingAdState state}){
-//
-// }  static RemoveSelect removeSelect(
-//     {required PostingAdState state}){
-//   if(state.equipment !=null){
-//
-//   }
-//
-// }
+
+  static EquipmentEntity? isEquipmentFull(
+      {required PostingAdState state,
+      required Map<int, String> sR,
+      required Map<int, SO> sS,
+      required String where}) {
+    log('::::::::::: where:    $where    ::::::::::::::');
+    log(':::::::::: selected SS: $sS  ::::::::::');
+    log(':::::::::: selected radios: $sR  ::::::::::');
+    final equipment = state.equipment ??
+        (state.equipments.any((e) => e.id == state.lastEquipmentId)
+            ? state.equipments.firstWhere((e) => e.id == state.lastEquipmentId)
+            : null);
+
+    if (equipment == null) {
+      log(':::::::::::   returning due to equipment is null    ::::::::::::::');
+      return null;
+    }
+    log('::::::::::  ${equipment.id}  ::::::::::');
+    for (var i = 0; i < equipment!.options.length; i++) {
+      log('::::::::::options id:  ${equipment.options[i].id}  ::::::::::');
+      log('::::::::::options option:  ${equipment.options[i].option}  ::::::::::');
+      log('::::::::::options item:  ${equipment.options[i].item}  ::::::::::');
+      for (var n = 0; n < equipment.options[i].option.items.length; n++) {
+        log('::::::::::items  id: ${equipment.options[i].option.items[n].id}  ::::::::::');
+        log('::::::::::items name:  ${equipment.options[i].option.items[n].name}  ::::::::::');
+      }
+    }
+
+    var idf = 0;
+    for (final e in equipment.options) {
+      log(':::::::::::   option dot id: ${e.option.id}    ::::::::::::::');
+      if (e.option.type == 'select') {
+        if (sS.containsKey(e.option.id)) {
+          if (e.item.id == sS[e.option.id]?.id) {
+            idf++;
+            continue;
+          }
+        }
+      } else {
+        if (sR.containsKey(e.option.id)) {
+          log(':::::::::::   PLUCING FROM RADIO    ::::::::::::::');
+          idf++;
+          continue;
+        }
+      }
+    }
+    log(':::::::::: IS EQUIPMENT TO NULL I IS:  $idf  equipment options length: ${equipment.options.length}::::::::::');
+    log(':::::::::: selected radios length:  ${sR.length}  selects lenth: ${sS.length}::::::::::');
+    if (idf == equipment.options.length) {
+      log(':::::::::::   returning equipment    ::::::::::::::');
+      return equipment;
+    } else {
+      log(':::::::::::   returning  null    ::::::::::::::');
+      return null;
+    }
+  }
+
+  static Map<int, String> _removeEquipmentContainingRadios(
+      EquipmentEntity equipment, Map<int, String> radios) {
+    Map<int, String> rO = radios;
+    for (final e in equipment.options) {
+      if (e.option.type == 'radio') {
+        if (rO.containsKey(e.option.id)) {
+          rO.remove(e.option.id);
+        }
+      }
+    }
+    return rO;
+  }
+
+  static Map<int, SO> _removeEquipmentContainingSelects(
+      EquipmentEntity equipment, Map<int, SO> selects) {
+    Map<int, SO> selectedOptions = selects;
+    for (final e in equipment.options) {
+      if (e.option.type == 'select') {
+        if (selectedOptions.containsKey(e.option.id)) {
+          if (selectedOptions[e.option.id]?.id == e.item.id) {
+            selectedOptions.remove(e.option.id);
+          }
+        }
+      }
+    }
+    return selectedOptions;
+  }
 }
