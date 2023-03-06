@@ -17,7 +17,7 @@ class GetDistrictsUseCase
         next: '',
         sendToken: false,
         query: {
-          'limit' : 20
+          'limit' : 50
         }
       );
 }

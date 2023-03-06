@@ -840,7 +840,6 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
   @override
   Future<GenericPagination<EquipmentOptionsModel>> getEquipmentOptions(
       {String? search, int? limit, int? offset, int? equipmentId}) async {
-
     try {
       final result = await _dio.get('car/equipments/options/$equipmentId/',
           queryParameters: {

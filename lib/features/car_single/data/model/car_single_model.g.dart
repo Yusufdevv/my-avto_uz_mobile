@@ -8,6 +8,15 @@ part of 'car_single_model.dart';
 
 CarSingleModel _$CarSingleModelFromJson(Map<String, dynamic> json) =>
     CarSingleModel(
+      options: (json['options'] as List<dynamic>?)
+              ?.map((e) => const EquipmentOptionsConverter()
+                  .fromJson(e as Map<String, dynamic>?))
+              .toList() ??
+          const <EquipmentOptionsEntity>[],
+      equipment: json['equipment'] == null
+          ? const EquipmentEntity()
+          : const EquipmentConverter()
+              .fromJson(json['equipment'] as Map<String, dynamic>?),
       description: json['description'] as String? ?? '',
       contactAvailableFrom: json['contact_available_from'] as String? ?? '',
       absoluteCarName: json['absolute_car_name'] as String? ?? '',
@@ -179,4 +188,8 @@ Map<String, dynamic> _$CarSingleModelToJson(CarSingleModel instance) =>
           .toList(),
       'region': const RegionConverter().toJson(instance.region),
       'district': const DistrictConverter().toJson(instance.district),
+      'equipment': const EquipmentConverter().toJson(instance.equipment),
+      'options': instance.options
+          .map(const EquipmentOptionsConverter().toJson)
+          .toList(),
     };
