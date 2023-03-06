@@ -1,5 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Header extends SliverPersistentHeaderDelegate {
   Header();
+
   @override
   double get minExtent => 40;
 
@@ -16,7 +19,8 @@ class Header extends SliverPersistentHeaderDelegate {
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
 
-  final List<String> letters = MyFunctions.getUpperLetter();
+  final List<String> letters = MyFunctions.getUpperLetter(
+      StorageRepository.getString(StorageKeys.LANGUAGE, defValue: 'uz'));
 
   @override
   Widget build(

@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:typed_data';
 
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/data/models/body_type.dart';
@@ -179,10 +180,10 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
   Future<GetMakeEntity> getCarModel(int? makeId, {String? name}) async {
     final response = await _dio.get('/car/$makeId/models/',
         options: Options(
-          headers: StorageRepository.getString('token').isNotEmpty
+          headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Token ${StorageRepository.getString('token')}'
+                      'Token ${StorageRepository.getString(StorageKeys.TOKEN)}'
                 }
               : {},
         ),
@@ -204,8 +205,8 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
     final response = await _dio.get(
       '/car/$modelId/years/',
       options: Options(
-        headers: StorageRepository.getString('token').isNotEmpty
-            ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
+        headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
+            ? {'Authorization': 'Token ${StorageRepository.getString(StorageKeys.TOKEN)}'}
             : {},
       ),
     );
@@ -229,10 +230,10 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
         '/car/$modelId/${year}generations/',
         //    car/24/1992generations/
         options: Options(
-          headers: StorageRepository.getString('token').isNotEmpty
+          headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Token ${StorageRepository.getString('token')}'
+                      'Token ${StorageRepository.getString(StorageKeys.TOKEN)}'
                 }
               : {},
         ),
@@ -262,10 +263,10 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
       final response = await _dio.get(
         '/car/$generationId/body-types/',
         options: Options(
-          headers: StorageRepository.getString('token').isNotEmpty
+          headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Token ${StorageRepository.getString('token')}'
+                      'Token ${StorageRepository.getString(StorageKeys.TOKEN)}'
                 }
               : {},
         ),
@@ -294,10 +295,10 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
       final response = await _dio.get(
         '/car/body-types/',
         options: Options(
-          headers: StorageRepository.getString('token').isNotEmpty
+          headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Token ${StorageRepository.getString('token')}'
+                      'Token ${StorageRepository.getString(StorageKeys.TOKEN)}'
                 }
               : {},
         ),
@@ -328,10 +329,10 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
       final response = await _dio.get(
         '/car/$generationId/$bodyTypeId/engine_type/',
         options: Options(
-          headers: StorageRepository.getString('token').isNotEmpty
+          headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Token ${StorageRepository.getString('token')}'
+                      'Token ${StorageRepository.getString(StorageKeys.TOKEN)}'
                 }
               : {},
         ),
@@ -363,10 +364,10 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
       final response = await _dio.get(
         '/car/$generationId/$bodyTypeId/$engineTypeId/drive_type/',
         options: Options(
-          headers: StorageRepository.getString('token').isNotEmpty
+          headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Token ${StorageRepository.getString('token')}'
+                      'Token ${StorageRepository.getString(StorageKeys.TOKEN)}'
                 }
               : {},
         ),
@@ -393,10 +394,10 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
       final response = await _dio.get(
         '/car/drive-types/',
         options: Options(
-          headers: StorageRepository.getString('token').isNotEmpty
+          headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Token ${StorageRepository.getString('token')}'
+                      'Token ${StorageRepository.getString(StorageKeys.TOKEN)}'
                 }
               : {},
         ),
@@ -429,10 +430,10 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
       final response = await _dio.get(
         '/car/$generationId/$bodyTypeId/$engineTypeId/$driveTypeId/gearbox_type',
         options: Options(
-          headers: StorageRepository.getString('token').isNotEmpty
+          headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Token ${StorageRepository.getString('token')}'
+                      'Token ${StorageRepository.getString(StorageKeys.TOKEN)}'
                 }
               : {},
         ),
@@ -459,10 +460,10 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
       final response = await _dio.get(
         '/car/gearbox-types/',
         options: Options(
-          headers: StorageRepository.getString('token').isNotEmpty
+          headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Token ${StorageRepository.getString('token')}'
+                      'Token ${StorageRepository.getString(StorageKeys.TOKEN)}'
                 }
               : {},
         ),
@@ -496,10 +497,10 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
       final response = await _dio.get(
         '/car/$generationId/$bodyTypeId/$engineTypeId/$driveTypeId/$gearBoxTypeTypeId/modification-type/',
         options: Options(
-          headers: StorageRepository.getString('token').isNotEmpty
+          headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Token ${StorageRepository.getString('token')}'
+                      'Token ${StorageRepository.getString(StorageKeys.TOKEN)}'
                 }
               : {},
         ),
@@ -529,10 +530,10 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
         '/car/announcement/create/',
         data: announcementFormData,
         options: Options(
-          headers: StorageRepository.getString('token').isNotEmpty
+          headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Bearer ${StorageRepository.getString('token')}'
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
                 }
               : {},
         ),
@@ -560,10 +561,10 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
         '/car/announcement/sms-verification/entrypoint/',
         data: {'phone_number': phone},
         options: Options(
-          headers: StorageRepository.getString('token').isNotEmpty
+          headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Token ${StorageRepository.getString('token')}'
+                      'Token ${StorageRepository.getString(StorageKeys.TOKEN)}'
                 }
               : {},
         ),
@@ -594,10 +595,10 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
         '/car/announcement/sms-verification/verify',
         data: params,
         options: Options(
-          headers: StorageRepository.getString('token').isNotEmpty
+          headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Token ${StorageRepository.getString('token')}'
+                      'Token ${StorageRepository.getString(StorageKeys.TOKEN)}'
                 }
               : {},
         ),
@@ -624,10 +625,10 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
         '/car/min-car-price/',
         data: params,
         options: Options(
-          headers: StorageRepository.getString('token').isNotEmpty
+          headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Token ${StorageRepository.getString('token')}'
+                      'Token ${StorageRepository.getString(StorageKeys.TOKEN)}'
                 }
               : {},
         ),
@@ -652,9 +653,9 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
     try {
       var headers = <String, String>{};
 
-      final token = StorageRepository.getString('token').isNotEmpty
+      final token = StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
           ? MapEntry(
-              'Authorization', 'Token ${StorageRepository.getString('token')}')
+              'Authorization', 'Token ${StorageRepository.getString(StorageKeys.TOKEN)}')
           : null;
       var list = <MapEntry<String, String>>[];
       if (token != null) {
@@ -665,7 +666,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
         ..add(const MapEntry('accept', 'application/json'))
         ..add(const MapEntry('Content-Type', 'application/json'))
         ..add(MapEntry('Accept-Language',
-            StorageRepository.getString('language', defValue: 'uz')));
+            StorageRepository.getString(StorageKeys.LANGUAGE, defValue: 'uz')));
 
       headers.addEntries(list);
       final request = http.Request('POST',
@@ -697,10 +698,10 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
       final response = await _dio.get(
         '/car/announcement/photo-instruction/',
         options: Options(
-          headers: StorageRepository.getString('token').isNotEmpty
+          headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Token ${StorageRepository.getString('token')}'
+                      'Token ${StorageRepository.getString(StorageKeys.TOKEN)}'
                 }
               : {},
         ),
@@ -732,10 +733,10 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
         '/car/announcement/$id/update/',
         data: announcementFormData,
         options: Options(
-          headers: StorageRepository.getString('token').isNotEmpty
+          headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
                   'Authorization':
-                      'Bearer ${StorageRepository.getString('token')}'
+                      'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
                 }
               : {},
         ),
@@ -771,7 +772,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
           },
           options: Options(
             headers: {
-              'Authorization': 'Bearer ${StorageRepository.getString('token')}',
+              'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
             },
           ));
       return GenericPagination.fromJson(result.data,
@@ -797,7 +798,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
           },
           options: Options(
             headers: {
-              'Authorization': 'Bearer ${StorageRepository.getString('token')}',
+              'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
             },
           ));
       log(':::::::::: GOTTEN EQUIPMENTS: ${result.data}  ::::::::::');
@@ -824,7 +825,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
           },
           options: Options(
             headers: {
-              'Authorization': 'Bearer ${StorageRepository.getString('token')}',
+              'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
             },
           ));
       log(':::::::::: Gotten EquipmentOptionsListModels: ${result.data}  ::::::::::');
@@ -850,7 +851,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
           },
           options: Options(
             headers: {
-              'Authorization': 'Bearer ${StorageRepository.getString('token')}',
+              'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
             },
           ));
       log(':::::::::: GOTTEN EQUIPMETN OPTIONS:  ${result.data}  ::::::::::');

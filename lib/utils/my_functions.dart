@@ -244,8 +244,45 @@ class MyFunctions {
     return newCost.trimLeft();
   }
 
-  static List<String> getUpperLetter() =>
-      [for (int i = 0; i < 26; i++) String.fromCharCode(i + 65)];
+  static List<String> getUpperLetter(String locale) => locale == 'uz'
+      ? [for (int i = 0; i < 26; i++) String.fromCharCode(i + 65)]
+      : [
+          'А',
+          'Б',
+          'В',
+          'Г',
+          'Д',
+          'Е',
+          'Ё',
+          'Ж',
+          'З',
+          'И',
+          'Й',
+          'К',
+          'Л',
+          'М',
+          'Н',
+          'О',
+          'П',
+          'Р',
+          'С',
+          'Т',
+          'У',
+          'Ф',
+          'Х',
+          'Ц',
+          'Ч',
+          'Ш',
+          'Ъ',
+          'Ь',
+          'Э',
+          'Ю',
+          'Я',
+          'Ў',
+          'Ғ',
+          'Қ',
+          'Ҳ',
+        ];
 
   static Future<PermissionStatus> getPhotosPermission(
       bool platformIsAndroid) async {
@@ -253,6 +290,7 @@ class MyFunctions {
       Permission permissionType;
 
       final androidInfo = await DeviceInfoPlugin().androidInfo;
+
       if (androidInfo.version.sdkInt <= 32) {
         permissionType = Permission.storage;
       } else {

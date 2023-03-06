@@ -8,4 +8,7 @@ class StorageKeys {
   static const LANGUAGE = 'language';
   static const TOKEN = 'token';
   static const ON_BOARDING = 'onboarding';
+  static const LATITUDE = 'lat';
+  static const LONGITUDE = 'long';
+
 }
