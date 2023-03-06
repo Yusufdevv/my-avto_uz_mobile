@@ -45,11 +45,11 @@ enum Currency {
 }
 
 enum SortStatus {
+  none(''),
   cheapest('-price'),
   expensive('price'),
   oldest('created_at'),
-  newest('-created_at'),
-  none('');
+  newest('-created_at');
 
   const SortStatus(this.value);
 

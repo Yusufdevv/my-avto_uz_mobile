@@ -50,10 +50,6 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    if (groupValue != SortStatus.none) {
-                      groupValue = SortStatus.none;
-                      widget.onChanged(groupValue!);
-                    }
                     Navigator.pop(context);
                   },
                   behavior: HitTestBehavior.opaque,

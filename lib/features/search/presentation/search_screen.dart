@@ -414,13 +414,6 @@ class SortSearchResultsModel {
   const SortSearchResultsModel({required this.title, required this.status});
 }
 
-enum SortSearchResultStatus {
-  cheapest,
-  expensive,
-  oldest,
-  newest,
-}
-
 enum SearchControllerStatus {
   typing,
   completed,

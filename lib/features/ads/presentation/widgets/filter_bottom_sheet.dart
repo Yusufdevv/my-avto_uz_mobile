@@ -23,6 +23,10 @@ Future<dynamic> filterBottomSheet(
         title: LocaleKeys.sorting.tr(),
         values: const [
           SortSearchResultsModel(
+            title: LocaleKeys.all,
+            status: SortStatus.none,
+          ),
+          SortSearchResultsModel(
             title: LocaleKeys.descending,
             status: SortStatus.cheapest,
           ),
