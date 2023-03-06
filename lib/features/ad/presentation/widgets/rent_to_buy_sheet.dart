@@ -114,7 +114,7 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                                 switch (state.step) {
                                   case 1:
                                     {
-                                      if (value > widget.price) {
+                                      if (value >= widget.price) {
                                         return '${LocaleKeys.could_not_be.tr()}${widget.price}';
                                       }
                                     }
