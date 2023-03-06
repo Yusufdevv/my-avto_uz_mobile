@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/common/widgets/cached_image.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 class StoryItem extends StatelessWidget {
@@ -74,11 +75,14 @@ class StoryItem extends StatelessWidget {
                   ),
                   child: Align(
                     alignment: Alignment.bottomLeft,
-                    child: Text(title,
+                    child: AutoSizeText(title,
                         style: Theme.of(context)
                             .textTheme
                             .headlineMedium!
-                            .copyWith(fontSize: 10)),
+                            .copyWith(fontSize: 10),
+                      minFontSize: 8,
+                      maxLines: 1,
+                    ),
                   ),
                 ),
               ],

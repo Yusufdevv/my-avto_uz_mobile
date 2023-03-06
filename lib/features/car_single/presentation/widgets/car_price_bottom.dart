@@ -10,6 +10,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import 'car_price_2.dart';
+
 class CarPriceBottom extends StatelessWidget {
   final String price;
   final String currency;
@@ -129,13 +131,12 @@ class CarPriceBottom extends StatelessWidget {
               totalPrice: LocaleKeys.on.tr(args: [
                 '${MyFunctions.getFormatCost(ration.ceil().toString())} $currency ($percent%)'
               ]),
-              // 'на $ration ($percent %)',
               textColor: const Color(0xff5ECC81),
             ),
             const SizedBox(height: 16),
             const Divider(indent: 16, endIndent: 16, height: 1),
             const SizedBox(height: 12),
-            CarsPrice(
+            CarsPrice2(
               date: '${LocaleKeys.market_condition_on.tr()} $date',
               price: LocaleKeys.average_price.tr(),
               totalPrice:
