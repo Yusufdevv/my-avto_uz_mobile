@@ -46,7 +46,9 @@ void main() {
     // );
     // The following lines are the same as previously explained in "Handling uncaught errors"
     // FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
-
+    await SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp
+    ]);
     await EasyLocalization.ensureInitialized();
     setupLocator();
     await StorageRepository.getInstance();
