@@ -162,8 +162,8 @@ class EASingleton {
       radioOptions: PASingleton.makeRadiosSelected(
           v: [...v.equipment.options, ...v.options]),
       equipment: v.equipment,
-      region: v.region,
-      district: v.district,
+      region: v.region.id == -1 ? null : v.region,
+      district: v.district.id == -1 ? null : v.district,
       showExactAddress: showExactAddress,
       getAnnouncementToEditStatus: FormzStatus.submissionSuccess,
       licenceType: v.licenceType,

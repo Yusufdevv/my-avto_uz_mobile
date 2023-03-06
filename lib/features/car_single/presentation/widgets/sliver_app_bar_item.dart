@@ -5,6 +5,7 @@ import 'package:auto/features/car_single/presentation/widgets/mine_more_bottomsh
 import 'package:auto/features/car_single/presentation/widgets/sliver_images_item.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/edit_ad/presentation/edit_ad_screen.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/search/presentation/widgets/add_wishlist_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -122,8 +123,8 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
               child: widget.isMine
                   ? GestureDetector(
                       onTap: () {
-                        Navigator.of(context, rootNavigator: true)
-                            .push(fade(page: const PostingAdScreen()));
+                        Navigator.of(context, rootNavigator: true).push(fade(
+                            page: EditAdScreen(announcementId: widget.id)));
                       },
                       behavior: HitTestBehavior.opaque,
                       child: SvgPicture.asset(

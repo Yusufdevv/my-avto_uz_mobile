@@ -320,8 +320,9 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
             'https://yandex.com/maps/10335/tashkent/?ll=${event.long}%2C${event.lat}&z=${event.zoomLevel}'));
     final result = await screenShotUseCase
         .call({'longitude': '${event.long}', 'latitude': '${event.lat}'});
-
+    log(':::::::::: gottten result of mapPointBytes:  ${result}  ::::::::::');
     if (result.isRight) {
+    log(':::::::::: gottten result of mapPointBytes right:  ${result.right}  ::::::::::');
       emit(state.copyWith(
           status: FormzStatus.submissionSuccess, mapPointBytes: result.right));
     } else {
