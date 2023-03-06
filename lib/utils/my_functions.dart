@@ -290,6 +290,7 @@ class MyFunctions {
       Permission permissionType;
 
       final androidInfo = await DeviceInfoPlugin().androidInfo;
+
       if (androidInfo.version.sdkInt <= 32) {
         permissionType = Permission.storage;
       } else {
