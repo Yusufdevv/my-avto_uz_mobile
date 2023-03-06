@@ -351,8 +351,10 @@ class PASingleton {
         return state.damagedParts.isEmpty;
       // ContactsScreen
       case 15:
-        final v = !((state.contactsFormKey.currentState?.validate() ?? false) &&
-            state.isContactsVerified);
+        final v = !(((state.contactsFormKey.currentState?.validate() ??
+                    false) &&
+                state.isContactsVerified) ||
+            state.nameController.text.isNotEmpty && state.isContactsVerified);
         log(':::::::::: ownername in validation of next button: ${state.ownerName}  ::::::::::');
         return v;
 // InspectionPlaceScreen
