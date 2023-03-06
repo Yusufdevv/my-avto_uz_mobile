@@ -6,12 +6,14 @@ class BaseWidget extends StatelessWidget {
   final Widget child;
   final EdgeInsets? padding;
   final List<Widget>? extraAction;
+  final bool isBgColorIsNull;
 
   const BaseWidget(
       {required this.headerText,
       required this.child,
       this.extraAction,
       this.padding,
+      this.isBgColorIsNull = false,
       Key? key})
       : super(key: key);
 
@@ -45,9 +47,11 @@ class BaseWidget extends StatelessWidget {
                 margin: const EdgeInsets.only(top: 16),
                 padding: padding,
                 decoration: BoxDecoration(
-                    color: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .whiteToDark,
+                    color: isBgColorIsNull
+                        ? null
+                        : Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .whiteToDark,
                     borderRadius:
                         const BorderRadius.vertical(top: Radius.circular(20))),
                 child: child,
