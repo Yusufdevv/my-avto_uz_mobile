@@ -71,7 +71,7 @@ class _DamageScreenState extends State<DamageScreen>
               margin: const EdgeInsets.only(right: 16),
               decoration:
                   const BoxDecoration(shape: BoxShape.circle, color: border),
-              padding: const EdgeInsets.all(4),
+
               child: DamageButton(
                   damageType: DamageType.replaced,
                   onTap: () {
