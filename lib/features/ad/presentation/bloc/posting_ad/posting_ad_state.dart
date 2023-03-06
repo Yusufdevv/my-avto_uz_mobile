@@ -261,7 +261,7 @@ class PostingAdState extends Equatable {
     List<EquipmentEntity>? equipments,
     EquipmentEntity? equipment,
     List<EquipmentOptionsListEntity>? equipmentOptionsList,
-    List<EquipmentOptionsEntity>? equipmentOptions,
+
     bool isEquipmentToNull = false,
     bool isLastEquipmentIdToNull = false,
   }) =>

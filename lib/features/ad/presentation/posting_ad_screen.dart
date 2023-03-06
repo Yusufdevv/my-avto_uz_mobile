@@ -318,7 +318,35 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                     DescriptionScreen(
                                         initialText: state.description ?? ''),
                                     //13
-                                    const EquipmentScreen(),
+                                    EquipmentScreen(
+                                      selectOptions: state.selectOptions,
+                                      onEquipmentOptionPressed: ({
+                                        required id,
+                                        required isAdd,
+                                        required type,
+                                        required itemName,
+                                        selectOption,
+                                      }) {
+                                        context.read<PostingAdBloc>().add(
+                                            PostingAdChangeOption(
+                                                id: id,
+                                                type: type,
+                                                itemName: itemName,
+                                                isAdd: isAdd,
+                                                selectOption: selectOption));
+                                      },
+                                      isOptionSelected: state.isOptionSelected,
+                                      onEquipmentSelected: (equipment) {
+                                        context.read<PostingAdBloc>().add(
+                                              PostingAdSelectEquipmentEvent(
+                                                  equipment: equipment),
+                                            );
+                                      },
+                                      equipmentOptionsList:
+                                          state.equipmentOptionsList,
+                                      equipments: state.equipments,
+                                      equipment: state.equipment,
+                                    ),
                                     //14
                                     const DamageScreen(),
                                     //15
@@ -332,9 +360,9 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                               page: const MapScreenPostingAd()),
                                         ).then(
                                           (latLongZoom) {
-                                            log('::::::::::sdfg  ${ latLongZoom[0]}  ::::::::::');
-                                            log('::::::::::fs  ${ latLongZoom[1]}  ::::::::::');
-                                            log(':::::::::: fes ${ latLongZoom[2]}  ::::::::::');
+                                            log('::::::::::sdfg  ${latLongZoom[0]}  ::::::::::');
+                                            log('::::::::::fs  ${latLongZoom[1]}  ::::::::::');
+                                            log(':::::::::: fes ${latLongZoom[2]}  ::::::::::');
                                             if (latLongZoom is List<double>) {
                                               postingAdBloc.add(
                                                 PostingAdGetMapScreenShotEvent(

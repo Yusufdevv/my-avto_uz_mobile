@@ -10,6 +10,17 @@ class EditAdShowToastEvent extends EditAdEvent {
 
   EditAdShowToastEvent({required this.message, required this.status});
 }
+class EditAdGetEquipmentOptionsList extends EditAdEvent {
+
+
+  EditAdGetEquipmentOptionsList( );
+}
+class EditAdSelectEquipmentEvent extends EditAdEvent {
+  final EquipmentEntity equipment;
+
+  EditAdSelectEquipmentEvent({required this.equipment});
+}
+
 
 class EditAdClearStateEvent extends EditAdEvent {}
 
@@ -62,10 +73,10 @@ class EditAdGetDistritsEvent extends EditAdEvent {
   EditAdGetDistritsEvent({required this.regionId});
 }
 
-class EditAdCreateEvent extends EditAdEvent {
+class EditAdSubmitEvent extends EditAdEvent {
   final int announcementId;
 
-  const EditAdCreateEvent(this.announcementId);
+  const EditAdSubmitEvent(this.announcementId);
 }
 
 class EditAdOnRentWithPurchaseEvent extends EditAdEvent {
@@ -191,4 +202,20 @@ class EditAdChangeAppBarShadowEvent extends EditAdEvent {
 
 class EditAdGetEquipments extends EditAdEvent {
   EditAdGetEquipments();
+}
+
+class EditAdChangeOption extends EditAdEvent {
+  final String type;
+  final int id;
+  final String itemName;
+  final bool isAdd;
+  final SO? selectOption;
+
+  EditAdChangeOption({
+    required this.type,
+    required this.id,
+    required this.itemName,
+    required this.isAdd,
+    this.selectOption,
+  });
 }

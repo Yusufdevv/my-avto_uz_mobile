@@ -138,10 +138,12 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                           decoration: BoxDecoration(
                             color: Colors.amber,
                             borderRadius: BorderRadius.circular(12),
-                            image: DecorationImage(
-                              image: MemoryImage(state.mapPointBytes!),
-                              fit: BoxFit.cover,
-                            ),
+                            image: state.mapPointBytes != null
+                                ? DecorationImage(
+                                    image: MemoryImage(state.mapPointBytes!),
+                                    fit: BoxFit.cover,
+                                  )
+                                : null,
                           ),
                         ),
                       ),
