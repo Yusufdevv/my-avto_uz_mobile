@@ -678,6 +678,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
 
       if (response.statusCode >= 200 && response.statusCode < 300) {
         final stack = await http.Response.fromStream(response);
+
         return stack.bodyBytes;
       }
       throw ServerException(statusCode: response.statusCode, errorMessage: '');
