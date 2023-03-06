@@ -63,7 +63,7 @@ class _MyAdsPageState extends State<MyAdsPage> {
                         delegate: ProfileTabBar(
                           onTap: (index) {},
                           tabs: [
-                            LocaleKeys.all.tr(),
+                            LocaleKeys.in_moderation.tr(),
                             LocaleKeys.using.tr(),
                             LocaleKeys.close.tr(),
                           ],
@@ -74,13 +74,13 @@ class _MyAdsPageState extends State<MyAdsPage> {
                   physics: NeverScrollableScrollPhysics(),
                   children: [
                     AllAds(
-                      moderationStatus: '',
+                      moderationStatus: 'in_moderation',
                     ),
                     AllAds(
                       moderationStatus: 'active',
                     ),
                     AllAds(
-                      moderationStatus: 'blocked,in_moderation,sold',
+                      moderationStatus: 'blocked,sold',
                     ),
                   ],
                 )),

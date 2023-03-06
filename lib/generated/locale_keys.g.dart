@@ -80,6 +80,7 @@ abstract class  LocaleKeys {
   static const copy_url = 'copy_url';
   static const Complain = 'Complain';
   static const all = 'all';
+  static const in_moderation = 'in_moderation';
   static const using = 'using';
   static const close = 'close';
   static const no_data = 'no_data';
