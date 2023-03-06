@@ -42,7 +42,9 @@ class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
       if (result.isRight) {
         emit(state.copyWith(
             paymentEntity: result.right,
-            status: FormzStatus.submissionSuccess));
+            payStatus: FormzStatus.submissionSuccess,
+        ));
+        event.onSucces();
       } else {
         emit(state.copyWith(payStatus: FormzStatus.submissionFailure));
       }

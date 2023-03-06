@@ -9,11 +9,13 @@ class PayInvoiceEvent extends InvoiceEvent {
   final int announcement;
   final String provider;
   final String tariffType;
+  final Function() onSucces;
 
   PayInvoiceEvent({
     required this.announcement,
     required this.provider,
     required this.tariffType,
+    required this.onSucces,
   });
 }
 

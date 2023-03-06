@@ -16,8 +16,9 @@ import 'package:formz/formz.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class InvoicePage extends StatefulWidget {
-  const InvoicePage({required this.announcementId ,Key? key}) : super(key: key);
+  const InvoicePage({required this.announcementId, Key? key}) : super(key: key);
   final int announcementId;
+
   @override
   State<InvoicePage> createState() => _InvoicePageState();
 }
@@ -97,6 +98,7 @@ class _InvoicePageState extends State<InvoicePage> with WidgetsBindingObserver {
                                   ),
                                 );
                               }),
+
                               ///
                               // Expanded(
                               //   child: ListView.builder(
@@ -117,7 +119,6 @@ class _InvoicePageState extends State<InvoicePage> with WidgetsBindingObserver {
                               //   ),
                               // ),
                               const SizedBox(height: 16),
-
                             ],
                           ),
                         ),
@@ -133,8 +134,7 @@ class _InvoicePageState extends State<InvoicePage> with WidgetsBindingObserver {
                           ),
                           const SizedBox(height: 8),
                           Padding(
-                            padding:
-                            const EdgeInsets.only(bottom: 12),
+                            padding: const EdgeInsets.only(bottom: 12),
                             child: Row(
                               children: [
                                 Expanded(
@@ -146,12 +146,10 @@ class _InvoicePageState extends State<InvoicePage> with WidgetsBindingObserver {
                                     },
                                     value: 1,
                                     groupValue: value,
-                                    color: value == 1
-                                        ? lavanda
-                                        : borderCircular,
+                                    color:
+                                        value == 1 ? lavanda : borderCircular,
                                     iconPath: AppIcons.payme,
-                                    borderColor:
-                                    value == 1 ? purple : border,
+                                    borderColor: value == 1 ? purple : border,
                                   ),
                                 ),
                                 const SizedBox(
@@ -165,13 +163,11 @@ class _InvoicePageState extends State<InvoicePage> with WidgetsBindingObserver {
                                       });
                                     },
                                     value: 2,
-                                    color: value == 2
-                                        ? lavanda
-                                        : borderCircular,
+                                    color:
+                                        value == 2 ? lavanda : borderCircular,
                                     groupValue: value,
                                     iconPath: AppIcons.kpay,
-                                    borderColor:
-                                    value == 2 ? purple : border,
+                                    borderColor: value == 2 ? purple : border,
                                   ),
                                 ),
                               ],
@@ -223,10 +219,16 @@ class _InvoicePageState extends State<InvoicePage> with WidgetsBindingObserver {
                             text: LocaleKeys.confirm.tr(),
                             color: orange,
                             onTap: () async {
-                              bloc.add(PayInvoiceEvent(announcement: 286, provider: 'payme', tariffType: state.tarifs[0].type ?? ''));
-                              if(state.paymentEntity.paymentUrl!='') {
-                                await launchUrl(Uri.parse(state.paymentEntity.paymentUrl ?? '/'));
-                              }
+                              bloc.add(
+                                PayInvoiceEvent(
+                                  announcement: 286,
+                                  provider: 'payme',
+                                  tariffType: state.tarifs[0].type ?? '',
+                                  onSucces: () async {
+                                    await launchUrl(Uri.parse(state.paymentEntity.paymentUrl ?? '/'));
+                                  },
+                                ),
+                              );
                             },
                           ),
                           SizedBox(
