@@ -99,10 +99,6 @@ class _AnimatedImagesState extends State<AnimatedImages>
                   }
                 } else {
                   if (!widget.isUserSingle && widget.images.isNotEmpty) {
-                    // Navigator.of(context).push(MaterialPageRoute(
-                    //     builder: (context) => ImageInFullScreen(
-                    //           images: widget.images,
-                    //         )));
                     Navigator.of(context).push(fade(
                         page: ImagesPage(
                       images: widget.images,
@@ -112,43 +108,17 @@ class _AnimatedImagesState extends State<AnimatedImages>
               },
               behavior: HitTestBehavior.opaque,
               child:
-                  //   child: PageView(
-                  //     onPageChanged: (integer) {
-                  //       page = integer;
-                  //       _animationController.forward(from: 0);
-                  //     },
-                  //     controller: _pageController,
-                  //     children: List.generate(
-                  //       widget.images.length,
-                  //       (index) => CachedNetworkImage(
-                  //         imageUrl: widget.images[index],
-                  //         imageBuilder: (context, imageProvider) => Container(
-                  //           decoration: BoxDecoration(
-                  //             image: DecorationImage(
-                  //                 image: imageProvider, fit: BoxFit.cover),
-                  //           ),
-                  //         ),
-                  //         placeholder: (context, url) =>
-                  //             const CircularProgressIndicator(),
-                  //         errorWidget: (context, url, error) =>
-                  //             SvgPicture.asset(AppImages.autoUz),
-                  //       ),
-                  //       // (index) => Container(
-                  //       //   decoration: BoxDecoration(
-                  //       //     shape: BoxShape.rectangle,
-                  //       //   ),
-                  //       //   color: images[index],
-                  //       // ),
-                  //     ),
-                  //   ),
-                  // ),
+
                   PageView.builder(
                       physics: const BouncingScrollPhysics(),
                       controller: _pageController,
                       scrollDirection: Axis.horizontal,
-                      onPageChanged: (value) => setState(() {
+                      onPageChanged: (value) {
+                        setState(() {
                             page = value;
-                          }),
+                          });
+                        _animationController.forward(from: 0);
+                      },
                       itemCount:
                           widget.images.isEmpty ? 1 : widget.images.length,
                       itemBuilder: (context, index) => Container(
@@ -204,7 +174,7 @@ class _AnimatedImagesState extends State<AnimatedImages>
                               : const EdgeInsets.only(left: 4),
                           height: 4,
                           decoration: BoxDecoration(
-                              color: page > index
+                              color: page == index
                                   ? Colors.white
                                   : Colors.white.withOpacity(0.5),
                               borderRadius: BorderRadius.circular(2)),
