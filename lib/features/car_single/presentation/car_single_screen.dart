@@ -352,7 +352,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                               ),
                             ),
                           SliverToBoxAdapter(
-                            child: state.elasticSearchEntity.isNotEmpty
+                            child: state.elasticSearchEntity.length > 1
                                 ? OtherAdsItem(
                                     makeName: state.singleEntity.make.name,
                                     imageUrl: '${state.singleEntity.make.logo}',
@@ -384,63 +384,69 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                                 WishlistAddEvent.clearState());
                                           }
                                         },
-                                        builder: (context, stateWish) =>
-                                            Container(
-                                          margin: const EdgeInsets.only(
-                                            bottom: 20,
-                                          ),
-                                          child: AdsItem(
-                                            id: state
-                                                .elasticSearchEntity[index].id,
-                                            name:
-                                                '${state.elasticSearchEntity[index].make.name} ${state.elasticSearchEntity[index].model.name} ${state.elasticSearchEntity[index].generation.name}',
-                                            price:
-                                                '${state.elasticSearchEntity[index].price}',
-                                            location: state
-                                                .elasticSearchEntity[index]
-                                                .region
-                                                .title,
-                                            description: state
-                                                .elasticSearchEntity[index]
-                                                .description
-                                                .trim(),
-                                            image: state
-                                                .elasticSearchEntity[index]
-                                                .gallery[0],
-                                            currency: state
-                                                .elasticSearchEntity[index]
-                                                .currency,
-                                            isLiked: state
-                                                .elasticSearchEntity[index]
-                                                .isWishlisted,
-                                            onTapLike: () {
-                                              context.read<WishlistAddBloc>().add(state
-                                                      .elasticSearchEntity[
-                                                          index]
-                                                      .isWishlisted
-                                                  ? WishlistAddEvent
-                                                      .removeWishlist(
-                                                          state
-                                                              .elasticSearchEntity[
-                                                                  index]
-                                                              .id,
-                                                          index)
-                                                  : WishlistAddEvent.addWishlist(
-                                                      state
-                                                          .elasticSearchEntity[
-                                                              index]
-                                                          .id,
-                                                      index));
-                                            },
-                                          ),
-                                        ),
+                                        builder: (context, stateWish) {
+                                          if (state.singleEntity.id ==
+                                              state.elasticSearchEntity[index]
+                                                  .id) {
+                                            return const SizedBox();
+                                          }
+                                          return Container(
+                                            margin: const EdgeInsets.only(
+                                              bottom: 20,
+                                            ),
+                                            child: AdsItem(
+                                              id: state
+                                                  .elasticSearchEntity[index]
+                                                  .id,
+                                              name:
+                                                  '${state.elasticSearchEntity[index].make.name} ${state.elasticSearchEntity[index].model.name} ${state.elasticSearchEntity[index].generation.name}',
+                                              price:
+                                                  '${state.elasticSearchEntity[index].price}',
+                                              location: state
+                                                  .elasticSearchEntity[index]
+                                                  .region
+                                                  .title,
+                                              description: state
+                                                  .elasticSearchEntity[index]
+                                                  .description
+                                                  .trim(),
+                                              image: state
+                                                  .elasticSearchEntity[index]
+                                                  .gallery[0],
+                                              currency: state
+                                                  .elasticSearchEntity[index]
+                                                  .currency,
+                                              isLiked: state
+                                                  .elasticSearchEntity[index]
+                                                  .isWishlisted,
+                                              onTapLike: () {
+                                                context.read<WishlistAddBloc>().add(state
+                                                        .elasticSearchEntity[
+                                                            index]
+                                                        .isWishlisted
+                                                    ? WishlistAddEvent
+                                                        .removeWishlist(
+                                                            state
+                                                                .elasticSearchEntity[
+                                                                    index]
+                                                                .id,
+                                                            index)
+                                                    : WishlistAddEvent.addWishlist(
+                                                        state
+                                                            .elasticSearchEntity[
+                                                                index]
+                                                            .id,
+                                                        index));
+                                              },
+                                            ),
+                                          );
+                                        },
                                       ),
                                       itemCount:
                                           state.elasticSearchEntity.length,
                                       fetchMoreFunction: () {
                                         bloc.add(CarSingleEvent.getMoreOtherAds(
-                                            state.singleEntity.make.name +
-                                                state.singleEntity.model.name));
+                                            '${state.singleEntity.make.name} ${state.singleEntity.model.name}'));
                                       },
                                       hasMoreToFetch: state.fetchMore,
                                       errorWidget: const SizedBox(),

@@ -27,7 +27,7 @@ class CarSingleBloc extends Bloc<CarSingleEvent, CarSingleState> {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await useCaseSingle.call(event.id);
       if (result.isRight) {
-        add(_GetAds(result.right.make.name+result.right.model.name));
+        add(_GetAds('${result.right.make.name} ${result.right.model.name}'));
         emit(state.copyWith(
           singleEntity: result.right,
           status: FormzStatus.submissionSuccess,

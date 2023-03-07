@@ -83,7 +83,7 @@ class PriceStatisticItem extends StatelessWidget {
 
   double getPointTop(double percent) {
     if (percent <= 90) {
-      return 0.121;
+      return 0.125;
     } else if (percent > 90 && percent < 94) {
       return 0.113;
     } else if (percent >= 94 && percent < 98) {
@@ -116,7 +116,7 @@ class PriceStatisticItem extends StatelessWidget {
                 child: Column(
                   children: [
                     const SizedBox(
-                      height: 30,
+                      height: 25,
                     ),
                     Image.asset(
                       AppImages.price_cases,
