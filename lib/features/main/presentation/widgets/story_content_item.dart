@@ -96,7 +96,10 @@ class _StoryContentItemState extends State<StoryContentItem>
           if (isVideo && initialized)
             isLandscape ? _renderLandscapeVideo() : _renderPortraitVideo()
           else
-            Container(),
+            const  Align(
+              alignment: Alignment.center,
+              child: CircularProgressIndicator(color: white),
+            ),
           if (!isVideo)
             SizedBox(
               height: double.infinity,
