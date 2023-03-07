@@ -27,6 +27,7 @@ import 'package:auto/features/ad/presentation/pages/price/price_screen.dart';
 import 'package:auto/features/ad/presentation/pages/pts/pts_screen.dart';
 import 'package:auto/features/ad/presentation/pages/year_of_issue/year_issue_screen.dart';
 import 'package:auto/features/ad/presentation/widgets/posting_ad_appbar.dart';
+import 'package:auto/features/ad/presentation/widgets/sms_verification_sheet.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
@@ -350,7 +351,141 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                     //14
                                     const DamageScreen(),
                                     //15
-                                    const ContactScreen(),
+                                    ContactScreen(
+                                      isContactsVerified:
+                                          state.isContactsVerified,
+                                      isCallTimed: state.isCallTimed,
+                                      showOwnerContacts:
+                                          state.showOwnerContacts,
+                                      isWaiting: state.status ==
+                                          FormzStatus.submissionInProgress,
+                                      emailController: state.emailController,
+                                      nameController: state.nameController,
+                                      phoneController: state.phoneController,
+                                      callTimeFrom: state.callTimeFrom,
+                                      callTimeTo: state.callTimeTo,
+                                      formKey: state.contactsFormKey,
+                                      onSubmitPhonePressed: (){
+
+                                       postingAdBloc.add(
+                                            PostingAdSendCodeEvent(
+                                                phone:
+                                                state.phoneController.text,
+                                                onSuccess: (session) {
+                                                  showModalBottomSheet<dynamic>(
+                                                      useRootNavigator: true,
+                                                      isScrollControlled: true,
+                                                      backgroundColor:
+                                                      Colors.transparent,
+                                                      isDismissible: false,
+                                                      context: context,
+                                                      builder: (context) =>
+                                                          SmsVerificationSheet(
+                                                              session: session,
+                                                              phoneNumber: state
+                                                                  .phoneController
+                                                                  .text)).then(
+                                                          (value) {
+                                                        if (value is bool) {
+                                                          context
+                                                              .read<PostingAdBloc>()
+                                                              .add(
+                                                            PostingAdChooseEvent(
+                                                              isContactsVerified:
+                                                              value,
+                                                              ownerEmail: state
+                                                                  .emailController
+                                                                  .text,
+                                                              ownerName: state
+                                                                  .nameController
+                                                                  .text,
+                                                              ownerPhone: state
+                                                                  .phoneController
+                                                                  .text,
+                                                            ),
+                                                          );
+                                                        } else if (value is String) {
+                                                          context
+                                                              .read<PostingAdBloc>()
+                                                              .add(
+                                                            PostingAdChooseEvent(
+                                                              isContactsVerified:
+                                                              false,
+                                                              ownerEmail: state
+                                                                  .emailController
+                                                                  .text,
+                                                              ownerName: state
+                                                                  .nameController
+                                                                  .text,
+                                                              ownerPhone: state
+                                                                  .phoneController
+                                                                  .text,
+                                                            ),
+                                                          );
+                                                          context
+                                                              .read<ShowPopUpBloc>()
+                                                              .add(ShowPopUp(
+                                                            message:
+                                                            value.toString(),
+                                                            status:
+                                                            PopStatus.error,
+                                                          ));
+                                                        }
+                                                      });
+                                                }));
+                                      },
+                                      onPhoneChanged: (value) {
+                                        final v = state.isContactsVerified
+                                            ? false
+                                            : null;
+                                        postingAdBloc.add(
+                                          PostingAdChooseEvent(
+                                              ownerName: value,
+                                              isContactsVerified: v,
+                                              showOwnerContacts: v),
+                                        );
+                                      },
+                                      onShowMyContactChanged: (v) {
+                                        context.read<PostingAdBloc>().add(
+                                            PostingAdClearControllersEvent());
+
+                                        context.read<PostingAdBloc>().add(
+                                              PostingAdChooseEvent(
+                                                showOwnerContacts: v,
+                                                isContactsVerified: v,
+                                              ),
+                                            );
+                                      },
+                                      onEmailChanged: (value) {
+                                        postingAdBloc.add(PostingAdChooseEvent(
+                                            ownerEmail: value));
+                                      },
+                                      onNameChanged: (value) {
+                                        final v = state.isContactsVerified
+                                            ? false
+                                            : null;
+                                        postingAdBloc.add(PostingAdChooseEvent(
+                                          ownerName: value,
+                                          showOwnerContacts: v,
+                                        ));
+                                      },
+                                      onGetUserDatas: () => context
+                                          .read<PostingAdBloc>()
+                                          .add(PostingAdGetUserDataEvent()),
+                                      onCallTimeChanged: ({
+                                        required isCallTimed,
+                                        callTimeFrom,
+                                        callTimeTo,
+                                      }) {
+                                        postingAdBloc.add(
+                                          PostingAdChooseEvent(
+                                            callTimeFrom: callTimeFrom,
+                                            callTimeTo: callTimeTo,
+                                            isCallTimed: isCallTimed,
+                                          ),
+                                        );
+                                      },
+                                    ),
                                     //16
                                     InspectionPlaceScreen(
                                       onToMapPressed: () {

@@ -9,6 +9,7 @@ class EditAdState extends Equatable {
   final Map<int, SO> selectOptions;
   final Map<int, String> radioOptions;
   final String? id;
+  final GlobalKey<FormState> contactsFormKey;
   final TextEditingController phoneController;
   final TextEditingController emailController;
   final TextEditingController nameController;
@@ -69,6 +70,7 @@ class EditAdState extends Equatable {
     required this.emailController,
     required this.nameController,
     required this.popStatus,
+    required this.contactsFormKey,
     this.lastEquipmentId,
     this.radioOptions = const <int, String>{},
     this.selectOptions = const <int, SO>{},
@@ -125,6 +127,7 @@ class EditAdState extends Equatable {
   });
 
   EditAdState copyWith({
+    GlobalKey<FormState>? contactsFormKey,
     List<EquipmentOptionsEntity>? equipmentOptions,
     bool isEquipmentToNull = false,
     bool isLastEquipmentIdToNull = false,
@@ -191,6 +194,7 @@ class EditAdState extends Equatable {
     List<EquipmentOptionsListEntity>? equipmentOptionsList,
   }) =>
       EditAdState(
+        contactsFormKey: contactsFormKey ?? this.contactsFormKey,
         lastEquipmentId: lastEquipmentId ?? this.lastEquipmentId,
         radioOptions: radioOptions ?? this.radioOptions,
         selectOptions: selectOptions ?? this.selectOptions,
@@ -287,6 +291,7 @@ class EditAdState extends Equatable {
         rentToBuy,
         callTimeTo,
         callTimeFrom,
+        contactsFormKey,
         city,
         region,
         gearbox,

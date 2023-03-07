@@ -135,8 +135,8 @@ class PostingAdState extends Equatable {
     this.hasAppBarShadow = true,
     this.notRegisteredInUzbekistan = false,
     this.showExactAddress = false,
-    this.ownerName,
     this.ownerEmail,
+    this.ownerName,
     this.ownerPhone,
     this.city,
     this.regionId,
@@ -229,8 +229,8 @@ class PostingAdState extends Equatable {
     String? colorName,
     String? licenceType,
     String? ownerStep,
-    String? ownerName,
     Uint8List? mapPointBytes,
+    String? ownerName,
     String? ownerPhone,
     String? ownerEmail,
     String? purchasedDate,
@@ -261,7 +261,6 @@ class PostingAdState extends Equatable {
     List<EquipmentEntity>? equipments,
     EquipmentEntity? equipment,
     List<EquipmentOptionsListEntity>? equipmentOptionsList,
-
     bool isEquipmentToNull = false,
     bool isLastEquipmentIdToNull = false,
   }) =>
@@ -445,7 +444,6 @@ class PostingAdState extends Equatable {
   bool buttonStatus(int page) => PASingleton.nextButtonIsDisabled(page, this);
 
   RegionEntity? get getSelectedRegion {
-
     try {
       return regions.firstWhere((e) => e.id == regionId);
     } catch (e) {

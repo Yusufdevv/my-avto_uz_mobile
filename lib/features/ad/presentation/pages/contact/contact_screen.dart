@@ -25,8 +25,51 @@ import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
+typedef OnCallTimeChanged = Function({
+  required bool isCallTimed,
+  String? callTimeFrom,
+  String? callTimeTo,
+});
+
 class ContactScreen extends StatefulWidget {
-  const ContactScreen({Key? key}) : super(key: key);
+  final OnCallTimeChanged onCallTimeChanged;
+  final GlobalKey<FormState> formKey;
+  final bool showOwnerContacts;
+  final bool isWaiting;
+  final bool isCallTimed;
+  final bool isContactsVerified;
+  final TextEditingController nameController;
+  final TextEditingController emailController;
+  final TextEditingController phoneController;
+  final String? callTimeFrom;
+  final String? callTimeTo;
+  final Function onGetUserDatas;
+  final Function onSubmitPhonePressed;
+  final Function(bool) onShowMyContactChanged;
+  final ValueChanged<String> onNameChanged;
+  final ValueChanged<String> onEmailChanged;
+  final ValueChanged<String> onPhoneChanged;
+
+  const ContactScreen({
+    required this.onSubmitPhonePressed,
+    required this.onPhoneChanged,
+    required this.onEmailChanged,
+    required this.onNameChanged,
+    required this.onShowMyContactChanged,
+    required this.onGetUserDatas,
+    required this.callTimeTo,
+    required this.callTimeFrom,
+    required this.isContactsVerified,
+    required this.isCallTimed,
+    required this.nameController,
+    required this.phoneController,
+    required this.emailController,
+    required this.isWaiting,
+    required this.showOwnerContacts,
+    required this.formKey,
+    required this.onCallTimeChanged,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<ContactScreen> createState() => _ContactScreenState();
@@ -48,36 +91,33 @@ class _ContactScreenState extends State<ContactScreen> {
     filter: {'#': RegExp('[0-9]')},
   );
 
-  void _onAvailableHoursPressed(PostingAdState postingAdState) {
+  void _onAvailableHoursPressed({String? callTimeFrom, String? callTimeTo}) {
     showModalBottomSheet<List<String>>(
       useRootNavigator: true,
       isScrollControlled: false,
       backgroundColor: Colors.transparent,
       context: context,
       builder: (context) => CallTimeSheet(
-        timeFrom: postingAdState.callTimeFrom ?? '',
-        timeTo: postingAdState.callTimeTo ?? '',
+        timeFrom: callTimeFrom ?? '',
+        timeTo: callTimeTo ?? '',
       ),
     ).then((value) {
       if (value is List) {
-        context.read<PostingAdBloc>().add(PostingAdChooseEvent(
-            callTimeFrom: value?[0].replaceAll(' ', ''),
-            callTimeTo: value?[1].replaceAll(' ', ''),
-            isCallTimed: true));
+        widget.onCallTimeChanged(
+            callTimeFrom: value![0].replaceAll(' ', ''),
+            callTimeTo: value![1].replaceAll(' ', ''),
+            isCallTimed: true);
       } else {
-        context
-            .read<PostingAdBloc>()
-            .add(PostingAdChooseEvent(isCallTimed: false));
+        widget.onCallTimeChanged(isCallTimed: false);
       }
     });
   }
 
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
-        child: BlocBuilder<PostingAdBloc, PostingAdState>(
-            builder: (context, postingAdState) => Scaffold(
+        child:   Scaffold(
                   body: Form(
-                    key: postingAdState.contactsFormKey,
+                    key: widget.formKey,
                     child: BaseWidget(
                       headerText: LocaleKeys.contact_data.tr(),
                       child: SingleChildScrollView(
@@ -89,55 +129,32 @@ class _ContactScreenState extends State<ContactScreen> {
                             SwitcherRowAsButtonAlso(
                                 onTap: () {
                                   setState(() {});
-                                  context
-                                      .read<PostingAdBloc>()
-                                      .add(PostingAdGetUserDataEvent());
+                                  widget.onGetUserDatas();
                                 },
                                 title: LocaleKeys.show_my_contact_data.tr(),
-                                value: postingAdState.showOwnerContacts,
+                                value: widget.showOwnerContacts,
                                 onChanged: (value) {
                                   setState(() {});
                                   if (!value) {
-                                    context
-                                        .read<PostingAdBloc>()
-                                        .add(PostingAdClearControllersEvent());
-
-                                    context.read<PostingAdBloc>().add(
-                                          PostingAdChooseEvent(
-                                            showOwnerContacts: value,
-                                            isContactsVerified: value,
-                                          ),
-                                        );
+                                    widget.onShowMyContactChanged(value);
                                   }
                                 }),
-                            if (postingAdState.status ==
-                                FormzStatus.submissionInProgress) ...{
+                            if (widget.isWaiting) ...{
                               const CupertinoActivityIndicator()
                             },
                             const SizedBox(height: 16),
                             WTextField(
                               onTap: () {},
                               validate: (v) {
-                             if (v!.isEmpty) {
+                                if (v!.isEmpty) {
                                   return LocaleKeys.please_enter_your_name.tr();
                                 }
                                 return null;
                               },
                               maxLength: 40,
                               hideCounterText: true,
-                              controller: postingAdState.nameController,
-                              onChanged: (value) {
-                                final v = postingAdState.isContactsVerified
-                                    ? false
-                                    : null;
-                                context
-                                    .read<PostingAdBloc>()
-                                    .add(PostingAdChooseEvent(
-                                      ownerName: value,
-                                      // isContactsVerified: v,
-                                      showOwnerContacts: v,
-                                    ));
-                              },
+                              controller: widget.nameController,
+                              onChanged: widget.onNameChanged,
                               title: LocaleKeys.name.tr(),
                               hintText: LocaleKeys.add_name.tr(),
                               borderRadius: 12,
@@ -161,11 +178,8 @@ class _ContactScreenState extends State<ContactScreen> {
                             const SizedBox(height: 16),
                             WTextField(
                               onTap: () {},
-                              controller: postingAdState.emailController,
-                              onChanged: (value) {
-                                context.read<PostingAdBloc>().add(
-                                    PostingAdChooseEvent(ownerEmail: value));
-                              },
+                              controller: widget.emailController,
+                              onChanged: widget.onEmailChanged,
                               title: 'E-mail',
                               maxLength: 40,
                               hideCounterText: true,
@@ -207,19 +221,9 @@ class _ContactScreenState extends State<ContactScreen> {
                             const SizedBox(height: 16),
                             WTextField(
                               onTap: () {},
-                              onChanged: (value) {
-                                final v = postingAdState.isContactsVerified
-                                    ? false
-                                    : null;
-                                context.read<PostingAdBloc>().add(
-                                      PostingAdChooseEvent(
-                                          ownerName: value,
-                                          isContactsVerified: v,
-                                          showOwnerContacts: v),
-                                    );
-                              },
+                              onChanged: widget.onPhoneChanged,
                               title: LocaleKeys.tel_number.tr(),
-                              controller: postingAdState.phoneController,
+                              controller: widget.phoneController,
                               contentPadding:
                                   const EdgeInsets.only(bottom: 12, top: 12),
                               prefixConstraints:
@@ -257,90 +261,14 @@ class _ContactScreenState extends State<ContactScreen> {
                                   .fillColor,
                               textInputFormatters: [phoneFormatter],
                               suffix: ContactsPrefixButton(
-                                  isSubmitted:
-                                      postingAdState.isContactsVerified,
-                                  isLoading: postingAdState.status ==
-                                      FormzStatus.submissionInProgress,
-                                  isDisabled: postingAdState
-                                          .phoneController.text.length !=
-                                      12,
+                                  isSubmitted: widget.isContactsVerified,
+                                  isLoading: widget.isWaiting,
+                                  isDisabled:
+                                      widget.phoneController.text.length != 12,
                                   onTap: () {
-                                    if (postingAdState
-                                            .phoneController.text.length ==
+                                    if (widget.phoneController.text.length ==
                                         12) {
-                                      context.read<PostingAdBloc>().add(
-                                          PostingAdSendCodeEvent(
-                                              phone: postingAdState
-                                                  .phoneController.text,
-                                              onSuccess: (session) {
-                                                showModalBottomSheet<dynamic>(
-                                                    useRootNavigator: true,
-                                                    isScrollControlled: true,
-                                                    backgroundColor:
-                                                        Colors.transparent,
-                                                    isDismissible: false,
-                                                    context: context,
-                                                    builder: (context) =>
-                                                        SmsVerificationSheet(
-                                                            session: session,
-                                                            phoneNumber:
-                                                                postingAdState
-                                                                    .phoneController
-                                                                    .text)).then(
-                                                    (value) {
-                                                  if (value is bool) {
-                                                    context
-                                                        .read<PostingAdBloc>()
-                                                        .add(
-                                                          PostingAdChooseEvent(
-                                                            isContactsVerified:
-                                                                value,
-                                                            ownerEmail:
-                                                                postingAdState
-                                                                    .emailController
-                                                                    .text,
-                                                            ownerName:
-                                                                postingAdState
-                                                                    .nameController
-                                                                    .text,
-                                                            ownerPhone:
-                                                                postingAdState
-                                                                    .phoneController
-                                                                    .text,
-                                                          ),
-                                                        );
-                                                  } else if (value is String) {
-                                                    context
-                                                        .read<PostingAdBloc>()
-                                                        .add(
-                                                          PostingAdChooseEvent(
-                                                            isContactsVerified:
-                                                                false,
-                                                            ownerEmail:
-                                                                postingAdState
-                                                                    .emailController
-                                                                    .text,
-                                                            ownerName:
-                                                                postingAdState
-                                                                    .nameController
-                                                                    .text,
-                                                            ownerPhone:
-                                                                postingAdState
-                                                                    .phoneController
-                                                                    .text,
-                                                          ),
-                                                        );
-                                                    context
-                                                        .read<ShowPopUpBloc>()
-                                                        .add(ShowPopUp(
-                                                          message:
-                                                              value.toString(),
-                                                          status:
-                                                              PopStatus.error,
-                                                        ));
-                                                  }
-                                                });
-                                              }));
+                                      widget.onSubmitPhonePressed();
                                     }
                                   }),
                               suffixPadding: const EdgeInsets.all(5),
@@ -355,28 +283,31 @@ class _ContactScreenState extends State<ContactScreen> {
                             const SizedBox(height: 16),
                             SwitcherRowAsButtonAlso(
                                 title: LocaleKeys.avialable_hours.tr(),
-                                value: postingAdState.isCallTimed,
+                                value: widget.isCallTimed,
                                 onTap: () {
-                                  if (postingAdState.callTimeFrom != null &&
-                                      postingAdState.callTimeTo != null) {
-                                    context.read<PostingAdBloc>().add(
-                                        PostingAdChooseEvent(
-                                            isCallTimed: true));
+                                  if (widget.callTimeFrom != null &&
+                                      widget.callTimeTo != null) {
+                                    widget.onCallTimeChanged(isCallTimed: true);
                                     return;
                                   }
-                                  _onAvailableHoursPressed(postingAdState);
+                                  _onAvailableHoursPressed(
+                                    callTimeFrom: widget.callTimeFrom,
+                                    callTimeTo: widget.callTimeTo,
+                                  );
                                 },
                                 onChanged: (value) {
-                                  context.read<PostingAdBloc>().add(
-                                      PostingAdChooseEvent(isCallTimed: value));
+                                  widget.onCallTimeChanged(isCallTimed: value);
                                 }),
-                            if (postingAdState.isCallTimed) ...{
+                            if (widget.isCallTimed) ...{
                               const SizedBox(height: 4),
                               EditBoxWidget(
                                   text:
-                                      '${postingAdState.callTimeFrom}-${postingAdState.callTimeTo}',
+                                      '${widget.callTimeFrom}-${widget.callTimeTo}',
                                   onTap: () {
-                                    _onAvailableHoursPressed(postingAdState);
+                                    _onAvailableHoursPressed(
+                                      callTimeFrom: widget.callTimeFrom,
+                                      callTimeTo: widget.callTimeTo,
+                                    );
                                   }),
                             },
                             const SizedBox(height: 24),
@@ -409,6 +340,6 @@ class _ContactScreenState extends State<ContactScreen> {
                       ),
                     ),
                   ),
-                )),
+                ),
       );
 }
