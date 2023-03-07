@@ -1,6 +1,9 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/storage_keys.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/presentation/widgets/hour_picker_widget.dart';
+import 'package:auto/features/ad/presentation/widgets/hour_picker_widget_uz.dart';
 import 'package:auto/features/car_single/presentation/widgets/orange_button.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -24,10 +27,14 @@ class CallTimeSheet extends StatefulWidget {
 class _CallTimeSheetState extends State<CallTimeSheet> {
   late String from;
   late String to;
+  late bool isUz;
+
   @override
   void initState() {
     from = widget.timeFrom;
     to = widget.timeTo;
+    isUz = StorageRepository.getString(StorageKeys.LANGUAGE, defValue: 'uz') ==
+        'uz';
 
     super.initState();
   }
@@ -80,20 +87,33 @@ class _CallTimeSheetState extends State<CallTimeSheet> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  HourPickerWidget(
-                      defaultHour: 8,
-                      initialItem: widget.timeFrom,
-                      title: LocaleKeys.from.tr(),
-                      onChanged: (value) => setState(() => from = value)),
+                  if (isUz)
+                    HourPickerWidgetUz(
+                        defaultHour: 8,
+                        initialItem: widget.timeFrom,
+                        title: LocaleKeys.from.tr(),
+                        onChanged: (value) => setState(() => from = value))
+                  else
+                    HourPickerWidget(
+                        defaultHour: 8,
+                        initialItem: widget.timeFrom,
+                        title: LocaleKeys.from.tr(),
+                        onChanged: (value) => setState(() => from = value)),
                   Padding(
-                    padding: const EdgeInsets.only(left: 16, right: 6),
-                    child: Container(width: 1, height: 120, color: border),
-                  ),
-                  HourPickerWidget(
-                      defaultHour: 17,
-                      initialItem: widget.timeTo,
-                      title: LocaleKeys.to.tr(),
-                      onChanged: (value) => setState(() => to = value)),
+                      padding: const EdgeInsets.only(left: 16, right: 6),
+                      child: Container(width: 1, height: 120, color: border)),
+                  if (isUz)
+                    HourPickerWidgetUz(
+                        defaultHour: 17,
+                        initialItem: widget.timeTo,
+                        title: LocaleKeys.to.tr(),
+                        onChanged: (value) => setState(() => to = value))
+                  else
+                    HourPickerWidget(
+                        defaultHour: 17,
+                        initialItem: widget.timeTo,
+                        title: LocaleKeys.to.tr(),
+                        onChanged: (value) => setState(() => to = value)),
                 ],
               ),
             ),
