@@ -115,164 +115,121 @@ class _ContactScreenState extends State<ContactScreen> {
 
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
-        child:   Scaffold(
-                  body: Form(
-                    key: widget.formKey,
-                    child: BaseWidget(
-                      headerText: LocaleKeys.contact_data.tr(),
-                      child: SingleChildScrollView(
-                        physics: const BouncingScrollPhysics(),
-                        padding: const EdgeInsets.all(16),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SwitcherRowAsButtonAlso(
-                                onTap: () {
-                                  setState(() {});
-                                  widget.onGetUserDatas();
-                                },
-                                title: LocaleKeys.show_my_contact_data.tr(),
-                                value: widget.showOwnerContacts,
-                                onChanged: (value) {
-                                  setState(() {});
-                                  if (!value) {
-                                    widget.onShowMyContactChanged(value);
-                                  }
-                                }),
-                            if (widget.isWaiting) ...{
-                              const CupertinoActivityIndicator()
-                            },
-                            const SizedBox(height: 16),
-                            WTextField(
-                              onTap: () {},
-                              validate: (v) {
-                                if (v!.isEmpty) {
-                                  return LocaleKeys.please_enter_your_name.tr();
-                                }
-                                return null;
-                              },
-                              maxLength: 40,
-                              hideCounterText: true,
-                              controller: widget.nameController,
-                              onChanged: widget.onNameChanged,
-                              title: LocaleKeys.name.tr(),
-                              hintText: LocaleKeys.add_name.tr(),
-                              borderRadius: 12,
-                              borderColor: Theme.of(context)
-                                  .extension<WTextFieldStyle>()!
-                                  .borderColor,
-                              fillColor: Theme.of(context)
-                                  .extension<WTextFieldStyle>()!
-                                  .fillColor,
-                              focusColor: Theme.of(context)
-                                  .extension<WTextFieldStyle>()!
-                                  .fillColor,
-                              textStyle: Theme.of(context)
-                                  .textTheme
-                                  .displayLarge!
-                                  .copyWith(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                            ),
-                            const SizedBox(height: 16),
-                            WTextField(
-                              onTap: () {},
-                              controller: widget.emailController,
-                              onChanged: widget.onEmailChanged,
-                              title: 'E-mail',
-                              maxLength: 40,
-                              hideCounterText: true,
-                              hintText: LocaleKeys.add_email.tr(),
-                              borderRadius: 12,
-                              validate: (value) {
-                                if (value?.isEmpty ?? true) {
-                                  setState(() {});
-                                  return null;
-                                }
-                                if ((value?.isNotEmpty ?? false) &&
-                                    (value == null ||
-                                        value.isEmpty ||
-                                        !value.contains('@') ||
-                                        !value.contains('.'))) {
-                                  return LocaleKeys.please_enter_valid_email
-                                      .tr();
-                                }
-                                return null;
-                              },
-                              keyBoardType: TextInputType.emailAddress,
-                              borderColor: Theme.of(context)
-                                  .extension<WTextFieldStyle>()!
-                                  .borderColor,
-                              fillColor: Theme.of(context)
-                                  .extension<WTextFieldStyle>()!
-                                  .fillColor,
-                              focusColor: Theme.of(context)
-                                  .extension<WTextFieldStyle>()!
-                                  .fillColor,
-                              textStyle: Theme.of(context)
-                                  .textTheme
-                                  .displayLarge!
-                                  .copyWith(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                            ),
-                            const SizedBox(height: 16),
-                            WTextField(
-                              onTap: () {},
-                              onChanged: widget.onPhoneChanged,
-                              title: LocaleKeys.tel_number.tr(),
-                              controller: widget.phoneController,
-                              contentPadding:
-                                  const EdgeInsets.only(bottom: 12, top: 12),
-                              prefixConstraints:
-                                  const BoxConstraints(maxWidth: 52),
-                              prefix: Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 10, bottom: 12, left: 12),
-                                    child: Text(
-                                      '+998',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displayLarge!
-                                          .copyWith(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                    ),
-                                  ),
-                                ],
+        child: Scaffold(
+          body: Form(
+            key: widget.formKey,
+            child: BaseWidget(
+              headerText: LocaleKeys.contact_data.tr(),
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SwitcherRowAsButtonAlso(
+                        onTap: () {
+                          setState(() {});
+                          widget.onGetUserDatas();
+                        },
+                        title: LocaleKeys.show_my_contact_data.tr(),
+                        value: widget.showOwnerContacts,
+                        onChanged: (value) {
+                          setState(() {});
+                          if (!value) {
+                            widget.onShowMyContactChanged(value);
+                          }
+                        }),
+                    if (widget.isWaiting) ...{
+                      const CupertinoActivityIndicator()
+                    },
+                    const SizedBox(height: 16),
+                    WTextField(
+                      onTap: () {},
+                      validate: (v) {
+                        if (v!.isEmpty) {
+                          return LocaleKeys.please_enter_your_name.tr();
+                        }
+                        return null;
+                      },
+                      maxLength: 40,
+                      hideCounterText: true,
+                      controller: widget.nameController,
+                      onChanged: widget.onNameChanged,
+                      title: LocaleKeys.name.tr(),
+                      hintText: LocaleKeys.add_name.tr(),
+                      borderRadius: 12,
+                      borderColor: Theme.of(context)
+                          .extension<WTextFieldStyle>()!
+                          .borderColor,
+                      fillColor: Theme.of(context)
+                          .extension<WTextFieldStyle>()!
+                          .fillColor,
+                      focusColor: Theme.of(context)
+                          .extension<WTextFieldStyle>()!
+                          .fillColor,
+                      textStyle:
+                          Theme.of(context).textTheme.displayLarge!.copyWith(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
                               ),
-                              hintText: '_ _  _ _ _  _ _  _ _',
-                              borderRadius: 12,
-                              borderColor: Theme.of(context)
-                                  .extension<WTextFieldStyle>()!
-                                  .borderColor,
-                              errorColor: red,
-                              keyBoardType: TextInputType.number,
-                              fillColor: Theme.of(context)
-                                  .extension<WTextFieldStyle>()!
-                                  .fillColor,
-                              focusColor: Theme.of(context)
-                                  .extension<WTextFieldStyle>()!
-                                  .fillColor,
-                              textInputFormatters: [phoneFormatter],
-                              suffix: ContactsPrefixButton(
-                                  isSubmitted: widget.isContactsVerified,
-                                  isLoading: widget.isWaiting,
-                                  isDisabled:
-                                      widget.phoneController.text.length != 12,
-                                  onTap: () {
-                                    if (widget.phoneController.text.length ==
-                                        12) {
-                                      widget.onSubmitPhonePressed();
-                                    }
-                                  }),
-                              suffixPadding: const EdgeInsets.all(5),
-                              textStyle: Theme.of(context)
+                    ),
+                    const SizedBox(height: 16),
+                    WTextField(
+                      onTap: () {},
+                      controller: widget.emailController,
+                      onChanged: widget.onEmailChanged,
+                      title: 'E-mail',
+                      maxLength: 40,
+                      hideCounterText: true,
+                      hintText: LocaleKeys.add_email.tr(),
+                      borderRadius: 12,
+                      validate: (value) {
+                        if (value?.isEmpty ?? true) {
+                          setState(() {});
+                          return null;
+                        }
+                        if ((value?.isNotEmpty ?? false) &&
+                            (value == null ||
+                                value.isEmpty ||
+                                !value.contains('@') ||
+                                !value.contains('.'))) {
+                          return LocaleKeys.please_enter_valid_email.tr();
+                        }
+                        return null;
+                      },
+                      keyBoardType: TextInputType.emailAddress,
+                      borderColor: Theme.of(context)
+                          .extension<WTextFieldStyle>()!
+                          .borderColor,
+                      fillColor: Theme.of(context)
+                          .extension<WTextFieldStyle>()!
+                          .fillColor,
+                      focusColor: Theme.of(context)
+                          .extension<WTextFieldStyle>()!
+                          .fillColor,
+                      textStyle:
+                          Theme.of(context).textTheme.displayLarge!.copyWith(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                              ),
+                    ),
+                    const SizedBox(height: 16),
+                    WTextField(
+                      onTap: () {},
+                      onChanged: widget.onPhoneChanged,
+                      title: LocaleKeys.tel_number.tr(),
+                      controller: widget.phoneController,
+                      contentPadding:
+                          const EdgeInsets.only(bottom: 12, top: 12),
+                      prefixConstraints: const BoxConstraints(maxWidth: 52),
+                      prefix: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 10, bottom: 12, left: 12),
+                            child: Text(
+                              '+998',
+                              style: Theme.of(context)
                                   .textTheme
                                   .displayLarge!
                                   .copyWith(
@@ -280,66 +237,97 @@ class _ContactScreenState extends State<ContactScreen> {
                                     fontWeight: FontWeight.w400,
                                   ),
                             ),
-                            const SizedBox(height: 16),
-                            SwitcherRowAsButtonAlso(
-                                title: LocaleKeys.avialable_hours.tr(),
-                                value: widget.isCallTimed,
-                                onTap: () {
-                                  if (widget.callTimeFrom != null &&
-                                      widget.callTimeTo != null) {
-                                    widget.onCallTimeChanged(isCallTimed: true);
-                                    return;
-                                  }
-                                  _onAvailableHoursPressed(
-                                    callTimeFrom: widget.callTimeFrom,
-                                    callTimeTo: widget.callTimeTo,
-                                  );
-                                },
-                                onChanged: (value) {
-                                  widget.onCallTimeChanged(isCallTimed: value);
-                                }),
-                            if (widget.isCallTimed) ...{
-                              const SizedBox(height: 4),
-                              EditBoxWidget(
-                                  text:
-                                      '${widget.callTimeFrom}-${widget.callTimeTo}',
-                                  onTap: () {
-                                    _onAvailableHoursPressed(
-                                      callTimeFrom: widget.callTimeFrom,
-                                      callTimeTo: widget.callTimeTo,
-                                    );
-                                  }),
-                            },
-                            const SizedBox(height: 24),
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 8),
-                              decoration: BoxDecoration(
-                                  color: Theme.of(context)
-                                      .extension<ThemedColors>()!
-                                      .snowToNero,
-                                  border: Border.all(
-                                      width: 1,
-                                      color: Theme.of(context)
-                                          .extension<ThemedColors>()!
-                                          .transparentToNightRider),
-                                  borderRadius: BorderRadius.circular(12)),
-                              child: Text(
-                                LocaleKeys.incognito_mode.tr(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displayMedium!
-                                    .copyWith(color: grey),
+                          ),
+                        ],
+                      ),
+                      hintText: '_ _  _ _ _  _ _  _ _',
+                      borderRadius: 12,
+                      borderColor: Theme.of(context)
+                          .extension<WTextFieldStyle>()!
+                          .borderColor,
+                      errorColor: red,
+                      keyBoardType: TextInputType.number,
+                      fillColor: Theme.of(context)
+                          .extension<WTextFieldStyle>()!
+                          .fillColor,
+                      focusColor: Theme.of(context)
+                          .extension<WTextFieldStyle>()!
+                          .fillColor,
+                      textInputFormatters: [phoneFormatter],
+                      suffix: ContactsPrefixButton(
+                          isSubmitted: widget.isContactsVerified,
+                          isLoading: widget.isWaiting,
+                          isDisabled: widget.phoneController.text.length != 12,
+                          onTap: () {
+                            if (widget.phoneController.text.length == 12) {
+                              widget.onSubmitPhonePressed();
+                            }
+                          }),
+                      suffixPadding: const EdgeInsets.all(5),
+                      textStyle:
+                          Theme.of(context).textTheme.displayLarge!.copyWith(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
                               ),
-                            ),
-                            SizedBox(
-                                height: 60 +
-                                    MediaQuery.of(context).viewInsets.bottom),
-                          ],
-                        ),
+                    ),
+                    const SizedBox(height: 16),
+                    SwitcherRowAsButtonAlso(
+                        title: LocaleKeys.avialable_hours.tr(),
+                        value: widget.isCallTimed,
+                        onTap: () {
+                          if (widget.callTimeFrom != null &&
+                              widget.callTimeTo != null) {
+                            widget.onCallTimeChanged(isCallTimed: true);
+                            return;
+                          }
+                          _onAvailableHoursPressed(
+                            callTimeFrom: widget.callTimeFrom,
+                            callTimeTo: widget.callTimeTo,
+                          );
+                        },
+                        onChanged: (value) {
+                          widget.onCallTimeChanged(isCallTimed: value);
+                        }),
+                    if (widget.isCallTimed) ...{
+                      const SizedBox(height: 4),
+                      EditBoxWidget(
+                          text: '${widget.callTimeFrom}-${widget.callTimeTo}',
+                          onTap: () {
+                            _onAvailableHoursPressed(
+                              callTimeFrom: widget.callTimeFrom,
+                              callTimeTo: widget.callTimeTo,
+                            );
+                          }),
+                    },
+                    const SizedBox(height: 24),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 8),
+                      decoration: BoxDecoration(
+                          color: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .snowToNero,
+                          border: Border.all(
+                              width: 1,
+                              color: Theme.of(context)
+                                  .extension<ThemedColors>()!
+                                  .transparentToNightRider),
+                          borderRadius: BorderRadius.circular(12)),
+                      child: Text(
+                        LocaleKeys.incognito_mode.tr(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium!
+                            .copyWith(color: grey),
                       ),
                     ),
-                  ),
+                    SizedBox(
+                        height: 60 + MediaQuery.of(context).viewInsets.bottom),
+                  ],
                 ),
+              ),
+            ),
+          ),
+        ),
       );
 }
