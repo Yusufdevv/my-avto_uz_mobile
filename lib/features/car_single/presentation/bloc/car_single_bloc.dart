@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/features/car_single/domain/entities/car_single_entity.dart';
 import 'package:auto/features/car_single/domain/usecases/call_count_usecase.dart';
@@ -27,6 +29,8 @@ class CarSingleBloc extends Bloc<CarSingleEvent, CarSingleState> {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await useCaseSingle.call(event.id);
       if (result.isRight) {
+        log(':::::::::: GOTTEN CAR SINGLES ->  part: ${result.right.damagedParts.first.part}  ::::::::::');
+        log(':::::::::: GOTTEN CAR SINGLES ->  damageType: ${result.right.damagedParts.first.damageType}  ::::::::::');
         add(_GetAds('${result.right.make.name} ${result.right.model.name}'));
         emit(state.copyWith(
           singleEntity: result.right,

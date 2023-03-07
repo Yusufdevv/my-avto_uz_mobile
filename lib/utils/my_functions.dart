@@ -550,7 +550,6 @@ class MyFunctions {
   }
 
   static DamageType stringToDamageType(String status) {
-    print(':::::::::: fasdfas $status  ::::::::::');
     switch (status) {
       case 'ideal':
         return DamageType.ideal;

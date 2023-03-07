@@ -1,4 +1,6 @@
 // ignore_for_file: unnecessary_null_comparison
+import 'dart:developer';
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
@@ -113,6 +115,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
         brightness = Brightness.light;
       }
     });
+    log(':::::::::: anouncenement id: ${widget.id}  ::::::::::');
     super.initState();
   }
 
@@ -245,7 +248,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                               color: state.singleEntity.color,
                               complectation: '',
                               engineVolume:
-                                  state.singleEntity.modificationType.volume,
+                                  '${state.singleEntity.modificationType.volume} (${state.singleEntity.modificationType.power})',
                               gearType: state.singleEntity.gearboxType.type,
                               uzb: state.singleEntity.isRegisteredLocally
                                   ? LocaleKeys.yes.tr()
