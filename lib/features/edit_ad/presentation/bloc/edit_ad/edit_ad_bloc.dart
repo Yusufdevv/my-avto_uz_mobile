@@ -85,6 +85,7 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
 
   EditAdBloc()
       : super(EditAdState(
+          contactsFormKey: GlobalKey<FormState>(),
           getAnnouncementToEditStatus: FormzStatus.pure,
           popStatus: PopStatus.success,
           colorName: LocaleKeys.white.tr(),
@@ -291,6 +292,7 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
         phoneController: TextEditingController(),
         emailController: TextEditingController(),
         nameController: TextEditingController(),
+        contactsFormKey: GlobalKey<FormState>(),
       ),
     );
   }
@@ -322,7 +324,7 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
         .call({'longitude': '${event.long}', 'latitude': '${event.lat}'});
     log(':::::::::: gottten result of mapPointBytes:  ${result}  ::::::::::');
     if (result.isRight) {
-    log(':::::::::: gottten result of mapPointBytes right:  ${result.right}  ::::::::::');
+      log(':::::::::: gottten result of mapPointBytes right:  ${result.right}  ::::::::::');
       emit(state.copyWith(
           status: FormzStatus.submissionSuccess, mapPointBytes: result.right));
     } else {

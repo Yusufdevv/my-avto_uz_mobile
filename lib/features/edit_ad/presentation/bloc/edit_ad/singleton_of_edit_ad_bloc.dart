@@ -157,6 +157,7 @@ class EASingleton {
     }
 
     return EditAdState(
+      contactsFormKey: GlobalKey<FormState>(),
       selectOptions: PASingleton.makeSelectsSelected(
           v: [...v.equipment.options, ...v.options]),
       radioOptions: PASingleton.makeRadiosSelected(

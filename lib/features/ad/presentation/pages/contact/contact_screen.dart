@@ -115,8 +115,7 @@ class _ContactScreenState extends State<ContactScreen> {
 
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
-        child: BlocBuilder<PostingAdBloc, PostingAdState>(
-            builder: (context, postingAdStatee) => Scaffold(
+        child:   Scaffold(
                   body: Form(
                     key: widget.formKey,
                     child: BaseWidget(
@@ -341,6 +340,6 @@ class _ContactScreenState extends State<ContactScreen> {
                       ),
                     ),
                   ),
-                )),
+                ),
       );
 }

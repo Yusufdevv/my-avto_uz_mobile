@@ -3,15 +3,16 @@ import 'dart:developer';
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/presentation/pages/contact/contact_screen.dart';
 import 'package:auto/features/ad/presentation/pages/equipment/equipment_screen.dart';
 import 'package:auto/features/ad/presentation/pages/map_screen/map_screen_posting_ad.dart';
 import 'package:auto/features/ad/presentation/pages/price/price_screen.dart';
+import 'package:auto/features/ad/presentation/widgets/sms_verification_sheet.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/edit_ad/presentation/bloc/edit_ad/edit_ad_bloc.dart';
 import 'package:auto/features/edit_ad/presentation/pages/add_photo/add_photo_screen.dart';
-import 'package:auto/features/edit_ad/presentation/pages/contact/contact_screen.dart';
 import 'package:auto/features/edit_ad/presentation/pages/damage/damage_screen.dart';
 import 'package:auto/features/edit_ad/presentation/pages/description/description_screen.dart';
 import 'package:auto/features/edit_ad/presentation/pages/inspection_place/inspection_place_screen.dart';
@@ -73,6 +74,7 @@ class _EditAdScreenState extends State<EditAdScreen>
   void hidePopUp() {
     context.read<ShowPopUpBloc>().add(HidePopUp());
   }
+
   bool isDistrictsGotten = false;
 
   @override
@@ -104,7 +106,9 @@ class _EditAdScreenState extends State<EditAdScreen>
                 providers: [BlocProvider(create: (c) => editAdBloc)],
                 child: BlocConsumer<EditAdBloc, EditAdState>(
                     listener: (context, state) async {
-                  if (state.region != null && state.districts.isEmpty && !isDistrictsGotten) {
+                  if (state.region != null &&
+                      state.districts.isEmpty &&
+                      !isDistrictsGotten) {
                     isDistrictsGotten = true;
                     editAdBloc.add(
                         EditAdGetDistritsEvent(regionId: state.region!.id));
@@ -236,7 +240,116 @@ class _EditAdScreenState extends State<EditAdScreen>
                             // 4
                             const DamageScreen(),
                             // 5
-                            const ContactScreen(),
+                            ContactScreen(
+                              isContactsVerified: state.isContactsVerified,
+                              isCallTimed: state.isCallTimed,
+                              showOwnerContacts: state.showOwnerContacts,
+                              isWaiting: state.status ==
+                                  FormzStatus.submissionInProgress,
+                              emailController: state.emailController,
+                              nameController: state.nameController,
+                              phoneController: state.phoneController,
+                              callTimeFrom: state.callTimeFrom,
+                              callTimeTo: state.callTimeTo,
+                              formKey: state.contactsFormKey,
+                              onSubmitPhonePressed: () {
+                                editAdBloc.add(EditAdSendCodeEvent(
+                                    phone: state.phoneController.text,
+                                    onSuccess: (session) {
+                                      showModalBottomSheet<dynamic>(
+                                          useRootNavigator: true,
+                                          isScrollControlled: true,
+                                          backgroundColor: Colors.transparent,
+                                          isDismissible: false,
+                                          context: context,
+                                          builder: (context) =>
+                                              SmsVerificationSheet(
+                                                  session: session,
+                                                  phoneNumber: state
+                                                      .phoneController
+                                                      .text)).then((value) {
+                                        if (value is bool) {
+                                          editAdBloc.add(
+                                            EditAdChooseEvent(
+                                              isContactsVerified: value,
+                                              ownerEmail:
+                                                  state.emailController.text,
+                                              ownerName:
+                                                  state.nameController.text,
+                                              ownerPhone:
+                                                  state.phoneController.text,
+                                            ),
+                                          );
+                                        } else if (value is String) {
+                                          editAdBloc.add(
+                                            EditAdChooseEvent(
+                                              isContactsVerified: false,
+                                              ownerEmail:
+                                                  state.emailController.text,
+                                              ownerName:
+                                                  state.nameController.text,
+                                              ownerPhone:
+                                                  state.phoneController.text,
+                                            ),
+                                          );
+                                          context
+                                              .read<ShowPopUpBloc>()
+                                              .add(ShowPopUp(
+                                                message: value.toString(),
+                                                status: PopStatus.error,
+                                              ));
+                                        }
+                                      });
+                                    }));
+                              },
+                              onPhoneChanged: (value) {
+                                final v =
+                                    state.isContactsVerified ? false : null;
+                                editAdBloc.add(
+                                  EditAdChooseEvent(
+                                      ownerName: value,
+                                      isContactsVerified: v,
+                                      showOwnerContacts: v),
+                                );
+                              },
+                              onShowMyContactChanged: (v) {
+                                editAdBloc
+                                  ..add(EditAdClearControllersEvent())
+                                  ..add(
+                                    EditAdChooseEvent(
+                                      showOwnerContacts: v,
+                                      isContactsVerified: v,
+                                    ),
+                                  );
+                              },
+                              onEmailChanged: (value) {
+                                editAdBloc
+                                    .add(EditAdChooseEvent(ownerEmail: value));
+                              },
+                              onNameChanged: (value) {
+                                final v =
+                                    state.isContactsVerified ? false : null;
+                                editAdBloc.add(EditAdChooseEvent(
+                                  ownerName: value,
+                                  showOwnerContacts: v,
+                                ));
+                              },
+                              onGetUserDatas: () =>
+                                  editAdBloc.add(EditAdGetUserDataEvent()),
+                              onCallTimeChanged: ({
+                                required isCallTimed,
+                                callTimeFrom,
+                                callTimeTo,
+                              }) {
+                                editAdBloc.add(
+                                  EditAdChooseEvent(
+                                    callTimeFrom: callTimeFrom,
+                                    callTimeTo: callTimeTo,
+                                    isCallTimed: isCallTimed,
+                                  ),
+                                );
+                              },
+                            ),
                             // 6
                             InspectionPlaceScreen(
                               onToMapPressed: () {
