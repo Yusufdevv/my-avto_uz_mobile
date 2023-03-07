@@ -24,10 +24,13 @@ class CarCharacteristicImage extends StatefulWidget {
 
 class _CarCharacteristicImageState extends State<CarCharacteristicImage> {
   late int length;
+  late List<DamagedPartsAsEnum> asEnum;
 
   @override
   void initState() {
     length = countLength(widget.informAboutDoors.length);
+
+    asEnum = widget.informAboutDoors.map((e) => e.toEnum()).toList();
     super.initState();
   }
 
@@ -82,84 +85,16 @@ class _CarCharacteristicImageState extends State<CarCharacteristicImage> {
                   AppIcons.autoModel,
                   fit: BoxFit.cover,
                 ),
-                CarStatusIconInPicture(
-                  informAboutDoors: widget.informAboutDoors,
-                  doorName: 'rear_right_fender',
-                  right: width * 0.08,
-                  top: 28,
-                ),
-                CarStatusIconInPicture(
-                  informAboutDoors: widget.informAboutDoors,
-                  doorName: 'left_rear_door',
-                  bottom: 40,
-                  left: width * 0.24,
-                ),
-                CarStatusIconInPicture(
-                  informAboutDoors: widget.informAboutDoors,
-                  left: width * 0.3,
-                  top: 35,
-                  doorName: 'rigth_front_door',
-                ),
-                CarStatusIconInPicture(
-                  informAboutDoors: widget.informAboutDoors,
-                  right: width * 0.12,
-                  bottom: 42,
-                  doorName: 'front_left_fender',
-                ),
-                CarStatusIconInPicture(
-                  informAboutDoors: widget.informAboutDoors,
-                  doorName: 'front_bumper',
-                  top: height * 0.196,
-                  left: width * 0.136,
-                ),
-                CarStatusIconInPicture(
-                  informAboutDoors: widget.informAboutDoors,
-                  doorName: 'hood',
-                  top: height * 0.16,
-                  left: width * 0.133,
-                ),
-                CarStatusIconInPicture(
-                  informAboutDoors: widget.informAboutDoors,
-                  doorName: 'roof',
-                  top: height * 0.122,
-                  left: width * 0.133,
-                ),
-                CarStatusIconInPicture(
-                  informAboutDoors: widget.informAboutDoors,
-                  doorName: 'rear_bumper',
-                  bottom: height * 0.145,
-                  right: width * 0.133,
-                ),
-                CarStatusIconInPicture(
-                  informAboutDoors: widget.informAboutDoors,
-                  doorName: 'trunk',
-                  top: height * 0.144,
-                  right: width * 0.133,
-                ),
-                CarStatusIconInPicture(
-                  informAboutDoors: widget.informAboutDoors,
-                  doorName: 'rear_left_fender',
-                  left: width * 0.09,
-                  bottom: 44,
-                ),
-                CarStatusIconInPicture(
-                  informAboutDoors: widget.informAboutDoors,
-                  doorName: 'right_rear_door',
-                  right: width * 0.22,
-                  top: 35,
-                ),
-                CarStatusIconInPicture(
-                  informAboutDoors: widget.informAboutDoors,
-                  right: width * 0.3,
-                  bottom: 35,
-                  doorName: 'left_front_door',
-                ),
-                CarStatusIconInPicture(
-                  informAboutDoors: widget.informAboutDoors,
-                  left: width * 0.12,
-                  top: 25,
-                  doorName: 'front_right_fender',
-                ),
+                ...List.generate(
+                    widget.informAboutDoors.length,
+                    (index) => CarStatusIconInPicture(
+                          damagedPart: asEnum[index].part,
+                          damageType: asEnum[index].type,
+                          position: MyFunctions.getDamagePosition(
+                              part: asEnum[index].part,
+                              width: width,
+                              height: height),
+                        )).toList(),
               ],
             ),
           ),
