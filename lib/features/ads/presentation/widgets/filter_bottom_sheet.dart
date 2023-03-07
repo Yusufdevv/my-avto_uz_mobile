@@ -23,8 +23,12 @@ Future<dynamic> filterBottomSheet(
         title: LocaleKeys.sorting.tr(),
         values: const [
           SortSearchResultsModel(
-            title: LocaleKeys.all,
-            status: SortStatus.none,
+            title: LocaleKeys.newOnesFirst,
+            status: SortStatus.newest,
+          ),
+          SortSearchResultsModel(
+            title: LocaleKeys.oldOnesFirst,
+            status: SortStatus.oldest,
           ),
           SortSearchResultsModel(
             title: LocaleKeys.descending,
@@ -33,14 +37,6 @@ Future<dynamic> filterBottomSheet(
           SortSearchResultsModel(
             title: LocaleKeys.ascending,
             status: SortStatus.expensive,
-          ),
-          SortSearchResultsModel(
-            title: LocaleKeys.oldOnesFirst,
-            status: SortStatus.oldest,
-          ),
-          SortSearchResultsModel(
-            title: LocaleKeys.newOnesFirst,
-            status: SortStatus.newest,
           ),
         ],
         onChanged: onChanged,

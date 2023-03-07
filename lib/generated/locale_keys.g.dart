@@ -553,5 +553,6 @@ abstract class  LocaleKeys {
   static const litre = 'litre';
   static const choose_time = 'choose_time';
   static const link_copied = 'link_copied';
+  static const a_week = 'a_week';
 
 }
