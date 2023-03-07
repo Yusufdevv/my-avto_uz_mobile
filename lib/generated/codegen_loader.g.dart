@@ -565,7 +565,8 @@ class CodegenLoader extends AssetLoader{
   "not_necessary": "Неважно",
   "other1": "Другая",
   "litre": "л",
-  "choose_time": "Выберите время"
+  "choose_time": "Выберите время",
+  "link_copied": "Ссылка скопирована"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -1117,7 +1118,8 @@ static const Map<String,dynamic> uz = {
   "not_necessary": "Ahamiyatsiz",
   "other1": "Boshqa",
   "litre": "l",
-  "choose_time": "Vaqtni tanlang"
+  "choose_time": "Vaqtni tanlang",
+  "link_copied": "Havoladan nusxa olindi"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }
