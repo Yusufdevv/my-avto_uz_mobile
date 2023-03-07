@@ -16,6 +16,7 @@ class MapEntity extends Equatable {
   final double longitude;
   final double latitude;
   final int carCount;
+  final dynamic category;
   @RegionConverter()
   final RegionEntity district;
   final List<String> gallery;
@@ -33,6 +34,7 @@ class MapEntity extends Equatable {
     this.longitude = 0.0,
     this.latitude = 0.0,
     this.carCount = 0,
+    this.category,
     this.district = const RegionEntity(),
     this.gallery = const [],
   });
@@ -53,6 +55,7 @@ class MapEntity extends Equatable {
         carCount,
         district,
         gallery,
+        category,
       ];
 }
 

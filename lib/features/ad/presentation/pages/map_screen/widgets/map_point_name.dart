@@ -52,7 +52,7 @@ class MapPointName extends StatelessWidget {
               MapItemImageNameWidget(
                   dealerImageUrl: currentDealer?.avatar ?? '',
                   dealerName: currentDealer?.name ?? '',
-                  dealerType: currentDealer?.name ?? ''),
+                  dealerType:isFromDirectoryPage ? currentDealer?.category!=null ? currentDealer?.category['name'] : LocaleKeys.autosalon_autoservice.tr() :  LocaleKeys.autosalon.tr()),
               const SizedBox(height: 12),
               Row(
                 children: [

@@ -27,6 +27,7 @@ MapModel _$MapModelFromJson(Map<String, dynamic> json) => MapModel(
               ?.map((e) => e as String)
               .toList() ??
           const [],
+      category: json['category'],
     );
 
 Map<String, dynamic> _$MapModelToJson(MapModel instance) => <String, dynamic>{
@@ -42,6 +43,7 @@ Map<String, dynamic> _$MapModelToJson(MapModel instance) => <String, dynamic>{
       'longitude': instance.longitude,
       'latitude': instance.latitude,
       'car_count': instance.carCount,
+      'category': instance.category,
       'district': const RegionConverter().toJson(instance.district),
       'gallery': instance.gallery,
     };
