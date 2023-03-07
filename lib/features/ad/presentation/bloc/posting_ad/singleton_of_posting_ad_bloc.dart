@@ -359,7 +359,7 @@ class PASingleton {
         return v;
 // InspectionPlaceScreen
       case 16:
-        return !(state.regionId != null || state.mapPointBytes != null);
+        return !(state.regionId != null && state.districtId != null);
 
       // PriceScreen
       case 17:
