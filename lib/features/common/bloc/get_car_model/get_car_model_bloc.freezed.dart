@@ -1024,7 +1024,7 @@ abstract class _GetAnnouncementList implements GetCarModelEvent {
 /// @nodoc
 mixin _$GetCarModelState {
   FormzStatus get status => throw _privateConstructorUsedError;
-  GetMakeEntity get model => throw _privateConstructorUsedError;
+  List<MakeEntity> get models => throw _privateConstructorUsedError;
   dynamic get next => throw _privateConstructorUsedError;
   int get getId => throw _privateConstructorUsedError;
   dynamic get count => throw _privateConstructorUsedError;
@@ -1048,7 +1048,7 @@ abstract class $GetCarModelStateCopyWith<$Res> {
   @useResult
   $Res call(
       {FormzStatus status,
-      GetMakeEntity model,
+      List<MakeEntity> models,
       dynamic next,
       int getId,
       dynamic count,
@@ -1074,7 +1074,7 @@ class _$GetCarModelStateCopyWithImpl<$Res, $Val extends GetCarModelState>
   @override
   $Res call({
     Object? status = null,
-    Object? model = null,
+    Object? models = null,
     Object? next = freezed,
     Object? getId = null,
     Object? count = freezed,
@@ -1090,10 +1090,10 @@ class _$GetCarModelStateCopyWithImpl<$Res, $Val extends GetCarModelState>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      model: null == model
-          ? _value.model
-          : model // ignore: cast_nullable_to_non_nullable
-              as GetMakeEntity,
+      models: null == models
+          ? _value.models
+          : models // ignore: cast_nullable_to_non_nullable
+              as List<MakeEntity>,
       next: freezed == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
@@ -1144,7 +1144,7 @@ abstract class _$$_GetCarModelStateCopyWith<$Res>
   @useResult
   $Res call(
       {FormzStatus status,
-      GetMakeEntity model,
+      List<MakeEntity> models,
       dynamic next,
       int getId,
       dynamic count,
@@ -1168,7 +1168,7 @@ class __$$_GetCarModelStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? status = null,
-    Object? model = null,
+    Object? models = null,
     Object? next = freezed,
     Object? getId = null,
     Object? count = freezed,
@@ -1184,10 +1184,10 @@ class __$$_GetCarModelStateCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      model: null == model
-          ? _value.model
-          : model // ignore: cast_nullable_to_non_nullable
-              as GetMakeEntity,
+      models: null == models
+          ? _value._models
+          : models // ignore: cast_nullable_to_non_nullable
+              as List<MakeEntity>,
       next: freezed == next ? _value.next! : next,
       getId: null == getId
           ? _value.getId
@@ -1220,7 +1220,7 @@ class __$$_GetCarModelStateCopyWithImpl<$Res>
 class _$_GetCarModelState implements _GetCarModelState {
   _$_GetCarModelState(
       {this.status = FormzStatus.pure,
-      this.model = const GetMakeEntity(),
+      final List<MakeEntity> models = const <MakeEntity>[],
       this.next = '',
       this.getId = 0,
       this.count = 0,
@@ -1229,14 +1229,21 @@ class _$_GetCarModelState implements _GetCarModelState {
       this.selectedId = 0,
       this.confirmId = 0,
       this.name = '',
-      this.selectedModel = const MakeEntity()});
+      this.selectedModel = const MakeEntity()})
+      : _models = models;
 
   @override
   @JsonKey()
   final FormzStatus status;
+  final List<MakeEntity> _models;
   @override
   @JsonKey()
-  final GetMakeEntity model;
+  List<MakeEntity> get models {
+    if (_models is EqualUnmodifiableListView) return _models;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_models);
+  }
+
   @override
   @JsonKey()
   final dynamic next;
@@ -1267,7 +1274,7 @@ class _$_GetCarModelState implements _GetCarModelState {
 
   @override
   String toString() {
-    return 'GetCarModelState(status: $status, model: $model, next: $next, getId: $getId, count: $count, announcementCount: $announcementCount, getAnnouncementStatus: $getAnnouncementStatus, selectedId: $selectedId, confirmId: $confirmId, name: $name, selectedModel: $selectedModel)';
+    return 'GetCarModelState(status: $status, models: $models, next: $next, getId: $getId, count: $count, announcementCount: $announcementCount, getAnnouncementStatus: $getAnnouncementStatus, selectedId: $selectedId, confirmId: $confirmId, name: $name, selectedModel: $selectedModel)';
   }
 
   @override
@@ -1276,7 +1283,7 @@ class _$_GetCarModelState implements _GetCarModelState {
         (other.runtimeType == runtimeType &&
             other is _$_GetCarModelState &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.model, model) || other.model == model) &&
+            const DeepCollectionEquality().equals(other._models, _models) &&
             const DeepCollectionEquality().equals(other.next, next) &&
             (identical(other.getId, getId) || other.getId == getId) &&
             const DeepCollectionEquality().equals(other.count, count) &&
@@ -1296,7 +1303,7 @@ class _$_GetCarModelState implements _GetCarModelState {
   int get hashCode => Object.hash(
       runtimeType,
       status,
-      model,
+      const DeepCollectionEquality().hash(_models),
       const DeepCollectionEquality().hash(next),
       getId,
       const DeepCollectionEquality().hash(count),
@@ -1317,7 +1324,7 @@ class _$_GetCarModelState implements _GetCarModelState {
 abstract class _GetCarModelState implements GetCarModelState {
   factory _GetCarModelState(
       {final FormzStatus status,
-      final GetMakeEntity model,
+      final List<MakeEntity> models,
       final dynamic next,
       final int getId,
       final dynamic count,
@@ -1331,7 +1338,7 @@ abstract class _GetCarModelState implements GetCarModelState {
   @override
   FormzStatus get status;
   @override
-  GetMakeEntity get model;
+  List<MakeEntity> get models;
   @override
   dynamic get next;
   @override

@@ -1,7 +1,6 @@
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
 import 'package:auto/features/ads/domain/usecases/get_announcement_list_usecase.dart';
-import 'package:auto/features/common/entities/makes_entity.dart';
 import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -24,7 +23,7 @@ class GetCarModelBloc extends Bloc<GetCarModelEvent, GetCarModelState> {
       if (result.isRight) {
         emit(
           state.copyWith(
-            model: result.right,
+            models: result.right.results,
             status: FormzStatus.submissionSuccess,
             count: result.right.count,
             next: result.right.next,

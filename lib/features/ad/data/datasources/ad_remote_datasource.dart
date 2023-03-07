@@ -20,8 +20,9 @@ import 'package:auto/features/ad/data/models/generation.dart';
 import 'package:auto/features/ad/data/models/modification_type.dart';
 import 'package:auto/features/ad/data/models/years.dart';
 import 'package:auto/features/ad/domain/entities/foto_instruction_entity.dart';
-import 'package:auto/features/common/entities/makes_entity.dart';
-import 'package:auto/features/common/models/get_make_model.dart';
+
+// import 'package:auto/features/common/entities/makes_entity.dart';
+// import 'package:auto/features/common/models/get_make_model.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:auto/features/reviews/data/models/make_model.dart';
 import 'package:dio/dio.dart';
@@ -40,9 +41,9 @@ abstract class AdRemoteDataSource {
 
   Future<GenericPagination<MakeModel>> getTopMakes({String? next});
 
-  Future<GetMakeEntity> getMake({String? name});
+  Future<GenericPagination<MakeModel>> getMake({required int limit, required int offset, String? name});
 
-  Future<GetMakeEntity> getCarModel(int makeId, {String? name});
+  Future<GenericPagination<MakeModel>> getCarModel(int makeId, {String? name});
 
   Future<GenericPagination<YearsModel>> getYears({
     int? modelId,
@@ -154,19 +155,24 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
   }
 
   @override
-  Future<GetMakeEntity> getMake({String? name}) async {
+  Future<GenericPagination<MakeModel>> getMake({
+    required int limit,
+    required int offset,
+    String? name,
+  }) async {
     try {
       final response = await _dio.get(
         '/car/makes/',
         queryParameters: {
           'search': name,
-          'limit': 1000,
-          'offset': 0,
+          'limit': limit,
+          'offset': offset,
           'ordering': 'name'
         },
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        return GetMakeModel.fromJson(response.data);
+        return GenericPagination.fromJson(response.data,
+            (p0) => MakeModel.fromJson(p0 as Map<String, dynamic>));
       } else {
         throw ServerException(
             statusCode: response.statusCode!, errorMessage: response.data);
@@ -177,7 +183,11 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
   }
 
   @override
-  Future<GetMakeEntity> getCarModel(int? makeId, {String? name}) async {
+  Future<GenericPagination<MakeModel>> getCarModel(
+    int? makeId, {
+    String? name,
+  }) async {
+    log(':::::::::: GET CAR MODEL NAME: $name }  ::::::::::');
     final response = await _dio.get('/car/$makeId/models/',
         options: Options(
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
@@ -190,7 +200,8 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
         queryParameters:
             name == null ? null : {'search': name, 'limit': 100, 'offset': 0});
     if (response.statusCode! >= 200 && response.statusCode! < 300) {
-      return GetMakeModel.fromJson(response.data);
+      return GenericPagination.fromJson(response.data,
+          (p0) => MakeModel.fromJson(p0 as Map<String, dynamic>));
     } else {
       throw ServerException(
           statusCode: response.statusCode!, errorMessage: response.data);
@@ -206,7 +217,10 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
       '/car/$modelId/years/',
       options: Options(
         headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
-            ? {'Authorization': 'Token ${StorageRepository.getString(StorageKeys.TOKEN)}'}
+            ? {
+                'Authorization':
+                    'Token ${StorageRepository.getString(StorageKeys.TOKEN)}'
+              }
             : {},
       ),
     );
@@ -228,7 +242,6 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
     try {
       final response = await _dio.get(
         '/car/$modelId/${year}generations/',
-        //    car/24/1992generations/
         options: Options(
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
@@ -654,8 +667,8 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
       var headers = <String, String>{};
 
       final token = StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
-          ? MapEntry(
-              'Authorization', 'Token ${StorageRepository.getString(StorageKeys.TOKEN)}')
+          ? MapEntry('Authorization',
+              'Token ${StorageRepository.getString(StorageKeys.TOKEN)}')
           : null;
       var list = <MapEntry<String, String>>[];
       if (token != null) {
@@ -772,7 +785,8 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
           },
           options: Options(
             headers: {
-              'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
+              'Authorization':
+                  'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
             },
           ));
       return GenericPagination.fromJson(result.data,
@@ -798,7 +812,8 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
           },
           options: Options(
             headers: {
-              'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
+              'Authorization':
+                  'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
             },
           ));
       log(':::::::::: GOTTEN EQUIPMENTS: ${result.data}  ::::::::::');
@@ -825,7 +840,8 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
           },
           options: Options(
             headers: {
-              'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
+              'Authorization':
+                  'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
             },
           ));
       log(':::::::::: Gotten EquipmentOptionsListModels: ${result.data}  ::::::::::');
@@ -851,7 +867,8 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
           },
           options: Options(
             headers: {
-              'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
+              'Authorization':
+                  'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
             },
           ));
       log(':::::::::: GOTTEN EQUIPMETN OPTIONS:  ${result.data}  ::::::::::');
