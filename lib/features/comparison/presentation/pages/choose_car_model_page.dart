@@ -145,7 +145,7 @@ class _ChooseCarModelComparison extends State<ChooseCarModelPage> {
                                   child: CupertinoActivityIndicator());
                             }
                             if (state.status.isSubmissionSuccess) {
-                              return state.model.results.isNotEmpty
+                              return state.models .isNotEmpty
                                   ? ListView.builder(
                                       padding:
                                           const EdgeInsets.only(bottom: 60),
@@ -156,9 +156,9 @@ class _ChooseCarModelComparison extends State<ChooseCarModelPage> {
                                             .whiteToDark,
                                         child: ModelItems(
                                           title:
-                                              state.model.results[index].name,
+                                              state.models[index].name,
                                           isSelected: state.selectedId ==
-                                              state.model.results[index].id,
+                                              state.models[index].id,
                                           text: _searchController.text,
                                           onTap: () {
                                             _getCarModelBloc
@@ -166,9 +166,9 @@ class _ChooseCarModelComparison extends State<ChooseCarModelPage> {
                                                 GetCarModelEvent
                                                     .selectedModelItem(
                                                   selectedId: state
-                                                      .model.results[index].id,
+                                                      .models[index].id,
                                                   model: state
-                                                      .model.results[index],
+                                                      .models[index],
                                                 ),
                                               )
                                               ..add(GetCarModelEvent
@@ -177,12 +177,11 @@ class _ChooseCarModelComparison extends State<ChooseCarModelPage> {
                                                               .selectedMake
                                                               ?.id ??
                                                           -1,
-                                                      modelId: state.model
-                                                          .results[index].id));
+                                                      modelId: state.models[index].id));
                                           },
                                         ),
                                       ),
-                                      itemCount: state.model.results.length,
+                                      itemCount: state.models.length,
                                     )
                                   : const NoDataWidget();
                             }
@@ -197,7 +196,7 @@ class _ChooseCarModelComparison extends State<ChooseCarModelPage> {
                             onTap: () {
                               if (state.selectedId != -1) {
                                 if (state.selectedModel.id == -1) {
-                                  final item = state.model.results.firstWhere(
+                                  final item = state.models.firstWhere(
                                       (element) =>
                                           element.id == state.selectedId);
                                   Navigator.pop(context);

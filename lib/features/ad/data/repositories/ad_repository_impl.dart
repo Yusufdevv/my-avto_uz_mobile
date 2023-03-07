@@ -7,8 +7,8 @@ import 'package:auto/features/ad/data/datasources/ad_remote_datasource.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_entity.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_options_entity.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_options_list_entity.dart';
-import 'package:auto/features/ad/domain/entities/foto_instruction_entity.dart';
 import 'package:auto/features/ad/domain/entities/equipment/gas_equipment_entity.dart';
+import 'package:auto/features/ad/domain/entities/foto_instruction_entity.dart';
 import 'package:auto/features/ad/domain/entities/generation/generation.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
@@ -18,7 +18,6 @@ import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/domain/entities/types/modification_type.dart';
 import 'package:auto/features/ad/domain/entities/years/years.dart';
 import 'package:auto/features/ad/domain/repositories/ad_repository.dart';
-import 'package:auto/features/common/entities/makes_entity.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:dio/dio.dart';
 
@@ -84,7 +83,7 @@ class AdRepositoryImpl extends AdRepository {
   }
 
   @override
-  Future<Either<Failure, GetMakeEntity>> getCarModel(int makeId,
+  Future<Either<Failure, GenericPagination<MakeEntity>>> getCarModel(int makeId,
       {String? name}) async {
     try {
       final result = await remoteDataSource.getCarModel(makeId, name: name);
@@ -236,9 +235,11 @@ class AdRepositoryImpl extends AdRepository {
   }
 
   @override
-  Future<Either<Failure, GetMakeEntity>> getMake({String? name}) async {
+  Future<Either<Failure, GenericPagination<MakeEntity>>> getMake(
+      {required int limit, required int offset, String? name}) async {
     try {
-      final result = await remoteDataSource.getMake(name: name);
+      final result = await remoteDataSource.getMake(
+          name: name, limit: limit, offset: offset);
       return Right(result);
     } on DioException {
       return Left(DioFailure());

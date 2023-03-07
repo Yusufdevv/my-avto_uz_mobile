@@ -4,7 +4,7 @@ part of 'get_car_model_bloc.dart';
 class GetCarModelState with _$GetCarModelState {
   factory GetCarModelState({
     @Default(FormzStatus.pure) FormzStatus status,
-    @Default(GetMakeEntity()) GetMakeEntity model,
+    @Default(<MakeEntity>[]) List<MakeEntity> models,
     @Default('') next,
     @Default(0) int getId,
     @Default(0) count,

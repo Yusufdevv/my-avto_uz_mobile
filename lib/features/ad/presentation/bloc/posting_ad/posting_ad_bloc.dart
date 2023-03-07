@@ -228,7 +228,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   FutureOr<void> _searchMake(
       PostingAdSearchMakesEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(getMakesStatus: FormzStatus.submissionInProgress));
-    final result = await makeUseCase.call(event.name);
+    final result = await makeUseCase
+        .call(GetMakeParam(offset: 0, limit: 1000, name: event.name));
     if (result.isRight) {
       emit(state.copyWith(
           getMakesStatus: FormzStatus.submissionSuccess,
@@ -575,6 +576,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       year: state.yearEntity?.yearBegin,
     ));
     if (result.isRight) {
+      log(':::::::::: GENERATION next: ${result.right.next}  ::::::::::');
+      log(':::::::::: GENERATION previous: ${result.right.previous}  ::::::::::');
+      log(':::::::::: GENERATION count: ${result.right.count}  ::::::::::');
       final generations = result.right.results;
       emit(state.copyWith(
           generations: generations,
@@ -610,7 +614,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       PostingAdMakesEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(getMakesStatus: FormzStatus.submissionInProgress));
 
-    final result = await makeUseCase.call(null);
+    final result = await makeUseCase
+        .call(GetMakeParam(offset: 0, limit: 1000, name: null));
     if (result.isRight) {
       emit(
         state.copyWith(

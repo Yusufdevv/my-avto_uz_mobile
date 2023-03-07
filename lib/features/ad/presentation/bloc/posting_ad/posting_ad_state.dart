@@ -444,12 +444,12 @@ class PostingAdState extends Equatable {
 
   bool buttonStatus(int page) => PASingleton.nextButtonIsDisabled(page, this);
 
-  RegionEntity get getSelectedRegion {
-    RegionEntity? v;
+  RegionEntity? get getSelectedRegion {
+
     try {
       return regions.firstWhere((e) => e.id == regionId);
     } catch (e) {
-      return const RegionEntity();
+      return null;
     }
   }
 }

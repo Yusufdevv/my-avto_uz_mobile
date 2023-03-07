@@ -1,5 +1,5 @@
-import 'package:auto/features/ad/domain/entities/equipment/id_name_entity.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_option_entity.dart';
+import 'package:auto/features/ad/domain/entities/equipment/id_name_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'equipment_option_model.g.dart';
