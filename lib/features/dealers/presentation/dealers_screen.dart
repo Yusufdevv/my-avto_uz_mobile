@@ -70,9 +70,7 @@ class _DealerScreenState extends State<DealerScreen>
         ],
         child: BlocConsumer<DealerCardBloc, DealerCardState>(
           listener: (context, state){},
-          builder: (context, state) {
-            print('build');
-            return AnnotatedRegion(
+          builder: (context, state) => AnnotatedRegion(
             value:
                 const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
             child: KeyboardDismisser(
@@ -200,8 +198,7 @@ class _DealerScreenState extends State<DealerScreen>
                 ),
               ),
             ),
-          );
-          },
+          ),
         ),
       );
 }
