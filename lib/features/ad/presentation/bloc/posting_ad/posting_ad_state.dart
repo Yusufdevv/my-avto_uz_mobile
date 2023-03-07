@@ -9,9 +9,7 @@ class PostingAdState extends Equatable {
   final FormzStatus getModificationStatus;
   final FormzStatus getLocationImage;
   final GlobalKey<FormState> contactsFormKey;
-
   final String? id;
-
   final TextEditingController phoneController;
   final TextEditingController emailController;
   final TextEditingController nameController;

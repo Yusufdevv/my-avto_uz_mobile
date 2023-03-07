@@ -12,16 +12,31 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class CarCharacteristicImage extends StatelessWidget {
+class CarCharacteristicImage extends StatefulWidget {
   final List<DamagedPartsEntity> informAboutDoors;
 
   const CarCharacteristicImage({required this.informAboutDoors, Key? key})
       : super(key: key);
 
   @override
+  State<CarCharacteristicImage> createState() => _CarCharacteristicImageState();
+}
+
+class _CarCharacteristicImageState extends State<CarCharacteristicImage> {
+  late int length;
+
+  @override
+  void initState() {
+    length = countLength(widget.informAboutDoors.length);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    log(':::::::::: damageType:  ${widget.informAboutDoors.length} / ${widget.informAboutDoors.first.damageType}  ::::::::::');
+    log(':::::::::: part:  ${widget.informAboutDoors.length} / ${widget.informAboutDoors.first.part}  ::::::::::');
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       margin: const EdgeInsets.only(bottom: 12),
@@ -68,79 +83,79 @@ class CarCharacteristicImage extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
                 CarStatusIconInPicture(
-                  informAboutDoors: informAboutDoors,
+                  informAboutDoors: widget.informAboutDoors,
                   doorName: 'rear_right_fender',
                   right: width * 0.08,
                   top: 28,
                 ),
                 CarStatusIconInPicture(
-                  informAboutDoors: informAboutDoors,
+                  informAboutDoors: widget.informAboutDoors,
                   doorName: 'left_rear_door',
                   bottom: 40,
                   left: width * 0.24,
                 ),
                 CarStatusIconInPicture(
-                  informAboutDoors: informAboutDoors,
+                  informAboutDoors: widget.informAboutDoors,
                   left: width * 0.3,
                   top: 35,
                   doorName: 'rigth_front_door',
                 ),
                 CarStatusIconInPicture(
-                  informAboutDoors: informAboutDoors,
+                  informAboutDoors: widget.informAboutDoors,
                   right: width * 0.12,
                   bottom: 42,
                   doorName: 'front_left_fender',
                 ),
                 CarStatusIconInPicture(
-                  informAboutDoors: informAboutDoors,
+                  informAboutDoors: widget.informAboutDoors,
                   doorName: 'front_bumper',
                   top: height * 0.196,
                   left: width * 0.136,
                 ),
                 CarStatusIconInPicture(
-                  informAboutDoors: informAboutDoors,
+                  informAboutDoors: widget.informAboutDoors,
                   doorName: 'hood',
                   top: height * 0.16,
                   left: width * 0.133,
                 ),
                 CarStatusIconInPicture(
-                  informAboutDoors: informAboutDoors,
+                  informAboutDoors: widget.informAboutDoors,
                   doorName: 'roof',
                   top: height * 0.122,
                   left: width * 0.133,
                 ),
                 CarStatusIconInPicture(
-                  informAboutDoors: informAboutDoors,
+                  informAboutDoors: widget.informAboutDoors,
                   doorName: 'rear_bumper',
                   bottom: height * 0.145,
                   right: width * 0.133,
                 ),
                 CarStatusIconInPicture(
-                  informAboutDoors: informAboutDoors,
+                  informAboutDoors: widget.informAboutDoors,
                   doorName: 'trunk',
                   top: height * 0.144,
                   right: width * 0.133,
                 ),
                 CarStatusIconInPicture(
-                  informAboutDoors: informAboutDoors,
+                  informAboutDoors: widget.informAboutDoors,
                   doorName: 'rear_left_fender',
                   left: width * 0.09,
                   bottom: 44,
                 ),
                 CarStatusIconInPicture(
-                  informAboutDoors: informAboutDoors,
+                  informAboutDoors: widget.informAboutDoors,
                   doorName: 'right_rear_door',
                   right: width * 0.22,
                   top: 35,
                 ),
                 CarStatusIconInPicture(
-                  informAboutDoors: informAboutDoors,
+                  informAboutDoors: widget.informAboutDoors,
                   right: width * 0.3,
                   bottom: 35,
                   doorName: 'left_front_door',
                 ),
                 CarStatusIconInPicture(
-                  informAboutDoors: informAboutDoors,
+                  informAboutDoors: widget.informAboutDoors,
                   left: width * 0.12,
                   top: 25,
                   doorName: 'front_right_fender',
@@ -157,26 +172,26 @@ class CarCharacteristicImage extends StatelessWidget {
                 Expanded(
                   child: InformationAboutDoors(
                     partName: MyFunctions.getDamagedPartName(
-                        informAboutDoors[countIndex(index)].part),
+                        widget.informAboutDoors[countIndex(index)].part),
                     damageName: MyFunctions.getStatusTitle(
-                        informAboutDoors[countIndex(index)].damageType),
+                        widget.informAboutDoors[countIndex(index)].damageType),
                   ),
                 ),
-                if (index == countLength(informAboutDoors.length) - 1)
+                if (index == length - (length.isEven ? 0 : 1))
                   const SizedBox()
                 else
                   Expanded(
                     child: InformationAboutDoors(
                       partName: MyFunctions.getDamagedPartName(
-                          informAboutDoors[countIndex(index) + 1].part),
-                      damageName: MyFunctions.getStatusTitle(
-                          informAboutDoors[countIndex(index) + 1].damageType),
+                          widget.informAboutDoors[countIndex(index) + 1].part),
+                      damageName: MyFunctions.getStatusTitle(widget
+                          .informAboutDoors[countIndex(index) + 1].damageType),
                     ),
                   ),
               ],
             ),
             separatorBuilder: (context, index) => const Divider(),
-            itemCount: countLength(informAboutDoors.length),
+            itemCount: length,
           )
         ],
       ),

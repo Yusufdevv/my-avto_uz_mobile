@@ -12,7 +12,8 @@ import 'package:dio/dio.dart';
 abstract class CarSingleDataSource {
   Future<CarSingleModel> getCarSingle({required int id});
 
-  Future<GenericPagination<AutoModel>> getOtherAds({required Map<String, dynamic> params});
+  Future<GenericPagination<AutoModel>> getOtherAds(
+      {required Map<String, dynamic> params});
 
   Future soldAd({required int id});
 
@@ -53,7 +54,7 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
 
   @override
   Future<GenericPagination<AutoModel>> getOtherAds(
-      {required Map<String , dynamic> params}) async {
+      {required Map<String, dynamic> params}) async {
     try {
       final response = await _dio.get('/es/AnnouncementElasticSearch/',
           queryParameters: params,
@@ -95,8 +96,6 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
       throw ParsingException(errorMessage: e.toString());
     }
   }
-
-
 
   @override
   Future soldAd({required int id}) async {

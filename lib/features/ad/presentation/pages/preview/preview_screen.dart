@@ -77,7 +77,7 @@ class PreviewScreen extends StatelessWidget {
                               LocaleKeys.not_shown.tr()),
                       CarInfoRow(
                         title: LocaleKeys.engine_volume_l.tr(),
-                        info: state.modification?.volume ?? '',
+                        info: '${state.modification?.volume ?? ' '} ${state.modification == null? '': '(${state.modification?.power})'}',
                       ),
                       CarInfoRow(
                         title: LocaleKeys.Transmission.tr(),

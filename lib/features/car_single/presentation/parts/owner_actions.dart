@@ -16,8 +16,10 @@ class OwnerActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
+
         margin: const EdgeInsets.symmetric(horizontal: 16),
         child: Container(
+          // color:Colors.teal,
           color: Theme.of(context).scaffoldBackgroundColor,
           padding: const EdgeInsets.symmetric(vertical: 12),
           child: Row(
