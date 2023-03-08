@@ -1,12 +1,17 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/comparison/presentation/widgets/characters.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
 
 class AlphabeticHeader extends SliverPersistentHeaderDelegate {
   final Color color;
   final ScrollController controller;
+
   AlphabeticHeader({required this.color, required this.controller});
+
   @override
   double get minExtent => 38;
 
@@ -16,32 +21,9 @@ class AlphabeticHeader extends SliverPersistentHeaderDelegate {
   @override
   bool shouldRebuild(AlphabeticHeader oldDelegate) =>
       color != oldDelegate.color;
-  final List<String> letters = [
-    'A',
-    'B',
-    'C',
-    'D',
-    'E',
-    'F',
-    'G',
-    'H',
-    'I',
-    'J',
-    'K',
-    'L',
-    'M',
-    'N',
-    'O',
-    'P',
-    'Q',
-    'R',
-    'S',
-    'T',
-    'Y',
-    'U',
-    'W',
-    'Z',
-  ];
+  final List<String> letters = MyFunctions.getUpperLetter(
+      StorageRepository.getString(StorageKeys.LANGUAGE, defValue: 'uz'));
+
   @override
   Widget build(
           BuildContext context, double shrinkOffset, bool overlapsContent) =>
