@@ -112,8 +112,8 @@ class AuthRepository {
       data: {'code': code},
     );
     if (result.isRight) {
-      await StorageRepository.putString('token', result.right.access);
-      await StorageRepository.putString('refresh', result.right.refresh);
+      await StorageRepository.putString('token', result.right.accessToken);
+      await StorageRepository.putString('refresh', result.right.refreshToken);
       return Right(result.right);
     } else {
       return Left(result.left);
