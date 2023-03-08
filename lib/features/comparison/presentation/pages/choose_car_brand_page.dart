@@ -157,7 +157,7 @@ class _ChooseCarBrandPageState extends State<ChooseCarBrandPage> {
                         ),
                         pinned: true,
                       ),
-                      if (state.search.isEmpty)
+                      if (state.search.name?.isEmpty ?? true)
                         SliverPersistentHeader(
                           delegate: TopBrandSliverWidget(
                             onTap: (selectedMake) {
@@ -177,7 +177,7 @@ class _ChooseCarBrandPageState extends State<ChooseCarBrandPage> {
                             },
                           ),
                         ),
-                      if (state.search.isEmpty)
+                      if (state.search.name?.isEmpty ?? true)
                         SliverPersistentHeader(
                           delegate: AlphabeticHeader(
                             color: color,
@@ -218,7 +218,7 @@ class _ChooseCarBrandPageState extends State<ChooseCarBrandPage> {
                                     id: state.makes[index].id,
                                     imageUrl: state.makes[index].logo,
                                     name: state.makes[index].name,
-                                    text: state.search,
+                                    text: state.search.name??'',
                                     onTap: () {
                                       context.read<GetMakesBloc>().add(
                                             GetMakesBlocEvent.selectedCarItems(
@@ -235,7 +235,7 @@ class _ChooseCarBrandPageState extends State<ChooseCarBrandPage> {
                     }),
                   ),
                   Positioned(
-                    bottom: Platform.isAndroid ?  20 : 50,
+                    bottom: Platform.isAndroid ? 20 : 50,
                     right: 16,
                     left: 16,
                     child: WButton(

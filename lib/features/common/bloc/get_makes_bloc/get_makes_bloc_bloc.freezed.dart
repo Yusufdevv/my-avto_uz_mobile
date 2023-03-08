@@ -2257,7 +2257,7 @@ mixin _$GetMakesState {
   List<MakeEntity> get topMakes => throw _privateConstructorUsedError;
   String? get next => throw _privateConstructorUsedError;
   bool get ischeck => throw _privateConstructorUsedError;
-  dynamic get search => throw _privateConstructorUsedError;
+  GetMakeParam get search => throw _privateConstructorUsedError;
   dynamic get count => throw _privateConstructorUsedError;
   int get index => throw _privateConstructorUsedError;
   String get selectChar => throw _privateConstructorUsedError;
@@ -2286,7 +2286,7 @@ abstract class $GetMakesStateCopyWith<$Res> {
       List<MakeEntity> topMakes,
       String? next,
       bool ischeck,
-      dynamic search,
+      GetMakeParam search,
       dynamic count,
       int index,
       String selectChar,
@@ -2317,7 +2317,7 @@ class _$GetMakesStateCopyWithImpl<$Res, $Val extends GetMakesState>
     Object? topMakes = null,
     Object? next = freezed,
     Object? ischeck = null,
-    Object? search = freezed,
+    Object? search = null,
     Object? count = freezed,
     Object? index = null,
     Object? selectChar = null,
@@ -2356,10 +2356,10 @@ class _$GetMakesStateCopyWithImpl<$Res, $Val extends GetMakesState>
           ? _value.ischeck
           : ischeck // ignore: cast_nullable_to_non_nullable
               as bool,
-      search: freezed == search
+      search: null == search
           ? _value.search
           : search // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as GetMakeParam,
       count: freezed == count
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
@@ -2412,7 +2412,7 @@ abstract class _$$_GetMakesStateCopyWith<$Res>
       List<MakeEntity> topMakes,
       String? next,
       bool ischeck,
-      dynamic search,
+      GetMakeParam search,
       dynamic count,
       int index,
       String selectChar,
@@ -2441,7 +2441,7 @@ class __$$_GetMakesStateCopyWithImpl<$Res>
     Object? topMakes = null,
     Object? next = freezed,
     Object? ischeck = null,
-    Object? search = freezed,
+    Object? search = null,
     Object? count = freezed,
     Object? index = null,
     Object? selectChar = null,
@@ -2480,7 +2480,10 @@ class __$$_GetMakesStateCopyWithImpl<$Res>
           ? _value.ischeck
           : ischeck // ignore: cast_nullable_to_non_nullable
               as bool,
-      search: freezed == search ? _value.search! : search,
+      search: null == search
+          ? _value.search
+          : search // ignore: cast_nullable_to_non_nullable
+              as GetMakeParam,
       count: freezed == count ? _value.count! : count,
       index: null == index
           ? _value.index
@@ -2523,7 +2526,7 @@ class _$_GetMakesState implements _GetMakesState {
       final List<MakeEntity> topMakes = const [],
       this.next = '',
       this.ischeck = false,
-      this.search = '',
+      this.search = const GetMakeParam(),
       this.count = 0,
       this.index = 0,
       this.selectChar = 'A',
@@ -2570,7 +2573,7 @@ class _$_GetMakesState implements _GetMakesState {
   final bool ischeck;
   @override
   @JsonKey()
-  final dynamic search;
+  final GetMakeParam search;
   @override
   @JsonKey()
   final dynamic count;
@@ -2615,7 +2618,7 @@ class _$_GetMakesState implements _GetMakesState {
             const DeepCollectionEquality().equals(other._topMakes, _topMakes) &&
             (identical(other.next, next) || other.next == next) &&
             (identical(other.ischeck, ischeck) || other.ischeck == ischeck) &&
-            const DeepCollectionEquality().equals(other.search, search) &&
+            (identical(other.search, search) || other.search == search) &&
             const DeepCollectionEquality().equals(other.count, count) &&
             (identical(other.index, index) || other.index == index) &&
             (identical(other.selectChar, selectChar) ||
@@ -2641,7 +2644,7 @@ class _$_GetMakesState implements _GetMakesState {
       const DeepCollectionEquality().hash(_topMakes),
       next,
       ischeck,
-      const DeepCollectionEquality().hash(search),
+      search,
       const DeepCollectionEquality().hash(count),
       index,
       selectChar,
@@ -2667,7 +2670,7 @@ abstract class _GetMakesState implements GetMakesState {
       final List<MakeEntity> topMakes,
       final String? next,
       final bool ischeck,
-      final dynamic search,
+      final GetMakeParam search,
       final dynamic count,
       final int index,
       final String selectChar,
@@ -2692,7 +2695,7 @@ abstract class _GetMakesState implements GetMakesState {
   @override
   bool get ischeck;
   @override
-  dynamic get search;
+  GetMakeParam get search;
   @override
   dynamic get count;
   @override
