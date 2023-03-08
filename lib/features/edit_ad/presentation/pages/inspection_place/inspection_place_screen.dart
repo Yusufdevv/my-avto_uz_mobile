@@ -75,8 +75,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                           ),
                         ).then((value) {
                           if (value != null && value.isNotEmpty) {
-                            log(':::::::::: SELECTED REGION ID:  ${value[0].id}  ::::::::::');
-                            context
+                           context
                                 .read<EditAdBloc>()
                                 .add(EditAdChooseEvent(region: value[0]));
                           }

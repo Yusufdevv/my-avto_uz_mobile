@@ -43,7 +43,6 @@ class GetCarModelBloc extends Bloc<GetCarModelEvent, GetCarModelState> {
     on<GetCarModelGetMakeIdEvent>(
         (event, emit) => emit(state.copyWith(getId: event.id)));
     on<GetCarModelSelectModelEvent>((event, emit) {
-      log('::::::::::  _SelectedModelItem triggered: ${event.selectedId}  / ${event.model}::::::::::');
       emit(state.copyWith(
           selectedId: event.selectedId, selectedModel: event.model));
     });

@@ -11,6 +11,7 @@ import 'package:auto/features/car_single/domain/entities/drive_type_entity.dart'
 import 'package:auto/features/car_single/domain/entities/engine_type_entity.dart';
 import 'package:auto/features/car_single/domain/entities/price_analytics_entity.dart';
 import 'package:auto/features/common/domain/entity/car_generation_entity.dart';
+import 'package:auto/features/common/entities/color_entity.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_bodytype_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_make_entity.dart';
@@ -37,8 +38,8 @@ class CarSingleEntity extends Equatable {
   final int year;
   @JsonKey(defaultValue: 0)
   final int distanceTraveled;
-  @JsonKey(defaultValue: '')
-  final String color;
+  @ColorConverter()
+  final ColorEntity color;
   @CarGenerationConverter()
   final CarGenerationEntity generation;
   @RentCarBodyTypeConverter()
@@ -157,7 +158,7 @@ class CarSingleEntity extends Equatable {
     this.currency = '',
     this.year = 0,
     this.distanceTraveled = 0,
-    this.color = '',
+    this.color = const ColorEntity(),
     this.generation = const CarGenerationEntity(),
     this.bodyType = const RentCarBodyTypeEntity(),
     this.driveType = const RentCarDriveTypeEntity(),

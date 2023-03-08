@@ -217,8 +217,7 @@ class _EditAdScreenState extends State<EditAdScreen>
                                 required itemName,
                                 selectOption,
                               }) {
-                                log('::::::::::  ON EQUIPMENT OPTION PRESSED: id: $id, isAdd: $isAdd, type: $type, itemName: $itemName, sectOPtion: $selectOption  ::::::::::');
-                                context.read<EditAdBloc>().add(
+                                 context.read<EditAdBloc>().add(
                                     EditAdChangeOption(
                                         id: id,
                                         type: type,

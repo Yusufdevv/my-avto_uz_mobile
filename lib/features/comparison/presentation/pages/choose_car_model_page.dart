@@ -75,11 +75,7 @@ class _ChooseCarModelPageState extends State<ChooseCarModelPage> {
           child: Scaffold(
             resizeToAvoidBottomInset: false,
             body: BlocBuilder<GetCarModelBloc, GetCarModelState>(
-                builder: (context, state) {
-              log('::::::::::IS BUTTON DIASABLED:  ${state.announcementCount == 0 || state.selectedModel.id == -1}  ::::::::::');
-              log('::::::::::IS BUTTON DIASABLED:  ${state.announcementCount}');
-              log('::::::::::IS BUTTON DIASABLED:  ${state.selectedModel.id}');
-              return Stack(
+                builder: (context, state) => Stack(
                 children: [
                   NestedScrollView(
                     headerSliverBuilder: (context, innerBoxIsScrolled) => [
@@ -158,12 +154,8 @@ class _ChooseCarModelPageState extends State<ChooseCarModelPage> {
                                         state.models[index].id,
                                     text: _searchController.text,
                                     onTap: () {
-                                      log('::::::::::  ${state.selectedModel.id}  ::::::::::');
-                                      log('::::::::::  ${state.models[index].id}  ::::::::::');
-                                      log('::::::::::  ${state.models[index].id}  ::::::::::');
-                                      log('::::::::::  ${state.models[index]}  ::::::::::');
                                       _getCarModelBloc
-                                        ..add(
+                                              ..add(
                                           GetCarModelSelectModelEvent(
                                             selectedId: state.models[index].id,
                                             model: state.models[index],
@@ -247,8 +239,7 @@ class _ChooseCarModelPageState extends State<ChooseCarModelPage> {
                     ),
                   ),
                 ],
-              );
-            }),
+              )),
           ),
         ),
       );
