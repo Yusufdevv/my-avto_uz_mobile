@@ -229,7 +229,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       PostingAdSearchMakesEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(getMakesStatus: FormzStatus.submissionInProgress));
     final result = await makeUseCase
-        .call(GetMakeParam(offset: 0, limit: 1000, name: event.name));
+        .call(GetMakeParam(offset: 0, limit: 1000, name: event.name??''));
     if (result.isRight) {
       emit(state.copyWith(
           getMakesStatus: FormzStatus.submissionSuccess,

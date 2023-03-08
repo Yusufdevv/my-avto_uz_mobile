@@ -6,6 +6,7 @@ import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/domain/repositories/ad_repository.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
+import 'package:equatable/equatable.dart';
 
 class GetMakesUseCase
     extends UseCase<GenericPagination<MakeEntity>, GetMakeParam> {
@@ -20,10 +21,13 @@ class GetMakesUseCase
           name: params.name, offset: params.offset, limit: params.limit);
 }
 
-class GetMakeParam {
+class GetMakeParam extends Equatable {
   final String? name;
   final int offset;
   final int limit;
 
-  GetMakeParam({required this.offset, required this.limit, this.name});
+  const GetMakeParam({this.offset = 0, this.limit = 1000, this.name });
+
+  @override
+  List<Object?> get props => [offset, limit, name];
 }
