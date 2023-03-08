@@ -554,6 +554,13 @@ abstract class  LocaleKeys {
   static const choose_time = 'choose_time';
   static const link_copied = 'link_copied';
   static const a_week = 'a_week';
+<<<<<<< HEAD
+  static const ideal = 'ideal';
+  static const scratched = 'scratched';
+  static const replaced = 'replaced';
+  static const withDents = 'withDents';
+  static const requiresReplacement = 'requiresReplacement';
+=======
   static const return_back = 'return_back';
   static const invoice_terms1 = 'invoice_terms1';
   static const invoice_terms2 = 'invoice_terms2';
@@ -562,5 +569,6 @@ abstract class  LocaleKeys {
   static const invoice_terms5 = 'invoice_terms5';
   static const invoice_terms6 = 'invoice_terms6';
   static const invoice_terms7 = 'invoice_terms7';
+>>>>>>> 7c98135efb7be4962bac966da59f43e3fb237185
 
 }

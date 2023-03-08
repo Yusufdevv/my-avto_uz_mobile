@@ -11,6 +11,7 @@ class SituationItem extends StatelessWidget {
   final String position;
   final DamageType? damageType;
   final VoidCallback onTap;
+
   const SituationItem(
       {required this.damageType,
       required this.onTap,
@@ -42,7 +43,8 @@ class SituationItem extends StatelessWidget {
                       height: 2,
                     ),
                     Text(
-                      MyFunctions.getStatusTitle(damageType?.value ?? '').tr(),
+                      MyFunctions.getStatusTitle(damageType ?? DamageType.ideal).tr()
+                          .tr(),
                       style: Theme.of(context)
                           .textTheme
                           .displayLarge!

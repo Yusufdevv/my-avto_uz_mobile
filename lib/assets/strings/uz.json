@@ -551,6 +551,15 @@
   "choose_time": "Vaqtni tanlang",
   "link_copied": "Havoladan nusxa olindi",
   "a_week": "haftadan beri",
+<<<<<<< HEAD
+  "ideal": "Ideal",
+  "scratched": "Shikastlangan",
+  "replaced": "Almashtirilgan",
+  "withDents": "Chiziqlar bilan",
+  "requiresReplacement": "O'zgartirishni talab qiladi"
+
+}
+=======
   "return_back": "Ortga qaytish",
   "invoice_terms1": "Tugmani bosish orqali siz ",
   "invoice_terms2": "Foydalanish ",
@@ -560,3 +569,4 @@
   "invoice_terms6": "ga ",
   "invoice_terms7": "rozi bo’lasiz"
 }
+>>>>>>> 7c98135efb7be4962bac966da59f43e3fb237185

@@ -77,7 +77,7 @@ class DamageTypeInfoSheet extends StatelessWidget {
                             const SizedBox(width: 12),
                             Text(
                               MyFunctions.getStatusTitle(
-                                  DamageType.values[index].value),
+                                  DamageType.values[index]).tr(),
                               style: Theme.of(context)
                                   .textTheme
                                   .displayLarge!

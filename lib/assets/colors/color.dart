@@ -153,6 +153,7 @@ const _stormGrey12 = Color(0x1f767680);
 const _silver = Color(0xFFC4C4C4);
 const _strokeDark = Color(0xff181818);
 const dark1 = Color(0xff1E1E1E);
+
 const _emerald = Color(0xff5ECC81);
 const _lavender = Color(0xffF0EFFD);
 

@@ -47,7 +47,7 @@ class _DamageScreenState extends State<DamageScreen>
       barrierColor: Colors.black.withOpacity(.5),
       backgroundColor: Colors.transparent,
       builder: (c) => DamageTypeChooseSheet(
-        title: MyFunctions.getDamagedPartName(part.value),
+        title: MyFunctions.getDamagedPartName(part).tr(),
         initialType: null,
       ),
     ).then((value) {
@@ -135,8 +135,8 @@ class _DamageScreenState extends State<DamageScreen>
                                     DamagedPart.leftRearDoor);
                               },
                               position: LocaleKeys.left_rear_door.tr(),
-                              damageType: state
-                                  .damagedParts[DamagedPart.leftRearDoor]),
+                              damageType:
+                                  state.damagedParts[DamagedPart.leftRearDoor]),
                         ]),
                         Column(children: [
                           SituationItem(
@@ -174,8 +174,7 @@ class _DamageScreenState extends State<DamageScreen>
                       children: [
                         SituationItem(
                             onTap: () {
-                              _showChoosDamageTypeSheet(
-                                  DamagedPart.rearBumper);
+                              _showChoosDamageTypeSheet(DamagedPart.rearBumper);
                             },
                             position: LocaleKeys.back_bumper.tr(),
                             damageType:
@@ -219,8 +218,8 @@ class _DamageScreenState extends State<DamageScreen>
                                       DamagedPart.rearRightFender);
                                 },
                                 position: LocaleKeys.right_back_fender.tr(),
-                                damageType: state.damagedParts[
-                                    DamagedPart.rearRightFender]),
+                                damageType: state
+                                    .damagedParts[DamagedPart.rearRightFender]),
                           ],
                         ),
                         Column(
@@ -231,8 +230,8 @@ class _DamageScreenState extends State<DamageScreen>
                                       DamagedPart.frontLeftFender);
                                 },
                                 position: LocaleKeys.left_front_fender.tr(),
-                                damageType: state.damagedParts[
-                                    DamagedPart.frontLeftFender]),
+                                damageType: state
+                                    .damagedParts[DamagedPart.frontLeftFender]),
                             SituationItem(
                                 onTap: () {
                                   _showChoosDamageTypeSheet(

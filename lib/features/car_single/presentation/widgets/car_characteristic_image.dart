@@ -2,9 +2,10 @@ import 'dart:developer';
 
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/presentation/pages/damage/widgets/damage_pluc_button.dart';
 import 'package:auto/features/car_single/domain/entities/damaged_parts_entity.dart';
-import 'package:auto/features/car_single/presentation/widgets/car_status_icon.dart';
+import 'package:auto/features/car_single/presentation/widgets/car_status_icon_on_single.dart';
 import 'package:auto/features/car_single/presentation/widgets/information_about_doors.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
@@ -28,9 +29,14 @@ class _CarCharacteristicImageState extends State<CarCharacteristicImage> {
 
   @override
   void initState() {
-    length = countLength(widget.informAboutDoors.length);
-
     asEnum = widget.informAboutDoors.map((e) => e.toEnum()).toList();
+
+    // asEnum = List.generate(
+    //     DamagedPart.values.length,
+    //     (index) => DamagedPartsAsEnum(
+    //         part: DamagedPart.values[index],
+    //         type: DamageType.values[index % 5]));
+    length = countLength(asEnum.length);
     super.initState();
   }
 
@@ -86,15 +92,16 @@ class _CarCharacteristicImageState extends State<CarCharacteristicImage> {
                   fit: BoxFit.cover,
                 ),
                 ...List.generate(
-                    widget.informAboutDoors.length,
-                    (index) => CarStatusIconInPicture(
-                          damagedPart: asEnum[index].part,
-                          damageType: asEnum[index].type,
-                          position: MyFunctions.getDamagePosition(
-                              part: asEnum[index].part,
-                              width: width,
-                              height: height),
-                        )).toList(),
+                  asEnum.length,
+                  (index) => CarStatusIconInPicture(
+                    type: asEnum[index].type,
+                    position: MyFunctions.getDamagePosition(
+                      part: asEnum[index].part,
+                      width: width,
+                      height: height,
+                    ),
+                  ),
+                ).toList(),
               ],
             ),
           ),
@@ -106,10 +113,12 @@ class _CarCharacteristicImageState extends State<CarCharacteristicImage> {
               children: [
                 Expanded(
                   child: InformationAboutDoors(
+                    damageType: asEnum[countIndex(index)].type,
                     partName: MyFunctions.getDamagedPartName(
-                        widget.informAboutDoors[countIndex(index)].part),
+                        asEnum[countIndex(index)].part),
                     damageName: MyFunctions.getStatusTitle(
-                        widget.informAboutDoors[countIndex(index)].damageType),
+                            asEnum[countIndex(index)].type)
+                        .tr(),
                   ),
                 ),
                 if (index == length - (length.isEven ? 0 : 1))
@@ -117,10 +126,12 @@ class _CarCharacteristicImageState extends State<CarCharacteristicImage> {
                 else
                   Expanded(
                     child: InformationAboutDoors(
+                      damageType: asEnum[countIndex(index) + 1].type,
                       partName: MyFunctions.getDamagedPartName(
-                          widget.informAboutDoors[countIndex(index) + 1].part),
-                      damageName: MyFunctions.getStatusTitle(widget
-                          .informAboutDoors[countIndex(index) + 1].damageType),
+                          asEnum[countIndex(index) + 1].part),
+                      damageName: MyFunctions.getStatusTitle(
+                              asEnum[countIndex(index) + 1].type)
+                          .tr(),
                     ),
                   ),
               ],

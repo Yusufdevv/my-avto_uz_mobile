@@ -47,7 +47,7 @@ class _DamageScreenState extends State<DamageScreen>
       barrierColor: Colors.black.withOpacity(.5),
       backgroundColor: Colors.transparent,
       builder: (c) => DamageTypeChooseSheet(
-        title: MyFunctions.getDamagedPartName(part.value),
+        title: MyFunctions.getDamagedPartName(part).tr(),
         initialType: null,
       ),
     ).then((value) {
