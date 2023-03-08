@@ -568,13 +568,11 @@ class CodegenLoader extends AssetLoader{
   "choose_time": "Выберите время",
   "link_copied": "Ссылка скопирована",
   "a_week": "неделя",
-<<<<<<< HEAD
   "ideal": "Идеальное",
   "scratched": "Повреждено",
   "replaced": "Заменено",
   "withDents": "С вмятинами",
-  "requiresReplacement": "Требует замены"
-=======
+  "requiresReplacement": "Требует замены",
   "return_back": "Вернуться",
   "invoice_terms1": "Нажимая кнопку Вы соглашаетесь с ",
   "invoice_terms2": "Условиями ",
@@ -583,7 +581,6 @@ class CodegenLoader extends AssetLoader{
   "invoice_terms5": "Политикой конфиденциальности",
   "invoice_terms6": "",
   "invoice_terms7": ""
->>>>>>> 7c98135efb7be4962bac966da59f43e3fb237185
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -1138,13 +1135,11 @@ static const Map<String,dynamic> uz = {
   "choose_time": "Vaqtni tanlang",
   "link_copied": "Havoladan nusxa olindi",
   "a_week": "haftadan beri",
-<<<<<<< HEAD
   "ideal": "Ideal",
   "scratched": "Shikastlangan",
   "replaced": "Almashtirilgan",
   "withDents": "Chiziqlar bilan",
-  "requiresReplacement": "O'zgartirishni talab qiladi"
-=======
+  "requiresReplacement": "O'zgartirishni talab qiladi",
   "return_back": "Ortga qaytish",
   "invoice_terms1": "Tugmani bosish orqali siz ",
   "invoice_terms2": "Foydalanish ",
@@ -1153,7 +1148,6 @@ static const Map<String,dynamic> uz = {
   "invoice_terms5": "siyosati",
   "invoice_terms6": "ga ",
   "invoice_terms7": "rozi bo’lasiz"
->>>>>>> 7c98135efb7be4962bac966da59f43e3fb237185
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }
