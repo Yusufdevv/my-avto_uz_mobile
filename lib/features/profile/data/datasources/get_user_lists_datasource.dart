@@ -66,9 +66,13 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
       );
       log(':::::::::: GOTTEN DATA OF MY ADS:  ${response.data} \n SEPERATOR SEPERATOR SEPERATOR SEPERATOR SEPERATOR SEPERATOR   ::::::::::');
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        final data = GenericPagination<T>.fromJson(
-            response.data!, (data) => fromJson(data as Map<String, dynamic>));
-        return Right(data);
+        try{
+          final data = GenericPagination<T>.fromJson(
+              response.data!, (data) => fromJson(data as Map<String, dynamic>));
+          return Right(data);
+        }catch (e){
+          log(':::::::::: CATCHEN EXCEPTION OF MY ADS:  ${e.toString()}  ::::::::::');
+        }
       }
       throw ServerException(
           statusCode: response.statusCode ?? 0,

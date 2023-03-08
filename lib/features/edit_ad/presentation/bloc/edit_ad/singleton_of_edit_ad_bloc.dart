@@ -188,7 +188,7 @@ class EASingleton {
           : null,
       isCallTimed: v.contactAvailableFrom.isNotEmpty &&
           v.contactAvailableFrom.isNotEmpty,
-      colorName: v.color,
+      colorName: 'v.color',
       damagedParts: damagedPartAdopter(v.damagedParts),
       currency: v.currency,
       description: v.description,

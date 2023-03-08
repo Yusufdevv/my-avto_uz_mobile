@@ -85,7 +85,7 @@ AutoModel _$AutoModelFromJson(Map<String, dynamic> json) => AutoModel(
       contactAvailableFrom: json['contact_available_from'] as String? ?? '',
       contactAvailableTo: json['contact_available_to'] as String? ?? '',
       absoluteCarName: json['absolute_car_name'] as String? ?? '',
-      color: json['color'] as String? ?? '',
+      color: json['color'] as int? ?? -1,
       locationUrl: json['location_url'] as String? ?? '',
       mileageImage: json['mileage_image'] as String? ?? '',
       purchaseDate: json['purchase_date'] as String? ?? '',
