@@ -67,14 +67,16 @@ class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
 
     ///
     on<GetInvoiceStatusEvent>((event, emit) async {
-      // emit(state.copyWith(status: FormzStatus.submissionInProgress));
+      emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await _getStatusInvoiceUseCase.call(NoParams());
       if (result.isRight) {
         emit(state.copyWith(
-            // status: FormzStatus.submissionSuccess,
+            status: FormzStatus.submissionSuccess,
             invoiceStatus: result.right));
+        event.onSucces();
       } else {
-        // emit(state.copyWith(status: FormzStatus.submissionFailure));
+        event.onError();
+        emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     });
   }
