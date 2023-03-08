@@ -20,7 +20,7 @@ class PostingAdState extends Equatable {
   final List<GearboxTypeEntity> gearBoxes;
   final int? driveTypeId;
   final List<DriveTypeEntity> driveTypes;
-  final int? engineId;
+  final EngineTypeEntity? engineId;
   final List<EngineTypeEntity> engines;
   final MakeEntity? model;
   final List<MakeEntity> models;
@@ -202,7 +202,7 @@ class PostingAdState extends Equatable {
     List<GearboxTypeEntity>? gearBoxes,
     int? driveTypeId,
     List<DriveTypeEntity>? driveTypes,
-    int? engineId,
+    EngineTypeEntity? engineId,
     List<EngineTypeEntity>? engines,
     MakeEntity? model,
     List<MakeEntity>? models,
@@ -253,6 +253,7 @@ class PostingAdState extends Equatable {
     bool? rentToBuy,
     bool? isWithoutMileage,
     bool? showExactAddress,
+    bool isGasEquipmentsToNull = false,
     GlobalKey<FormState>? contactsFormKey,
     List<GasEquipmentEntity>? gasEquipments,
     int? gasEquipmentId,
@@ -341,7 +342,9 @@ class PostingAdState extends Equatable {
         regions: regions ?? this.regions,
         toastMessage: toastMessage,
         gasEquipments: gasEquipments ?? this.gasEquipments,
-        gasEquipmentId: gasEquipmentId ?? this.gasEquipmentId,
+        gasEquipmentId: isGasEquipmentsToNull
+            ? null
+            : gasEquipmentId ?? this.gasEquipmentId,
         equipments: equipments ?? this.equipments,
         equipment: isEquipmentToNull ? null : equipment ?? this.equipment,
         equipmentOptionsList: equipmentOptionsList ?? this.equipmentOptionsList,

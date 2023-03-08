@@ -365,18 +365,17 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                       callTimeFrom: state.callTimeFrom,
                                       callTimeTo: state.callTimeTo,
                                       formKey: state.contactsFormKey,
-                                      onSubmitPhonePressed: (){
-
-                                       postingAdBloc.add(
+                                      onSubmitPhonePressed: () {
+                                        postingAdBloc.add(
                                             PostingAdSendCodeEvent(
                                                 phone:
-                                                state.phoneController.text,
+                                                    state.phoneController.text,
                                                 onSuccess: (session) {
                                                   showModalBottomSheet<dynamic>(
                                                       useRootNavigator: true,
                                                       isScrollControlled: true,
                                                       backgroundColor:
-                                                      Colors.transparent,
+                                                          Colors.transparent,
                                                       isDismissible: false,
                                                       context: context,
                                                       builder: (context) =>
@@ -385,14 +384,14 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                                               phoneNumber: state
                                                                   .phoneController
                                                                   .text)).then(
-                                                          (value) {
-                                                        if (value is bool) {
-                                                          context
-                                                              .read<PostingAdBloc>()
-                                                              .add(
+                                                      (value) {
+                                                    if (value is bool) {
+                                                      context
+                                                          .read<PostingAdBloc>()
+                                                          .add(
                                                             PostingAdChooseEvent(
                                                               isContactsVerified:
-                                                              value,
+                                                                  value,
                                                               ownerEmail: state
                                                                   .emailController
                                                                   .text,
@@ -404,13 +403,14 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                                                   .text,
                                                             ),
                                                           );
-                                                        } else if (value is String) {
-                                                          context
-                                                              .read<PostingAdBloc>()
-                                                              .add(
+                                                    } else if (value
+                                                        is String) {
+                                                      context
+                                                          .read<PostingAdBloc>()
+                                                          .add(
                                                             PostingAdChooseEvent(
                                                               isContactsVerified:
-                                                              false,
+                                                                  false,
                                                               ownerEmail: state
                                                                   .emailController
                                                                   .text,
@@ -422,16 +422,16 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                                                   .text,
                                                             ),
                                                           );
-                                                          context
-                                                              .read<ShowPopUpBloc>()
-                                                              .add(ShowPopUp(
-                                                            message:
-                                                            value.toString(),
+                                                      context
+                                                          .read<ShowPopUpBloc>()
+                                                          .add(ShowPopUp(
+                                                            message: value
+                                                                .toString(),
                                                             status:
-                                                            PopStatus.error,
+                                                                PopStatus.error,
                                                           ));
-                                                        }
-                                                      });
+                                                    }
+                                                  });
                                                 }));
                                       },
                                       onPhoneChanged: (value) {
@@ -490,12 +490,13 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                     InspectionPlaceScreen(
                                       onToMapPressed: () {
                                         Navigator.push(
-                                          context,
-                                          fade(
-                                              page: const MapScreenPostingAd()),
-                                        ).then(
+                                                context,
+                                                fade(
+                                                    page:
+                                                        const MapScreenPostingAd()))
+                                            .then(
                                           (latLongZoom) {
-                                          if (latLongZoom is List<double>) {
+                                            if (latLongZoom is List<double>) {
                                               postingAdBloc.add(
                                                 PostingAdGetMapScreenShotEvent(
                                                   lat: latLongZoom[0],
