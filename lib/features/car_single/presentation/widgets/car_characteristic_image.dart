@@ -44,8 +44,6 @@ class _CarCharacteristicImageState extends State<CarCharacteristicImage> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    log(':::::::::: damageType:  ${widget.informAboutDoors.length} / ${widget.informAboutDoors.first.damageType}  ::::::::::');
-    log(':::::::::: part:  ${widget.informAboutDoors.length} / ${widget.informAboutDoors.first.part}  ::::::::::');
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       margin: const EdgeInsets.only(bottom: 12),

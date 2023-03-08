@@ -26,7 +26,10 @@ CarSingleModel _$CarSingleModelFromJson(Map<String, dynamic> json) =>
           : const RentCarModelsConverter()
               .fromJson(json['model'] as Map<String, dynamic>?),
       currency: json['currency'] as String? ?? '',
-      color: json['color'] as String? ?? '',
+      color: json['color'] == null
+          ? const ColorEntity()
+          : const ColorConverter()
+              .fromJson(json['color'] as Map<String, dynamic>?),
       price: json['price'] as String? ?? '',
       engineType: json['engine_type'] == null
           ? const RentCarEngineTypeEntity()
@@ -134,7 +137,7 @@ Map<String, dynamic> _$CarSingleModelToJson(CarSingleModel instance) =>
       'published_at': instance.publishedAt,
       'year': instance.year,
       'distance_traveled': instance.distanceTraveled,
-      'color': instance.color,
+      'color': const ColorConverter().toJson(instance.color),
       'generation': const CarGenerationConverter().toJson(instance.generation),
       'body_type': const RentCarBodyTypeConverter().toJson(instance.bodyType),
       'drive_type':

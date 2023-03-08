@@ -1892,7 +1892,7 @@ class _$_SearchState implements _SearchState {
       this.suggestionsCount = 0,
       this.suggestionsFetchMore = false,
       this.suggestionsStatus = FormzStatus.pure,
-      this.sortStatus = SortStatus.newest})
+      this.sortStatus = SortStatus.none})
       : _searchResults = searchResults,
         _suggestions = suggestions;
 

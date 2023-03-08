@@ -10,13 +10,24 @@ class PayInvoiceEvent extends InvoiceEvent {
   final String provider;
   final String tariffType;
   final Function() onSucces;
+  final Function() onError;
 
   PayInvoiceEvent({
     required this.announcement,
     required this.provider,
     required this.tariffType,
     required this.onSucces,
+    required this.onError,
   });
 }
 
-class GetInvoiceStatusEvent extends InvoiceEvent {}
+class GetInvoiceStatusEvent extends InvoiceEvent {
+  final Function() onSucces;
+  final Function() onError;
+
+  GetInvoiceStatusEvent({
+    required this.onSucces,
+    required this.onError,
+  });
+
+}

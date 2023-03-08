@@ -3,11 +3,13 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/car_single/presentation/bloc/invoice_bloc/invoice_bloc.dart';
+import 'package:auto/features/car_single/presentation/parts/invoice_in_progress.dart';
 import 'package:auto/features/car_single/presentation/widgets/invoice_termsofsuse.dart';
 import 'package:auto/features/car_single/presentation/widgets/select_pay_way.dart';
 import 'package:auto/features/car_single/presentation/widgets/tarif_item.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -179,7 +181,7 @@ class _InvoicePageState extends State<InvoicePage> with WidgetsBindingObserver {
                       ),
                       Column(
                         children: [
-                         const InvoiceTermsOfUse(),
+                          const InvoiceTermsOfUse(),
                           const SizedBox(height: 16),
                           WButton(
                             isLoading: state.payStatus.isSubmissionInProgress,
@@ -196,7 +198,17 @@ class _InvoicePageState extends State<InvoicePage> with WidgetsBindingObserver {
                                   onSucces: () async {
                                     await launchUrl(Uri.parse(
                                         state.paymentEntity.paymentUrl ?? '/'));
+                                    await Navigator.push(
+                                      context,
+                                      fade(
+                                        page: BlocProvider.value(
+                                          value: bloc,
+                                          child: const InvoiceInProgress(),
+                                        ),
+                                      ),
+                                    );
                                   },
+                                  onError: () {},
                                 ),
                               );
                             },

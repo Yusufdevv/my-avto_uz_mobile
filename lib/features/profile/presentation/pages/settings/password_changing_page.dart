@@ -33,7 +33,7 @@ class PasswordChangingPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  LocaleKeys.need_code_from_sms.tr(),
+                  LocaleKeys.to_change_your_password.tr(),
                   style: Theme.of(context).textTheme.displayMedium,
                 ),
                 ConstrainedBox(constraints: const BoxConstraints(maxHeight: 64, minHeight: 36, minWidth: double.maxFinite), child: const SizedBox(),),

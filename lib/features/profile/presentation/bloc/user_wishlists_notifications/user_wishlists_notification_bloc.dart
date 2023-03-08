@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:auto/features/profile/domain/entities/my_searches_entity.dart';
@@ -119,12 +121,12 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
 
   Future<void> _onGetUserMyAds(
       GetUserMyAdsEvent event, Emitter<UserWishListsState> emit) async {
-    emit(state.copyWith(myAdsStatus: FormzStatus.submissionInProgress));
+     emit(state.copyWith(myAdsStatus: FormzStatus.submissionInProgress));
     final result = await profileFavoritesMyAdsUseCase.call(Params(
         endpoint: '/car/my-announcements/',
         moderationStatus: event.moderationStatus));
-    if (result.isRight) {
-      emit(state.copyWith(
+     if (result.isRight) {
+       emit(state.copyWith(
         myAdsStatus: FormzStatus.submissionSuccess,
         myAds: result.right.results,
         nextMyAds: result.right.next,

@@ -391,7 +391,7 @@ abstract class  LocaleKeys {
   static const write_old_password = 'write_old_password';
   static const write_again = 'write_again';
   static const enter_Passowrd = 'enter_Passowrd';
-  static const need_code_from_sms = 'need_code_from_sms';
+  static const to_change_your_password = 'to_change_your_password';
   static const change_photo = 'change_photo';
   static const surname = 'surname';
   static const about_ads = 'about_ads';

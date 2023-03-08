@@ -13,13 +13,11 @@ import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/common/entities/position_entity.dart';
 import 'package:auto/features/common/models/yandex_search_model.dart';
 import 'package:auto/features/profile/domain/entities/dir_category_entity.dart';
-import 'package:auto/features/rent/data/models/region_model.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:jiffy/jiffy.dart';
@@ -569,6 +567,7 @@ class MyFunctions {
 
   static String getStatusTitle(DamageType? type) {
     /// the string requires .tr() suffix to get translated content
+    if (type == null) return LocaleKeys.not_shown;
     switch (type) {
       case DamageType.ideal:
         return LocaleKeys.ideal;
@@ -581,7 +580,6 @@ class MyFunctions {
       case DamageType.requiresReplacement:
         return LocaleKeys.requiresReplacement;
     }
-    return LocaleKeys.not_shown;
   }
 
   static DamageType strToDamageType(String status) {
@@ -612,22 +610,6 @@ class MyFunctions {
           : "Tasdiqlash kodi noto'g'ri kiritilgan";
     }
     return err;
-  }
-
-  static Widget getStatusIcon(String status) {
-    switch (status) {
-      case 'ideal':
-        return SvgPicture.asset(AppIcons.checkRounded, height: 20, width: 20);
-      case 'scratched':
-        return SvgPicture.asset(AppIcons.yellowWarning);
-      case 'replaced':
-        return SvgPicture.asset(AppIcons.bl_ch, height: 24, width: 24);
-      case 'with_dents':
-        return SvgPicture.asset(AppIcons.blueWarning);
-      case 'requires_replacement':
-        return SvgPicture.asset(AppIcons.redWarning);
-    }
-    return const SizedBox();
   }
 
   static DamageType stringToDamageType(String status) {

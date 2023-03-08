@@ -229,7 +229,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       PostingAdSearchMakesEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(getMakesStatus: FormzStatus.submissionInProgress));
     final result = await makeUseCase
-        .call(GetMakeParam(offset: 0, limit: 1000, name: event.name));
+        .call(GetMakeParam(offset: 0, limit: 1000, name: event.name??''));
     if (result.isRight) {
       emit(state.copyWith(
           getMakesStatus: FormzStatus.submissionSuccess,
@@ -576,10 +576,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       year: state.yearEntity?.yearBegin,
     ));
     if (result.isRight) {
-      log(':::::::::: GENERATION next: ${result.right.next}  ::::::::::');
-      log(':::::::::: GENERATION previous: ${result.right.previous}  ::::::::::');
-      log(':::::::::: GENERATION count: ${result.right.count}  ::::::::::');
-      final generations = result.right.results;
+     final generations = result.right.results;
       emit(state.copyWith(
           generations: generations,
           status: FormzStatus.submissionSuccess,
@@ -739,13 +736,11 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
                       equipments: state.equipments,
                       lastEquipmentId: lastEquipmentId),
               sR: state.radioOptions,
-              sS: m,
-              wheree: ' pa line 754');
+              sS: m );
         } else {
           m[event.id] = event.selectOption!;
           equipment = PASingleton.isEquipmentFull(
-            wheree: 'pa line 756',
-            equipment: state.equipment ??
+             equipment: state.equipment ??
                 PASingleton.isEquipmentAvailable(
                     where: 'line 749',
                     equipments: state.equipments,
@@ -772,7 +767,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         m[event.id] = event.itemName;
 
         equipment = PASingleton.isEquipmentFull(
-          wheree: 'pa line 788',
           equipment: state.equipment ??
               PASingleton.isEquipmentAvailable(
                   where: 'line 775',
@@ -802,8 +796,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
                     equipments: state.equipments,
                     lastEquipmentId: state.lastEquipmentId),
             sR: state.radioOptions,
-            sS: m,
-            wheree: 'pa line 833');
+            sS: m );
 
         if (equipment == null) {
           lastEquipmentId = state.equipment?.id;
@@ -828,8 +821,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
                     equipments: state.equipments,
                     lastEquipmentId: state.lastEquipmentId),
             sR: m,
-            sS: state.selectOptions,
-            wheree: 'pa line 866');
+            sS: state.selectOptions );
 
         if (equipment == null) {
           lastEquipmentId = state.equipment?.id;

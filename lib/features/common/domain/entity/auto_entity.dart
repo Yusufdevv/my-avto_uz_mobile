@@ -52,7 +52,7 @@ class AutoEntity extends Equatable {
     this.contactAvailableFrom = '',
     this.contactAvailableTo = '',
     this.absoluteCarName = '',
-    this.color = '',
+    this.color = -1,
     this.purchaseDate = '',
     this.expiredAt = '',
     this.locationUrl = '',
@@ -96,7 +96,7 @@ class AutoEntity extends Equatable {
   final String licenceType;
   final String moderationStatus;
   final String absoluteCarName;
-  final String color;
+  final int color;
   final String ownership;
   final String purchaseDate;
   final String description;
@@ -170,7 +170,7 @@ class AutoEntity extends Equatable {
         isWishlisted,
         isComparison,
         absoluteCarName,
-        color,
+        color ,
         locationUrl,
         mileageImage,
         purchaseDate,

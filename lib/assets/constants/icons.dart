@@ -236,10 +236,7 @@ class AppIcons {
 
   static const moreVertical = 'assets/icons/car_single/more.svg';
   static const note = 'assets/icons/car_single/note.svg';
-  static const blueWarning = 'assets/icons/car_single/blue_warning.svg';
   static const blueCheckRounded = 'assets/icons/car_single/blue_check.svg';
-  static const redWarning = 'assets/icons/car_single/red_warning.svg';
-  static const yellowWarning = 'assets/icons/car_single/yellow_warning.svg';
   static const comparGreen = 'assets/icons/car_single/compar_green.svg';
   static const comparison = 'assets/icons/global/comparison.svg';
   static const puzzle = 'assets/icons/global/puzzle.svg';
@@ -273,7 +270,6 @@ class AppIcons {
   static const wait = 'assets/images/car_single/waiting.svg';
   static const mercedes = 'assets/icons/car_single/benz.svg';
   static const eye2 = 'assets/icons/car_single/eye2.svg';
-  static const bl_ch = 'assets/icons/car_single/bl_ch.svg';
   static const dtp_red = 'assets/icons/car_single/dtp_red.svg';
   static const surface = 'assets/icons/car_single/surface.svg';
   static const ellip = 'assets/icons/car_single/ellip.svg';

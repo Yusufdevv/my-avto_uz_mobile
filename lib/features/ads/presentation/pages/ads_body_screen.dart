@@ -44,7 +44,7 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
             if (state.status.isSubmissionInProgress) {
               return const Center(child: CupertinoActivityIndicator());
             } else if (state.status.isSubmissionFailure) {
-              return const NoDataWidget();
+              return const SizedBox();
             } else if (state.status.isSubmissionSuccess) {
               if (state.announcementList.isNotEmpty) {
                 return NotificationListener<OverscrollIndicatorNotification>(
@@ -80,7 +80,7 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                                 : state
                                     .announcementList[index].dealer.phoneNumber,
                             avatarPicture:
-                                state.announcementList[index].user.avatar,
+                                state.announcementList[index].user.image,
                             carModel:
                                 '${state.announcementList[index].make} ${state.announcementList[index].model} ${state.announcementList[index].generation.name}',
                             hasDiscount:

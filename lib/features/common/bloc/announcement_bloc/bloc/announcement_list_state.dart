@@ -39,7 +39,7 @@ class AnnouncementListState extends Equatable {
     this.yearValues,
     this.priceValues,
     this.currency = Currency.none,
-    this.sortStatus = SortStatus.newest,
+    this.sortStatus = SortStatus.none,
     this.gearboxType,
     this.bodyType,
     this.driveType,

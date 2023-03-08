@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
 import 'package:auto/features/ads/domain/usecases/get_announcement_list_usecase.dart';
+import 'package:auto/features/profile/domain/entities/my_searches_entity.dart';
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -9,15 +13,18 @@ part 'get_car_model_event.dart';
 
 part 'get_car_model_state.dart';
 
-part 'get_car_model_bloc.freezed.dart';
 
 class GetCarModelBloc extends Bloc<GetCarModelEvent, GetCarModelState> {
   final GetCarModelUseCase useCase = GetCarModelUseCase();
   GetAnnouncementListUseCase getAnnouncementListUseCase =
       GetAnnouncementListUseCase();
 
-  GetCarModelBloc() : super(GetCarModelState()) {
-    on<_GetCarModel>((event, emit) async {
+  GetCarModelBloc()
+      : super(const GetCarModelState(
+          status: FormzStatus.pure,
+          getAnnouncementStatus: FormzStatus.pure,
+        )) {
+    on<GetCarModelGetEvent>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await useCase.call(event.getId, name: event.search);
       if (result.isRight) {
@@ -33,18 +40,17 @@ class GetCarModelBloc extends Bloc<GetCarModelEvent, GetCarModelState> {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     });
-    on<_GetMakeId>((event, emit) => emit(state.copyWith(getId: event.id)));
-    on<_SelectedModelItem>((event, emit) {
+    on<GetCarModelGetMakeIdEvent>(
+        (event, emit) => emit(state.copyWith(getId: event.id)));
+    on<GetCarModelSelectModelEvent>((event, emit) {
       emit(state.copyWith(
           selectedId: event.selectedId, selectedModel: event.model));
     });
-    on<_ConfirmModel>((event, emit) {
-      emit(state.copyWith(confirmId: state.selectedId));
+    on<GetCarModelConfirmModelEvent>((event, emit) {
+      emit(state.copyWith(confirmId: state.selectedModel.id));
     });
-    on<_RevertModel>((event, emit) {
-      emit(state.copyWith(selectedId: state.confirmId));
-    });
-    on<_GetAnnouncementList>((event, emit) async {
+
+    on<GetCarModelGetAnnouncementListEvent>((event, emit) async {
       if (event.makeId == -1 || event.modelId == -1) {
         return;
       }
