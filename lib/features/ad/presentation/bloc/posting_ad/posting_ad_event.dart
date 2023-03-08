@@ -130,7 +130,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
 
   final int? popularTypeId;
   final MakeEntity? make;
-  final int? engineId;
+  final EngineTypeEntity? engineId;
   final BodyTypeEntity? bodyType;
   final int? driveTypeId;
   final GearboxTypeEntity? gearbox;
@@ -154,7 +154,6 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final String? callTimeTo;
   final String? where;
   final String? toastMessage;
-  final bool? hasGasBalloon;
   final bool? isRastamojen;
   final bool? isCallTimed;
   final bool? showOwnerContacts;
@@ -210,7 +209,6 @@ class PostingAdChooseEvent extends PostingAdEvent {
     this.price,
     this.currency,
     this.mileage,
-    this.hasGasBalloon,
     this.callTimeFrom,
     this.callTimeTo,
     this.isCallTimed,
