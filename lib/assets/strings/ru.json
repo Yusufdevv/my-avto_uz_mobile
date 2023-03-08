@@ -551,6 +551,10 @@
   "litre": "л",
   "choose_time": "Выберите время",
   "link_copied": "Ссылка скопирована",
-  "a_week": "неделя"
-
+  "a_week": "неделя",
+  "ideal": "Идеальное",
+  "scratched": "Повреждено",
+  "replaced": "Заменено",
+  "withDents": "С вмятинами",
+  "requiresReplacement": "Требует замены"
 }

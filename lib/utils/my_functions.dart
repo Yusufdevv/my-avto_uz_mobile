@@ -15,6 +15,7 @@ import 'package:auto/features/common/models/yandex_search_model.dart';
 import 'package:auto/features/profile/domain/entities/dir_category_entity.dart';
 import 'package:auto/features/rent/data/models/region_model.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
+import 'package:auto/generated/locale_keys.g.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -467,36 +468,36 @@ class MyFunctions {
           r'^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z\-\d]+\.)+[a-zA-Z]{2,}))$')
       .hasMatch(email);
 
-  static String getDamagedPartName(String door) {
-    final lang = StorageRepository.getString('language');
+  static String getDamagedPartName(DamagedPart part) {
+    /// the string requires .tr() suffix to get translated content
 
-    switch (door) {
-      case 'left_front_door':
-        return lang == 'ru' ? 'Левая передняя дверь' : 'Chap old eshik';
-      case 'rigth_front_door':
-        return lang == 'ru' ? 'Правая передняя дверь' : "O'ng old eshik";
-      case 'left_rear_door':
-        return lang == 'ru' ? 'Левая задняя дверь' : 'Chap orqa eshik';
-      case 'right_rear_door':
-        return lang == 'ru' ? 'Правая задняя дверь' : "O'ng orqa eshik";
-      case 'front_bumper':
-        return lang == 'ru' ? 'Передний бамфер' : 'Old bamper';
-      case 'rear_bumper':
-        return lang == 'ru' ? 'Задний бамфер' : 'Orqa bamper';
-      case 'front_left_fender':
-        return lang == 'ru' ? 'Переднее левое крыло' : 'Old chap qanot';
-      case 'front_right_fender':
-        return lang == 'ru' ? 'Переднее правое крыло' : "Old o'ng qanot";
-      case 'rear_left_fender':
-        return lang == 'ru' ? 'Заднее левое крыло' : 'Orqa chap qanot';
-      case 'rear_right_fender':
-        return lang == 'ru' ? 'Заднее правое крыло' : "Orqa o'ng qanot";
-      case 'roof':
-        return lang == 'ru' ? 'Крыша' : 'Tom';
-      case 'hood':
-        return lang == 'ru' ? 'Капот' : 'Kapot';
-      case 'trunk':
-        return lang == 'ru' ? 'Багажник' : 'Yukxona';
+    switch (part) {
+      case DamagedPart.leftFrontDoor:
+        return LocaleKeys.left_front_door;
+      case DamagedPart.rightFrontDoor:
+        return LocaleKeys.right_front_door;
+      case DamagedPart.leftRearDoor:
+        return LocaleKeys.left_rear_door;
+      case DamagedPart.rightRearDoor:
+        return LocaleKeys.right_rear_door;
+      case DamagedPart.frontBumper:
+        return LocaleKeys.front_bumper;
+      case DamagedPart.rearBumper:
+        return LocaleKeys.back_bumper;
+      case DamagedPart.frontLeftFender:
+        return LocaleKeys.left_front_fender;
+      case DamagedPart.frontRightFender:
+        return LocaleKeys.right_front_fender;
+      case DamagedPart.rearLeftFender:
+        return LocaleKeys.left_back_fender;
+      case DamagedPart.rearRightFender:
+        return LocaleKeys.right_back_fender;
+      case DamagedPart.roof:
+        return LocaleKeys.roof;
+      case DamagedPart.hood:
+        return LocaleKeys.hood;
+      case DamagedPart.trunk:
+        return LocaleKeys.trunk;
     }
     return '';
   }
@@ -539,25 +540,25 @@ class MyFunctions {
       required double height}) {
     switch (part) {
       case DamagedPart.leftFrontDoor:
-        return DamagePosition(right: width * 0.3, bottom: 35);
-      case DamagedPart.rightFrontDoor:
         return DamagePosition(left: width * 0.3, top: 35);
+      case DamagedPart.rightFrontDoor:
+        return DamagePosition(right: width * 0.3, bottom: 42);
       case DamagedPart.leftRearDoor:
-        return DamagePosition(bottom: 40, left: width * 0.24);
+        return DamagePosition(top: 35, right: width * 0.24);
       case DamagedPart.rightRearDoor:
-        return DamagePosition(right: width * 0.22, top: 35);
+        return DamagePosition(left: width * 0.22, bottom: 42);
       case DamagedPart.frontBumper:
         return DamagePosition(top: height * 0.196, left: width * 0.136);
       case DamagedPart.rearBumper:
         return DamagePosition(bottom: height * 0.145, right: width * 0.133);
       case DamagedPart.frontLeftFender:
-        return DamagePosition(right: width * 0.12, bottom: 42);
+        return DamagePosition(left: width * 0.12, top: 28);
       case DamagedPart.frontRightFender:
-        return DamagePosition(left: width * 0.12, top: 25);
+        return DamagePosition(right: width * 0.12, bottom: 46);
       case DamagedPart.rearLeftFender:
-        return DamagePosition(left: width * 0.09, bottom: 44);
+        return DamagePosition(right: width * 0.09, top: 28);
       case DamagedPart.rearRightFender:
-        return DamagePosition(right: width * 0.08, top: 28);
+        return DamagePosition(left: width * 0.08, bottom: 48);
       case DamagedPart.roof:
         return DamagePosition(top: height * 0.122, left: width * 0.133);
       case DamagedPart.hood:
@@ -567,24 +568,21 @@ class MyFunctions {
     }
   }
 
-  static String getStatusTitle(String status) {
-    final language = StorageRepository.getString('language');
-
-    switch (status) {
-      case 'ideal':
-        return language == 'ru' ? 'Идеальное' : 'Ideal';
-      case 'scratched':
-        return language == 'ru' ? 'Повреждено' : 'Shikastlangan';
-      case 'replaced':
-        return language == 'ru' ? 'Заменено' : 'Almashtirilgan';
-      case 'with_dents':
-        return language == 'ru' ? 'С вмятинами' : 'Chiziqlar bilan';
-      case 'requires_replacement':
-        return language == 'ru'
-            ? 'Требует замены'
-            : "O'zgartirishni talab qiladi";
+  static String getStatusTitle(DamageType? type) {
+    /// the string requires .tr() suffix to get translated content
+    switch (type) {
+      case DamageType.ideal:
+        return LocaleKeys.ideal;
+      case DamageType.scratched:
+        return LocaleKeys.scratched;
+      case DamageType.replaced:
+        return LocaleKeys.replaced;
+      case DamageType.withDents:
+        return LocaleKeys.withDents;
+      case DamageType.requiresReplacement:
+        return LocaleKeys.requiresReplacement;
     }
-    return language == 'ru' ? 'Не показано' : "Ko'rsatilmagan";
+    return LocaleKeys.not_shown;
   }
 
   static DamageType strToDamageType(String status) {

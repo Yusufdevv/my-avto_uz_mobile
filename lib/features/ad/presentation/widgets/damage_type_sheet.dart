@@ -97,7 +97,7 @@ class _DamageTypeChooseSheetState extends State<DamageTypeChooseSheet> {
                             const SizedBox(width: 8),
                             Text(
                               MyFunctions.getStatusTitle(
-                                  DamageType.values[index].value),
+                                  DamageType.values[index]).tr(),
                               style: DamageType.values[index] == selected
                                   ? Theme.of(context)
                                       .textTheme

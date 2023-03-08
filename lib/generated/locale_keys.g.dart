@@ -554,5 +554,10 @@ abstract class  LocaleKeys {
   static const choose_time = 'choose_time';
   static const link_copied = 'link_copied';
   static const a_week = 'a_week';
+  static const ideal = 'ideal';
+  static const scratched = 'scratched';
+  static const replaced = 'replaced';
+  static const withDents = 'withDents';
+  static const requiresReplacement = 'requiresReplacement';
 
 }

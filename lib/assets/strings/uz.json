@@ -550,6 +550,11 @@
   "litre": "l",
   "choose_time": "Vaqtni tanlang",
   "link_copied": "Havoladan nusxa olindi",
-  "a_week": "haftadan beri"
+  "a_week": "haftadan beri",
+  "ideal": "Ideal",
+  "scratched": "Shikastlangan",
+  "replaced": "Almashtirilgan",
+  "withDents": "Chiziqlar bilan",
+  "requiresReplacement": "O'zgartirishni talab qiladi"
 
 }
