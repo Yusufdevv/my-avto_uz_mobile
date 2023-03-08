@@ -122,8 +122,7 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
   /// it will be called
   FutureOr<void> _onOptionChanged(
       EditAdChangeOption event, Emitter<EditAdState> emit) {
-    log(':::::::::::   get change option triggered  isAdd: ${event.isAdd}  event.type: ${event.type}  event.selected option id: ${event.selectOption}::::::::::::::');
-    if (event.isAdd) {
+   if (event.isAdd) {
       if (event.type == 'select') {
         var m = state.selectOptions.map(MapEntry.new);
         int? lastEquipmentId;
@@ -142,12 +141,10 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
                       equipments: state.equipments,
                       lastEquipmentId: state.lastEquipmentId),
               sR: state.radioOptions,
-              sS: m,
-              wheree: 'ea line 754');
+              sS: m);
         } else {
           m[event.id] = event.selectOption!;
           equipment = PASingleton.isEquipmentFull(
-            wheree: 'ea line 756',
             equipment: state.equipment ??
                 PASingleton.isEquipmentAvailable(
                     where: 'line ea 150',
@@ -173,7 +170,6 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
         m[event.id] = event.itemName;
         if (state.equipments.any((e) => e.id == state.lastEquipmentId)) {
           equipment = PASingleton.isEquipmentFull(
-            wheree: 'ea line 788',
             equipment: state.equipment ??
                 PASingleton.isEquipmentAvailable(
                     where: 'line ea 175',
@@ -205,8 +201,7 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
                     equipments: state.equipments,
                     lastEquipmentId: state.lastEquipmentId),
             sR: state.radioOptions,
-            sS: m,
-            wheree: 'ea line 833');
+            sS: m);
         if (equipment == null) {
           lastEquipmentId = state.equipment?.id;
         }
@@ -230,8 +225,7 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
                     equipments: state.equipments,
                     lastEquipmentId: state.lastEquipmentId),
             sR: m,
-            sS: state.selectOptions,
-            wheree: 'ea line 866');
+            sS: state.selectOptions);
 
         if (equipment == null) {
           lastEquipmentId = state.equipment?.id;
@@ -299,7 +293,6 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
 
   FutureOr<void> _addEvent(
       EditAdAddEventForEveryPage event, Emitter<EditAdState> emit) {
-    log('::::::::::  ADD EVENT FOR EVERY PAGE TRIGGERED: ${event.page}');
     switch (event.page) {
       case 3:
         add(EditAdGetEquipments());
@@ -323,8 +316,7 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
     final result = await screenShotUseCase
         .call({'longitude': '${event.long}', 'latitude': '${event.lat}'});
     if (result.isRight) {
-      log(':::::::::: gottten result of mapPointBytes right:  ${result.right}  ::::::::::');
-      emit(state.copyWith(
+       emit(state.copyWith(
           status: FormzStatus.submissionSuccess, mapPointBytes: result.right));
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
@@ -516,9 +508,7 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await getEquipmentsUseCase.call(
         {'search': '', 'limit': 100, 'offset': 0, 'modelId': state.model?.id});
-    log(':::::::::: GOTTEN EQUIPMENT RESULT:  ${result}  ::::::::::');
     if (result.isRight) {
-      log(':::::::::: EQUIPMENT RESULT IS RIGHT:  ${result.right.results}  ::::::::::');
 
       final equipments = result.right.results;
       emit(state.copyWith(

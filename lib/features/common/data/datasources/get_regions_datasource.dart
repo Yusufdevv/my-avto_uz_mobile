@@ -31,7 +31,6 @@ class GetRegionsDatasourceImpl extends GetRegionsDatasourse {
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
-        log(':::::::::: Gotten regions in sadfasd: ${response.data}  ::::::::::');
         return (response.data['results'] as List)
             // ignore: unnecessary_lambdas
             .map((e) => RegionModel.fromJson(e))

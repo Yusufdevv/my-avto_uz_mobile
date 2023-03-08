@@ -134,8 +134,7 @@ class EASingleton {
 
   static Future<EditAdState> stateForEdit(
       CarSingleEntity v, bool showExactAddress) async {
-    log(':::::::::: GOTTEN options IN EDIT: ${v.options}  ::::::::::');
-    String? phone = '';
+     String? phone = '';
     try {
       phone = MyFunctions.phoneFormat(v.user.phoneNumber.substring(4));
       // ignore: avoid_catches_without_on_clauses

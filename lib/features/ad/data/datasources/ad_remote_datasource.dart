@@ -187,8 +187,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
     int? makeId, {
     String? name,
   }) async {
-    log(':::::::::: GET CAR MODEL NAME: $name }  ::::::::::');
-    final response = await _dio.get('/car/$makeId/models/',
+     final response = await _dio.get('/car/$makeId/models/',
         options: Options(
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
@@ -816,7 +815,6 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
                   'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
             },
           ));
-      log(':::::::::: GOTTEN EQUIPMENTS: ${result.data}  ::::::::::');
       return GenericPagination.fromJson(result.data,
           (json) => EquipmentModel.fromJson(json as Map<String, dynamic>));
     } catch (e) {
@@ -844,9 +842,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
                   'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
             },
           ));
-      log(':::::::::: Gotten EquipmentOptionsListModels: ${result.data}  ::::::::::');
-      log(':::::::::::   Seperator Seperator Seperator Seperator Seperator Seperator Seperator Seperator     ::::::::::::::');
-      return GenericPagination.fromJson(
+       return GenericPagination.fromJson(
           result.data,
           (json) =>
               EquipmentOptionsListModel.fromJson(json as Map<String, dynamic>));
@@ -871,7 +867,6 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
                   'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
             },
           ));
-      log(':::::::::: GOTTEN EQUIPMETN OPTIONS:  ${result.data}  ::::::::::');
       return GenericPagination.fromJson(
           result.data,
           (json) =>
