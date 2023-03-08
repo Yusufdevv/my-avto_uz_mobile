@@ -33,11 +33,7 @@ class EquipmentScreen extends StatelessWidget {
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    for (var i = 0; i < equipmentOptionsList.length; i++) {
-      log(':::::::::: equipment name:  ${equipmentOptionsList[i].name}  ::::::::::');
-    }
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       body: BaseWidget(
         headerText: LocaleKeys.complectation.tr(),
         padding: const EdgeInsets.only(top: 16),
@@ -113,5 +109,4 @@ class EquipmentScreen extends StatelessWidget {
         ),
       ),
     );
-  }
 }

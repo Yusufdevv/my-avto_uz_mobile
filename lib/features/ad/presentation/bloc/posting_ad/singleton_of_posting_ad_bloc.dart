@@ -7,10 +7,7 @@ class PASingleton {
   PASingleton._();
 
   static Future<FormData> create(PostingAdState v) async {
-    log(':::::::::::   CREATE ANNOUNCEMENT TRIGGERED IN SINGLETON:     ::::::::::::::');
-
-    log(':::::::::::   EQIPMENT FOR COMPLETED    ::::::::::::::');
-    // ignore: prefer_final_locals
+   // ignore: prefer_final_locals
     var announcementFields = <String, dynamic>{
       'longitude': v.long,
       'latitude': v.lat,
@@ -376,8 +373,7 @@ class PASingleton {
                     false) &&
                 state.isContactsVerified) ||
             state.nameController.text.isNotEmpty && state.isContactsVerified);
-        log(':::::::::: ownername in validation of next button: ${state.ownerName}  ::::::::::');
-        return v;
+         return v;
 // InspectionPlaceScreen
       case 16:
         return !(state.regionId != null && state.districtId != null);
@@ -410,37 +406,21 @@ class PASingleton {
     final v = equipments.any((e) => e.id == lastEquipmentId)
         ? equipments.firstWhere((e) => e.id == lastEquipmentId)
         : null;
-    log(':::::::::: is equiopment available: returning: equipment: $v, lastId: $lastEquipmentId where: $where ::::::::::');
-    return v;
+     return v;
   }
 
   static EquipmentEntity? isEquipmentFull(
       {required EquipmentEntity? equipment,
       required Map<int, String> sR,
-      required Map<int, SO> sS,
-      required String wheree}) {
-    log('::::::::::: where:    $wheree    ::::::::::::::');
-    log(':::::::::: selected SS: $sS  ::::::::::');
-    log(':::::::::: selected radios: $sR  ::::::::::');
+      required Map<int, SO> sS }) {
 
     if (equipment == null) {
-      log(':::::::::::   returning due to equipment is null    ::::::::::::::');
-      return null;
+       return null;
     }
-    log('::::::::::  ${equipment.id}  ::::::::::');
-    for (var i = 0; i < equipment!.options.length; i++) {
-      log('::::::::::options id:  ${equipment.options[i].id}  ::::::::::');
-      log('::::::::::options option:  ${equipment.options[i].option}  ::::::::::');
-      log('::::::::::options item:  ${equipment.options[i].item}  ::::::::::');
-      for (var n = 0; n < equipment.options[i].option.items.length; n++) {
-        log('::::::::::items  id: ${equipment.options[i].option.items[n].id}  ::::::::::');
-        log('::::::::::items name:  ${equipment.options[i].option.items[n].name}  ::::::::::');
-      }
-    }
+
 
     var idf = 0;
     for (final e in equipment.options) {
-      log(':::::::::::   option dot id: ${e.option.id}    ::::::::::::::');
       if (e.option.type == 'select') {
         if (sS.containsKey(e.option.id)) {
           if (e.item.id == sS[e.option.id]?.id) {
@@ -450,19 +430,14 @@ class PASingleton {
         }
       } else {
         if (sR.containsKey(e.option.id)) {
-          log(':::::::::::   PLUCING FROM RADIO    ::::::::::::::');
-          idf++;
+         idf++;
           continue;
         }
       }
     }
-    log(':::::::::: IS EQUIPMENT TO NULL I IS:  $idf  equipment options length: ${equipment.options.length}::::::::::');
-    log(':::::::::: selected radios length:  ${sR.length}  selects lenth: ${sS.length}::::::::::');
     if (idf == equipment.options.length) {
-      log(':::::::::::   returning equipment    ::::::::::::::');
-      return equipment;
+     return equipment;
     } else {
-      log(':::::::::::   returning  null    ::::::::::::::');
       return null;
     }
   }

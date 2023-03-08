@@ -40,8 +40,7 @@ class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
     on<_GetIsCheck>((event, emit) => emit(state.copyWith(ischeck: true)));
 
     on<_GetMakes>((event, emit) async {
-      log(':::::::::: GET MAKES EVENT TRIGGERED IN FEKO PAGE}  ::::::::::');
-      emit(state.copyWith(status: FormzStatus.submissionInProgress));
+       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await useCase.call(state.search);
       if (result.isRight) {
         emit(
