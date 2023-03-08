@@ -199,7 +199,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     final result = await modificationUseCase.call(ModificationTypeParams(
         bodyTypeId: state.bodyType?.id,
         driveTypeId: state.driveTypeId,
-        engineTypeId: state.engineId,
+        engineTypeId: state.engineId?.id,
         gearBoxTypeTypeId: state.gearbox?.id,
         generationId: state.generationId,
         next: ''));
@@ -229,7 +229,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       PostingAdSearchMakesEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(getMakesStatus: FormzStatus.submissionInProgress));
     final result = await makeUseCase
-        .call(GetMakeParam(offset: 0, limit: 1000, name: event.name??''));
+        .call(GetMakeParam(offset: 0, limit: 1000, name: event.name ?? ''));
     if (result.isRight) {
       emit(state.copyWith(
           getMakesStatus: FormzStatus.submissionSuccess,
@@ -509,7 +509,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     final result = await driveTypeUseCase.call(DriveTypeParams(
       generationId: state.generationId,
       bodyTypeId: state.bodyType?.id,
-      engineTypeId: state.engineId,
+      engineTypeId: state.engineId?.id,
     ));
     if (result.isRight) {
       final driveTypes = result.right.results;
@@ -542,7 +542,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
           status: FormzStatus.submissionSuccess,
           engines: engines,
           engineId: engines.isNotEmpty && state.engineId == null
-              ? engines.first.id
+              ? engines.first
               : null,
         ),
       );
@@ -576,7 +576,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       year: state.yearEntity?.yearBegin,
     ));
     if (result.isRight) {
-     final generations = result.right.results;
+      final generations = result.right.results;
       emit(state.copyWith(
           generations: generations,
           status: FormzStatus.submissionSuccess,
@@ -736,11 +736,11 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
                       equipments: state.equipments,
                       lastEquipmentId: lastEquipmentId),
               sR: state.radioOptions,
-              sS: m );
+              sS: m);
         } else {
           m[event.id] = event.selectOption!;
           equipment = PASingleton.isEquipmentFull(
-             equipment: state.equipment ??
+            equipment: state.equipment ??
                 PASingleton.isEquipmentAvailable(
                     where: 'line 749',
                     equipments: state.equipments,
@@ -796,7 +796,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
                     equipments: state.equipments,
                     lastEquipmentId: state.lastEquipmentId),
             sR: state.radioOptions,
-            sS: m );
+            sS: m);
 
         if (equipment == null) {
           lastEquipmentId = state.equipment?.id;
@@ -821,7 +821,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
                     equipments: state.equipments,
                     lastEquipmentId: state.lastEquipmentId),
             sR: m,
-            sS: state.selectOptions );
+            sS: state.selectOptions);
 
         if (equipment == null) {
           lastEquipmentId = state.equipment?.id;

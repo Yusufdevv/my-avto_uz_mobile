@@ -7,7 +7,7 @@ class PASingleton {
   PASingleton._();
 
   static Future<FormData> create(PostingAdState v) async {
-   // ignore: prefer_final_locals
+    // ignore: prefer_final_locals
     var announcementFields = <String, dynamic>{
       'longitude': v.long,
       'latitude': v.lat,
@@ -373,7 +373,7 @@ class PASingleton {
                     false) &&
                 state.isContactsVerified) ||
             state.nameController.text.isNotEmpty && state.isContactsVerified);
-         return v;
+        return v;
 // InspectionPlaceScreen
       case 16:
         return !(state.regionId != null && state.districtId != null);
@@ -406,18 +406,16 @@ class PASingleton {
     final v = equipments.any((e) => e.id == lastEquipmentId)
         ? equipments.firstWhere((e) => e.id == lastEquipmentId)
         : null;
-     return v;
+    return v;
   }
 
   static EquipmentEntity? isEquipmentFull(
       {required EquipmentEntity? equipment,
       required Map<int, String> sR,
-      required Map<int, SO> sS }) {
-
+      required Map<int, SO> sS}) {
     if (equipment == null) {
-       return null;
+      return null;
     }
-
 
     var idf = 0;
     for (final e in equipment.options) {
@@ -430,13 +428,13 @@ class PASingleton {
         }
       } else {
         if (sR.containsKey(e.option.id)) {
-         idf++;
+          idf++;
           continue;
         }
       }
     }
     if (idf == equipment.options.length) {
-     return equipment;
+      return equipment;
     } else {
       return null;
     }

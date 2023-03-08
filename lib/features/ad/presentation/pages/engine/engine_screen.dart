@@ -37,10 +37,9 @@ class _EngineScreenState extends State<EngineScreen> {
                     itemBuilder: (context, index) => PostingRadioItem(
                       image: state.engines[index].logo,
                       onTap: () => context.read<PostingAdBloc>().add(
-                          PostingAdChooseEvent(
-                              engineId: state.engines[index].id)),
+                          PostingAdChooseEvent(engineId: state.engines[index])),
                       title: state.engines[index].type,
-                      selected: state.engineId == state.engines[index].id,
+                      selected: state.engineId?.id == state.engines[index].id,
                     ),
                     itemCount: state.engines.length,
                     shrinkWrap: true,
@@ -53,28 +52,15 @@ class _EngineScreenState extends State<EngineScreen> {
                     ),
                   ),
                   const SizedBox(height: 13),
-                  if (state.gasEquipmentId != null &&
-                      state.gasEquipmentId != -1) ...{
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: SwitcherRow(
-                          value: true,
-                          onChanged: (v) => context.read<PostingAdBloc>().add(
-                                PostingAdChooseEvent(
-                                  hasGasBalloon: false,
-                                  gasEquipmentId: -1,
-                                ),
-                              ),
-                          title: LocaleKeys.gas_ballon_equipment.tr()),
-                    ),
-                  } else ...{
+                  if (state.engineId?.type != 'electric') ...{
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: SwitcherRowAsButtonAlso(
-                        value: false,
-                        onChanged: (v) => context
-                            .read<PostingAdBloc>()
-                            .add(PostingAdChooseEvent(hasGasBalloon: v)),
+                        value: state.gasEquipmentId != null &&
+                            state.gasEquipmentId != -1,
+                        onChanged: (v) => context.read<PostingAdBloc>().add(
+                            PostingAdChooseEvent(
+                                gasEquipmentId: v ? null : -1)),
                         onTap: () {
                           showModalBottomSheet<int>(
                             context: context,
@@ -94,7 +80,6 @@ class _EngineScreenState extends State<EngineScreen> {
                               context
                                   .read<PostingAdBloc>()
                                   .add(PostingAdChooseEvent(
-                                    hasGasBalloon: value != null && value != -1,
                                     gasEquipmentId: value,
                                   ));
                             },
@@ -102,7 +87,7 @@ class _EngineScreenState extends State<EngineScreen> {
                         },
                         title: LocaleKeys.gas_ballon_equipment.tr(),
                       ),
-                    )
+                    ),
                   }
                 ],
               );
