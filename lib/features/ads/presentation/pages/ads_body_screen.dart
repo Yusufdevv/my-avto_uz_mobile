@@ -44,7 +44,7 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
             if (state.status.isSubmissionInProgress) {
               return const Center(child: CupertinoActivityIndicator());
             } else if (state.status.isSubmissionFailure) {
-              return const NoDataWidget();
+              return const SizedBox();
             } else if (state.status.isSubmissionSuccess) {
               if (state.announcementList.isNotEmpty) {
                 return NotificationListener<OverscrollIndicatorNotification>(
