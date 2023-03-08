@@ -580,7 +580,10 @@ class CodegenLoader extends AssetLoader{
   "invoice_terms4": "и  ",
   "invoice_terms5": "Политикой конфиденциальности",
   "invoice_terms6": "",
-  "invoice_terms7": ""
+  "invoice_terms7": "",
+  "cannot_payment": "Не удалось произвести оплату",
+  "return_again": "Повторить попытку",
+  "back_to_ads": "Вернутся к объявлениям"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -1147,7 +1150,10 @@ static const Map<String,dynamic> uz = {
   "invoice_terms4": "va Maxfiylik ",
   "invoice_terms5": "siyosati",
   "invoice_terms6": "ga ",
-  "invoice_terms7": "rozi bo’lasiz"
+  "invoice_terms7": "rozi bo’lasiz",
+  "cannot_payment": "Toʻlov amalga oshmadi",
+  "return_again": "Qayta urinib ko'rish",
+  "back_to_ads": "E'longa qaytish"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }

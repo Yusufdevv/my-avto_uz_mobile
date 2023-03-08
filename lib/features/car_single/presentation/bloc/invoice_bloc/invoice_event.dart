@@ -9,7 +9,7 @@ class PayInvoiceEvent extends InvoiceEvent {
   final int announcement;
   final String provider;
   final String tariffType;
-  final Function() onSucces;
+  final Function(String) onSucces;
   final Function() onError;
 
   PayInvoiceEvent({
@@ -21,13 +21,15 @@ class PayInvoiceEvent extends InvoiceEvent {
   });
 }
 
-class GetInvoiceStatusEvent extends InvoiceEvent {
+class GetTransactionStatusEvent extends InvoiceEvent {
   final Function() onSucces;
   final Function() onError;
+  final int orderId;
 
-  GetInvoiceStatusEvent({
+  GetTransactionStatusEvent({
     required this.onSucces,
     required this.onError,
+    required this.orderId,
   });
 
 }

@@ -567,5 +567,8 @@ abstract class  LocaleKeys {
   static const invoice_terms5 = 'invoice_terms5';
   static const invoice_terms6 = 'invoice_terms6';
   static const invoice_terms7 = 'invoice_terms7';
+  static const cannot_payment = 'cannot_payment';
+  static const return_again = 'return_again';
+  static const back_to_ads = 'back_to_ads';
 
 }

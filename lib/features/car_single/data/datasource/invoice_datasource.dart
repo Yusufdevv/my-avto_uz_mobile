@@ -10,22 +10,22 @@ import 'package:dio/dio.dart';
 abstract class InvoiceDatasource {
   Future<GenericPagination<TarifModel>> getTarifs();
   Future<PaymentEntity> payInvoice(Map<String, dynamic> params);
-  Future<String> getInvoiceStatus();
+  Future<String> getInvoiceStatus(int orderId);
 }
 
 class InvoiceDatasourceImplemation extends InvoiceDatasource{
   final _dio = serviceLocator<DioSettings>().dio;
   @override
-  Future<String> getInvoiceStatus() async {
+  Future<String> getInvoiceStatus(int orderId) async {
     try {
-      final response = await _dio.get('',
+      final response = await _dio.get('payment/last-transaction-status/$orderId',
           options: Options(headers: {
             'Authorization': 'Bearer ${StorageRepository.getString('token')}'
           }));
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
-        return response.data.toString();
+        return response.data['status'].toString();
       }
       if (response.data is Map) {
         throw ServerException(

@@ -13,7 +13,6 @@ import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/common/entities/position_entity.dart';
 import 'package:auto/features/common/models/yandex_search_model.dart';
 import 'package:auto/features/profile/domain/entities/dir_category_entity.dart';
-import 'package:auto/features/rent/data/models/region_model.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -598,6 +597,21 @@ class MyFunctions {
         return DamageType.requiresReplacement;
       default:
         return DamageType.ideal;
+    }
+  }
+
+  static TransactionStatus strToTransactionStatus(String status) {
+    switch (status) {
+      case 'wating':
+        return TransactionStatus.waiting;
+      case 'paid':
+        return TransactionStatus.paid;
+      case 'failed':
+        return TransactionStatus.failed;
+      case 'canceled':
+        return TransactionStatus.canceled;
+      default:
+        return TransactionStatus.waiting;
     }
   }
 

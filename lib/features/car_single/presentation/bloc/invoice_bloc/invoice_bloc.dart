@@ -1,9 +1,11 @@
 import 'package:auto/core/usecases/usecase.dart';
+import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/car_single/domain/entities/payment_entity.dart';
 import 'package:auto/features/car_single/domain/entities/tarif_entity.dart';
 import 'package:auto/features/car_single/domain/usecases/get_invoice_status_usecase.dart';
 import 'package:auto/features/car_single/domain/usecases/get_tarifs_usecase.dart';
 import 'package:auto/features/car_single/domain/usecases/pay_invoice_usecase.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
@@ -41,10 +43,10 @@ class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
       );
       if (result.isRight) {
         emit(state.copyWith(
-            paymentEntity: result.right,
-            payStatus: FormzStatus.submissionSuccess,
+          paymentEntity: result.right,
+          payStatus: FormzStatus.submissionSuccess,
         ));
-        event.onSucces();
+        event.onSucces(result.right.paymentUrl ?? '');
       } else {
         emit(state.copyWith(payStatus: FormzStatus.submissionFailure));
       }
@@ -66,17 +68,16 @@ class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
     });
 
     ///
-    on<GetInvoiceStatusEvent>((event, emit) async {
-      emit(state.copyWith(status: FormzStatus.submissionInProgress));
-      final result = await _getStatusInvoiceUseCase.call(NoParams());
+    on<GetTransactionStatusEvent>((event, emit) async {
+      final result = await _getStatusInvoiceUseCase.call(event.orderId);
       if (result.isRight) {
         emit(state.copyWith(
-            status: FormzStatus.submissionSuccess,
-            invoiceStatus: result.right));
+          invoiceStatus: result.right,
+          transactionStatus: MyFunctions.strToTransactionStatus(result.right)
+        ));
         event.onSucces();
       } else {
-        event.onError();
-        emit(state.copyWith(status: FormzStatus.submissionFailure));
+        emit(state.copyWith(transactionStatus: TransactionStatus.failed));
       }
     });
   }

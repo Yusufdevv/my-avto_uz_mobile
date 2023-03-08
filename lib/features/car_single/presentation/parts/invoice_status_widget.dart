@@ -8,6 +8,7 @@ import 'package:lottie/lottie.dart';
 class InvoiceStatusWidget extends StatelessWidget {
   final String lottie;
   final String title;
+  final String secondBtnTitle;
   final VoidCallback onTapToAds;
   final VoidCallback onTapSecondButton;
   final bool hasSecondButton;
@@ -15,9 +16,10 @@ class InvoiceStatusWidget extends StatelessWidget {
   const InvoiceStatusWidget({
     required this.lottie,
     required this.title,
+    required this.secondBtnTitle,
     required this.onTapToAds,
     required this.onTapSecondButton,
-    required this.hasSecondButton,
+    this.hasSecondButton = false,
     super.key,
   });
 
@@ -29,34 +31,30 @@ class InvoiceStatusWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Spacer(),
-              Lottie.asset(
-                'assets/lottie/waiting.json',
-              ),
+              Lottie.asset(lottie),
               Text(
-                LocaleKeys.payment_pending.tr(),
+                title,
                 style: Theme.of(context).textTheme.displayLarge,
               ),
               const Spacer(),
               Column(
                 children: [
-                  if(hasSecondButton)
-                  OrangeButton(
-                      shadowColor: white,
-                      color: border,
-                      content: Text(LocaleKeys.refresh_the_page.tr(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMedium!
-                              .copyWith(
-                                  fontSize: 14, fontWeight: FontWeight.w600)),
-                      onTap: onTapSecondButton),
-                  const SizedBox(
-                    height: 16,
-                  ),
+                  if (hasSecondButton)
+                    OrangeButton(
+                        shadowColor: white,
+                        color: border,
+                        content: Text(secondBtnTitle,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium!
+                                .copyWith(
+                                    fontSize: 14, fontWeight: FontWeight.w600)),
+                        onTap: onTapSecondButton),
+                  const SizedBox(height: 16),
                   OrangeButton(
                       shadowColor: white,
                       color: orange,
-                      content: Text('Вернутся к объявлениям',
+                      content: Text(LocaleKeys.back_to_ads.tr(),
                           style: Theme.of(context)
                               .textTheme
                               .headlineMedium!
