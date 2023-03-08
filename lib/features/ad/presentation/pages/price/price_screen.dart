@@ -69,7 +69,7 @@ class _PriceScreenState extends State<PriceScreen> {
             headerText: LocaleKeys.price.tr(),
             child: SingleChildScrollView(
               padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom + 60),
+                  bottom: MediaQuery.of(context).viewInsets.bottom + 100),
               physics: const BouncingScrollPhysics(),
               child: Padding(
                 padding: const EdgeInsets.all(16),

@@ -38,6 +38,7 @@ class EquipmentScreen extends StatelessWidget {
         headerText: LocaleKeys.complectation.tr(),
         padding: const EdgeInsets.only(top: 16),
         child: SingleChildScrollView(
+          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom + 60),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

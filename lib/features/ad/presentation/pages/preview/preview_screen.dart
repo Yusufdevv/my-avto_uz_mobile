@@ -1,8 +1,11 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/preview/widgets/car_info_row.dart';
 import 'package:auto/features/ad/presentation/pages/preview/widgets/car_model_price_text.dart';
 import 'package:auto/features/ad/presentation/pages/preview/widgets/car_model_text.dart';
+import 'package:auto/features/ad/presentation/pages/preview/widgets/complectation_box.dart';
 import 'package:auto/features/ad/presentation/pages/preview/widgets/date_and_views_row.dart';
+import 'package:auto/features/ad/presentation/pages/preview/widgets/description_box.dart';
 import 'package:auto/features/ad/presentation/pages/preview/widgets/id_row.dart';
 import 'package:auto/features/ad/presentation/pages/preview/widgets/image_viewer.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -77,7 +80,8 @@ class PreviewScreen extends StatelessWidget {
                               LocaleKeys.not_shown.tr()),
                       CarInfoRow(
                         title: LocaleKeys.engine_volume_l.tr(),
-                        info: '${state.modification?.volume ?? ' '} ${state.modification == null? '': '(${state.modification?.power})'}',
+                        info:
+                            '${state.modification?.volume ?? ' '} ${state.modification == null ? '' : '(${state.modification?.power})'}',
                       ),
                       CarInfoRow(
                         title: LocaleKeys.Transmission.tr(),
@@ -89,7 +93,17 @@ class PreviewScreen extends StatelessWidget {
                             ? LocaleKeys.no.tr()
                             : LocaleKeys.yes.tr(),
                       ),
-                      const SizedBox(height: 36)
+                      const SizedBox(height: 10),
+
+                      DescriptionBox(description: state.description),
+
+                      const SizedBox(height: 12),
+                      ComplectationBox(
+                          equipment: state.equipment,
+                          radios: state.radioOptions,
+                          selects: state.selectOptions),
+                      const SizedBox(height: 30),
+                      Container(color: Colors.teal, height: 36)
                     ],
                   ),
                 )),
