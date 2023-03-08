@@ -18,6 +18,7 @@ class DamageTypeInfoSheet extends StatelessWidget {
     LocaleKeys.info_replacement_not_required.tr(),
     LocaleKeys.info_replacement_required.tr(),
   ];
+
   @override
   Widget build(BuildContext context) => Padding(
         padding:
@@ -75,7 +76,8 @@ class DamageTypeInfoSheet extends StatelessWidget {
                             const SizedBox(width: 12),
                             Text(
                               MyFunctions.getStatusTitle(
-                                  DamageType.values[index].value),
+                                      DamageType.values[index])
+                                  .tr(),
                               style: Theme.of(context)
                                   .textTheme
                                   .displayLarge!

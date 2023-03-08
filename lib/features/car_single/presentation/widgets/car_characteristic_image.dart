@@ -2,9 +2,10 @@ import 'dart:developer';
 
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/presentation/pages/damage/widgets/damage_pluc_button.dart';
 import 'package:auto/features/car_single/domain/entities/damaged_parts_entity.dart';
-import 'package:auto/features/car_single/presentation/widgets/car_status_icon.dart';
+import 'package:auto/features/car_single/presentation/widgets/car_status_icon_on_single.dart';
 import 'package:auto/features/car_single/presentation/widgets/information_about_doors.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
@@ -24,10 +25,18 @@ class CarCharacteristicImage extends StatefulWidget {
 
 class _CarCharacteristicImageState extends State<CarCharacteristicImage> {
   late int length;
+  late List<DamagedPartsAsEnum> asEnum;
 
   @override
   void initState() {
-    length = countLength(widget.informAboutDoors.length);
+    asEnum = widget.informAboutDoors.map((e) => e.toEnum()).toList();
+
+    // asEnum = List.generate(
+    //     DamagedPart.values.length,
+    //     (index) => DamagedPartsAsEnum(
+    //         part: DamagedPart.values[index],
+    //         type: DamageType.values[index % 5]));
+    length = countLength(asEnum.length);
     super.initState();
   }
 
@@ -82,84 +91,17 @@ class _CarCharacteristicImageState extends State<CarCharacteristicImage> {
                   AppIcons.autoModel,
                   fit: BoxFit.cover,
                 ),
-                CarStatusIconInPicture(
-                  informAboutDoors: widget.informAboutDoors,
-                  doorName: 'rear_right_fender',
-                  right: width * 0.08,
-                  top: 28,
-                ),
-                CarStatusIconInPicture(
-                  informAboutDoors: widget.informAboutDoors,
-                  doorName: 'left_rear_door',
-                  bottom: 40,
-                  left: width * 0.24,
-                ),
-                CarStatusIconInPicture(
-                  informAboutDoors: widget.informAboutDoors,
-                  left: width * 0.3,
-                  top: 35,
-                  doorName: 'rigth_front_door',
-                ),
-                CarStatusIconInPicture(
-                  informAboutDoors: widget.informAboutDoors,
-                  right: width * 0.12,
-                  bottom: 42,
-                  doorName: 'front_left_fender',
-                ),
-                CarStatusIconInPicture(
-                  informAboutDoors: widget.informAboutDoors,
-                  doorName: 'front_bumper',
-                  top: height * 0.196,
-                  left: width * 0.136,
-                ),
-                CarStatusIconInPicture(
-                  informAboutDoors: widget.informAboutDoors,
-                  doorName: 'hood',
-                  top: height * 0.16,
-                  left: width * 0.133,
-                ),
-                CarStatusIconInPicture(
-                  informAboutDoors: widget.informAboutDoors,
-                  doorName: 'roof',
-                  top: height * 0.122,
-                  left: width * 0.133,
-                ),
-                CarStatusIconInPicture(
-                  informAboutDoors: widget.informAboutDoors,
-                  doorName: 'rear_bumper',
-                  bottom: height * 0.145,
-                  right: width * 0.133,
-                ),
-                CarStatusIconInPicture(
-                  informAboutDoors: widget.informAboutDoors,
-                  doorName: 'trunk',
-                  top: height * 0.144,
-                  right: width * 0.133,
-                ),
-                CarStatusIconInPicture(
-                  informAboutDoors: widget.informAboutDoors,
-                  doorName: 'rear_left_fender',
-                  left: width * 0.09,
-                  bottom: 44,
-                ),
-                CarStatusIconInPicture(
-                  informAboutDoors: widget.informAboutDoors,
-                  doorName: 'right_rear_door',
-                  right: width * 0.22,
-                  top: 35,
-                ),
-                CarStatusIconInPicture(
-                  informAboutDoors: widget.informAboutDoors,
-                  right: width * 0.3,
-                  bottom: 35,
-                  doorName: 'left_front_door',
-                ),
-                CarStatusIconInPicture(
-                  informAboutDoors: widget.informAboutDoors,
-                  left: width * 0.12,
-                  top: 25,
-                  doorName: 'front_right_fender',
-                ),
+                ...List.generate(
+                  asEnum.length,
+                  (index) => CarStatusIconInPicture(
+                    type: asEnum[index].type,
+                    position: MyFunctions.getDamagePosition(
+                      part: asEnum[index].part,
+                      width: width,
+                      height: height,
+                    ),
+                  ),
+                ).toList(),
               ],
             ),
           ),
@@ -171,10 +113,12 @@ class _CarCharacteristicImageState extends State<CarCharacteristicImage> {
               children: [
                 Expanded(
                   child: InformationAboutDoors(
+                    damageType: asEnum[countIndex(index)].type,
                     partName: MyFunctions.getDamagedPartName(
-                        widget.informAboutDoors[countIndex(index)].part),
+                        asEnum[countIndex(index)].part),
                     damageName: MyFunctions.getStatusTitle(
-                        widget.informAboutDoors[countIndex(index)].damageType),
+                            asEnum[countIndex(index)].type)
+                        .tr(),
                   ),
                 ),
                 if (index == length - (length.isEven ? 0 : 1))
@@ -182,10 +126,12 @@ class _CarCharacteristicImageState extends State<CarCharacteristicImage> {
                 else
                   Expanded(
                     child: InformationAboutDoors(
+                      damageType: asEnum[countIndex(index) + 1].type,
                       partName: MyFunctions.getDamagedPartName(
-                          widget.informAboutDoors[countIndex(index) + 1].part),
-                      damageName: MyFunctions.getStatusTitle(widget
-                          .informAboutDoors[countIndex(index) + 1].damageType),
+                          asEnum[countIndex(index) + 1].part),
+                      damageName: MyFunctions.getStatusTitle(
+                              asEnum[countIndex(index) + 1].type)
+                          .tr(),
                     ),
                   ),
               ],

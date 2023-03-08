@@ -39,7 +39,26 @@ class DamageButton extends StatelessWidget {
                           blurRadius: 24,
                           spreadRadius: 0)
                     ]),
-                child: Center(child: SvgPicture.asset(AppIcons.plus)))
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Container(
+                      height: 2,
+                      width: 10,
+                      decoration: BoxDecoration(
+                          color: emerald,
+                          borderRadius: BorderRadius.circular(1)),
+                    ),
+                    Container(
+                      width: 2,
+                      height: 10,
+                      decoration: BoxDecoration(
+                          color: emerald,
+                          borderRadius: BorderRadius.circular(1)),
+                    )
+                  ],
+                ),
+              )
             : Container(
                 height: 18,
                 width: 18,

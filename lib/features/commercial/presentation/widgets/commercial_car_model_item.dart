@@ -1,3 +1,4 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -12,17 +13,20 @@ class CommercialCarModelItem extends StatelessWidget {
   CommercialCarModelItem({
     required this.title,
     required this.onTap,
+    required this.onTapClear,
     required this.imageUrl,
     this.centerTitle = false,
     this.subtitle,
     super.key,
   });
+
   bool centerTitle;
   String title;
   String? subtitle;
   TextStyle? titleStyle;
   TextStyle? subtitleStyle;
   final VoidCallback onTap;
+  final VoidCallback onTapClear;
   final String imageUrl;
 
   @override
@@ -74,16 +78,37 @@ class CommercialCarModelItem extends StatelessWidget {
               children: [
                 Text(
                   title.isEmpty ? LocaleKeys.choose_brand_model.tr() : title,
-                  style: Theme.of(context).textTheme.titleMedium,
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium
+                      ?.copyWith(color: title.isNotEmpty ? orange : null),
                 ),
                 if (subtitle!.isNotEmpty)
                   Text(
                     subtitle!,
-                    style: Theme.of(context).textTheme.displayMedium,
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayMedium
+                        ?.copyWith(color: orange),
                   )
               ],
             ),
           ),
+          if (title.isNotEmpty)
+            CircleAvatar(
+              backgroundColor: warmerGrey,
+              radius: 10,
+              child: InkWell(
+                onTap: onTapClear,
+                child: SvgPicture.asset(
+                  AppIcons.close,
+                  color: white,
+                  fit: BoxFit.cover,
+                  height: 16,
+                  width: 16,
+                ),
+              ),
+            ),
         ],
       ),
     );

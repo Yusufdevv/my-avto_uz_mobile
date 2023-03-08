@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/presentation/pages/damage/widgets/damage_pluc_button.dart';
 import 'package:auto/features/car_single/domain/entities/damaged_parts_entity.dart';
 import 'package:auto/utils/my_functions.dart';
@@ -9,8 +10,10 @@ class InformationAboutDoors extends StatelessWidget {
   const InformationAboutDoors({
     required this.partName,
     required this.damageName,
+    required this.damageType,
     Key? key,
   }) : super(key: key);
+  final DamageType damageType;
   final String partName;
   final String damageName;
 
@@ -19,9 +22,7 @@ class InformationAboutDoors extends StatelessWidget {
         children: [
           Padding(
               padding: const EdgeInsets.only(right: 8),
-              child: DamageButton(
-                damageType: MyFunctions.stringToDamageType(damageName),
-              )),
+              child: DamageButton(damageType: damageType)),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

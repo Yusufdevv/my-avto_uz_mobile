@@ -1,6 +1,4 @@
 // ignore_for_file: unnecessary_null_comparison
-import 'dart:developer';
-
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
@@ -41,9 +39,10 @@ import 'package:share_plus/share_plus.dart';
 
 class CarSingleScreen extends StatefulWidget {
   final int id;
-
+  final bool inModeration;
   const CarSingleScreen({
     required this.id,
+      this.inModeration =false,
     Key? key,
   }) : super(key: key);
 
@@ -115,7 +114,6 @@ class _CarSingleScreenState extends State<CarSingleScreen>
         brightness = Brightness.light;
       }
     });
-    log(':::::::::: anouncenement id: ${widget.id}  ::::::::::');
     super.initState();
   }
 
@@ -143,6 +141,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                         controller: _scrollController,
                         slivers: [
                           SliverAppBarItem(
+                            inModeration: widget.inModeration,
                             id: state.singleEntity.id,
                             userId: state.singleEntity.user.id,
                             brightness: brightness,
@@ -220,6 +219,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                           ),
                           SliverToBoxAdapter(
                             child: CarNameWidget(
+                              inModeration: widget.inModeration,
                               fullname: state.singleEntity.absoluteCarName,
                               price: MyFunctions.getFormatCost(
                                 state.singleEntity.price,

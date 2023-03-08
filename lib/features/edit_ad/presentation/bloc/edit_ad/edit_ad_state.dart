@@ -30,7 +30,7 @@ class EditAdState extends Equatable {
   final List<String> gallery;
   final List<String> panaramaGallery;
   final Map<int, RentWithPurchaseEntity> rentWithPurchaseConditions;
-  final Map<DamagedParts, DamageType> damagedParts;
+  final Map<DamagedPart, DamageType> damagedParts;
   final UserModel? userModel;
   final Uint8List? mapPointBytes;
   final num minimumPrice;
@@ -90,7 +90,7 @@ class EditAdState extends Equatable {
     this.panaramaGallery = const <String>[],
     this.rentWithPurchaseConditions = const <int, RentWithPurchaseEntity>{},
     this.regions = const <RegionEntity>[],
-    this.damagedParts = const <DamagedParts, DamageType>{},
+    this.damagedParts = const <DamagedPart, DamageType>{},
     this.colorName,
     this.licenceType,
     this.ownerStep,
@@ -136,7 +136,7 @@ class EditAdState extends Equatable {
     TextEditingController? nameController,
     Map<int, SO>? selectOptions,
     Map<int, String>? radioOptions,
-    Map<DamagedParts, DamageType>? damagedParts,
+    Map<DamagedPart, DamageType>? damagedParts,
     Map<int, RentWithPurchaseEntity>? rentWithPurchaseConditions,
     DistrictEntity? district,
     RegionEntity? region,

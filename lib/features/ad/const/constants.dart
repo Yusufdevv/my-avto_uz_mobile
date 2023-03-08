@@ -2,7 +2,7 @@
 
 const String CACHED_DRAFT_ANNOUNCEMENT = 'draft_announcement';
 
-enum DamagedParts {
+enum DamagedPart {
   rightFrontDoor('rigth_front_door'),
   rightRearDoor('right_rear_door'),
   leftFrontDoor('left_front_door'),
@@ -17,7 +17,7 @@ enum DamagedParts {
   hood('hood'),
   trunk('trunk');
 
-  const DamagedParts(this.value);
+  const DamagedPart(this.value);
 
   final String value;
 }

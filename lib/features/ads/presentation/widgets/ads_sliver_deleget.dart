@@ -10,7 +10,6 @@ import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_li
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_car_brand_page.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/rent/data/models/region_model.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -50,6 +49,17 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                 ],
               ),
               CommercialCarModelItem(
+                  onTapClear: () {
+                    bloc.add(SetMakeModel(
+                      makeId: -1,
+                      modelId: -1,
+                      makeName: '',
+                      makeLogo: '',
+                      modelName: '',
+                      isNew: isNew,
+                      historySaved: true,
+                    ));
+                  },
                   title: state.makeName ?? '',
                   subtitle: state.modelName ?? '',
                   imageUrl: state.makeLogo ?? '',

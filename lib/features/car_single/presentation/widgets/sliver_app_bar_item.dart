@@ -1,7 +1,6 @@
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/features/ad/presentation/posting_ad_screen.dart';
-import 'package:auto/features/car_single/presentation/widgets/more_actions_bottomsheet.dart';
 import 'package:auto/features/car_single/presentation/widgets/mine_more_bottomsheet.dart';
+import 'package:auto/features/car_single/presentation/widgets/more_actions_bottomsheet.dart';
 import 'package:auto/features/car_single/presentation/widgets/sliver_images_item.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -36,6 +35,7 @@ class SliverAppBarItem extends StatefulWidget {
   final VoidCallback onSold;
   final bool isMine;
   final bool isCompare;
+  final bool inModeration;
 
   const SliverAppBarItem({
     required this.brightness,
@@ -56,6 +56,7 @@ class SliverAppBarItem extends StatefulWidget {
     required this.status,
     required this.onSold,
     required this.isCompare,
+    this.inModeration = false,
     Key? key,
   }) : super(key: key);
 
@@ -167,6 +168,7 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                   context: context,
                   builder: (context) => widget.isMine == true
                       ? MineMoreBottomSheet(
+                          inModeration: widget.inModeration,
                           name: widget.dealerName,
                           position: widget.position,
                           image: widget.avatar ?? '',
@@ -182,6 +184,7 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                           onSold: widget.onSold,
                         )
                       : MoreActionsBottomsheet(
+                          inModeration: widget.inModeration,
                           name: widget.dealerName,
                           position: widget.position == 'owner'
                               ? LocaleKeys.private_person.tr()

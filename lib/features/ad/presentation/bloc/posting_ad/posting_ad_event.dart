@@ -50,7 +50,7 @@ class PostingAdSendCodeEvent extends PostingAdEvent {
 class PostingAdGetMinimumPriceEvent extends PostingAdEvent {}
 
 class PostingAdDamageEvent extends PostingAdEvent {
-  final DamagedParts part;
+  final DamagedPart part;
   final DamageType type;
 
   PostingAdDamageEvent({required this.part, required this.type});
@@ -123,7 +123,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final List<YearsEntity>? years;
   final int? districtId;
 
-  final Map<DamagedParts, DamageType>? damagedParts;
+  final Map<DamagedPart, DamageType>? damagedParts;
   final ModificationTypeEntity? modification;
   final MakeEntity? model;
   final int? generationId;
