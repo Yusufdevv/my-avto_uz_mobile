@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
@@ -18,16 +20,25 @@ abstract class GetUserListDatasource {
       required T Function(Map<String, dynamic>) fromJson,
       String? next,
       String? moderationStatus});
+
   Future<GenericPagination<NotificationsModel>> getNotifications(
       {int? filter, String? next});
+
   Future<GenericPagination<MySearchesModel>> getMySearches(String next);
+
   Future<List<DirectoryModel>> getDirectories(
       String search, String regions, String categories);
+
   Future<List<DirCategoryModel>> getDirCategory();
+
   Future<DirectoryModel> getDirectory(String id);
+
   Future<String> notificationAllRead();
+
   Future<String> deleteMySearches(List<int> ids);
+
   Future<NotificationsModel> getNotificationSingle(String id);
+
   Future<DealerSingleModel> getDirectorySingle(String params);
 }
 
@@ -40,6 +51,7 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
       required T Function(Map<String, dynamic>) fromJson,
       String? next,
       String? moderationStatus}) async {
+    log(':::::::::: getProfileFavoritesMyAds triggeered:  $moderationStatus} $next  ::::::::::');
     var query = <String, dynamic>{};
     if (moderationStatus != null) {
       query = {'moderation_status__in': moderationStatus};
@@ -52,8 +64,8 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
           'Authorization': 'Bearer ${StorageRepository.getString('token')}'
         }),
       );
+      log(':::::::::: GOTTEN DATA OF MY ADS:  ${response.data} \n SEPERATOR SEPERATOR SEPERATOR SEPERATOR SEPERATOR SEPERATOR   ::::::::::');
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
-
         final data = GenericPagination<T>.fromJson(
             response.data!, (data) => fromJson(data as Map<String, dynamic>));
         return Right(data);
