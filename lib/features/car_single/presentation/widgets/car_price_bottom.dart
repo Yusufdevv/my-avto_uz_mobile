@@ -138,7 +138,7 @@ class CarPriceBottom extends StatelessWidget {
             const Divider(indent: 16, endIndent: 16, height: 1),
             const SizedBox(height: 12),
             CarsPrice2(
-              date: '${LocaleKeys.market_condition_on.tr()} $date',
+              date: LocaleKeys.market_condition_on.tr(args: [date]),
               price: LocaleKeys.average_price.tr(),
               totalPrice:
                   '≈ ${MyFunctions.getFormatCost(middlePrice.ceil().toString())} $currency',

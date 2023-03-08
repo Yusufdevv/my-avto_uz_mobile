@@ -3,6 +3,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/car_single/presentation/bloc/invoice_bloc/invoice_bloc.dart';
+import 'package:auto/features/car_single/presentation/widgets/invoice_termsofsuse.dart';
 import 'package:auto/features/car_single/presentation/widgets/select_pay_way.dart';
 import 'package:auto/features/car_single/presentation/widgets/tarif_item.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
@@ -178,39 +179,7 @@ class _InvoicePageState extends State<InvoicePage> with WidgetsBindingObserver {
                       ),
                       Column(
                         children: [
-                          Column(
-                            children: const [
-                              Text.rich(TextSpan(
-                                  // style: const TextStyle(
-                                  //   fontSize: 27,
-                                  // ),
-                                  children: [
-                                    TextSpan(
-                                      text: 'Вы соглашаетесь с ',
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 12),
-                                    ),
-                                    TextSpan(
-                                      style: TextStyle(
-                                          color: Colors.blue,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 12),
-                                      //make link blue and underline
-                                      text:
-                                          'Условиями использования и Политикой конфиденциальности',
-                                    ),
-                                    TextSpan(
-                                      text: ' вы подтверждаете свое согласие',
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 12),
-                                    ),
-                                  ])),
-                            ],
-                          ),
+                         const InvoiceTermsOfUse(),
                           const SizedBox(height: 16),
                           WButton(
                             isLoading: state.payStatus.isSubmissionInProgress,
@@ -225,7 +194,8 @@ class _InvoicePageState extends State<InvoicePage> with WidgetsBindingObserver {
                                   provider: 'payme',
                                   tariffType: state.tarifs[0].type ?? '',
                                   onSucces: () async {
-                                    await launchUrl(Uri.parse(state.paymentEntity.paymentUrl ?? '/'));
+                                    await launchUrl(Uri.parse(
+                                        state.paymentEntity.paymentUrl ?? '/'));
                                   },
                                 ),
                               );

@@ -28,7 +28,7 @@
   "how_the_average_price_is_calculated": "Как рассчитывается{middle}средняя цена",
   "average_price": "Средняя цена:",
   "ratio": "Соотношение",
-  "market_condition_on": "Состояние рынка на",
+  "market_condition_on": "Состояние рынка на {}",
   "cheaper_sc": "Дешевле с.ц:",
   "best_offers": "Лучшие предложения",
   "favorites": "Избранные",
@@ -552,9 +552,20 @@
   "choose_time": "Выберите время",
   "link_copied": "Ссылка скопирована",
   "a_week": "неделя",
+<<<<<<< HEAD
   "ideal": "Идеальное",
   "scratched": "Повреждено",
   "replaced": "Заменено",
   "withDents": "С вмятинами",
   "requiresReplacement": "Требует замены"
+=======
+  "return_back": "Вернуться",
+  "invoice_terms1": "Нажимая кнопку Вы соглашаетесь с ",
+  "invoice_terms2": "Условиями ",
+  "invoice_terms3": "использования ",
+  "invoice_terms4": "и  ",
+  "invoice_terms5": "Политикой конфиденциальности",
+  "invoice_terms6": "",
+  "invoice_terms7": ""
+>>>>>>> 7c98135efb7be4962bac966da59f43e3fb237185
 }

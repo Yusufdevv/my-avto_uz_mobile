@@ -499,7 +499,6 @@ class MyFunctions {
       case DamagedPart.trunk:
         return LocaleKeys.trunk;
     }
-    return '';
   }
 
   static DamagedPart stringToDamagePart(String name) {
