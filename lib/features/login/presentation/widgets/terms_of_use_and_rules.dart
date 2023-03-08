@@ -42,7 +42,6 @@ class TermsOfUseAndRules extends StatelessWidget {
                     context
                         .read<ProfileBloc>()
                         .add(GetTermsOfUseEvent(slug: 'условия пользования'));
-
                     Navigator.push(context, fade(page: const TermsOfUsePage()));
                   },
                 )),

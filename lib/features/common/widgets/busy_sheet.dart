@@ -62,9 +62,8 @@ class BusySheet extends StatelessWidget {
               ),
               onPressed: () async {
                 await Clipboard.setData(ClipboardData(text: copyUrl));
-                context.read<ShowPopUpBloc>().add(ShowPopUp(message: 'Havoladan nusxa olindi', status: PopStatus.success));
+                context.read<ShowPopUpBloc>().add(ShowPopUp(message: LocaleKeys.link_copied.tr(), status: PopStatus.success));
                 Navigator.pop(context, LocaleKeys.Complain.tr());
-
               },
             ),
           ),
@@ -72,7 +71,7 @@ class BusySheet extends StatelessWidget {
           WButton(
               height: 60,
               borderRadius: 13,
-              text: LocaleKeys.cancel.tr(),
+              text: LocaleKeys.return_back.tr(),
               color: blackRussian,
               textStyle: Theme.of(context)
                   .textTheme

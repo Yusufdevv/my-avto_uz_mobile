@@ -44,7 +44,7 @@ class CodegenLoader extends AssetLoader{
   "how_the_average_price_is_calculated": "Как рассчитывается{middle}средняя цена",
   "average_price": "Средняя цена:",
   "ratio": "Соотношение",
-  "market_condition_on": "Состояние рынка на",
+  "market_condition_on": "Состояние рынка на {}",
   "cheaper_sc": "Дешевле с.ц:",
   "best_offers": "Лучшие предложения",
   "favorites": "Избранные",
@@ -567,7 +567,15 @@ class CodegenLoader extends AssetLoader{
   "litre": "л",
   "choose_time": "Выберите время",
   "link_copied": "Ссылка скопирована",
-  "a_week": "неделя"
+  "a_week": "неделя",
+  "return_back": "Вернуться",
+  "invoice_terms1": "Нажимая кнопку Вы соглашаетесь с ",
+  "invoice_terms2": "Условиями ",
+  "invoice_terms3": "использования ",
+  "invoice_terms4": "и  ",
+  "invoice_terms5": "Политикой конфиденциальности",
+  "invoice_terms6": "",
+  "invoice_terms7": ""
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -575,7 +583,7 @@ static const Map<String,dynamic> uz = {
   "how_price_is_calculated": "O'rtacha narx qanday hisoblanadi",
   "we_compared_all_parameters": "Biz ",
   "by_parameters": "dagi barcha o'xshash avtomobillarni parametrlari bo'yicha solishtirdik:",
-  "vin_check_text": "VIN tekshiruvi sizga olish imkonini beradi batafsil ma'lumot mashina haqida",
+  "vin_check_text": "VIN tekshiruvi avtomobil haqida batafsil ma'lumot beradi",
   "report_vin": "Hisobot (VIN)",
   "compare": "Taqqoslash",
   "service": "Xizmat",
@@ -589,7 +597,7 @@ static const Map<String,dynamic> uz = {
   "end_of_term": "Muddat oxiri",
   "engine_capacity": "Dvigatel quvvati",
   "clean_car": "Toza mashina",
-  "position": "Lavozim",
+  "position": "Pozitsiya",
   "from": "dan",
   "to": "gacha",
   "soon": "Tez kunlarda",
@@ -603,7 +611,7 @@ static const Map<String,dynamic> uz = {
   "right_rear_door": "O'ng orqa eshik",
   "front_bumper": "Old bamper",
   "the_user_is_only_available_in": "Foydalanuvchi faqat ichida mavjud",
-  "paint_condition": "Bo'yash holati",
+  "paint_condition": "Bo'yoq holati",
   "optimal": "Optimal",
   "excellent": "Ajoyib",
   "overpriced": "Haddan tashqari",
@@ -612,7 +620,7 @@ static const Map<String,dynamic> uz = {
   "optimal_price": "Optimal narx",
   "cheaper_sc": "Arzonroq:",
   "ratio": "Nisbat",
-  "market_condition_on": "Bozor holati yoqilgan",
+  "market_condition_on": "{}dagi bozor holati",
   "how_the_average_price_is_calculated": "O'rtacha narx{middle}qanday hisoblanadi",
   "average_price": "O'rtacha narx:",
   "choose_car": "Avtomobil markasini tanlang",
@@ -1121,7 +1129,15 @@ static const Map<String,dynamic> uz = {
   "litre": "l",
   "choose_time": "Vaqtni tanlang",
   "link_copied": "Havoladan nusxa olindi",
-  "a_week": "haftadan beri"
+  "a_week": "haftadan beri",
+  "return_back": "Ortga qaytish",
+  "invoice_terms1": "Tugmani bosish orqali siz ",
+  "invoice_terms2": "Foydalanish ",
+  "invoice_terms3": "qoidalari ",
+  "invoice_terms4": "va Maxfiylik ",
+  "invoice_terms5": "siyosati",
+  "invoice_terms6": "ga ",
+  "invoice_terms7": "rozi bo’lasiz"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }

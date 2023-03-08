@@ -554,5 +554,13 @@ abstract class  LocaleKeys {
   static const choose_time = 'choose_time';
   static const link_copied = 'link_copied';
   static const a_week = 'a_week';
+  static const return_back = 'return_back';
+  static const invoice_terms1 = 'invoice_terms1';
+  static const invoice_terms2 = 'invoice_terms2';
+  static const invoice_terms3 = 'invoice_terms3';
+  static const invoice_terms4 = 'invoice_terms4';
+  static const invoice_terms5 = 'invoice_terms5';
+  static const invoice_terms6 = 'invoice_terms6';
+  static const invoice_terms7 = 'invoice_terms7';
 
 }
