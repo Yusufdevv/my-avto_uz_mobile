@@ -14,6 +14,6 @@ class SearchState with _$SearchState {
     @Default(0) int suggestionsCount,
     @Default(false) bool? suggestionsFetchMore,
     @Default(FormzStatus.pure) FormzStatus suggestionsStatus,
-    @Default(SortStatus.newest) SortStatus sortStatus,
+    @Default(SortStatus.none) SortStatus sortStatus,
   }) = _SearchState;
 }
