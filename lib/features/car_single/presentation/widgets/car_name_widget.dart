@@ -43,6 +43,7 @@ class CarNameWidget extends StatelessWidget {
   final int compareId;
   final bool isCompared;
   final double procent;
+  final bool inModeration;
 
   const CarNameWidget({
     required this.fullname,
@@ -77,6 +78,7 @@ class CarNameWidget extends StatelessWidget {
     required this.isCompared,
     required this.percenti,
     required this.procent,
+      this.inModeration=false,
     Key? key,
   }) : super(key: key);
 
@@ -160,6 +162,7 @@ class CarNameWidget extends StatelessWidget {
                       .solitudeToDarkRider),
             ),
             CarActions(
+              inModeration: inModeration,
               onVin: onVin,
               onComparison: onComparison,
               onShare: onShare,

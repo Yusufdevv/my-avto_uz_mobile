@@ -63,8 +63,13 @@ class _AllAdsState extends State<AllAds> {
                           EdgeInsets.only(bottom: 12, top: index == 0 ? 12 : 0),
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.of(context)
-                              .push(fade(page: CarSingleScreen(id: item.id)));
+                          Navigator.of(context).push(fade(
+                            page: CarSingleScreen(
+                              id: item.id,
+                              inModeration:
+                                  item.moderationStatus == 'in_moderation',
+                            ),
+                          ));
                         },
                         child: Container(
                           padding: const EdgeInsets.only(top: 12),

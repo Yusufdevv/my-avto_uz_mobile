@@ -21,6 +21,7 @@ class MineMoreBottomSheet extends StatelessWidget {
   final VoidCallback onCompare;
   final VoidCallback onDealer;
   final VoidCallback onSold;
+  final bool inModeration;
 
   const MineMoreBottomSheet({
     required this.name,
@@ -32,6 +33,7 @@ class MineMoreBottomSheet extends StatelessWidget {
     required this.id,
     required this.status,
     required this.onSold,
+    this.inModeration = false,
     Key? key,
   }) : super(key: key);
 
@@ -117,7 +119,8 @@ class MineMoreBottomSheet extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 8),
-                Expanded(
+                if(!inModeration)
+                  Expanded(
                   child: WScaleAnimation(
                     onTap: onShare,
                     child: Container(
