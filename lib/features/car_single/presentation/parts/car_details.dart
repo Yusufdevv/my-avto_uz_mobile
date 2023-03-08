@@ -48,10 +48,10 @@ class CarDetails extends StatelessWidget {
             text: LocaleKeys.color.tr(),
             value: color,
           ),
-          // CarInfoTile(
-          //   text: 'Комплектация',
-          //   value: complectation,
-          // ),
+          CarInfoTile(
+            text:LocaleKeys.complectation.tr(),
+            value: complectation,
+          ),
           CarInfoTile(
             text: LocaleKeys.engine_volume.tr(),
             value: engineVolume,

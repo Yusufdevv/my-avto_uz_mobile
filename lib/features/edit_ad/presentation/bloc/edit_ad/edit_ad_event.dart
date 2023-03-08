@@ -59,7 +59,7 @@ class EditAdGetAnnouncementEvent extends EditAdEvent {
 }
 
 class EditAdDamageEvent extends EditAdEvent {
-  final DamagedParts part;
+  final DamagedPart part;
   final DamageType type;
 
   EditAdDamageEvent({required this.part, required this.type});
@@ -95,7 +95,7 @@ class EditAdChooseEvent extends EditAdEvent {
   final RegionEntity? region;
   final List<YearsEntity>? years;
   final DistrictEntity? district;
-  final Map<DamagedParts, DamageType>? damagedParts;
+  final Map<DamagedPart, DamageType>? damagedParts;
   final ModificationTypeEntity? modification;
   final MakeEntity? model;
   final CarGenerationEntity? generationEntity;

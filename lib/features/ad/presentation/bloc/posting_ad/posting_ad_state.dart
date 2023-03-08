@@ -9,9 +9,7 @@ class PostingAdState extends Equatable {
   final FormzStatus getModificationStatus;
   final FormzStatus getLocationImage;
   final GlobalKey<FormState> contactsFormKey;
-
   final String? id;
-
   final TextEditingController phoneController;
   final TextEditingController emailController;
   final TextEditingController nameController;
@@ -44,7 +42,7 @@ class PostingAdState extends Equatable {
   final List<String> panaramaGallery;
   final Map<int, RentWithPurchaseEntity> rentWithPurchaseConditions;
 
-  final Map<DamagedParts, DamageType> damagedParts;
+  final Map<DamagedPart, DamageType> damagedParts;
   final Map<int, SO> selectOptions;
   final Map<int, String> radioOptions;
 
@@ -124,7 +122,7 @@ class PostingAdState extends Equatable {
     this.panaramaGallery = const <String>[],
     this.rentWithPurchaseConditions = const <int, RentWithPurchaseEntity>{},
     this.regions = const <RegionEntity>[],
-    this.damagedParts = const <DamagedParts, DamageType>{},
+    this.damagedParts = const <DamagedPart, DamageType>{},
     this.letter,
     this.colorName,
     this.licenceType,
@@ -187,7 +185,7 @@ class PostingAdState extends Equatable {
     Map<int, SO>? selectOptions,
     Map<int, String>? radioOptions,
     int? lastEquipmentId,
-    Map<DamagedParts, DamageType>? damagedParts,
+    Map<DamagedPart, DamageType>? damagedParts,
     Map<int, RentWithPurchaseEntity>? rentWithPurchaseConditions,
     int? districtId,
     int? regionId,

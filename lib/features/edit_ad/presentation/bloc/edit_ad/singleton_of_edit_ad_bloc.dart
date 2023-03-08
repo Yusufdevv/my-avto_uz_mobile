@@ -119,9 +119,9 @@ class EASingleton {
       isContactsVerified: true,
       status: FormzStatus.submissionSuccess);
 
-  static Map<DamagedParts, DamageType> damagedPartAdopter(
+  static Map<DamagedPart, DamageType> damagedPartAdopter(
       List<DamagedPartsEntity> damages) {
-    var result = <DamagedParts, DamageType>{};
+    var result = <DamagedPart, DamageType>{};
     for (final v in damages) {
       final part = _getDamagePart(v.part);
       final type = _getDamageType(v.damageType);
@@ -289,47 +289,47 @@ class EASingleton {
     }
   }
 
-  static DamagedParts? _getDamagePart(String part) {
+  static DamagedPart? _getDamagePart(String part) {
     switch (part) {
       // 1
       case 'rigth_front_door':
-        return DamagedParts.rightFrontDoor;
+        return DamagedPart.rightFrontDoor;
       // 2
       case 'right_rear_door':
-        return DamagedParts.rightRearDoor;
+        return DamagedPart.rightRearDoor;
       // 3
       case 'left_front_door':
-        return DamagedParts.leftFrontDoor;
+        return DamagedPart.leftFrontDoor;
       // 4
       case 'left_rear_door':
-        return DamagedParts.leftRearDoor;
+        return DamagedPart.leftRearDoor;
       // 5
       case 'front_bumper':
-        return DamagedParts.frontBumper;
+        return DamagedPart.frontBumper;
       // 6
       case 'rear_bumper':
-        return DamagedParts.rearBumper;
+        return DamagedPart.rearBumper;
       // 7
       case 'front_left_fender':
-        return DamagedParts.frontLeftFender;
+        return DamagedPart.frontLeftFender;
       // 8
       case 'front_right_fender':
-        return DamagedParts.frontRightFender;
+        return DamagedPart.frontRightFender;
       // 9
       case 'rear_left_fender':
-        return DamagedParts.rearLeftFender;
+        return DamagedPart.rearLeftFender;
       // 10
       case 'rear_right_fender':
-        return DamagedParts.rearRightFender;
+        return DamagedPart.rearRightFender;
       // 11
       case 'roof':
-        return DamagedParts.roof;
+        return DamagedPart.roof;
       // 12
       case 'hood':
-        return DamagedParts.hood;
+        return DamagedPart.hood;
       // 13
       case 'trunk':
-        return DamagedParts.trunk;
+        return DamagedPart.trunk;
       default:
         return null;
     }

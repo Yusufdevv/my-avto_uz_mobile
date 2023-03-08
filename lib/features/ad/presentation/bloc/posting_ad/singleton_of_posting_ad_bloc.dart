@@ -53,9 +53,9 @@ class PASingleton {
       'is_new': v.isWithoutMileage,
       'is_rent_with_purchase':
           v.rentWithPurchaseConditions.isNotEmpty && (v.rentToBuy ?? false),
-      'rent_with_purchase': v.rentWithPurchaseConditions.entries
-          .map((e) => e.value.toApi())
-          .toList(),
+      // 'rent_with_purchase': v.rentWithPurchaseConditions.entries
+      //     .map((e) => e.value.toApi())
+      //     .toList(),
 
       'equipment': v.equipment?.id,
       'gas_equipment': v.gasEquipmentId,
@@ -107,6 +107,27 @@ class PASingleton {
       i++;
       return MapEntry('option_items[$i]', e.value.id);
     }));
+    // 'prepayment': prepayment,
+    // 'rental_period': rentalPeriod,
+    // 'monthly_payment': monthlyPayment,
+
+    i = -1;
+    announcementFields.addEntries(v.rentWithPurchaseConditions.entries.map((e) {
+      i++;
+      return MapEntry('rent_with_purchase[$i]prepayment', e.value.prepayment);
+    }));
+    i = -1;
+    announcementFields.addEntries(v.rentWithPurchaseConditions.entries.map((e) {
+      i++;
+      return MapEntry(
+          'rent_with_purchase[$i]monthly_payment', e.value.monthlyPayment);
+    }));
+    i = -1;
+    announcementFields.addEntries(v.rentWithPurchaseConditions.entries.map((e) {
+      i++;
+      return MapEntry(
+          'rent_with_purchase[$i]rental_period', e.value.rentalPeriod);
+    }));
 
     log('ANNOUNCEMENT FIELDS BEFORE FORMDATALIZE: ${announcementFields.toString()} \n Seperator Seperator Seperator Seperator Seperator Seperator Seperator Seperator Seperator ');
     final announcementFormData =
@@ -153,9 +174,9 @@ class PASingleton {
           isContactsVerified: true,
           status: FormzStatus.submissionSuccess);
 
-  static Map<DamagedParts, DamageType> damagedPartAdopter(
+  static Map<DamagedPart, DamageType> damagedPartAdopter(
       List<DamagedPartsEntity> damages) {
-    var result = <DamagedParts, DamageType>{};
+    var result = <DamagedPart, DamageType>{};
     for (final v in damages) {
       final part = _getDamagePart(v.part);
       final type = _getDamageType(v.damageType);
@@ -253,47 +274,47 @@ class PASingleton {
     }
   }
 
-  static DamagedParts? _getDamagePart(String part) {
+  static DamagedPart? _getDamagePart(String part) {
     switch (part) {
       // 1
       case 'rigth_front_door':
-        return DamagedParts.rightFrontDoor;
+        return DamagedPart.rightFrontDoor;
       // 2
       case 'right_rear_door':
-        return DamagedParts.rightRearDoor;
+        return DamagedPart.rightRearDoor;
       // 3
       case 'left_front_door':
-        return DamagedParts.leftFrontDoor;
+        return DamagedPart.leftFrontDoor;
       // 4
       case 'left_rear_door':
-        return DamagedParts.leftRearDoor;
+        return DamagedPart.leftRearDoor;
       // 5
       case 'front_bumper':
-        return DamagedParts.frontBumper;
+        return DamagedPart.frontBumper;
       // 6
       case 'rear_bumper':
-        return DamagedParts.rearBumper;
+        return DamagedPart.rearBumper;
       // 7
       case 'front_left_fender':
-        return DamagedParts.frontLeftFender;
+        return DamagedPart.frontLeftFender;
       // 8
       case 'front_right_fender':
-        return DamagedParts.frontRightFender;
+        return DamagedPart.frontRightFender;
       // 9
       case 'rear_left_fender':
-        return DamagedParts.rearLeftFender;
+        return DamagedPart.rearLeftFender;
       // 10
       case 'rear_right_fender':
-        return DamagedParts.rearRightFender;
+        return DamagedPart.rearRightFender;
       // 11
       case 'roof':
-        return DamagedParts.roof;
+        return DamagedPart.roof;
       // 12
       case 'hood':
-        return DamagedParts.hood;
+        return DamagedPart.hood;
       // 13
       case 'trunk':
-        return DamagedParts.trunk;
+        return DamagedPart.trunk;
       default:
         return null;
     }
@@ -359,7 +380,7 @@ class PASingleton {
         return v;
 // InspectionPlaceScreen
       case 16:
-        return !(state.regionId != null || state.mapPointBytes != null);
+        return !(state.regionId != null && state.districtId != null);
 
       // PriceScreen
       case 17:

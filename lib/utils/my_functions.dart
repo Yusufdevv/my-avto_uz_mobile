@@ -10,6 +10,7 @@ import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/const/constants.dart';
+import 'package:auto/features/common/entities/position_entity.dart';
 import 'package:auto/features/common/models/yandex_search_model.dart';
 import 'package:auto/features/profile/domain/entities/dir_category_entity.dart';
 import 'package:auto/features/rent/data/models/region_model.dart';
@@ -500,6 +501,72 @@ class MyFunctions {
     return '';
   }
 
+  static DamagedPart stringToDamagePart(String name) {
+    switch (name) {
+      case 'left_front_door':
+        return DamagedPart.leftFrontDoor;
+      case 'rigth_front_door':
+        return DamagedPart.rightFrontDoor;
+      case 'left_rear_door':
+        return DamagedPart.leftRearDoor;
+      case 'right_rear_door':
+        return DamagedPart.rightRearDoor;
+      case 'front_bumper':
+        return DamagedPart.frontBumper;
+      case 'rear_bumper':
+        return DamagedPart.rearBumper;
+      case 'front_left_fender':
+        return DamagedPart.frontLeftFender;
+      case 'front_right_fender':
+        return DamagedPart.frontRightFender;
+      case 'rear_left_fender':
+        return DamagedPart.rearLeftFender;
+      case 'rear_right_fender':
+        return DamagedPart.rearRightFender;
+      case 'roof':
+        return DamagedPart.roof;
+      case 'hood':
+        return DamagedPart.hood;
+      case 'trunk':
+        return DamagedPart.trunk;
+    }
+    return DamagedPart.hood;
+  }
+
+  static DamagePosition getDamagePosition(
+      {required DamagedPart part,
+      required double width,
+      required double height}) {
+    switch (part) {
+      case DamagedPart.leftFrontDoor:
+        return DamagePosition(right: width * 0.3, bottom: 35);
+      case DamagedPart.rightFrontDoor:
+        return DamagePosition(left: width * 0.3, top: 35);
+      case DamagedPart.leftRearDoor:
+        return DamagePosition(bottom: 40, left: width * 0.24);
+      case DamagedPart.rightRearDoor:
+        return DamagePosition(right: width * 0.22, top: 35);
+      case DamagedPart.frontBumper:
+        return DamagePosition(top: height * 0.196, left: width * 0.136);
+      case DamagedPart.rearBumper:
+        return DamagePosition(bottom: height * 0.145, right: width * 0.133);
+      case DamagedPart.frontLeftFender:
+        return DamagePosition(right: width * 0.12, bottom: 42);
+      case DamagedPart.frontRightFender:
+        return DamagePosition(left: width * 0.12, top: 25);
+      case DamagedPart.rearLeftFender:
+        return DamagePosition(left: width * 0.09, bottom: 44);
+      case DamagedPart.rearRightFender:
+        return DamagePosition(right: width * 0.08, top: 28);
+      case DamagedPart.roof:
+        return DamagePosition(top: height * 0.122, left: width * 0.133);
+      case DamagedPart.hood:
+        return DamagePosition(top: height * 0.16, left: width * 0.133);
+      case DamagedPart.trunk:
+        return DamagePosition(top: height * 0.144, right: width * 0.133);
+    }
+  }
+
   static String getStatusTitle(String status) {
     final language = StorageRepository.getString('language');
 
@@ -518,6 +585,23 @@ class MyFunctions {
             : "O'zgartirishni talab qiladi";
     }
     return language == 'ru' ? 'Не показано' : "Ko'rsatilmagan";
+  }
+
+  static DamageType strToDamageType(String status) {
+    switch (status) {
+      case 'ideal':
+        return DamageType.ideal;
+      case 'scratched':
+        return DamageType.scratched;
+      case 'replaced':
+        return DamageType.replaced;
+      case 'with_dents':
+        return DamageType.withDents;
+      case 'requires_replacement':
+        return DamageType.requiresReplacement;
+      default:
+        return DamageType.ideal;
+    }
   }
 
   static String getErrorMessage(Failure failure) {
@@ -550,7 +634,6 @@ class MyFunctions {
   }
 
   static DamageType stringToDamageType(String status) {
-    print(':::::::::: fasdfas $status  ::::::::::');
     switch (status) {
       case 'ideal':
         return DamageType.ideal;

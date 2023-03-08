@@ -28,7 +28,7 @@ class _DamageScreenState extends State<DamageScreen>
   late TabController doorController;
   late TabController bumperController;
   late TabController wingController;
-  Map<DamagedParts, DamageType> damages = {};
+  Map<DamagedPart, DamageType> damages = {};
 
   @override
   void initState() {
@@ -38,7 +38,7 @@ class _DamageScreenState extends State<DamageScreen>
     super.initState();
   }
 
-  void _showChoosDamageTypeSheet(DamagedParts part) {
+  void _showChoosDamageTypeSheet(DamagedPart part) {
     showModalBottomSheet<DamageType>(
       useRootNavigator: true,
       isDismissible: false,
@@ -122,39 +122,39 @@ class _DamageScreenState extends State<DamageScreen>
                           SituationItem(
                             onTap: () {
                               _showChoosDamageTypeSheet(
-                                  DamagedParts.leftFrontDoor);
+                                  DamagedPart.leftFrontDoor);
                             },
                             position: LocaleKeys.left_front_door.tr(),
                             damageType:
-                                state.damagedParts[DamagedParts.leftFrontDoor],
+                                state.damagedParts[DamagedPart.leftFrontDoor],
                           ),
                           SituationItem(
                               onTap: () {
                                 _showChoosDamageTypeSheet(
-                                    DamagedParts.leftRearDoor);
+                                    DamagedPart.leftRearDoor);
                               },
                               position: LocaleKeys.left_rear_door.tr(),
                               damageType: state
-                                  .damagedParts[DamagedParts.leftRearDoor]),
+                                  .damagedParts[DamagedPart.leftRearDoor]),
                         ]),
                         Column(children: [
                           SituationItem(
                             onTap: () {
                               _showChoosDamageTypeSheet(
-                                  DamagedParts.rightFrontDoor);
+                                  DamagedPart.rightFrontDoor);
                             },
                             position: LocaleKeys.right_front_door.tr(),
                             damageType:
-                                state.damagedParts[DamagedParts.rightFrontDoor],
+                                state.damagedParts[DamagedPart.rightFrontDoor],
                           ),
                           SituationItem(
                             onTap: () {
                               _showChoosDamageTypeSheet(
-                                  DamagedParts.rightRearDoor);
+                                  DamagedPart.rightRearDoor);
                             },
                             position: LocaleKeys.right_rear_door.tr(),
                             damageType:
-                                state.damagedParts[DamagedParts.rightRearDoor],
+                                state.damagedParts[DamagedPart.rightRearDoor],
                           ),
                         ]),
                       ],
@@ -174,19 +174,19 @@ class _DamageScreenState extends State<DamageScreen>
                         SituationItem(
                             onTap: () {
                               _showChoosDamageTypeSheet(
-                                  DamagedParts.rearBumper);
+                                  DamagedPart.rearBumper);
                             },
                             position: LocaleKeys.back_bumper.tr(),
                             damageType:
-                                state.damagedParts[DamagedParts.rearBumper]),
+                                state.damagedParts[DamagedPart.rearBumper]),
                         SituationItem(
                             onTap: () {
                               _showChoosDamageTypeSheet(
-                                  DamagedParts.frontBumper);
+                                  DamagedPart.frontBumper);
                             },
                             position: LocaleKeys.front_bumper.tr(),
                             damageType:
-                                state.damagedParts[DamagedParts.frontBumper]),
+                                state.damagedParts[DamagedPart.frontBumper]),
                       ],
                     ),
                   ),
@@ -207,19 +207,19 @@ class _DamageScreenState extends State<DamageScreen>
                             SituationItem(
                                 onTap: () {
                                   _showChoosDamageTypeSheet(
-                                      DamagedParts.rearLeftFender);
+                                      DamagedPart.rearLeftFender);
                                 },
                                 position: LocaleKeys.left_back_fender.tr(),
                                 damageType: state
-                                    .damagedParts[DamagedParts.rearLeftFender]),
+                                    .damagedParts[DamagedPart.rearLeftFender]),
                             SituationItem(
                                 onTap: () {
                                   _showChoosDamageTypeSheet(
-                                      DamagedParts.rearRightFender);
+                                      DamagedPart.rearRightFender);
                                 },
                                 position: LocaleKeys.right_back_fender.tr(),
                                 damageType: state.damagedParts[
-                                    DamagedParts.rearRightFender]),
+                                    DamagedPart.rearRightFender]),
                           ],
                         ),
                         Column(
@@ -227,19 +227,19 @@ class _DamageScreenState extends State<DamageScreen>
                             SituationItem(
                                 onTap: () {
                                   _showChoosDamageTypeSheet(
-                                      DamagedParts.frontLeftFender);
+                                      DamagedPart.frontLeftFender);
                                 },
                                 position: LocaleKeys.left_front_fender.tr(),
                                 damageType: state.damagedParts[
-                                    DamagedParts.frontLeftFender]),
+                                    DamagedPart.frontLeftFender]),
                             SituationItem(
                                 onTap: () {
                                   _showChoosDamageTypeSheet(
-                                      DamagedParts.frontRightFender);
+                                      DamagedPart.frontRightFender);
                                 },
                                 position: LocaleKeys.right_front_fender.tr(),
                                 damageType: state.damagedParts[
-                                    DamagedParts.frontRightFender]),
+                                    DamagedPart.frontRightFender]),
                           ],
                         ),
                       ],
@@ -249,27 +249,27 @@ class _DamageScreenState extends State<DamageScreen>
                   //  ROOF
                   SituationTitleItem(
                       onTap: () {
-                        _showChoosDamageTypeSheet(DamagedParts.roof);
+                        _showChoosDamageTypeSheet(DamagedPart.roof);
                       },
                       title: LocaleKeys.roof.tr(),
-                      damageType: state.damagedParts[DamagedParts.roof]),
+                      damageType: state.damagedParts[DamagedPart.roof]),
 
                   // HOOD
                   SituationTitleItem(
                     onTap: () {
-                      _showChoosDamageTypeSheet(DamagedParts.hood);
+                      _showChoosDamageTypeSheet(DamagedPart.hood);
                     },
                     title: LocaleKeys.hood.tr(),
-                    damageType: state.damagedParts[DamagedParts.hood],
+                    damageType: state.damagedParts[DamagedPart.hood],
                   ),
 
                   // TRUNK
                   SituationTitleItem(
                     onTap: () {
-                      _showChoosDamageTypeSheet(DamagedParts.trunk);
+                      _showChoosDamageTypeSheet(DamagedPart.trunk);
                     },
                     title: LocaleKeys.trunk.tr(),
-                    damageType: state.damagedParts[DamagedParts.trunk],
+                    damageType: state.damagedParts[DamagedPart.trunk],
                   ),
                 ],
               ),
