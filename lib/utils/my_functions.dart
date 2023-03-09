@@ -599,6 +599,21 @@ class MyFunctions {
     }
   }
 
+  static TransactionStatus strToTransactionStatus(String status) {
+    switch (status) {
+      case 'wating':
+        return TransactionStatus.waiting;
+      case 'paid':
+        return TransactionStatus.paid;
+      case 'failed':
+        return TransactionStatus.failed;
+      case 'canceled':
+        return TransactionStatus.canceled;
+      default:
+        return TransactionStatus.waiting;
+    }
+  }
+
   static String getErrorMessage(Failure failure) {
     final language = StorageRepository.getString('language');
 

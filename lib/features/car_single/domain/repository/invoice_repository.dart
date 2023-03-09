@@ -8,5 +8,5 @@ import 'package:auto/features/pagination/models/generic_pagination.dart';
 abstract class InvoiceRepository{
   Future<Either<Failure, GenericPagination<TarifEntity>>> getTarifs();
   Future<Either<Failure, PaymentEntity>> payInvoice(Map<String, dynamic> params);
-  Future<Either<Failure, String>> getInvoiceStatus();
+  Future<Either<Failure, String>> getInvoiceStatus(int orderId);
 }

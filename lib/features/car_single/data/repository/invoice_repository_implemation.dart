@@ -11,9 +11,9 @@ import '../../domain/entities/payment_entity.dart';
 class InvoiceRepositoryImplemation extends InvoiceRepository{
   final InvoiceDatasource datasource = InvoiceDatasourceImplemation();
   @override
-  Future<Either<Failure, String>> getInvoiceStatus() async{
+  Future<Either<Failure, String>> getInvoiceStatus(int orderId) async{
     try {
-      final result = await datasource.getInvoiceStatus();
+      final result = await datasource.getInvoiceStatus(orderId);
       return Right(result);
     } on DioException{
       return Left(DioFailure());

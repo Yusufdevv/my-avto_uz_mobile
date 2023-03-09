@@ -23,7 +23,7 @@ enum DamagedPart {
 }
 
 enum DamageType {
-  ideal( 'ideal'),
+  ideal('ideal'),
   withDents('with_dents'),
   scratched('scratched'),
   replaced('replaced'),
@@ -40,6 +40,17 @@ enum Currency {
   none('');
 
   const Currency(this.value);
+
+  final String value;
+}
+
+enum TransactionStatus {
+  waiting('waiting'),
+  paid('paid'),
+  failed('failed'),
+  canceled('canceled');
+
+  const TransactionStatus(this.value);
 
   final String value;
 }

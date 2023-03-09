@@ -27,7 +27,7 @@ class InvoicePage extends StatefulWidget {
 }
 
 // ignore: prefer_mixin
-class _InvoicePageState extends State<InvoicePage> with WidgetsBindingObserver {
+class _InvoicePageState extends State<InvoicePage>{
   int value = 0;
   int groupValue = 1;
   late InvoiceBloc bloc;
@@ -37,26 +37,6 @@ class _InvoicePageState extends State<InvoicePage> with WidgetsBindingObserver {
     super.initState();
     bloc = InvoiceBloc()..add(GetTarifsEvent());
   }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    switch (state) {
-      case AppLifecycleState.resumed:
-        break;
-      case AppLifecycleState.inactive:
-        break;
-      case AppLifecycleState.paused:
-        break;
-      case AppLifecycleState.detached:
-        break;
-    }
-  }
-
-  // @override
-  // void dispose() {
-  //   WidgetsBinding.instance.removeObserver(this);
-  //   super.dispose();
-  // }
 
   @override
   Widget build(BuildContext context) => BlocProvider.value(
@@ -102,25 +82,6 @@ class _InvoicePageState extends State<InvoicePage> with WidgetsBindingObserver {
                                 );
                               }),
 
-                              ///
-                              // Expanded(
-                              //   child: ListView.builder(
-                              //     // padding: const EdgeInsets.only(bottom: 16),
-                              //     itemBuilder: (context, index) {
-                              //       final item = state.tarifs[index];
-                              //       return Padding(
-                              //         padding: const EdgeInsets.only(bottom: 16),
-                              //         child: TarifItem(
-                              //           id: item.id ?? -1,
-                              //           type: item.type ?? '',
-                              //           amount: item.amount ?? '',
-                              //           date: '18.11.2022',
-                              //         ),
-                              //       );
-                              //     },
-                              //     itemCount: state.tarifs.length,
-                              //   ),
-                              // ),
                               const SizedBox(height: 16),
                             ],
                           ),
@@ -192,18 +153,22 @@ class _InvoicePageState extends State<InvoicePage> with WidgetsBindingObserver {
                             onTap: () async {
                               bloc.add(
                                 PayInvoiceEvent(
-                                  announcement: 286,
+                                  announcement: widget.announcementId,
                                   provider: 'payme',
                                   tariffType: state.tarifs[0].type ?? '',
-                                  onSucces: () async {
-                                    await launchUrl(Uri.parse(
-                                        state.paymentEntity.paymentUrl ?? '/'));
+                                  onSucces: (paymentUrl) async {
+                                    if (!await launchUrl(
+                                      Uri.parse(paymentUrl),
+                                      mode: LaunchMode.externalApplication,
+                                    )) {
+                                      throw Exception('Could not launch $paymentUrl');
+                                    }
                                     await Navigator.push(
                                       context,
                                       fade(
                                         page: BlocProvider.value(
                                           value: bloc,
-                                          child: const InvoiceInProgress(),
+                                          child: InvoiceInProgress(orderId: state.paymentEntity.id ?? -1),
                                         ),
                                       ),
                                     );
@@ -228,3 +193,23 @@ class _InvoicePageState extends State<InvoicePage> with WidgetsBindingObserver {
         ),
       );
 }
+
+///
+// Expanded(
+//   child: ListView.builder(
+//     // padding: const EdgeInsets.only(bottom: 16),
+//     itemBuilder: (context, index) {
+//       final item = state.tarifs[index];
+//       return Padding(
+//         padding: const EdgeInsets.only(bottom: 16),
+//         child: TarifItem(
+//           id: item.id ?? -1,
+//           type: item.type ?? '',
+//           amount: item.amount ?? '',
+//           date: '18.11.2022',
+//         ),
+//       );
+//     },
+//     itemCount: state.tarifs.length,
+//   ),
+// ),

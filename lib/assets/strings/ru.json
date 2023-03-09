@@ -564,5 +564,8 @@
   "invoice_terms4": "и  ",
   "invoice_terms5": "Политикой конфиденциальности",
   "invoice_terms6": "",
-  "invoice_terms7": ""
+  "invoice_terms7": "",
+  "cannot_payment": "Не удалось произвести оплату",
+  "return_again": "Повторить попытку",
+  "back_to_ads": "Вернутся к объявлениям"
 }

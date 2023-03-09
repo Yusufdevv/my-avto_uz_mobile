@@ -563,6 +563,9 @@
   "invoice_terms4": "va Maxfiylik ",
   "invoice_terms5": "siyosati",
   "invoice_terms6": "ga ",
-  "invoice_terms7": "rozi bo’lasiz"
+  "invoice_terms7": "rozi bo’lasiz",
+  "cannot_payment": "Toʻlov amalga oshmadi",
+  "return_again": "Qayta urinib ko'rish",
+  "back_to_ads": "E'longa qaytish"
 }
 
