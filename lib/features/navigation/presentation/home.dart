@@ -15,8 +15,7 @@ enum NavItemEnum { head, search, newPost, reels, profile }
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
-  static Route route() =>
-      MaterialPageRoute<void>(builder: (_) => const HomeScreen());
+  static Route route() => MaterialPageRoute<void>(builder: (_) => const HomeScreen());
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -81,10 +80,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     if (_controller.index != 3 && _controller.index != 2) {
       setState(() {
         _currentIndex = _controller.index;
-        _navigatorKeys[NavItemEnum.values[_currentIndex]]
-            ?.currentState
-            ?.popUntil((route) => route.isFirst);
       });
+      _navigatorKeys[NavItemEnum.values[_currentIndex]]?.currentState?.popUntil((route) => route.isFirst);
     }
   }
 
@@ -106,9 +103,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         child: WillPopScope(
           onWillPop: () async {
             final isFirstRouteInCurrentTab =
-                !await _navigatorKeys[NavItemEnum.values[_currentIndex]]!
-                    .currentState!
-                    .maybePop();
+                !await _navigatorKeys[NavItemEnum.values[_currentIndex]]!.currentState!.maybePop();
             if (isFirstRouteInCurrentTab) {
               if (NavItemEnum.values[_currentIndex] != NavItemEnum.head) {
                 changePage(0);
@@ -133,9 +128,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     context: context,
                     builder: (context) => InternetErrorBottomSheet(
                       onTap: () {
-                        context
-                            .read<InternetBloc>()
-                            .add(GlobalCheck(isConnected: state.isConnected));
+                        context.read<InternetBloc>().add(GlobalCheck(isConnected: state.isConnected));
                       },
                     ),
                   );
@@ -150,9 +143,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               bottomNavigationBar: Container(
                 height: 70 + MediaQuery.of(context).padding.bottom,
                 decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(15),
-                      topRight: Radius.circular(15)),
+                  borderRadius: const BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
                   color: Theme.of(context).appBarTheme.backgroundColor,
                   boxShadow: [
                     BoxShadow(
@@ -166,16 +157,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   enableFeedback: true,
                   onTap: (index) async {
                     if (index == 3) {
-                      await Navigator.of(context, rootNavigator: true)
-                          .push(fade(page: const ReelsScreen()));
+                      await Navigator.of(context, rootNavigator: true).push(fade(page: const ReelsScreen()));
                       changePage(_currentIndex);
                     } else if (index == 2) {
                       await Navigator.of(context, rootNavigator: true)
                           .push(fade(page: const PostingAdScreen()))
                           .then((value) {
-                            if(value is bool && value){
-                              changePage(4);
-                            }
+                        if (value is bool && value) {
+                          changePage(4);
+                        }
                       });
                       changePage(_currentIndex);
                     }
@@ -185,10 +175,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   labelPadding: EdgeInsets.zero,
                   tabs: [
                     GestureDetector(
-                      onDoubleTap: () =>
-                          _navigatorKeys[NavItemEnum.values[_currentIndex]]!
-                              .currentState!
-                              .popUntil((route) => route.isFirst),
+                      onDoubleTap: () => _navigatorKeys[NavItemEnum.values[_currentIndex]]!
+                          .currentState!
+                          .popUntil((route) => route.isFirst),
                       behavior: HitTestBehavior.opaque,
                       child: NavItemWidget(
                         navBar: lables[0],
@@ -196,10 +185,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       ),
                     ),
                     GestureDetector(
-                      onDoubleTap: () =>
-                          _navigatorKeys[NavItemEnum.values[_currentIndex]]!
-                              .currentState!
-                              .popUntil((route) => route.isFirst),
+                      onDoubleTap: () => _navigatorKeys[NavItemEnum.values[_currentIndex]]!
+                          .currentState!
+                          .popUntil((route) => route.isFirst),
                       behavior: HitTestBehavior.opaque,
                       child: NavItemWidget(
                         navBar: lables[1],
@@ -207,10 +195,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       ),
                     ),
                     GestureDetector(
-                      onDoubleTap: () =>
-                          _navigatorKeys[NavItemEnum.values[_currentIndex]]!
-                              .currentState!
-                              .popUntil((route) => route.isFirst),
+                      onDoubleTap: () => _navigatorKeys[NavItemEnum.values[_currentIndex]]!
+                          .currentState!
+                          .popUntil((route) => route.isFirst),
                       behavior: HitTestBehavior.opaque,
                       child: NavItemWidget(
                         navBar: lables[2],
@@ -218,10 +205,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       ),
                     ),
                     GestureDetector(
-                      onDoubleTap: () =>
-                          _navigatorKeys[NavItemEnum.values[_currentIndex]]!
-                              .currentState!
-                              .popUntil((route) => route.isFirst),
+                      onDoubleTap: () => _navigatorKeys[NavItemEnum.values[_currentIndex]]!
+                          .currentState!
+                          .popUntil((route) => route.isFirst),
                       behavior: HitTestBehavior.opaque,
                       child: NavItemWidget(
                         navBar: lables[3],
@@ -229,10 +215,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       ),
                     ),
                     GestureDetector(
-                      onDoubleTap: () =>
-                          _navigatorKeys[NavItemEnum.values[_currentIndex]]!
-                              .currentState!
-                              .popUntil((route) => route.isFirst),
+                      onDoubleTap: () => _navigatorKeys[NavItemEnum.values[_currentIndex]]!
+                          .currentState!
+                          .popUntil((route) => route.isFirst),
                       behavior: HitTestBehavior.opaque,
                       child: NavItemWidget(
                         navBar: lables[4],
@@ -269,8 +254,7 @@ class HomeTabControllerProvider extends InheritedWidget {
   }) : super(key: key, child: child);
 
   static HomeTabControllerProvider of(BuildContext context) {
-    final result =
-        context.dependOnInheritedWidgetOfExactType<HomeTabControllerProvider>();
+    final result = context.dependOnInheritedWidgetOfExactType<HomeTabControllerProvider>();
     assert(result != null, 'No HomeTabControllerProvider found in context');
     return result!;
   }

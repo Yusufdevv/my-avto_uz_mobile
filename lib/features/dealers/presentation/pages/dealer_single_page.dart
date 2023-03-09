@@ -49,17 +49,14 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
 
   @override
   void initState() {
-    dealerSingleBloc = DealerSingleBloc()
-      ..add(DealerSingleEvent.getResults(slug: widget.slug));
+    dealerSingleBloc = DealerSingleBloc()..add(DealerSingleEvent.getResults(slug: widget.slug));
     marksBloc = MarksInDealersBloc(
         marksInDealerUseCase: MarksInDealerUseCase(
-            marks: MarksInDealerRepositoryImpl(
-                dataSource: MarksInDealerDataSource(DioSettings().dio))))
+            marks: MarksInDealerRepositoryImpl(dataSource: MarksInDealerDataSource(DioSettings().dio))))
       ..add(MarksInDealersEvent.getResults(slug: widget.slug));
     carsBloc = CarsInDealerBloc(
         carsInDealerUseCase: CarsInDealerUseCase(
-            cars: CarsInDealerRepositoryImpl(
-                dataSource: CarsInDealerDataSource(DioSettings().dio))))
+            cars: CarsInDealerRepositoryImpl(dataSource: CarsInDealerDataSource(DioSettings().dio))))
       ..add(CarsInDealerEvent.getResults(slug: widget.slug));
     super.initState();
   }
@@ -84,8 +81,7 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
             builder: (context, dealerSingleState) {
               if (dealerSingleState.status.isSubmissionInProgress) {
                 return const Center(child: CupertinoActivityIndicator());
-              }
-              if (dealerSingleState.status.isSubmissionSuccess) {
+              } else if (dealerSingleState.status.isSubmissionSuccess) {
                 final dealer = dealerSingleState.dealerSingleEntity;
                 return CustomScrollView(
                   slivers: [
@@ -105,6 +101,12 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 16),
                             child: DealerSingleInfoPart(
+                              mapBox: MapBox(
+                                dealerId: dealer.id,
+                                dealerName: dealer.name,
+                                latitude: dealer.latitude,
+                                longitude: dealer.longitude,
+                              ),
                               address: dealer.address,
                               daelerId: dealer.id,
                               dealerName: dealer.name,
@@ -118,30 +120,22 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                             ),
                           ),
                           BlocBuilder<MarksInDealersBloc, MarksInDealersState>(
-                              builder: (context, allMarksState) => allMarksState
-                                      .status.isSubmissionSuccess
+                              builder: (context, allMarksState) => allMarksState.status.isSubmissionSuccess
                                   ? Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         if (allMarksState.marks.length > 9)
                                           Padding(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 12,
-                                                left: 16,
-                                                right: 16),
+                                            padding: const EdgeInsets.only(bottom: 12, left: 16, right: 16),
                                             child: Row(
                                               children: [
                                                 Expanded(
                                                   child: Text(
-                                                    LocaleKeys
-                                                        .all_brands_with_ads
-                                                        .tr(),
+                                                    LocaleKeys.all_brands_with_ads.tr(),
                                                     style: const TextStyle(
                                                       color: orange,
                                                       fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.w600,
+                                                      fontWeight: FontWeight.w600,
                                                     ),
                                                   ),
                                                 ),
@@ -150,34 +144,25 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                                                     Navigator.push(
                                                         context,
                                                         fade(
-                                                            page: BlocProvider
-                                                                .value(
+                                                            page: BlocProvider.value(
                                                           value: marksBloc,
-                                                          child:
-                                                              AllMarksWithAnnouncements(
+                                                          child: AllMarksWithAnnouncements(
                                                             slug: widget.slug,
                                                           ),
                                                         )));
                                                   },
-                                                  behavior:
-                                                      HitTestBehavior.opaque,
+                                                  behavior: HitTestBehavior.opaque,
                                                   child: Row(
                                                     children: [
                                                       Text(
                                                         LocaleKeys.all.tr(),
                                                         style: const TextStyle(
-                                                            fontSize: 14,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            color: greyText),
+                                                            fontSize: 14, fontWeight: FontWeight.w400, color: greyText),
                                                       ),
                                                       const SizedBox(
                                                         width: 4,
                                                       ),
-                                                      SvgPicture.asset(
-                                                          AppIcons
-                                                              .chevronRightBlack,
-                                                          color: greyText)
+                                                      SvgPicture.asset(AppIcons.chevronRightBlack, color: greyText)
                                                     ],
                                                   ),
                                                 )
@@ -186,141 +171,81 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                                           ),
                                         if (allMarksState.marks.isNotEmpty)
                                           Padding(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 16),
+                                            padding: const EdgeInsets.only(bottom: 16),
                                             child: SizedBox(
                                                 height: 88,
                                                 child: Paginator(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 16),
-                                                  scrollDirection:
-                                                      Axis.horizontal,
-                                                  paginatorStatus:
-                                                      allMarksState.status,
-                                                  itemBuilder:
-                                                      (context, index) =>
-                                                          GestureDetector(
+                                                  padding: const EdgeInsets.only(left: 16),
+                                                  scrollDirection: Axis.horizontal,
+                                                  paginatorStatus: allMarksState.status,
+                                                  itemBuilder: (context, index) => GestureDetector(
                                                     onTap: () {
                                                       Navigator.push(
                                                         context,
                                                         fade(
-                                                          page:
-                                                              SingleMarkAnnouncements(
-                                                            dealerSlug:
-                                                                widget.slug,
-                                                            markSlug:
-                                                                allMarksState
-                                                                    .marks[
-                                                                        index]
-                                                                    .make
-                                                                    .slug,
-                                                            carMark:
-                                                                allMarksState
-                                                                    .marks[
-                                                                        index]
-                                                                    .make
-                                                                    .name,
+                                                          page: SingleMarkAnnouncements(
+                                                            dealerSlug: widget.slug,
+                                                            markSlug: allMarksState.marks[index].make.slug,
+                                                            carMark: allMarksState.marks[index].make.name,
                                                           ),
                                                         ),
                                                       );
                                                     },
-                                                    child:
-                                                        MarksWithAnnouncements(
-                                                      quantity: allMarksState
-                                                          .marks[index]
-                                                          .carsCount,
-                                                      imageUrl: allMarksState
-                                                          .marks[index]
-                                                          .make
-                                                          .logo,
-                                                      mark: allMarksState
-                                                          .marks[index]
-                                                          .make
-                                                          .name,
+                                                    child: MarksWithAnnouncements(
+                                                      quantity: allMarksState.marks[index].carsCount,
+                                                      imageUrl: allMarksState.marks[index].make.logo,
+                                                      mark: allMarksState.marks[index].make.name,
                                                     ),
                                                   ),
-                                                  itemCount: allMarksState
-                                                      .marks.length,
+                                                  itemCount: allMarksState.marks.length,
                                                   fetchMoreFunction: () {
-                                                    marksBloc.add(
-                                                        MarksInDealersEvent
-                                                            .getMoreResults(
-                                                                slug: widget
-                                                                    .slug));
+                                                    marksBloc
+                                                        .add(MarksInDealersEvent.getMoreResults(slug: widget.slug));
                                                   },
-                                                  hasMoreToFetch:
-                                                      allMarksState.moreFetch ??
-                                                          false,
+                                                  hasMoreToFetch: allMarksState.moreFetch ?? false,
                                                   errorWidget: const SizedBox(),
-                                                  loadingWidget:
-                                                      const CupertinoActivityIndicator(),
+                                                  loadingWidget: const CupertinoActivityIndicator(),
                                                 )),
                                           )
                                       ],
                                     )
                                   : const SizedBox()),
                           BlocBuilder<CarsInDealerBloc, CarsInDealerState>(
-                              builder: (context, allCarsState) => allCarsState
-                                      .status.isSubmissionSuccess
+                              builder: (context, allCarsState) => allCarsState.status.isSubmissionSuccess
                                   ? Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         if (allCarsState.cars.length > 9)
                                           Padding(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 12,
-                                                left: 16,
-                                                right: 16),
+                                            padding: const EdgeInsets.only(bottom: 12, left: 16, right: 16),
                                             child: Row(
                                               children: [
                                                 Expanded(
-                                                    child: Text(
-                                                        LocaleKeys.cars.tr(
-                                                            args: [
-                                                              dealer.name
-                                                            ]),
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
+                                                    child: Text(LocaleKeys.cars.tr(args: [dealer.name]),
+                                                        overflow: TextOverflow.ellipsis,
                                                         maxLines: 1,
                                                         style: const TextStyle(
-                                                            color: orange,
-                                                            fontSize: 16,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w600))),
+                                                            color: orange, fontSize: 16, fontWeight: FontWeight.w600))),
                                                 GestureDetector(
                                                   onTap: () => Navigator.push(
                                                     context,
                                                     fade(
                                                       page: BlocProvider(
-                                                        create: (context) =>
-                                                            carsBloc,
-                                                        child:
-                                                            AllCarsInDealerScreen(
-                                                                slug: widget
-                                                                    .slug),
+                                                        create: (context) => carsBloc,
+                                                        child: AllCarsInDealerScreen(slug: widget.slug),
                                                       ),
                                                     ),
                                                   ),
-                                                  behavior:
-                                                      HitTestBehavior.opaque,
+                                                  behavior: HitTestBehavior.opaque,
                                                   child: Row(
                                                     children: [
                                                       Text(
                                                         LocaleKeys.all.tr(),
                                                         style: const TextStyle(
-                                                            fontSize: 14,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            color: greyText),
+                                                            fontSize: 14, fontWeight: FontWeight.w400, color: greyText),
                                                       ),
                                                       const SizedBox(width: 4),
-                                                      SvgPicture.asset(
-                                                          AppIcons
-                                                              .chevronRightBlack,
-                                                          color: greyText)
+                                                      SvgPicture.asset(AppIcons.chevronRightBlack, color: greyText)
                                                     ],
                                                   ),
                                                 )
@@ -329,118 +254,57 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                                           ),
                                         if (allCarsState.cars.isNotEmpty)
                                           Padding(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 20),
+                                            padding: const EdgeInsets.only(bottom: 20),
                                             child: SizedBox(
                                               height: 293,
                                               child: Paginator(
-                                                hasMoreToFetch:
-                                                    allCarsState.moreFetch ??
-                                                        false,
+                                                hasMoreToFetch: allCarsState.moreFetch ?? false,
                                                 fetchMoreFunction: () {
-                                                  carsBloc.add(CarsInDealerEvent
-                                                      .getMoreResults(
-                                                          slug: widget.slug));
+                                                  carsBloc.add(CarsInDealerEvent.getMoreResults(slug: widget.slug));
                                                 },
-                                                paginatorStatus:
-                                                    allCarsState.status,
+                                                paginatorStatus: allCarsState.status,
                                                 errorWidget: const SizedBox(),
-                                                padding: const EdgeInsets.only(
-                                                    left: 16),
-                                                physics:
-                                                    const BouncingScrollPhysics(),
-                                                separatorBuilder: (context,
-                                                        index) =>
-                                                    const SizedBox(width: 16),
-                                                scrollDirection:
-                                                    Axis.horizontal,
+                                                padding: const EdgeInsets.only(left: 16),
+                                                physics: const BouncingScrollPhysics(),
+                                                separatorBuilder: (context, index) => const SizedBox(width: 16),
+                                                scrollDirection: Axis.horizontal,
                                                 itemBuilder: (context, index) =>
-                                                    BlocConsumer<
-                                                        WishlistAddBloc,
-                                                        WishlistAddState>(
-                                                  listener:
-                                                      (context, stateWish) {
-                                                    if (stateWish.addStatus
-                                                            .isSubmissionSuccess ||
-                                                        stateWish.removeStatus
-                                                            .isSubmissionSuccess) {
-                                                      if (stateWish.id ==
-                                                          allCarsState
-                                                              .cars[index].id) {
-                                                        context
-                                                            .read<
-                                                                CarsInDealerBloc>()
-                                                            .add(CarsInDealerEvent
-                                                                .changeIsWish(
-                                                                    index: stateWish
-                                                                        .index,
-                                                                    id: stateWish
-                                                                        .id));
+                                                    BlocConsumer<WishlistAddBloc, WishlistAddState>(
+                                                  listener: (context, stateWish) {
+                                                    if (stateWish.addStatus.isSubmissionSuccess ||
+                                                        stateWish.removeStatus.isSubmissionSuccess) {
+                                                      if (stateWish.id == allCarsState.cars[index].id) {
+                                                        context.read<CarsInDealerBloc>().add(
+                                                            CarsInDealerEvent.changeIsWish(
+                                                                index: stateWish.index, id: stateWish.id));
                                                       }
                                                       context
-                                                          .read<
-                                                              WishlistAddBloc>()
-                                                          .add(WishlistAddEvent
-                                                              .clearState());
+                                                          .read<WishlistAddBloc>()
+                                                          .add(WishlistAddEvent.clearState());
                                                     }
                                                   },
-                                                  builder: (context,
-                                                          stateWishBuild) =>
-                                                      AdsItem(
-                                                    id: allCarsState
-                                                        .cars[index].id,
-                                                    image: allCarsState
-                                                            .cars[index]
-                                                            .gallery
-                                                            .isNotEmpty
-                                                        ? allCarsState
-                                                            .cars[index]
-                                                            .gallery
-                                                            .first
+                                                  builder: (context, stateWishBuild) => AdsItem(
+                                                    id: allCarsState.cars[index].id,
+                                                    image: allCarsState.cars[index].gallery.isNotEmpty
+                                                        ? allCarsState.cars[index].gallery.first
                                                         : '',
-                                                    name: allCarsState
-                                                        .cars[index]
-                                                        .absoluteCarName,
-                                                    currency: allCarsState
-                                                        .cars[index].currency,
-                                                    description: allCarsState
-                                                        .cars[index]
-                                                        .description,
-                                                    isLiked: allCarsState
-                                                        .cars[index]
-                                                        .isWishlisted,
-                                                    location: allCarsState
-                                                        .cars[index]
-                                                        .region
-                                                        .title,
+                                                    name: allCarsState.cars[index].absoluteCarName,
+                                                    currency: allCarsState.cars[index].currency,
+                                                    description: allCarsState.cars[index].description,
+                                                    isLiked: allCarsState.cars[index].isWishlisted,
+                                                    location: allCarsState.cars[index].region.title,
                                                     onTapLike: () {
-                                                      context
-                                                          .read<
-                                                              WishlistAddBloc>()
-                                                          .add(allCarsState
-                                                                  .cars[index]
-                                                                  .isWishlisted
-                                                              ? WishlistAddEvent
-                                                                  .removeWishlist(
-                                                                      allCarsState
-                                                                          .cars[
-                                                                              index]
-                                                                          .id,
-                                                                      index)
-                                                              : WishlistAddEvent
-                                                                  .addWishlist(
-                                                                      allCarsState
-                                                                          .cars[
-                                                                              index]
-                                                                          .id,
-                                                                      index));
+                                                      context.read<WishlistAddBloc>().add(
+                                                          allCarsState.cars[index].isWishlisted
+                                                              ? WishlistAddEvent.removeWishlist(
+                                                                  allCarsState.cars[index].id, index)
+                                                              : WishlistAddEvent.addWishlist(
+                                                                  allCarsState.cars[index].id, index));
                                                     },
-                                                    price: allCarsState
-                                                        .cars[index].price,
+                                                    price: allCarsState.cars[index].price,
                                                   ),
                                                 ),
-                                                itemCount:
-                                                    allCarsState.cars.length,
+                                                itemCount: allCarsState.cars.length,
                                               ),
                                             ),
                                           )

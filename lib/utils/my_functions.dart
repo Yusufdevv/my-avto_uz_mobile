@@ -12,6 +12,7 @@ import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/common/entities/position_entity.dart';
 import 'package:auto/features/common/models/yandex_search_model.dart';
+import 'package:auto/features/common/widgets/maps_list_in_app.dart';
 import 'package:auto/features/profile/domain/entities/dir_category_entity.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -21,12 +22,22 @@ import 'package:flutter/rendering.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:jiffy/jiffy.dart';
+import 'package:map_launcher/map_launcher.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class MyFunctions {
+ static Future<void> openMapsSheet(BuildContext context, double lat, double long, String title) async {
+    final coords = Coords(lat, long);
+    final availableMaps = await MapLauncher.installedMaps;
+
+    await showModalBottomSheet(
+      context: context,
+      builder: (context) => MapsListInApp(availableMaps: availableMaps, coords: coords, title: title),
+    );
+  }
   static String getData(String data) =>
       Jiffy(data).format('dd-MM-yyyy').replaceAll('-', '/').toString();
 
