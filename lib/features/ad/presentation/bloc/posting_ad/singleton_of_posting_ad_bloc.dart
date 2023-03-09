@@ -22,7 +22,7 @@ class PASingleton {
       /// yearBegin is not true
       'year': v.yearEntity?.yearBegin,
       'modification_type': v.modification?.id,
-      'color': 1,
+      'color': v.colorName?.id,
       'licence_type': v.licenceType,
       'ownership': v.ownerStep,
       'purchase_date': v.purchasedDate,

@@ -43,7 +43,8 @@ class EditAdState extends Equatable {
   final String? ownerStep;
   final String? purchasedDate;
   final String? licenceType;
-  final String? colorName;
+  final ColorEntity? colorName;
+  final List<ColorEntity> colors;
   final String? description;
   final String? price;
   final String currency;
@@ -71,6 +72,7 @@ class EditAdState extends Equatable {
     required this.nameController,
     required this.popStatus,
     required this.contactsFormKey,
+    this.colors = const <ColorEntity>[],
     this.lastEquipmentId,
     this.radioOptions = const <int, String>{},
     this.selectOptions = const <int, SO>{},
@@ -162,7 +164,8 @@ class EditAdState extends Equatable {
     num? minimumPrice,
     int? lastEquipmentId,
     String? milageImage,
-    String? colorName,
+    ColorEntity? colorName,
+    List<ColorEntity>? colors,
     String? licenceType,
     String? ownerStep,
     String? ownerName,
@@ -194,6 +197,7 @@ class EditAdState extends Equatable {
     List<EquipmentOptionsListEntity>? equipmentOptionsList,
   }) =>
       EditAdState(
+        colors: colors ?? this.colors,
         contactsFormKey: contactsFormKey ?? this.contactsFormKey,
         lastEquipmentId: lastEquipmentId ?? this.lastEquipmentId,
         radioOptions: radioOptions ?? this.radioOptions,
@@ -260,6 +264,7 @@ class EditAdState extends Equatable {
 
   @override
   List<Object?> get props => [
+    colors,
         lastEquipmentId,
         radioOptions,
         selectOptions,

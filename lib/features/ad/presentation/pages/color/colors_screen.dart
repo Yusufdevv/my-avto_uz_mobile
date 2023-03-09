@@ -17,22 +17,6 @@ class ColorsScreen extends StatefulWidget {
 }
 
 class _ColorsScreenState extends State<ColorsScreen> {
-  final List<Color> colorsList = [
-    black,
-    silver,
-    white,
-    complaintColor,
-    yellow,
-    neonCarrot
-  ];
-  final List<String> colorsNameList = [
-    LocaleKeys.black.tr(),
-    LocaleKeys.serebro.tr(),
-    LocaleKeys.white.tr(),
-    LocaleKeys.bordo.tr(),
-    LocaleKeys.yellow.tr(),
-    LocaleKeys.orange.tr(),
-  ];
   String currentId = '';
 
   @override
@@ -51,14 +35,17 @@ class _ColorsScreenState extends State<ColorsScreen> {
               return GridView.builder(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 physics: const BouncingScrollPhysics(),
-                itemBuilder: (context, index) => ColorsItem(
-                  color: colorsList[index],
-                  colorName: colorsNameList[index],
-                  onTap: () => context.read<PostingAdBloc>().add(
-                      PostingAdChooseEvent(colorName: colorsNameList[index])),
-                  isSelected: state.colorName == colorsNameList[index],
-                ),
-                itemCount: 6,
+                itemBuilder: (context, index) {
+                  final color = HexColor.fromHex(state.colors[index].hexCode);
+                  return ColorsItem(
+                    color: color,
+                    colorName: state.colors[index].name,
+                    onTap: () => context.read<PostingAdBloc>().add(
+                        PostingAdChooseEvent(colorName: state.colors[index])),
+                    isSelected: state.colorName?.id == state.colors[index].id,
+                  );
+                },
+                itemCount: state.colors.length,
                 shrinkWrap: true,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisSpacing: 8,
@@ -72,4 +59,14 @@ class _ColorsScreenState extends State<ColorsScreen> {
           ),
         ),
       );
+}
+
+extension HexColor on Color {
+  /// String is in the format "aabbcc" or "ffaabbcc" with an optional leading "#".
+  static Color fromHex(String hexString) {
+    final buffer = StringBuffer();
+    if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
+    buffer.write(hexString.replaceFirst('#', ''));
+    return Color(int.parse(buffer.toString(), radix: 16));
+  }
 }

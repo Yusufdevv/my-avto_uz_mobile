@@ -21,6 +21,7 @@ import 'package:auto/features/ad/domain/usecases/contacts_usecase.dart';
 import 'package:auto/features/ad/domain/usecases/create_announcement.dart';
 import 'package:auto/features/ad/domain/usecases/get_body_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
+import 'package:auto/features/ad/domain/usecases/get_colors_use_case.dart';
 import 'package:auto/features/ad/domain/usecases/get_drive_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_engine_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_equipment_options.dart';
@@ -37,6 +38,7 @@ import 'package:auto/features/car_single/domain/entities/damaged_parts_entity.da
 import 'package:auto/features/car_single/domain/usecases/get_ads_usecase.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/domain/model/user.dart';
+import 'package:auto/features/common/entities/color_entity.dart';
 import 'package:auto/features/common/repository/auth.dart';
 import 'package:auto/features/common/usecases/get_districts_usecase.dart';
 import 'package:auto/features/common/usecases/get_regions_usecase.dart';
@@ -44,11 +46,9 @@ import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
-import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -61,6 +61,7 @@ part 'posting_ad_state.dart';
 part 'singleton_of_posting_ad_bloc.dart';
 
 class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
+  final GetColorsUseCase colorsUseCase = GetColorsUseCase();
   final GetModificationTypeUseCase modificationUseCase =
       GetModificationTypeUseCase();
   final GetMapScreenShotUseCase screenShotUseCase = GetMapScreenShotUseCase();
@@ -93,7 +94,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       : super(PostingAdState(
             contactsFormKey: GlobalKey<FormState>(),
             popStatus: PopStatus.success,
-            colorName: LocaleKeys.white.tr(),
             status: FormzStatus.pure,
             phoneController: TextEditingController(),
             emailController: TextEditingController(),
@@ -133,6 +133,29 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdGetEquipmentOptionsList>(_getEquipmentOptionsList);
     on<PostingAdChangeOption>(_getChangeOption);
     on<PostingAdSelectEquipmentEvent>(_selectEquipment);
+    on<PostingAdGetColorsEvent>(_getColors);
+  }
+
+  FutureOr<void> _getColors(
+      PostingAdGetColorsEvent event, Emitter<PostingAdState> emit) async {
+    log('::::::::::   PostingAdGetColorsEvent triggered  ::::::::::');
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    final result = await colorsUseCase.call(event.next);
+    log(':::::::::: PostingAdGetColorsEvent result ${result}  ::::::::::');
+    if (result.isRight) {
+      log(':::::::::: colors right:   ${result.right}  ::::::::::');
+      emit(
+        state.copyWith(
+          status: FormzStatus.submissionSuccess,
+          colors: result.right.results,
+          colorName: result.right.results.isNotEmpty
+              ? result.right.results.first
+              : null,
+        ),
+      );
+    } else {
+      emit(state.copyWith(status: FormzStatus.submissionFailure));
+    }
   }
 
   FutureOr<void> _selectEquipment(
@@ -240,49 +263,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         toastMessage: MyFunctions.getErrorMessage(result.left),
         popStatus: PopStatus.error,
       ));
-    }
-  }
-
-  FutureOr<void> _addEvent(
-      PostingAdAddEventForEveryPage event, Emitter<PostingAdState> emit) {
-    switch (event.page) {
-      case 0:
-        if (state.makes.isEmpty) add(PostingAdMakesEvent());
-        break;
-      case 1:
-        add(PostingAdModelEvent());
-        break;
-      case 2:
-        add(PostingAdGetYearsEvent());
-        break;
-      case 3:
-        add(PostingAdGenerationsEvent(modelId: state.model!.id));
-        break;
-      case 4:
-        add(PostingAdBodyTypesEvent());
-        break;
-      case 5:
-        add(PostingAdEnginesEvent());
-        add(PostingAdGetGasEquipments());
-        break;
-      case 6:
-        add(PostingAdDriveTypesEvent());
-        break;
-      case 7:
-        add(PostingAdGearBoxesEvent());
-        break;
-      case 8:
-        add(PostingAdModificationsEvent());
-        break;
-      case 13:
-        add(PostingAdGetEquipments());
-        break;
-      case 16:
-        if (state.regions.isEmpty) add(PostingAdGetRegionsEvent());
-        break;
-      case 17:
-        add(PostingAdGetMinimumPriceEvent());
-        break;
     }
   }
 
@@ -541,9 +521,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         state.copyWith(
           status: FormzStatus.submissionSuccess,
           engines: engines,
-          engineId: engines.isNotEmpty && state.engine == null
-              ? engines.first
-              : null,
+          engineId:
+              engines.isNotEmpty && state.engine == null ? engines.first : null,
         ),
       );
     } else {
@@ -836,6 +815,53 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
           ),
         );
       }
+    }
+  }
+
+  FutureOr<void> _addEvent(
+      PostingAdAddEventForEveryPage event, Emitter<PostingAdState> emit) {
+    log(':::::::::: add event event triggered for: ${event.page}  ::::::::::');
+    switch (event.page) {
+      case 0:
+        if (state.makes.isEmpty) add(PostingAdMakesEvent());
+        break;
+      case 1:
+        add(PostingAdModelEvent());
+        break;
+      case 2:
+        add(PostingAdGetYearsEvent());
+        break;
+      case 3:
+        add(PostingAdGenerationsEvent(modelId: state.model!.id));
+        break;
+      case 4:
+        add(PostingAdBodyTypesEvent());
+        break;
+      case 5:
+        add(PostingAdEnginesEvent());
+        add(PostingAdGetGasEquipments());
+        break;
+      case 6:
+        add(PostingAdDriveTypesEvent());
+        break;
+      case 7:
+        add(PostingAdGearBoxesEvent());
+        break;
+      case 8:
+        add(PostingAdModificationsEvent());
+        break;
+      case 9:
+        add(PostingAdGetColorsEvent(next: null));
+        break;
+      case 13:
+        add(PostingAdGetEquipments());
+        break;
+      case 16:
+        if (state.regions.isEmpty) add(PostingAdGetRegionsEvent());
+        break;
+      case 17:
+        add(PostingAdGetMinimumPriceEvent());
+        break;
     }
   }
 }

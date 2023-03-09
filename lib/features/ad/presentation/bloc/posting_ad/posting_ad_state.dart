@@ -41,6 +41,7 @@ class PostingAdState extends Equatable {
   final List<String> gallery;
   final List<String> panaramaGallery;
   final Map<int, RentWithPurchaseEntity> rentWithPurchaseConditions;
+  final List<ColorEntity> colors;
 
   final Map<DamagedPart, DamageType> damagedParts;
   final Map<int, SO> selectOptions;
@@ -60,7 +61,7 @@ class PostingAdState extends Equatable {
   final String? ownerStep;
   final String? purchasedDate;
   final String? licenceType;
-  final String? colorName;
+  final ColorEntity? colorName;
   final String? description;
   final String? price;
   final String currency;
@@ -96,7 +97,7 @@ class PostingAdState extends Equatable {
     this.radioOptions = const <int, String>{},
     this.selectOptions = const <int, SO>{},
     this.lastEquipmentId,
-
+    this.colors = const <ColorEntity>[],
     this.makeLetterIndex,
     this.minimumPrice = 0,
     this.modification,
@@ -168,14 +169,6 @@ class PostingAdState extends Equatable {
     this.equipmentOptionsList = const [],
   });
 
-  String? get districtTitle {
-    final index =
-        districts.indexWhere((element) => element.id == (district ?? -1));
-    if (index >= 0) {
-      return districts[index].title;
-    }
-    return null;
-  }
 
   PostingAdState copyWith({
     TextEditingController? phoneController,
@@ -224,7 +217,8 @@ class PostingAdState extends Equatable {
     num? minimumPrice,
     String? milageImage,
     String? eventLetter,
-    String? colorName,
+    ColorEntity? colorName,
+    List<ColorEntity>? colors,
     String? licenceType,
     String? ownerStep,
     Uint8List? mapPointBytes,
@@ -319,6 +313,7 @@ class PostingAdState extends Equatable {
         make: make ?? this.make,
         letter: eventLetter,
         colorName: colorName ?? this.colorName,
+        colors: colors ?? this.colors,
         licenceType: licenceType ?? this.licenceType,
         ownerStep: ownerStep ?? this.ownerStep,
         purchasedDate: purchasedDate ?? this.purchasedDate,
@@ -368,7 +363,6 @@ class PostingAdState extends Equatable {
         panaramaGallery,
         createStatus,
         mapPointBytes,
-
         makeLetterIndex,
         long,
         lat,
