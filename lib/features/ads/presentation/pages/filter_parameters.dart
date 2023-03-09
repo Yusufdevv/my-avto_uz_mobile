@@ -65,9 +65,6 @@ class _FilterParametersState extends State<FilterParameters> {
     );
   }
 
-  String tipSale = 'Прямая продажа';
-  Currency currency = Currency.usd;
-
   @override
   Widget build(BuildContext context) => BlocProvider.value(
         value: filterBloc,
@@ -80,10 +77,12 @@ class _FilterParametersState extends State<FilterParameters> {
               extraActions: [
                 TextButton(
                   onPressed: () {
-                    filterBloc.add(FilterClearEvent(
-                      yearValues: widget.yearValues,
-                      priceValues: widget.priceValues,
-                    ));
+                    filterBloc.add(
+                      FilterClearEvent(
+                        yearValues: widget.yearValues,
+                        priceValues: widget.priceValues,
+                      ),
+                    );
                   },
                   child: Text(
                     LocaleKeys.clear.tr(),
@@ -105,18 +104,18 @@ class _FilterParametersState extends State<FilterParameters> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SaleTypeButtons(
-                        onTap: (v) {
-                          tipSale = v;
-                          setState(() {});
-                        },
-                        selected: tipSale),
+                      onTap: (v) {
+                        filterBloc.add(FilterSelectEvent(saleType: v));
+                      },
+                      selected: state.saleType ?? SaleType.values[0],
+                    ),
                     const SizedBox(height: 16),
                     CurrencyBox(
                       onTap: (v) {
-                        currency = v;
-                        setState(() {});
+                        log(':::::::::: currency changed:  $v}  ::::::::::');
+                        filterBloc.add(FilterChangeCurrencyEvent(v));
                       },
-                      selected: currency,
+                      selected: state.currency ?? Currency.uzs,
                     ),
                     const SizedBox(height: 16),
                     SelectorItem(

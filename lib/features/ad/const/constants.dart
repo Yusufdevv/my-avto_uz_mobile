@@ -34,7 +34,7 @@ enum DamageType {
   final String value;
 }
 
-enum Currency {
+enum Currency  {
   uzs('uzs'),
   usd('usd'),
   none('');
