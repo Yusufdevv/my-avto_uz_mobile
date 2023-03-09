@@ -572,5 +572,16 @@ abstract class  LocaleKeys {
   static const back_to_ads = 'back_to_ads';
   static const become_verifered_owner = 'become_verifered_owner';
   static const by_becoming_verified_owner_you = 'by_becoming_verified_owner_you';
+  static const reapplication = 'reapplication';
+  static const apply_app = 'apply_app';
+  static const verified_owner = 'verified_owner';
+  static const at_moderation = 'at_moderation';
+  static const application_confirmed = 'application_confirmed';
+  static const application_rejected = 'application_rejected';
+  static const driver_licence = 'driver_licence';
+  static const your_application_has_been_accepted = 'your_application_has_been_accepted';
+  static const your_application_has_been_rejected = 'your_application_has_been_rejected';
+  static const try_to_resubmit_the_application = 'try_to_resubmit_the_application';
+  static const wait_for_moderation_confirmation = 'wait_for_moderation_confirmation';
 
 }

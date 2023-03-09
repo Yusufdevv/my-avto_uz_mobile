@@ -585,7 +585,18 @@ class CodegenLoader extends AssetLoader{
   "return_again": "Повторить попытку",
   "back_to_ads": "Вернутся к объявлениям",
   "become_verifered_owner": "Cтать проверенным собственником",
-  "by_becoming_verified_owner_you": "Став проверенным собственником вы можете продать  машину быстрее"
+  "by_becoming_verified_owner_you": "Став проверенным собственником вы можете продать  машину быстрее",
+  "reapplication": "Повторная заявку",
+  "apply_app": "Подать заявку",
+  "verified_owner": "Проверенный собственник",
+  "at_moderation": "В модерации",
+  "application_confirmed": "Заявка подтверждена",
+  "application_rejected": "Заявка отклонена",
+  "driver_licence": "Водительское удостоверение",
+  "your_application_has_been_accepted": "Выша заявка отклонена!",
+  "your_application_has_been_rejected": "Выша заявка отклонена!",
+  "try_to_resubmit_the_application": "Попробуйте повторно отправить заявку ",
+  "wait_for_moderation_confirmation": "Ждите подтверждения модерации"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -1157,7 +1168,18 @@ static const Map<String,dynamic> uz = {
   "return_again": "Qayta urinib ko'rish",
   "back_to_ads": "E'longa qaytish",
   "become_verifered_owner": "Tasdiqlangan foydalanuvchiga aylaning",
-  "by_becoming_verified_owner_you": "Tasdiqlangan foydalanuvchi bo'lish orqali siz mashinangizni tezroq sotishingiz mumkin"
+  "by_becoming_verified_owner_you": "Tasdiqlangan foydalanuvchi bo'lish orqali siz mashinangizni tezroq sotishingiz mumkin",
+  "reapplication": "Qayta ariza jo'natish",
+  "verified_owner": "Tasdiqlangan foydalanuvchi",
+  "at_moderation": "Moderatsiyada",
+  "apply_app": "Arizani jo'natish",
+  "application_confirmed": "Ariza tasdiqlandi",
+  "application_rejected": "Ariza rad etildi",
+  "driver_licence": "Haydovchilik guvohnomasi",
+  "your_application_has_been_accepted": "Sizning arizangiz qabul qilindi!",
+  "your_application_has_been_rejected": "Sizning arizangiz rad etildi!",
+  "try_to_resubmit_the_application": "Arizani qayta yuborishga harakat qiling",
+  "wait_for_moderation_confirmation": "Moderatsiyani tasdiqlashni kuting"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }

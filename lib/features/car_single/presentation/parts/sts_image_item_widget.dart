@@ -3,14 +3,12 @@ import 'dart:io';
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/ad/presentation/pages/add_photo/widgets/image_item.dart';
 import 'package:auto/features/ad/presentation/pages/add_photo/widgets/plus_circle.dart';
+import 'package:auto/features/common/bloc/image/image_bloc.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-import '../../../common/bloc/image/image_bloc.dart';
 
 class StsImageItemWidget extends StatefulWidget {
   final List<String> images;
@@ -31,7 +29,7 @@ class _StsImageItemWidgetState extends State<StsImageItemWidget> {
           onTap: widget.onTap,
           child: Container(
             alignment: Alignment.center,
-            height: 110,
+            height: 80,
             width: double.infinity,
             margin:
                 const EdgeInsets.only(right: 20, left: 20, top: 8, bottom: 20),

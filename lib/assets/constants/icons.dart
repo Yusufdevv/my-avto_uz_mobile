@@ -224,6 +224,7 @@ class AppIcons {
 
   static const refresher = 'assets/icons/car_single/refreshers.svg';
   static const rocket = 'assets/icons/car_single/rocket.svg';
+  static const redMapIcon = 'assets/icons/car_single/red_map_icon.svg';
   static const soon = 'assets/icons/car_single/soon.svg';
   static const blue_fire = 'assets/icons/car_single/blue_fire.svg';
   static const vin_skoro = 'assets/icons/car_single/vin_skoro.svg';

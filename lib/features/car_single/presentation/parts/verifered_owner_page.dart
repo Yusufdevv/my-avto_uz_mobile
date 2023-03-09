@@ -1,16 +1,19 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/features/ad/presentation/pages/add_photo/widgets/photo_item.dart';
+import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/car_single/presentation/parts/image_item_widget.dart';
 import 'package:auto/features/car_single/presentation/parts/sts_image_item_widget.dart';
+import 'package:auto/features/car_single/presentation/parts/verifired_owner_more_btsht.dart';
 import 'package:auto/features/car_single/presentation/widgets/invoice_termsofsuse.dart';
 import 'package:auto/features/common/bloc/image/image_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/profile/presentation/widgets/camera_bottom_sheet.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 
 class VerifiredOwnerPage extends StatefulWidget {
@@ -38,21 +41,44 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
   @override
   Widget build(BuildContext context) => BlocProvider.value(
         value: imageBloc,
-        child: Scaffold(
-          backgroundColor: white,
-          appBar: const WAppBar(
-            title: 'Проверенный собственник',
-          ),
-          body: BlocConsumer<ImageBloc, ImageState>(
-            listener: (context, state) {},
-            builder: (context, state) => Column(
+        child: BlocConsumer<ImageBloc, ImageState>(
+          listener: (context, state) {},
+          builder: (context, state) => Scaffold(
+            backgroundColor: white,
+            appBar: WAppBar(
+              title: LocaleKeys.verified_owner.tr(),
+              extraActions: [
+                if(!(state.images.length < 2 ||
+                    state.secondImage.isEmpty))
+                WScaleAnimation(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: SvgPicture.asset(
+                      AppIcons.moreVertical,
+                      width: 32,
+                      height: 32,
+                      color: grey,
+                    ),
+                  ),
+                  onTap: () {
+                    showModalBottomSheet(
+                        useRootNavigator: true,
+                        backgroundColor: Colors.transparent,
+                        isScrollControlled: true,
+                        context: context,
+                        builder: (context) => const VerifiredOwnerMoreBtsht());
+                  },
+                ),
+              ],
+            ),
+            body: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 14),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
-                    'CTC',
+                    LocaleKeys.sts.tr(),
                     style: Theme.of(context)
                         .textTheme
                         .titleMedium!
@@ -75,12 +101,11 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                       }
                     });
                   },
-
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
-                    'Водительское удостоверение',
+                    LocaleKeys.driver_licence.tr(),
                     style: Theme.of(context)
                         .textTheme
                         .titleMedium!
@@ -88,16 +113,17 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 16, left: 16, top: 8, bottom: 16),
+                  padding: const EdgeInsets.only(
+                      right: 16, left: 16, top: 8, bottom: 20),
                   child: ImageItemWidget(
                       image: state.secondImage,
                       onTap: () async {
                         await showModalBottomSheet<ImageSource>(
-                            backgroundColor: Colors.transparent,
-                            context: context,
-                            useRootNavigator: true,
-                            builder: (context) =>
-                                const CameraBottomSheet()).then((value) {
+                                backgroundColor: Colors.transparent,
+                                context: context,
+                                useRootNavigator: true,
+                                builder: (context) => const CameraBottomSheet())
+                            .then((value) {
                           if (value != null) {
                             context.read<ImageBloc>().add(
                                 PickDriverLicenceImageEvent(source: value));
@@ -105,11 +131,10 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                         });
                       },
                       onTapDelete: () {
-                        imageBloc.add(DeleteImageEvent(
-                            imageUrl: state.secondImage));
+                        imageBloc
+                            .add(DeleteImageEvent(imageUrl: state.secondImage));
                       }),
                 ),
-                const SizedBox(height: 4),
                 const Spacer(),
                 Padding(
                   padding: const EdgeInsets.all(16),
@@ -119,21 +144,21 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                       const SizedBox(height: 16),
                       WButton(
                         // isLoading: state.payStatus.isSubmissionInProgress,
-                        isDisabled: state.images.length <2 || state.secondImage.isEmpty,
+                        isDisabled: state.images.length < 2 ||
+                            state.secondImage.isEmpty,
                         disabledColor: disabledButton,
-                        text: LocaleKeys.confirm.tr(),
+                        text: LocaleKeys.apply_app.tr(),
                         color: orange,
                         onTap: () {},
                       ),
                       SizedBox(
-                        height:MediaQuery.of(context).padding.bottom,
+                        height: MediaQuery.of(context).padding.bottom,
                       )
                     ],
                   ),
                 ),
               ],
             ),
-            // ),
           ),
         ),
       );

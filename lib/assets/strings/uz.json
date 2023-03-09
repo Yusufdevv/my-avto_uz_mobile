@@ -568,6 +568,17 @@
   "return_again": "Qayta urinib ko'rish",
   "back_to_ads": "E'longa qaytish",
   "become_verifered_owner": "Tasdiqlangan foydalanuvchiga aylaning",
-  "by_becoming_verified_owner_you": "Tasdiqlangan foydalanuvchi bo'lish orqali siz mashinangizni tezroq sotishingiz mumkin"
+  "by_becoming_verified_owner_you": "Tasdiqlangan foydalanuvchi bo'lish orqali siz mashinangizni tezroq sotishingiz mumkin",
+  "reapplication" : "Qayta ariza jo'natish",
+  "verified_owner" : "Tasdiqlangan foydalanuvchi",
+  "at_moderation" : "Moderatsiyada",
+  "apply_app" : "Arizani jo'natish",
+  "application_confirmed" : "Ariza tasdiqlandi",
+  "application_rejected" : "Ariza rad etildi",
+  "driver_licence" : "Haydovchilik guvohnomasi",
+  "your_application_has_been_accepted" : "Sizning arizangiz qabul qilindi!",
+  "your_application_has_been_rejected" : "Sizning arizangiz rad etildi!",
+  "try_to_resubmit_the_application" : "Arizani qayta yuborishga harakat qiling",
+  "wait_for_moderation_confirmation" : "Moderatsiyani tasdiqlashni kuting"
 }
 

@@ -569,5 +569,17 @@
   "return_again": "Повторить попытку",
   "back_to_ads": "Вернутся к объявлениям",
   "become_verifered_owner": "Cтать проверенным собственником",
-  "by_becoming_verified_owner_you": "Став проверенным собственником вы можете продать  машину быстрее"
+  "by_becoming_verified_owner_you": "Став проверенным собственником вы можете продать  машину быстрее",
+  "reapplication" : "Повторная заявку",
+  "apply_app" : "Подать заявку",
+  "verified_owner" : "Проверенный собственник",
+  "at_moderation" : "В модерации",
+  "application_confirmed" : "Заявка подтверждена",
+  "application_rejected" : "Заявка отклонена",
+  "driver_licence" : "Водительское удостоверение",
+  "your_application_has_been_accepted" : "Выша заявка отклонена!",
+  "your_application_has_been_rejected" : "Выша заявка отклонена!",
+  "try_to_resubmit_the_application" : "Попробуйте повторно отправить заявку ",
+  "wait_for_moderation_confirmation" : "Ждите подтверждения модерации"
+
 }

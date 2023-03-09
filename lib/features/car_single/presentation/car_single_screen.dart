@@ -473,6 +473,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                         right: 16,
                         bottom: 16,
                         child: BottomItem(
+                          isMine: state.singleEntity.isMine,
                           callFrom: state.singleEntity.contactAvailableFrom,
                           callTo: state.singleEntity.contactAvailableTo,
                           phoneNumber: state.singleEntity.user.phoneNumber,

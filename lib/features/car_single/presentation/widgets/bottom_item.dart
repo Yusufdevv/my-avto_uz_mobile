@@ -15,6 +15,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class BottomItem extends StatelessWidget {
@@ -26,6 +27,7 @@ class BottomItem extends StatelessWidget {
   final String phoneNumber;
   final String slug;
   final String? userAvatar;
+  final bool isMine;
 
   const BottomItem({
     required this.callFrom,
@@ -36,6 +38,7 @@ class BottomItem extends StatelessWidget {
     required this.userId,
     required this.usertype,
     required this.slug,
+    required this.isMine,
     Key? key,
   }) : super(key: key);
 
@@ -43,129 +46,99 @@ class BottomItem extends StatelessWidget {
   Widget build(BuildContext context) => Row(
         children: [
           Expanded(
-              child: callFrom != '' && callTo != ''
-                  ? MyFunctions.enableForCalling(
-                      callFrom: callFrom,
-                      callTo: callTo,
+            child: WButton(
+              onTap: () {
+                if (isMine) {
+                } else {
+                  if (callFrom != '' && callTo != '') {
+                    if (MyFunctions.enableForCalling(
+                        callFrom: callFrom, callTo: callTo)) {
+                      launchUrl(Uri.parse('tel://$phoneNumber'));
+                      context
+                          .read<CarSingleBloc>()
+                          .add(CarSingleEvent.callCount(id));
+                    } else {
+                      showModalBottomSheet(
+                        useRootNavigator: true,
+                        isScrollControlled: false,
+                        backgroundColor: Colors.transparent,
+                        context: context,
+                        builder: (context) => DealerTime(
+                          timeTo: callTo,
+                          timeFrom: callFrom,
+                        ),
+                      );
+                    }
+                  }
+                }
+              },
+              height: 44,
+              borderRadius: 8,
+              color: isMine ? const Color(0xff5ECC81) : const Color(0xffB5B5BE),
+              text: LocaleKeys.call.tr(),
+              textColor: Colors.white,
+              child: isMine
+                  ? const Center(
+                      child: Text('Продлить еще на 12 дней'),
                     )
-                      ? WButton(
-                          onTap: () {
-                            launchUrl(Uri.parse('tel://$phoneNumber'));
-                            context
-                                .read<CarSingleBloc>()
-                                .add(CarSingleEvent.callCount(id));
-                          },
-                          height: 44,
-                          borderRadius: 8,
-                          color: const Color(0xff5ECC81),
-                          text: LocaleKeys.call.tr(),
-                          textColor: Colors.white,
-                        )
-                      : WButton(
-                          onTap: () {
-                            showModalBottomSheet(
-                              useRootNavigator: true,
-                              isScrollControlled: false,
-                              backgroundColor: Colors.transparent,
-                              context: context,
-                              builder: (context) => DealerTime(
-                                timeTo: callTo,
-                                timeFrom: callFrom,
-                              ),
-                            );
-                          },
-                          height: 44,
-                          borderRadius: 8,
-                          color: const Color(0xffB5B5BE),
-                          text: LocaleKeys.call.tr(),
-                          textColor: Colors.white,
-                          child: Row(
-                            children: [
-                              const Spacer(),
-                              SvgPicture.asset(
-                                AppIcons.info,
-                                color: white,
-                              ),
-                              const SizedBox(
-                                width: 8,
-                              ),
-                              Text(
-                                LocaleKeys.call.tr(),
-                                style: const TextStyle(color: border),
-                              ),
-                              const Spacer(),
-                            ],
-                          ),
-                        )
-                  : WButton(
-                      onTap: () {
-                        showModalBottomSheet(
-                          useRootNavigator: true,
-                          isScrollControlled: false,
-                          backgroundColor: Colors.transparent,
-                          context: context,
-                          builder: (context) => DealerTime(
-                            timeTo: callTo,
-                            timeFrom: callFrom,
-                          ),
-                        );
-                      },
-                      height: 44,
-                      borderRadius: 8,
-                      color: const Color(0xffB5B5BE),
-                      text: LocaleKeys.call.tr(),
-                      textColor: Colors.white,
-                      child: Row(
-                        children: [
-                          const Spacer(),
-                          SvgPicture.asset(
-                            AppIcons.info,
-                            color: white,
-                          ),
-                          const SizedBox(
-                            width: 8,
-                          ),
-                          Text(
-                            LocaleKeys.call.tr(),
-                            style: const TextStyle(color: border),
-                          ),
-                          const Spacer(),
-                        ],
-                      ),
-                    )),
-          const SizedBox(
-            width: 4,
+                  : Row(
+                      children: [
+                        const Spacer(),
+                        SvgPicture.asset(AppIcons.info, color: white),
+                        const SizedBox(width: 8),
+                        Text(
+                          LocaleKeys.call.tr(),
+                          style: const TextStyle(color: border),
+                        ),
+                        const Spacer(),
+                      ],
+                    ),
+            ),
           ),
+          const SizedBox(width: 4),
           WScaleAnimation(
             onTap: () {
-              if (usertype == 'owner') {
-                Navigator.of(context).push(fade(
-                    page: UserSinglePage(
-                  userId: userId,
-                  announcementId: id,
-                )));
-              }
-              if (usertype == 'dealer' && slug.isNotEmpty) {
-                Navigator.of(context)
-                    .push(fade(page: DealerSinglePage(slug: slug)));
+              if (!isMine) {
+                if (usertype == 'owner') {
+                  Navigator.of(context).push(fade(
+                      page: UserSinglePage(
+                    userId: userId,
+                    announcementId: id,
+                  )));
+                }
+                if (usertype == 'dealer' && slug.isNotEmpty) {
+                  Navigator.of(context)
+                      .push(fade(page: DealerSinglePage(slug: slug)));
+                }
+              } else {
+                Share.share(
+                    'https://panel.avto.uz/api/v1/car/announcement/$id/detail/');
               }
             },
             child: Container(
               height: 44,
               decoration: BoxDecoration(
-                  color: grey, borderRadius: BorderRadius.circular(8)),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: CachedNetworkImage(
-                  fit: BoxFit.cover,
-                  width: 44,
-                  imageUrl: userAvatar ?? '',
-                  errorWidget: (context, url, error) => Image.asset(
-                    AppImages.defaultPhoto,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
+                  color: white,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: isMine ? dividerColor : border)),
+              child: isMine
+                  ? Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: SvgPicture.asset(AppIcons.share,
+                          height: 28, width: 28),
+                    )
+                  : ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: CachedNetworkImage(
+                        fit: BoxFit.cover,
+                        width: 44,
+                        imageUrl: userAvatar ?? '',
+                        errorWidget: (context, url, error) => Image.asset(
+                          AppImages.defaultPhoto,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
             ),
           ),
         ],

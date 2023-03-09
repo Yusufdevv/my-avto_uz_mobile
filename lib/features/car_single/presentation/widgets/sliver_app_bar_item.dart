@@ -166,7 +166,7 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                   backgroundColor: Colors.transparent,
                   isScrollControlled: true,
                   context: context,
-                  builder: (context) => widget.isMine == true
+                  builder: (context) => widget.isMine
                       ? MineMoreBottomSheet(
                           inModeration: widget.inModeration,
                           name: widget.dealerName,
@@ -177,8 +177,6 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                               widget.shareUrl,
                             );
                           },
-                          onCompare: () {},
-                          onDealer: () {},
                           id: widget.id,
                           status: widget.status,
                           onSold: widget.onSold,

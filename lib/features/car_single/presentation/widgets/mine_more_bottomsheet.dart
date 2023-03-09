@@ -18,8 +18,6 @@ class MineMoreBottomSheet extends StatelessWidget {
   final String position;
   final String image;
   final VoidCallback onShare;
-  final VoidCallback onCompare;
-  final VoidCallback onDealer;
   final VoidCallback onSold;
   final bool inModeration;
 
@@ -28,8 +26,6 @@ class MineMoreBottomSheet extends StatelessWidget {
     required this.position,
     required this.image,
     required this.onShare,
-    required this.onCompare,
-    required this.onDealer,
     required this.id,
     required this.status,
     required this.onSold,
@@ -190,6 +186,13 @@ class MineMoreBottomSheet extends StatelessWidget {
               color: const Color(0xffDFEFFF),
               borderColor: const Color(0xff4D88C8).withOpacity(0.12),
               onTap: () {},
+            ),
+            MoreActionItem(
+              icon: AppIcons.redMapIcon,
+              text: 'Место осмотра',
+              color: const Color(0xffFFECE7),
+              onTap: () {},
+              borderColor: const Color(0xffF63C07).withOpacity(0.12),
             ),
             MoreActionItem(
               icon: AppIcons.surface,
