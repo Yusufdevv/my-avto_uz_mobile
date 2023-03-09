@@ -100,6 +100,12 @@ class PostingAdTopMakesEvent extends PostingAdEvent {
   PostingAdTopMakesEvent({this.name});
 }
 
+class PostingAdGetColorsEvent extends PostingAdEvent {
+  final String? next;
+
+  PostingAdGetColorsEvent({required this.next});
+}
+
 class PostingAdOnRentWithPurchaseConditionChangedEvent extends PostingAdEvent {
   final RentWithPurchaseEntity condition;
 
@@ -138,7 +144,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final Uint8List? bodyBytes;
   final String? milageImage;
   final String? letter;
-  final String? colorName;
+  final ColorEntity? colorName;
   final String? typeDocument;
   final String? ownerStep;
   final String? ownerEmail;

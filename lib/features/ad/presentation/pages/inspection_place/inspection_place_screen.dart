@@ -86,7 +86,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
 
                     // CHOOSE DISTRICT
                     LoaderBox(
-                      isActive: state.districtTitle != null,
+                      isActive: state.district != null,
                       isLoading: state.getDistrictsStatus ==
                           FormzStatus.submissionInProgress,
                       onTap: () async {
@@ -120,7 +120,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                         });
                       },
                       hintText:
-                          state.districtTitle ?? LocaleKeys.choose_area.tr(),
+                          state.district?.title ?? LocaleKeys.choose_area.tr(),
                       title:
                           '${LocaleKeys.area.tr()} / ${LocaleKeys.city.tr().toLowerCase()}',
                     ),

@@ -552,7 +552,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                       price: state.price ?? '',
                                       description: state.description ?? '',
                                       bodyType: state.bodyType?.type ?? '',
-                                      colorName: state.colorName ?? '',
+                                      colorName: state.colorName?.name ?? '',
                                       gallery: state.gallery,
                                       gearboxType: state.gearbox?.type ?? '',
                                       generationName:

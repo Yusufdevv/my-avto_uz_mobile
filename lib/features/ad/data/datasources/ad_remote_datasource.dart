@@ -20,6 +20,8 @@ import 'package:auto/features/ad/data/models/generation.dart';
 import 'package:auto/features/ad/data/models/modification_type.dart';
 import 'package:auto/features/ad/data/models/years.dart';
 import 'package:auto/features/ad/domain/entities/foto_instruction_entity.dart';
+import 'package:auto/features/common/entities/color_entity.dart';
+import 'package:auto/features/common/models/color_model.dart';
 
 // import 'package:auto/features/common/entities/makes_entity.dart';
 // import 'package:auto/features/common/models/get_make_model.dart';
@@ -41,7 +43,10 @@ abstract class AdRemoteDataSource {
 
   Future<GenericPagination<MakeModel>> getTopMakes({String? next});
 
-  Future<GenericPagination<MakeModel>> getMake({required int limit, required int offset, String? name});
+  Future<GenericPagination<ColorEntity>> getColors({String? next});
+
+  Future<GenericPagination<MakeModel>> getMake(
+      {required int limit, required int offset, String? name});
 
   Future<GenericPagination<MakeModel>> getCarModel(int makeId, {String? name});
 
@@ -187,7 +192,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
     int? makeId, {
     String? name,
   }) async {
-     final response = await _dio.get('/car/$makeId/models/',
+    final response = await _dio.get('/car/$makeId/models/',
         options: Options(
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {
@@ -661,6 +666,36 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
   }
 
   @override
+  Future<GenericPagination<ColorEntity>> getColors({String? next}) async {
+    try {
+      final response = await _dio.get(
+        '/common/colors/',
+        options: Options(
+          headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
+              ? {
+                  'Authorization':
+                      'Token ${StorageRepository.getString(StorageKeys.TOKEN)}'
+                }
+              : {},
+        ),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return GenericPagination.fromJson(response.data,
+            (p0) => ColorModel.fromJson(p0 as Map<String, dynamic>));
+      }
+      throw ServerException(
+          statusCode: response.statusCode ?? 0,
+          errorMessage: response.statusMessage ?? '');
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
   Future<Uint8List> getMapScreenShot(Map<String, String> params) async {
     try {
       var headers = <String, String>{};
@@ -842,7 +877,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
                   'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
             },
           ));
-       return GenericPagination.fromJson(
+      return GenericPagination.fromJson(
           result.data,
           (json) =>
               EquipmentOptionsListModel.fromJson(json as Map<String, dynamic>));

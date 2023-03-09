@@ -18,6 +18,7 @@ import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/domain/entities/types/modification_type.dart';
 import 'package:auto/features/ad/domain/entities/years/years.dart';
 import 'package:auto/features/ad/domain/repositories/ad_repository.dart';
+import 'package:auto/features/common/entities/color_entity.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:dio/dio.dart';
 
@@ -497,6 +498,22 @@ class AdRepositoryImpl extends AdRepository {
         offset: offset,
         equipmentId: equipmentId,
       );
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+          errorMessage: e.errorMessage, statusCode: e.statusCode));
+    } on DioException {
+      return Left(DioFailure());
+    } on DioError {
+      return Left(DioFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, GenericPagination<ColorEntity>>> getColors(
+      {String? next}) async {
+    try {
+      final result = await remoteDataSource.getColors(next: next);
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(
