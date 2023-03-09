@@ -78,13 +78,17 @@ class CarNameWidget extends StatelessWidget {
     required this.isCompared,
     required this.percenti,
     required this.procent,
-      this.inModeration=false,
+    this.inModeration = false,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(
-        color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+        margin: EdgeInsets.only(bottom: isMine ? 0 : 12),
+        decoration: BoxDecoration(
+          color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+          border: const Border(bottom: BorderSide(color: border)),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -199,10 +203,11 @@ class CarNameWidget extends StatelessWidget {
                             .solitudeToDarkRider),
                   ),
                   DayLikeCallItem(
-                      days: saleDays,
-                      likes: addToFavorite,
-                      calls: callToNumber,
-                      leftDays: daysLeft),
+                    days: saleDays,
+                    likes: addToFavorite,
+                    calls: callToNumber,
+                    leftDays: daysLeft,
+                  ),
                 ],
               )
           ],

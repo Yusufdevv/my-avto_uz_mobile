@@ -570,5 +570,7 @@ abstract class  LocaleKeys {
   static const cannot_payment = 'cannot_payment';
   static const return_again = 'return_again';
   static const back_to_ads = 'back_to_ads';
+  static const become_verifered_owner = 'become_verifered_owner';
+  static const by_becoming_verified_owner_you = 'by_becoming_verified_owner_you';
 
 }

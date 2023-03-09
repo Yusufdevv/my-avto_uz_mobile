@@ -583,7 +583,9 @@ class CodegenLoader extends AssetLoader{
   "invoice_terms7": "",
   "cannot_payment": "Не удалось произвести оплату",
   "return_again": "Повторить попытку",
-  "back_to_ads": "Вернутся к объявлениям"
+  "back_to_ads": "Вернутся к объявлениям",
+  "become_verifered_owner": "Cтать проверенным собственником",
+  "by_becoming_verified_owner_you": "Став проверенным собственником вы можете продать  машину быстрее"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -1153,7 +1155,9 @@ static const Map<String,dynamic> uz = {
   "invoice_terms7": "rozi bo’lasiz",
   "cannot_payment": "Toʻlov amalga oshmadi",
   "return_again": "Qayta urinib ko'rish",
-  "back_to_ads": "E'longa qaytish"
+  "back_to_ads": "E'longa qaytish",
+  "become_verifered_owner": "Tasdiqlangan foydalanuvchiga aylaning",
+  "by_becoming_verified_owner_you": "Tasdiqlangan foydalanuvchi bo'lish orqali siz mashinangizni tezroq sotishingiz mumkin"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }

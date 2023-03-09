@@ -12,6 +12,7 @@ import 'package:auto/features/car_single/presentation/pages/user_single_page.dar
 import 'package:auto/features/car_single/presentation/parts/car_seller_card.dart';
 import 'package:auto/features/car_single/presentation/parts/descriptions/seller_comment.dart';
 import 'package:auto/features/car_single/presentation/parts/owner_actions.dart';
+import 'package:auto/features/car_single/presentation/widgets/become_verifired_owner_widget.dart';
 import 'package:auto/features/car_single/presentation/widgets/bottom_item.dart';
 import 'package:auto/features/car_single/presentation/widgets/car_characteristic_image.dart';
 import 'package:auto/features/car_single/presentation/widgets/car_name_widget.dart';
@@ -40,9 +41,10 @@ import 'package:share_plus/share_plus.dart';
 class CarSingleScreen extends StatefulWidget {
   final int id;
   final bool inModeration;
+
   const CarSingleScreen({
     required this.id,
-      this.inModeration =false,
+    this.inModeration = false,
     Key? key,
   }) : super(key: key);
 
@@ -281,6 +283,10 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                   state.singleEntity.priceAnalytics.percentage,
                             ),
                           ),
+                          if (state.singleEntity.isMine)
+                            const SliverToBoxAdapter(
+                              child: BecomeVerifiredOwnerWidget(),
+                            ),
                           if (state.singleEntity.isMine)
                             const SliverToBoxAdapter(
                               child: OwnerActions(),
