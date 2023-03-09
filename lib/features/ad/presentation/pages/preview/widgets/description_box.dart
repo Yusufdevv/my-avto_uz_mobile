@@ -11,6 +11,7 @@ class DescriptionBox extends StatelessWidget {
       return const SizedBox();
     }
     return Container(
+      width: double.maxFinite,
       decoration: BoxDecoration(
           border: Border.symmetric(
               horizontal:
