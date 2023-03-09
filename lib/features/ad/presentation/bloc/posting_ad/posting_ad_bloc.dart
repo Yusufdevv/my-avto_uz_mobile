@@ -199,9 +199,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     final result = await modificationUseCase.call(ModificationTypeParams(
         bodyTypeId: state.bodyType?.id,
         driveTypeId: state.driveTypeId,
-        engineTypeId: state.engineId?.id,
+        engineTypeId: state.engine?.id,
         gearBoxTypeTypeId: state.gearbox?.id,
-        generationId: state.generationId,
+        generationId: state.generation?.id,
         next: ''));
     if (result.isRight) {
       emit(
@@ -467,7 +467,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       PostingAdBodyTypesEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await bodyTypesUseCase
-        .call(BodyTypeParams(generationId: state.generationId));
+        .call(BodyTypeParams(generationId: state.generation?.id));
 
     if (result.isRight) {
       final bodies = result.right.results;
@@ -507,9 +507,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       PostingAdDriveTypesEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await driveTypeUseCase.call(DriveTypeParams(
-      generationId: state.generationId,
+      generationId: state.generation?.id,
       bodyTypeId: state.bodyType?.id,
-      engineTypeId: state.engineId?.id,
+      engineTypeId: state.engine?.id,
     ));
     if (result.isRight) {
       final driveTypes = result.right.results;
@@ -532,7 +532,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await engineUseCase.call(EngineTypeParams(
       bodyTypeId: state.bodyType?.id,
-      generationId: state.generationId,
+      generationId: state.generation?.id,
     ));
 
     if (result.isRight) {
@@ -541,7 +541,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         state.copyWith(
           status: FormzStatus.submissionSuccess,
           engines: engines,
-          engineId: engines.isNotEmpty && state.engineId == null
+          engineId: engines.isNotEmpty && state.engine == null
               ? engines.first
               : null,
         ),
@@ -580,8 +580,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       emit(state.copyWith(
           generations: generations,
           status: FormzStatus.submissionSuccess,
-          generationId: generations.isNotEmpty && state.generationId == null
-              ? generations.first.id
+          generationId: generations.isNotEmpty && state.generation == null
+              ? generations.first
               : null));
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
@@ -637,7 +637,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
   void _choose(PostingAdChooseEvent event, Emitter<PostingAdState> emit) {
     if (event.regionId != null) {
-      add(PostingAdGetDistritsEvent(regionId: event.regionId));
+      add(PostingAdGetDistritsEvent(regionId: event.regionId?.id));
     }
     if (event.currency != null) {
       add(PostingAdGetMinimumPriceEvent());

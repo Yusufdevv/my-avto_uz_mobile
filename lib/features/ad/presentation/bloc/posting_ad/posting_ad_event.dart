@@ -119,14 +119,14 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final TextEditingController? searchController;
   final List<String>? gallery;
   final List<String>? panaramaGallery;
-  final int? regionId;
+  final RegionEntity? regionId;
   final List<YearsEntity>? years;
-  final int? districtId;
+  final DistrictEntity? districtId;
 
   final Map<DamagedPart, DamageType>? damagedParts;
   final ModificationTypeEntity? modification;
   final MakeEntity? model;
-  final int? generationId;
+  final GenerationEntity? generationId;
 
   final int? popularTypeId;
   final MakeEntity? make;

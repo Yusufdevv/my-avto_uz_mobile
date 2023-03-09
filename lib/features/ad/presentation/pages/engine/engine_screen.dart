@@ -39,7 +39,7 @@ class _EngineScreenState extends State<EngineScreen> {
                       onTap: () => context.read<PostingAdBloc>().add(
                           PostingAdChooseEvent(engineId: state.engines[index])),
                       title: state.engines[index].type,
-                      selected: state.engineId?.id == state.engines[index].id,
+                      selected: state.engine?.id == state.engines[index].id,
                     ),
                     itemCount: state.engines.length,
                     shrinkWrap: true,
@@ -52,7 +52,7 @@ class _EngineScreenState extends State<EngineScreen> {
                     ),
                   ),
                   const SizedBox(height: 13),
-                  if (state.engineId?.type != 'electric') ...{
+                  if (state.engine?.type != 'electric') ...{
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: SwitcherRowAsButtonAlso(

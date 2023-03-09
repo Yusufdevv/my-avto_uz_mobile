@@ -9,7 +9,7 @@ class PostingAdState extends Equatable {
   final FormzStatus getModificationStatus;
   final FormzStatus getLocationImage;
   final GlobalKey<FormState> contactsFormKey;
-  final String? id;
+
   final TextEditingController phoneController;
   final TextEditingController emailController;
   final TextEditingController nameController;
@@ -20,24 +20,24 @@ class PostingAdState extends Equatable {
   final List<GearboxTypeEntity> gearBoxes;
   final int? driveTypeId;
   final List<DriveTypeEntity> driveTypes;
-  final EngineTypeEntity? engineId;
+  final EngineTypeEntity? engine;
   final List<EngineTypeEntity> engines;
   final MakeEntity? model;
   final List<MakeEntity> models;
   final MakeEntity? make;
   final List<MakeEntity> makes;
   final List<MakeEntity> topMakes;
-  final int? generationId;
+  final GenerationEntity? generation;
   final List<GenerationEntity> generations;
   final BodyTypeEntity? bodyType;
   final List<BodyTypeEntity> bodyTypes;
-  final int? regionId;
+  final RegionEntity? region;
   final List<RegionEntity> regions;
   final List<DistrictEntity> districts;
 
   final YearsEntity? yearEntity;
   final List<YearsEntity>? years;
-  final int? districtId;
+  final DistrictEntity? district;
   final List<String> gallery;
   final List<String> panaramaGallery;
   final Map<int, RentWithPurchaseEntity> rentWithPurchaseConditions;
@@ -96,7 +96,7 @@ class PostingAdState extends Equatable {
     this.radioOptions = const <int, String>{},
     this.selectOptions = const <int, SO>{},
     this.lastEquipmentId,
-    this.id,
+
     this.makeLetterIndex,
     this.minimumPrice = 0,
     this.modification,
@@ -107,12 +107,12 @@ class PostingAdState extends Equatable {
     this.driveTypes = const <DriveTypeEntity>[],
     this.make,
     this.makes = const <MakeEntity>[],
-    this.engineId,
+    this.engine,
     this.engines = const <EngineTypeEntity>[],
     this.topMakes = const <MakeEntity>[],
     this.model,
     this.models = const <MakeEntity>[],
-    this.generationId,
+    this.generation,
     this.generations = const <GenerationEntity>[],
     this.bodyType,
     this.bodyTypes = const <BodyTypeEntity>[],
@@ -137,7 +137,7 @@ class PostingAdState extends Equatable {
     this.ownerName,
     this.ownerPhone,
     this.city,
-    this.regionId,
+    this.region,
     this.price,
     this.currency = 'uzs',
     this.mileage,
@@ -148,7 +148,7 @@ class PostingAdState extends Equatable {
     this.isContactsVerified = false,
     this.rentToBuy,
     this.isWithoutMileage,
-    this.districtId,
+    this.district,
     this.districts = const <DistrictEntity>[],
     this.getDistrictsStatus = FormzStatus.pure,
     this.createStatus = FormzStatus.pure,
@@ -170,7 +170,7 @@ class PostingAdState extends Equatable {
 
   String? get districtTitle {
     final index =
-        districts.indexWhere((element) => element.id == (districtId ?? -1));
+        districts.indexWhere((element) => element.id == (district ?? -1));
     if (index >= 0) {
       return districts[index].title;
     }
@@ -187,8 +187,8 @@ class PostingAdState extends Equatable {
     int? lastEquipmentId,
     Map<DamagedPart, DamageType>? damagedParts,
     Map<int, RentWithPurchaseEntity>? rentWithPurchaseConditions,
-    int? districtId,
-    int? regionId,
+    DistrictEntity? districtId,
+    RegionEntity? regionId,
     FormzStatus? status,
     FormzStatus? getDistrictsStatus,
     FormzStatus? createStatus,
@@ -206,7 +206,7 @@ class PostingAdState extends Equatable {
     List<EngineTypeEntity>? engines,
     MakeEntity? model,
     List<MakeEntity>? models,
-    int? generationId,
+    GenerationEntity? generationId,
     List<GenerationEntity>? generations,
     BodyTypeEntity? bodyType,
     List<BodyTypeEntity>? bodyTypes,
@@ -295,17 +295,17 @@ class PostingAdState extends Equatable {
         rentWithPurchaseConditions:
             rentWithPurchaseConditions ?? this.rentWithPurchaseConditions,
         showExactAddress: showExactAddress ?? this.showExactAddress,
-        districtId: districtId ?? this.districtId,
+        district: districtId ?? this.district,
         city: city ?? this.city,
-        regionId: regionId ?? this.regionId,
+        region: regionId ?? this.region,
         gearbox: gearbox ?? this.gearbox,
         gearBoxes: gearBoxes ?? this.gearBoxes,
         driveTypeId: driveTypeId ?? this.driveTypeId,
         driveTypes: driveTypes ?? this.driveTypes,
-        engineId: engineId ?? this.engineId,
+        engine: engineId ?? this.engine,
         engines: engines ?? this.engines,
         models: models ?? this.models,
-        generationId: generationId ?? this.generationId,
+        generation: generationId ?? this.generation,
         generations: generations ?? this.generations,
         bodyType: bodyType ?? this.bodyType,
         topMakes: topMakes ?? this.topMakes,
@@ -368,7 +368,7 @@ class PostingAdState extends Equatable {
         panaramaGallery,
         createStatus,
         mapPointBytes,
-        id,
+
         makeLetterIndex,
         long,
         lat,
@@ -385,18 +385,18 @@ class PostingAdState extends Equatable {
         rentWithPurchaseConditions,
         gallery,
         showExactAddress,
-        districtId,
+        district,
         isWithoutMileage,
         rentToBuy,
         callTimeTo,
         callTimeFrom,
         city,
-        regionId,
+        region,
         gearbox,
         gearBoxes,
         driveTypeId,
         driveTypes,
-        engineId,
+        engine,
         engines,
         generations,
         model,
@@ -408,7 +408,7 @@ class PostingAdState extends Equatable {
         yearEntity,
         bodyTypes,
         status,
-        generationId,
+        generation,
         colorName,
         licenceType,
         ownerStep,
@@ -446,7 +446,7 @@ class PostingAdState extends Equatable {
 
   RegionEntity? get getSelectedRegion {
     try {
-      return regions.firstWhere((e) => e.id == regionId);
+      return regions.firstWhere((e) => e.id == region);
     } catch (e) {
       return null;
     }

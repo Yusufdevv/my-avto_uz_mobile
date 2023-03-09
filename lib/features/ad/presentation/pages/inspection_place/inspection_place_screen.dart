@@ -54,7 +54,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                   children: [
                     // CHOOSE REGION
                     LoaderBox(
-                      isActive: state.regionId != null,
+                      isActive: state.region != null,
                       isLoading:
                           state.status == FormzStatus.submissionInProgress,
                       onTap: () async {
@@ -72,8 +72,9 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                           ),
                         ).then((value) {
                           if (value != null && value.isNotEmpty) {
-                            context.read<PostingAdBloc>().add(
-                                PostingAdChooseEvent(regionId: value[0].id));
+                            context
+                                .read<PostingAdBloc>()
+                                .add(PostingAdChooseEvent(regionId: value[0]));
                           }
                         });
                       },
@@ -105,7 +106,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                           isScrollControlled: true,
                           backgroundColor: Colors.transparent,
                           builder: (c) => ChooseDistrictSheet(
-                            selectedId: state.districtId ?? -1,
+                            selectedId: state.district?.id ?? -1,
                             districts: state.districts,
                           ),
                         ).then((value) {
@@ -113,7 +114,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                             context
                                 .read<PostingAdBloc>()
                                 .add(PostingAdChooseEvent(
-                                  districtId: value.id,
+                                  districtId: value,
                                 ));
                           }
                         });

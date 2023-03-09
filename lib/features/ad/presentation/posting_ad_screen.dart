@@ -544,7 +544,37 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                     // //19
                                     // const StsScreen(),
                                     //19
-                                    const PreviewScreen(),
+                                    PreviewScreen(
+                                      regionName: state.region?.title ?? '',
+                                      districtName: state.district?.title ?? '',
+                                      equipment: state.equipment,
+                                      currency: state.currency,
+                                      price: state.price ?? '',
+                                      description: state.description ?? '',
+                                      bodyType: state.bodyType?.type ?? '',
+                                      colorName: state.colorName ?? '',
+                                      gallery: state.gallery,
+                                      gearboxType: state.gearbox?.type ?? '',
+                                      generationName:
+                                          state.generation?.name ?? '',
+                                      makeName: state.make?.name ?? '',
+                                      mapPointBodyBytes: state.mapPointBytes,
+                                      mileage: state.mileage ?? '',
+                                      modelName: state.model?.name ?? '',
+                                      modificationPower:
+                                          state.modification?.power ?? '',
+                                      modificationVolume:
+                                          state.modification?.volume ?? '',
+                                      panaramaGallery: state.panaramaGallery,
+                                      purchasedDate: state.purchasedDate ?? '',
+                                      registeredInUzbekistan:
+                                          !state.notRegisteredInUzbekistan,
+                                      selectedRadioOptions: state.radioOptions,
+                                      selectedSelectOptions:
+                                          state.selectOptions,
+                                      year:
+                                          '${state.yearEntity?.yearBegin ?? ''}',
+                                    ),
                                   ],
                                 ),
                                 if (currentTabIndex < tabLength - 1) ...{
