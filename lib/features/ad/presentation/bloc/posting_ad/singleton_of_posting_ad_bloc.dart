@@ -13,10 +13,10 @@ class PASingleton {
       'latitude': v.lat,
       'make': v.make?.id,
       'model': v.model?.id,
-      'generation': v.generationId,
+      'generation': v.generation?.id,
       'body_type': v.bodyType?.id,
       'drive_type': v.driveTypeId,
-      'engine_type': v.engineId,
+      'engine_type': v.engine?.id,
       'gearbox_type': v.gearbox?.id,
 
       /// yearBegin is not true
@@ -31,8 +31,8 @@ class PASingleton {
       'contact_name': v.ownerName,
       'contact_email': v.ownerEmail,
       'contact_phone': v.ownerPhone,
-      'region': v.region,
-      'district': v.district,
+      'region': v.region?.id,
+      'district': v.district?.id,
       'location_url':
           'https://yandex.com/maps/10335/tashkent/?ll=${v.long}%2C${v.lat}&z=15',
       'price': v.price?.replaceAll(' ', ''),
@@ -330,13 +330,13 @@ class PASingleton {
         return state.yearEntity == null;
       // generation
       case 3:
-        return state.generationId == null;
+        return state.generation == null;
       // body type
       case 4:
         return state.bodyType == null;
       // engine
       case 5:
-        return state.engineId == null;
+        return state.engine == null;
       // drive type
       case 6:
         return state.driveTypeId == null;

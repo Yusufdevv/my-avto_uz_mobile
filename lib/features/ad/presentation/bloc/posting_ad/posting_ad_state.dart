@@ -20,14 +20,14 @@ class PostingAdState extends Equatable {
   final List<GearboxTypeEntity> gearBoxes;
   final int? driveTypeId;
   final List<DriveTypeEntity> driveTypes;
-  final EngineTypeEntity? engineId;
+  final EngineTypeEntity? engine;
   final List<EngineTypeEntity> engines;
   final MakeEntity? model;
   final List<MakeEntity> models;
   final MakeEntity? make;
   final List<MakeEntity> makes;
   final List<MakeEntity> topMakes;
-  final GenerationEntity? generationId;
+  final GenerationEntity? generation;
   final List<GenerationEntity> generations;
   final BodyTypeEntity? bodyType;
   final List<BodyTypeEntity> bodyTypes;
@@ -107,12 +107,12 @@ class PostingAdState extends Equatable {
     this.driveTypes = const <DriveTypeEntity>[],
     this.make,
     this.makes = const <MakeEntity>[],
-    this.engineId,
+    this.engine,
     this.engines = const <EngineTypeEntity>[],
     this.topMakes = const <MakeEntity>[],
     this.model,
     this.models = const <MakeEntity>[],
-    this.generationId,
+    this.generation,
     this.generations = const <GenerationEntity>[],
     this.bodyType,
     this.bodyTypes = const <BodyTypeEntity>[],
@@ -302,10 +302,10 @@ class PostingAdState extends Equatable {
         gearBoxes: gearBoxes ?? this.gearBoxes,
         driveTypeId: driveTypeId ?? this.driveTypeId,
         driveTypes: driveTypes ?? this.driveTypes,
-        engineId: engineId ?? this.engineId,
+        engine: engineId ?? this.engine,
         engines: engines ?? this.engines,
         models: models ?? this.models,
-        generationId: generationId ?? this.generationId,
+        generation: generationId ?? this.generation,
         generations: generations ?? this.generations,
         bodyType: bodyType ?? this.bodyType,
         topMakes: topMakes ?? this.topMakes,
@@ -396,7 +396,7 @@ class PostingAdState extends Equatable {
         gearBoxes,
         driveTypeId,
         driveTypes,
-        engineId,
+        engine,
         engines,
         generations,
         model,
@@ -408,7 +408,7 @@ class PostingAdState extends Equatable {
         yearEntity,
         bodyTypes,
         status,
-        generationId,
+        generation,
         colorName,
         licenceType,
         ownerStep,

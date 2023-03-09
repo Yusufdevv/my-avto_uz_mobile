@@ -40,7 +40,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
                             generationId: state.generations[index])),
                     image: state.generations[index].logo,
                     selected:
-                        state.generationId?.id == state.generations[index].id,
+                        state.generation?.id == state.generations[index].id,
                     title: state.generations[index].name),
                 itemCount: state.generations.length,
               );

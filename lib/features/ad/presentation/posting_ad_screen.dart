@@ -556,7 +556,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                       gallery: state.gallery,
                                       gearboxType: state.gearbox?.type ?? '',
                                       generationName:
-                                          state.generationId?.name ?? '',
+                                          state.generation?.name ?? '',
                                       makeName: state.make?.name ?? '',
                                       mapPointBodyBytes: state.mapPointBytes,
                                       mileage: state.mileage ?? '',
