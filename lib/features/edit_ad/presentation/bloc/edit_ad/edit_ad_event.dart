@@ -49,6 +49,13 @@ class EditAdSendCodeEvent extends EditAdEvent {
 
   EditAdSendCodeEvent({required this.phone, required this.onSuccess});
 }
+class EditAdGetColorsEvent extends EditAdEvent {
+  final String? next;
+
+
+  EditAdGetColorsEvent({ this.next} );
+}
+
 
 class EditAdGetMinimumPriceEvent extends EditAdEvent {}
 
@@ -109,7 +116,7 @@ class EditAdChooseEvent extends EditAdEvent {
   final YearsEntity? yearEntity;
   final Uint8List? bodyBytes;
   final String? milageImage;
-  final String? colorName;
+  final ColorEntity? color;
   final String? typeDocument;
   final String? ownerStep;
   final String? ownerEmail;
@@ -166,7 +173,7 @@ class EditAdChooseEvent extends EditAdEvent {
     this.popularTypeId,
     this.engineId,
     this.gearbox,
-    this.colorName,
+    this.color,
     this.typeDocument,
     this.ownerStep,
     this.purchasedDate,

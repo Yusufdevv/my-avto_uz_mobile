@@ -16,6 +16,7 @@ import 'package:auto/features/ad/domain/entities/years/years.dart';
 import 'package:auto/features/ad/domain/usecases/contacts_usecase.dart';
 import 'package:auto/features/ad/domain/usecases/get_body_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
+import 'package:auto/features/ad/domain/usecases/get_colors_use_case.dart';
 import 'package:auto/features/ad/domain/usecases/get_drive_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_engine_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_equipment_options_list.dart';
@@ -33,6 +34,7 @@ import 'package:auto/features/car_single/domain/usecases/get_ads_usecase.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/domain/entity/car_generation_entity.dart';
 import 'package:auto/features/common/domain/model/user.dart';
+import 'package:auto/features/common/entities/color_entity.dart';
 import 'package:auto/features/common/repository/auth.dart';
 import 'package:auto/features/common/usecases/get_districts_usecase.dart';
 import 'package:auto/features/common/usecases/get_regions_usecase.dart';
@@ -59,6 +61,7 @@ part 'edit_ad_state.dart';
 part 'singleton_of_edit_ad_bloc.dart';
 
 class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
+  final GetColorsUseCase colorsUseCase = GetColorsUseCase();
   final GetEquipmentOptionsListUseCase getEquipmentOptionsListUseCase =
       GetEquipmentOptionsListUseCase();
   final GetModificationTypeUseCase modificationUseCase =
@@ -88,7 +91,7 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
           contactsFormKey: GlobalKey<FormState>(),
           getAnnouncementToEditStatus: FormzStatus.pure,
           popStatus: PopStatus.success,
-          colorName: LocaleKeys.white.tr(),
+
           status: FormzStatus.pure,
           phoneController: TextEditingController(),
           emailController: TextEditingController(),
@@ -115,6 +118,29 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
     on<EditAdGetEquipmentOptionsList>(_getEquipmentOptionsList);
     on<EditAdChangeOption>(_onOptionChanged);
     on<EditAdGetAnnouncementEvent>(_getAnnouncement);
+    on<EditAdGetColorsEvent>(_getColors);
+  }
+
+  FutureOr<void> _getColors(
+      EditAdGetColorsEvent event, Emitter<EditAdState> emit) async {
+    log('::::::::::   PostingAdGetColorsEvent triggered  ::::::::::');
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    final result = await colorsUseCase.call(event.next);
+    log(':::::::::: PostingAdGetColorsEvent result ${result}  ::::::::::');
+    if (result.isRight) {
+      log(':::::::::: colors right:   ${result.right}  ::::::::::');
+      emit(
+        state.copyWith(
+          status: FormzStatus.submissionSuccess,
+          colors: result.right.results,
+          colorName: result.right.results.isNotEmpty
+              ? result.right.results.first
+              : null,
+        ),
+      );
+    } else {
+      emit(state.copyWith(status: FormzStatus.submissionFailure));
+    }
   }
 
   /// this function is for setting each equipment's options to all options

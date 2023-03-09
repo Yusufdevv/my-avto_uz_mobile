@@ -117,11 +117,9 @@ class _EditAdScreenState extends State<EditAdScreen>
                     FocusScope.of(context).unfocus();
                     context.read<ShowPopUpBloc>().add(
                           ShowPopUp(
-                            message:
-                                LocaleKeys.your_ad_edited_successfully.tr(),
-                            status: PopStatus.success,
-                            dismissible: false,
-                          ),
+                              message:
+                                  LocaleKeys.your_ad_edited_successfully.tr(),
+                              status: PopStatus.success),
                         );
                     Navigator.pop(context, true);
                     return;
@@ -131,10 +129,8 @@ class _EditAdScreenState extends State<EditAdScreen>
                       state.toastMessage!.isNotEmpty) {
                     context.read<ShowPopUpBloc>().add(
                           ShowPopUp(
-                            message: state.toastMessage!,
-                            status: state.popStatus,
-                            dismissible: false,
-                          ),
+                              message: state.toastMessage!,
+                              status: state.popStatus),
                         );
                     editAdBloc.add(EditAdShowToastEvent(
                         message: '', status: PopStatus.success));
@@ -407,7 +403,7 @@ class _EditAdScreenState extends State<EditAdScreen>
                               generationName:
                                   state.generationEntity?.name ?? '',
                               gearboxType: state.gearbox?.type ?? '',
-                              colorName: state.colorName ?? '',
+                              colorName: state.colorName?.name ?? '',
                               bodyType: state.bodyType?.type ?? '',
                               description: state.description ?? '',
                               price: state.price ?? '',
