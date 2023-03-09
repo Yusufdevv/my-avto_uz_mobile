@@ -5,6 +5,12 @@ abstract class InvoiceEvent {}
 
 class GetTarifsEvent extends InvoiceEvent {}
 
+class SetProviderEvent extends InvoiceEvent {
+  final String provider;
+
+  SetProviderEvent({required this.provider});
+}
+
 class PayInvoiceEvent extends InvoiceEvent {
   final int announcement;
   final String provider;
@@ -31,5 +37,4 @@ class GetTransactionStatusEvent extends InvoiceEvent {
     required this.onError,
     required this.orderId,
   });
-
 }

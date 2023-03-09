@@ -9,25 +9,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class InvoiceInProgress extends StatefulWidget {
-  const InvoiceInProgress({required this.orderId, Key? key}) : super(key: key);
-  final int orderId;
+  const InvoiceInProgress({ Key? key}) : super(key: key);
 
   @override
   State<InvoiceInProgress> createState() => _InvoiceInProgressState();
 }
 
-// ignore: prefer_mixin
 class _InvoiceInProgressState extends State<InvoiceInProgress>
-with  WidgetsBindingObserver {
-
+    with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     print('come here');
     switch (state) {
       case AppLifecycleState.resumed:
         print('remused');
+        print('====== ${context.read<InvoiceBloc>().state.paymentEntity.id}');
         context.read<InvoiceBloc>().add(GetTransactionStatusEvent(
-            orderId: widget.orderId, onSucces: () {}, onError: () {}));
+            orderId: context.read<InvoiceBloc>().state.paymentEntity.id ?? -1, onSucces: () {}, onError: () {}));
         break;
       case AppLifecycleState.inactive:
         print('inactive');
@@ -40,11 +38,13 @@ with  WidgetsBindingObserver {
         break;
     }
   }
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
   }
+
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
@@ -52,71 +52,73 @@ with  WidgetsBindingObserver {
   }
 
   @override
-  Widget build(BuildContext context) {
-    print('build here');
-    return Scaffold(
-      appBar: WAppBar(
-        hasUnderline: true,
-        hasBackButton: true,
-        title: LocaleKeys.service.tr(),
-      ),
-      body: BlocBuilder<InvoiceBloc, InvoiceState>(
-        builder: (context, state) {
-          if (state.transactionStatus == TransactionStatus.waiting) {
-            return InvoiceStatusWidget(
-              lottie: 'assets/lottie/waiting.json',
-              title: LocaleKeys.payment_pending.tr(),
-              secondBtnTitle: LocaleKeys.refresh_the_page.tr(),
-              onTapToAds: () {
-                Navigator.of(context).pop();
-              },
-              onTapSecondButton: () {
-                context.read<InvoiceBloc>().add(GetTransactionStatusEvent(
-                    orderId: widget.orderId, onSucces: () {}, onError: () {}));
-              },
-              hasSecondButton: true,
-            );
-          }
-          if (state.transactionStatus == TransactionStatus.paid) {
-            return InvoiceStatusWidget(
-              lottie: 'assets/lottie/succes.json',
-              title: LocaleKeys.service_connected_successfully.tr(),
-              secondBtnTitle: '',
-              onTapToAds: () {
-                Navigator.of(context).pop();
-              },
-              onTapSecondButton: () {},
-            );
-          }
-          if (state.transactionStatus == TransactionStatus.failed) {
-            return InvoiceStatusWidget(
-              lottie: 'assets/lottie/error.json',
-              title: LocaleKeys.cannot_payment.tr(),
-              secondBtnTitle: LocaleKeys.return_again.tr(),
-              onTapToAds: () {
-                Navigator.of(context).pop();
-              },
-              onTapSecondButton: () {
-                context.read<InvoiceBloc>().add(PayInvoiceEvent(
-                      announcement: 334,
-                      provider: 'payme',
-                      tariffType: state.tarifs[0].type ?? '',
-                      onSucces: (paymentUrl) async {
-                        if (!await launchUrl(
-                          Uri.parse(paymentUrl),
-                          mode: LaunchMode.externalApplication,
-                        )) {
-                          throw Exception('Could not launch $paymentUrl');
-                        }
-                      },
-                      onError: () {},
-                    ));
-              },
-              hasSecondButton: true,
-            );
-          }
-          return const Center(child: Text('Xatolik'));
-        },
-      ));
-  }
+  Widget build(BuildContext context) => Scaffold(
+        appBar: WAppBar(
+          hasUnderline: true,
+          hasBackButton: true,
+          title: LocaleKeys.service.tr(),
+        ),
+        body: BlocBuilder<InvoiceBloc, InvoiceState>(
+          builder: (context, state) {
+            if (state.transactionStatus == TransactionStatus.waiting) {
+              return InvoiceStatusWidget(
+                lottie: 'assets/lottie/waiting.json',
+                title: LocaleKeys.payment_pending.tr(),
+                secondBtnTitle: LocaleKeys.refresh_the_page.tr(),
+                onTapToAds: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                },
+                onTapSecondButton: () {
+                  context.read<InvoiceBloc>().add(GetTransactionStatusEvent(
+                      orderId: context.read<InvoiceBloc>().state.paymentEntity.id ?? -1,
+                      onSucces: () {},
+                      onError: () {}));
+                },
+                hasSecondButton: true,
+              );
+            }
+            if (state.transactionStatus == TransactionStatus.paid) {
+              return InvoiceStatusWidget(
+                lottie: 'assets/lottie/succes.json',
+                title: LocaleKeys.service_connected_successfully.tr(),
+                secondBtnTitle: '',
+                onTapToAds: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                },
+                onTapSecondButton: () {},
+              );
+            }
+            if (state.transactionStatus == TransactionStatus.failed) {
+              return InvoiceStatusWidget(
+                lottie: 'assets/lottie/error.json',
+                title: LocaleKeys.cannot_payment.tr(),
+                secondBtnTitle: LocaleKeys.return_again.tr(),
+                onTapToAds: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                },
+                onTapSecondButton: () {
+                  context.read<InvoiceBloc>().add(PayInvoiceEvent(
+                        announcement: state.announcementId,
+                        provider: state.provider,
+                        tariffType: state.selectedTarif,
+                        onSucces: (paymentUrl) async {
+                          if (!await launchUrl(
+                            Uri.parse(paymentUrl),
+                            mode: LaunchMode.externalApplication,
+                          )) {
+                            throw Exception('Could not launch $paymentUrl');
+                          }
+                        },
+                        onError: () {},
+                      ));
+                },
+                hasSecondButton: true,
+              );
+            }
+            return Center(child: Text(LocaleKeys.error_try_again.tr()));
+          },
+        ));
 }

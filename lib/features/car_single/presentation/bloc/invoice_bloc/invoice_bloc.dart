@@ -22,17 +22,29 @@ class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
       GetStatusInvoiceUseCase();
 
   InvoiceBloc()
-      : super(const InvoiceState(
-          tarifs: [],
-          status: FormzStatus.pure,
-          payStatus: FormzStatus.pure,
-          invoiceStatus: '',
-          fetchMoreTarifs: false,
-          paymentEntity: const PaymentEntity(),
-        )) {
+      : super(
+          const InvoiceState(
+            tarifs: [],
+            status: FormzStatus.pure,
+            payStatus: FormzStatus.pure,
+            invoiceStatus: '',
+            fetchMoreTarifs: false,
+            paymentEntity: PaymentEntity(),
+            announcementId: -1,
+            provider: 'payme',
+            selectedTarif: '',
+          ),
+        ) {
     ///
     on<PayInvoiceEvent>((event, emit) async {
-      emit(state.copyWith(payStatus: FormzStatus.submissionInProgress));
+      emit(state.copyWith(
+        payStatus: FormzStatus.submissionInProgress,
+        announcementId: event.announcement,
+        provider: state.provider,
+        selectedTarif: event.tariffType,
+        transactionStatus: TransactionStatus.waiting,
+      ));
+
       final result = await _payInvoiceUseCase.call(
         {
           'announcement': event.announcement,
@@ -41,6 +53,7 @@ class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
           'tariff_type': event.tariffType
         },
       );
+
       if (result.isRight) {
         emit(state.copyWith(
           paymentEntity: result.right,
@@ -72,13 +85,18 @@ class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
       final result = await _getStatusInvoiceUseCase.call(event.orderId);
       if (result.isRight) {
         emit(state.copyWith(
-          invoiceStatus: result.right,
-          transactionStatus: MyFunctions.strToTransactionStatus(result.right)
-        ));
+            invoiceStatus: result.right,
+            transactionStatus:
+                MyFunctions.strToTransactionStatus(result.right)));
         event.onSucces();
       } else {
         emit(state.copyWith(transactionStatus: TransactionStatus.failed));
       }
     });
+
+    on<SetProviderEvent>((event, emit) {
+      emit(state.copyWith(provider: event.provider));
+    });
+
   }
 }

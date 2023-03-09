@@ -1,5 +1,4 @@
 // ignore_for_file: deprecated_member_use, duplicate_ignore
-
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/car_single/presentation/bloc/invoice_bloc/invoice_bloc.dart';
@@ -28,7 +27,7 @@ class InvoicePage extends StatefulWidget {
 
 // ignore: prefer_mixin
 class _InvoicePageState extends State<InvoicePage>{
-  int value = 0;
+  int value = 1;
   int groupValue = 1;
   late InvoiceBloc bloc;
 
@@ -107,6 +106,7 @@ class _InvoicePageState extends State<InvoicePage>{
                                       setState(() {
                                         value = val;
                                       });
+                                      bloc.add(SetProviderEvent(provider: 'payme'));
                                     },
                                     value: 1,
                                     groupValue: value,
@@ -125,6 +125,7 @@ class _InvoicePageState extends State<InvoicePage>{
                                       setState(() {
                                         value = val;
                                       });
+                                      bloc.add(SetProviderEvent(provider: 'kpay'));
                                     },
                                     value: 2,
                                     color:
@@ -151,10 +152,12 @@ class _InvoicePageState extends State<InvoicePage>{
                             text: LocaleKeys.confirm.tr(),
                             color: orange,
                             onTap: () async {
+                              print('==== ${state.provider}');
+                              print('==== ${state.announcementId}');
                               bloc.add(
                                 PayInvoiceEvent(
                                   announcement: widget.announcementId,
-                                  provider: 'payme',
+                                  provider: state.provider,
                                   tariffType: state.tarifs[0].type ?? '',
                                   onSucces: (paymentUrl) async {
                                     if (!await launchUrl(
@@ -168,7 +171,7 @@ class _InvoicePageState extends State<InvoicePage>{
                                       fade(
                                         page: BlocProvider.value(
                                           value: bloc,
-                                          child: InvoiceInProgress(orderId: state.paymentEntity.id ?? -1),
+                                          child: const InvoiceInProgress(),
                                         ),
                                       ),
                                     );
