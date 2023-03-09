@@ -31,8 +31,8 @@ class PASingleton {
       'contact_name': v.ownerName,
       'contact_email': v.ownerEmail,
       'contact_phone': v.ownerPhone,
-      'region': v.regionId,
-      'district': v.districtId,
+      'region': v.region,
+      'district': v.district,
       'location_url':
           'https://yandex.com/maps/10335/tashkent/?ll=${v.long}%2C${v.lat}&z=15',
       'price': v.price?.replaceAll(' ', ''),
@@ -376,7 +376,7 @@ class PASingleton {
         return v;
 // InspectionPlaceScreen
       case 16:
-        return !(state.regionId != null && state.districtId != null);
+        return !(state.region != null && state.district != null);
 
       // PriceScreen
       case 17:

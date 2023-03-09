@@ -6,6 +6,7 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/pages/contact/contact_screen.dart';
 import 'package:auto/features/ad/presentation/pages/equipment/equipment_screen.dart';
 import 'package:auto/features/ad/presentation/pages/map_screen/map_screen_posting_ad.dart';
+import 'package:auto/features/ad/presentation/pages/preview/preview_screen.dart';
 import 'package:auto/features/ad/presentation/pages/price/price_screen.dart';
 import 'package:auto/features/ad/presentation/widgets/sms_verification_sheet.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
@@ -17,7 +18,6 @@ import 'package:auto/features/edit_ad/presentation/pages/damage/damage_screen.da
 import 'package:auto/features/edit_ad/presentation/pages/description/description_screen.dart';
 import 'package:auto/features/edit_ad/presentation/pages/inspection_place/inspection_place_screen.dart';
 import 'package:auto/features/edit_ad/presentation/pages/mileage/mileage_screen.dart';
-import 'package:auto/features/edit_ad/presentation/pages/preview/preview_screen.dart';
 import 'package:auto/features/edit_ad/presentation/pages/pts/pts_screen.dart';
 import 'package:auto/features/edit_ad/presentation/widgets/edit_ad_appbar.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
@@ -217,7 +217,7 @@ class _EditAdScreenState extends State<EditAdScreen>
                                 required itemName,
                                 selectOption,
                               }) {
-                                 context.read<EditAdBloc>().add(
+                                context.read<EditAdBloc>().add(
                                     EditAdChangeOption(
                                         id: id,
                                         type: type,
@@ -402,7 +402,37 @@ class _EditAdScreenState extends State<EditAdScreen>
                                 initialMileage: state.mileage ?? ''),
 
                             // 9
-                            const PreviewScreen(),
+
+                            PreviewScreen(
+                              generationName:
+                                  state.generationEntity?.name ?? '',
+                              gearboxType: state.gearbox?.type ?? '',
+                              colorName: state.colorName ?? '',
+                              bodyType: state.bodyType?.type ?? '',
+                              description: state.description ?? '',
+                              price: state.price ?? '',
+                              currency: state.currency,
+                              equipment: state.equipment,
+                              districtName: state.district?.title ?? '',
+                              regionName: state.region?.title ?? '',
+                              gallery: state.gallery,
+                              makeName: state.make?.name ?? '',
+                              mapPointBodyBytes: state.mapPointBytes,
+                              mileage: state.mileage ?? '',
+                              modelName: state.model?.name ?? '',
+                              modificationPower:
+                                  state.modification?.power ?? '',
+                              modificationVolume:
+                                  state.modification?.volume ?? '',
+                              panaramaGallery: state.panaramaGallery,
+                              purchasedDate: state.purchasedDate ?? '',
+                              registeredInUzbekistan:
+                                  !state.notRegisteredInUzbekistan,
+                              selectedRadioOptions: state.radioOptions,
+                              selectedSelectOptions: state.selectOptions,
+                              year: '${state.yearEntity?.yearBegin ?? ' '}',
+                              id: state.id,
+                            ),
                           ],
                         ),
                         if (currentTabIndex < tabLength - 1) ...{

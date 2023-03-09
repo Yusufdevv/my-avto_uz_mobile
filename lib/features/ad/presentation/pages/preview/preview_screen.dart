@@ -1,4 +1,5 @@
-import 'package:auto/assets/colors/color.dart';
+import 'dart:typed_data';
+import 'package:auto/features/ad/domain/entities/equipment/equipment_entity.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/preview/widgets/car_info_row.dart';
 import 'package:auto/features/ad/presentation/pages/preview/widgets/car_model_price_text.dart';
@@ -8,104 +9,146 @@ import 'package:auto/features/ad/presentation/pages/preview/widgets/date_and_vie
 import 'package:auto/features/ad/presentation/pages/preview/widgets/description_box.dart';
 import 'package:auto/features/ad/presentation/pages/preview/widgets/id_row.dart';
 import 'package:auto/features/ad/presentation/pages/preview/widgets/image_viewer.dart';
-import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/ad/presentation/pages/preview/widgets/location_box_of_ad_preview.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:formz/formz.dart';
 
 class PreviewScreen extends StatelessWidget {
-  const PreviewScreen({Key? key}) : super(key: key);
+  final Uint8List? mapPointBodyBytes;
+  final List<String> gallery;
+  final List<String> panaramaGallery;
+  final Map<int, String> selectedRadioOptions;
+  final Map<int, SO> selectedSelectOptions;
+  final EquipmentEntity? equipment;
+  final bool registeredInUzbekistan;
+
+  final String makeName;
+  final String modelName;
+  final String generationName;
+  final String price;
+  final String currency;
+  final String purchasedDate;
+  final String? id;
+  final String year;
+  final String mileage;
+  final String bodyType;
+  final String colorName;
+  final String modificationVolume;
+  final String modificationPower;
+  final String gearboxType;
+  final String description;
+  final String districtName;
+  final String regionName;
+
+  const PreviewScreen(
+      {required this.mapPointBodyBytes,
+      required this.gallery,
+      required this.panaramaGallery,
+      required this.makeName,
+      required this.modelName,
+      required this.generationName,
+      required this.price,
+      required this.currency,
+      required this.purchasedDate,
+      required this.year,
+      required this.mileage,
+      required this.bodyType,
+      required this.colorName,
+      required this.modificationVolume,
+      required this.modificationPower,
+      required this.equipment,
+      required this.gearboxType,
+      required this.selectedRadioOptions,
+      required this.selectedSelectOptions,
+      required this.registeredInUzbekistan,
+      required this.description,
+      required this.districtName,
+      required this.regionName,
+      this.id,
+      Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: BlocBuilder<PostingAdBloc, PostingAdState>(
-            builder: (context, state) => SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.only(bottom: 66),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 16, left: 16, bottom: 12),
-                        child: Text(
-                          LocaleKeys.final_review.tr(),
-                          style: Theme.of(context).textTheme.displayLarge,
-                        ),
-                      ),
-                      ImageViewer(
-                          images: [...state.gallery, ...state.panaramaGallery]),
-                      const SizedBox(height: 12),
+        body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.only(bottom: 66),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 16, left: 16, bottom: 12),
+                child: Text(
+                  LocaleKeys.final_review.tr(),
+                  style: Theme.of(context).textTheme.displayLarge,
+                ),
+              ),
+              ImageViewer(images: [...gallery, ...panaramaGallery]),
+              const SizedBox(height: 12),
 
-                      CarModelText(
-                          text:
-                              '${state.make?.name ?? ''} ${state.model?.name ?? ''} ${state.generations.first.name}'),
-                      CarPriceText(
-                          text:
-                              '${MyFunctions.getFormatCost(state.price.toString())} ${state.currency.toUpperCase()}'),
-                      const SizedBox(height: 12),
-                      DateAndViewsRow(
-                          date: MyFunctions.getData(state.purchasedDate!)),
-                      const SizedBox(height: 8),
-                      //
-                      if (state.id != null) IdRow(id: state.id ?? ''),
-                      //
-                      Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 16),
-                          child: Divider(
-                              height: 1,
-                              color: Theme.of(context).dividerColor)),
-                      CarInfoRow(
-                          title: LocaleKeys.years_of_issue.tr(),
-                          info: state.yearEntity == null
-                              ? ''
-                              : '${state.yearEntity?.yearBegin} - ${state.yearEntity?.yearEnd}'),
-                      CarInfoRow(
-                          title: LocaleKeys.Mileage.tr(),
-                          info: state.mileage ?? '0'),
-                      CarInfoRow(
-                          title: LocaleKeys.body.tr(),
-                          info: state.bodyType?.type ?? ''),
-                      CarInfoRow(
-                        title: LocaleKeys.color.tr(),
-                        info: '${state.colorName}',
-                      ),
-                      CarInfoRow(
-                          title: LocaleKeys.complectation.tr(),
-                          info: state.equipment?.name ??
-                              LocaleKeys.not_shown.tr()),
-                      CarInfoRow(
-                        title: LocaleKeys.engine_volume_l.tr(),
-                        info:
-                            '${state.modification?.volume ?? ' '} ${state.modification == null ? '' : '(${state.modification?.power})'}',
-                      ),
-                      CarInfoRow(
-                        title: LocaleKeys.Transmission.tr(),
-                        info: state.gearbox?.type ?? '',
-                      ),
-                      CarInfoRow(
-                        title: LocaleKeys.rastamojen_v_uzbekistan.tr(),
-                        info: state.notRegisteredInUzbekistan
-                            ? LocaleKeys.no.tr()
-                            : LocaleKeys.yes.tr(),
-                      ),
-                      const SizedBox(height: 10),
+              CarModelText(text: '$makeName $modelName $generationName'),
+              CarPriceText(
+                  text:
+                      '${MyFunctions.getFormatCost(price.replaceAll(' ', ''))} ${currency.toUpperCase()}'),
+              const SizedBox(height: 12),
+              DateAndViewsRow(date: MyFunctions.getData(purchasedDate)),
+              const SizedBox(height: 8),
+              //
+              if (id != null && id!.isNotEmpty) IdRow(id: id!),
+              //
+              Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  child: Divider(
+                      height: 1, color: Theme.of(context).dividerColor)),
+              CarInfoRow(
+                title: LocaleKeys.years_of_issue.tr(),
+                info: year,
+              ),
+              CarInfoRow(title: LocaleKeys.Mileage.tr(), info: mileage),
+              CarInfoRow(title: LocaleKeys.body.tr(), info: bodyType),
+              CarInfoRow(
+                title: LocaleKeys.color.tr(),
+                info: colorName,
+              ),
+              CarInfoRow(
+                  title: LocaleKeys.complectation.tr(),
+                  info: equipment?.name ?? LocaleKeys.not_shown.tr()),
+              CarInfoRow(
+                title: LocaleKeys.engine_volume_l.tr(),
+                info: '$modificationVolume $modificationPower',
+              ),
+              CarInfoRow(
+                title: LocaleKeys.Transmission.tr(),
+                info: gearboxType,
+              ),
+              CarInfoRow(
+                title: LocaleKeys.rastamojen_v_uzbekistan.tr(),
+                info: registeredInUzbekistan
+                    ? LocaleKeys.no.tr()
+                    : LocaleKeys.yes.tr(),
+              ),
+              const SizedBox(height: 10),
 
-                      DescriptionBox(description: state.description),
+              DescriptionBox(description: description),
 
-                      const SizedBox(height: 12),
-                      ComplectationBox(
-                          equipment: state.equipment,
-                          radios: state.radioOptions,
-                          selects: state.selectOptions),
-                      const SizedBox(height: 30),
-                      Container(color: Colors.teal, height: 36)
-                    ],
-                  ),
-                )),
+              const SizedBox(height: 12),
+              ComplectationBox(
+                equipment: equipment,
+                radios: selectedRadioOptions,
+                selects: selectedSelectOptions,
+              ),
+
+              const SizedBox(height: 12),
+              LocationBoxOfAdPreview(
+                bodyBytes: mapPointBodyBytes,
+                districtName: districtName,
+                regionName: regionName,
+              ),
+            ],
+          ),
+        ),
       );
 }

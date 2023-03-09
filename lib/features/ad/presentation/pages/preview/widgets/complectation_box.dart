@@ -31,12 +31,14 @@ class ComplectationBox extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(equipment?.name ?? '',
-              style: Theme.of(context)
-                  .textTheme
-                  .displayLarge!
-                  .copyWith(fontSize: 18)),
-          const SizedBox(height: 8),
+          if (equipment != null && equipment!.name.isNotEmpty) ...{
+            Text(equipment!.name,
+                style: Theme.of(context)
+                    .textTheme
+                    .displayLarge!
+                    .copyWith(fontSize: 18)),
+            const SizedBox(height: 8),
+          },
           if (equipment != null) ...{
             ...equipment!.options
                 .map((e) => DotAndText(text: e.option.name))

@@ -37,9 +37,10 @@ class _GenerationScreenState extends State<GenerationScreen> {
                 itemBuilder: (context, index) => PostingRadioItem(
                     onTap: () => context.read<PostingAdBloc>().add(
                         PostingAdChooseEvent(
-                            generationId: state.generations[index].id)),
+                            generationId: state.generations[index])),
                     image: state.generations[index].logo,
-                    selected: state.generationId == state.generations[index].id,
+                    selected:
+                        state.generationId?.id == state.generations[index].id,
                     title: state.generations[index].name),
                 itemCount: state.generations.length,
               );

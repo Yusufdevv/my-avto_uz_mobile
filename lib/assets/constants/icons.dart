@@ -127,6 +127,7 @@ class AppIcons {
   static const phoneCall = 'assets/icons/profile/phone_call.svg';
   static const piperClip = 'assets/icons/profile/paperclip.svg';
   static const send = 'assets/icons/profile/send.svg';
+  static const send2 = 'assets/icons/car_single/send_two.svg';
   static const checks = 'assets/icons/profile/checks.svg';
   static const scales = 'assets/icons/profile/scales.svg';
   static const tabletNews = 'assets/icons/profile/tablet_news.svg';
