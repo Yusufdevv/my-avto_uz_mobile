@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class CommercialTab extends StatelessWidget {
   const CommercialTab(
       {required this.tabController, required this.tabLabels, super.key});
+
   final TabController tabController;
   final List<String> tabLabels;
 
@@ -26,7 +27,7 @@ class CommercialTab extends StatelessWidget {
             color: stormGrey12,
           ),
           padding: const EdgeInsets.all(2),
-          margin: const EdgeInsets.only(left: 16, right: 16, bottom: 12),
+          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           child: TabBar(
             controller: tabController,
             indicator: BoxDecoration(

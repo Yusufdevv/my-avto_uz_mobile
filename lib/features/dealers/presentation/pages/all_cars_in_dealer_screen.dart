@@ -63,7 +63,6 @@ class AllCarsInDealerScreen extends StatelessWidget {
                     currency: item.currency,
                     initialLike: item.isWishlisted,
                     onTapFavorites: () {},
-                    onTapComparsion: () {},
                     initialComparsions: item.isComparison,
                     id: item.id,
                   ),

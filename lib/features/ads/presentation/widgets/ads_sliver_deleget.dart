@@ -68,12 +68,12 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                         context,
                         fade(
                             page: ChooseCarBrandPage(
-                          selectedMakeId: state.makeId,
+                          selectedMakeId: state.makeIdd,
                           selectedModelId: state.modelId,
                         )));
                     if (res is Map<String, dynamic>) {
                       var historySaved = res['modelId'] == state.modelId;
-                      historySaved = res['makeId'] == state.makeId;
+                      historySaved = res['makeId'] == state.makeIdd;
                       bloc.add(SetMakeModel(
                         makeId: res['makeId'],
                         modelId: res['modelId'],
@@ -89,7 +89,8 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                 size: size,
                 theme: theme,
                 onTapParams1: () async {
-                  final res = await Navigator.of(context).push(
+                  final res = await Navigator.of(context)
+                      .push(
                     fade(
                       page: FilterParameters(
                         bodyType: state.bodyType,
@@ -101,11 +102,12 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                         isCheck: state.isFilter,
                       ),
                     ),
-                  );
+                  )
+                    ;
                   if (res is Map<String, dynamic>) {
                     var historySaved = !res['isFilter'];
 
-                    historySaved = state.makeId == null;
+                    historySaved = state.makeIdd == null;
                     bloc.add(SetFilter(
                         bodyType: res['bodyType'] ?? const BodyTypeEntity(),
                         gearboxType:
@@ -153,10 +155,10 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
       );
 
   @override
-  double get maxExtent => 184;
+  double get maxExtent => 187;
 
   @override
-  double get minExtent => 184;
+  double get minExtent => 187;
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>

@@ -35,7 +35,7 @@ class AnnouncementListBloc
       ));
 
       final result = await useCase.call({
-        'make': state.makeId == -1 ? '' : state.makeId,
+        'make': state.makeIdd == -1 ? '' : state.makeIdd,
         'model': state.modelId == -1 ? '' : state.modelId,
         'body_type': state.bodyType?.id == -1 ? '' : state.bodyType?.id,
         'drive_type': state.driveType?.id == -1 ? '' : state.driveType?.id,
@@ -83,7 +83,7 @@ class AnnouncementListBloc
     });
     on<GetMoreAnnouncementList>((event, emit) async {
       final result = await useCase.call({
-        'make': state.makeId == -1 ? '' : state.makeId,
+        'make': state.makeIdd == -1 ? '' : state.makeIdd,
         'model': state.modelId == -1 ? '' : state.modelId,
         'body_type': state.bodyType?.id == -1 ? '' : state.bodyType?.id,
         'drive_type': state.driveType?.id == -1 ? '' : state.driveType?.id,
@@ -188,10 +188,10 @@ class AnnouncementListBloc
     on<SaveHistory>((event, emit) async {
       final saveFilterModel = SaveFilterModel(
           id: state.historyId,
-          make: state.makeId,
+          make: state.makeIdd,
           model: [state.modelId],
           query:
-              'make=${state.makeId ?? ''}&model=${state.modelId ?? ''}&body_type=${state.bodyType?.id == -1 ? '' : state.bodyType?.id}'
+              'make=${state.makeIdd ?? ''}&model=${state.modelId ?? ''}&body_type=${state.bodyType?.id == -1 ? '' : state.bodyType?.id}'
               '&drive_type=${state.driveType?.id == -1 ? '' : state.driveType?.id}&gearbox_type=${state.gearboxType?.id == -1 ? '' : state.gearboxType?.id}&is_new=${state.isNew ?? ''}'
               '&region__in=${getRegionsId(state.regions)}&price_from=${state.priceValues?.start.toInt() == -1 ? '' : state.priceValues?.start.toInt()}'
               '&price_to${state.priceValues?.end.toInt() == -1 ? '' : state.priceValues?.end.toInt()}&year_from=${state.yearValues?.start.toInt() == -1 ? '' : state.yearValues?.start.toInt()}'

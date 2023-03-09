@@ -33,6 +33,7 @@ class FilterButtonsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
+
         padding: const EdgeInsets.only(right: 16, left: 16, bottom: 12),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
