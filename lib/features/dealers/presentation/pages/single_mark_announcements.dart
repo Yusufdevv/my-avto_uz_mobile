@@ -107,7 +107,6 @@ class _SingleMarkAnnouncementsState extends State<SingleMarkAnnouncements> {
                           currency: item.currency,
                           initialLike: item.isWishlisted,
                           onTapFavorites: () {},
-                          onTapComparsion: () {},
                           initialComparsions: item.isComparison,
                           id: item.id,
                         ),
