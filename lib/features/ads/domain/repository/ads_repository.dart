@@ -9,17 +9,10 @@ abstract class AdsRepository {
   const AdsRepository();
 
   Future<Either<Failure, MinMaxPriceYearModel>> getMinMaxPriceYear(
-      {String? currency}) {
-    throw Exception('not implemented');
-  }
+      {String? currency});
 
   Future<Either<Failure, GenericPagination<AnnouncementListEntity>>>
-      getAnnouncementList(Map<String, dynamic> params) {
-    throw Exception('not implemented');
-  }
+      getAnnouncementList(Map<String, dynamic> params);
 
-  Future<Either<Failure, void>> filterHistory(
-      {required SaveFilterModel model}) {
-    throw Exception('not implemented');
-  }
+  Future<Either<Failure, void>> filterHistory({required SaveFilterModel model});
 }

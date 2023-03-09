@@ -20,14 +20,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class InfoContainer extends StatelessWidget {
   const InfoContainer({
-    required this.onTapComparsion,
     required this.onTapFavorites,
     required this.index,
     required this.initialComparsions,
     required this.id,
     required this.price,
-   required this.discountPrice,
-   required this.currency,
+    required this.discountPrice,
+    required this.currency,
     this.year,
     this.avatarPicture,
     this.hasDiscount = true,
@@ -65,7 +64,6 @@ class InfoContainer extends StatelessWidget {
   final List<String>? gallery;
   final bool hasStatusInfo;
   final bool hasCallCard;
-  final VoidCallback onTapComparsion;
   final VoidCallback onTapFavorites;
   final bool? initialLike;
   final bool isFromComparison;
@@ -74,10 +72,13 @@ class InfoContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
+
         width: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.only(top: 12, left: 16, bottom: 8),
         decoration: BoxDecoration(
-            color: Theme.of(context).extension<ThemedColors>()!.whiteToDark),
+          color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+          // color: Colors.red,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -182,12 +183,8 @@ class InfoContainer extends StatelessWidget {
                 if (discountPrice > 0.0)
                   Text(
                     '${MyFunctions.getFormatCost(price.floor().toString())} ${currency.toUpperCase()}',
-                    style: Theme.of(context)
-                        .textTheme
-                        .displayMedium
-                        ?.copyWith(
-                        decoration: TextDecoration.lineThrough,
-                        color: grey),
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                        decoration: TextDecoration.lineThrough, color: grey),
                   )
               ],
             ),

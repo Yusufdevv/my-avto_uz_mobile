@@ -20,8 +20,10 @@ class FilterSelectEvent extends FilterEvent {
   final RangeValues? yearValues;
   final RangeValues? priceValues;
   final Currency? currency;
+  final SaleType? saleType;
 
   FilterSelectEvent({
+    this.saleType,
     this.bodyType,
     this.carDriveType,
     this.gearboxType,

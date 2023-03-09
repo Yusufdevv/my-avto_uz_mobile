@@ -1,10 +1,14 @@
 // ignore_for_file: avoid_bool_literals_in_conditional_expressions
 
+import 'dart:developer';
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
+import 'package:auto/features/ads/presentation/widgets/currency_box.dart';
+import 'package:auto/features/ads/presentation/widgets/sale_type_buttons.dart';
 import 'package:auto/features/common/widgets/range_slider.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -45,6 +49,8 @@ class FilterParameters extends StatefulWidget {
 class _FilterParametersState extends State<FilterParameters> {
   late FilterBloc filterBloc;
 
+  RangeValues yearRangeValues = RangeValues(1960, DateTime.now().year + 0);
+
   @override
   void initState() {
     super.initState();
@@ -71,10 +77,12 @@ class _FilterParametersState extends State<FilterParameters> {
               extraActions: [
                 TextButton(
                   onPressed: () {
-                    filterBloc.add(FilterClearEvent(
-                      yearValues: widget.yearValues,
-                      priceValues: widget.priceValues,
-                    ));
+                    filterBloc.add(
+                      FilterClearEvent(
+                        yearValues: widget.yearValues,
+                        priceValues: widget.priceValues,
+                      ),
+                    );
                   },
                   child: Text(
                     LocaleKeys.clear.tr(),
@@ -90,10 +98,26 @@ class _FilterParametersState extends State<FilterParameters> {
             ),
             body: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SaleTypeButtons(
+                      onTap: (v) {
+                        filterBloc.add(FilterSelectEvent(saleType: v));
+                      },
+                      selected: state.saleType ?? SaleType.values[0],
+                    ),
+                    const SizedBox(height: 16),
+                    CurrencyBox(
+                      onTap: (v) {
+                        log(':::::::::: currency changed:  $v}  ::::::::::');
+                        filterBloc.add(FilterChangeCurrencyEvent(v));
+                      },
+                      selected: state.currency ?? Currency.uzs,
+                    ),
+                    const SizedBox(height: 16),
                     SelectorItem(
                       onTap: () async {
                         await showModalBottomSheet<BodyTypeEntity>(
@@ -165,71 +189,17 @@ class _FilterParametersState extends State<FilterParameters> {
                           ? true
                           : state.gearboxType!.type.isEmpty,
                     ),
-                    Text(
-                      LocaleKeys.select_currency.tr(),
-                      style: Theme.of(context).textTheme.displayMedium,
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        WButton(
-                          onTap: () {
-                            filterBloc.add(
-                                const FilterChangeCurrencyEvent(Currency.usd));
-                          },
-                          height: 36,
-                          width: MediaQuery.of(context).size.width * 0.45,
-                          color: state.currency == Currency.usd
-                              ? lavender
-                              : whiteSmoke,
-                          borderRadius: 46,
-                          border: state.currency == Currency.usd
-                              ? Border.all(color: purple)
-                              : null,
-                          child: Text(
-                            'у.е.',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: state.currency == Currency.usd ? dark : grey,
-                            ),
-                          ),
-                        ),
-                        WButton(
-                          onTap: () {
-                            filterBloc.add(
-                                const FilterChangeCurrencyEvent(Currency.uzs));
-                          },
-                          height: 36,
-                          width: MediaQuery.of(context).size.width * 0.45,
-                          color: state.currency == Currency.uzs
-                              ? lavender
-                              : whiteSmoke,
-                          borderRadius: 46,
-                          border: state.currency == Currency.uzs
-                              ? Border.all(color: purple)
-                              : null,
-                          child: Text(
-                            LocaleKeys.sum.tr(),
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: state.currency == Currency.uzs ? dark : grey,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
                     const SizedBox(height: 20),
                     WRangeSlider(
-                      values: state.yearValues,
-                      valueChanged: (value) => filterBloc.add(FilterSelectEvent(
-                        yearValues: value,
-                      )),
+                      values: yearRangeValues,
+                      valueChanged: (value) {
+                        log(':::::::::: on year slider changed:  ${value}  ::::::::::');
+                        yearRangeValues = value;
+                        setState(() {});
+                      },
                       title: LocaleKeys.year_of_issue.tr(),
-                      endValue: state.yearEnd ?? 0,
-                      startValue: state.yearStart ?? 0,
+                      endValue: 2023,
+                      startValue: 1960,
                     ),
                     const SizedBox(height: 16),
                     WRangeSlider(
@@ -248,9 +218,18 @@ class _FilterParametersState extends State<FilterParameters> {
                     const SizedBox(height: 16),
                     WButton(
                       onTap: () {
-                        var isFilter = (state.bodyType?.id != -1 && state.bodyType?.id != null) ||
-                            (state.gearboxType?.id != -1  && state.gearboxType?.id != null) || (state.carDriveType?.id !=-1  && state.carDriveType?.id !=null) ||
-                            state.yearValues.start != 0 ||  state.yearValues.end != 0 || state.priceValues.start != 0 ||  state.priceValues.end != 0  || state.currency != Currency.none;
+                        var isFilter = (state.bodyType?.id != -1 &&
+                                state.bodyType?.id != null) ||
+                            (state.gearboxType?.id != -1 &&
+                                state.gearboxType?.id != null) ||
+                            (state.carDriveType?.id != -1 &&
+                                state.carDriveType?.id != null) ||
+                            state.yearValues.start != 0 ||
+                            state.yearValues.end != 0 ||
+                            state.priceValues.start != 0 ||
+                            state.priceValues.end != 0 ||
+                            state.currency != Currency.none;
+
                         ///
                         Navigator.of(context).pop({
                           'bodyType': state.bodyType,

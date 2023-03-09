@@ -14,12 +14,14 @@ class FilterState extends Equatable {
   final double? priceEnd;
   final double? yearStart;
   final double? yearEnd;
+  final SaleType? saleType;
 
   const FilterState({
     required this.priceValues,
     required this.yearValues,
     required this.regions,
     required this.isCheck,
+    this.saleType,
     this.priceStart,
     this.priceEnd,
     this.yearStart,
@@ -32,6 +34,7 @@ class FilterState extends Equatable {
   });
 
   FilterState copyWith({
+    SaleType? saleType,
     List<RegionEntity>? regions,
     MakeEntity? maker,
     BodyTypeEntity? bodyType,
@@ -47,6 +50,7 @@ class FilterState extends Equatable {
     double? yearEnd,
   }) =>
       FilterState(
+        saleType: saleType ?? this.saleType,
         regions: regions ?? this.regions,
         maker: maker ?? this.maker,
         bodyType: bodyType ?? this.bodyType,
@@ -64,6 +68,7 @@ class FilterState extends Equatable {
 
   @override
   List<Object?> get props => [
+        saleType,
         regions,
         maker,
         bodyType,

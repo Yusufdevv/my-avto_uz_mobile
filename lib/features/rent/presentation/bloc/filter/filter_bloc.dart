@@ -4,6 +4,7 @@ import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ads/domain/usecases/get_min_max_price_use_case.dart';
+import 'package:auto/features/ads/presentation/widgets/sale_type_buttons.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -64,6 +65,7 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
         )));
     on<FilterSelectEvent>((event, emit) async {
       emit(state.copyWith(
+        currency: event.currency,
         bodyType: event.bodyType,
         carDriveType: event.carDriveType,
         gearboxType: event.gearboxType,

@@ -17,7 +17,7 @@ class AnnouncementListState extends Equatable {
   final GearboxTypeEntity? gearboxType;
   final BodyTypeEntity? bodyType;
   final DriveTypeEntity? driveType;
-  final int? makeId;
+  final int? makeIdd;
   final int? modelId;
   final String? makeName;
   final String? modelName;
@@ -43,7 +43,7 @@ class AnnouncementListState extends Equatable {
     this.gearboxType,
     this.bodyType,
     this.driveType,
-    this.makeId,
+    this.makeIdd,
     this.modelId,
     this.makeName,
     this.modelName,
@@ -95,7 +95,7 @@ class AnnouncementListState extends Equatable {
         gearboxType: gearboxType ?? this.gearboxType,
         bodyType: bodyType ?? this.bodyType,
         driveType: driveType ?? this.driveType,
-        makeId: makeId ?? this.makeId,
+        makeIdd: makeId ?? this.makeIdd,
         modelId: modelId ?? this.modelId,
         makeName: makeName ?? this.makeName,
         modelName: modelName ?? this.modelName,
@@ -122,7 +122,7 @@ class AnnouncementListState extends Equatable {
         gearboxType,
         bodyType,
         driveType,
-        makeId,
+        makeIdd,
         modelId,
         makeName,
         modelName,
