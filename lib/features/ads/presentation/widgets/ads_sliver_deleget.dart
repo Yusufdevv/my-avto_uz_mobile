@@ -1,4 +1,5 @@
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
@@ -97,7 +98,7 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                         carDriveType: state.driveType,
                         yearValues: state.yearValues,
                         priceValues: state.priceValues,
-                        currency: state.currency,
+                        currency: state.currency ?? Currency.none,
                         isCheck: state.isFilter,
                       ),
                     ),

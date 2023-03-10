@@ -17,15 +17,6 @@ class GetAnnouncementListUseCase extends UseCase<
 
   @override
   Future<Either<Failure, GenericPagination<AnnouncementListEntity>>> call(
-      Map<String, dynamic> params) async {
-    log(':::::::::: GetAnnouncementListUseCase triggered:  params is: ${params}  ::::::::::');
-    late Either<Failure, GenericPagination<AnnouncementListEntity>> v;
-    try {
-      v = await repositoryImpl.getAnnouncementList(params);
-      log(':::::::::: GOTTEN VALUE IS:  ${v.right.results} }  ::::::::::');
-    } catch (e) {
-      log(':::::::::: Announcement exception: $e }  ::::::::::');
-    }
-    return v;
-  }
+          Map<String, dynamic> params) async =>
+      await repositoryImpl.getAnnouncementList(params);
 }

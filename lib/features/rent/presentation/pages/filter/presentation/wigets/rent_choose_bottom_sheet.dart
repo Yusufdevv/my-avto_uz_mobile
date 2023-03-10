@@ -12,6 +12,7 @@ class ToChoose {
   final String title;
   final String imagePath;
   final int id;
+
   ToChoose({
     required this.title,
     required this.imagePath,
@@ -33,6 +34,7 @@ class RentChooseBottomSheet extends StatefulWidget {
 
 class _RentChooseBottomSheetState extends State<RentChooseBottomSheet> {
   Map<int, int> checkStatus = {};
+
   void goBack() {
     Navigator.of(context).pop(checkStatus.entries.map((e) => e.value).toList());
   }
@@ -74,33 +76,19 @@ class _RentChooseBottomSheetState extends State<RentChooseBottomSheet> {
                   ),
                   ...List.generate(
                       widget.list.length,
-                      (index) => Column(
-                            children: [
-                              WScaleAnimation(
-                                onTap: () {
-                                  if (checkStatus.containsKey(index)) {
-                                    checkStatus.remove(index);
-                                  } else {
-                                    checkStatus[index] = widget.list[index].id;
-                                  }
-                                  setState(() {});
-                                },
-                                child: RentSheetItem(
-                                  logo: widget.list[index].imagePath,
-                                  title: widget.list[index].title,
-                                  isChecked: checkStatus.containsKey(index),
-                                ),
-                              ),
-                              Visibility(
-                                visible: widget.list.length - 1 != index,
-                                child: const Divider(
-                                  thickness: 1,
-                                  color: border,
-                                  height: 1,
-                                  indent: 16,
-                                ),
-                              ),
-                            ],
+                      (index) => RentSheetItemm(
+                            onTap: () {
+                              if (checkStatus.containsKey(index)) {
+                                checkStatus.remove(index);
+                              } else {
+                                checkStatus[index] = widget.list[index].id;
+                              }
+                              setState(() {});
+                            },
+                            logo: widget.list[index].imagePath,
+                            title: widget.list[index].title,
+                            isChecked: checkStatus.containsKey(index),
+                            hasDivider: widget.list.length - 1 != index,
                           )),
                 ],
               ),

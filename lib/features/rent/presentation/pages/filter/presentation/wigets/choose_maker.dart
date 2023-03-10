@@ -58,32 +58,18 @@ class _ChooseMakerState extends State<ChooseMaker> {
                           children: [
                             ...List.generate(
                               getMakesState.makes.length,
-                              (index) => Column(
-                                children: [
-                                  WScaleAnimation(
-                                    onTap: () {
-                                      getMakesBloc.add(
-                                          GetMakesBlocEvent.changeSelected(
-                                              getMakesState.makes[index].id));
-                                    },
-                                    child: RentSheetItem(
-                                      logo: getMakesState.makes[index].logo,
-                                      title: getMakesState.makes[index].name,
-                                      isChecked: getMakesState.selectId ==
-                                          getMakesState.makes[index].id,
-                                    ),
-                                  ),
-                                  Visibility(
-                                    visible:
-                                        getMakesState.makes.length - 1 != index,
-                                    child: const Divider(
-                                      thickness: 1,
-                                      color: border,
-                                      height: 1,
-                                      indent: 16,
-                                    ),
-                                  ),
-                                ],
+                              (index) => RentSheetItemm(
+                                onTap: () {
+                                  getMakesBloc.add(
+                                      GetMakesBlocEvent.changeSelected(
+                                          getMakesState.makes[index].id));
+                                },
+                                logo: getMakesState.makes[index].logo,
+                                title: getMakesState.makes[index].name,
+                                isChecked: getMakesState.selectId ==
+                                    getMakesState.makes[index].id,
+                                hasDivider:
+                                    getMakesState.makes.length - 1 != index,
                               ),
                             ),
                           ],

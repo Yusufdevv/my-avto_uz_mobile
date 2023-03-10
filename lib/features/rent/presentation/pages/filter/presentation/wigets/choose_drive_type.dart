@@ -16,6 +16,7 @@ import 'package:easy_localization/easy_localization.dart';
 
 class ChooseDriveType extends StatefulWidget {
   final int selectedId;
+
   const ChooseDriveType({required this.selectedId, super.key});
 
   @override
@@ -24,6 +25,7 @@ class ChooseDriveType extends StatefulWidget {
 
 class _ChooseDriveTypeState extends State<ChooseDriveType> {
   late GetDriveTypesBloc getDriveTypesBloc;
+
   @override
   void initState() {
     getDriveTypesBloc = GetDriveTypesBloc(
@@ -65,31 +67,24 @@ class _ChooseDriveTypeState extends State<ChooseDriveType> {
                         physics: const BouncingScrollPhysics(),
                         child: Column(
                           children: [
+                            RentSheetItemm(
+                              onTap: () => getDriveTypesBloc
+                                  .add(GetDriveTypesSelectEvent(-1)),
+                              logo: '',
+                              title: LocaleKeys.all.tr(),
+                              isChecked: -1 == state.selected,
+                              hasDivider: true,
+                            ),
                             ...List.generate(
                                 state.driveTypes.length,
-                                (index) => Column(
-                                      children: [
-                                        WScaleAnimation(
-                                          onTap: () => getDriveTypesBloc.add(
-                                              GetDriveTypesSelectEvent(index)),
-                                          child: RentSheetItem(
-                                            logo: state.driveTypes[index].logo,
-                                            title: state.driveTypes[index].type,
-                                            isChecked: index == state.selected,
-                                          ),
-                                        ),
-                                        Visibility(
-                                          visible:
-                                              state.driveTypes.length - 1 !=
-                                                  index,
-                                          child: const Divider(
-                                            thickness: 1,
-                                            color: border,
-                                            height: 1,
-                                            indent: 16,
-                                          ),
-                                        ),
-                                      ],
+                                (index) => RentSheetItemm(
+                                      onTap: () => getDriveTypesBloc
+                                          .add(GetDriveTypesSelectEvent(index)),
+                                      logo: state.driveTypes[index].logo,
+                                      title: state.driveTypes[index].type,
+                                      isChecked: index == state.selected,
+                                      hasDivider:
+                                          state.driveTypes.length - 1 != index,
                                     )),
                           ],
                         ),

@@ -63,31 +63,25 @@ class _ChooseGearboxState extends State<ChooseGearbox> {
                         physics: const BouncingScrollPhysics(),
                         child: Column(
                           children: [
+                            RentSheetItemm(
+                              onTap: () => getGearboxesBloc
+                                  .add(GetGearboxesSelectEvent(-1)),
+                              logo: '',
+                              title: LocaleKeys.all.tr(),
+                              isChecked: -1 == state.selected,
+                              hasDivider: true,
+                            ),
                             ...List.generate(
-                                state.gearBoxes.length,
-                                (index) => Column(
-                                      children: [
-                                        WScaleAnimation(
-                                          onTap: () => getGearboxesBloc.add(
-                                              GetGearboxesSelectEvent(index)),
-                                          child: RentSheetItem(
-                                            logo: state.gearBoxes[index].logo,
-                                            title: state.gearBoxes[index].type,
-                                            isChecked: index == state.selected,
-                                          ),
-                                        ),
-                                        Visibility(
-                                          visible: state.gearBoxes.length - 1 !=
-                                              index,
-                                          child: const Divider(
-                                            thickness: 1,
-                                            color: border,
-                                            height: 1,
-                                            indent: 16,
-                                          ),
-                                        ),
-                                      ],
-                                    )),
+                              state.gearBoxes.length,
+                              (index) => RentSheetItemm(
+                                onTap: () => getGearboxesBloc
+                                    .add(GetGearboxesSelectEvent(index)),
+                                logo: state.gearBoxes[index].logo,
+                                title: state.gearBoxes[index].type,
+                                isChecked: index == state.selected,
+                                hasDivider: state.gearBoxes.length - 1 != index,
+                              ),
+                            ),
                           ],
                         ),
                       ),
