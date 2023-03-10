@@ -20,6 +20,7 @@ import 'package:auto/features/car_single/presentation/widgets/cars_characteristi
 import 'package:auto/features/car_single/presentation/widgets/confirm_bottomsheet.dart';
 import 'package:auto/features/car_single/presentation/widgets/other_ads_item.dart';
 import 'package:auto/features/car_single/presentation/widgets/persistant_header.dart';
+import 'package:auto/features/car_single/presentation/widgets/place_inspection.dart';
 import 'package:auto/features/car_single/presentation/widgets/sliver_app_bar_item.dart';
 import 'package:auto/features/car_single/presentation/widgets/vin_soon_item.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
@@ -328,6 +329,16 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
+                                      if (!state.singleEntity.isMine &&
+                                          state.singleEntity.longitude !=
+                                              null &&
+                                          state.singleEntity.longitude != null)
+                                        PlaceInspection(
+                                          id: state.singleEntity.id,
+                                          name: state.singleEntity.contactName,
+                                          lat: state.singleEntity.latitude,
+                                          long: state.singleEntity.longitude,
+                                        ),
                                       if (state
                                           .singleEntity.description.isNotEmpty)
                                         SellerComment(
@@ -356,9 +367,8 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                           if (state.singleEntity.damagedParts.isNotEmpty)
                             SliverToBoxAdapter(
                               child: CarCharacteristicImage(
-                                informAboutDoors:
-                                    state.singleEntity.damagedParts,
-                              ),
+                                  informAboutDoors:
+                                      state.singleEntity.damagedParts),
                             ),
                           SliverToBoxAdapter(
                             child: state.elasticSearchEntity.length > 1

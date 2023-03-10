@@ -55,6 +55,12 @@ class _CarCharacteristicItemState extends State<CarCharacteristicItem>
         decoration: BoxDecoration(
           color: Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
           border: Border(
+            top:  BorderSide(
+              width: 1,
+              color: Theme.of(context)
+                  .extension<ThemedColors>()!
+                  .solitudeToDarkRider,
+            ),
             bottom: BorderSide(
               width: 1,
               color: Theme.of(context)

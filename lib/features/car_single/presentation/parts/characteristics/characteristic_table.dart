@@ -21,7 +21,7 @@ class CharacteristicTable extends StatefulWidget {
 class _CharacteristicTableState extends State<CharacteristicTable> {
   @override
   Widget build(BuildContext context) => Container(
-        padding: const EdgeInsets.only(top: 8),
+        padding: const EdgeInsets.only(top: 12),
         color: Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

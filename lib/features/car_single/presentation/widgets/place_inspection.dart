@@ -1,26 +1,26 @@
-import 'dart:typed_data';
-
-import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/features/dealers/presentation/widgets/dealer_single_info_part.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class LocationBoxOfAdPreview extends StatelessWidget {
-  final Uint8List? bodyBytes;
-  final String districtName;
-  final String regionName;
-
-  const LocationBoxOfAdPreview(
-      {required this.bodyBytes,
-      required this.districtName,
-      required this.regionName,
-      Key? key})
-      : super(key: key);
+class PlaceInspection extends StatelessWidget {
+  const PlaceInspection({
+    required this.lat,
+    required this.long,
+    required this.id,
+    required this.name,
+    Key? key,
+  }) : super(key: key);
+  final double lat;
+  final double long;
+  final int id;
+  final String name;
 
   @override
   Widget build(BuildContext context) => Container(
+        margin: const EdgeInsets.only(bottom: 12),
         decoration: BoxDecoration(
             border: Border.symmetric(
                 horizontal: BorderSide(
@@ -35,28 +35,19 @@ class LocationBoxOfAdPreview extends StatelessWidget {
                     .displayLarge!
                     .copyWith(fontSize: 18)),
             const SizedBox(height: 8),
-            if (bodyBytes != null && bodyBytes!.isNotEmpty) ...{
-              Container(
-                margin: const EdgeInsets.only(bottom: 17),
-                height: 150,
-                width: double.maxFinite,
-                decoration: BoxDecoration(
-                    border: Border.all(color: warmerGrey, width: 1),
-                    color: Colors.amber,
-                    borderRadius: BorderRadius.circular(12),
-                    image: DecorationImage(
-                      image: MemoryImage(bodyBytes!),
-                      fit: BoxFit.cover,
-                    )),
-                // child:Image.asset(AppIcons.currentLoc),
-              ),
-            },
+            MapBox(
+              dealerId: id,
+              dealerName: name,
+              latitude: lat,
+              longitude: long,
+            ),
+            const SizedBox(height: 8),
             Row(
               children: [
                 SvgPicture.asset(AppIcons.send2),
                 const SizedBox(width: 8),
                 Text(
-                  '$regionName, $districtName',
+                  r'$regionName, $districtName',
                   style: Theme.of(context)
                       .textTheme
                       .bodySmall!

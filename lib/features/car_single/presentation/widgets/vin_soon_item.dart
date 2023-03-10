@@ -14,9 +14,6 @@ class VinSoonItem extends StatelessWidget {
           left: 20,
           top: 20,
         ),
-        margin: const EdgeInsets.only(
-          bottom: 8,
-        ),
         decoration: BoxDecoration(
           color: white,
           border: Border.all(
