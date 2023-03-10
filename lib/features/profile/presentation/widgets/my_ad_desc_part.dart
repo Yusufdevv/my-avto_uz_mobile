@@ -33,9 +33,9 @@ class MyAdDesc extends StatelessWidget {
         const SizedBox(height: 16),
         InformationGrid(listData: [
           '${(DateTime.parse(item.publishedAt).difference(DateTime.now()).inDays ~/ 7) + 1} ${LocaleKeys.a_week.tr()}',
-          '${item.stats.viewedContactsCount}',
           '${item.stats.viewsCount}',
-          '${item.stats.wishlistCount}'
+          '${item.stats.wishlistCount}',
+          '${item.stats.viewedContactsCount}'
         ]),
         if (item.moderationStatus != 'sold') const Divider(height: 24),
         if (item.moderationStatus == 'active')

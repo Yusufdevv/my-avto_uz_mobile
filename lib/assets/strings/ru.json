@@ -204,7 +204,7 @@
   "payment_pending": "Оплата в ожидании",
   "refresh_the_page": "Обновить страницу",
   "avialable_hours": "Доступные часы",
-  "the_user_is_only_available_in": "Пользователь доступен только",
+  "the_user_is_only_available_in": "Пользователь доступен только в",
   "incognito_mode": "Если вы включите этот режим, ваш номер в объявлении будет отображаться только в вами выбранное время",
   "buyers_more_call_on_add": "Покупатели чаще звонят по объявлениям, \u2028в которых указана комплектация",
   "description_dont_do": "Пожалуйста, не указывайте ссылки, цену, контактные данные и не предлагайте услуги — такое объявление не пройдет модерацию",
@@ -577,7 +577,7 @@
   "application_confirmed" : "Заявка подтверждена",
   "application_rejected" : "Заявка отклонена",
   "driver_licence" : "Водительское удостоверение",
-  "your_application_has_been_accepted" : "Выша заявка отклонена!",
+  "your_application_has_been_accepted" : "Выша заявка принята!",
   "your_application_has_been_rejected" : "Выша заявка отклонена!",
   "try_to_resubmit_the_application" : "Попробуйте повторно отправить заявку ",
   "wait_for_moderation_confirmation" : "Ждите подтверждения модерации"

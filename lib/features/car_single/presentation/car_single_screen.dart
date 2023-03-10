@@ -330,9 +330,8 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                         CrossAxisAlignment.start,
                                     children: [
                                       if (!state.singleEntity.isMine &&
-                                          state.singleEntity.longitude !=
-                                              null &&
-                                          state.singleEntity.longitude != null)
+                                          state.singleEntity.longitude != 0 &&
+                                          state.singleEntity.longitude != 0)
                                         PlaceInspection(
                                           id: state.singleEntity.id,
                                           name: state.singleEntity.contactName,
