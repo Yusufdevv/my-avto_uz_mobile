@@ -16,6 +16,7 @@ import 'package:formz/formz.dart';
 
 class ChooseBodyType extends StatefulWidget {
   final int selectedId;
+
   const ChooseBodyType({required this.selectedId, super.key});
 
   @override
@@ -24,6 +25,7 @@ class ChooseBodyType extends StatefulWidget {
 
 class _ChooseBodyTypeState extends State<ChooseBodyType> {
   late GetBodyTypesBloc getBodyTypesBloc;
+
   @override
   void initState() {
     getBodyTypesBloc = GetBodyTypesBloc(
@@ -65,31 +67,25 @@ class _ChooseBodyTypeState extends State<ChooseBodyType> {
                         physics: const BouncingScrollPhysics(),
                         child: Column(
                           children: [
+                            RentSheetItemm(
+                              hasDivider: true,
+                              onTap: () => getBodyTypesBloc
+                                  .add(GetBodyTypesSelectIndex(-1)),
+                              logo: '',
+                              title: LocaleKeys.all.tr(),
+                              isChecked: state.selected ==-1,
+                            ),
                             ...List.generate(
-                                state.bodyTypes.length,
-                                (index) => Column(
-                                      children: [
-                                        WScaleAnimation(
-                                          onTap: () => getBodyTypesBloc.add(
-                                              GetBodyTypesSelectIndex(index)),
-                                          child: RentSheetItem(
-                                            logo: state.bodyTypes[index].logo,
-                                            title: state.bodyTypes[index].type,
-                                            isChecked: index == state.selected,
-                                          ),
-                                        ),
-                                        Visibility(
-                                          visible: state.bodyTypes.length - 1 !=
-                                              index,
-                                          child: const Divider(
-                                            thickness: 1,
-                                            color: border,
-                                            height: 1,
-                                            indent: 16,
-                                          ),
-                                        ),
-                                      ],
-                                    )),
+                              state.bodyTypes.length,
+                              (index) => RentSheetItemm(
+                                hasDivider: state.bodyTypes.length - 1 != index,
+                                onTap: () => getBodyTypesBloc
+                                    .add(GetBodyTypesSelectIndex(index)),
+                                logo: state.bodyTypes[index].logo,
+                                title: state.bodyTypes[index].type,
+                                isChecked: index == state.selected,
+                              ),
+                            ),
                           ],
                         ),
                       ),

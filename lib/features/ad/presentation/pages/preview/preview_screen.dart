@@ -74,7 +74,7 @@ class PreviewScreen extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.only(bottom: 66),
+          padding: const EdgeInsets.only(bottom: 80),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -107,7 +107,8 @@ class PreviewScreen extends StatelessWidget {
                 title: LocaleKeys.years_of_issue.tr(),
                 info: year,
               ),
-              CarInfoRow(title: LocaleKeys.Mileage.tr(), info: mileage),
+              if (mileage.isNotEmpty)
+                CarInfoRow(title: LocaleKeys.Mileage.tr(), info: mileage),
               CarInfoRow(title: LocaleKeys.body.tr(), info: bodyType),
               CarInfoRow(
                 title: LocaleKeys.color.tr(),
@@ -142,6 +143,7 @@ class PreviewScreen extends StatelessWidget {
               ),
 
               const SizedBox(height: 12),
+
               LocationBoxOfAdPreview(
                 bodyBytes: mapPointBodyBytes,
                 districtName: districtName,

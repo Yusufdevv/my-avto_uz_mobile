@@ -19,6 +19,7 @@ class LocationBoxOfAdPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
+
         decoration: BoxDecoration(
             border: Border.symmetric(
                 horizontal: BorderSide(
