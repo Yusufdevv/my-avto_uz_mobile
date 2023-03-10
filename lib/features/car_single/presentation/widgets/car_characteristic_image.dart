@@ -1,12 +1,9 @@
-import 'dart:developer';
-
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/const/constants.dart';
-import 'package:auto/features/ad/presentation/pages/damage/widgets/damage_pluc_button.dart';
 import 'package:auto/features/car_single/domain/entities/damaged_parts_entity.dart';
 import 'package:auto/features/car_single/presentation/widgets/car_status_icon_on_single.dart';
-import 'package:auto/features/car_single/presentation/widgets/information_about_doors.dart';
+import 'package:auto/features/car_single/presentation/widgets/damage_part_row_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -32,11 +29,10 @@ class _CarCharacteristicImageState extends State<CarCharacteristicImage> {
     asEnum = widget.informAboutDoors.map((e) => e.toEnum()).toList();
 
     // asEnum = List.generate(
-    //     DamagedPart.values.length,
+    //     3,
     //     (index) => DamagedPartsAsEnum(
     //         part: DamagedPart.values[index],
-    //         type: DamageType.values[index % 5]));
-    length = countLength(asEnum.length);
+    //         type: DamageType.values[index % 4]));
     super.initState();
   }
 
@@ -44,14 +40,15 @@ class _CarCharacteristicImageState extends State<CarCharacteristicImage> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.fromLTRB(16, 20, 0, 20),
+      margin: const EdgeInsets.only(bottom: 12, top: 12),
       decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(
               width: 1,
-              // color: Colors.teal,
+              // color: Colors.red,
               color: Theme.of(context)
                   .extension<ThemedColors>()!
                   .solitudeToDarkRider,
@@ -83,66 +80,70 @@ class _CarCharacteristicImageState extends State<CarCharacteristicImage> {
           ),
           const SizedBox(height: 15),
           Center(
-            child: Stack(
-              children: [
-                SvgPicture.asset(
-                  AppIcons.autoModel,
-                  fit: BoxFit.cover,
-                ),
-                ...List.generate(
-                  asEnum.length,
-                  (index) => CarStatusIconInPicture(
-                    type: asEnum[index].type,
-                    position: MyFunctions.getDamagePosition(
-                      part: asEnum[index].part,
-                      width: width,
-                      height: height,
-                    ),
+            child: Padding(
+              padding: const EdgeInsets.only(right: 16),
+              child: Stack(
+                children: [
+                  SvgPicture.asset(
+                    AppIcons.autoModel,
+                    fit: BoxFit.cover,
                   ),
-                ).toList(),
-              ],
+                  ...List.generate(
+                    asEnum.length,
+                    (index) => CarStatusIconInPicture(
+                      type: asEnum[index].type,
+                      position: MyFunctions.getDamagePosition(
+                        part: asEnum[index].part,
+                        width: width,
+                        height: height,
+                      ),
+                    ),
+                  ).toList(),
+                ],
+              ),
             ),
           ),
-          ListView.separated(
+          ListView(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) => Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: InformationAboutDoors(
-                    damageType: asEnum[countIndex(index)].type,
-                    partName: MyFunctions.getDamagedPartName(
-                        asEnum[countIndex(index)].part),
-                    damageName: MyFunctions.getStatusTitle(
-                            asEnum[countIndex(index)].type)
-                        .tr(),
-                  ),
-                ),
-                if (index == length - (length.isEven ? 0 : 1))
-                  const SizedBox()
-                else
-                  Expanded(
-                    child: InformationAboutDoors(
-                      damageType: asEnum[countIndex(index) + 1].type,
-                      partName: MyFunctions.getDamagedPartName(
-                          asEnum[countIndex(index) + 1].part),
-                      damageName: MyFunctions.getStatusTitle(
-                              asEnum[countIndex(index) + 1].type)
-                          .tr(),
-                    ),
-                  ),
-              ],
-            ),
-            separatorBuilder: (context, index) => const Divider(),
-            itemCount: length,
+            scrollDirection: Axis.vertical,
+            children: _getDamgeItems(
+                asEnum,
+                (firstItem, secondItem, hasDivider) => DamagePartRowItem(
+                    firstItem: firstItem,
+                    secondItem: secondItem,
+                    hasDivider: hasDivider)).toList(),
           )
         ],
       ),
     );
   }
+}
 
-  int countIndex(int v) => v == 0 ? 0 : v * 2;
+Iterable<E> _getDamgeItems<E, T>(
+    List<DamagedPartsAsEnum> items,
+    E Function(DamagedPartsAsEnum firstItem, DamagedPartsAsEnum? secondItem,
+            bool hasDivider)
+        f) sync* {
+  DamagedPartsAsEnum? getItemIfAvailable(
+      List<DamagedPartsAsEnum> items, int index) {
+    try {
+      return items[index];
+    } catch (e) {
+      return null;
+    }
+  }
 
-  int countLength(int v) => v.isEven ? v ~/ 2 : (v ~/ 2) + 1;
+  var index = 0;
+
+  for (; index < items.length;) {
+    yield f(
+      getItemIfAvailable(items, index) ??
+          const DamagedPartsAsEnum(
+              part: DamagedPart.trunk, type: DamageType.ideal),
+      getItemIfAvailable(items, index + 1),
+      (index + 2) < items.length,
+    );
+    index = index + 2;
+  }
 }

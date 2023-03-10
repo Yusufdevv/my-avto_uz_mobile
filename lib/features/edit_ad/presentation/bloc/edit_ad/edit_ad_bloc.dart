@@ -123,12 +123,9 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
 
   FutureOr<void> _getColors(
       EditAdGetColorsEvent event, Emitter<EditAdState> emit) async {
-    log('::::::::::   PostingAdGetColorsEvent triggered  ::::::::::');
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await colorsUseCase.call(event.next);
-    log(':::::::::: PostingAdGetColorsEvent result ${result}  ::::::::::');
     if (result.isRight) {
-      log(':::::::::: colors right:   ${result.right}  ::::::::::');
       emit(
         state.copyWith(
           status: FormzStatus.submissionSuccess,

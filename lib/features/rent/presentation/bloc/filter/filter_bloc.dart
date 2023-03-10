@@ -72,7 +72,6 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
           gearboxType: null,
         )));
     on<FilterSelectEvent>((event, emit) async {
-      log(':::::::::: FilterSelectEvent  triggered: ${event.saleType}  ::::::::::');
       emit(state.copyWith(
         saleType: event.saleType,
         currency: event.currency,
@@ -93,8 +92,6 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
       if (result.isRight) {
         priceValues = RangeValues(double.parse(result.right.minPrice),
             double.parse(result.right.maxPrice));
-        log(':::::::::: maxYearf: ${result.right.maxYear}  ::::::::::');
-        log(':::::::::: minYearf: ${result.right.minYear}  ::::::::::');
         yearValues = RangeValues(
             result.right.minYear.toDouble(), result.right.maxYear.toDouble());
       }

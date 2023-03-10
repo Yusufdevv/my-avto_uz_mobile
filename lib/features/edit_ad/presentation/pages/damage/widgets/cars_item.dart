@@ -1,7 +1,7 @@
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
-import 'package:auto/features/ad/presentation/pages/damage/widgets/damage_pluc_button.dart';
+import 'package:auto/features/ad/presentation/pages/damage/widgets/damage_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
