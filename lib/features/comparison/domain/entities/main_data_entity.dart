@@ -1,3 +1,4 @@
+import 'package:auto/features/common/entities/color_entity.dart';
 import 'package:auto/features/comparison/data/models/main_data_model.dart';
 import 'package:auto/features/comparison/domain/entities/user_entity.dart';
 import 'package:equatable/equatable.dart';
@@ -12,7 +13,7 @@ class MainDataEntity extends Equatable {
     this.driveType = '',
     this.gearboxType = '',
     this.year = 0,
-    this.color = '',
+    this.color = const ColorEntity(),
     this.gallery = const [],
     this.user = const UserEntity(),
     this.contactAvailableFrom = '',
@@ -26,7 +27,8 @@ class MainDataEntity extends Equatable {
   final String driveType;
   final String gearboxType;
   final int year;
-  final String color;
+  @ColorConverter()
+  final ColorEntity color;
   final List<String> gallery;
   @UserConverter()
   final UserEntity user;
@@ -53,6 +55,7 @@ class MainDataEntity extends Equatable {
 class MainDataConverter
     implements JsonConverter<MainDataEntity, Map<String, dynamic>?> {
   const MainDataConverter();
+
   @override
   MainDataEntity fromJson(Map<String, dynamic>? json) =>
       MainDataModel.fromJson(json ?? {});

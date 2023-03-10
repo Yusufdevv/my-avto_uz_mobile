@@ -51,11 +51,11 @@ class _ComparisonPageState extends State<ComparisonPage> {
           ),
           body: BlocBuilder<ComparisonBloc, ComparisonState>(
             builder: (context, state) {
-              if (state.status == FormzStatus.submissionInProgress) {
+              if (state.statuss == FormzStatus.submissionInProgress) {
                 return const Center(child: CupertinoActivityIndicator());
               }
-              if (state.status == FormzStatus.submissionSuccess ||
-                  state.status == FormzStatus.submissionFailure) {
+              if (state.statuss == FormzStatus.submissionSuccess ||
+                  state.statuss == FormzStatus.submissionFailure) {
                 if (state.cars.isEmpty) {
                   return EmptyComparison(
                     onTap: () {

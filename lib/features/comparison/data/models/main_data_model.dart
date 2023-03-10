@@ -1,3 +1,4 @@
+import 'package:auto/features/common/entities/color_entity.dart';
 import 'package:auto/features/comparison/domain/entities/main_data_entity.dart';
 import 'package:auto/features/comparison/domain/entities/user_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -6,6 +7,7 @@ part 'main_data_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class MainDataModel extends MainDataEntity {
+
   const MainDataModel({
     required super.bodyType,
     required super.color,

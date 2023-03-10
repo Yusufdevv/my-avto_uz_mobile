@@ -9,7 +9,10 @@ part of 'main_data_model.dart';
 MainDataModel _$MainDataModelFromJson(Map<String, dynamic> json) =>
     MainDataModel(
       bodyType: json['body_type'] as String? ?? '',
-      color: json['color'] as String? ?? '',
+      color: json['color'] == null
+          ? const ColorEntity()
+          : const ColorConverter()
+              .fromJson(json['color'] as Map<String, dynamic>?),
       driveType: json['drive_type'] as String? ?? '',
       gearboxType: json['gearbox_type'] as String? ?? '',
       generation: json['generation'] as String? ?? '',
@@ -37,7 +40,7 @@ Map<String, dynamic> _$MainDataModelToJson(MainDataModel instance) =>
       'drive_type': instance.driveType,
       'gearbox_type': instance.gearboxType,
       'year': instance.year,
-      'color': instance.color,
+      'color': const ColorConverter().toJson(instance.color),
       'gallery': instance.gallery,
       'user': const UserConverter().toJson(instance.user),
       'contact_available_from': instance.contactAvailableFrom,
