@@ -22,8 +22,8 @@ class VerifiredOwnerMoreBtshtState extends State<VerifiredOwnerMoreBtsht> {
   ];
 
   List<String> img = [
-    AppIcons.camera,
-    AppIcons.photo,
+    AppIcons.refresh,
+    AppIcons.delete,
   ];
 
   @override

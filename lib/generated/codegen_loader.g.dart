@@ -631,7 +631,7 @@ static const Map<String,dynamic> uz = {
   "right_front_door": "O'ng old eshik",
   "right_rear_door": "O'ng orqa eshik",
   "front_bumper": "Old bamper",
-  "the_user_is_only_available_in": "Foydalanuvchi faqat ichida mavjud",
+  "the_user_is_only_available_in": "Foydalanuvchiga faqat quyidagi vaqtda aloqaga chiqish mumkin",
   "paint_condition": "Bo'yoq holati",
   "optimal": "Optimal",
   "excellent": "Ajoyib",

@@ -29,7 +29,7 @@ class BottomItem extends StatelessWidget {
   final String? userAvatar;
   final bool isMine;
 
-  const BottomItem({
+  BottomItem({
     required this.callFrom,
     required this.callTo,
     required this.phoneNumber,
@@ -42,105 +42,113 @@ class BottomItem extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  bool enableForCalling = false;
+
   @override
-  Widget build(BuildContext context) => Row(
-        children: [
-          Expanded(
-            child: WButton(
-              onTap: () {
-                if (isMine) {
-                } else {
-                  if (callFrom != '' && callTo != '') {
-                    if (MyFunctions.enableForCalling(
-                        callFrom: callFrom, callTo: callTo)) {
-                      launchUrl(Uri.parse('tel://$phoneNumber'));
-                      context
-                          .read<CarSingleBloc>()
-                          .add(CarSingleEvent.callCount(id));
-                    } else {
-                      showModalBottomSheet(
-                        useRootNavigator: true,
-                        isScrollControlled: false,
-                        backgroundColor: Colors.transparent,
-                        context: context,
-                        builder: (context) => DealerTime(
-                          timeTo: callTo,
-                          timeFrom: callFrom,
-                        ),
-                      );
-                    }
-                  }
-                }
-              },
-              height: 44,
-              borderRadius: 8,
-              color: isMine ? const Color(0xff5ECC81) : const Color(0xffB5B5BE),
-              text: LocaleKeys.call.tr(),
-              textColor: Colors.white,
-              child: isMine
-                  ? const Center(
-                      child: Text('Продлить еще на 12 дней'),
-                    )
-                  : Row(
-                      children: [
-                        const Spacer(),
-                        SvgPicture.asset(AppIcons.info, color: white),
-                        const SizedBox(width: 8),
-                        Text(
-                          LocaleKeys.call.tr(),
-                          style: const TextStyle(color: border),
-                        ),
-                        const Spacer(),
-                      ],
-                    ),
-            ),
-          ),
-          const SizedBox(width: 4),
-          WScaleAnimation(
+  Widget build(BuildContext context) {
+    if (callFrom != '' && callTo != '') {
+      if (MyFunctions.enableForCalling(callFrom: callFrom, callTo: callTo)) {
+        enableForCalling = true;
+      }
+    }
+
+    return Row(
+      children: [
+        Expanded(
+          child: WButton(
             onTap: () {
-              if (!isMine) {
-                if (usertype == 'owner') {
-                  Navigator.of(context).push(fade(
-                      page: UserSinglePage(
-                    userId: userId,
-                    announcementId: id,
-                  )));
-                }
-                if (usertype == 'dealer' && slug.isNotEmpty) {
-                  Navigator.of(context)
-                      .push(fade(page: DealerSinglePage(slug: slug)));
-                }
+              if (isMine) {
+                ///// nimadir
               } else {
-                Share.share(
-                    'https://panel.avto.uz/api/v1/car/announcement/$id/detail/');
+                if (enableForCalling) {
+                  launchUrl(Uri.parse('tel://$phoneNumber'));
+                  context
+                      .read<CarSingleBloc>()
+                      .add(CarSingleEvent.callCount(id));
+                } else {
+                  showModalBottomSheet(
+                    useRootNavigator: true,
+                    isScrollControlled: false,
+                    backgroundColor: Colors.transparent,
+                    context: context,
+                    builder: (context) => DealerTime(
+                      timeTo: callTo,
+                      timeFrom: callFrom,
+                    ),
+                  );
+                }
               }
             },
-            child: Container(
-              height: 44,
-              decoration: BoxDecoration(
-                  color: white,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: isMine ? dividerColor : border)),
-              child: isMine
-                  ? Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: SvgPicture.asset(AppIcons.share,
-                          height: 28, width: 28),
-                    )
-                  : ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: CachedNetworkImage(
+            height: 44,
+            borderRadius: 8,
+            color: isMine || enableForCalling ? emerald : warmerGrey,
+            text: LocaleKeys.call.tr(),
+            textColor: Colors.white,
+            child: isMine
+                ? const Center(
+                    child: Text('Продлить еще на 12 дней'),
+                  )
+                : Row(
+                    children: [
+                      const Spacer(),
+                      SvgPicture.asset(AppIcons.info, color: white),
+                      const SizedBox(width: 8),
+                      Text(
+                        LocaleKeys.call.tr(),
+                        style: const TextStyle(color: border),
+                      ),
+                      const Spacer(),
+                    ],
+                  ),
+          ),
+        ),
+        const SizedBox(width: 4),
+        WScaleAnimation(
+          onTap: () {
+            if (!isMine) {
+              if (usertype == 'owner') {
+                Navigator.of(context).push(fade(
+                    page: UserSinglePage(
+                  userId: userId,
+                  announcementId: id,
+                )));
+              }
+              if (usertype == 'dealer' && slug.isNotEmpty) {
+                Navigator.of(context)
+                    .push(fade(page: DealerSinglePage(slug: slug)));
+              }
+            } else {
+              Share.share(
+                  'https://panel.avto.uz/api/v1/car/announcement/$id/detail/');
+            }
+          },
+          child: Container(
+            height: 44,
+            decoration: BoxDecoration(
+                color: white,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: isMine ? dividerColor : border)),
+            child: isMine
+                ? Padding(
+                    padding: const EdgeInsets.all(8),
+                    child:
+                        SvgPicture.asset(AppIcons.share, height: 28, width: 28),
+                  )
+                : ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: CachedNetworkImage(
+                      fit: BoxFit.cover,
+                      width: 44,
+                      imageUrl: userAvatar ?? '',
+                      errorWidget: (context, url, error) => Image.asset(
+                        AppImages.defaultPhoto,
                         fit: BoxFit.cover,
-                        width: 44,
-                        imageUrl: userAvatar ?? '',
-                        errorWidget: (context, url, error) => Image.asset(
-                          AppImages.defaultPhoto,
-                          fit: BoxFit.cover,
-                        ),
                       ),
                     ),
-            ),
+                  ),
           ),
-        ],
-      );
+        ),
+      ],
+    );
+  }
 }
