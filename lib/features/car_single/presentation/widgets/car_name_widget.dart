@@ -12,6 +12,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class CarNameWidget extends StatelessWidget {
   final String priceBsh;
+  final String gasBalloonInfo;
   final bool isMine;
   final double middlePrice;
   final double ration;
@@ -47,6 +48,7 @@ class CarNameWidget extends StatelessWidget {
 
   const CarNameWidget({
     required this.fullname,
+    required this.gasBalloonInfo,
     required this.price,
     required this.date,
     required this.view,
@@ -182,6 +184,7 @@ class CarNameWidget extends StatelessWidget {
                       .solitudeToDarkRider),
             ),
             CarDetails(
+              gasBalloonInfo: gasBalloonInfo,
               year: year,
               mileage: mileage,
               body: body,

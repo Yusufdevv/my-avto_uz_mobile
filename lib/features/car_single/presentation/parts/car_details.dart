@@ -12,7 +12,7 @@ class CarDetails extends StatelessWidget {
   final String complectation;
   final String engineVolume;
   final String gearType;
-  final String uzb;
+  final String uzb;final String gasBalloonInfo;
 
   const CarDetails({
     required this.year,
@@ -23,6 +23,7 @@ class CarDetails extends StatelessWidget {
     required this.engineVolume,
     required this.gearType,
     required this.uzb,
+    required this.gasBalloonInfo,
     Key? key,
   }) : super(key: key);
 
@@ -55,6 +56,10 @@ class CarDetails extends StatelessWidget {
           CarInfoTile(
             text: LocaleKeys.engine_volume.tr(),
             value: engineVolume,
+          ),
+          CarInfoTile(
+            text: LocaleKeys.gas_ballon_equipment.tr(),
+            value: gasBalloonInfo,
           ),
           CarInfoTile(
             text: LocaleKeys.drive_gearbox.tr(),

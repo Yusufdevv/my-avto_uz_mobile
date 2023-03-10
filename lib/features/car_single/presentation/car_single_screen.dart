@@ -221,6 +221,10 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                           ),
                           SliverToBoxAdapter(
                             child: CarNameWidget(
+                              gasBalloonInfo: state
+                                      .singleEntity.gasEquipment.name.isEmpty
+                                  ? LocaleKeys.no.tr()
+                                  : state.singleEntity.gasEquipment.name,
                               inModeration: widget.inModeration,
                               fullname: state.singleEntity.absoluteCarName,
                               price: MyFunctions.getFormatCost(
@@ -231,9 +235,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                               todayViewedCount:
                                   '${state.singleEntity.todayViewedCount}',
                               id: '${state.singleEntity.id}',
-                              currency: state.singleEntity.currency == 'usd'
-                                  ? 'USD'
-                                  : 'UZS',
+                              currency: state.singleEntity.currency.toUpperCase(),
                               onVin: () {},
                               onComparison: () {
                                 /// tegma, ichkarida AddComparisonItemda function-i yozilgan

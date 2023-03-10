@@ -35,6 +35,7 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
+        log(':::::::::: CarSingleDataSourceImpl  getCarSingle data  ${response.data} \n Seperator  Seperator  Seperator  Seperator  Seperator    ::::::::::');
 
         return CarSingleModel.fromJson(response.data);
       } else {
