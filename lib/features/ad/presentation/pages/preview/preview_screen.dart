@@ -13,6 +13,7 @@ import 'package:auto/features/ad/presentation/pages/preview/widgets/location_box
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PreviewScreen extends StatelessWidget {
@@ -23,6 +24,7 @@ class PreviewScreen extends StatelessWidget {
   final Map<int, SO> selectedSelectOptions;
   final EquipmentEntity? equipment;
   final bool registeredInUzbekistan;
+  final bool isWaiting;
 
   final String makeName;
   final String modelName;
@@ -66,91 +68,97 @@ class PreviewScreen extends StatelessWidget {
       required this.description,
       required this.districtName,
       required this.regionName,
+         this.isWaiting = false,
       this.id,
       Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.only(bottom: 80),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 16, left: 16, bottom: 12),
-                child: Text(
-                  LocaleKeys.final_review.tr(),
-                  style: Theme.of(context).textTheme.displayLarge,
+        body: Builder(builder: (context) {
+          if (isWaiting) {
+            return const Center(child: CupertinoActivityIndicator());
+          }
+          return SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.only(bottom: 80),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 16, left: 16, bottom: 12),
+                  child: Text(
+                    LocaleKeys.final_review.tr(),
+                    style: Theme.of(context).textTheme.displayLarge,
+                  ),
                 ),
-              ),
-              ImageViewer(images: [...gallery, ...panaramaGallery]),
-              const SizedBox(height: 12),
+                ImageViewer(images: [...gallery, ...panaramaGallery]),
+                const SizedBox(height: 12),
 
-              CarModelText(text: '$makeName $modelName $generationName'),
-              CarPriceText(
-                  text:
-                      '${MyFunctions.getFormatCost(price.replaceAll(' ', ''))} ${currency.toUpperCase()}'),
-              const SizedBox(height: 12),
-              DateAndViewsRow(date: MyFunctions.getData(purchasedDate)),
-              const SizedBox(height: 8),
-              //
-              if (id != null && id!.isNotEmpty) IdRow(id: id!),
-              //
-              Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                  child: Divider(
-                      height: 1, color: Theme.of(context).dividerColor)),
-              CarInfoRow(
-                title: LocaleKeys.years_of_issue.tr(),
-                info: year,
-              ),
-              if (mileage.isNotEmpty)
-                CarInfoRow(title: LocaleKeys.Mileage.tr(), info: mileage),
-              CarInfoRow(title: LocaleKeys.body.tr(), info: bodyType),
-              CarInfoRow(
-                title: LocaleKeys.color.tr(),
-                info: colorName,
-              ),
-              CarInfoRow(
-                  title: LocaleKeys.complectation.tr(),
-                  info: equipment?.name ?? LocaleKeys.not_shown.tr()),
-              CarInfoRow(
-                title: LocaleKeys.engine_volume_l.tr(),
-                info: '$modificationVolume $modificationPower',
-              ),
-              CarInfoRow(
-                title: LocaleKeys.Transmission.tr(),
-                info: gearboxType,
-              ),
-              CarInfoRow(
-                title: LocaleKeys.rastamojen_v_uzbekistan.tr(),
-                info: registeredInUzbekistan
-                    ? LocaleKeys.no.tr()
-                    : LocaleKeys.yes.tr(),
-              ),
-              const SizedBox(height: 10),
+                CarModelText(text: '$makeName $modelName $generationName'),
+                CarPriceText(
+                    text:
+                        '${MyFunctions.getFormatCost(price.replaceAll(' ', ''))} ${currency.toUpperCase()}'),
+                const SizedBox(height: 12),
+                DateAndViewsRow(date: MyFunctions.getData(purchasedDate)),
+                const SizedBox(height: 8),
+                //
+                if (id != null && id!.isNotEmpty) IdRow(id: id!),
+                //
+                Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 16),
+                    child: Divider(
+                        height: 1, color: Theme.of(context).dividerColor)),
+                CarInfoRow(
+                  title: LocaleKeys.years_of_issue.tr(),
+                  info: year,
+                ),
+                if (mileage.isNotEmpty)
+                  CarInfoRow(title: LocaleKeys.Mileage.tr(), info: mileage),
+                CarInfoRow(title: LocaleKeys.body.tr(), info: bodyType),
+                CarInfoRow(
+                  title: LocaleKeys.color.tr(),
+                  info: colorName,
+                ),
+                CarInfoRow(
+                    title: LocaleKeys.complectation.tr(),
+                    info: equipment?.name ?? LocaleKeys.not_shown.tr()),
+                CarInfoRow(
+                  title: LocaleKeys.engine_volume_l.tr(),
+                  info: '$modificationVolume $modificationPower',
+                ),
+                CarInfoRow(
+                  title: LocaleKeys.Transmission.tr(),
+                  info: gearboxType,
+                ),
+                CarInfoRow(
+                  title: LocaleKeys.rastamojen_v_uzbekistan.tr(),
+                  info: registeredInUzbekistan
+                      ? LocaleKeys.no.tr()
+                      : LocaleKeys.yes.tr(),
+                ),
+                const SizedBox(height: 10),
 
-              DescriptionBox(description: description),
+                DescriptionBox(description: description),
 
-              const SizedBox(height: 12),
-              ComplectationBox(
-                equipment: equipment,
-                radios: selectedRadioOptions,
-                selects: selectedSelectOptions,
-              ),
+                const SizedBox(height: 12),
+                ComplectationBox(
+                  equipment: equipment,
+                  radios: selectedRadioOptions,
+                  selects: selectedSelectOptions,
+                ),
 
-              const SizedBox(height: 12),
+                const SizedBox(height: 12),
 
-              LocationBoxOfAdPreview(
-                bodyBytes: mapPointBodyBytes,
-                districtName: districtName,
-                regionName: regionName,
-              ),
-            ],
-          ),
-        ),
+                LocationBoxOfAdPreview(
+                  bodyBytes: mapPointBodyBytes,
+                  districtName: districtName,
+                  regionName: regionName,
+                ),
+              ],
+            ),
+          );
+        }),
       );
 }

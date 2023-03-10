@@ -91,7 +91,6 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
           contactsFormKey: GlobalKey<FormState>(),
           getAnnouncementToEditStatus: FormzStatus.pure,
           popStatus: PopStatus.success,
-
           status: FormzStatus.pure,
           phoneController: TextEditingController(),
           emailController: TextEditingController(),
@@ -145,7 +144,7 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
   /// it will be called
   FutureOr<void> _onOptionChanged(
       EditAdChangeOption event, Emitter<EditAdState> emit) {
-   if (event.isAdd) {
+    if (event.isAdd) {
       if (event.type == 'select') {
         var m = state.selectOptions.map(MapEntry.new);
         int? lastEquipmentId;
@@ -339,7 +338,7 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
     final result = await screenShotUseCase
         .call({'longitude': '${event.long}', 'latitude': '${event.lat}'});
     if (result.isRight) {
-       emit(state.copyWith(
+      emit(state.copyWith(
           status: FormzStatus.submissionSuccess, mapPointBytes: result.right));
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
@@ -532,7 +531,6 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
     final result = await getEquipmentsUseCase.call(
         {'search': '', 'limit': 100, 'offset': 0, 'modelId': state.model?.id});
     if (result.isRight) {
-
       final equipments = result.right.results;
       emit(state.copyWith(
           equipments: equipments,

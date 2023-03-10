@@ -229,14 +229,16 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                     Navigator.pop(context);
                                   }
                                 },
-                                onTapCancel: () {
+                                onTapCancel: () async {
                                   postingAdBloc.add(PostingAdClearStateEvent());
+                                  log(':::::::::: on tap cancel triggered: $currentTabIndex}  ::::::::::');
                                   currentTabIndex = 0;
-                                  pageController.animateToPage(currentTabIndex,
+                                  log(':::::::::: on tap cancel triggered: $currentTabIndex}  ::::::::::');
+                                  await pageController.animateToPage(
+                                      currentTabIndex,
                                       duration:
-                                          const Duration(milliseconds: 300),
+                                          const Duration(milliseconds: 100),
                                       curve: Curves.linear);
-                                  setState(() {});
                                 },
                                 title: currentTabIndex == 0
                                     ? LocaleKeys.get_back.tr()
@@ -545,6 +547,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                     // const StsScreen(),
                                     //19
                                     PreviewScreen(
+                                      isWaiting: state.getMakesStatus
+                                          .isSubmissionInProgress,
                                       regionName: state.region?.title ?? '',
                                       districtName: state.district?.title ?? '',
                                       equipment: state.equipment,
@@ -559,7 +563,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                           state.generation?.name ?? '',
                                       makeName: state.make?.name ?? '',
                                       mapPointBodyBytes: state.mapPointBytes,
-                                      mileage: state.mileage ?? '',
+                                      mileage: state.mileage ?? '0',
                                       modelName: state.model?.name ?? '',
                                       modificationPower:
                                           state.modification?.power ?? '',
