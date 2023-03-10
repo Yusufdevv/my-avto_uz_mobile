@@ -196,7 +196,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   }
 
   FutureOr<void> _clearState(
-      PostingAdClearStateEvent event, Emitter<PostingAdState> emit) {
+      PostingAdClearStateEvent event, Emitter<PostingAdState> emit) async {
+    emit(state.copyWith(getMakesStatus: FormzStatus.submissionInProgress));
+    await Future.delayed(const Duration(milliseconds: 300));
     emit(
       PostingAdState(
         contactsFormKey: GlobalKey<FormState>(),

@@ -164,7 +164,8 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                                   : numberOfAddedCars[index]
                                       .announcement
                                       .mainData
-                                      .color,
+                                      .color
+                                      .name,
                               isGrey: true,
                             ),
                           ],

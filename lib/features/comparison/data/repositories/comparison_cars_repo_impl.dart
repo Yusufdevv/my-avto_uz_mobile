@@ -12,7 +12,7 @@ class ComparisonCarsRepoImpl extends ComparisonCarsRepo {
   @override
   Future<Either<Failure, List<ComparisonEntity>>> getComparableCars() async {
     try {
-      final result = await comparisonCarsDataSource.getComparisonCars();
+      final result = await comparisonCarsDataSource.getComparableCars();
       return Right(result);
     } on DioException {
       return Left(DioFailure());

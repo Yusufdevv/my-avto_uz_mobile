@@ -25,7 +25,7 @@ class DamagePartRowItem extends StatelessWidget {
               Expanded(
                 child: InformationAboutDoors(
                   damageType: firstItem.type,
-                  partName: MyFunctions.getDamagedPartName(firstItem.part),
+                  partName: MyFunctions.getDamagedPartName(firstItem.part).tr(),
                   damageName: MyFunctions.getStatusTitle(firstItem.type).tr(),
                 ),
               ),
@@ -35,7 +35,7 @@ class DamagePartRowItem extends StatelessWidget {
                 Expanded(
                   child: InformationAboutDoors(
                     damageType: secondItem!.type,
-                    partName: MyFunctions.getDamagedPartName(secondItem!.part),
+                    partName: MyFunctions.getDamagedPartName(secondItem!.part).tr(),
                     damageName:
                         MyFunctions.getStatusTitle(secondItem!.type).tr(),
                   ),

@@ -3,7 +3,7 @@ part of 'comparison_bloc.dart';
 class ComparisonState extends Equatable {
   final List<ComparisonEntity> cars;
   final bool onlyDifferences;
-  final FormzStatus status;
+  final FormzStatus statuss;
   final bool isSticky;
   final MakeEntity? selectedMake;
   final MakeEntity? selectedModel;
@@ -11,7 +11,7 @@ class ComparisonState extends Equatable {
     required this.cars,
     required this.onlyDifferences,
     required this.isSticky,
-    required this.status,
+    required this.statuss,
     this.selectedMake,
     this.selectedModel,
   });
@@ -27,11 +27,11 @@ class ComparisonState extends Equatable {
         cars: cars ?? this.cars,
         onlyDifferences: onlyDifferences ?? this.onlyDifferences,
         isSticky: isSticky ?? this.isSticky,
-        status: status ?? this.status,
+        statuss: status ?? this.statuss,
         selectedMake: selectedMake ?? this.selectedMake,
         selectedModel: selectedModel ?? this.selectedModel,
       );
   @override
   List<Object?> get props =>
-      [status, cars, onlyDifferences, isSticky, selectedMake, selectedModel];
+      [statuss, cars, onlyDifferences, isSticky, selectedMake, selectedModel];
 }

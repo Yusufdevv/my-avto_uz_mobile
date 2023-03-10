@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/comparison/domain/entities/comparison_entity.dart';
@@ -7,22 +9,26 @@ import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 
 part 'comparison_event.dart';
+
 part 'comparison_state.dart';
 
 class ComparisonBloc extends Bloc<ComparisonEvent, ComparisonState> {
   final ComparisonCarsUseCase comparisonCarsUseCase;
+
   ComparisonBloc({required this.comparisonCarsUseCase})
       : super(const ComparisonState(
           cars: [],
           onlyDifferences: false,
           isSticky: false,
-          status: FormzStatus.pure,
+          statuss: FormzStatus.pure,
           selectedMake: MakeEntity(),
           selectedModel: MakeEntity(),
         )) {
     on<GetComparableCars>((event, emit) async {
+      log(':::::::::: GetComparableCars event triggered:  ::::::::::');
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await comparisonCarsUseCase.call(NoParams());
+      log(':::::::::: GetComparableCars result: ${result} ::::::::::');
       if (result.isRight) {
         emit(state.copyWith(
           cars: result.right,

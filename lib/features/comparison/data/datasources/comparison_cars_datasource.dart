@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/comparison/data/models/comparison_model.dart';
@@ -5,9 +7,10 @@ import 'package:dio/dio.dart';
 
 // ignore: one_member_abstracts
 abstract class ComparisonCarsDataSource {
-  Future getComparisonCars();
+  Future getComparableCars();
 
   Future<void> postComparisonCars(int id);
+
   Future<void> deleteComparisonCars(int id);
 }
 
@@ -17,17 +20,23 @@ class ComparisonDataSourceImpl extends ComparisonCarsDataSource {
   ComparisonDataSourceImpl(this._dio);
 
   @override
-  Future getComparisonCars() async {
+  Future getComparableCars() async {
+    log('::::::::::  get comparable cars triggered:  ::::::::::');
     try {
       final response = await _dio.get('/car/comparison/',
           options: Options(headers: {
             'Authorization': 'Bearer ${StorageRepository.getString('token')}'
           }));
+      log(':::::::::: GOTTEN COMPARISON CARS DATA: ${response.data}  ::::::::::');
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        return (response.data as List)
-            // ignore: unnecessary_lambdas
-            .map((e) => ComparisonModel.fromJson(e))
-            .toList();
+       try{
+         return (response.data as List)
+         // ignore: unnecessary_lambdas
+             .map((e) => ComparisonModel.fromJson(e))
+             .toList();
+       }catch (e){
+         log(':::::::::: GOTTEN COMPARISON CARS DATA EXCEPTION:  $e  ::::::::::');
+        }
       } else {
         throw ServerException(
             errorMessage: response.data.toString(),
