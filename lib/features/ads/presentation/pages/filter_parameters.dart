@@ -105,6 +105,7 @@ class _FilterParametersState extends State<FilterParameters> {
                   children: [
                     SaleTypeButtons(
                       onTap: (v) {
+                        log(':::::::::: Sale type: $v }  ::::::::::');
                         filterBloc.add(FilterSelectEvent(saleType: v));
                       },
                       selected: state.saleType ?? SaleType.values[0],

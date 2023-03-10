@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ads/presentation/widgets/currency_button.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -13,31 +15,34 @@ class CurrencyBox extends StatelessWidget {
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            LocaleKeys.select_currency.tr(),
-            style: Theme.of(context).textTheme.displayMedium,
-          ),
-          const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CurrencyButton(
-                  onTap: () {
-                    onTap(Currency.usd);
-                  },
-                  selected: selected == Currency.usd,
-                  currency: 'у.е.'),
-              CurrencyButton(
-                  onTap: () {
-                    onTap(Currency.uzs);
-                  },
-                  selected: selected == Currency.uzs,
-                  currency: LocaleKeys.sum.tr()),
-            ],
-          ),
-        ],
-      );
+  Widget build(BuildContext context) {
+    log(':::::::::: currency equal to:  ${selected == Currency.uzs } $selected ::::::::::');
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          LocaleKeys.select_currency.tr(),
+          style: Theme.of(context).textTheme.displayMedium,
+        ),
+        const SizedBox(height: 8),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            CurrencyButton(
+                onTap: () {
+                  onTap(Currency.usd);
+                },
+                selected: selected == Currency.usd,
+                currency: 'у.е.'),
+            CurrencyButton(
+                onTap: () {
+                  onTap(Currency.uzs);
+                },
+                selected: selected == Currency.uzs,
+                currency: LocaleKeys.sum.tr()),
+          ],
+        ),
+      ],
+    );
+  }
 }

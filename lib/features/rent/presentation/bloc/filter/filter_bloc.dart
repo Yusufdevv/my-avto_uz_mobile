@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
@@ -64,7 +66,9 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
           gearboxType: null,
         )));
     on<FilterSelectEvent>((event, emit) async {
+      log(':::::::::: FilterSelectEvent  triggered: ${event.saleType}  ::::::::::');
       emit(state.copyWith(
+        saleType: event.saleType,
         currency: event.currency,
         bodyType: event.bodyType,
         carDriveType: event.carDriveType,
