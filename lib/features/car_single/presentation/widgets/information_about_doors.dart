@@ -1,7 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/const/constants.dart';
-import 'package:auto/features/ad/presentation/pages/damage/widgets/damage_pluc_button.dart';
+import 'package:auto/features/ad/presentation/pages/damage/widgets/damage_button.dart';
 import 'package:auto/features/car_single/domain/entities/damaged_parts_entity.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';

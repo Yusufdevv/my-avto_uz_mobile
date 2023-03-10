@@ -3,7 +3,7 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/presentation/pages/damage/widgets/cars_item.dart';
 import 'package:auto/features/ad/presentation/pages/damage/widgets/custom_tabbar.dart';
-import 'package:auto/features/ad/presentation/pages/damage/widgets/damage_pluc_button.dart';
+import 'package:auto/features/ad/presentation/pages/damage/widgets/damage_button.dart';
 import 'package:auto/features/ad/presentation/pages/damage/widgets/damage_type_info_sheet.dart';
 import 'package:auto/features/ad/presentation/pages/damage/widgets/situation_item.dart';
 import 'package:auto/features/ad/presentation/pages/damage/widgets/situation_with_title.dart';

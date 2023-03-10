@@ -29,15 +29,18 @@ import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class MyFunctions {
- static Future<void> openMapsSheet(BuildContext context, double lat, double long, String title) async {
+  static Future<void> openMapsSheet(
+      BuildContext context, double lat, double long, String title) async {
     final coords = Coords(lat, long);
     final availableMaps = await MapLauncher.installedMaps;
 
     await showModalBottomSheet(
       context: context,
-      builder: (context) => MapsListInApp(availableMaps: availableMaps, coords: coords, title: title),
+      builder: (context) => MapsListInApp(
+          availableMaps: availableMaps, coords: coords, title: title),
     );
   }
+
   static String getData(String data) =>
       Jiffy(data).format('dd-MM-yyyy').replaceAll('-', '/').toString();
 
@@ -556,9 +559,9 @@ class MyFunctions {
       case DamagedPart.rightRearDoor:
         return DamagePosition(left: width * 0.22, bottom: 42);
       case DamagedPart.frontBumper:
-        return DamagePosition(top: height * 0.196, left: width * 0.136);
+        return DamagePosition(top: height * 0.22, left: width * 0.14);
       case DamagedPart.rearBumper:
-        return DamagePosition(bottom: height * 0.145, right: width * 0.133);
+        return DamagePosition(bottom: height * 0.163, right: width * 0.14);
       case DamagedPart.frontLeftFender:
         return DamagePosition(left: width * 0.12, top: 28);
       case DamagedPart.frontRightFender:
@@ -568,11 +571,11 @@ class MyFunctions {
       case DamagedPart.rearRightFender:
         return DamagePosition(left: width * 0.08, bottom: 48);
       case DamagedPart.roof:
-        return DamagePosition(top: height * 0.122, left: width * 0.133);
+        return DamagePosition(top: height * 0.13, left: width * 0.14);
       case DamagedPart.hood:
-        return DamagePosition(top: height * 0.16, left: width * 0.133);
+        return DamagePosition(top: height * 0.18, left: width * 0.14);
       case DamagedPart.trunk:
-        return DamagePosition(top: height * 0.144, right: width * 0.133);
+        return DamagePosition(top: height * 0.15, right: width * 0.14);
     }
   }
 
