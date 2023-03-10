@@ -6,7 +6,7 @@ class FilterState extends Equatable {
   final BodyTypeEntity? bodyType;
   final DriveTypeEntity? carDriveType;
   final GearboxTypeEntity? gearboxType;
-  final Currency? currency;
+  final Currency currency;
   final RangeValues yearValues;
   final RangeValues priceValues;
   final bool isCheck;
@@ -53,9 +53,11 @@ class FilterState extends Equatable {
         saleType: saleType ?? this.saleType,
         regions: regions ?? this.regions,
         maker: maker ?? this.maker,
-        bodyType: bodyType ?? this.bodyType,
-        carDriveType: carDriveType ?? this.carDriveType,
-        gearboxType: gearboxType ?? this.gearboxType,
+        bodyType: bodyType?.id == -1 ? null : bodyType ?? this.bodyType,
+        carDriveType:
+            carDriveType?.id == -1 ? null : carDriveType ?? this.carDriveType,
+        gearboxType:
+            gearboxType?.id == -1 ? null : gearboxType ?? this.gearboxType,
         yearValues: yearValues ?? this.yearValues,
         priceValues: priceValues ?? this.priceValues,
         currency: currency ?? this.currency,
@@ -65,6 +67,28 @@ class FilterState extends Equatable {
         yearStart: yearStart ?? this.yearStart,
         yearEnd: yearEnd ?? this.yearEnd,
       );
+
+  Map<String, dynamic> get filterData {
+    var data = <String, dynamic>{};
+    if (maker != null) {
+      data['make'] = maker!.id;
+    }
+    if (bodyType != null) {
+      data['body_type'] = bodyType!.id;
+    }
+    if (gearboxType != null) {
+      data['gearbox_type'] = gearboxType!.id;
+    }
+    if (carDriveType != null) {
+      data['drive_type'] = carDriveType!.id;
+    }
+    data['price_to'] = priceValues.end;
+    data['price_from'] = priceValues.start;
+    data['year_from'] = yearValues.start;
+    data['year_to'] = yearValues.end;
+
+    return data;
+  }
 
   @override
   List<Object?> get props => [

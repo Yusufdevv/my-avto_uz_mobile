@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
@@ -32,6 +33,7 @@ class RentFilterScreen extends StatefulWidget {
   final RangeValues? yearValues;
   final RangeValues? priceValues;
   final RentBloc rentBloc;
+
   const RentFilterScreen({
     required this.rentBloc,
     this.regions,
@@ -50,9 +52,11 @@ class RentFilterScreen extends StatefulWidget {
 
 class _RentFilterScreenState extends State<RentFilterScreen> {
   late FilterBloc filterBloc;
+
   @override
   void initState() {
     filterBloc = FilterBloc(
+      currency: Currency.none,
       bodyType: widget.bodyType,
       carDriveType: widget.carDriveType,
       gearboxType: widget.gearboxType,

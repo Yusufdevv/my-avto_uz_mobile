@@ -20,7 +20,7 @@ class ComplectationBox extends StatelessWidget {
   Widget build(BuildContext context) {
     if (!(((equipment?.options.length ?? 0) + radios.length + selects.length) >
         0)) {
-      return const SizedBox();
+      return Divider(height: 1,thickness: 1, color: Theme.of(context).dividerColor);
     }
     return Container(
       decoration: BoxDecoration(

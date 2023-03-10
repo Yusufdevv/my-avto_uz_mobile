@@ -13,6 +13,7 @@ class SelectorItem extends StatelessWidget {
   final VoidCallback onTap;
   final bool hasArrowDown;
   final bool isLoading;
+
   const SelectorItem(
       {required this.onTap,
       required this.title,
@@ -58,7 +59,7 @@ class SelectorItem extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium!
-                                .copyWith(color: hasArrowDown ? grey : black),
+                                .copyWith(color: black),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),

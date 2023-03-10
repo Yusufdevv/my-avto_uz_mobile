@@ -25,11 +25,12 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
   final bool isCheck;
   final RangeValues? yearValues;
   final RangeValues? priceValues;
-  final Currency? currency;
+  final Currency currency;
   GetMinMaxPriceYearUseCase minMaxPriceYearUseCase =
       GetMinMaxPriceYearUseCase();
 
   FilterBloc({
+    required this.currency,
     this.regions,
     this.maker,
     this.bodyType,
@@ -37,15 +38,20 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
     this.gearboxType,
     this.yearValues,
     this.priceValues,
-    this.currency,
     this.isCheck = false,
   }) : super(FilterState(
-          bodyType: bodyType,
-          carDriveType: carDriveType,
-          gearboxType: gearboxType,
+          bodyType: bodyType?.id == -1 ? null : bodyType,
+          carDriveType: carDriveType?.id == -1 ? null : carDriveType,
+          gearboxType: gearboxType?.id == -1 ? null : gearboxType,
           maker: maker,
           regions: regions ?? <RegionEntity>[],
-          yearValues: yearValues ?? RangeValues(1960, DateTime.now().year + 0),
+          yearValues: RangeValues(
+              yearValues != null && yearValues.start > 0
+                  ? yearValues.start
+                  : 1960,
+              yearValues != null && yearValues.end > 0
+                  ? yearValues.end
+                  : DateTime.now().year + 0),
           priceValues: priceValues ?? const RangeValues(1000, 500000),
           isCheck: isCheck,
           currency: currency,
@@ -87,6 +93,8 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
       if (result.isRight) {
         priceValues = RangeValues(double.parse(result.right.minPrice),
             double.parse(result.right.maxPrice));
+        log(':::::::::: maxYearf: ${result.right.maxYear}  ::::::::::');
+        log(':::::::::: minYearf: ${result.right.minYear}  ::::::::::');
         yearValues = RangeValues(
             result.right.minYear.toDouble(), result.right.maxYear.toDouble());
       }
