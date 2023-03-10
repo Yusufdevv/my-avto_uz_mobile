@@ -372,7 +372,14 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                       padding: const EdgeInsets.only(
                                           top: 8, left: 16),
                                       separatorBuilder: (context, index) =>
-                                          const SizedBox(width: 24),
+                                          SizedBox(
+                                              width: state.singleEntity.id ==
+                                                      state
+                                                          .elasticSearchEntity[
+                                                              index]
+                                                          .id
+                                                  ? 0
+                                                  : 24),
                                       itemBuilder: (context, index) =>
                                           BlocConsumer<WishlistAddBloc,
                                               WishlistAddState>(

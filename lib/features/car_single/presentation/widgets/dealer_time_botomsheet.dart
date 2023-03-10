@@ -8,46 +8,37 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class DealerTime extends StatefulWidget {
+class DealerTime extends StatelessWidget {
   final String timeFrom;
   final String timeTo;
 
-  const DealerTime({
+    DealerTime({
     required this.timeFrom,
     required this.timeTo,
     Key? key,
   }) : super(key: key);
 
-  @override
-  State<DealerTime> createState() => _DealerTimeState();
-}
-
-class _DealerTimeState extends State<DealerTime> {
-  late String content;
+   String content = '';
 
   @override
-  void initState() {
+  Widget build(BuildContext context) {
     final isUz =
         StorageRepository.getString(StorageKeys.LANGUAGE, defValue: 'uz') ==
             'uz';
-    final callFrom = widget.timeFrom.length > 5
-        ? widget.timeFrom.substring(0, 5)
-        : widget.timeFrom;
-    final callTo = widget.timeTo.length > 5
-        ? widget.timeTo.substring(0, 5)
-        : widget.timeTo;
+    final callFrom = timeFrom.length > 5
+        ? timeFrom.substring(0, 5)
+        : timeFrom;
+    final callTo = timeTo.length > 5
+        ? timeTo.substring(0, 5)
+        : timeTo;
     content = callFrom.isEmpty || callTo.isEmpty
         ? LocaleKeys.not_shown.tr()
         : (isUz
-            ? '$callFrom ${LocaleKeys.from.tr()}'
-                ' - $callTo ${LocaleKeys.to.tr()}'
-            : '${LocaleKeys.from.tr()} $callFrom'
-                ' - ${LocaleKeys.to.tr()} $callTo');
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) => Container(
+        ? '$callFrom ${LocaleKeys.from.tr()}'
+        ' - $callTo ${LocaleKeys.to.tr()}'
+        : '${LocaleKeys.from.tr()} $callFrom'
+        ' - ${LocaleKeys.to.tr()} $callTo');
+    return Container(
         decoration: const BoxDecoration(
           color: white,
           borderRadius: BorderRadius.only(
@@ -90,8 +81,8 @@ class _DealerTimeState extends State<DealerTime> {
                         .displayMedium!
                         .copyWith(color: profileContainers),
                   ),
+                  const SizedBox(height: 4),
                   Container(
-                    margin: const EdgeInsets.only(top: 4),
                     padding:
                         const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
@@ -109,7 +100,7 @@ class _DealerTimeState extends State<DealerTime> {
                               color: orange),
                     ),
                   ),
-                  const SizedBox(height: 28),
+                  const SizedBox(height: 24),
                   OrangeButton(
                     shadowColor: orange.withOpacity(0.2),
                     color: orange,
@@ -126,8 +117,9 @@ class _DealerTimeState extends State<DealerTime> {
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+              SizedBox(height:8 + MediaQuery.of(context).padding.bottom),
           ],
         ),
       );
+  }
 }
