@@ -1,6 +1,7 @@
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_entity.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_options_entity.dart';
+import 'package:auto/features/ad/domain/entities/equipment/id_name_entity.dart';
 import 'package:auto/features/ad/domain/entities/rent_with_purchase/rent_with_purchase_entity.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/ad/domain/entities/types/modification_type.dart';
@@ -23,7 +24,8 @@ part 'car_single_model.g.dart';
 @JsonSerializable(fieldRename: FieldRename.snake)
 class CarSingleModel extends CarSingleEntity {
   const CarSingleModel(
-      {super.options,
+      {super.gasEquipment,
+      super.options,
       super.equipment,
       super.description,
       super.contactAvailableFrom,
