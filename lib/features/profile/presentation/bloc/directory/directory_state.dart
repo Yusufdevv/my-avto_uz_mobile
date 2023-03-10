@@ -7,6 +7,7 @@ class DirectoryState extends Equatable {
   final FormzStatus status;
   List<DirCategoryEntity> selectedCategories;
   String regions;
+  String search;
   String regionId;
   final String nextCategories;
   final String nextDirectories;
@@ -22,6 +23,7 @@ class DirectoryState extends Equatable {
     this.selectedCategories = const <DirCategoryEntity>[],
     this.regions = '',
     this.regionId = '',
+    this.search = '',
     this.isIndexOne = false,
     this.nextCategories = '',
     this.nextDirectories = '',
@@ -37,6 +39,7 @@ class DirectoryState extends Equatable {
     List<DirCategoryEntity>? selectedCategories,
     String? regions,
     String? regionId,
+    String? search,
     bool? isIndexOne,
     String? nextCategories,
     String? nextDirectories,
@@ -51,6 +54,7 @@ class DirectoryState extends Equatable {
         status: status ?? this.status,
         regions: regions ?? this.regions,
         regionId: regionId ?? this.regionId,
+        search: search ?? this.search,
         isIndexOne: isIndexOne ?? this.isIndexOne,
         nextDirectories: nextDirectories ?? this.nextDirectories,
         nextCategories: nextCategories ?? this.nextCategories,
@@ -66,6 +70,7 @@ class DirectoryState extends Equatable {
         categories,
         selectedCategories,
         regions,
+        search,
         regionId,
         isIndexOne,
         nextCategories,

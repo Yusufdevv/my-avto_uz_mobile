@@ -18,8 +18,8 @@ abstract class GetUserListRepository {
       String next);
   Future<Either<Failure, NotificationsEntity>> getNotificationSingle(String id);
   Future<Either<Failure, GenericPagination<DirectoryEntity>>> getDirectories(
-      String search, String regions, String categories);
-  Future<Either<Failure, GenericPagination<DirCategoryEntity>>> getDirCategory();
+      String search, String regions, String categories, String? next);
+  Future<Either<Failure, GenericPagination<DirCategoryEntity>>> getDirCategory(String? next);
   Future<Either<Failure, DirectoryEntity>> getDirectory(String id);
   Future<Either<Failure, DealerSingleModel>> getDirectorySingle(String params);
   Future<Either<Failure, String>> notificationAllRead();

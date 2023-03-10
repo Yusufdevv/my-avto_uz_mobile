@@ -1,4 +1,3 @@
-import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/dealers/domain/entities/dealer_single_entity.dart';
 import 'package:auto/features/profile/domain/entities/dir_category_entity.dart';
 import 'package:auto/features/profile/domain/entities/directory_entity.dart';
@@ -11,18 +10,19 @@ import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 
 part 'directory_event.dart';
+
 part 'directory_state.dart';
 
 class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
   final GetDirectoriesUseCase getDirectoriesUseCase;
   final GetDirCategoriesUseCase getDirCategoriesUseCase;
   final DirectorySingleSingleUseCase directorySingleSingleUseCase;
+
   DirectoryBloc({
     required this.getDirCategoriesUseCase,
     required this.getDirectoriesUseCase,
     required this.directorySingleSingleUseCase,
-  }) : super(
-      DirectoryState(
+  }) : super(DirectoryState(
           status: FormzStatus.pure,
           directories: const <DirectoryEntity>[],
           categories: const <DirCategoryEntity>[],
@@ -30,37 +30,69 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
           directory: const DealerSingleEntity(),
         )) {
     on<GetDirectoriesEvent>((event, emit) async {
-      emit(state.copyWith(status: FormzStatus.submissionInProgress));
+      emit(state.copyWith(
+          status: FormzStatus.submissionInProgress, search: event.search));
       final result = await getDirectoriesUseCase(Params(
           search: event.search,
           regions: state.regionId,
           categories:
               MyFunctions.textForDirCategory(state.selectedCategories)));
       if (result.isRight) {
+        print('isright ${result.isRight}');
         emit(state.copyWith(
-          status: FormzStatus.submissionSuccess,
-          directories: result.right.results,
-        ));
+            status: FormzStatus.submissionSuccess,
+            directories: result.right.results,
+            fetchMoreDirectories: result.right.next != null,
+            nextDirectories: result.right.next));
       } else {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
+      }
+    });
+
+    on<GetMoreDirectoriesEvent>((event, emit) async {
+      final result = await getDirectoriesUseCase(Params(
+        search: state.search,
+        regions: state.regionId,
+        categories: MyFunctions.textForDirCategory(state.selectedCategories),
+        next: state.nextDirectories,
+      ));
+
+      if (result.isRight) {
+        emit(state.copyWith(
+          directories: [...state.directories, ...result.right.results],
+          fetchMoreDirectories: result.right.next != null,
+          nextDirectories: result.right.next,
+        ));
       }
     });
 
     on<GetDirCategoriesEvent>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
-      final result = await getDirCategoriesUseCase(NoParams());
+      final result = await getDirCategoriesUseCase(null);
       if (result.isRight) {
         emit(state.copyWith(
-          status: FormzStatus.submissionSuccess,
-          categories: result.right.results,
-        ));
+            status: FormzStatus.submissionSuccess,
+            categories: result.right.results,
+            fetchMoreCategories: result.right.next != null,
+            nextCategories: result.right.next));
       } else {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     });
 
+    on<GetMoreDirCategoriesEvent>((event, emit) async {
+      final result = await getDirCategoriesUseCase(event.next);
+      if (result.isRight) {
+        emit(state.copyWith(
+          categories: [...state.categories, ...result.right.results],
+          fetchMoreCategories: result.right.next != null,
+          nextCategories: result.right.next,
+        ));
+      }
+    });
+
     on<ChangeTabIndexEvent>((event, emit) {
-      emit(state.copyWith(isIndexOne: event.index==1));
+      emit(state.copyWith(isIndexOne: event.index == 1));
     });
 
     on<DirectoryFilterEvent>((event, emit) {

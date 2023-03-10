@@ -27,6 +27,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
+import '../features/profile/domain/entities/directory_entity.dart';
+
 // ignore: avoid_classes_with_only_static_members
 class MyFunctions {
  static Future<void> openMapsSheet(BuildContext context, double lat, double long, String title) async {
@@ -448,6 +450,23 @@ class MyFunctions {
     }
   }
 
+  static String getCategoriesName(List<Category> categories) {
+    final res = StringBuffer();
+    if(categories.isEmpty) {
+      return '';
+    }
+
+    for(var i=0; i<categories.length ;i++) {
+      if(i!=categories.length-1){
+        res.write('${categories[i].name}, ');
+      } else {
+        res.write('${categories[i].name}');
+      }
+    }
+
+    return res.toString();
+
+  }
   static bool enableForCalling(
       {required String callFrom, required String callTo}) {
     final now = DateTime.now();

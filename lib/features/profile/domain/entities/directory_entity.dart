@@ -1,9 +1,9 @@
 class DirectoryEntity {
   DirectoryEntity({
+   required this.category,
     this.id,
     this.name,
     this.slug,
-    this.category,
     this.address,
     this.region,
     this.latitude,
@@ -16,7 +16,7 @@ class DirectoryEntity {
   int? id;
   String? name;
   String? slug;
-  Category? category;
+  List<Category> category;
   String? address;
   String? region;
   num? latitude;

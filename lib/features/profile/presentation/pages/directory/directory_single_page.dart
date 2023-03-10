@@ -1,6 +1,5 @@
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/profile/data/repositories/get_user_list_repo_impl.dart';
-import 'package:auto/features/profile/domain/entities/dir_category_entity.dart';
 import 'package:auto/features/profile/domain/usecases/directory_single_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_dir_categories_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_directories_usecase.dart';
@@ -46,20 +45,21 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
             builder: (context, state) {
               if (state.status.isSubmissionSuccess) {
                 final directory = state.directory;
-                final direCategory =
-                    DirCategoryEntity.fromJson(state.directory.category);
+                // final dirCategories = List<DirCategoryEntity>.from(state.directory.category.map((x) => DirCategoryEntity.fromJson(x)));
                 return NestedScrollView(
                   headerSliverBuilder: (context, innerBoxIsScrolled) =>
                       <Widget>[
                     SliverPersistentHeader(
-                        pinned: true,
-                        delegate: DirectorySliverDelegate(
-                            gallery: directory.gallery,
-                            avatarImage: directory.avatar,
-                            name: directory.name,
-                            minHeight:
-                                MediaQuery.of(context).size.height * 0.11,
-                            category: direCategory.name ?? '')),
+                      pinned: true,
+                      delegate: DirectorySliverDelegate(
+                          gallery: directory.gallery,
+                          avatarImage: directory.avatar,
+                          name: directory.name,
+                          minHeight: MediaQuery.of(context).size.height * 0.11,
+                          category: ''
+                          // MyFunctions.getCategoriesName(dirCategories.cast<Category>())
+                          ),
+                    ),
                   ],
                   body: SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
@@ -69,14 +69,15 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         DirectoryInfoPart(
-                            address: directory.address,
-                            phone: directory.phone,
-                            name: directory.name,
-                            contactFrom: directory.contactFrom,
-                            contactTo: directory.contactTo,
-                            description: directory.description,
-                            longitude: directory.longitude,
-                            latitude: directory.latitude),
+                          address: directory.address,
+                          phone: directory.phone,
+                          name: directory.name,
+                          contactFrom: directory.contactFrom,
+                          contactTo: directory.contactTo,
+                          description: directory.description,
+                          longitude: directory.longitude,
+                          latitude: directory.latitude,
+                        ),
                       ],
                     ),
                   ),

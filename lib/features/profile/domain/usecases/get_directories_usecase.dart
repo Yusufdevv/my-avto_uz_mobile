@@ -11,19 +11,23 @@ class GetDirectoriesUseCase extends UseCase<GenericPagination<DirectoryEntity>, 
   GetDirectoriesUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, GenericPagination<DirectoryEntity>>> call(Params params) async =>
-      await repository.getDirectories(
-          params.search, params.regions, params.categories);
+  Future<Either<Failure, GenericPagination<DirectoryEntity>>> call(Params params) async {
+   final res =   await repository.getDirectories(
+          params.search, params.regions, params.categories, params.next);
+   return res;
+  }
 }
 
 class Params {
   String search;
   String regions;
   String categories;
+  String? next;
 
   Params({
     required this.search,
     required this.regions,
     required this.categories,
+     this.next,
   });
 }

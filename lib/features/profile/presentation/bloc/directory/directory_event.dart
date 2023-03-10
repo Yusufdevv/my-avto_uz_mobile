@@ -2,11 +2,20 @@ part of 'directory_bloc.dart';
 
 class DirectoryEvent {}
 
-class GetDirCategoriesEvent extends DirectoryEvent {}
+class GetDirCategoriesEvent extends DirectoryEvent {
+
+}
+class GetMoreDirCategoriesEvent extends DirectoryEvent {
+  String? next;
+  GetMoreDirCategoriesEvent({this.next});
+}
 
 class GetDirectoriesEvent extends DirectoryEvent {
   final String search;
-  GetDirectoriesEvent({this.search = ''});
+   String? next;
+  GetDirectoriesEvent({this.search = '',this.next});
+}
+class GetMoreDirectoriesEvent extends DirectoryEvent {
 }
 
 class GetDirectorySingleEvent extends DirectoryEvent {

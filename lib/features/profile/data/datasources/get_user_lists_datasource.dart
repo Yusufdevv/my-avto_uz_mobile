@@ -25,9 +25,9 @@ abstract class GetUserListDatasource {
   Future<GenericPagination<MySearchesModel>> getMySearches(String next);
 
   Future<GenericPagination<DirectoryModel>> getDirectories(
-      String search, String regions, String categories);
+      String search, String regions, String categories, String? next);
 
-  Future<GenericPagination<DirCategoryModel>> getDirCategory();
+  Future<GenericPagination<DirCategoryModel>> getDirCategory(String? next);
 
   Future<DirectoryModel> getDirectory(String id);
 
@@ -161,14 +161,15 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
 
   @override
   Future<GenericPagination<DirectoryModel>> getDirectories(
-      String search, String regions, String categories) async {
+      String search, String regions, String categories,String?  next) async {
     try {
       final response = await dio.get(
-        '/car-place/list/?region__in=$regions&category__in=$categories&search=$search',
+      next ?? '/car-place/list/?region__in=$regions&category__in=$categories&search=$search',
         options: Options(headers: {
           'Authorization': 'Bearer ${StorageRepository.getString('token')}'
         }),
       );
+
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return GenericPagination.fromJson(response.data,
             (p0) => DirectoryModel.fromJson(p0 as Map<String, dynamic>));
@@ -207,10 +208,10 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
   }
 
   @override
-  Future<GenericPagination<DirCategoryModel>> getDirCategory() async {
+  Future<GenericPagination<DirCategoryModel>> getDirCategory(String? next) async {
     try {
       final response = await dio.get(
-        '/car-place/category/list/',
+       next ??  '/car-place/category/list/',
         options: Options(headers: {
           'Authorization': 'Bearer ${StorageRepository.getString('token')}'
         }),

@@ -1,8 +1,10 @@
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/features/pagination/presentation/paginator.dart';
 import 'package:auto/features/profile/presentation/bloc/directory/directory_bloc.dart';
 import 'package:auto/features/profile/presentation/pages/directory/directory_card.dart';
 import 'package:auto/features/profile/presentation/widgets/empty_item_body.dart';
 import 'package:auto/generated/locale_keys.g.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +35,14 @@ class _DirectoryListState extends State<DirectoryList> {
             if (state.status.isSubmissionSuccess) {
               final directories = state.directories;
               return directories.isNotEmpty
-                  ? ListView.separated(
+                  ? Paginator(
+                      hasMoreToFetch: state.fetchMoreDirectories,
+                      fetchMoreFunction: () {
+                        context
+                            .read<DirectoryBloc>()
+                            .add(GetMoreDirectoriesEvent());
+                      },
+                      errorWidget: const SizedBox(),
                       physics: const BouncingScrollPhysics(),
                       padding: const EdgeInsets.only(
                           left: 16, right: 16, top: 20, bottom: 20),
@@ -42,7 +51,7 @@ class _DirectoryListState extends State<DirectoryList> {
                         return DirectoryCard(
                           slug: item.slug ?? '',
                           region: item.region ?? '',
-                          dealerType: item.category?.name ?? '',
+                          dealerType:MyFunctions.getCategoriesName(item.category),
                           dealerName: item.name ?? '',
                           phoneNumber: '',
                           dealerInfo: '',
@@ -59,6 +68,7 @@ class _DirectoryListState extends State<DirectoryList> {
                       separatorBuilder: (context, index) =>
                           const SizedBox(height: 16),
                       itemCount: directories.length,
+                      paginatorStatus: state.status,
                     )
                   : Center(
                       child: EmptyItemBody(
