@@ -50,7 +50,6 @@ class AdsRepositoryImpl extends AdsRepository {
   @override
   Future<Either<Failure, GenericPagination<AnnouncementListEntity>>>
       getAnnouncementList(Map<String, dynamic> params) async {
-    log(':::::::::: Announcement list entitity repo impls triggered ${params}  ::::::::::');
     try {
       final result = await dataSource.getAnnouncementList(params);
       return Right(result);

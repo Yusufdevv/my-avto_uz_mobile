@@ -16,7 +16,6 @@ class CurrencyBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log(':::::::::: currency equal to:  ${selected == Currency.uzs } $selected ::::::::::');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

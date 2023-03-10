@@ -52,9 +52,7 @@ class _FilterParametersState extends State<FilterParameters> {
   @override
   void initState() {
     super.initState();
-    log('::::::::::  ${widget.yearValues?.start}  ::::::::::');
-    log('::::::::::  ${widget.yearValues?.end}  ::::::::::');
-    final currency =
+  final currency =
         widget.currency == Currency.none ? Currency.usd : widget.currency;
     filterBloc = FilterBloc(
       bodyType: widget.bodyType,
@@ -71,11 +69,7 @@ class _FilterParametersState extends State<FilterParameters> {
   Widget build(BuildContext context) => BlocProvider.value(
         value: filterBloc,
         child: BlocBuilder<FilterBloc, FilterState>(
-          builder: (context, state) {
-            log(':::::::::: year begin:  ${state.yearValues.end}  ::::::::::');
-            log(':::::::::: year start:  ${state.yearValues.start}  ::::::::::');
-
-            return Scaffold(
+          builder: (context, state) => Scaffold(
               backgroundColor: white,
               appBar: WAppBar(
                 title: LocaleKeys.options.tr(),
@@ -111,7 +105,6 @@ class _FilterParametersState extends State<FilterParameters> {
                     children: [
                       SaleTypeButtons(
                         onTap: (v) {
-                          log(':::::::::: Sale type: $v }  ::::::::::');
                           filterBloc.add(FilterSelectEvent(saleType: v));
                         },
                         selected: state.saleType ?? SaleType.values[0],
@@ -119,7 +112,6 @@ class _FilterParametersState extends State<FilterParameters> {
                       const SizedBox(height: 16),
                       CurrencyBox(
                         onTap: (v) {
-                          log(':::::::::: currency changed:  $v}  ::::::::::');
                           filterBloc.add(FilterChangeCurrencyEvent(v));
                         },
                         selected: state.currency ?? Currency.uzs,
@@ -242,8 +234,7 @@ class _FilterParametersState extends State<FilterParameters> {
                   ),
                 ),
               ),
-            );
-          },
+            ),
         ),
       );
 }
