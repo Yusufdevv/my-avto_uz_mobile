@@ -8,6 +8,10 @@ part of 'car_single_model.dart';
 
 CarSingleModel _$CarSingleModelFromJson(Map<String, dynamic> json) =>
     CarSingleModel(
+      gasEquipment: json['gas_equipment'] == null
+          ? const IdNameEntity()
+          : const IdNameConverter()
+              .fromJson(json['gas_equipment'] as Map<String, dynamic>?),
       options: (json['options'] as List<dynamic>?)
               ?.map((e) => const EquipmentOptionsConverter()
                   .fromJson(e as Map<String, dynamic>?))
@@ -191,6 +195,7 @@ Map<String, dynamic> _$CarSingleModelToJson(CarSingleModel instance) =>
           .toList(),
       'region': const RegionConverter().toJson(instance.region),
       'district': const DistrictConverter().toJson(instance.district),
+      'gas_equipment': const IdNameConverter().toJson(instance.gasEquipment),
       'equipment': const EquipmentConverter().toJson(instance.equipment),
       'options': instance.options
           .map(const EquipmentOptionsConverter().toJson)
