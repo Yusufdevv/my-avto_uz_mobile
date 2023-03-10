@@ -89,8 +89,7 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                 size: size,
                 theme: theme,
                 onTapParams1: () async {
-                  final res = await Navigator.of(context)
-                      .push(
+                  final res = await Navigator.of(context).push(
                     fade(
                       page: FilterParameters(
                         bodyType: state.bodyType,
@@ -102,8 +101,7 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                         isCheck: state.isFilter,
                       ),
                     ),
-                  )
-                    ;
+                  );
                   if (res is Map<String, dynamic>) {
                     var historySaved = !res['isFilter'];
 

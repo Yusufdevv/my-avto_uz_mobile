@@ -26,6 +26,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final GetTermsOfUseUseCase getTermsOfUseUseCase = GetTermsOfUseUseCase();
   final GetNotificationsUseCase getNotificationsUseCase =
       GetNotificationsUseCase();
+
   ProfileBloc()
       : super(
           ProfileState(
@@ -57,6 +58,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       },
     );
   }
+
   void _onChangeCountData(
       ChangeCountDataEvent event, Emitter<ProfileState> emit) {
     emit(state.copyWith(changeStatus: FormzStatus.submissionInProgress));

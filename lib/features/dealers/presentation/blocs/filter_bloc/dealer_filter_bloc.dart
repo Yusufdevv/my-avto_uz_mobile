@@ -29,6 +29,7 @@ class DealerFilterBloc extends Bloc<DealerFilterEvent, DealerFilterState> {
     on<DealerFilterSelectEvent>(
       (event, emit) {
         emit(state.copyWith(
+
             region: event.region, maker: event.maker, carType: event.carType));
       },
     );
