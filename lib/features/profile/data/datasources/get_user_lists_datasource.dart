@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
@@ -26,10 +24,10 @@ abstract class GetUserListDatasource {
 
   Future<GenericPagination<MySearchesModel>> getMySearches(String next);
 
-  Future<List<DirectoryModel>> getDirectories(
+  Future<GenericPagination<DirectoryModel>> getDirectories(
       String search, String regions, String categories);
 
-  Future<List<DirCategoryModel>> getDirCategory();
+  Future<GenericPagination<DirCategoryModel>> getDirCategory();
 
   Future<DirectoryModel> getDirectory(String id);
 
@@ -64,11 +62,9 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
         }),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
-
-          final data = GenericPagination<T>.fromJson(
-              response.data!, (data) => fromJson(data as Map<String, dynamic>));
-          return Right(data);
-
+        final data = GenericPagination<T>.fromJson(
+            response.data!, (data) => fromJson(data as Map<String, dynamic>));
+        return Right(data);
       }
       throw ServerException(
           statusCode: response.statusCode ?? 0,
@@ -89,13 +85,10 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
     if (filter != null) {
       query = {'is_read': filter};
     }
-    if (next != null) {
-      query = {'next': next};
-    }
 
     try {
       final response = await dio.get(
-        '/users/notification/list/',
+        next ?? '/users/notification/list/',
         queryParameters: query,
         options: Options(headers: {
           'Authorization': 'Bearer ${StorageRepository.getString('token')}'
@@ -167,7 +160,7 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
   }
 
   @override
-  Future<List<DirectoryModel>> getDirectories(
+  Future<GenericPagination<DirectoryModel>> getDirectories(
       String search, String regions, String categories) async {
     try {
       final response = await dio.get(
@@ -177,10 +170,8 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
         }),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        return (response.data['results'] as List)
-            // ignore: unnecessary_lambdas
-            .map((e) => DirectoryModel.fromJson(e))
-            .toList();
+        return GenericPagination.fromJson(response.data,
+            (p0) => DirectoryModel.fromJson(p0 as Map<String, dynamic>));
       }
       throw ServerException(
           statusCode: response.statusCode ?? 0,
@@ -216,7 +207,7 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
   }
 
   @override
-  Future<List<DirCategoryModel>> getDirCategory() async {
+  Future<GenericPagination<DirCategoryModel>> getDirCategory() async {
     try {
       final response = await dio.get(
         '/car-place/category/list/',
@@ -225,10 +216,8 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
         }),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        return (response.data['results'] as List)
-            // ignore: unnecessary_lambdas
-            .map((e) => DirCategoryModel.fromJson(e))
-            .toList();
+        return GenericPagination.fromJson(response.data,
+            (p0) => DirCategoryModel.fromJson(p0 as Map<String, dynamic>));
       }
       throw ServerException(
           statusCode: response.statusCode ?? 0,

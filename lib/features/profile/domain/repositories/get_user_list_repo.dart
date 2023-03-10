@@ -17,9 +17,9 @@ abstract class GetUserListRepository {
   Future<Either<Failure, GenericPagination<MySearchesEntity>>> getMySearches(
       String next);
   Future<Either<Failure, NotificationsEntity>> getNotificationSingle(String id);
-  Future<Either<Failure, List<DirectoryEntity>>> getDirectories(
+  Future<Either<Failure, GenericPagination<DirectoryEntity>>> getDirectories(
       String search, String regions, String categories);
-  Future<Either<Failure, List<DirCategoryEntity>>> getDirCategory();
+  Future<Either<Failure, GenericPagination<DirCategoryEntity>>> getDirCategory();
   Future<Either<Failure, DirectoryEntity>> getDirectory(String id);
   Future<Either<Failure, DealerSingleModel>> getDirectorySingle(String params);
   Future<Either<Failure, String>> notificationAllRead();

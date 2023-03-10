@@ -139,11 +139,11 @@ class _NotificationPageState extends State<NotificationPage> {
                                   child: NotificationItem(
                                     currentIndex: index,
                                     category:
-                                        '#${item.category?.name} • ${MyFunctions.getAutoPublishDate(item.createdAt!)}',
-                                    title: item.title ?? '',
+                                        '#${item.notification.category?.name} • ${item.notification.createdAt=='' ? '' : MyFunctions.getAutoPublishDate(item.notification.createdAt ?? '')}',
+                                    title: item.notification.title ?? '',
                                     isRead:
                                         isAllRead ? isAllRead : item.isRead!,
-                                    image: item.cover ?? '',
+                                    image: item.notification.cover ?? '',
                                   ));
                             },
                           )

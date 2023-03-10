@@ -8,6 +8,10 @@ class DirectoryState extends Equatable {
   List<DirCategoryEntity> selectedCategories;
   String regions;
   String regionId;
+  final String nextCategories;
+  final String nextDirectories;
+  final bool fetchMoreCategories;
+  final bool fetchMoreDirectories;
   final bool isIndexOne;
 
   DirectoryState({
@@ -19,6 +23,10 @@ class DirectoryState extends Equatable {
     this.regions = '',
     this.regionId = '',
     this.isIndexOne = false,
+    this.nextCategories = '',
+    this.nextDirectories = '',
+    this.fetchMoreCategories = false,
+    this.fetchMoreDirectories = false,
   });
 
   DirectoryState copyWith({
@@ -30,6 +38,10 @@ class DirectoryState extends Equatable {
     String? regions,
     String? regionId,
     bool? isIndexOne,
+    String? nextCategories,
+    String? nextDirectories,
+    bool? fetchMoreCategories,
+    bool? fetchMoreDirectories,
   }) =>
       DirectoryState(
         directories: directories ?? this.directories,
@@ -40,6 +52,10 @@ class DirectoryState extends Equatable {
         regions: regions ?? this.regions,
         regionId: regionId ?? this.regionId,
         isIndexOne: isIndexOne ?? this.isIndexOne,
+        nextDirectories: nextDirectories ?? this.nextDirectories,
+        nextCategories: nextCategories ?? this.nextCategories,
+        fetchMoreDirectories: fetchMoreDirectories ?? this.fetchMoreDirectories,
+        fetchMoreCategories: fetchMoreCategories ?? this.fetchMoreCategories,
       );
 
   @override
@@ -51,6 +67,10 @@ class DirectoryState extends Equatable {
         selectedCategories,
         regions,
         regionId,
-        isIndexOne
+        isIndexOne,
+        nextCategories,
+        nextDirectories,
+        fetchMoreCategories,
+        fetchMoreDirectories
       ];
 }

@@ -21,13 +21,12 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
     required this.getDirCategoriesUseCase,
     required this.getDirectoriesUseCase,
     required this.directorySingleSingleUseCase,
-  }) : super(DirectoryState(
+  }) : super(
+      DirectoryState(
           status: FormzStatus.pure,
           directories: const <DirectoryEntity>[],
           categories: const <DirCategoryEntity>[],
           selectedCategories: const <DirCategoryEntity>[],
-          regions: '',
-          regionId: '',
           directory: const DealerSingleEntity(),
         )) {
     on<GetDirectoriesEvent>((event, emit) async {
@@ -40,7 +39,7 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
       if (result.isRight) {
         emit(state.copyWith(
           status: FormzStatus.submissionSuccess,
-          directories: result.right,
+          directories: result.right.results,
         ));
       } else {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
@@ -53,7 +52,7 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
       if (result.isRight) {
         emit(state.copyWith(
           status: FormzStatus.submissionSuccess,
-          categories: result.right,
+          categories: result.right.results,
         ));
       } else {
         emit(state.copyWith(status: FormzStatus.submissionFailure));

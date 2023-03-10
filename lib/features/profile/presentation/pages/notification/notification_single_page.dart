@@ -38,7 +38,7 @@ class NotificationSinglePage extends StatelessWidget {
                         width: 375,
                         height: 219,
                         child: CachedNetworkImage(
-                          imageUrl: notification.cover ?? '',
+                          imageUrl: notification.notification.cover ?? '',
                           fit: BoxFit.cover,
                           errorWidget: (context, url, error) => Image.asset(
                             AppImages.carPlaceHolder,
@@ -54,15 +54,15 @@ class NotificationSinglePage extends StatelessWidget {
                           children: [
                             const SizedBox(height: 16),
                             Text(
-                                '#${notification.category?.name} • ${MyFunctions.getAutoPublishDate(notification.createdAt!)}',
+                                '#${notification.notification.category?.name} • ${MyFunctions.getAutoPublishDate(notification.notification.createdAt ?? '')}',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge
                                     ?.copyWith(color: greyText, fontSize: 13)),
                             const SizedBox(height: 8),
-                            if (notification.title != null)
+                            if (notification.notification.title != null)
                               Text(
-                                notification.title!,
+                                notification.notification.title!,
                                 style: Theme.of(context).textTheme.displayLarge,
                               ),
                             const SizedBox(height: 6),
@@ -71,7 +71,7 @@ class NotificationSinglePage extends StatelessWidget {
                         ),
                       ),
                       Html(
-                        data: notification.content,
+                        data: notification.notification.content,
                         style: {
                           'p': Style(
                               padding: const EdgeInsets.symmetric(

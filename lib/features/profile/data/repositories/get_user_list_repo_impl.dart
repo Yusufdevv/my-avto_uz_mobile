@@ -108,7 +108,7 @@ class GetUserListRepoImpl extends GetUserListRepository {
   }
 
   @override
-  Future<Either<Failure, List<DirCategoryEntity>>> getDirCategory() async {
+  Future<Either<Failure, GenericPagination<DirCategoryEntity>>> getDirCategory() async {
     try {
       final result = await dataSource.getDirCategory();
       return Right(result);
@@ -123,7 +123,7 @@ class GetUserListRepoImpl extends GetUserListRepository {
   }
 
   @override
-  Future<Either<Failure, List<DirectoryEntity>>> getDirectories(
+  Future<Either<Failure, GenericPagination<DirectoryEntity>>> getDirectories(
       String search, String regions, String categories) async {
     try {
       final result =

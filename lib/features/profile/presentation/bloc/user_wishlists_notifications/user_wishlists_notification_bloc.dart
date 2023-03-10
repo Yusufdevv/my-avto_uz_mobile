@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:auto/features/profile/domain/entities/my_searches_entity.dart';
@@ -15,6 +13,7 @@ import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 
 part 'user_wishlists_notifications_event.dart';
+
 part 'user_wishlists_notifiactions_state.dart';
 
 class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
@@ -29,6 +28,7 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
       NotificationAllReadUseCase();
   final DeleteMySearchesUseCase deleteMySearchesUseCase =
       DeleteMySearchesUseCase();
+
   UserWishListsBloc()
       : super(UserWishListsState(
           favoritesStatus: FormzStatus.pure,
@@ -36,7 +36,7 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
           favorites: const <AutoEntity>[],
           myAds: const <AutoEntity>[],
           notifications: const <NotificationsEntity>[],
-          notificationSingle: NotificationsEntity(),
+          notificationSingle: NotificationsEntity(notification: Notification()),
           mySearches: const <MySearchesEntity>[],
           count: 0,
           nextMyAds: '',
@@ -62,6 +62,7 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
     on<ChangeIsWishEvenet>(_onChangeIsWish);
     on<ChangeReadEvent>(_onChangeRead);
   }
+
   // delete favoritesItem  from favorites in state
   void _onChangeIsWish(
       ChangeIsWishEvenet event, Emitter<UserWishListsState> emit) {
@@ -121,12 +122,12 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
 
   Future<void> _onGetUserMyAds(
       GetUserMyAdsEvent event, Emitter<UserWishListsState> emit) async {
-     emit(state.copyWith(myAdsStatus: FormzStatus.submissionInProgress));
+    emit(state.copyWith(myAdsStatus: FormzStatus.submissionInProgress));
     final result = await profileFavoritesMyAdsUseCase.call(Params(
         endpoint: '/car/my-announcements/',
         moderationStatus: event.moderationStatus));
-     if (result.isRight) {
-       emit(state.copyWith(
+    if (result.isRight) {
+      emit(state.copyWith(
         myAdsStatus: FormzStatus.submissionSuccess,
         myAds: result.right.results,
         nextMyAds: result.right.next,
