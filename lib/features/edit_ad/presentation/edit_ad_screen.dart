@@ -414,7 +414,7 @@ class _EditAdScreenState extends State<EditAdScreen>
                               gallery: state.gallery,
                               makeName: state.make?.name ?? '',
                               mapPointBodyBytes: state.mapPointBytes,
-                              mileage: state.mileage ?? '',
+                              mileage: state.mileage ?? '0',
                               modelName: state.model?.name ?? '',
                               modificationPower:
                                   state.modification?.power ?? '',
