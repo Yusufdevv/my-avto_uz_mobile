@@ -55,8 +55,12 @@ class PASingleton {
       //     .toList(),
 
       'equipment': v.equipment?.id,
-      'gas_equipment': v.gasEquipmentId,
+      // 'gas_equipment': v.gasEquipmentId,
     };
+    if (v.gasEquipmentId != -1) {
+      announcementFields.addEntries(MapEntry('gas_equipment', v.gasEquipmentId)
+          as Iterable<MapEntry<String, dynamic>>);
+    }
 
     if (v.milageImage != null && v.milageImage!.isNotEmpty) {
       final milageImage = await MultipartFile.fromFile(v.milageImage!);
