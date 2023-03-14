@@ -385,7 +385,7 @@
   "code_confimer": "Tasdiqlash kodi",
   "how_many_ads": "{} ta e'lonlar",
   "day": "kun",
-  "extends_for_7": "7 kunga uzaytirish",
+  "extends_ads": "Uzaytirish",
   "confirmation": "Tasdiqlash",
   "returner": "Qaytarish",
   "rent_periodic": "Ijara muddati",
@@ -579,6 +579,12 @@
   "your_application_has_been_accepted" : "Sizni arizangiz qabul qilindi!",
   "your_application_has_been_rejected" : "Sizni arizangiz rad etildi!",
   "try_to_resubmit_the_application" : "Arizani qaytadan yuborishga harakat qiling",
-  "wait_for_moderation_confirmation" : "Moderatsiya tasdig'ini kuting"
+  "wait_for_moderation_confirmation" : "Moderatsiya tasdig'ini kuting",
+  "i_this_service_when_" : "Ushbu xizmatda e'lon yangilanganda e'lon quyidagi muddatga davom etadi:",
+  "extends_for_day": "{} kunga uzaytirish",
+  "top": "ТОП",
+  "reels": "Рильз",
+  "add_to_ways": "Добавить в полоса"
+
 }
 

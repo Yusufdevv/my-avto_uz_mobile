@@ -92,7 +92,7 @@ class MyAdDesc extends StatelessWidget {
                             SvgPicture.asset(AppIcons.refresh),
                             const SizedBox(width: 8),
                             Text(
-                              LocaleKeys.extends_for_7.tr(),
+                              LocaleKeys.extends_ads.tr(),
                               style: Theme.of(context)
                                   .textTheme
                                   .displayMedium!

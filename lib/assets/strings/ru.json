@@ -396,7 +396,7 @@
   "code_confimer": "Код подтверждения",
   "how_many_ads": "{} объявлени{appendix}",
   "day": "дней",
-  "extends_for_7": "Продлить на 7 дней",
+  "extends_ads": "Продлить",
   "confirmation": "Подтверждение",
   "returner": "Возврат",
   "rent_periodic": "Период аренды",
@@ -580,5 +580,10 @@
   "your_application_has_been_accepted" : "Выша заявка принята!",
   "your_application_has_been_rejected" : "Выша заявка отклонена!",
   "try_to_resubmit_the_application" : "Попробуйте повторно отправить заявку ",
-  "wait_for_moderation_confirmation" : "Ждите подтверждения модерации"
+  "wait_for_moderation_confirmation" : "Ждите подтверждения модерации",
+  "i_this_service_when_" : "В этой услуге при продлении объявлении, объявления продлиться на:",
+  "extends_for_day": "Продлить на {} дней",
+  "top": "ТОП",
+  "reels": "Рильз",
+  "add_to_ways": "Добавить в полоса"
 }

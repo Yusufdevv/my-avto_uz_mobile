@@ -4,14 +4,16 @@ import 'package:equatable/equatable.dart';
 // ignore: must_be_immutable
 class TarifEntity extends Equatable{
   TarifEntity({
-    this.id,
-    this.type,
-    this.amount,
+   required this.id,
+   required this.type,
+   required this.amount,
+   required this.typeInt,
   });
 
-  int? id;
-  String? type;
-  String? amount;
+ final int id;
+ final String type;
+ final String amount;
+ final int typeInt;
 
 
 
