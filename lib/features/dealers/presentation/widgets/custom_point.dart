@@ -13,31 +13,38 @@ class CustomPoint extends StatelessWidget {
   final double scale;
 
   @override
-  Widget build(BuildContext context) => SizedBox(
-        width: 44 * scale,
-        height: 64 * scale,
+  Widget build(BuildContext context) {
+    print('call');
+    print(scale);
+    print(url);
+    return SizedBox(
+        width: 44,
+        height: 64,
         child: Stack(
           children: [
             Image.asset(
               AppIcons.dealersLocIcon,
-              width: 44 * scale,
-              height: 64 * scale,
+              width: 44,
+              height: 64,
             ),
             Positioned(
-              top: 7 * scale,
-              left: 7 * scale,
+              top: 7,
+              left: 7,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(30),
-                child: CachedNetworkImage(
-                  width: 30 * scale,
-                  height: 30 * scale,
-                  imageUrl: url,
+                child: Image.asset( url,
+                  width: 30,
+                  height: 30,
                   fit: BoxFit.cover,
-                  errorWidget: (context, url, error) => Container(),
+                  errorBuilder: (context, url, error) {
+                    print('error builder');
+                    return Container();
+                  },
                 ),
               ),
             )
           ],
         ),
       );
+  }
 }

@@ -5,6 +5,7 @@ class DealerCardEvent with _$DealerCardEvent {
   factory DealerCardEvent.getResults({
     required bool isRefresh,
     required String search,
+    required ValueChanged<List<DealerCardEntity>> onSuccess,
     int? mark,
     String? regionId,
     String? carType,

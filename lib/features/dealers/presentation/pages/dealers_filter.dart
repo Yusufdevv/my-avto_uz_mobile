@@ -5,8 +5,11 @@ import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/dealers/data/models/dealer_card_model.dart';
+import 'package:auto/features/dealers/domain/entities/dealer_card_entity.dart';
 import 'package:auto/features/dealers/presentation/blocs/dealer_card_bloc/dealer_card_bloc.dart';
 import 'package:auto/features/dealers/presentation/blocs/filter_bloc/dealer_filter_bloc.dart';
+import 'package:auto/features/dealers/presentation/blocs/map_organization/map_organization_bloc.dart';
 import 'package:auto/features/dealers/presentation/widgets/dealer_selector_item.dart';
 import 'package:auto/features/dealers/presentation/widgets/filter_radio.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
@@ -22,12 +25,14 @@ class DealersFilterScreen extends StatefulWidget {
   final List<RegionEntity>? regions;
   final MakeEntity? maker;
   final DealerCardBloc dealerBloc;
+  final MapOrganizationBloc mapOrganizationBloc;
   final DealerFilterBloc dealerFilterBloc;
   final String? carType;
 
   const DealersFilterScreen({
     required this.dealerBloc,
     required this.dealerFilterBloc,
+    required this.mapOrganizationBloc,
     this.maker,
     this.carType,
     this.regions,
@@ -56,29 +61,21 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
   Widget build(BuildContext context) => MultiBlocProvider(
         providers: [
           BlocProvider.value(value: widget.dealerBloc),
+          BlocProvider.value(value: widget.mapOrganizationBloc),
         ],
         child: BlocBuilder<DealerFilterBloc, DealerFilterState>(
           builder: (context, state) => Scaffold(
             backgroundColor: white,
             appBar: WAppBar(
               boxShadow: [
-                BoxShadow(
-                    offset: const Offset(0, 8),
-                    blurRadius: 24,
-                    color: dark.withOpacity(0.08)),
-                BoxShadow(
-                    offset: const Offset(0, -1), color: dark.withOpacity(0.08))
+                BoxShadow(offset: const Offset(0, 8), blurRadius: 24, color: dark.withOpacity(0.08)),
+                BoxShadow(offset: const Offset(0, -1), color: dark.withOpacity(0.08))
               ],
-              titleStyle: Theme.of(context)
-                  .textTheme
-                  .displayLarge!
-                  .copyWith(fontSize: 16),
+              titleStyle: Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 16),
               extraActions: [
                 Text(LocaleKeys.filter.tr(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .displayLarge!
-                        .copyWith(fontSize: 16, fontWeight: FontWeight.w600)),
+                    style:
+                        Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 16, fontWeight: FontWeight.w600)),
                 const Spacer(
                   flex: 30,
                 ),
@@ -93,10 +90,7 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Text(
                       LocaleKeys.clear.tr(),
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium!
-                          .copyWith(color: blue),
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(color: blue),
                     ),
                   ),
                 ),
@@ -111,9 +105,7 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
                       style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
-                          color: Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .greySuitToWhite)),
+                          color: Theme.of(context).extension<ThemedColors>()!.greySuitToWhite)),
                   const SizedBox(height: 8),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
@@ -125,8 +117,7 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
                             value: 'all',
                             onChanged: (value) {
                               setState(() => selectedCategory = value);
-                              widget.dealerFilterBloc
-                                  .add(DealerFilterSelectEvent(carType: value));
+                              widget.dealerFilterBloc.add(DealerFilterSelectEvent(carType: value));
                             },
                             currentValue: selectedCategory),
                         const SizedBox(width: 12),
@@ -134,8 +125,7 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
                             value: 'new',
                             onChanged: (value) {
                               setState(() => selectedCategory = value);
-                              widget.dealerFilterBloc
-                                  .add(DealerFilterSelectEvent(carType: value));
+                              widget.dealerFilterBloc.add(DealerFilterSelectEvent(carType: value));
                             },
                             currentValue: selectedCategory),
                         const SizedBox(width: 12),
@@ -143,8 +133,7 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
                             value: 'used',
                             onChanged: (value) {
                               setState(() => selectedCategory = value);
-                              widget.dealerFilterBloc
-                                  .add(DealerFilterSelectEvent(carType: value));
+                              widget.dealerFilterBloc.add(DealerFilterSelectEvent(carType: value));
                             },
                             currentValue: selectedCategory),
                       ],
@@ -160,11 +149,9 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
                         builder: (c) => RentChooseRegionBottomSheet(
-                            checkedRegions: state.region.asMap(),
-                            list: context.read<RegionsBloc>().state.regions),
+                            checkedRegions: state.region.asMap(), list: context.read<RegionsBloc>().state.regions),
                       ).then((value) {
-                        widget.dealerFilterBloc
-                            .add(DealerFilterSelectEvent(region: value));
+                        widget.dealerFilterBloc.add(DealerFilterSelectEvent(region: value));
                       });
                     },
                     hintText: MyFunctions.text(state.region, true),
@@ -181,8 +168,7 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
                         backgroundColor: Colors.transparent,
                         builder: (c) => ChooseMaker(selectedId: state.maker.id),
                       ).then((value) {
-                        widget.dealerFilterBloc
-                            .add(DealerFilterSelectEvent(maker: value));
+                        widget.dealerFilterBloc.add(DealerFilterSelectEvent(maker: value));
                       });
                     },
                     hintText: state.maker.name,
@@ -191,18 +177,20 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
                   ),
                   const Spacer(),
                   WButton(
-                    textStyle: const TextStyle(
-                        fontWeight: FontWeight.w600, fontSize: 14),
+                    textStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
                     onTap: () {
                       widget.dealerBloc.add(DealerCardEvent.getResults(
-                        isRefresh: false,
-                        search: '',
-                        regionId: state.region.isEmpty
-                            ? ''
-                            : MyFunctions.text(state.region),
-                        mark: state.maker.id != -1 ? state.maker.id : null,
-                        carType: selectedCategory,
-                      ));
+                          isRefresh: false,
+                          search: '',
+                          regionId: state.region.isEmpty ? '' : MyFunctions.text(state.region),
+                          mark: state.maker.id != -1 ? state.maker.id : null,
+                          carType: selectedCategory,
+                          onSuccess: (list) {
+                            widget.mapOrganizationBloc.add(MapOrganizationEvent.setMapPoints(
+                                list: list
+                                    .map((e) => DealerCardModel.fromJson(const DealerCardConvert().toJson(e)))
+                                    .toList()));
+                          }));
                       Navigator.pop(context);
                     },
                     text: LocaleKeys.apply.tr(),

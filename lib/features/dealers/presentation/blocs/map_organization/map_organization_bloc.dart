@@ -1,6 +1,8 @@
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/features/common/usecases/yandex_get_address_use_case.dart';
+import 'package:auto/features/dealers/data/models/dealer_card_model.dart';
 import 'package:auto/features/dealers/data/models/map_model.dart';
+import 'package:auto/features/dealers/domain/entities/dealer_card_entity.dart';
 import 'package:auto/features/dealers/domain/entities/map_entity.dart';
 import 'package:auto/features/dealers/domain/entities/map_parameter.dart';
 import 'package:auto/features/dealers/domain/usecases/get_directories_map_point_usecase.dart';
@@ -14,29 +16,26 @@ import 'package:geolocator/geolocator.dart';
 import 'package:rxdart/rxdart.dart';
 
 part 'map_organization_event.dart';
+
 part 'map_organization_state.dart';
+
 part 'map_organization_bloc.freezed.dart';
 
-class MapOrganizationBloc
-    extends Bloc<MapOrganizationEvent, MapOrganizationState> {
+class MapOrganizationBloc extends Bloc<MapOrganizationEvent, MapOrganizationState> {
   final GetMapDealersUseCase getDealers;
 
   YandexGetAddressUseCase getAddressUseCase = YandexGetAddressUseCase();
   final GetDirectoriesMapPointUseCase getDirectoriesMapPointUseCase;
-  MapOrganizationBloc(this.getDealers, this.getDirectoriesMapPointUseCase)
-      : super(MapOrganizationState()) {
+
+  MapOrganizationBloc(this.getDealers, this.getDirectoriesMapPointUseCase) : super(MapOrganizationState()) {
     on<_GetAddressOfDealler>((event, emit) async {
       String? address;
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
-      final result = await getAddressUseCase.call(
-          {'type': 'geo', 'long': '${event.long}', 'lat': '${event.lat}'});
+      final result = await getAddressUseCase.call({'type': 'geo', 'long': '${event.long}', 'lat': '${event.lat}'});
       if (result.isRight) {
         address = MyFunctions.extractAddress(result.right);
       }
-      emit(state.copyWith(
-          address: address,
-          status: FormzStatus.submissionSuccess,
-          currentDealer: event.currentDealer));
+      emit(state.copyWith(address: address, status: FormzStatus.submissionSuccess, currentDealer: event.currentDealer));
     });
     on<_GetDealers>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
@@ -46,8 +45,7 @@ class MapOrganizationBloc
               long: event.longitude ?? state.long,
               radius: event.radius?.floor() ?? state.radius));
       if (result.isRight) {
-        emit(state.copyWith(
-            dealers: result.right, status: FormzStatus.submissionSuccess));
+        emit(state.copyWith(dealers: result.right, status: FormzStatus.submissionSuccess));
       } else {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
@@ -61,9 +59,7 @@ class MapOrganizationBloc
               long: event.longitude ?? state.long,
               radius: event.radius?.floor() ?? state.radius));
       if (result.isRight) {
-        emit(state.copyWith(
-            directoriesPoints: result.right,
-            status: FormzStatus.submissionSuccess));
+        emit(state.copyWith(directoriesPoints: result.right, status: FormzStatus.submissionSuccess));
       } else {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
@@ -76,25 +72,25 @@ class MapOrganizationBloc
     on<_ChangeLatLong>((event, emit) {
       // add(_GetAddressOfDealler(lat: event.lat, long: event.long, currentDealer:const MapEntity()));
       if (event.radius != null) {
-        emit(state.copyWith(
-            lat: event.lat, long: event.long, radius: event.radius!));
+        emit(state.copyWith(lat: event.lat, long: event.long, radius: event.radius!));
       } else {
         emit(state.copyWith(lat: event.lat, long: event.long));
       }
     }, transformer: debounce(const Duration(milliseconds: 300)));
     on<_GetCurrentLocation>((event, emit) async {
-      emit(state.copyWith(
-          getCurrentLocationStatus: FormzStatus.submissionInProgress));
+      emit(state.copyWith(getCurrentLocationStatus: FormzStatus.submissionInProgress));
       try {
         final position = await MyFunctions.determinePosition();
-        emit(state.copyWith(
-            getCurrentLocationStatus: FormzStatus.submissionSuccess));
+        emit(state.copyWith(getCurrentLocationStatus: FormzStatus.submissionSuccess));
         event.onSuccess(position);
       } on ParsingException catch (e) {
         event.onError(e.errorMessage);
-        emit(state.copyWith(
-            getCurrentLocationStatus: FormzStatus.submissionSuccess));
+        emit(state.copyWith(getCurrentLocationStatus: FormzStatus.submissionSuccess));
       }
+    });
+
+    on<_SetMapPoints>((event, emit) {
+      emit(state.copyWith(dealers: event.list.map((e) => MapModel.fromJson(e.toJson())).toList()));
     });
   }
 

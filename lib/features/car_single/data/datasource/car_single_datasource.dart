@@ -5,6 +5,7 @@ import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/car_single/data/model/car_single_model.dart';
+import 'package:auto/features/car_single/data/model/create_owner.dart';
 import 'package:auto/features/common/domain/model/auto_model.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:dio/dio.dart';
@@ -18,6 +19,9 @@ abstract class CarSingleDataSource {
   Future soldAd({required int id});
 
   Future callCount({required int id});
+
+  Future<CreateOwnerModel> verifyOwnerCreate(
+      {required CreateOwnerModel createOwnerModel});
 }
 
 class CarSingleDataSourceImpl extends CarSingleDataSource {
@@ -141,6 +145,32 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
           options: Options(headers: {
             'Authorization': 'Bearer ${StorageRepository.getString('token')}'
           }));
+      if (response.statusCode != null &&
+          response.statusCode! >= 200 &&
+          response.statusCode! < 300) {
+        return response.data;
+      } else {
+        throw ServerException(
+            statusCode: response.statusCode!,
+            errorMessage: response.data.toString());
+      }
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future<CreateOwnerModel> verifyOwnerCreate(
+      {required CreateOwnerModel createOwnerModel}) async {
+    try {
+      final response = await _dio.post(
+        '/car/announcement/verify-owner/create/',
+        data: {},
+      );
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
