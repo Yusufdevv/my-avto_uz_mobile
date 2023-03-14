@@ -9,23 +9,26 @@ class FilterState extends Equatable {
   final Currency currency;
   final RangeValues yearValues;
   final RangeValues priceValues;
-  final bool isCheck;
-  final double? priceStart;
-  final double? priceEnd;
-  final double? yearStart;
-  final double? yearEnd;
+  final bool isRentWithPurchase;
+
+
   final SaleType? saleType;
+  final double minYearValue;
+  final double maxYearValue;
+  final double minPriceValue;
+  final double maxPriceValue;
 
   const FilterState({
     required this.priceValues,
     required this.yearValues,
     required this.regions,
-    required this.isCheck,
+    required this.minYearValue,
+    required this.maxYearValue,
+    required this.minPriceValue,
+    required this.maxPriceValue,
+    this.isRentWithPurchase = false,
     this.saleType,
-    this.priceStart,
-    this.priceEnd,
-    this.yearStart,
-    this.yearEnd,
+
     this.maker,
     this.bodyType,
     this.carDriveType,
@@ -34,6 +37,10 @@ class FilterState extends Equatable {
   });
 
   FilterState copyWith({
+    double? minYearValue,
+    double? maxYearValue,
+    double? minPriceValue,
+    double? maxPriceValue,
     SaleType? saleType,
     List<RegionEntity>? regions,
     MakeEntity? maker,
@@ -43,13 +50,16 @@ class FilterState extends Equatable {
     RangeValues? yearValues,
     RangeValues? priceValues,
     Currency? currency,
-    bool? isCheck,
-    double? priceStart,
-    double? priceEnd,
-    double? yearStart,
-    double? yearEnd,
+    bool? isCheckk,
+    bool? isRentWithPurchase,
+
   }) =>
       FilterState(
+        minYearValue: minYearValue ?? this.minYearValue,
+        maxYearValue: maxYearValue ?? this.maxYearValue,
+        minPriceValue: minPriceValue ?? this.minPriceValue,
+        maxPriceValue: maxPriceValue ?? this.maxPriceValue,
+        isRentWithPurchase: isRentWithPurchase ?? this.isRentWithPurchase,
         saleType: saleType ?? this.saleType,
         regions: regions ?? this.regions,
         maker: maker ?? this.maker,
@@ -61,11 +71,7 @@ class FilterState extends Equatable {
         yearValues: yearValues ?? this.yearValues,
         priceValues: priceValues ?? this.priceValues,
         currency: currency ?? this.currency,
-        isCheck: isCheck ?? this.isCheck,
-        priceStart: priceStart ?? this.priceStart,
-        priceEnd: priceEnd ?? this.priceEnd,
-        yearStart: yearStart ?? this.yearStart,
-        yearEnd: yearEnd ?? this.yearEnd,
+
       );
 
   Map<String, dynamic> get filterData {
@@ -92,6 +98,11 @@ class FilterState extends Equatable {
 
   @override
   List<Object?> get props => [
+        minYearValue,
+        maxYearValue,
+        minPriceValue,
+        maxPriceValue,
+        isRentWithPurchase,
         saleType,
         regions,
         maker,
@@ -101,10 +112,6 @@ class FilterState extends Equatable {
         yearValues,
         priceValues,
         currency,
-        isCheck,
-        priceStart,
-        priceEnd,
-        yearEnd,
-        yearStart,
+
       ];
 }

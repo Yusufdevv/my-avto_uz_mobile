@@ -6,6 +6,7 @@ import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/ads/data/repository/ads_repo_impl.dart';
 import 'package:auto/features/ads/domain/repository/ads_repository.dart';
+import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/comparison/domain/entities/announcement_list_entity.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 

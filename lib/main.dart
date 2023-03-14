@@ -31,6 +31,7 @@ import 'package:auto/features/splash/presentation/pages/splash_sc.dart';
 import 'package:auto/generated/codegen_loader.g.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
+
 // import 'package:firebase_core/firebase_core.dart';
 // import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
@@ -124,7 +125,6 @@ class _AppState extends State<App> {
           BlocProvider(create: (context) => ProfileBloc()),
           BlocProvider(create: (context) => DeepLinkBloc()),
           BlocProvider(create: (context) => GetMakesBloc()),
-          BlocProvider(create: (context) => GetCarModelBloc()),
           BlocProvider(create: (context) => WishlistAddBloc()),
           BlocProvider(create: (context) => ComparisonAddBloc()),
         ],
@@ -158,10 +158,6 @@ class _AppState extends State<App> {
                     listener: (context, state) {
                       switch (state.status) {
                         case AuthenticationStatus.unauthenticated:
-                          // if (StorageRepository.getString(StorageKeys.TOKEN, defValue: '').isNotEmpty) {
-                          //   AppConstants.navigatorKey.currentState?.pushAndRemoveUntil(fade(page: const HomeScreen()), (route) => false);
-                          //   break;
-                          // }
                           if (!StorageRepository.getBool(
                               StorageKeys.ON_BOARDING,
                               defValue: false)) {

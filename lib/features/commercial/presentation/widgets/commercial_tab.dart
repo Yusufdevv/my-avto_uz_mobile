@@ -29,6 +29,7 @@ class CommercialTab extends StatelessWidget {
           padding: const EdgeInsets.all(2),
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           child: TabBar(
+
             controller: tabController,
             indicator: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),

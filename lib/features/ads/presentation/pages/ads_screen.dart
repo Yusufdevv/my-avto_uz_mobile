@@ -5,6 +5,7 @@ import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
+import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ads/data/models/query_data_model.dart';
 import 'package:auto/features/ads/presentation/pages/ads_body_screen.dart';
 import 'package:auto/features/ads/presentation/widgets/ads_appbar_sliver_delegate.dart';
@@ -26,24 +27,20 @@ import 'package:formz/formz.dart';
 
 class AdsScreen extends StatefulWidget {
   const AdsScreen({
-    this.makeId,
+    this.make,
     this.modelId,
     this.historyId,
-    this.makeName,
     this.modelName,
-    this.makeLogo,
     this.queryData,
     this.isFromComparison = false,
     this.historySaved = true,
     Key? key,
   }) : super(key: key);
 
-  final int? makeId;
+  final MakeEntity? make;
   final int? modelId;
   final int? historyId;
-  final String? makeName;
   final String? modelName;
-  final String? makeLogo;
   final QueryDataModel? queryData;
   final bool isFromComparison;
   final bool historySaved;
@@ -88,11 +85,9 @@ class _AdsScreenState extends State<AdsScreen>
     }
     announcementListBloc
       ..add(SetMakeModel(
-        makeId: widget.makeId,
         modelId: widget.modelId,
-        makeName: widget.makeName,
         modelName: widget.modelName,
-        makeLogo: widget.makeLogo,
+        make: widget.make ?? const MakeEntity(),
         historySaved: widget.historySaved,
       ))
       ..add(SetFilter(

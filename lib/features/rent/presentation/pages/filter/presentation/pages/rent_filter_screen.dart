@@ -55,15 +55,23 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
 
   @override
   void initState() {
+    final yearValues = RangeValues(
+        widget.yearValues != null && widget.yearValues!.start > 0
+            ? widget.yearValues!.start
+            : 1970,
+        widget.yearValues != null && widget.yearValues!.end > 0
+            ? widget.yearValues!.end
+            : DateTime.now().year + 0);
+    final priceValues = widget.priceValues ?? const RangeValues(1000, 500000);
     filterBloc = FilterBloc(
       currency: Currency.none,
       bodyType: widget.bodyType,
       carDriveType: widget.carDriveType,
       gearboxType: widget.gearboxType,
       maker: widget.maker,
-      priceValues: widget.priceValues,
+      priceValues: priceValues,
       regions: widget.regions,
-      yearValues: widget.yearValues,
+      yearValues: yearValues,
     );
 
     super.initState();

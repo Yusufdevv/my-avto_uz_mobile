@@ -7,6 +7,7 @@ import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
+import 'package:auto/features/ads/data/models/transfer_filter_data_model.dart';
 import 'package:auto/features/ads/presentation/widgets/currency_box.dart';
 import 'package:auto/features/ads/presentation/widgets/sale_type_buttons.dart';
 import 'package:auto/features/common/widgets/range_slider.dart';
@@ -23,23 +24,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FilterParameters extends StatefulWidget {
+
+
+
+  /////////////////////////////
   final BodyTypeEntity? bodyType;
   final DriveTypeEntity? carDriveType;
   final GearboxTypeEntity? gearboxType;
   final Currency currency;
   final RangeValues? yearValues;
   final RangeValues? priceValues;
-  final bool? isCheck;
+
+  final bool isRentWithPurchase;
 
   const FilterParameters({
     required this.currency,
+    required this.isRentWithPurchase,
     super.key,
     this.bodyType,
     this.carDriveType,
     this.gearboxType,
     this.yearValues,
     this.priceValues,
-    this.isCheck,
   });
 
   @override
@@ -51,16 +57,26 @@ class _FilterParametersState extends State<FilterParameters> {
 
   @override
   void initState() {
+    log(':::::::::: CURRENCY IN INIT STATE:  ${widget.currency}  ::::::::::');
     super.initState();
+    final yearValues = RangeValues(
+        widget.yearValues != null && widget.yearValues!.start > 0
+            ? widget.yearValues!.start
+            : 1970,
+        widget.yearValues != null && widget.yearValues!.end > 0
+            ? widget.yearValues!.end
+            : DateTime.now().year + 0);
+    final priceValues = widget.priceValues ?? const RangeValues(1000, 500000);
+
     final currency =
         widget.currency == Currency.none ? Currency.usd : widget.currency;
     filterBloc = FilterBloc(
+      isRentWithPurchase: widget.isRentWithPurchase,
       bodyType: widget.bodyType,
       carDriveType: widget.carDriveType,
       gearboxType: widget.gearboxType,
-      priceValues: widget.priceValues,
-      yearValues: widget.yearValues,
-      isCheck: widget.isCheck ?? false,
+      priceValues: priceValues,
+      yearValues: yearValues,
       currency: currency,
     )..add(FilterChangeCurrencyEvent(currency));
   }
@@ -79,8 +95,7 @@ class _FilterParametersState extends State<FilterParameters> {
                   onPressed: () {
                     filterBloc.add(
                       FilterClearEvent(
-                        yearValues: widget.yearValues,
-                        priceValues: widget.priceValues,
+
                       ),
                     );
                   },
@@ -183,8 +198,8 @@ class _FilterParametersState extends State<FilterParameters> {
                         filterBloc.add(FilterSelectEvent(yearValues: value));
                       },
                       title: LocaleKeys.year_of_issue.tr(),
-                      endValue: DateTime.now().year + 0,
-                      startValue: 1970,
+                      endValue: state.maxYearValue,
+                      startValue: state.minYearValue,
                     ),
                     const SizedBox(height: 16),
                     WRangeSlider(
@@ -193,8 +208,8 @@ class _FilterParametersState extends State<FilterParameters> {
                         priceValues: value,
                       )),
                       title: LocaleKeys.price.tr(),
-                      endValue: state.priceEnd ?? 0,
-                      startValue: state.priceStart ?? 1,
+                      endValue: state.maxPriceValue,
+                      startValue: state.minPriceValue,
                       isForPrice: true,
                       description: state.currency == Currency.uzs
                           ? LocaleKeys.sum.tr()
@@ -216,15 +231,18 @@ class _FilterParametersState extends State<FilterParameters> {
                             state.currency != Currency.none;
 
                         ///
-                        Navigator.of(context).pop({
-                          'bodyType': state.bodyType,
-                          'gearboxType': state.gearboxType,
-                          'carDriveType': state.carDriveType,
-                          'yearValues': state.yearValues,
-                          'priceValues': state.priceValues,
-                          'currency': state.currency,
-                          'isFilter': isFilter,
-                        });
+                        Navigator.of(context).pop(
+                          TransferFilterData(
+                            currency: state.currency,
+                            yearValues: state.yearValues,
+                            bodyType: state.bodyType,
+                            gearboxType: state.gearboxType,
+                            driveType: state.carDriveType,
+                            isFilter: isFilter,
+                            priceValues: state.priceValues,
+                            isRentWithPurchase: state.isRentWithPurchase,
+                          ),
+                        );
                       },
                       text: LocaleKeys.show.tr(),
                     ),
