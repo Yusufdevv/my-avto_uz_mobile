@@ -46,9 +46,7 @@ void main() {
     // );
     // The following lines are the same as previously explained in "Handling uncaught errors"
     // FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
-    await SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp
-    ]);
+    await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     await EasyLocalization.ensureInitialized();
     setupLocator();
     await StorageRepository.getInstance();
@@ -160,15 +158,10 @@ class _AppState extends State<App> {
                     listener: (context, state) {
                       switch (state.status) {
                         case AuthenticationStatus.unauthenticated:
-                          if (StorageRepository.getString(StorageKeys.TOKEN,
-                                  defValue: '')
-                              .isNotEmpty) {
-                            AppConstants.navigatorKey.currentState
-                                ?.pushAndRemoveUntil(
-                                    fade(page: const HomeScreen()),
-                                    (route) => false);
-                            break;
-                          }
+                          // if (StorageRepository.getString(StorageKeys.TOKEN, defValue: '').isNotEmpty) {
+                          //   AppConstants.navigatorKey.currentState?.pushAndRemoveUntil(fade(page: const HomeScreen()), (route) => false);
+                          //   break;
+                          // }
                           if (!StorageRepository.getBool(
                               StorageKeys.ON_BOARDING,
                               defValue: false)) {
