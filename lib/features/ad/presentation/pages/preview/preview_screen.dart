@@ -10,11 +10,13 @@ import 'package:auto/features/ad/presentation/pages/preview/widgets/description_
 import 'package:auto/features/ad/presentation/pages/preview/widgets/id_row.dart';
 import 'package:auto/features/ad/presentation/pages/preview/widgets/image_viewer.dart';
 import 'package:auto/features/ad/presentation/pages/preview/widgets/location_box_of_ad_preview.dart';
+import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PreviewScreen extends StatelessWidget {
   final Uint8List? mapPointBodyBytes;
@@ -68,7 +70,7 @@ class PreviewScreen extends StatelessWidget {
       required this.description,
       required this.districtName,
       required this.regionName,
-         this.isWaiting = false,
+      this.isWaiting = false,
       this.id,
       Key? key})
       : super(key: key);
@@ -150,6 +152,9 @@ class PreviewScreen extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 12),
+                // WButton(onTap: (){
+                //   context.read<PostingAdBloc>().add(CancelLoadinEvent());
+                // }),
 
                 LocationBoxOfAdPreview(
                   bodyBytes: mapPointBodyBytes,

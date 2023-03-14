@@ -18,7 +18,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class MapScreenPostingAd extends StatefulWidget {
-  const MapScreenPostingAd({Key? key}) : super(key: key);
+  final double initialLat;
+  final double initialLong;
+
+  const MapScreenPostingAd(
+      {required this.initialLat, required this.initialLong, Key? key})
+      : super(key: key);
 
   @override
   State<MapScreenPostingAd> createState() => _MapScreenPostingAdState();
@@ -31,19 +36,22 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
   final List<MapObject<dynamic>> _mapObjects = [];
   late MapBloc mapBloc;
 
-  double latitude = 0;
-  double longitude = 0;
   double zoomLevel = 15;
   int currentRadius = 100000;
   double maxZoomLevel = 0;
   double minZoomLevel = 0;
   double accuracy = 0;
-  late Point myPoint;
+  late Point myPointt;
 
   @override
   void initState() {
-    mapBloc = MapBloc();
-    myPoint = const Point(latitude: 0, longitude: 0);
+    mapBloc = MapBloc(
+      long: widget.initialLong,
+      lat: widget.initialLat,
+    );
+    myPointt =
+        Point(latitude: widget.initialLat, longitude: widget.initialLong);
+
     WidgetsBinding.instance.addObserver(this);
     super.initState();
   }
@@ -91,11 +99,11 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                         setState(() {});
                       },
                       onMapTap: (point) async {
-                        myPoint = Point(
+                        myPointt = Point(
                             latitude: point.latitude,
                             longitude: point.longitude);
                         final myPlaceMark =
-                            await MyFunctions.getMyPoint(myPoint, context);
+                            await MyFunctions.getMyPoint(myPointt, context);
                         setState(() {
                           _mapObjects.add(myPlaceMark);
                         });
@@ -104,7 +112,7 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                           CameraUpdate.newCameraPosition(
                             CameraPosition(
                               zoom: zoomLevel,
-                              target: myPoint,
+                              target: myPointt,
                             ),
                           ),
                           animation: const MapAnimation(
@@ -124,21 +132,26 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                       },
                       mapObjects: _mapObjects,
                       onMapCreated: (controller) async {
-                        final lat = StorageRepository.getDouble('lat',
-                            defValue: 41.310990);
-                        final long = StorageRepository.getDouble('long',
-                            defValue: 69.281997);
+                        final lat = widget.initialLat == 0
+                            ? StorageRepository.getDouble('lat',
+                                defValue: 41.310990)
+                            : widget.initialLat;
+                        final long = widget.initialLong == 0
+                            ? StorageRepository.getDouble('long',
+                                defValue: 69.281997)
+                            : widget.initialLong;
+
                         mapBloc.add(GetPointName(long: long, lat: lat));
                         _mapController = controller;
                         maxZoomLevel = await controller.getMaxZoom();
                         minZoomLevel = await controller.getMinZoom();
                         final camera = await _mapController.getCameraPosition();
-                        myPoint = Point(
+                        myPointt = Point(
                           latitude: lat,
                           longitude: long,
                         );
                         final myPlaceMark =
-                            await MyFunctions.getMyPoint(myPoint, context);
+                            await MyFunctions.getMyPoint(myPointt, context);
                         setState(() {
                           _mapObjects.add(myPlaceMark);
                         });
@@ -156,7 +169,7 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                               duration: 0.15, type: MapAnimationType.smooth),
                         );
                         setState(() {});
-                        if(41.310990 == lat){
+                        if (41.310990 == lat) {
                           mapBloc.add(
                             MapGetCurrentLocationEvent(
                               onError: (message) {
@@ -166,13 +179,13 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                                     ));
                               },
                               onSuccess: (position) async {
-                                myPoint = Point(
+                                myPointt = Point(
                                   latitude: position.latitude,
                                   longitude: position.longitude,
                                 );
                                 final myPlaceMark =
                                     await MyFunctions.getMyPoint(
-                                        myPoint, context);
+                                        myPointt, context);
                                 setState(() {
                                   _mapObjects.add(myPlaceMark);
                                 });
@@ -238,6 +251,7 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                     bottom: 0,
                     child: PostingAdSubmitBox(
                       onTab: () {
+                        log('::::::::::: MAP STATE LAT IS  ${statee.lat}  ::::::::::');
                         Navigator.of(context).pop(statee.lat == 0
                             ? null
                             : [statee.lat, statee.long, zoomLevel]);

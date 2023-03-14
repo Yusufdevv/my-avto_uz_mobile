@@ -1,6 +1,12 @@
 part of 'posting_ad_bloc.dart';
 
 abstract class PostingAdEvent {}
+class CancelLoadinEvent extends  PostingAdEvent{
+
+
+  CancelLoadinEvent( );
+}
+
 
 class PostingAdShowToastEvent extends PostingAdEvent {
   final String message;

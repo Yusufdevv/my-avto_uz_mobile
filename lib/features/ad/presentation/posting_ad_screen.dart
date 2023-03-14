@@ -492,11 +492,12 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                     InspectionPlaceScreen(
                                       onToMapPressed: () {
                                         Navigator.push(
-                                                context,
-                                                fade(
-                                                    page:
-                                                        const MapScreenPostingAd()))
-                                            .then(
+                                            context,
+                                            fade(
+                                                page: MapScreenPostingAd(
+                                              initialLat: state.lat ?? 0,
+                                              initialLong: state.long ?? 0,
+                                            ))).then(
                                           (latLongZoom) {
                                             if (latLongZoom is List<double>) {
                                               postingAdBloc.add(
@@ -543,9 +544,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                         },
                                         initialMileageImage: state.milageImage,
                                         initialMileage: state.mileage ?? ''),
-                                    // //19
-                                    // const StsScreen(),
                                     //19
+
                                     PreviewScreen(
                                       isWaiting: state.getMakesStatus
                                           .isSubmissionInProgress,

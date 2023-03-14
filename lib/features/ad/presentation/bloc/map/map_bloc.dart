@@ -17,8 +17,10 @@ part 'map_state.dart';
 class MapBloc extends Bloc<MapEvent, MapState> {
   YandexGetAddressUseCase useCase = YandexGetAddressUseCase();
 
-  MapBloc()
-      : super(const MapState(
+  MapBloc({required double lat, required double long})
+      : super(MapState(
+            lat: lat,
+            long: long,
             getPointNameStatus: FormzStatus.pure,
             getCurrentLocationStatus: FormzStatus.pure,
             status: FormzStatus.pure)) {
@@ -37,6 +39,8 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         .call({'type': 'geo', 'long': '${event.long}', 'lat': '${event.lat}'});
     if (result.isRight) {
       emit(state.copyWith(
+          lat: state.lat,
+          long: state.long,
           getPointNameStatus: FormzStatus.submissionSuccess,
           address: MyFunctions.extractAddress(result.right)));
     }

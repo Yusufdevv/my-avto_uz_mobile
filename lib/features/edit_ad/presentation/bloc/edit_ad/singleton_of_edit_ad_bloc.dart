@@ -156,6 +156,8 @@ class EASingleton {
     }
 
     return EditAdState(
+      lat: v.latitude,
+      long: v.longitude,
       contactsFormKey: GlobalKey<FormState>(),
       selectOptions: PASingleton.makeSelectsSelected(
           v: [...v.equipment.options, ...v.options]),

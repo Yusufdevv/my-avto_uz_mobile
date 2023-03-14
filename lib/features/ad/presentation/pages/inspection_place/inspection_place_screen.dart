@@ -65,8 +65,8 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                           backgroundColor: Colors.transparent,
                           builder: (c) => RentChooseRegionBottomSheet(
                             isMultiChoice: false,
-                            checkedRegions: state.getSelectedRegion != null
-                                ? {0: state.getSelectedRegion!}
+                            checkedRegions: state.region != null
+                                ? {0: state.region!}
                                 : <int, RegionEntity>{},
                             list: state.regions,
                           ),
@@ -78,7 +78,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                           }
                         });
                       },
-                      hintText: state.getSelectedRegion?.title ??
+                      hintText: state.region?.title ??
                           LocaleKeys.choose_region.tr(),
                       title: LocaleKeys.area.tr(),
                     ),

@@ -134,6 +134,10 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdChangeOption>(_getChangeOption);
     on<PostingAdSelectEquipmentEvent>(_selectEquipment);
     on<PostingAdGetColorsEvent>(_getColors);
+    on<CancelLoadinEvent>(
+        (event, emit) {
+          emit(state.copyWith(createStatus: FormzStatus.pure));
+        });
   }
 
   FutureOr<void> _getColors(
@@ -423,6 +427,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
   FutureOr<void> _create(
       PostingAdCreateEvent event, Emitter<PostingAdState> emit) async {
+    log('::::::::::  CREATE ADD TRIGGERED:   ::::::::::');
     emit(state.copyWith(createStatus: FormzStatus.submissionInProgress));
 
     final result = await createUseCase.call(await PASingleton.create(state));
