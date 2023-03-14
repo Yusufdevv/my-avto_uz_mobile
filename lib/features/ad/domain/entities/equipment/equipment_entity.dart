@@ -18,12 +18,7 @@ class EquipmentEntity extends Equatable {
   });
 
   @override
-  List<Object?> get props => [
-        id,
-        name,
-        model,
-        options,
-      ];
+  List<Object?> get props => [id, name, model, options];
 }
 
 class EquipmentConverter

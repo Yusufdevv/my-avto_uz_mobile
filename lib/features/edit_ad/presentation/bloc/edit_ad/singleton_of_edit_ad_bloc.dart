@@ -134,7 +134,7 @@ class EASingleton {
 
   static Future<EditAdState> stateForEdit(
       CarSingleEntity v, bool showExactAddress) async {
-     String? phone = '';
+    String? phone = '';
     try {
       phone = MyFunctions.phoneFormat(v.user.phoneNumber.substring(4));
       // ignore: avoid_catches_without_on_clauses
@@ -161,7 +161,7 @@ class EASingleton {
           v: [...v.equipment.options, ...v.options]),
       radioOptions: PASingleton.makeRadiosSelected(
           v: [...v.equipment.options, ...v.options]),
-      equipment: v.equipment,
+      equipment: v.equipment.id == -1 ? null : v.equipment,
       region: v.region.id == -1 ? null : v.region,
       district: v.district.id == -1 ? null : v.district,
       showExactAddress: showExactAddress,
@@ -187,7 +187,7 @@ class EASingleton {
           : null,
       isCallTimed: v.contactAvailableFrom.isNotEmpty &&
           v.contactAvailableFrom.isNotEmpty,
-      colorName:v.color,
+      colorName: v.color,
       damagedParts: damagedPartAdopter(v.damagedParts),
       currency: v.currency,
       description: v.description,

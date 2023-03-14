@@ -52,7 +52,7 @@ class _FilterParametersState extends State<FilterParameters> {
   @override
   void initState() {
     super.initState();
-  final currency =
+    final currency =
         widget.currency == Currency.none ? Currency.usd : widget.currency;
     filterBloc = FilterBloc(
       bodyType: widget.bodyType,
@@ -70,171 +70,169 @@ class _FilterParametersState extends State<FilterParameters> {
         value: filterBloc,
         child: BlocBuilder<FilterBloc, FilterState>(
           builder: (context, state) => Scaffold(
-              backgroundColor: white,
-              appBar: WAppBar(
-                title: LocaleKeys.options.tr(),
-                centerTitle: false,
-                extraActions: [
-                  TextButton(
-                    onPressed: () {
-                      filterBloc.add(
-                        FilterClearEvent(
-                          yearValues: widget.yearValues,
-                          priceValues: widget.priceValues,
-                        ),
-                      );
-                    },
-                    child: Text(
-                      LocaleKeys.clear.tr(),
-                      style: const TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w400,
-                        color: orange,
+            backgroundColor: white,
+            appBar: WAppBar(
+              title: LocaleKeys.options.tr(),
+              centerTitle: false,
+              extraActions: [
+                TextButton(
+                  onPressed: () {
+                    filterBloc.add(
+                      FilterClearEvent(
+                        yearValues: widget.yearValues,
+                        priceValues: widget.priceValues,
                       ),
+                    );
+                  },
+                  child: Text(
+                    LocaleKeys.clear.tr(),
+                    style: const TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w400,
+                      color: orange,
                     ),
                   ),
-                  const SizedBox(width: 8),
-                ],
-              ),
-              body: SingleChildScrollView(
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SaleTypeButtons(
-                        onTap: (v) {
-                          filterBloc.add(FilterSelectEvent(saleType: v));
-                        },
-                        selected: state.saleType ?? SaleType.values[0],
-                      ),
-                      const SizedBox(height: 16),
-                      CurrencyBox(
-                        onTap: (v) {
-                          filterBloc.add(FilterChangeCurrencyEvent(v));
-                        },
-                        selected: state.currency ?? Currency.uzs,
-                      ),
-                      const SizedBox(height: 16),
-                      SelectorItem(
+                ),
+                const SizedBox(width: 8),
+              ],
+            ),
+            body: SingleChildScrollView(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SaleTypeButtons(
+                      onTap: (v) {
+                        filterBloc.add(FilterSelectEvent(saleType: v));
+                      },
+                      selected: state.saleType ?? SaleType.values[0],
+                    ),
+                    const SizedBox(height: 16),
+                    CurrencyBox(
+                      onTap: (v) {
+                        filterBloc.add(FilterChangeCurrencyEvent(v));
+                      },
+                      selected: state.currency ?? Currency.uzs,
+                    ),
+                    const SizedBox(height: 16),
+                    SelectorItem(
+                      onTap: () async {
+                        await showModalBottomSheet<BodyTypeEntity>(
+                          isDismissible: false,
+                          context: context,
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          builder: (c) => ChooseBodyType(
+                              selectedId: state.bodyType?.id ?? -1),
+                        ).then((value) {
+                          filterBloc.add(FilterSelectEvent(
+                              bodyType: value ?? const BodyTypeEntity()));
+                        });
+                      },
+                      hintText: state.bodyType?.type ?? LocaleKeys.all.tr(),
+                      title: LocaleKeys.body_type.tr(),
+                      hasArrowDown: true,
+                    ),
+                    SelectorItem(
                         onTap: () async {
-                          await showModalBottomSheet<BodyTypeEntity>(
+                          await showModalBottomSheet<DriveTypeEntity>(
                             isDismissible: false,
                             context: context,
                             isScrollControlled: true,
                             backgroundColor: Colors.transparent,
-                            builder: (c) => ChooseBodyType(
-                                selectedId: state.bodyType?.id ?? -1),
+                            builder: (c) => ChooseDriveType(
+                                selectedId: state.carDriveType?.id ?? -1),
                           ).then((value) {
-                            filterBloc.add(FilterSelectEvent(
-                                bodyType: value ?? const BodyTypeEntity()));
-                          });
-                        },
-                        hintText: state.bodyType?.type ?? LocaleKeys.all.tr(),
-                        title: LocaleKeys.body_type.tr(),
-                        hasArrowDown: true,
-                      ),
-                      SelectorItem(
-                          onTap: () async {
-                            await showModalBottomSheet<DriveTypeEntity>(
-                              isDismissible: false,
-                              context: context,
-                              isScrollControlled: true,
-                              backgroundColor: Colors.transparent,
-                              builder: (c) => ChooseDriveType(
-                                  selectedId: state.carDriveType?.id ?? -1),
-                            ).then((value) {
-                              filterBloc
-                                  .add(FilterSelectEvent(carDriveType: value));
-                            });
-                          },
-                          hintText:
-                              state.carDriveType?.type ?? LocaleKeys.all.tr(),
-                          title: LocaleKeys.drive_unit.tr(),
-                          hasArrowDown: state.carDriveType?.type == null
-                              ? true
-                              : state.carDriveType!.type.isEmpty),
-                      SelectorItem(
-                        onTap: () async {
-                          await showModalBottomSheet<GearboxTypeEntity>(
-                            isDismissible: false,
-                            context: context,
-                            isScrollControlled: true,
-                            backgroundColor: Colors.transparent,
-                            builder: (c) => ChooseGearbox(
-                                selectedId: state.gearboxType?.id ?? -1),
-                          ).then((value) {
-                            filterBloc.add(FilterSelectEvent(
-                              gearboxType: value,
-                            ));
+                            filterBloc
+                                .add(FilterSelectEvent(carDriveType: value));
                           });
                         },
                         hintText:
-                            state.gearboxType?.type ?? LocaleKeys.all.tr(),
-                        title: LocaleKeys.box.tr(),
-                        hasArrowDown: state.gearboxType?.type == null
+                            state.carDriveType?.type ?? LocaleKeys.all.tr(),
+                        title: LocaleKeys.drive_unit.tr(),
+                        hasArrowDown: state.carDriveType?.type == null
                             ? true
-                            : state.gearboxType!.type.isEmpty,
-                      ),
-                      const SizedBox(height: 20),
-                      WRangeSlider(
-                        values: state.yearValues,
-                        valueChanged: (value) {
-                          filterBloc.add(FilterSelectEvent(yearValues: value));
-                        },
-                        title: LocaleKeys.year_of_issue.tr(),
-                        endValue: DateTime.now().year + 0,
-                        startValue: 1960,
-                      ),
-                      const SizedBox(height: 16),
-                      WRangeSlider(
-                        values: state.priceValues,
-                        valueChanged: (value) =>
-                            filterBloc.add(FilterSelectEvent(
-                          priceValues: value,
-                        )),
-                        title: LocaleKeys.price.tr(),
-                        endValue: state.priceEnd ?? 0,
-                        startValue: state.priceStart ?? 1,
-                        isForPrice: true,
-                        description: state.currency == Currency.uzs
-                            ? LocaleKeys.sum.tr()
-                            : 'у.е.',
-                      ),
-                      const SizedBox(height: 16),
-                      WButton(
-                        onTap: () {
-                          var isFilter = (state.bodyType?.id != -1 &&
-                                  state.bodyType?.id != null) ||
-                              (state.gearboxType?.id != -1 &&
-                                  state.gearboxType?.id != null) ||
-                              (state.carDriveType?.id != -1 &&
-                                  state.carDriveType?.id != null) ||
-                              state.yearValues.start != 0 ||
-                              state.yearValues.end != 0 ||
-                              state.priceValues.start != 0 ||
-                              state.priceValues.end != 0 ||
-                              state.currency != Currency.none;
+                            : state.carDriveType!.type.isEmpty),
+                    SelectorItem(
+                      onTap: () async {
+                        await showModalBottomSheet<GearboxTypeEntity>(
+                          isDismissible: false,
+                          context: context,
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          builder: (c) => ChooseGearbox(
+                              selectedId: state.gearboxType?.id ?? -1),
+                        ).then((value) {
+                          filterBloc.add(FilterSelectEvent(
+                            gearboxType: value,
+                          ));
+                        });
+                      },
+                      hintText: state.gearboxType?.type ?? LocaleKeys.all.tr(),
+                      title: LocaleKeys.box.tr(),
+                      hasArrowDown: state.gearboxType?.type == null
+                          ? true
+                          : state.gearboxType!.type.isEmpty,
+                    ),
+                    const SizedBox(height: 20),
+                    WRangeSlider(
+                      values: state.yearValues,
+                      valueChanged: (value) {
+                        filterBloc.add(FilterSelectEvent(yearValues: value));
+                      },
+                      title: LocaleKeys.year_of_issue.tr(),
+                      endValue: DateTime.now().year + 0,
+                      startValue: 1970,
+                    ),
+                    const SizedBox(height: 16),
+                    WRangeSlider(
+                      values: state.priceValues,
+                      valueChanged: (value) => filterBloc.add(FilterSelectEvent(
+                        priceValues: value,
+                      )),
+                      title: LocaleKeys.price.tr(),
+                      endValue: state.priceEnd ?? 0,
+                      startValue: state.priceStart ?? 1,
+                      isForPrice: true,
+                      description: state.currency == Currency.uzs
+                          ? LocaleKeys.sum.tr()
+                          : 'у.е.',
+                    ),
+                    const SizedBox(height: 16),
+                    WButton(
+                      onTap: () {
+                        var isFilter = (state.bodyType?.id != -1 &&
+                                state.bodyType?.id != null) ||
+                            (state.gearboxType?.id != -1 &&
+                                state.gearboxType?.id != null) ||
+                            (state.carDriveType?.id != -1 &&
+                                state.carDriveType?.id != null) ||
+                            state.yearValues.start != 0 ||
+                            state.yearValues.end != 0 ||
+                            state.priceValues.start != 0 ||
+                            state.priceValues.end != 0 ||
+                            state.currency != Currency.none;
 
-                          ///
-                          Navigator.of(context).pop({
-                            'bodyType': state.bodyType,
-                            'gearboxType': state.gearboxType,
-                            'carDriveType': state.carDriveType,
-                            'yearValues': state.yearValues,
-                            'priceValues': state.priceValues,
-                            'currency': state.currency,
-                            'isFilter': isFilter,
-                          });
-                        },
-                        text: LocaleKeys.show.tr(),
-                      ),
-                    ],
-                  ),
+                        ///
+                        Navigator.of(context).pop({
+                          'bodyType': state.bodyType,
+                          'gearboxType': state.gearboxType,
+                          'carDriveType': state.carDriveType,
+                          'yearValues': state.yearValues,
+                          'priceValues': state.priceValues,
+                          'currency': state.currency,
+                          'isFilter': isFilter,
+                        });
+                      },
+                      text: LocaleKeys.show.tr(),
+                    ),
+                  ],
                 ),
               ),
             ),
+          ),
         ),
       );
 }

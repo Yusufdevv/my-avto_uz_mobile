@@ -50,13 +50,11 @@ class PASingleton {
       'is_new': v.isWithoutMileage,
       'is_rent_with_purchase':
           v.rentWithPurchaseConditions.isNotEmpty && (v.rentToBuy ?? false),
-      // 'rent_with_purchase': v.rentWithPurchaseConditions.entries
-      //     .map((e) => e.value.toApi())
-      //     .toList(),
-
-      'equipment': v.equipment?.id,
-      // 'gas_equipment': v.gasEquipmentId,
     };
+    if (v.equipment != null && v.equipment?.id != -1) {
+      announcementFields.addEntries(MapEntry('equipment', v.equipment?.id)
+          as Iterable<MapEntry<String, dynamic>>);
+    }
     if (v.gasEquipmentId != -1) {
       announcementFields.addEntries(MapEntry('gas_equipment', v.gasEquipmentId)
           as Iterable<MapEntry<String, dynamic>>);

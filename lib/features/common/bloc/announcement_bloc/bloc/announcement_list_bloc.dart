@@ -179,6 +179,8 @@ class AnnouncementListBloc
     });
     //!setsort
     on<SetSort>((event, emit) {
+      print('call set sort event');
+      print(event.sortResult);
       emit(state.copyWith(sortResult: event.sortResult));
       add(GetAnnouncementList(isNew: state.isNew));
     });
