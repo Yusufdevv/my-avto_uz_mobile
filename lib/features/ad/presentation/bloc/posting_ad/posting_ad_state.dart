@@ -440,7 +440,7 @@ class PostingAdState extends Equatable {
 
   RegionEntity? get getSelectedRegion {
     try {
-      return regions.firstWhere((e) => e.id == region);
+      return regions.firstWhere((e) => e.id == region?.id);
     } catch (e) {
       return null;
     }

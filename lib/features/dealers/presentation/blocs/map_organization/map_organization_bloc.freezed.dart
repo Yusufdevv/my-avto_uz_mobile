@@ -32,6 +32,7 @@ mixin _$MapOrganizationEvent {
         changeLatLong,
     required TResult Function(double lat, double long, MapEntity? currentDealer)
         getAddressOfDealler,
+    required TResult Function(List<DealerCardModel> list) setMapPoints,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -47,6 +48,7 @@ mixin _$MapOrganizationEvent {
     TResult? Function(double lat, double long, int? radius)? changeLatLong,
     TResult? Function(double lat, double long, MapEntity? currentDealer)?
         getAddressOfDealler,
+    TResult? Function(List<DealerCardModel> list)? setMapPoints,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -62,6 +64,7 @@ mixin _$MapOrganizationEvent {
     TResult Function(double lat, double long, int? radius)? changeLatLong,
     TResult Function(double lat, double long, MapEntity? currentDealer)?
         getAddressOfDealler,
+    TResult Function(List<DealerCardModel> list)? setMapPoints,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -73,6 +76,7 @@ mixin _$MapOrganizationEvent {
     required TResult Function(_GetCurrentLocation value) getCurrentLocation,
     required TResult Function(_ChangeLatLong value) changeLatLong,
     required TResult Function(_GetAddressOfDealler value) getAddressOfDealler,
+    required TResult Function(_SetMapPoints value) setMapPoints,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -83,6 +87,7 @@ mixin _$MapOrganizationEvent {
     TResult? Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult? Function(_ChangeLatLong value)? changeLatLong,
     TResult? Function(_GetAddressOfDealler value)? getAddressOfDealler,
+    TResult? Function(_SetMapPoints value)? setMapPoints,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -93,6 +98,7 @@ mixin _$MapOrganizationEvent {
     TResult Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult Function(_ChangeLatLong value)? changeLatLong,
     TResult Function(_GetAddressOfDealler value)? getAddressOfDealler,
+    TResult Function(_SetMapPoints value)? setMapPoints,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -213,6 +219,7 @@ class _$_GetDealers implements _GetDealers {
         changeLatLong,
     required TResult Function(double lat, double long, MapEntity? currentDealer)
         getAddressOfDealler,
+    required TResult Function(List<DealerCardModel> list) setMapPoints,
   }) {
     return getDealers(latitude, longitude, radius);
   }
@@ -231,6 +238,7 @@ class _$_GetDealers implements _GetDealers {
     TResult? Function(double lat, double long, int? radius)? changeLatLong,
     TResult? Function(double lat, double long, MapEntity? currentDealer)?
         getAddressOfDealler,
+    TResult? Function(List<DealerCardModel> list)? setMapPoints,
   }) {
     return getDealers?.call(latitude, longitude, radius);
   }
@@ -249,6 +257,7 @@ class _$_GetDealers implements _GetDealers {
     TResult Function(double lat, double long, int? radius)? changeLatLong,
     TResult Function(double lat, double long, MapEntity? currentDealer)?
         getAddressOfDealler,
+    TResult Function(List<DealerCardModel> list)? setMapPoints,
     required TResult orElse(),
   }) {
     if (getDealers != null) {
@@ -266,6 +275,7 @@ class _$_GetDealers implements _GetDealers {
     required TResult Function(_GetCurrentLocation value) getCurrentLocation,
     required TResult Function(_ChangeLatLong value) changeLatLong,
     required TResult Function(_GetAddressOfDealler value) getAddressOfDealler,
+    required TResult Function(_SetMapPoints value) setMapPoints,
   }) {
     return getDealers(this);
   }
@@ -279,6 +289,7 @@ class _$_GetDealers implements _GetDealers {
     TResult? Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult? Function(_ChangeLatLong value)? changeLatLong,
     TResult? Function(_GetAddressOfDealler value)? getAddressOfDealler,
+    TResult? Function(_SetMapPoints value)? setMapPoints,
   }) {
     return getDealers?.call(this);
   }
@@ -292,6 +303,7 @@ class _$_GetDealers implements _GetDealers {
     TResult Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult Function(_ChangeLatLong value)? changeLatLong,
     TResult Function(_GetAddressOfDealler value)? getAddressOfDealler,
+    TResult Function(_SetMapPoints value)? setMapPoints,
     required TResult orElse(),
   }) {
     if (getDealers != null) {
@@ -412,6 +424,7 @@ class _$_GetDirectoriesPoints implements _GetDirectoriesPoints {
         changeLatLong,
     required TResult Function(double lat, double long, MapEntity? currentDealer)
         getAddressOfDealler,
+    required TResult Function(List<DealerCardModel> list) setMapPoints,
   }) {
     return getDirectoriesPoints(latitude, longitude, radius);
   }
@@ -430,6 +443,7 @@ class _$_GetDirectoriesPoints implements _GetDirectoriesPoints {
     TResult? Function(double lat, double long, int? radius)? changeLatLong,
     TResult? Function(double lat, double long, MapEntity? currentDealer)?
         getAddressOfDealler,
+    TResult? Function(List<DealerCardModel> list)? setMapPoints,
   }) {
     return getDirectoriesPoints?.call(latitude, longitude, radius);
   }
@@ -448,6 +462,7 @@ class _$_GetDirectoriesPoints implements _GetDirectoriesPoints {
     TResult Function(double lat, double long, int? radius)? changeLatLong,
     TResult Function(double lat, double long, MapEntity? currentDealer)?
         getAddressOfDealler,
+    TResult Function(List<DealerCardModel> list)? setMapPoints,
     required TResult orElse(),
   }) {
     if (getDirectoriesPoints != null) {
@@ -465,6 +480,7 @@ class _$_GetDirectoriesPoints implements _GetDirectoriesPoints {
     required TResult Function(_GetCurrentLocation value) getCurrentLocation,
     required TResult Function(_ChangeLatLong value) changeLatLong,
     required TResult Function(_GetAddressOfDealler value) getAddressOfDealler,
+    required TResult Function(_SetMapPoints value) setMapPoints,
   }) {
     return getDirectoriesPoints(this);
   }
@@ -478,6 +494,7 @@ class _$_GetDirectoriesPoints implements _GetDirectoriesPoints {
     TResult? Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult? Function(_ChangeLatLong value)? changeLatLong,
     TResult? Function(_GetAddressOfDealler value)? getAddressOfDealler,
+    TResult? Function(_SetMapPoints value)? setMapPoints,
   }) {
     return getDirectoriesPoints?.call(this);
   }
@@ -491,6 +508,7 @@ class _$_GetDirectoriesPoints implements _GetDirectoriesPoints {
     TResult Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult Function(_ChangeLatLong value)? changeLatLong,
     TResult Function(_GetAddressOfDealler value)? getAddressOfDealler,
+    TResult Function(_SetMapPoints value)? setMapPoints,
     required TResult orElse(),
   }) {
     if (getDirectoriesPoints != null) {
@@ -592,6 +610,7 @@ class _$_ChangeRadius implements _ChangeRadius {
         changeLatLong,
     required TResult Function(double lat, double long, MapEntity? currentDealer)
         getAddressOfDealler,
+    required TResult Function(List<DealerCardModel> list) setMapPoints,
   }) {
     return changeRadius(radius);
   }
@@ -610,6 +629,7 @@ class _$_ChangeRadius implements _ChangeRadius {
     TResult? Function(double lat, double long, int? radius)? changeLatLong,
     TResult? Function(double lat, double long, MapEntity? currentDealer)?
         getAddressOfDealler,
+    TResult? Function(List<DealerCardModel> list)? setMapPoints,
   }) {
     return changeRadius?.call(radius);
   }
@@ -628,6 +648,7 @@ class _$_ChangeRadius implements _ChangeRadius {
     TResult Function(double lat, double long, int? radius)? changeLatLong,
     TResult Function(double lat, double long, MapEntity? currentDealer)?
         getAddressOfDealler,
+    TResult Function(List<DealerCardModel> list)? setMapPoints,
     required TResult orElse(),
   }) {
     if (changeRadius != null) {
@@ -645,6 +666,7 @@ class _$_ChangeRadius implements _ChangeRadius {
     required TResult Function(_GetCurrentLocation value) getCurrentLocation,
     required TResult Function(_ChangeLatLong value) changeLatLong,
     required TResult Function(_GetAddressOfDealler value) getAddressOfDealler,
+    required TResult Function(_SetMapPoints value) setMapPoints,
   }) {
     return changeRadius(this);
   }
@@ -658,6 +680,7 @@ class _$_ChangeRadius implements _ChangeRadius {
     TResult? Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult? Function(_ChangeLatLong value)? changeLatLong,
     TResult? Function(_GetAddressOfDealler value)? getAddressOfDealler,
+    TResult? Function(_SetMapPoints value)? setMapPoints,
   }) {
     return changeRadius?.call(this);
   }
@@ -671,6 +694,7 @@ class _$_ChangeRadius implements _ChangeRadius {
     TResult Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult Function(_ChangeLatLong value)? changeLatLong,
     TResult Function(_GetAddressOfDealler value)? getAddressOfDealler,
+    TResult Function(_SetMapPoints value)? setMapPoints,
     required TResult orElse(),
   }) {
     if (changeRadius != null) {
@@ -777,6 +801,7 @@ class _$_GetCurrentLocation implements _GetCurrentLocation {
         changeLatLong,
     required TResult Function(double lat, double long, MapEntity? currentDealer)
         getAddressOfDealler,
+    required TResult Function(List<DealerCardModel> list) setMapPoints,
   }) {
     return getCurrentLocation(onError, onSuccess);
   }
@@ -795,6 +820,7 @@ class _$_GetCurrentLocation implements _GetCurrentLocation {
     TResult? Function(double lat, double long, int? radius)? changeLatLong,
     TResult? Function(double lat, double long, MapEntity? currentDealer)?
         getAddressOfDealler,
+    TResult? Function(List<DealerCardModel> list)? setMapPoints,
   }) {
     return getCurrentLocation?.call(onError, onSuccess);
   }
@@ -813,6 +839,7 @@ class _$_GetCurrentLocation implements _GetCurrentLocation {
     TResult Function(double lat, double long, int? radius)? changeLatLong,
     TResult Function(double lat, double long, MapEntity? currentDealer)?
         getAddressOfDealler,
+    TResult Function(List<DealerCardModel> list)? setMapPoints,
     required TResult orElse(),
   }) {
     if (getCurrentLocation != null) {
@@ -830,6 +857,7 @@ class _$_GetCurrentLocation implements _GetCurrentLocation {
     required TResult Function(_GetCurrentLocation value) getCurrentLocation,
     required TResult Function(_ChangeLatLong value) changeLatLong,
     required TResult Function(_GetAddressOfDealler value) getAddressOfDealler,
+    required TResult Function(_SetMapPoints value) setMapPoints,
   }) {
     return getCurrentLocation(this);
   }
@@ -843,6 +871,7 @@ class _$_GetCurrentLocation implements _GetCurrentLocation {
     TResult? Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult? Function(_ChangeLatLong value)? changeLatLong,
     TResult? Function(_GetAddressOfDealler value)? getAddressOfDealler,
+    TResult? Function(_SetMapPoints value)? setMapPoints,
   }) {
     return getCurrentLocation?.call(this);
   }
@@ -856,6 +885,7 @@ class _$_GetCurrentLocation implements _GetCurrentLocation {
     TResult Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult Function(_ChangeLatLong value)? changeLatLong,
     TResult Function(_GetAddressOfDealler value)? getAddressOfDealler,
+    TResult Function(_SetMapPoints value)? setMapPoints,
     required TResult orElse(),
   }) {
     if (getCurrentLocation != null) {
@@ -971,6 +1001,7 @@ class _$_ChangeLatLong implements _ChangeLatLong {
         changeLatLong,
     required TResult Function(double lat, double long, MapEntity? currentDealer)
         getAddressOfDealler,
+    required TResult Function(List<DealerCardModel> list) setMapPoints,
   }) {
     return changeLatLong(lat, long, radius);
   }
@@ -989,6 +1020,7 @@ class _$_ChangeLatLong implements _ChangeLatLong {
     TResult? Function(double lat, double long, int? radius)? changeLatLong,
     TResult? Function(double lat, double long, MapEntity? currentDealer)?
         getAddressOfDealler,
+    TResult? Function(List<DealerCardModel> list)? setMapPoints,
   }) {
     return changeLatLong?.call(lat, long, radius);
   }
@@ -1007,6 +1039,7 @@ class _$_ChangeLatLong implements _ChangeLatLong {
     TResult Function(double lat, double long, int? radius)? changeLatLong,
     TResult Function(double lat, double long, MapEntity? currentDealer)?
         getAddressOfDealler,
+    TResult Function(List<DealerCardModel> list)? setMapPoints,
     required TResult orElse(),
   }) {
     if (changeLatLong != null) {
@@ -1024,6 +1057,7 @@ class _$_ChangeLatLong implements _ChangeLatLong {
     required TResult Function(_GetCurrentLocation value) getCurrentLocation,
     required TResult Function(_ChangeLatLong value) changeLatLong,
     required TResult Function(_GetAddressOfDealler value) getAddressOfDealler,
+    required TResult Function(_SetMapPoints value) setMapPoints,
   }) {
     return changeLatLong(this);
   }
@@ -1037,6 +1071,7 @@ class _$_ChangeLatLong implements _ChangeLatLong {
     TResult? Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult? Function(_ChangeLatLong value)? changeLatLong,
     TResult? Function(_GetAddressOfDealler value)? getAddressOfDealler,
+    TResult? Function(_SetMapPoints value)? setMapPoints,
   }) {
     return changeLatLong?.call(this);
   }
@@ -1050,6 +1085,7 @@ class _$_ChangeLatLong implements _ChangeLatLong {
     TResult Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult Function(_ChangeLatLong value)? changeLatLong,
     TResult Function(_GetAddressOfDealler value)? getAddressOfDealler,
+    TResult Function(_SetMapPoints value)? setMapPoints,
     required TResult orElse(),
   }) {
     if (changeLatLong != null) {
@@ -1170,6 +1206,7 @@ class _$_GetAddressOfDealler implements _GetAddressOfDealler {
         changeLatLong,
     required TResult Function(double lat, double long, MapEntity? currentDealer)
         getAddressOfDealler,
+    required TResult Function(List<DealerCardModel> list) setMapPoints,
   }) {
     return getAddressOfDealler(lat, long, currentDealer);
   }
@@ -1188,6 +1225,7 @@ class _$_GetAddressOfDealler implements _GetAddressOfDealler {
     TResult? Function(double lat, double long, int? radius)? changeLatLong,
     TResult? Function(double lat, double long, MapEntity? currentDealer)?
         getAddressOfDealler,
+    TResult? Function(List<DealerCardModel> list)? setMapPoints,
   }) {
     return getAddressOfDealler?.call(lat, long, currentDealer);
   }
@@ -1206,6 +1244,7 @@ class _$_GetAddressOfDealler implements _GetAddressOfDealler {
     TResult Function(double lat, double long, int? radius)? changeLatLong,
     TResult Function(double lat, double long, MapEntity? currentDealer)?
         getAddressOfDealler,
+    TResult Function(List<DealerCardModel> list)? setMapPoints,
     required TResult orElse(),
   }) {
     if (getAddressOfDealler != null) {
@@ -1223,6 +1262,7 @@ class _$_GetAddressOfDealler implements _GetAddressOfDealler {
     required TResult Function(_GetCurrentLocation value) getCurrentLocation,
     required TResult Function(_ChangeLatLong value) changeLatLong,
     required TResult Function(_GetAddressOfDealler value) getAddressOfDealler,
+    required TResult Function(_SetMapPoints value) setMapPoints,
   }) {
     return getAddressOfDealler(this);
   }
@@ -1236,6 +1276,7 @@ class _$_GetAddressOfDealler implements _GetAddressOfDealler {
     TResult? Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult? Function(_ChangeLatLong value)? changeLatLong,
     TResult? Function(_GetAddressOfDealler value)? getAddressOfDealler,
+    TResult? Function(_SetMapPoints value)? setMapPoints,
   }) {
     return getAddressOfDealler?.call(this);
   }
@@ -1249,6 +1290,7 @@ class _$_GetAddressOfDealler implements _GetAddressOfDealler {
     TResult Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult Function(_ChangeLatLong value)? changeLatLong,
     TResult Function(_GetAddressOfDealler value)? getAddressOfDealler,
+    TResult Function(_SetMapPoints value)? setMapPoints,
     required TResult orElse(),
   }) {
     if (getAddressOfDealler != null) {
@@ -1269,6 +1311,194 @@ abstract class _GetAddressOfDealler implements MapOrganizationEvent {
   MapEntity? get currentDealer;
   @JsonKey(ignore: true)
   _$$_GetAddressOfDeallerCopyWith<_$_GetAddressOfDealler> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_SetMapPointsCopyWith<$Res> {
+  factory _$$_SetMapPointsCopyWith(
+          _$_SetMapPoints value, $Res Function(_$_SetMapPoints) then) =
+      __$$_SetMapPointsCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<DealerCardModel> list});
+}
+
+/// @nodoc
+class __$$_SetMapPointsCopyWithImpl<$Res>
+    extends _$MapOrganizationEventCopyWithImpl<$Res, _$_SetMapPoints>
+    implements _$$_SetMapPointsCopyWith<$Res> {
+  __$$_SetMapPointsCopyWithImpl(
+      _$_SetMapPoints _value, $Res Function(_$_SetMapPoints) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? list = null,
+  }) {
+    return _then(_$_SetMapPoints(
+      list: null == list
+          ? _value._list
+          : list // ignore: cast_nullable_to_non_nullable
+              as List<DealerCardModel>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_SetMapPoints implements _SetMapPoints {
+  _$_SetMapPoints({final List<DealerCardModel> list = const []}) : _list = list;
+
+  final List<DealerCardModel> _list;
+  @override
+  @JsonKey()
+  List<DealerCardModel> get list {
+    if (_list is EqualUnmodifiableListView) return _list;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_list);
+  }
+
+  @override
+  String toString() {
+    return 'MapOrganizationEvent.setMapPoints(list: $list)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SetMapPoints &&
+            const DeepCollectionEquality().equals(other._list, _list));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_list));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_SetMapPointsCopyWith<_$_SetMapPoints> get copyWith =>
+      __$$_SetMapPointsCopyWithImpl<_$_SetMapPoints>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            double? latitude, double? longitude, double? radius)
+        getDealers,
+    required TResult Function(
+            double? latitude, double? longitude, double? radius)
+        getDirectoriesPoints,
+    required TResult Function(int radius) changeRadius,
+    required TResult Function(
+            ValueChanged<String> onError, ValueChanged<Position> onSuccess)
+        getCurrentLocation,
+    required TResult Function(double lat, double long, int? radius)
+        changeLatLong,
+    required TResult Function(double lat, double long, MapEntity? currentDealer)
+        getAddressOfDealler,
+    required TResult Function(List<DealerCardModel> list) setMapPoints,
+  }) {
+    return setMapPoints(list);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(double? latitude, double? longitude, double? radius)?
+        getDealers,
+    TResult? Function(double? latitude, double? longitude, double? radius)?
+        getDirectoriesPoints,
+    TResult? Function(int radius)? changeRadius,
+    TResult? Function(
+            ValueChanged<String> onError, ValueChanged<Position> onSuccess)?
+        getCurrentLocation,
+    TResult? Function(double lat, double long, int? radius)? changeLatLong,
+    TResult? Function(double lat, double long, MapEntity? currentDealer)?
+        getAddressOfDealler,
+    TResult? Function(List<DealerCardModel> list)? setMapPoints,
+  }) {
+    return setMapPoints?.call(list);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(double? latitude, double? longitude, double? radius)?
+        getDealers,
+    TResult Function(double? latitude, double? longitude, double? radius)?
+        getDirectoriesPoints,
+    TResult Function(int radius)? changeRadius,
+    TResult Function(
+            ValueChanged<String> onError, ValueChanged<Position> onSuccess)?
+        getCurrentLocation,
+    TResult Function(double lat, double long, int? radius)? changeLatLong,
+    TResult Function(double lat, double long, MapEntity? currentDealer)?
+        getAddressOfDealler,
+    TResult Function(List<DealerCardModel> list)? setMapPoints,
+    required TResult orElse(),
+  }) {
+    if (setMapPoints != null) {
+      return setMapPoints(list);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetDealers value) getDealers,
+    required TResult Function(_GetDirectoriesPoints value) getDirectoriesPoints,
+    required TResult Function(_ChangeRadius value) changeRadius,
+    required TResult Function(_GetCurrentLocation value) getCurrentLocation,
+    required TResult Function(_ChangeLatLong value) changeLatLong,
+    required TResult Function(_GetAddressOfDealler value) getAddressOfDealler,
+    required TResult Function(_SetMapPoints value) setMapPoints,
+  }) {
+    return setMapPoints(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetDealers value)? getDealers,
+    TResult? Function(_GetDirectoriesPoints value)? getDirectoriesPoints,
+    TResult? Function(_ChangeRadius value)? changeRadius,
+    TResult? Function(_GetCurrentLocation value)? getCurrentLocation,
+    TResult? Function(_ChangeLatLong value)? changeLatLong,
+    TResult? Function(_GetAddressOfDealler value)? getAddressOfDealler,
+    TResult? Function(_SetMapPoints value)? setMapPoints,
+  }) {
+    return setMapPoints?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetDealers value)? getDealers,
+    TResult Function(_GetDirectoriesPoints value)? getDirectoriesPoints,
+    TResult Function(_ChangeRadius value)? changeRadius,
+    TResult Function(_GetCurrentLocation value)? getCurrentLocation,
+    TResult Function(_ChangeLatLong value)? changeLatLong,
+    TResult Function(_GetAddressOfDealler value)? getAddressOfDealler,
+    TResult Function(_SetMapPoints value)? setMapPoints,
+    required TResult orElse(),
+  }) {
+    if (setMapPoints != null) {
+      return setMapPoints(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SetMapPoints implements MapOrganizationEvent {
+  factory _SetMapPoints({final List<DealerCardModel> list}) = _$_SetMapPoints;
+
+  List<DealerCardModel> get list;
+  @JsonKey(ignore: true)
+  _$$_SetMapPointsCopyWith<_$_SetMapPoints> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

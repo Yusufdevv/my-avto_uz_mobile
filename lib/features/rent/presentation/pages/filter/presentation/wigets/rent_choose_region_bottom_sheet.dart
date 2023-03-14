@@ -127,8 +127,7 @@ class _RentChooseRegionBottomSheetState
               disabledColor: disabledButton,
               isDisabled: checkStatus.isEmpty,
               onTap: () {
-                Navigator.of(context)
-                    .pop(checkStatus.entries.map((e) => e.value).toList());
+                Navigator.of(context).pop(checkStatus.entries.map((e) => e.value).toList());
               },
               color: orange,
               text: LocaleKeys.apply.tr(),

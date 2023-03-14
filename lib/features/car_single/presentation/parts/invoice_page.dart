@@ -15,6 +15,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class InvoicePage extends StatefulWidget {
@@ -26,7 +27,7 @@ class InvoicePage extends StatefulWidget {
 }
 
 // ignore: prefer_mixin
-class _InvoicePageState extends State<InvoicePage>{
+class _InvoicePageState extends State<InvoicePage> {
   int value = 1;
   int groupValue = 1;
   late InvoiceBloc bloc;
@@ -34,11 +35,31 @@ class _InvoicePageState extends State<InvoicePage>{
   @override
   void initState() {
     super.initState();
-    bloc = InvoiceBloc()..add(GetTarifsEvent());
+    bloc = InvoiceBloc()
+      ..add(GetTarifsEvent());
+  }
+
+  int tariffDurationStringToInt(String tariff) {
+    switch (tariff) {
+      case 'fifteen_days':
+        return 15;
+      case 'seven_days':
+        return 7;
+      case 'thirty_days':
+        return 30;
+      default:
+        return 0;
+    }
+  }
+  String getTariffDuration(String tariff){
+    final dateNow = DateTime.now();
+    final days = tariffDurationStringToInt(tariff);
+    return Jiffy(dateNow.add(Duration(days: days))).format('dd.MM.yyyy');
   }
 
   @override
-  Widget build(BuildContext context) => BlocProvider.value(
+  Widget build(BuildContext context) =>
+      BlocProvider.value(
         value: bloc,
         child: Scaffold(
           backgroundColor: white,
@@ -55,7 +76,7 @@ class _InvoicePageState extends State<InvoicePage>{
               if (state.status.isSubmissionSuccess) {
                 return Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: Column(
                     children: [
                       Expanded(
@@ -65,7 +86,10 @@ class _InvoicePageState extends State<InvoicePage>{
                             children: [
                               Text(
                                 'Продлить obyavleniya',
-                                style: Theme.of(context).textTheme.displayLarge,
+                                style: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .displayLarge,
                               ),
                               const SizedBox(height: 16),
                               ...List.generate(state.tarifs.length, (index) {
@@ -76,7 +100,7 @@ class _InvoicePageState extends State<InvoicePage>{
                                     id: item.id ?? -1,
                                     type: item.type ?? '',
                                     amount: item.amount ?? '',
-                                    date: '18.11.2022',
+                                    date: getTariffDuration(item.type ?? 'seven_days'),
                                   ),
                                 );
                               }),
@@ -90,7 +114,8 @@ class _InvoicePageState extends State<InvoicePage>{
                         children: [
                           Text(
                             LocaleKeys.payment_method.tr(),
-                            style: Theme.of(context)
+                            style: Theme
+                                .of(context)
                                 .textTheme
                                 .displayMedium!
                                 .copyWith(fontSize: 14),
@@ -111,7 +136,7 @@ class _InvoicePageState extends State<InvoicePage>{
                                     value: 1,
                                     groupValue: value,
                                     color:
-                                        value == 1 ? lavanda : borderCircular,
+                                    value == 1 ? lavanda : borderCircular,
                                     iconPath: AppIcons.payme,
                                     borderColor: value == 1 ? purple : border,
                                   ),
@@ -129,7 +154,7 @@ class _InvoicePageState extends State<InvoicePage>{
                                     },
                                     value: 2,
                                     color:
-                                        value == 2 ? lavanda : borderCircular,
+                                    value == 2 ? lavanda : borderCircular,
                                     groupValue: value,
                                     iconPath: AppIcons.kpay,
                                     borderColor: value == 2 ? purple : border,
@@ -182,7 +207,10 @@ class _InvoicePageState extends State<InvoicePage>{
                             },
                           ),
                           SizedBox(
-                            height: MediaQuery.of(context).padding.bottom,
+                            height: MediaQuery
+                                .of(context)
+                                .padding
+                                .bottom,
                           )
                         ],
                       ),

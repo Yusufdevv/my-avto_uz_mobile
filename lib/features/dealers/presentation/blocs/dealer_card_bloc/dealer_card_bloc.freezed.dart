@@ -18,8 +18,13 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$DealerCardEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isRefresh, String search, int? mark,
-            String? regionId, String? carType)
+    required TResult Function(
+            bool isRefresh,
+            String search,
+            ValueChanged<List<DealerCardEntity>> onSuccess,
+            int? mark,
+            String? regionId,
+            String? carType)
         getResults,
     required TResult Function(String? regions, String? maker, String? carType)
         getFilterParams,
@@ -30,8 +35,13 @@ mixin _$DealerCardEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isRefresh, String search, int? mark,
-            String? regionId, String? carType)?
+    TResult? Function(
+            bool isRefresh,
+            String search,
+            ValueChanged<List<DealerCardEntity>> onSuccess,
+            int? mark,
+            String? regionId,
+            String? carType)?
         getResults,
     TResult? Function(String? regions, String? maker, String? carType)?
         getFilterParams,
@@ -42,7 +52,12 @@ mixin _$DealerCardEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isRefresh, String search, int? mark, String? regionId,
+    TResult Function(
+            bool isRefresh,
+            String search,
+            ValueChanged<List<DealerCardEntity>> onSuccess,
+            int? mark,
+            String? regionId,
             String? carType)?
         getResults,
     TResult Function(String? regions, String? maker, String? carType)?
@@ -110,6 +125,7 @@ abstract class _$$_GetResultsCopyWith<$Res> {
   $Res call(
       {bool isRefresh,
       String search,
+      ValueChanged<List<DealerCardEntity>> onSuccess,
       int? mark,
       String? regionId,
       String? carType});
@@ -128,6 +144,7 @@ class __$$_GetResultsCopyWithImpl<$Res>
   $Res call({
     Object? isRefresh = null,
     Object? search = null,
+    Object? onSuccess = null,
     Object? mark = freezed,
     Object? regionId = freezed,
     Object? carType = freezed,
@@ -141,6 +158,10 @@ class __$$_GetResultsCopyWithImpl<$Res>
           ? _value.search
           : search // ignore: cast_nullable_to_non_nullable
               as String,
+      onSuccess: null == onSuccess
+          ? _value.onSuccess
+          : onSuccess // ignore: cast_nullable_to_non_nullable
+              as ValueChanged<List<DealerCardEntity>>,
       mark: freezed == mark
           ? _value.mark
           : mark // ignore: cast_nullable_to_non_nullable
@@ -163,6 +184,7 @@ class _$_GetResults implements _GetResults {
   _$_GetResults(
       {required this.isRefresh,
       required this.search,
+      required this.onSuccess,
       this.mark,
       this.regionId,
       this.carType});
@@ -172,6 +194,8 @@ class _$_GetResults implements _GetResults {
   @override
   final String search;
   @override
+  final ValueChanged<List<DealerCardEntity>> onSuccess;
+  @override
   final int? mark;
   @override
   final String? regionId;
@@ -180,7 +204,7 @@ class _$_GetResults implements _GetResults {
 
   @override
   String toString() {
-    return 'DealerCardEvent.getResults(isRefresh: $isRefresh, search: $search, mark: $mark, regionId: $regionId, carType: $carType)';
+    return 'DealerCardEvent.getResults(isRefresh: $isRefresh, search: $search, onSuccess: $onSuccess, mark: $mark, regionId: $regionId, carType: $carType)';
   }
 
   @override
@@ -191,6 +215,8 @@ class _$_GetResults implements _GetResults {
             (identical(other.isRefresh, isRefresh) ||
                 other.isRefresh == isRefresh) &&
             (identical(other.search, search) || other.search == search) &&
+            (identical(other.onSuccess, onSuccess) ||
+                other.onSuccess == onSuccess) &&
             (identical(other.mark, mark) || other.mark == mark) &&
             (identical(other.regionId, regionId) ||
                 other.regionId == regionId) &&
@@ -198,8 +224,8 @@ class _$_GetResults implements _GetResults {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, isRefresh, search, mark, regionId, carType);
+  int get hashCode => Object.hash(
+      runtimeType, isRefresh, search, onSuccess, mark, regionId, carType);
 
   @JsonKey(ignore: true)
   @override
@@ -210,8 +236,13 @@ class _$_GetResults implements _GetResults {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isRefresh, String search, int? mark,
-            String? regionId, String? carType)
+    required TResult Function(
+            bool isRefresh,
+            String search,
+            ValueChanged<List<DealerCardEntity>> onSuccess,
+            int? mark,
+            String? regionId,
+            String? carType)
         getResults,
     required TResult Function(String? regions, String? maker, String? carType)
         getFilterParams,
@@ -219,14 +250,19 @@ class _$_GetResults implements _GetResults {
     required TResult Function() getMoreResults,
     required TResult Function(int id) watchContact,
   }) {
-    return getResults(isRefresh, search, mark, regionId, carType);
+    return getResults(isRefresh, search, onSuccess, mark, regionId, carType);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isRefresh, String search, int? mark,
-            String? regionId, String? carType)?
+    TResult? Function(
+            bool isRefresh,
+            String search,
+            ValueChanged<List<DealerCardEntity>> onSuccess,
+            int? mark,
+            String? regionId,
+            String? carType)?
         getResults,
     TResult? Function(String? regions, String? maker, String? carType)?
         getFilterParams,
@@ -234,13 +270,19 @@ class _$_GetResults implements _GetResults {
     TResult? Function()? getMoreResults,
     TResult? Function(int id)? watchContact,
   }) {
-    return getResults?.call(isRefresh, search, mark, regionId, carType);
+    return getResults?.call(
+        isRefresh, search, onSuccess, mark, regionId, carType);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isRefresh, String search, int? mark, String? regionId,
+    TResult Function(
+            bool isRefresh,
+            String search,
+            ValueChanged<List<DealerCardEntity>> onSuccess,
+            int? mark,
+            String? regionId,
             String? carType)?
         getResults,
     TResult Function(String? regions, String? maker, String? carType)?
@@ -251,7 +293,7 @@ class _$_GetResults implements _GetResults {
     required TResult orElse(),
   }) {
     if (getResults != null) {
-      return getResults(isRefresh, search, mark, regionId, carType);
+      return getResults(isRefresh, search, onSuccess, mark, regionId, carType);
     }
     return orElse();
   }
@@ -301,12 +343,14 @@ abstract class _GetResults implements DealerCardEvent {
   factory _GetResults(
       {required final bool isRefresh,
       required final String search,
+      required final ValueChanged<List<DealerCardEntity>> onSuccess,
       final int? mark,
       final String? regionId,
       final String? carType}) = _$_GetResults;
 
   bool get isRefresh;
   String get search;
+  ValueChanged<List<DealerCardEntity>> get onSuccess;
   int? get mark;
   String? get regionId;
   String? get carType;
@@ -395,8 +439,13 @@ class _$_GetFilterParams implements _GetFilterParams {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isRefresh, String search, int? mark,
-            String? regionId, String? carType)
+    required TResult Function(
+            bool isRefresh,
+            String search,
+            ValueChanged<List<DealerCardEntity>> onSuccess,
+            int? mark,
+            String? regionId,
+            String? carType)
         getResults,
     required TResult Function(String? regions, String? maker, String? carType)
         getFilterParams,
@@ -410,8 +459,13 @@ class _$_GetFilterParams implements _GetFilterParams {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isRefresh, String search, int? mark,
-            String? regionId, String? carType)?
+    TResult? Function(
+            bool isRefresh,
+            String search,
+            ValueChanged<List<DealerCardEntity>> onSuccess,
+            int? mark,
+            String? regionId,
+            String? carType)?
         getResults,
     TResult? Function(String? regions, String? maker, String? carType)?
         getFilterParams,
@@ -425,7 +479,12 @@ class _$_GetFilterParams implements _GetFilterParams {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isRefresh, String search, int? mark, String? regionId,
+    TResult Function(
+            bool isRefresh,
+            String search,
+            ValueChanged<List<DealerCardEntity>> onSuccess,
+            int? mark,
+            String? regionId,
             String? carType)?
         getResults,
     TResult Function(String? regions, String? maker, String? carType)?
@@ -560,8 +619,13 @@ class _$_ChangeTabIndex implements _ChangeTabIndex {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isRefresh, String search, int? mark,
-            String? regionId, String? carType)
+    required TResult Function(
+            bool isRefresh,
+            String search,
+            ValueChanged<List<DealerCardEntity>> onSuccess,
+            int? mark,
+            String? regionId,
+            String? carType)
         getResults,
     required TResult Function(String? regions, String? maker, String? carType)
         getFilterParams,
@@ -575,8 +639,13 @@ class _$_ChangeTabIndex implements _ChangeTabIndex {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isRefresh, String search, int? mark,
-            String? regionId, String? carType)?
+    TResult? Function(
+            bool isRefresh,
+            String search,
+            ValueChanged<List<DealerCardEntity>> onSuccess,
+            int? mark,
+            String? regionId,
+            String? carType)?
         getResults,
     TResult? Function(String? regions, String? maker, String? carType)?
         getFilterParams,
@@ -590,7 +659,12 @@ class _$_ChangeTabIndex implements _ChangeTabIndex {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isRefresh, String search, int? mark, String? regionId,
+    TResult Function(
+            bool isRefresh,
+            String search,
+            ValueChanged<List<DealerCardEntity>> onSuccess,
+            int? mark,
+            String? regionId,
             String? carType)?
         getResults,
     TResult Function(String? regions, String? maker, String? carType)?
@@ -694,8 +768,13 @@ class _$_GetMoreResults implements _GetMoreResults {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isRefresh, String search, int? mark,
-            String? regionId, String? carType)
+    required TResult Function(
+            bool isRefresh,
+            String search,
+            ValueChanged<List<DealerCardEntity>> onSuccess,
+            int? mark,
+            String? regionId,
+            String? carType)
         getResults,
     required TResult Function(String? regions, String? maker, String? carType)
         getFilterParams,
@@ -709,8 +788,13 @@ class _$_GetMoreResults implements _GetMoreResults {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isRefresh, String search, int? mark,
-            String? regionId, String? carType)?
+    TResult? Function(
+            bool isRefresh,
+            String search,
+            ValueChanged<List<DealerCardEntity>> onSuccess,
+            int? mark,
+            String? regionId,
+            String? carType)?
         getResults,
     TResult? Function(String? regions, String? maker, String? carType)?
         getFilterParams,
@@ -724,7 +808,12 @@ class _$_GetMoreResults implements _GetMoreResults {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isRefresh, String search, int? mark, String? regionId,
+    TResult Function(
+            bool isRefresh,
+            String search,
+            ValueChanged<List<DealerCardEntity>> onSuccess,
+            int? mark,
+            String? regionId,
             String? carType)?
         getResults,
     TResult Function(String? regions, String? maker, String? carType)?
@@ -849,8 +938,13 @@ class _$_WatchContact implements _WatchContact {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isRefresh, String search, int? mark,
-            String? regionId, String? carType)
+    required TResult Function(
+            bool isRefresh,
+            String search,
+            ValueChanged<List<DealerCardEntity>> onSuccess,
+            int? mark,
+            String? regionId,
+            String? carType)
         getResults,
     required TResult Function(String? regions, String? maker, String? carType)
         getFilterParams,
@@ -864,8 +958,13 @@ class _$_WatchContact implements _WatchContact {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isRefresh, String search, int? mark,
-            String? regionId, String? carType)?
+    TResult? Function(
+            bool isRefresh,
+            String search,
+            ValueChanged<List<DealerCardEntity>> onSuccess,
+            int? mark,
+            String? regionId,
+            String? carType)?
         getResults,
     TResult? Function(String? regions, String? maker, String? carType)?
         getFilterParams,
@@ -879,7 +978,12 @@ class _$_WatchContact implements _WatchContact {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isRefresh, String search, int? mark, String? regionId,
+    TResult Function(
+            bool isRefresh,
+            String search,
+            ValueChanged<List<DealerCardEntity>> onSuccess,
+            int? mark,
+            String? regionId,
             String? carType)?
         getResults,
     TResult Function(String? regions, String? maker, String? carType)?

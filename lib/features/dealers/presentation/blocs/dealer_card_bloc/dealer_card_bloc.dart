@@ -3,6 +3,7 @@ import 'package:auto/features/dealers/domain/usecases/dealer_single_watch_contac
 import 'package:auto/features/dealers/domain/usecases/dealer_usecase.dart';
 import 'package:auto/features/rent/presentation/bloc/rent_list_bloc/rent_list_bloc.dart';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
