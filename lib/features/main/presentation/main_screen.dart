@@ -218,11 +218,11 @@ class _MainScreenState extends State<MainScreen> {
                             Navigator.of(context, rootNavigator: true)
                                 .push(fade(
                                     page: AdsScreen(
-                              makeId: makeId,
                               modelId: modelId,
-                              makeName: makeName,
+
                               modelName: modelName,
-                              makeLogo: makeLogo,
+                              // feko  have to giv makeEntity instead of makeLogo, makeName, makeId
+                              // makeLogo: makeLogo,
                               historySaved: false,
                             )));
                           } else {
@@ -241,11 +241,11 @@ class _MainScreenState extends State<MainScreen> {
                       onTapShow: () {
                         Navigator.of(context, rootNavigator: true).push(fade(
                             page: AdsScreen(
-                          makeId: state.makeId,
                           modelId: state.modelId,
-                          makeName: state.makeName,
+
                           modelName: state.modelName,
-                          makeLogo: state.makeLogo,
+                          // feko  have to giv makeEntity instead of makeLogo, makeName, makeId
+                          // makeLogo: makeLogo,
                           historySaved: state.historySaved,
                         )));
                       },
@@ -268,12 +268,13 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                     TopBrands(
                       onTap: (selectedMake) {
-                        Navigator.of(context, rootNavigator: true).push(fade(
+                        Navigator.of(context, rootNavigator: true).push(
+                          fade(
                             page: AdsScreen(
-                          makeId: selectedMake.id,
-                          makeName: selectedMake.name,
-                          makeLogo: selectedMake.logo,
-                        )));
+                              make: selectedMake,
+                            ),
+                          ),
+                        );
                       },
                     ),
                     const TopAds(),

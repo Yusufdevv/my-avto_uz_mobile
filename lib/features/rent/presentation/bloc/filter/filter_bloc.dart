@@ -22,57 +22,63 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
   final BodyTypeEntity? bodyType;
   final DriveTypeEntity? carDriveType;
   final GearboxTypeEntity? gearboxType;
-  final bool isCheck;
-  final RangeValues? yearValues;
-  final RangeValues? priceValues;
+  final bool isCheckk;
+  final bool isRentWithPurchase;
+  final RangeValues yearValues;
+  final RangeValues priceValues;
   final Currency currency;
   GetMinMaxPriceYearUseCase minMaxPriceYearUseCase =
       GetMinMaxPriceYearUseCase();
 
   FilterBloc({
     required this.currency,
+    required this.yearValues,
+    required this.priceValues,
+    this.isRentWithPurchase = false,
     this.regions,
     this.maker,
     this.bodyType,
     this.carDriveType,
     this.gearboxType,
-    this.yearValues,
-    this.priceValues,
-    this.isCheck = false,
-  }) : super(FilterState(
-          bodyType: bodyType?.id == -1 ? null : bodyType,
-          carDriveType: carDriveType?.id == -1 ? null : carDriveType,
-          gearboxType: gearboxType?.id == -1 ? null : gearboxType,
-          maker: maker,
-          regions: regions ?? <RegionEntity>[],
-          yearValues: RangeValues(
-              yearValues != null && yearValues.start > 0
-                  ? yearValues.start
-                  : 1970,
-              yearValues != null && yearValues.end > 0
-                  ? yearValues.end
-                  : DateTime.now().year + 0),
-          priceValues: priceValues ?? const RangeValues(1000, 500000),
-          isCheck: isCheck,
-          currency: currency,
-          priceStart: priceValues?.start,
-          priceEnd: priceValues?.end,
-        )) {
-    on<FilterClearEvent>((event, emit) => emit(FilterState(
-          isCheck: false,
-          regions: const [],
-          yearValues:
-              event.yearValues ?? RangeValues(1970, DateTime.now().year + 0),
-          priceValues: event.priceValues ?? const RangeValues(1000, 500000),
-          priceStart: priceValues?.start,
-          priceEnd: priceValues?.end,
-          currency: Currency.none,
-          bodyType: null,
-          carDriveType: null,
-          gearboxType: null,
-        )));
+    this.isCheckk = false,
+  }) : super(
+          FilterState(
+            minYearValue: yearValues.start,
+            maxYearValue: yearValues.end,
+            minPriceValue: priceValues.start,
+            maxPriceValue: priceValues.end,
+            saleType: isRentWithPurchase
+                ? SaleType.saleWithPurchase
+                : SaleType.directSale,
+            bodyType: bodyType?.id == -1 ? null : bodyType,
+            carDriveType: carDriveType?.id == -1 ? null : carDriveType,
+            gearboxType: gearboxType?.id == -1 ? null : gearboxType,
+            maker: maker,
+            regions: regions ?? <RegionEntity>[],
+            yearValues: yearValues,
+            priceValues: priceValues,
+            currency: currency,
+          ),
+        ) {
+    on<FilterClearEvent>((event, emit) {
+      emit(FilterState(
+        isRentWithPurchase: false,
+        regions: const [],
+        yearValues: yearValues,
+        priceValues: priceValues,
+        minYearValue: priceValues.start,
+        maxPriceValue: priceValues.end,
+        maxYearValue: yearValues.end,
+        minPriceValue: yearValues.start,
+        currency: Currency.usd,
+        bodyType: null,
+        carDriveType: null,
+        gearboxType: null,
+      ));
+    });
     on<FilterSelectEvent>((event, emit) async {
       emit(state.copyWith(
+        isRentWithPurchase: event.saleType == SaleType.saleWithPurchase,
         saleType: event.saleType,
         currency: event.currency,
         bodyType: event.bodyType,
@@ -82,10 +88,10 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
         priceValues: event.priceValues,
         yearValues: event.yearValues,
         regions: event.regions,
-        isCheck: true,
       ));
     });
     on<FilterChangeCurrencyEvent>((event, emit) async {
+      if (currency == Currency.none) return;
       final result = await minMaxPriceYearUseCase.call(event.currency.value);
       RangeValues? priceValues;
       RangeValues? yearValues;
@@ -95,14 +101,15 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
         yearValues = RangeValues(
             result.right.minYear.toDouble(), result.right.maxYear.toDouble());
       }
+
       emit(state.copyWith(
         priceValues: priceValues,
-        priceStart: priceValues?.start,
-        priceEnd: priceValues?.end,
+        minPriceValue: priceValues?.start,
+        maxPriceValue: priceValues?.end,
         currency: event.currency,
         yearValues: yearValues,
-        yearEnd: yearValues?.end,
-        yearStart: yearValues?.start,
+        maxYearValue: yearValues?.end,
+        minYearValue: yearValues?.start,
       ));
     });
   }

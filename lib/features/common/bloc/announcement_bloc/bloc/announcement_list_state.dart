@@ -17,16 +17,16 @@ class AnnouncementListState extends Equatable {
   final GearboxTypeEntity? gearboxType;
   final BodyTypeEntity? bodyType;
   final DriveTypeEntity? driveType;
-  final int? makeIdd;
+  final MakeEntity? make;
   final int? modelId;
-  final String? makeName;
   final String? modelName;
-  final String? makeLogo;
   final bool? isNew;
+  final bool  isRentWithPurchase;
   final FormzStatus saveFilterStatus;
   final CrossFadeState crossFadeState;
 
   const AnnouncementListState({
+    this.isRentWithPurchase = false,
     this.status = FormzStatus.pure,
     this.next = false,
     this.historyId,
@@ -43,11 +43,9 @@ class AnnouncementListState extends Equatable {
     this.gearboxType,
     this.bodyType,
     this.driveType,
-    this.makeIdd,
+    this.make,
     this.modelId,
-    this.makeName,
     this.modelName,
-    this.makeLogo,
     this.isNew,
     this.saveFilterStatus = FormzStatus.pure,
     this.crossFadeState = CrossFadeState.showFirst,
@@ -56,6 +54,7 @@ class AnnouncementListState extends Equatable {
   AnnouncementListState copyWith({
     FormzStatus? status,
     bool? next,
+    bool? isRentWithPurchase,
     int? historyId,
     int? count,
     List<RegionEntity>? regions,
@@ -70,16 +69,15 @@ class AnnouncementListState extends Equatable {
     GearboxTypeEntity? gearboxType,
     BodyTypeEntity? bodyType,
     DriveTypeEntity? driveType,
-    int? makeId,
+    MakeEntity? make,
     int? modelId,
-    String? makeName,
     String? modelName,
-    String? makeLogo,
     bool? isNew,
     FormzStatus? saveFilterStatus,
     CrossFadeState? crossFadeState,
   }) =>
       AnnouncementListState(
+        isRentWithPurchase: isRentWithPurchase ?? this.isRentWithPurchase,
         status: status ?? this.status,
         next: next ?? this.next,
         historyId: historyId ?? this.historyId,
@@ -95,11 +93,9 @@ class AnnouncementListState extends Equatable {
         gearboxType: gearboxType ?? this.gearboxType,
         bodyType: bodyType ?? this.bodyType,
         driveType: driveType ?? this.driveType,
-        makeIdd: makeId ?? this.makeIdd,
+        make: make ?? this.make,
         modelId: modelId ?? this.modelId,
-        makeName: makeName ?? this.makeName,
         modelName: modelName ?? this.modelName,
-        makeLogo: makeLogo ?? this.makeLogo,
         isNew: isNew ?? this.isNew,
         saveFilterStatus: saveFilterStatus ?? this.saveFilterStatus,
         crossFadeState: crossFadeState ?? this.crossFadeState,
@@ -108,6 +104,7 @@ class AnnouncementListState extends Equatable {
 
   @override
   List<Object?> get props => [
+        isRentWithPurchase,
         status,
         next,
         count,
@@ -122,11 +119,9 @@ class AnnouncementListState extends Equatable {
         gearboxType,
         bodyType,
         driveType,
-        makeIdd,
+        make,
         modelId,
-        makeName,
         modelName,
-        makeLogo,
         isNew,
         saveFilterStatus,
         crossFadeState,

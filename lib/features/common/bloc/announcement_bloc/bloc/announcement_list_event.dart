@@ -5,6 +5,13 @@ part of 'announcement_list_bloc.dart';
 abstract class AnnouncementListEvent {
   const AnnouncementListEvent();
 }
+class AnnouncementListChooseEvent extends AnnouncementListEvent {
+
+
+
+  AnnouncementListChooseEvent( );
+}
+
 
 class GetAnnouncementList extends AnnouncementListEvent {
   final bool? isNew;
@@ -45,9 +52,12 @@ class SetFilter extends AnnouncementListEvent {
   final RangeValues? priceValues;
   final bool? isFilter;
   final bool? historySaved;
+  final bool? isRentWithPurchase;
   final bool? isNew;
   final int? historyId;
+
   const SetFilter({
+    this.isRentWithPurchase,
     this.currency,
     this.historyId,
     this.gearboxType,
@@ -78,20 +88,16 @@ class ChangeSaveFilterStatus extends AnnouncementListEvent {
 }
 
 class SetMakeModel extends AnnouncementListEvent {
-  final int? makeId;
+  final MakeEntity make;
   final int? modelId;
-  final String? makeName;
   final String? modelName;
-  final String? makeLogo;
   final bool? isNew;
   final bool? historySaved;
 
   const SetMakeModel({
-    this.makeId,
+    required this.make,
     this.modelId,
-    this.makeName,
     this.modelName,
-    this.makeLogo,
     this.isNew,
     this.historySaved,
   });

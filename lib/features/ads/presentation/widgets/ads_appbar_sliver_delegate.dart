@@ -39,22 +39,13 @@ class AdsAppBarTitle extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    if (context.read<AnnouncementListBloc>().state.makeName!=null)
-                      Text(
-                        '${context.read<AnnouncementListBloc>().state.makeName ?? ''}  ${context.read<AnnouncementListBloc>().state.modelName ?? ''}',
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayLarge!
-                            .copyWith(fontSize: 16),
-                      )
-                    else
-                      Text(
-                        LocaleKeys.choose_brand_model.tr(),
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayLarge!
-                            .copyWith(fontSize: 16),
-                      ),
+                    Text(
+                      '${context.read<AnnouncementListBloc>().state.make?.name ?? LocaleKeys.choose_brand_model.tr()}  ${context.read<AnnouncementListBloc>().state.modelName ?? ''}',
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayLarge!
+                          .copyWith(fontSize: 16),
+                    ),
                   ],
                 ),
               ),
