@@ -2,7 +2,9 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/car_single/domain/entities/owner_action.dart';
 import 'package:auto/features/car_single/presentation/bloc/car_single_bloc.dart';
-import 'package:auto/features/car_single/presentation/parts/invoice_page.dart';
+import 'package:auto/features/car_single/presentation/parts/extends_ads_payment_page_.dart';
+import 'package:auto/features/car_single/presentation/parts/send_to_top_page.dart';
+import 'package:auto/features/car_single/presentation/parts/service_vip_page.dart';
 import 'package:auto/features/car_single/presentation/widgets/owner_action_box.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
@@ -16,7 +18,6 @@ class OwnerActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-
         margin: const EdgeInsets.symmetric(horizontal: 16),
         child: Container(
           // color:Colors.teal,
@@ -26,7 +27,15 @@ class OwnerActions extends StatelessWidget {
             children: [
               Expanded(
                 child: WScaleAnimation(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context, rootNavigator: true).push(fade(
+                        page: ServiceVipPage(
+                            announcementId: context
+                                .read<CarSingleBloc>()
+                                .state
+                                .singleEntity
+                                .id)));
+                  },
                   child: OwnerActionBox(
                       color: accentYellow,
                       entity: OwnerActionEntity(
@@ -39,7 +48,7 @@ class OwnerActions extends StatelessWidget {
                 child: WScaleAnimation(
                   onTap: () {
                     Navigator.of(context, rootNavigator: true).push(fade(
-                        page: InvoicePage(
+                        page: ExtendsAdsPaymentPage(
                             announcementId: context
                                 .read<CarSingleBloc>()
                                 .state
@@ -49,14 +58,22 @@ class OwnerActions extends StatelessWidget {
                   child: OwnerActionBox(
                       color: accentGreen,
                       entity: OwnerActionEntity(
-                          title: LocaleKeys.extends_for_7.tr(),
+                          title: LocaleKeys.extends_for_day.tr(args: ['7']),
                           icon: AppIcons.refresher)),
                 ),
               ),
               const SizedBox(width: 8),
               Expanded(
                 child: WScaleAnimation(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context, rootNavigator: true).push(fade(
+                        page: ServiceTopPage(
+                            announcementId: context
+                                .read<CarSingleBloc>()
+                                .state
+                                .singleEntity
+                                .id)));
+                  },
                   child: OwnerActionBox(
                       color: accentRed,
                       entity: OwnerActionEntity(
@@ -69,7 +86,15 @@ class OwnerActions extends StatelessWidget {
               ),
               Expanded(
                 child: WScaleAnimation(
-                  onTap: () {},
+                  onTap: () {
+                    // Navigator.of(context, rootNavigator: true).push(fade(
+                    //     page: ServiceTopPage(
+                    //         announcementId: context
+                    //             .read<CarSingleBloc>()
+                    //             .state
+                    //             .singleEntity
+                    //             .id)));
+                  },
                   child: OwnerActionBox(
                       color: const Color(0xffDFEFFF),
                       entity: OwnerActionEntity(

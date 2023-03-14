@@ -5,11 +5,13 @@ class TarifModel extends TarifEntity {
     required super.id,
     required super.amount,
     required super.type,
+    required super.typeInt,
   });
 
   factory TarifModel.fromJson(Map<String, dynamic> json) => TarifModel(
-    id: json['id'] as int? ?? -1,
-    type: json['type'] as String? ?? '',
-    amount: json['amount'] as String? ?? '',
+    id: json['id'],
+    type: json['type'],
+    amount: json['amount'],
+    typeInt: json['type_int'],
   );
 }

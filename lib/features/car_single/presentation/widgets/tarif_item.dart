@@ -27,11 +27,11 @@ class TarifItem extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(
-                top: 12, right: 12, bottom: 6, left: 12),
+                top: 10, right: 12, bottom: 12, left: 12),
             child: Row(
               children: [
                 Text(
-                  type,
+                  LocaleKeys.extends_for_day.tr(args: [type]),
                   style: Theme
                       .of(context)
                       .textTheme
@@ -49,15 +49,15 @@ class TarifItem extends StatelessWidget {
               ],
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.only(right: 12, left: 12, bottom: 12),
-            child: Divider(
-              color: dividerColor,
-            ),
+         const Divider(
+            color: dividerColor,
+            height: 1,
+            endIndent: 12,
+            indent: 12,
           ),
           Padding(
             padding: const EdgeInsets.only(
-                right: 12, bottom: 12, left: 12),
+                right: 12, bottom: 6, left: 12, top: 10),
             child: Row(
               children: [
                 Text(
@@ -111,7 +111,7 @@ class TarifItem extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(
-                right: 12, bottom: 12, left: 12),
+                right: 12, bottom: 12, top: 6, left: 12),
             child: Row(
               children: [
                 Text(

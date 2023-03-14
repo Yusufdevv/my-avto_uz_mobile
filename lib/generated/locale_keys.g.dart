@@ -398,7 +398,7 @@ abstract class  LocaleKeys {
   static const code_confimer = 'code_confimer';
   static const how_many_ads = 'how_many_ads';
   static const day = 'day';
-  static const extends_for_7 = 'extends_for_7';
+  static const extends_ads = 'extends_ads';
   static const confirmation = 'confirmation';
   static const returner = 'returner';
   static const rent_periodic = 'rent_periodic';
@@ -583,5 +583,10 @@ abstract class  LocaleKeys {
   static const your_application_has_been_rejected = 'your_application_has_been_rejected';
   static const try_to_resubmit_the_application = 'try_to_resubmit_the_application';
   static const wait_for_moderation_confirmation = 'wait_for_moderation_confirmation';
+  static const i_this_service_when_ = 'i_this_service_when_';
+  static const extends_for_day = 'extends_for_day';
+  static const top = 'top';
+  static const reels = 'reels';
+  static const add_to_ways = 'add_to_ways';
 
 }

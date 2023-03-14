@@ -40,7 +40,7 @@ class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
       emit(state.copyWith(
         payStatus: FormzStatus.submissionInProgress,
         announcementId: event.announcement,
-        provider: state.provider,
+        provider: event.provider,
         selectedTarif: event.tariffType,
         transactionStatus: TransactionStatus.waiting,
       ));

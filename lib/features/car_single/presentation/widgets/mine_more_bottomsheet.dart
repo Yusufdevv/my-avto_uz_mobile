@@ -1,7 +1,9 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/singletons/storage.dart';
-import 'package:auto/features/car_single/presentation/parts/invoice_page.dart';
+import 'package:auto/features/car_single/presentation/parts/extends_ads_payment_page_.dart';
+import 'package:auto/features/car_single/presentation/parts/send_to_top_page.dart';
+import 'package:auto/features/car_single/presentation/parts/service_vip_page.dart';
 import 'package:auto/features/car_single/presentation/widgets/more_action_item.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
@@ -158,11 +160,11 @@ class MineMoreBottomSheet extends StatelessWidget {
             ),
             MoreActionItem(
               icon: AppIcons.refresh,
-              text: LocaleKeys.extends_for_7.tr(),
+              text: LocaleKeys.extends_for_day.tr(args: ['7']),
               color: const Color(0xffF0FAF6),
               onTap: () {
                 Navigator.of(context, rootNavigator: true)
-                    .push(fade(page:   InvoicePage(announcementId: id)));
+                    .push(fade(page:   ExtendsAdsPaymentPage(announcementId: id)));
               },
               borderColor: const Color(0xff5ECC81).withOpacity(0.12),
             ),
@@ -170,14 +172,20 @@ class MineMoreBottomSheet extends StatelessWidget {
               icon: AppIcons.crown,
               text: LocaleKeys.become_vip_for_3_days.tr(),
               color: const Color(0xffFFF6E1),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context, rootNavigator: true).push(fade(
+                    page: ServiceVipPage(announcementId:id)));
+              },
               borderColor: const Color(0xffFFC137).withOpacity(0.12),
             ),
             MoreActionItem(
               icon: AppIcons.rocket,
               text: LocaleKeys.send_to_top.tr(),
               color: const Color(0xffFFECE7),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context, rootNavigator: true).push(fade(
+                    page: ServiceTopPage(announcementId:id)));
+              },
               borderColor: const Color(0xffF63C07).withOpacity(0.12),
             ),
             MoreActionItem(
@@ -185,7 +193,10 @@ class MineMoreBottomSheet extends StatelessWidget {
               text: LocaleKeys.in_hot_one_line.tr(),
               color: const Color(0xffDFEFFF),
               borderColor: const Color(0xff4D88C8).withOpacity(0.12),
-              onTap: () {},
+              onTap: () {
+                // Navigator.of(context, rootNavigator: true).push(fade(
+                //     page: ServiceVipPage(announcementId:id)));
+              },
             ),
             MoreActionItem(
               icon: AppIcons.redMapIcon,

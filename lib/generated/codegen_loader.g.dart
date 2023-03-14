@@ -412,7 +412,7 @@ class CodegenLoader extends AssetLoader{
   "code_confimer": "Код подтверждения",
   "how_many_ads": "{} объявлени{appendix}",
   "day": "дней",
-  "extends_for_7": "Продлить на 7 дней",
+  "extends_ads": "Продлить",
   "confirmation": "Подтверждение",
   "returner": "Возврат",
   "rent_periodic": "Период аренды",
@@ -596,7 +596,12 @@ class CodegenLoader extends AssetLoader{
   "your_application_has_been_accepted": "Выша заявка принята!",
   "your_application_has_been_rejected": "Выша заявка отклонена!",
   "try_to_resubmit_the_application": "Попробуйте повторно отправить заявку ",
-  "wait_for_moderation_confirmation": "Ждите подтверждения модерации"
+  "wait_for_moderation_confirmation": "Ждите подтверждения модерации",
+  "i_this_service_when_": "В этой услуге при продлении объявлении, объявления продлиться на:",
+  "extends_for_day": "Продлить на {} дней",
+  "top": "ТОП",
+  "reels": "Рильз",
+  "add_to_ways": "Добавить в полоса"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -985,7 +990,7 @@ static const Map<String,dynamic> uz = {
   "code_confimer": "Tasdiqlash kodi",
   "how_many_ads": "{} ta e'lonlar",
   "day": "kun",
-  "extends_for_7": "7 kunga uzaytirish",
+  "extends_ads": "Uzaytirish",
   "confirmation": "Tasdiqlash",
   "returner": "Qaytarish",
   "rent_periodic": "Ijara muddati",
@@ -1179,7 +1184,12 @@ static const Map<String,dynamic> uz = {
   "your_application_has_been_accepted": "Sizni arizangiz qabul qilindi!",
   "your_application_has_been_rejected": "Sizni arizangiz rad etildi!",
   "try_to_resubmit_the_application": "Arizani qaytadan yuborishga harakat qiling",
-  "wait_for_moderation_confirmation": "Moderatsiya tasdig'ini kuting"
+  "wait_for_moderation_confirmation": "Moderatsiya tasdig'ini kuting",
+  "i_this_service_when_": "Ushbu xizmatda e'lon yangilanganda e'lon quyidagi muddatga davom etadi:",
+  "extends_for_day": "{} kunga uzaytirish",
+  "top": "ТОП",
+  "reels": "Рильз",
+  "add_to_ways": "Добавить в полоса"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }

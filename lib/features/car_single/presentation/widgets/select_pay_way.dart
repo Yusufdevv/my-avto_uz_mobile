@@ -28,7 +28,7 @@ class SelectPaymentItem extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           height: 48,
-          width: 22,
+          width: (MediaQuery.of(context).size.width-32-8)/2,
           decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.circular(8),
