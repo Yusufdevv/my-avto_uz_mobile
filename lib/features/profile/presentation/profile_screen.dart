@@ -94,7 +94,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 var usercountData = profileData.usercountdata;
                 return SingleChildScrollView(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Column(
                       children: [
                         ProfileDataWidget(
@@ -112,9 +112,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         usercountData.announcementsCount)
                                   }),
                             imageUrl: profileData.image ?? '',
-                            margin: EdgeInsets.only(
-                                top: 16,
-                                bottom:  12 )),
+                            margin: const EdgeInsets.only(top: 16, bottom: 12)),
                         // izbrannoe va sravnenie
                         ProfilItemsBox(widgets: [
                           ProfileMenuTile(
@@ -136,7 +134,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ]),
 
                         // moi obnovleniya
-                        ProfilItemsBox(marginTop:  12 , widgets: [
+                        ProfilItemsBox(marginTop: 12, widgets: [
                           ProfileMenuTile(
                               name: LocaleKeys.my_ads.tr(),
                               onTap: () {
@@ -217,7 +215,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ]),
                         //
                         ProfilItemsBox(
-                            marginBottom:  20,
+                            marginBottom: 20,
                             marginTop: 12,
                             widgets: [
                               ProfileMenuTile(
