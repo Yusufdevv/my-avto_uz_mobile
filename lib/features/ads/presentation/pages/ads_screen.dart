@@ -178,8 +178,11 @@ class _AdsScreenState extends State<AdsScreen>
                           onTap: () {
                             filterBottomSheet(
                               context,
-                              onChanged: (value) => announcementListBloc
-                                  .add(SetSort(sortResult: value)),
+                              onChanged: (value) {
+                                print('value:$value');
+                                announcementListBloc
+                                    .add(SetSort(sortResult: value));
+                              },
                               sortingValue: state.sortStatus,
                             );
                           },

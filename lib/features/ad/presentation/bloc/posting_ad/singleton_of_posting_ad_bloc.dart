@@ -7,6 +7,7 @@ class PASingleton {
   PASingleton._();
 
   static Future<FormData> create(PostingAdState v) async {
+    log('::::::::::  CREATE SINGLETON TRIGGERED:   ::::::::::');
     // ignore: prefer_final_locals
     var announcementFields = <String, dynamic>{
       'longitude': v.long,
@@ -50,14 +51,18 @@ class PASingleton {
       'is_new': v.isWithoutMileage,
       'is_rent_with_purchase':
           v.rentWithPurchaseConditions.isNotEmpty && (v.rentToBuy ?? false),
-      // 'rent_with_purchase': v.rentWithPurchaseConditions.entries
-      //     .map((e) => e.value.toApi())
-      //     .toList(),
-
-      'equipment': v.equipment?.id,
-      'gas_equipment': v.gasEquipmentId,
     };
 
+    log('::::::::::  EQUIPMENT INITIALIZING:   ::::::::::');
+    if (v.equipment != null && v.equipment?.id != -1) {
+      announcementFields['equipment'] = v.equipment?.id;
+    }
+    log(':::::::::: GAS EQUIPMENT INITILIZING:   ::::::::::');
+    if (v.gasEquipmentId != -1) {
+      announcementFields['gas_equipment'] = v.gasEquipmentId;
+    }
+
+    log(':::::::::: MILAGE IMAGE INITIALIZING:   ::::::::::');
     if (v.milageImage != null && v.milageImage!.isNotEmpty) {
       final milageImage = await MultipartFile.fromFile(v.milageImage!);
       final List<MultipartFile> list = [milageImage];
@@ -65,11 +70,14 @@ class PASingleton {
           .addEntries(list.map((e) => MapEntry('mileage_image', e)));
     }
 
+    log(':::::::::: DAMAGED PARTS PART INITILIZING   ::::::::::');
     var i = -1;
     announcementFields.addEntries(v.damagedParts.entries.map((e) {
       i++;
       return MapEntry('damaged_parts[$i]part', e.key.value);
     }));
+
+    log(':::::::::: DAMAGED PARTS TYPE INITILIZING   ::::::::::');
     i = -1;
     announcementFields.addEntries(v.damagedParts.entries.map((e) {
       i++;
@@ -78,11 +86,13 @@ class PASingleton {
 
     var images = <MultipartFile>[];
 
+    log(':::::::::: GALLERY INITILIZING   ::::::::::');
     for (final element in [...v.gallery, ...v.panaramaGallery]) {
       final multiParFile = await MultipartFile.fromFile(element);
       images.add(multiParFile);
     }
     i = -1;
+
     announcementFields.addEntries(images.map((e) {
       i++;
       return MapEntry('gallery[$i]', e);
@@ -104,10 +114,8 @@ class PASingleton {
       i++;
       return MapEntry('option_items[$i]', e.value.id);
     }));
-    // 'prepayment': prepayment,
-    // 'rental_period': rentalPeriod,
-    // 'monthly_payment': monthlyPayment,
 
+    log(':::::::::: RENT WITH PURCHASE INITILIZINIG  ::::::::::');
     i = -1;
     announcementFields.addEntries(v.rentWithPurchaseConditions.entries.map((e) {
       i++;

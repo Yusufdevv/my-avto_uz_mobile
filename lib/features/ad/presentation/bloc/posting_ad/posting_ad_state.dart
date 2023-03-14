@@ -169,7 +169,6 @@ class PostingAdState extends Equatable {
     this.equipmentOptionsList = const [],
   });
 
-
   PostingAdState copyWith({
     TextEditingController? phoneController,
     TextEditingController? emailController,
@@ -437,14 +436,6 @@ class PostingAdState extends Equatable {
   }
 
   bool buttonStatus(int page) => PASingleton.nextButtonIsDisabled(page, this);
-
-  RegionEntity? get getSelectedRegion {
-    try {
-      return regions.firstWhere((e) => e.id == region?.id);
-    } catch (e) {
-      return null;
-    }
-  }
 }
 
 class SO extends Equatable {

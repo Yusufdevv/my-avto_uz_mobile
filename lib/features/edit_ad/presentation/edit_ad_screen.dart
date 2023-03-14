@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
-
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/pages/contact/contact_screen.dart';
@@ -351,7 +349,11 @@ class _EditAdScreenState extends State<EditAdScreen>
                                 hidePopUp();
                                 Navigator.push(
                                   context,
-                                  fade(page: const MapScreenPostingAd()),
+                                  fade(
+                                      page: MapScreenPostingAd(
+                                    initialLat: state.lat ?? 0,
+                                    initialLong: state.long ?? 0,
+                                  )),
                                 ).then(
                                   (latLongZoom) {
                                     hidePopUp();

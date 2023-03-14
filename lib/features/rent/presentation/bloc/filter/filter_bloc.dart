@@ -48,7 +48,7 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
           yearValues: RangeValues(
               yearValues != null && yearValues.start > 0
                   ? yearValues.start
-                  : 1960,
+                  : 1970,
               yearValues != null && yearValues.end > 0
                   ? yearValues.end
                   : DateTime.now().year + 0),
@@ -62,7 +62,7 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
           isCheck: false,
           regions: const [],
           yearValues:
-              event.yearValues ?? RangeValues(1960, DateTime.now().year + 0),
+              event.yearValues ?? RangeValues(1970, DateTime.now().year + 0),
           priceValues: event.priceValues ?? const RangeValues(1000, 500000),
           priceStart: priceValues?.start,
           priceEnd: priceValues?.end,

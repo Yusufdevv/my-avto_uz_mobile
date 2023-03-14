@@ -25,7 +25,8 @@ import 'package:shimmer/shimmer.dart';
 class InspectionPlaceScreen extends StatefulWidget {
   final VoidCallback onToMapPressed;
 
-  const InspectionPlaceScreen({required this.onToMapPressed, Key? key}) : super(key: key);
+  const InspectionPlaceScreen({required this.onToMapPressed, Key? key})
+      : super(key: key);
 
   @override
   State<InspectionPlaceScreen> createState() => _InspectionPlaceScreenState();
@@ -47,16 +48,15 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: BlocBuilder<PostingAdBloc, PostingAdState>(
-              builder: (context, state) {
-                print('state: ${state.getSelectedRegion}');
-                return SingleChildScrollView(
+              builder: (context, state) => SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // CHOOSE REGION
                     LoaderBox(
                       isActive: state.region != null,
-                      isLoading: state.status == FormzStatus.submissionInProgress,
+                      isLoading:
+                          state.status == FormzStatus.submissionInProgress,
                       onTap: () async {
                         await showModalBottomSheet<List<RegionEntity>>(
                           isDismissible: false,
@@ -65,31 +65,36 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                           backgroundColor: Colors.transparent,
                           builder: (c) => RentChooseRegionBottomSheet(
                             isMultiChoice: false,
-                            checkedRegions:
-                                state.getSelectedRegion != null ? {0: state.getSelectedRegion!} : <int, RegionEntity>{},
+                            checkedRegions: state.region != null
+                                ? {0: state.region!}
+                                : <int, RegionEntity>{},
                             list: state.regions,
                           ),
                         ).then((value) {
                           if (value != null && value.isNotEmpty) {
-                            context.read<PostingAdBloc>().add(PostingAdChooseEvent(
-                                regionId: RegionEntity(id: value[0].id, title: value[0].title, soato: value[0].soato)));
+                            context
+                                .read<PostingAdBloc>()
+                                .add(PostingAdChooseEvent(regionId: value[0]));
                           }
                         });
                       },
-                      hintText: state.getSelectedRegion?.title ?? LocaleKeys.choose_region.tr(),
+                      hintText: state.region?.title ??
+                          LocaleKeys.choose_region.tr(),
                       title: LocaleKeys.area.tr(),
                     ),
                     const SizedBox(height: 16),
 
                     // CHOOSE DISTRICT
                     LoaderBox(
-                      isActive: state.district != null && state.district?.id != -1,
-                      isLoading: state.getDistrictsStatus == FormzStatus.submissionInProgress,
+                      isActive: state.district != null,
+                      isLoading: state.getDistrictsStatus ==
+                          FormzStatus.submissionInProgress,
                       onTap: () async {
                         if (state.districts.isEmpty) {
                           context.read<ShowPopUpBloc>().add(
                                 ShowPopUp(
-                                  message: LocaleKeys.the_before_choose_region.tr(),
+                                  message:
+                                      LocaleKeys.the_before_choose_region.tr(),
                                   status: PopStatus.warning,
                                 ),
                               );
@@ -106,14 +111,18 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                           ),
                         ).then((value) {
                           if (value != null) {
-                            context.read<PostingAdBloc>().add(PostingAdChooseEvent(
+                            context
+                                .read<PostingAdBloc>()
+                                .add(PostingAdChooseEvent(
                                   districtId: value,
                                 ));
                           }
                         });
                       },
-                      hintText: state.district != null && (state.district?.id ?? -1) > -1 ? state.district!.title : LocaleKeys.choose_area.tr(),
-                      title: '${LocaleKeys.area.tr()} / ${LocaleKeys.city.tr().toLowerCase()}',
+                      hintText:
+                          state.district?.title ?? LocaleKeys.choose_area.tr(),
+                      title:
+                          '${LocaleKeys.area.tr()} / ${LocaleKeys.city.tr().toLowerCase()}',
                     ),
 
                     const SizedBox(height: 17),
@@ -164,15 +173,16 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                       value: state.showExactAddress,
                       onChanged: (v) {
                         if (!v) {
-                          context.read<PostingAdBloc>().add(PostingAdChooseEvent(showExactAddress: v));
+                          context
+                              .read<PostingAdBloc>()
+                              .add(PostingAdChooseEvent(showExactAddress: v));
                         }
                       },
                     ),
                     const SizedBox(height: 70),
                   ],
                 ),
-              );
-              },
+              ),
             ),
           ),
         ),

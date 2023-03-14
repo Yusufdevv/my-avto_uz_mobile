@@ -1,6 +1,8 @@
 part of 'edit_ad_bloc.dart';
 
 class EditAdState extends Equatable {
+  final double? lat;
+  final double? long;
   final PopStatus popStatus;
   final FormzStatus status;
   final FormzStatus getDistrictsStatus;
@@ -76,6 +78,8 @@ class EditAdState extends Equatable {
     this.lastEquipmentId,
     this.radioOptions = const <int, String>{},
     this.selectOptions = const <int, SO>{},
+    this.long,
+    this.lat,
     this.id,
     this.minimumPrice = 0,
     this.modification,
@@ -129,6 +133,8 @@ class EditAdState extends Equatable {
   });
 
   EditAdState copyWith({
+    double? lat,
+    double? long,
     GlobalKey<FormState>? contactsFormKey,
     List<EquipmentOptionsEntity>? equipmentOptions,
     bool isEquipmentToNull = false,
@@ -197,6 +203,8 @@ class EditAdState extends Equatable {
     List<EquipmentOptionsListEntity>? equipmentOptionsList,
   }) =>
       EditAdState(
+        lat: lat ?? this.lat,
+        long: long ?? this.long,
         colors: colors ?? this.colors,
         contactsFormKey: contactsFormKey ?? this.contactsFormKey,
         lastEquipmentId: lastEquipmentId ?? this.lastEquipmentId,
@@ -264,7 +272,9 @@ class EditAdState extends Equatable {
 
   @override
   List<Object?> get props => [
-    colors,
+        lat,
+        long,
+        colors,
         lastEquipmentId,
         radioOptions,
         selectOptions,
