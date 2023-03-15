@@ -3,7 +3,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/car_single/presentation/bloc/invoice_bloc/invoice_bloc.dart';
-import 'package:auto/features/car_single/presentation/parts/invoice_in_progress.dart';
+import 'package:auto/features/car_single/presentation/parts/payments/invoice_in_progress.dart';
 import 'package:auto/features/car_single/presentation/parts/invoice_tarif_item.dart';
 import 'package:auto/features/car_single/presentation/widgets/select_pay_way.dart';
 import 'package:auto/features/car_single/presentation/widgets/tarif_item.dart';
@@ -18,17 +18,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ServiceReelsPage extends StatefulWidget {
-  const ServiceReelsPage({required this.announcementId, Key? key})
+class ServiceAddToWayPage extends StatefulWidget {
+  const ServiceAddToWayPage({required this.announcementId, Key? key})
       : super(key: key);
   final int announcementId;
 
   @override
-  State<ServiceReelsPage> createState() => _ServiceReelsPageState();
+  State<ServiceAddToWayPage> createState() => _ServiceAddToWayPageState();
 }
 
 // ignore: prefer_mixin
-class _ServiceReelsPageState extends State<ServiceReelsPage> {
+class _ServiceAddToWayPageState extends State<ServiceAddToWayPage> {
   final ValueNotifier<int> tarifValue = ValueNotifier<int>(0);
   final ValueNotifier<int> paymentValue = ValueNotifier<int>(0);
   late InvoiceBloc bloc;
@@ -73,7 +73,7 @@ class _ServiceReelsPageState extends State<ServiceReelsPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          LocaleKeys.reels.tr(),
+                          LocaleKeys.add_to_ways.tr(),
                           style: Theme.of(context).textTheme.displayLarge,
                         ),
                         const SizedBox(height: 8),
@@ -122,8 +122,8 @@ class _ServiceReelsPageState extends State<ServiceReelsPage> {
                               final item = state.tarifs.firstWhere(
                                       (e) => e.id == tarifValue.value);
                               return TarifItem(
-                                  amount: item.amount.toString(),
-                                  type: LocaleKeys.reels_for_eternity.tr(),
+                                  amount: LocaleKeys.vip_for_day.tr(args: [item.amount.toString()]),
+                                  type: item.typeInt.toString(),
                                   id: item.id,
                                   date: '');
                             }),

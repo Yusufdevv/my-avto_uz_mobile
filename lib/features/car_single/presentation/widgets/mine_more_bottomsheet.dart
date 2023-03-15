@@ -1,9 +1,9 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/singletons/storage.dart';
-import 'package:auto/features/car_single/presentation/parts/service_extends_ads_page_.dart';
-import 'package:auto/features/car_single/presentation/parts/service_top_page.dart';
-import 'package:auto/features/car_single/presentation/parts/service_vip_page.dart';
+import 'package:auto/features/car_single/presentation/parts/payments/service_extends_ads_page_.dart';
+import 'package:auto/features/car_single/presentation/parts/payments/service_top_page.dart';
+import 'package:auto/features/car_single/presentation/parts/payments/service_vip_page.dart';
 import 'package:auto/features/car_single/presentation/widgets/more_action_item.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';

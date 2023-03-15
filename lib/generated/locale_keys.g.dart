@@ -591,5 +591,6 @@ abstract class  LocaleKeys {
   static const top = 'top';
   static const reels = 'reels';
   static const add_to_ways = 'add_to_ways';
+  static const video = 'video';
 
 }

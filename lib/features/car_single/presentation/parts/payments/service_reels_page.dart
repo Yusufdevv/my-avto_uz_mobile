@@ -2,41 +2,44 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/features/car_single/presentation/bloc/invoice_bloc/invoice_bloc.dart';
-import 'package:auto/features/car_single/presentation/parts/invoice_in_progress.dart';
-import 'package:auto/features/car_single/presentation/parts/invoice_tarif_item.dart';
+import 'package:auto/features/car_single/presentation/bloc/reels_service_bloc/reels_service_bloc.dart';
+import 'package:auto/features/car_single/presentation/parts/payments/invoice_in_progress.dart';
+import 'package:auto/features/car_single/presentation/widgets/img_video_radioBtn_item.dart';
+import 'package:auto/features/car_single/presentation/widgets/reels_photos.dart';
 import 'package:auto/features/car_single/presentation/widgets/select_pay_way.dart';
-import 'package:auto/features/car_single/presentation/widgets/tarif_item.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/profile/presentation/widgets/camera_bottom_sheet.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ServiceExtendsAdsPage extends StatefulWidget {
-  const ServiceExtendsAdsPage({required this.announcementId, Key? key}) : super(key: key);
+class ServiceReelsPage extends StatefulWidget {
+  const ServiceReelsPage({required this.announcementId, Key? key})
+      : super(key: key);
   final int announcementId;
 
   @override
-  State<ServiceExtendsAdsPage> createState() => _ServiceExtendsAdsPageState();
+  State<ServiceReelsPage> createState() => _ServiceReelsPageState();
 }
 
 // ignore: prefer_mixin
-class _ServiceExtendsAdsPageState extends State<ServiceExtendsAdsPage> {
-  final ValueNotifier<int> tarifValue = ValueNotifier<int>(0);
+class _ServiceReelsPageState extends State<ServiceReelsPage> {
+  final ValueNotifier<int> tarifValue = ValueNotifier<int>(1);
   final ValueNotifier<int> paymentValue = ValueNotifier<int>(0);
-  late InvoiceBloc bloc;
+  late ReelsServiceBloc bloc;
   String provider = '';
 
   @override
   void initState() {
     super.initState();
-    bloc = InvoiceBloc()..add(GetTarifsEvent());
+    bloc = ReelsServiceBloc()..add(GetReelsTarifsEvent());
   }
 
   Map<String, String> iconPathProvider = {
@@ -56,7 +59,7 @@ class _ServiceExtendsAdsPageState extends State<ServiceExtendsAdsPage> {
             hasBackButton: true,
             title: LocaleKeys.service.tr(),
           ),
-          body: BlocBuilder<InvoiceBloc, InvoiceState>(
+          body: BlocBuilder<ReelsServiceBloc, ReelsServiceState>(
             builder: (context, state) {
               if (state.status.isSubmissionInProgress) {
                 return const Center(child: CupertinoActivityIndicator());
@@ -72,12 +75,12 @@ class _ServiceExtendsAdsPageState extends State<ServiceExtendsAdsPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              LocaleKeys.extends_ads.tr(),
+                              LocaleKeys.reels.tr(),
                               style: Theme.of(context).textTheme.displayLarge,
                             ),
                             const SizedBox(height: 8),
                             Text(
-                              LocaleKeys.i_this_service_when_.tr(),
+                              'В услуге Рильз вы можете загрузить несколько изображений или же один видео',
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium
@@ -85,48 +88,69 @@ class _ServiceExtendsAdsPageState extends State<ServiceExtendsAdsPage> {
                                       color: LightThemeColors.darkGreyToWhite),
                             ),
                             const SizedBox(height: 16),
-                            ...List.generate(state.tarifs.length, (index) {
-                              final item = state.tarifs[index];
-                              if (index == 0) {
-                                tarifValue.value = item.id;
-                              }
-                              return Padding(
-                                padding: const EdgeInsets.only(bottom: 12),
-                                child: ValueListenableBuilder<int>(
-                                    valueListenable: tarifValue,
-                                    builder: (context, value, child) =>
-                                        InvoiceTarifItem(
-                                          tarifDay: item.typeInt.toString(),
-                                          amount: item.amount.toString(),
-                                          dayColor: tarifValue.value == item.id
-                                              ? null
-                                              : greyText,
-                                          value: item.id,
-                                          color: tarifValue.value == item.id
-                                              ? lavanda
-                                              : white,
-                                          groupValue: tarifValue.value,
-                                          onTap: (val) {
-                                            tarifValue.value = val;
-                                          },
-                                        )),
-                              );
-                            }),
-                            const SizedBox(height: 4),
-                            const Divider(height: 1),
-                            const SizedBox(height: 16),
                             ValueListenableBuilder<int>(
                                 valueListenable: tarifValue,
-                                builder: (context, value, child) {
-                                  final item = state.tarifs.firstWhere(
-                                      (e) => e.id == tarifValue.value);
-                                  return TarifItem(
-                                      amount: item.amount.toString(),
-                                      type: LocaleKeys.extends_for_day.tr(args: [item.typeInt.toString()]),
-                                      id: item.id,
-                                      date: '');
+                                builder: (context, value, child) => Row(
+                                      children: [
+                                        Expanded(
+                                          child: ImgVideoRadioBtnItem(
+                                              value: 1,
+                                              color: tarifValue.value == 1
+                                                  ? lavanda
+                                                  : white,
+                                              groupValue: tarifValue.value,
+                                              onTap: (val) {
+                                                tarifValue.value = val;
+                                              },
+                                              title: LocaleKeys.photo.tr()),
+                                        ),
+                                        const SizedBox(width: 12),
+                                        Expanded(
+                                          child: ImgVideoRadioBtnItem(
+                                              value: 2,
+                                              color: tarifValue.value == 2
+                                                  ? lavanda
+                                                  : white,
+                                              groupValue: tarifValue.value,
+                                              onTap: (val) {
+                                                tarifValue.value = val;
+                                              },
+                                              title: LocaleKeys.video.tr()),
+                                        ),
+                                      ],
+                                    )),
+                            const SizedBox(height: 16),
+
+                            ReelsPhotos(
+                                images: state.images,
+                                onTap: () async {
+                                  await showModalBottomSheet<ImageSource>(
+                                          backgroundColor: Colors.transparent,
+                                          context: context,
+                                          useRootNavigator: true,
+                                          builder: (context) =>
+                                              const CameraBottomSheet())
+                                      .then((value) {
+                                    if (value != null) {
+                                      bloc.add(PickImagesEvent(source: value));
+                                    }
+                                  });
                                 }),
                             const SizedBox(height: 16),
+                            const Divider(height: 1),
+                            const SizedBox(height: 16),
+                            // ValueListenableBuilder<int>(
+                            //     valueListenable: tarifValue,
+                            //     builder: (context, value, child) {
+                            //       final item = state.tarifs.firstWhere(
+                            //           (e) => e.id == tarifValue.value);
+                            //       return TarifItem(
+                            //           amount: item.amount.toString(),
+                            //           type: LocaleKeys.reels_for_eternity.tr(),
+                            //           id: item.id,
+                            //           date: '');
+                            //     }),
+                            // const SizedBox(height: 16),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -175,6 +199,7 @@ class _ServiceExtendsAdsPageState extends State<ServiceExtendsAdsPage> {
                       ),
                     ),
                     WButton(
+                      isDisabled: true,
                       isLoading: state.payStatus.isSubmissionInProgress,
                       text: LocaleKeys.confirm.tr(),
                       margin: const EdgeInsets.all(16).copyWith(
@@ -182,7 +207,7 @@ class _ServiceExtendsAdsPageState extends State<ServiceExtendsAdsPage> {
                       color: orange,
                       onTap: () async {
                         bloc.add(
-                          PayInvoiceEvent(
+                          PayReelsInvoiceEvent(
                             announcement: widget.announcementId,
                             provider: iconPathProvider.keys
                                 .toList()[paymentValue.value],

@@ -3,7 +3,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/car_single/presentation/bloc/invoice_bloc/invoice_bloc.dart';
-import 'package:auto/features/car_single/presentation/parts/invoice_in_progress.dart';
+import 'package:auto/features/car_single/presentation/parts/payments/invoice_in_progress.dart';
 import 'package:auto/features/car_single/presentation/parts/invoice_tarif_item.dart';
 import 'package:auto/features/car_single/presentation/widgets/select_pay_way.dart';
 import 'package:auto/features/car_single/presentation/widgets/tarif_item.dart';

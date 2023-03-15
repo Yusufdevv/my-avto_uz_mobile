@@ -604,7 +604,8 @@ class CodegenLoader extends AssetLoader{
   "vip_for_day": "VIP на {} дня",
   "top": "ТОП",
   "reels": "Рильз",
-  "add_to_ways": "Добавить в полоса"
+  "add_to_ways": "Добавить в полоса",
+  "video": "Видео"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -1195,7 +1196,8 @@ static const Map<String,dynamic> uz = {
   "vip_for_day": "{} kunga VIP",
   "top": "ТОП",
   "reels": "Рильз",
-  "add_to_ways": "Добавить в полоса"
+  "add_to_ways": "Добавить в полоса",
+  "video": "Video"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }

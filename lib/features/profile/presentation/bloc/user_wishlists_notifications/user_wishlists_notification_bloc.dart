@@ -48,6 +48,7 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
           moreFetchFavorites: false,
           moreFetchMySearches: false,
         )) {
+    ///
     on<GetUserFavoritesEvent>(_onGetUserFavorites);
     on<GetMoreUserFavoritesEvent>(_onGetMoreUserFavorites);
     on<GetUserMyAdsEvent>(_onGetUserMyAds);
