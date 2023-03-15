@@ -113,7 +113,7 @@ class EditAdChooseEvent extends EditAdEvent {
   final BodyTypeEntity? bodyType;
   final int? driveTypeId;
   final GearboxTypeEntity? gearbox;
-  final YearsEntity? yearEntity;
+  final int? selectedYear;
   final Uint8List? bodyBytes;
   final String? milageImage;
   final ColorEntity? color;
@@ -152,7 +152,7 @@ class EditAdChooseEvent extends EditAdEvent {
     this.searchController,
     this.panaramaGallery,
     this.bodyBytes,
-    this.yearEntity,
+    this.selectedYear,
     this.locationUrl,
     this.phoneController,
     this.emailController,

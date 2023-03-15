@@ -306,7 +306,7 @@ class AdRepositoryImpl extends AdRepository {
   }
 
   @override
-  Future<Either<Failure, GenericPagination<YearsEntity>>> getYears({
+  Future<Either<Failure, YearsEntity>> getYears({
     int? modelId,
     String? next,
   }) async {

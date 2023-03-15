@@ -134,10 +134,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdChangeOption>(_getChangeOption);
     on<PostingAdSelectEquipmentEvent>(_selectEquipment);
     on<PostingAdGetColorsEvent>(_getColors);
-    on<CancelLoadinEvent>(
-        (event, emit) {
-          emit(state.copyWith(createStatus: FormzStatus.pure));
-        });
+    on<CancelLoadinEvent>((event, emit) {
+      emit(state.copyWith(createStatus: FormzStatus.pure));
+    });
   }
 
   FutureOr<void> _getColors(
@@ -300,10 +299,10 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       emit(
         state.copyWith(
           status: FormzStatus.submissionSuccess,
-          years: result.right.results,
-          yearEntity:
-              result.right.results.isNotEmpty && state.yearEntity == null
-                  ? result.right.results.first
+          yearEntity: result.right,
+          selectedYear:
+              result.right.years.isNotEmpty && state.selectedYear == null
+                  ? result.right.years.first
                   : null,
         ),
       );
@@ -384,10 +383,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     if (result.isRight) {
       emit(
         state.copyWith(
-          getDistrictsStatus: FormzStatus.submissionSuccess,
-          districts: result.right.results,
-          district:  DistrictEntity()
-        ),
+            getDistrictsStatus: FormzStatus.submissionSuccess,
+            districts: result.right.results,
+            district: DistrictEntity()),
       );
     } else {
       emit(state.copyWith(
@@ -407,7 +405,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         state.copyWith(
           status: FormzStatus.submissionSuccess,
           regions: result.right,
-
           districts: <DistrictEntity>[],
         ),
       );
@@ -557,7 +554,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await generationUseCase.call(GenerationParams(
       modelId: state.model?.id,
-      year: state.yearEntity?.yearBegin,
+      year: state.selectedYear,
     ));
     if (result.isRight) {
       final generations = result.right.results;

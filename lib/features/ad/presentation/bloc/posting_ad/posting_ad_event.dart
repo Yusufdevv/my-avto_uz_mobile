@@ -1,12 +1,10 @@
 part of 'posting_ad_bloc.dart';
 
 abstract class PostingAdEvent {}
-class CancelLoadinEvent extends  PostingAdEvent{
 
-
-  CancelLoadinEvent( );
+class CancelLoadinEvent extends PostingAdEvent {
+  CancelLoadinEvent();
 }
-
 
 class PostingAdShowToastEvent extends PostingAdEvent {
   final String message;
@@ -132,7 +130,6 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final List<String>? gallery;
   final List<String>? panaramaGallery;
   final RegionEntity? regionId;
-  final List<YearsEntity>? years;
   final DistrictEntity? districtId;
 
   final Map<DamagedPart, DamageType>? damagedParts;
@@ -146,7 +143,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final BodyTypeEntity? bodyType;
   final int? driveTypeId;
   final GearboxTypeEntity? gearbox;
-  final YearsEntity? yearEntity;
+  final int? selectedYear;
   final Uint8List? bodyBytes;
   final String? milageImage;
   final String? letter;
@@ -186,7 +183,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
     this.searchController,
     this.panaramaGallery,
     this.bodyBytes,
-    this.yearEntity,
+    this.selectedYear,
     this.phoneController,
     this.emailController,
     this.nameController,
@@ -200,7 +197,6 @@ class PostingAdChooseEvent extends PostingAdEvent {
     this.driveTypeId,
     this.generationId,
     this.bodyType,
-    this.years,
     this.model,
     this.letter,
     this.make,

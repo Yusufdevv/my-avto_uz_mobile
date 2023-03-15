@@ -50,7 +50,7 @@ abstract class AdRemoteDataSource {
 
   Future<GenericPagination<MakeModel>> getCarModel(int makeId, {String? name});
 
-  Future<GenericPagination<YearsModel>> getYears({
+  Future<YearsModel> getYears({
     int? modelId,
     String? next,
   });
@@ -213,7 +213,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
   }
 
   @override
-  Future<GenericPagination<YearsModel>> getYears({
+  Future<YearsModel> getYears({
     int? modelId,
     String? next,
   }) async {
@@ -229,8 +229,8 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
       ),
     );
     if (response.statusCode! >= 200 && response.statusCode! < 300) {
-      return GenericPagination.fromJson(response.data,
-          (p0) => YearsModel.fromJson(p0 as Map<String, dynamic>));
+      log(':::::::::: GOTTEN YEARS DATA:  ${response.data}  ::::::::::');
+      return YearsModel.fromJson(response.data);
     } else {
       throw ServerException(
           statusCode: response.statusCode!, errorMessage: response.data);

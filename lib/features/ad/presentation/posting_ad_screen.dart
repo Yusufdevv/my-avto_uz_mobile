@@ -576,8 +576,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                       selectedRadioOptions: state.radioOptions,
                                       selectedSelectOptions:
                                           state.selectOptions,
-                                      year:
-                                          '${state.yearEntity?.yearBegin ?? ''}',
+                                      year: '${state.selectedYear ?? ''}',
                                     ),
                                   ],
                                 ),

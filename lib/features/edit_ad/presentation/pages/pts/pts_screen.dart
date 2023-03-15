@@ -127,7 +127,7 @@ class _PtsScreenState extends State<PtsScreen> {
                                         purchasedDate:
                                             '$date'.substring(0, 10)),
                                   ),
-                              DateTime(state.yearEntity!.yearBegin));
+                              DateTime(state.selectedYear ?? 1970));
                         },
                         titleStyle: state.purchasedDate != null &&
                                 state.purchasedDate!.isNotEmpty

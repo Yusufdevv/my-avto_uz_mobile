@@ -44,7 +44,7 @@ abstract class AdRepository {
   Future<Either<Failure, GenericPagination<MakeEntity>>> getCarModel(int makeId,
       {String? name});
 
-  Future<Either<Failure, GenericPagination<YearsEntity>>> getYears({
+  Future<Either<Failure, YearsEntity>> getYears({
     required int? modelId,
     String? next,
   });

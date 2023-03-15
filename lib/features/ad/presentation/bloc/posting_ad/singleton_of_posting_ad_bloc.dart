@@ -19,8 +19,8 @@ class PASingleton {
       'engine_type': v.engine?.id,
       'gearbox_type': v.gearbox?.id,
 
-      /// yearBegin is not true
-      'year': v.yearEntity?.yearBegin,
+
+      'year': v.selectedYear,
       'modification_type': v.modification?.id,
       'color': v.colorName?.id,
       'licence_type': v.licenceType,
@@ -200,8 +200,7 @@ class PASingleton {
         modification: event.modification,
         panaramaGallery: event.panaramaGallery,
         mapPointBytes: event.bodyBytes,
-        years: event.years,
-        yearEntity: event.yearEntity,
+        selectedYear: event.selectedYear,
         toastMessage: event.toastMessage,
         damagedParts: event.damagedParts,
         gallery: event.gallery,
@@ -334,7 +333,7 @@ class PASingleton {
         return state.model == null;
       // year
       case 2:
-        return state.yearEntity == null;
+        return state.selectedYear == null;
       // generation
       case 3:
         return state.generation == null;

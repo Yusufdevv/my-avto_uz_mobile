@@ -3,28 +3,21 @@ import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 class YearsEntity extends Equatable {
-  @JsonKey(name: 'id', defaultValue: 0)
   final int id;
-  @JsonKey(name: 'year_begin', defaultValue: 0)
-  final int yearBegin;
-  @JsonKey(name: 'year_end', defaultValue: 0)
-  final int yearEnd;
-  @JsonKey(name: 'model', defaultValue: 0)
-  final int modelId;
+  final List<int> years;
+  final int model;
 
   const YearsEntity({
     this.id = -1,
-    this.yearBegin = -1,
-    this.yearEnd = -1,
-    this.modelId = -1,
+    this.years = const <int>[],
+    this.model = -1,
   });
 
   @override
   List<Object?> get props => [
         id,
-        yearBegin,
-        yearEnd,
-        modelId,
+        years,
+        model,
       ];
 }
 

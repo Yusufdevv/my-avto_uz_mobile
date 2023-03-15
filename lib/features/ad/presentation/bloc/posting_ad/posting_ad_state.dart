@@ -35,8 +35,8 @@ class PostingAdState extends Equatable {
   final List<RegionEntity> regions;
   final List<DistrictEntity> districts;
 
+  final int? selectedYear;
   final YearsEntity? yearEntity;
-  final List<YearsEntity>? years;
   final DistrictEntity? district;
   final List<String> gallery;
   final List<String> panaramaGallery;
@@ -117,8 +117,8 @@ class PostingAdState extends Equatable {
     this.generations = const <GenerationEntity>[],
     this.bodyType,
     this.bodyTypes = const <BodyTypeEntity>[],
-    this.yearEntity,
-    this.years = const <YearsEntity>[],
+    this.selectedYear,
+    this.yearEntity = const YearsEntity(),
     this.gallery = const <String>[],
     this.panaramaGallery = const <String>[],
     this.rentWithPurchaseConditions = const <int, RentWithPurchaseEntity>{},
@@ -210,7 +210,7 @@ class PostingAdState extends Equatable {
     List<String>? gallery,
     List<String>? panaramaGallery,
     YearsEntity? yearEntity,
-    List<YearsEntity>? years,
+    int? selectedYear,
     UserModel? userModel,
     int? eventMakeScrrollIndex,
     num? minimumPrice,
@@ -276,7 +276,7 @@ class PostingAdState extends Equatable {
         createStatus: createStatus ?? this.createStatus,
         mapPointBytes: mapPointBytes ?? this.mapPointBytes,
         makeLetterIndex: eventMakeScrrollIndex,
-        yearEntity: yearEntity ?? this.yearEntity,
+        selectedYear: selectedYear ?? this.selectedYear,
         phoneController: phoneController ?? this.phoneController,
         emailController: emailController ?? this.emailController,
         nameController: nameController ?? this.nameController,
@@ -305,7 +305,7 @@ class PostingAdState extends Equatable {
         makes: makes ?? this.makes,
         status: status ?? this.status,
         bodyTypes: bodyTypes ?? this.bodyTypes,
-        years: years ?? this.years,
+        yearEntity: yearEntity ?? this.yearEntity,
         hasAppBarShadow: hasAppBarShadow ?? this.hasAppBarShadow,
         isSortByLetter: isSortByLetter,
         model: model ?? this.model,
@@ -397,8 +397,8 @@ class PostingAdState extends Equatable {
         make,
         letter,
         hasAppBarShadow,
-        years,
         yearEntity,
+        selectedYear,
         bodyTypes,
         status,
         generation,
