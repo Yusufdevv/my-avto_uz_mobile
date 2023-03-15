@@ -34,6 +34,12 @@ class FilterSelectEvent extends FilterEvent {
 
 class FilterGetCurrencies extends FilterEvent {
   final Currency currency;
+  final bool yearValuesIsNull;
+  final bool priceValuesIsNull;
 
-  const FilterGetCurrencies(this.currency);
+  const FilterGetCurrencies({
+    required this.currency,
+    this.yearValuesIsNull = false,
+    this.priceValuesIsNull = false,
+  });
 }

@@ -7,21 +7,35 @@ import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
-import 'package:auto/features/ads/data/models/transfer_filter_data_model.dart';
 import 'package:auto/features/ads/presentation/bloc/filter/filter_bloc.dart';
 import 'package:auto/features/ads/presentation/widgets/currency_box.dart';
-import 'package:auto/features/ads/presentation/widgets/sale_type_buttons.dart';
 import 'package:auto/features/common/widgets/range_slider.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_body_type.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_drive_type.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_gearbox.dart';
+import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_sale_type_sheet.dart';
 import 'package:auto/features/search/presentation/widgets/selector_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+enum SaleType {
+  all('All', ''),
+  directSale('Direct Sale', 'false'),
+  rentWithPurchase('Rent With Purchase', 'true');
+
+  const SaleType(this.title, this.toApi);
+
+  final String toApi;
+  final String title;
+}
+
+extension SaleTypeExtention on SaleType {
+  bool get isAll => this == SaleType.all;
+}
 
 class FilterParameters extends StatefulWidget {
   /////////////////////////////
@@ -32,11 +46,11 @@ class FilterParameters extends StatefulWidget {
   final RangeValues? yearValues;
   final RangeValues? priceValues;
 
-  final bool isRentWithPurchase;
+  final SaleType saleType;
 
   const FilterParameters({
     required this.currency,
-    required this.isRentWithPurchase,
+    required this.saleType,
     super.key,
     this.bodyType,
     this.carDriveType,
@@ -55,26 +69,26 @@ class _FilterParametersState extends State<FilterParameters> {
   @override
   void initState() {
     super.initState();
-    final yearValues = RangeValues(
-        widget.yearValues != null && widget.yearValues!.start > 0
-            ? widget.yearValues!.start
-            : 1970,
-        widget.yearValues != null && widget.yearValues!.end > 0
-            ? widget.yearValues!.end
-            : DateTime.now().year + 0);
-    final priceValues = widget.priceValues ?? const RangeValues(1000, 500000);
+    final isYearValuesIsNull = widget.yearValues == null;
+    final isPriceValuesIsNull = widget.priceValues == null;
 
     final currency =
         widget.currency == Currency.none ? Currency.usd : widget.currency;
     filterBloc = FilterBloc(
-      isRentWithPurchase: widget.isRentWithPurchase,
+      saleType: widget.saleType,
       bodyType: widget.bodyType,
       carDriveType: widget.carDriveType,
       gearboxType: widget.gearboxType,
-      priceValues: priceValues,
-      yearValues: yearValues,
+      priceValues: widget.priceValues,
+      yearValues: widget.yearValues,
       currency: currency,
-    )..add(FilterGetCurrencies(currency));
+    )..add(
+        FilterGetCurrencies(
+          currency: currency,
+          yearValuesIsNull: widget.yearValues == null,
+          priceValuesIsNull: widget.priceValues == null,
+        ),
+      );
   }
 
   @override
@@ -112,20 +126,38 @@ class _FilterParametersState extends State<FilterParameters> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SaleTypeButtons(
-                      onTap: (v) {
-                        filterBloc.add(FilterSelectEvent(saleType: v));
-                      },
-                      selected: state.saleType ?? SaleType.values[0],
-                    ),
-                    const SizedBox(height: 16),
                     CurrencyBox(
                       onTap: (v) {
-                        filterBloc.add(FilterGetCurrencies(v));
+                        filterBloc.add(FilterGetCurrencies(currency: v));
                       },
                       selected: state.currency ?? Currency.uzs,
                     ),
                     const SizedBox(height: 16),
+                    SelectorItem(
+                      onTap: () async {
+                        await showModalBottomSheet<SaleType>(
+                          isDismissible: false,
+                          context: context,
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          builder: (c) =>
+                              ChooseSaleTypeSheet(selected: state.saleType),
+                        ).then(
+                          (value) {
+                            filterBloc.add(
+                              FilterSelectEvent(
+                                saleType: value ?? SaleType.all,
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      hintText: state.saleType.isAll
+                          ? LocaleKeys.all.tr()
+                          : state.saleType.title,
+                      title: 'Тип продажи',
+                      hasArrowDown: state.saleType.isAll,
+                    ),
                     SelectorItem(
                       onTap: () async {
                         await showModalBottomSheet<BodyTypeEntity>(
@@ -153,7 +185,7 @@ class _FilterParametersState extends State<FilterParameters> {
                             isScrollControlled: true,
                             backgroundColor: Colors.transparent,
                             builder: (c) => ChooseDriveType(
-                                selectedId: state.carDriveType?.id ?? -1),
+                                selectedId: state.driveType?.id ?? -1),
                           ).then(
                             (value) {
                               filterBloc.add(
@@ -165,12 +197,11 @@ class _FilterParametersState extends State<FilterParameters> {
                             },
                           );
                         },
-                        hintText:
-                            state.carDriveType?.type ?? LocaleKeys.all.tr(),
+                        hintText: state.driveType?.type ?? LocaleKeys.all.tr(),
                         title: LocaleKeys.drive_unit.tr(),
-                        hasArrowDown: state.carDriveType?.type == null
+                        hasArrowDown: state.driveType?.type == null
                             ? true
-                            : state.carDriveType!.type.isEmpty),
+                            : state.driveType!.type.isEmpty),
                     SelectorItem(
                       onTap: () async {
                         await showModalBottomSheet<GearboxTypeEntity>(
@@ -196,46 +227,51 @@ class _FilterParametersState extends State<FilterParameters> {
                           ? true
                           : state.gearboxType!.type.isEmpty,
                     ),
+                    WButton(onTap: () {
+                      log('::::::::::: maxYearValue: in button:   ${state.maxYearValue}    ::::::::::::::');
+                      log('::::::::::: minYearValue: in button:   ${state.minYearValue}    ::::::::::::::');
+                      log('::::::::::: yearValues: in button:   ${state.yearValues}    ::::::::::::::');
+                    }),
                     const SizedBox(height: 20),
-                    WRangeSlider(
-                      values: state.yearValues,
-                      valueChanged: (value) {
-                        filterBloc.add(FilterSelectEvent(yearValues: value));
-                      },
-                      title: LocaleKeys.year_of_issue.tr(),
-                      endValue: state.maxYearValue,
-                      startValue: state.minYearValue,
-                    ),
-                    const SizedBox(height: 16),
-                    WRangeSlider(
-                      values: state.priceValues,
-                      valueChanged: (value) => filterBloc.add(
-                        FilterSelectEvent(priceValues: value),
+                    if (state.minYearValue != null &&
+                        state.maxYearValue != null &&
+                        state.yearValues != null)
+                      WRangeSlider(
+                        values: state.yearValues!,
+                        valueChanged: (value) {
+                          log('::::::::::: year end:   ${value.end}    ::::::::::::::');
+                          log('::::::::::: year start:   ${value.start}    ::::::::::::::');
+                          filterBloc.add(FilterSelectEvent(yearValues: value));
+                        },
+                        title: LocaleKeys.year_of_issue.tr(),
+                        endValue: state.maxYearValue!,
+                        startValue: state.minYearValue!,
                       ),
-                      title: LocaleKeys.price.tr(),
-                      endValue: state.maxPriceValue,
-                      startValue: state.minPriceValue,
-                      isForPrice: true,
-                      description: state.currency == Currency.uzs
-                          ? LocaleKeys.sum.tr()
-                          : 'у.е.',
-                    ),
+                    const SizedBox(height: 16),
+                    if (state.maxPriceValue != null &&
+                        state.minPriceValue != null &&
+                        state.priceValues != null)
+                      WRangeSlider(
+                        values: state.priceValues!,
+                        valueChanged: (value) {
+                          log(':::::::::::price   end:   ${value.end}    ::::::::::::::');
+                          log('::::::::::: price start:   ${value.start}    ::::::::::::::');
+                          filterBloc.add(
+                            FilterSelectEvent(priceValues: value),
+                          );
+                        },
+                        title: LocaleKeys.price.tr(),
+                        endValue: state.maxPriceValue!,
+                        startValue: state.minPriceValue!,
+                        isForPrice: true,
+                        description: state.currency == Currency.uzs
+                            ? LocaleKeys.sum.tr()
+                            : 'у.е.',
+                      ),
                     const SizedBox(height: 16),
                     WButton(
                       onTap: () {
-                        ///
-                        Navigator.of(context).pop(
-                          TransferFilterData(
-                            currency: state.currency,
-                            yearValues: state.yearValues,
-                            bodyType: state.bodyType,
-                            gearboxType: state.gearboxType,
-                            driveType: state.carDriveType,
-                            isFilter: state.isFilter,
-                            priceValues: state.priceValues,
-                            isRentWithPurchase: state.isRentWithPurchase,
-                          ),
-                        );
+                        Navigator.of(context).pop(state);
                       },
                       text: LocaleKeys.show.tr(),
                     ),

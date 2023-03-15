@@ -5,6 +5,7 @@ import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ads/presentation/bloc/filter/filter_bloc.dart';
+import 'package:auto/features/ads/presentation/pages/filter_parameters.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/widgets/range_slider.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
@@ -64,6 +65,7 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
             : DateTime.now().year + 0);
     final priceValues = widget.priceValues ?? const RangeValues(1000, 500000);
     filterBloc = FilterBloc(
+      saleType: SaleType.all,
       currency: Currency.none,
       bodyType: widget.bodyType,
       carDriveType: widget.carDriveType,
@@ -171,12 +173,12 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
                         builder: (c) => ChooseDriveType(
-                            selectedId: state.carDriveType?.id ?? -1),
+                            selectedId: state.driveType?.id ?? -1),
                       ).then((value) {
                         filterBloc.add(FilterSelectEvent(carDriveType: value));
                       });
                     },
-                    hintText: state.carDriveType?.type ??
+                    hintText: state.driveType?.type ??
                         LocaleKeys.choose_drive_type.tr(),
                     title: LocaleKeys.drive_unit.tr(),
                     hasArrowDown: true,
@@ -200,24 +202,26 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
                     hasArrowDown: true,
                   ),
                   const SizedBox(height: 16),
-                  WRangeSlider(
-                    values: state.yearValues,
-                    valueChanged: (value) =>
-                        filterBloc.add(FilterSelectEvent(yearValues: value)),
-                    title: LocaleKeys.year_of_issue.tr(),
-                    endValue: DateTime.now().year + 0,
-                    startValue: 1960,
-                  ),
+                  if (state.yearValues != null)
+                    WRangeSlider(
+                      values: state.yearValues!,
+                      valueChanged: (value) =>
+                          filterBloc.add(FilterSelectEvent(yearValues: value)),
+                      title: LocaleKeys.year_of_issue.tr(),
+                      endValue: DateTime.now().year + 0,
+                      startValue: 1960,
+                    ),
                   const SizedBox(height: 16),
-                  WRangeSlider(
-                    values: state.priceValues,
-                    valueChanged: (value) =>
-                        filterBloc.add(FilterSelectEvent(priceValues: value)),
-                    title: LocaleKeys.price.tr(),
-                    endValue: 500000,
-                    startValue: 1000,
-                    isForPrice: true,
-                  ),
+                  if (state.priceValues != null)
+                    WRangeSlider(
+                      values: state.priceValues!,
+                      valueChanged: (value) =>
+                          filterBloc.add(FilterSelectEvent(priceValues: value)),
+                      title: LocaleKeys.price.tr(),
+                      endValue: 500000,
+                      startValue: 1000,
+                      isForPrice: true,
+                    ),
                   const SizedBox(height: 48),
                   WButton(
                     onTap: () {
@@ -226,7 +230,7 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
                           yearValues: state.yearValues,
                           priceValues: state.priceValues,
                           bodyType: state.bodyType,
-                          carDriveType: state.carDriveType,
+                          carDriveType: state.driveType,
                           gearboxType: state.gearboxType,
                           maker: state.maker,
                           regions: state.regions,

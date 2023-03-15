@@ -1,12 +1,8 @@
 import 'dart:developer';
-
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/const/constants.dart';
-import 'package:auto/features/ad/domain/entities/types/body_type.dart';
-import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
-import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
-import 'package:auto/features/ads/data/models/transfer_filter_data_model.dart';
+import 'package:auto/features/ads/presentation/bloc/filter/filter_bloc.dart';
 import 'package:auto/features/ads/presentation/pages/filter_parameters.dart';
 import 'package:auto/features/ads/presentation/widgets/filters_buttons_widget.dart';
 import 'package:auto/features/commercial/presentation/widgets/commercial_car_model_item.dart';
@@ -28,14 +24,12 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
     required this.theme,
     required this.tabController,
     required this.bloc,
-    required this.isNew,
   });
 
   final Size size;
   final ThemedColors theme;
   final TabController tabController;
   final AnnouncementListBloc bloc;
-  final bool? isNew;
 
   @override
   Widget build(
@@ -55,11 +49,10 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
               ),
               CommercialCarModelItem(
                   onTapClear: () {
-                    bloc.add(SetMakeModel(
+                    bloc.add(const SetMakeModel(
                       modelId: -1,
-                      make: const MakeEntity(),
+                      make: MakeEntity(),
                       modelName: '',
-                      isNew: isNew,
                       historySaved: true,
                     ));
                   },
@@ -83,7 +76,6 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                       bloc.add(SetMakeModel(
                         modelId: res['modelId'],
                         modelName: res['modelName'],
-                        isNew: isNew,
                         historySaved: historySaved,
                         make: res['make'],
                       ));
@@ -93,43 +85,50 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                 size: size,
                 theme: theme,
                 onTapParams1: () async {
+                  log(':::::::::: FILTER BUTTON yearValues: ${state.yearValuess}  ::::::::::');
+                  log(':::::::::: FILTER BUTTON priceValues: ${state.priceValuess}  ::::::::::');
                   final res = await Navigator.of(context).push(
                     fade(
                       page: FilterParameters(
-                        isRentWithPurchase: state.isRentWithPurchase,
+                        saleType: state.saleType,
                         bodyType: state.bodyType,
                         gearboxType: state.gearboxType,
                         carDriveType: state.driveType,
-                        yearValues: state.yearValues,
-                        priceValues: state.priceValues,
+                        yearValues: state.yearValuess,
+                        priceValues: state.priceValuess,
                         currency: state.currency ?? Currency.none,
                       ),
                     ),
                   );
-                  if (res is TransferFilterData) {
+                  if (res is FilterState) {
                     var historySaved = !(res.isFilter ?? false);
 
                     historySaved =
                         state.make?.id == null || state.make?.id == -1;
-                    log(':::::::::: in Filter data transfere:   ${res.isRentWithPurchase}  ::::::::::');
-                    bloc.add(
-                      SetFilter(
-                        isRentWithPurchase: res.isRentWithPurchase,
-                        bodyType: res.bodyType,
-                        gearboxType: res.gearboxType,
-                        driveType: res.driveType,
-                        yearValues: res.yearValues,
-                        priceValues: res.priceValues,
-                        currency: res.currency,
-                        isFilter: res.isFilter,
-                        historySaved: historySaved,
-                      ),
-                    );
+                    log(':::::::::: in Filter data transfere:  ${res.isFilter} ::::::::::');
+                    if (res.isFilter) {
+                      log('::::::::::  Set filter triggereed  }  ::::::::::');
+                      bloc.add(
+                        SetFilter(
+                          saleType: res.saleType,
+                          bodyType: res.bodyType,
+                          gearboxType: res.gearboxType,
+                          driveType: res.driveType,
+                          yearValues: res.yearValues,
+                          priceValues: res.priceValues,
+                          currency: res.currency,
+                          isFilter: res.isFilter,
+                          historySaved: historySaved,
+                        ),
+                      );
+                    } else {
+                      bloc.add(const ClearFilter());
+                    }
                   }
                 },
                 onTapClear1: () {
                   if (state.isFilter) {
-                    bloc.add(ClearFilter(isNew));
+                    bloc.add(const ClearFilter());
                   }
                 },
                 isFilter: state.isFilter,
@@ -147,12 +146,12 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                     ),
                   ).then((value) {
                     if (value != null && value != state.regions) {
-                      bloc.add(SetRegions(regions: value, isNew: isNew));
+                      bloc.add(SetRegions(regions: value));
                     }
                   });
                 },
                 onTapClear2: () {
-                  bloc.add(SetRegions(regions: [], isNew: isNew));
+                  bloc.add(const SetRegions(regions: []));
                 },
               ),
             ],

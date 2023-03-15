@@ -18,8 +18,6 @@ class PASingleton {
       'drive_type': v.driveTypeId,
       'engine_type': v.engine?.id,
       'gearbox_type': v.gearbox?.id,
-
-
       'year': v.selectedYear,
       'modification_type': v.modification?.id,
       'color': v.colorName?.id,
@@ -182,11 +180,10 @@ class PASingleton {
       List<DamagedPartsEntity> damages) {
     var result = <DamagedPart, DamageType>{};
     for (final v in damages) {
-      final part = _getDamagePart(v.part);
-      final type = _getDamageType(v.damageType);
-      if (part != null && type != null) {
-        result[part] = type;
-      }
+      final part = MyFunctions.strToDamagePart(v.part);
+      final type = MyFunctions.strToDamageType(v.damageType);
+
+      result[part] = type;
     }
     return result;
   }
@@ -254,73 +251,6 @@ class PASingleton {
     if (i > -1) return i;
 
     return null;
-  }
-
-  static DamageType? _getDamageType(String type) {
-    switch (type) {
-      case 'ideal':
-        return DamageType.ideal;
-
-      case 'with_dents':
-        return DamageType.withDents;
-
-      case 'scratched':
-        return DamageType.scratched;
-
-      case 'replaced':
-        return DamageType.replaced;
-
-      case 'requires_replacement':
-        return DamageType.requiresReplacement;
-      default:
-        return null;
-    }
-  }
-
-  static DamagedPart? _getDamagePart(String part) {
-    switch (part) {
-      // 1
-      case 'rigth_front_door':
-        return DamagedPart.rightFrontDoor;
-      // 2
-      case 'right_rear_door':
-        return DamagedPart.rightRearDoor;
-      // 3
-      case 'left_front_door':
-        return DamagedPart.leftFrontDoor;
-      // 4
-      case 'left_rear_door':
-        return DamagedPart.leftRearDoor;
-      // 5
-      case 'front_bumper':
-        return DamagedPart.frontBumper;
-      // 6
-      case 'rear_bumper':
-        return DamagedPart.rearBumper;
-      // 7
-      case 'front_left_fender':
-        return DamagedPart.frontLeftFender;
-      // 8
-      case 'front_right_fender':
-        return DamagedPart.frontRightFender;
-      // 9
-      case 'rear_left_fender':
-        return DamagedPart.rearLeftFender;
-      // 10
-      case 'rear_right_fender':
-        return DamagedPart.rearRightFender;
-      // 11
-      case 'roof':
-        return DamagedPart.roof;
-      // 12
-      case 'hood':
-        return DamagedPart.hood;
-      // 13
-      case 'trunk':
-        return DamagedPart.trunk;
-      default:
-        return null;
-    }
   }
 
   static bool nextButtonIsDisabled(int page, PostingAdState state) {
