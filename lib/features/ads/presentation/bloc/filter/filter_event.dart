@@ -32,8 +32,8 @@ class FilterSelectEvent extends FilterEvent {
   });
 }
 
-class FilterChangeCurrencyEvent extends FilterEvent {
+class FilterGetCurrencies extends FilterEvent {
   final Currency currency;
 
-  const FilterChangeCurrencyEvent(this.currency);
+  const FilterGetCurrencies(this.currency);
 }

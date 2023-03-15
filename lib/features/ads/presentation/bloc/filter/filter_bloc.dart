@@ -64,11 +64,11 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
         ) {
     on<FilterClearEvent>(_clearFilter);
     on<FilterSelectEvent>(_select);
-    on<FilterChangeCurrencyEvent>(_getCurrencies);
+    on<FilterGetCurrencies>(_getCurrencies);
   }
 
   FutureOr<void> _getCurrencies(
-      FilterChangeCurrencyEvent event, Emitter<FilterState> emit) async {
+      FilterGetCurrencies event, Emitter<FilterState> emit) async {
     RangeValues? priceV;
     RangeValues? yearV;
     MinMaxPriceYearEntity? usd;
@@ -76,8 +76,6 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
     if (state.usdIfos == null || state.uzsIfos == null) {
       final resultUzs = await minMaxPriceYearUseCase.call(Currency.uzs.value);
       final resultUsd = await minMaxPriceYearUseCase.call(Currency.usd.value);
-      log(':::::::::: RESULT USD INFOS: ${resultUsd.right}  ::::::::::');
-      log(':::::::::: RESULT UZS INFOS: ${resultUzs.right}  ::::::::::');
       if (resultUsd.isRight) {
         usd = resultUsd.right;
       }

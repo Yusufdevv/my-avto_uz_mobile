@@ -7,7 +7,6 @@ class PASingleton {
   PASingleton._();
 
   static Future<FormData> create(PostingAdState v) async {
-    log('::::::::::  CREATE SINGLETON TRIGGERED:   ::::::::::');
     // ignore: prefer_final_locals
     var announcementFields = <String, dynamic>{
       'longitude': v.long,
