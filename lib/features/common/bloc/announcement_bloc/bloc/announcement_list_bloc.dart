@@ -1,13 +1,17 @@
+import 'dart:developer';
+
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
+import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ads/data/models/query_data_model.dart';
 import 'package:auto/features/ads/data/models/save_filter_model.dart';
 import 'package:auto/features/ads/domain/usecases/get_announcement_list_usecase.dart';
 import 'package:auto/features/ads/domain/usecases/get_min_max_price_use_case.dart';
 import 'package:auto/features/ads/domain/usecases/save_filter_history_usecase.dart';
 import 'package:auto/features/comparison/domain/entities/announcement_list_entity.dart';
+import 'package:auto/features/profile/domain/entities/my_searches_entity.dart';
 import 'package:auto/features/rent/data/models/region_model.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:bloc/bloc.dart';
@@ -35,7 +39,7 @@ class AnnouncementListBloc
       ));
 
       final result = await useCase.call({
-        'make': state.makeIdd == -1 ? '' : state.makeIdd,
+        'make': state.make?.id == -1 ? '' : state.make?.id,
         'model': state.modelId == -1 ? '' : state.modelId,
         'body_type': state.bodyType?.id == -1 ? '' : state.bodyType?.id,
         'drive_type': state.driveType?.id == -1 ? '' : state.driveType?.id,
@@ -63,6 +67,7 @@ class AnnouncementListBloc
             : state.yearValues?.end == 0.0
                 ? ''
                 : state.yearValues?.end,
+        'is_rent_with_purchase': state.isRentWithPurchase,
         'limit': 10,
         'offset': 0,
         'currency': state.currency?.value,
@@ -83,7 +88,7 @@ class AnnouncementListBloc
     });
     on<GetMoreAnnouncementList>((event, emit) async {
       final result = await useCase.call({
-        'make': state.makeIdd == -1 ? '' : state.makeIdd,
+        'make': state.make?.id == -1 ? '' : state.make?.id,
         'model': state.modelId == -1 ? '' : state.modelId,
         'body_type': state.bodyType?.id == -1 ? '' : state.bodyType?.id,
         'drive_type': state.driveType?.id == -1 ? '' : state.driveType?.id,
@@ -111,6 +116,7 @@ class AnnouncementListBloc
             : state.yearValues?.end == 0.0
                 ? ''
                 : state.yearValues?.end,
+        'is_rent_with_purchase': state.isRentWithPurchase,
         'limit': 10,
         'offset': state.announcementList.length,
         'currency': state.currency?.value,
@@ -132,7 +138,9 @@ class AnnouncementListBloc
       }
     });
     on<SetFilter>((event, emit) {
+      log(':::::::::: IS RENT  WITH PURCHASE IN SET FILTER: ${event.isRentWithPurchase}  ::::::::::');
       emit(state.copyWith(
+        isRentWithPurchase: event.isRentWithPurchase,
         currency: event.currency,
         gearboxType: event.gearboxType,
         bodyType: event.bodyType,
@@ -141,7 +149,6 @@ class AnnouncementListBloc
         priceValues: event.priceValues,
         isFilter: event.isFilter,
         historyId: event.historyId ?? state.historyId,
-        // ignore: avoid_bool_literals_in_conditional_expressions
         historySaved: event.historySaved,
       ));
 
@@ -149,17 +156,16 @@ class AnnouncementListBloc
     });
     on<SetMakeModel>((event, emit) {
       emit(state.copyWith(
-        makeId: event.makeId,
         modelId: event.modelId,
-        makeName: event.makeName,
         modelName: event.modelName,
-        makeLogo: event.makeLogo,
+        make: event.make,
         historySaved: event.historySaved,
       ));
       add(GetAnnouncementList(isNew: event.isNew));
     });
     on<ClearFilter>((event, emit) {
       emit(state.copyWith(
+        isRentWithPurchase: false,
         currency: Currency.none,
         gearboxType: const GearboxTypeEntity(),
         bodyType: const BodyTypeEntity(),
@@ -181,19 +187,20 @@ class AnnouncementListBloc
     on<SetSort>((event, emit) {
       print('call set sort event');
       print(event.sortResult);
-      emit(state.copyWith(sortResult: event.sortResult));
+      emit(state.copyWith());
       add(GetAnnouncementList(isNew: state.isNew));
     });
     on<ChangeSaveFilterStatus>((event, emit) {
       emit(state.copyWith(saveFilterStatus: event.status));
     });
     on<SaveHistory>((event, emit) async {
+      emit(state.copyWith(saveFilterStatus: FormzStatus.submissionInProgress));
       final saveFilterModel = SaveFilterModel(
           id: state.historyId,
-          make: state.makeIdd,
+          make: state.make?.id,
           model: [state.modelId],
           query:
-              'make=${state.makeIdd ?? ''}&model=${state.modelId ?? ''}&body_type=${state.bodyType?.id == -1 ? '' : state.bodyType?.id}'
+              'make=${state.make?.id ?? ''}&model=${state.modelId ?? ''}&body_type=${state.bodyType?.id == -1 ? '' : state.bodyType?.id}'
               '&drive_type=${state.driveType?.id == -1 ? '' : state.driveType?.id}&gearbox_type=${state.gearboxType?.id == -1 ? '' : state.gearboxType?.id}&is_new=${state.isNew ?? ''}'
               '&region__in=${getRegionsId(state.regions)}&price_from=${state.priceValues?.start.toInt() == -1 ? '' : state.priceValues?.start.toInt()}'
               '&price_to${state.priceValues?.end.toInt() == -1 ? '' : state.priceValues?.end.toInt()}&year_from=${state.yearValues?.start.toInt() == -1 ? '' : state.yearValues?.start.toInt()}'
@@ -212,6 +219,7 @@ class AnnouncementListBloc
       final result = await saveFilterHistoryUseCase.call(saveFilterModel);
       if (result.isRight) {
         emit(state.copyWith(
+          saveFilterStatus: FormzStatus.submissionSuccess,
             historySaved: true,
             saveFilterModel: saveFilterModel,
             isFilter: false));

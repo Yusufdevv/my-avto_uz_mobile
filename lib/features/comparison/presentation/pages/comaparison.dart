@@ -159,7 +159,8 @@ class _ComparisonState extends State<Comparison> {
                               .push(fade(
                                   page: AdsScreen(
                             isFromComparison: true,
-                            makeId: makeId,
+                            // feko  makeId is not a subtype of makeEntity
+                            make: makeId,
                             modelId: modelId,
                           )))
                               .then((value) {

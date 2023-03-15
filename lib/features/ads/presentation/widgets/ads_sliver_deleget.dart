@@ -1,8 +1,12 @@
+import 'dart:developer';
+
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
+import 'package:auto/features/ad/domain/entities/types/make.dart';
+import 'package:auto/features/ads/data/models/transfer_filter_data_model.dart';
 import 'package:auto/features/ads/presentation/pages/filter_parameters.dart';
 import 'package:auto/features/ads/presentation/widgets/filters_buttons_widget.dart';
 import 'package:auto/features/commercial/presentation/widgets/commercial_car_model_item.dart';
@@ -52,37 +56,36 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
               CommercialCarModelItem(
                   onTapClear: () {
                     bloc.add(SetMakeModel(
-                      makeId: -1,
                       modelId: -1,
-                      makeName: '',
-                      makeLogo: '',
+                      make: const MakeEntity(),
                       modelName: '',
                       isNew: isNew,
                       historySaved: true,
                     ));
                   },
-                  title: state.makeName ?? '',
+                  title: state.make?.name ?? '',
                   subtitle: state.modelName ?? '',
-                  imageUrl: state.makeLogo ?? '',
+                  imageUrl: state.make?.logo ?? '',
                   onTap: () async {
                     final res = await Navigator.push(
-                        context,
-                        fade(
-                            page: ChooseCarBrandPage(
-                          selectedMakeId: state.makeIdd,
+                      context,
+                      fade(
+                        page: ChooseCarBrandPage(
+                          selectedMakeId: state.make?.id,
                           selectedModelId: state.modelId,
-                        )));
+                        ),
+                      ),
+                    );
+
                     if (res is Map<String, dynamic>) {
                       var historySaved = res['modelId'] == state.modelId;
-                      historySaved = res['makeId'] == state.makeIdd;
+                      historySaved = res['makeId'] == state.make?.id;
                       bloc.add(SetMakeModel(
-                        makeId: res['makeId'],
                         modelId: res['modelId'],
-                        makeName: res['makeName'],
                         modelName: res['modelName'],
-                        makeLogo: res['makeLogo'],
                         isNew: isNew,
                         historySaved: historySaved,
+                        make: res['make'],
                       ));
                     }
                   }),
@@ -93,31 +96,35 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                   final res = await Navigator.of(context).push(
                     fade(
                       page: FilterParameters(
+                        isRentWithPurchase: state.isRentWithPurchase,
                         bodyType: state.bodyType,
                         gearboxType: state.gearboxType,
                         carDriveType: state.driveType,
                         yearValues: state.yearValues,
                         priceValues: state.priceValues,
                         currency: state.currency ?? Currency.none,
-                        isCheck: state.isFilter,
                       ),
                     ),
                   );
-                  if (res is Map<String, dynamic>) {
-                    var historySaved = !res['isFilter'];
+                  if (res is TransferFilterData) {
+                    var historySaved = !(res.isFilter ?? false);
 
-                    historySaved = state.makeIdd == null;
-                    bloc.add(SetFilter(
-                        bodyType: res['bodyType'] ?? const BodyTypeEntity(),
-                        gearboxType:
-                            res['gearboxType'] ?? const GearboxTypeEntity(),
-                        driveType:
-                            res['carDriveType'] ?? const DriveTypeEntity(),
-                        yearValues: res['yearValues'],
-                        priceValues: res['priceValues'],
-                        currency: res['currency'],
-                        isFilter: res['isFilter'],
-                        historySaved: historySaved));
+                    historySaved =
+                        state.make?.id == null || state.make?.id == -1;
+                    log(':::::::::: in Filter data transfere:   ${res.isRentWithPurchase}  ::::::::::');
+                    bloc.add(
+                      SetFilter(
+                        isRentWithPurchase: res.isRentWithPurchase,
+                        bodyType: res.bodyType,
+                        gearboxType: res.gearboxType,
+                        driveType: res.driveType,
+                        yearValues: res.yearValues,
+                        priceValues: res.priceValues,
+                        currency: res.currency,
+                        isFilter: res.isFilter,
+                        historySaved: historySaved,
+                      ),
+                    );
                   }
                 },
                 onTapClear1: () {
@@ -154,10 +161,10 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
       );
 
   @override
-  double get maxExtent => 187;
+  double get maxExtent => 191;
 
   @override
-  double get minExtent => 187;
+  double get minExtent => 191;
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>

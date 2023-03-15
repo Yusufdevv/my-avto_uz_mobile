@@ -125,25 +125,22 @@ class _MySearchesPageState extends State<MySearchesPage> {
                                         Navigator.push(
                                           context,
                                           fade(
-                                              page: AdsScreen(
-                                            historyId: mySearches[index].id,
-                                            historySaved: true,
-                                            makeId: mySearches[index].make?.id,
-                                            modelId: mySearches[index]
-                                                .model
-                                                ?.first
-                                                ?.id,
-                                            makeName:
-                                                mySearches[index].make?.name,
-                                            modelName: mySearches[index]
-                                                .model
-                                                ?.first
-                                                ?.name,
-                                            makeLogo:
-                                                mySearches[index].make?.logo,
-                                            queryData:
-                                                mySearches[index].queryData,
-                                          )),
+                                            page: AdsScreen(
+                                              historyId: mySearches[index].id,
+                                              historySaved: true,
+                                              make: mySearches[index].make,
+                                              modelId: mySearches[index]
+                                                  .model
+                                                  ?.first
+                                                  ?.id,
+                                              modelName: mySearches[index]
+                                                  .model
+                                                  ?.first
+                                                  ?.name,
+                                              queryData:
+                                                  mySearches[index].queryData,
+                                            ),
+                                          ),
                                         );
                                       }
                                     },
@@ -168,7 +165,7 @@ class _MySearchesPageState extends State<MySearchesPage> {
                       ? WButton(
                           text: LocaleKeys.delete.tr(),
                           color: deletedList.isNotEmpty ? orange : grey,
-                          margin:const EdgeInsets.all(16),
+                          margin: const EdgeInsets.all(16),
                           onTap: () {
                             deletedList.isNotEmpty
                                 ? showModalBottomSheet(

@@ -5,10 +5,7 @@ abstract class FilterEvent {
 }
 
 class FilterClearEvent extends FilterEvent {
-  final RangeValues? yearValues;
-  final RangeValues? priceValues;
-
-  const FilterClearEvent({this.yearValues, this.priceValues});
+  const FilterClearEvent();
 }
 
 class FilterSelectEvent extends FilterEvent {

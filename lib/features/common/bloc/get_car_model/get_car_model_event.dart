@@ -1,36 +1,24 @@
 part of 'get_car_model_bloc.dart';
 
-abstract class GetCarModelEvent {}
+abstract class CarModelsEvent {}
 
-class GetCarModelGetEvent extends GetCarModelEvent {
+class CarModelsGetEvent extends CarModelsEvent {
   final int getId;
   final String search;
 
-  GetCarModelGetEvent({required this.getId, required this.search});
+  CarModelsGetEvent({required this.getId, required this.search});
 }
 
-class GetCarModelGetMakeIdEvent extends GetCarModelEvent {
-  final int id;
-
-  GetCarModelGetMakeIdEvent({required this.id});
-}
-
-class GetCarModelConfirmModelEvent extends GetCarModelEvent {
-  GetCarModelConfirmModelEvent();
-}
-
-class GetCarModelGetAnnouncementListEvent extends GetCarModelEvent {
+class CarModelsGetAnnouncementsEvent extends CarModelsEvent {
   final int makeId;
   final int modelId;
 
-  GetCarModelGetAnnouncementListEvent(
-      {required this.makeId, required this.modelId});
+  CarModelsGetAnnouncementsEvent({required this.makeId, required this.modelId});
 }
 
-class GetCarModelSelectModelEvent extends GetCarModelEvent {
-  final int selectedId;
-  final MakeEntity model;
+class CarModelsChooseEvent extends CarModelsEvent {
+  final MakeEntity? model;
+  final int? getId;
 
-  GetCarModelSelectModelEvent(
-      {required this.model, required this.selectedId});
+  CarModelsChooseEvent({this.model, this.getId});
 }

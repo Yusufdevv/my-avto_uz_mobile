@@ -386,6 +386,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         state.copyWith(
           getDistrictsStatus: FormzStatus.submissionSuccess,
           districts: result.right.results,
+          district:  DistrictEntity()
         ),
       );
     } else {
@@ -406,6 +407,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         state.copyWith(
           status: FormzStatus.submissionSuccess,
           regions: result.right,
+
           districts: <DistrictEntity>[],
         ),
       );
@@ -525,7 +527,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         state.copyWith(
           status: FormzStatus.submissionSuccess,
           engines: engines,
-          engineId:
+          engine:
               engines.isNotEmpty && state.engine == null ? engines.first : null,
         ),
       );
@@ -563,7 +565,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       emit(state.copyWith(
           generations: generations,
           status: FormzStatus.submissionSuccess,
-          generationId: generations.isNotEmpty && state.generation == null
+          generation: generations.isNotEmpty && state.generation == null
               ? generations.first
               : null));
     } else {
