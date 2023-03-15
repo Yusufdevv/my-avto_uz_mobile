@@ -7,15 +7,13 @@ import 'package:auto/features/ad/domain/entities/years/years.dart';
 import 'package:auto/features/ad/domain/repositories/ad_repository.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 
-class GetYearsUseCase
-    extends UseCase<GenericPagination<YearsEntity>, YearsParams> {
+class GetYearsUseCase extends UseCase<YearsEntity, YearsParams> {
   final AdRepository repository = serviceLocator<AdRepositoryImpl>();
 
   GetYearsUseCase();
 
   @override
-  Future<Either<Failure, GenericPagination<YearsEntity>>> call(
-          YearsParams params) =>
+  Future<Either<Failure, YearsEntity>> call(YearsParams params) =>
       repository.getYears(modelId: params.modelId, next: params.next);
 }
 

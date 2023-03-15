@@ -428,7 +428,7 @@ class _EditAdScreenState extends State<EditAdScreen>
                                   !state.notRegisteredInUzbekistan,
                               selectedRadioOptions: state.radioOptions,
                               selectedSelectOptions: state.selectOptions,
-                              year: '${state.yearEntity?.yearBegin ?? ' '}',
+                              year: '${state.selectedYear ?? ' '}',
                               id: state.id,
                             ),
                           ],

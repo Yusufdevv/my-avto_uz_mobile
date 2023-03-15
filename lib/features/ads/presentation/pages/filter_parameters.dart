@@ -8,12 +8,12 @@ import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/ads/data/models/transfer_filter_data_model.dart';
+import 'package:auto/features/ads/presentation/bloc/filter/filter_bloc.dart';
 import 'package:auto/features/ads/presentation/widgets/currency_box.dart';
 import 'package:auto/features/ads/presentation/widgets/sale_type_buttons.dart';
 import 'package:auto/features/common/widgets/range_slider.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/rent/presentation/bloc/filter/filter_bloc.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_body_type.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_drive_type.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_gearbox.dart';
@@ -24,9 +24,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FilterParameters extends StatefulWidget {
-
-
-
   /////////////////////////////
   final BodyTypeEntity? bodyType;
   final DriveTypeEntity? carDriveType;
@@ -57,7 +54,6 @@ class _FilterParametersState extends State<FilterParameters> {
 
   @override
   void initState() {
-    log(':::::::::: CURRENCY IN INIT STATE:  ${widget.currency}  ::::::::::');
     super.initState();
     final yearValues = RangeValues(
         widget.yearValues != null && widget.yearValues!.start > 0
@@ -78,7 +74,7 @@ class _FilterParametersState extends State<FilterParameters> {
       priceValues: priceValues,
       yearValues: yearValues,
       currency: currency,
-    )..add(FilterChangeCurrencyEvent(currency));
+    )..add(FilterGetCurrencies(currency));
   }
 
   @override
@@ -94,9 +90,7 @@ class _FilterParametersState extends State<FilterParameters> {
                 TextButton(
                   onPressed: () {
                     filterBloc.add(
-                      FilterClearEvent(
-
-                      ),
+                      const FilterClearEvent(),
                     );
                   },
                   child: Text(
@@ -127,7 +121,7 @@ class _FilterParametersState extends State<FilterParameters> {
                     const SizedBox(height: 16),
                     CurrencyBox(
                       onTap: (v) {
-                        filterBloc.add(FilterChangeCurrencyEvent(v));
+                        filterBloc.add(FilterGetCurrencies(v));
                       },
                       selected: state.currency ?? Currency.uzs,
                     ),
@@ -148,7 +142,8 @@ class _FilterParametersState extends State<FilterParameters> {
                       },
                       hintText: state.bodyType?.type ?? LocaleKeys.all.tr(),
                       title: LocaleKeys.body_type.tr(),
-                      hasArrowDown: true,
+                      hasArrowDown: state.bodyType == null ||
+                          (state.bodyType?.type.isEmpty ?? true),
                     ),
                     SelectorItem(
                         onTap: () async {
@@ -159,10 +154,16 @@ class _FilterParametersState extends State<FilterParameters> {
                             backgroundColor: Colors.transparent,
                             builder: (c) => ChooseDriveType(
                                 selectedId: state.carDriveType?.id ?? -1),
-                          ).then((value) {
-                            filterBloc
-                                .add(FilterSelectEvent(carDriveType: value));
-                          });
+                          ).then(
+                            (value) {
+                              filterBloc.add(
+                                FilterSelectEvent(
+                                  carDriveType:
+                                      value ?? const DriveTypeEntity(),
+                                ),
+                              );
+                            },
+                          );
                         },
                         hintText:
                             state.carDriveType?.type ?? LocaleKeys.all.tr(),
@@ -179,11 +180,15 @@ class _FilterParametersState extends State<FilterParameters> {
                           backgroundColor: Colors.transparent,
                           builder: (c) => ChooseGearbox(
                               selectedId: state.gearboxType?.id ?? -1),
-                        ).then((value) {
-                          filterBloc.add(FilterSelectEvent(
-                            gearboxType: value,
-                          ));
-                        });
+                        ).then(
+                          (value) {
+                            filterBloc.add(
+                              FilterSelectEvent(
+                                gearboxType: value ?? const GearboxTypeEntity(),
+                              ),
+                            );
+                          },
+                        );
                       },
                       hintText: state.gearboxType?.type ?? LocaleKeys.all.tr(),
                       title: LocaleKeys.box.tr(),
@@ -204,9 +209,9 @@ class _FilterParametersState extends State<FilterParameters> {
                     const SizedBox(height: 16),
                     WRangeSlider(
                       values: state.priceValues,
-                      valueChanged: (value) => filterBloc.add(FilterSelectEvent(
-                        priceValues: value,
-                      )),
+                      valueChanged: (value) => filterBloc.add(
+                        FilterSelectEvent(priceValues: value),
+                      ),
                       title: LocaleKeys.price.tr(),
                       endValue: state.maxPriceValue,
                       startValue: state.minPriceValue,
@@ -218,18 +223,6 @@ class _FilterParametersState extends State<FilterParameters> {
                     const SizedBox(height: 16),
                     WButton(
                       onTap: () {
-                        var isFilter = (state.bodyType?.id != -1 &&
-                                state.bodyType?.id != null) ||
-                            (state.gearboxType?.id != -1 &&
-                                state.gearboxType?.id != null) ||
-                            (state.carDriveType?.id != -1 &&
-                                state.carDriveType?.id != null) ||
-                            state.yearValues.start != 0 ||
-                            state.yearValues.end != 0 ||
-                            state.priceValues.start != 0 ||
-                            state.priceValues.end != 0 ||
-                            state.currency != Currency.none;
-
                         ///
                         Navigator.of(context).pop(
                           TransferFilterData(
@@ -238,7 +231,7 @@ class _FilterParametersState extends State<FilterParameters> {
                             bodyType: state.bodyType,
                             gearboxType: state.gearboxType,
                             driveType: state.carDriveType,
-                            isFilter: isFilter,
+                            isFilter: state.isFilter,
                             priceValues: state.priceValues,
                             isRentWithPurchase: state.isRentWithPurchase,
                           ),

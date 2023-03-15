@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:auto/features/ad/const/constants.dart';
@@ -5,6 +6,7 @@ import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
+import 'package:auto/features/ads/domain/entities/min_max_price_year_entity.dart';
 import 'package:auto/features/ads/domain/usecases/get_min_max_price_use_case.dart';
 import 'package:auto/features/ads/presentation/widgets/sale_type_buttons.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
@@ -60,57 +62,91 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
             currency: currency,
           ),
         ) {
-    on<FilterClearEvent>((event, emit) {
-      emit(FilterState(
+    on<FilterClearEvent>(_clearFilter);
+    on<FilterSelectEvent>(_select);
+    on<FilterGetCurrencies>(_getCurrencies);
+  }
+
+  FutureOr<void> _getCurrencies(
+      FilterGetCurrencies event, Emitter<FilterState> emit) async {
+    RangeValues? priceV;
+    RangeValues? yearV;
+    MinMaxPriceYearEntity? usd;
+    MinMaxPriceYearEntity? uzs;
+    if (state.usdIfos == null || state.uzsIfos == null) {
+      final resultUzs = await minMaxPriceYearUseCase.call(Currency.uzs.value);
+      final resultUsd = await minMaxPriceYearUseCase.call(Currency.usd.value);
+      if (resultUsd.isRight) {
+        usd = resultUsd.right;
+      }
+      if (resultUzs.isRight) {
+        uzs = resultUzs.right;
+      }
+    } else {
+      uzs = state.uzsIfos;
+      usd = state.usdIfos;
+    }
+
+    if (event.currency == Currency.usd) {
+      if (usd != null) {
+        priceV = state.getPriceValues(usd);
+        yearV = state.getYearValues(usd);
+      }
+    } else {
+      if (uzs != null) {
+        priceV = state.getPriceValues(uzs);
+        yearV = state.getYearValues(uzs);
+      }
+    }
+
+    emit(state.copyWith(
+      usdIfos: usd,
+      uzsIfos: uzs,
+      priceValues: priceV,
+      minPriceValue: priceV?.start,
+      maxPriceValue: priceV?.end,
+      currency: event.currency,
+      yearValues: yearV,
+      maxYearValue: yearV?.end,
+      minYearValue: yearV?.start,
+    ));
+  }
+
+  FutureOr<void> _select(
+      FilterSelectEvent event, Emitter<FilterState> emit) async {
+    emit(state.copyWith(
+      isRentWithPurchase: event.saleType == SaleType.saleWithPurchase,
+      saleType: event.saleType,
+      currency: event.currency,
+      bodyType: event.bodyType,
+      carDriveType: event.carDriveType,
+      gearboxType: event.gearboxType,
+      maker: event.maker,
+      priceValues: event.priceValues,
+      yearValues: event.yearValues,
+      regions: event.regions,
+    ));
+  }
+
+  FutureOr<void> _clearFilter(
+      FilterClearEvent event, Emitter<FilterState> emit) {
+    final yearV = state.getYearValues(state.usdIfos);
+    final priceV = state.getPriceValues(state.usdIfos);
+    emit(
+      FilterState(
         isRentWithPurchase: false,
         regions: const [],
-        yearValues: yearValues,
-        priceValues: priceValues,
-        minYearValue: priceValues.start,
-        maxPriceValue: priceValues.end,
+        yearValues: yearV,
+        priceValues: priceV,
+        minYearValue: yearV.start,
         maxYearValue: yearValues.end,
-        minPriceValue: yearValues.start,
+        maxPriceValue: priceV.end,
+        minPriceValue: priceV.start,
         currency: Currency.usd,
         bodyType: null,
         carDriveType: null,
         gearboxType: null,
-      ));
-    });
-    on<FilterSelectEvent>((event, emit) async {
-      emit(state.copyWith(
-        isRentWithPurchase: event.saleType == SaleType.saleWithPurchase,
-        saleType: event.saleType,
-        currency: event.currency,
-        bodyType: event.bodyType,
-        carDriveType: event.carDriveType,
-        gearboxType: event.gearboxType,
-        maker: event.maker,
-        priceValues: event.priceValues,
-        yearValues: event.yearValues,
-        regions: event.regions,
-      ));
-    });
-    on<FilterChangeCurrencyEvent>((event, emit) async {
-      if (currency == Currency.none) return;
-      final result = await minMaxPriceYearUseCase.call(event.currency.value);
-      RangeValues? priceValues;
-      RangeValues? yearValues;
-      if (result.isRight) {
-        priceValues = RangeValues(double.parse(result.right.minPrice),
-            double.parse(result.right.maxPrice));
-        yearValues = RangeValues(
-            result.right.minYear.toDouble(), result.right.maxYear.toDouble());
-      }
-
-      emit(state.copyWith(
-        priceValues: priceValues,
-        minPriceValue: priceValues?.start,
-        maxPriceValue: priceValues?.end,
-        currency: event.currency,
-        yearValues: yearValues,
-        maxYearValue: yearValues?.end,
-        minYearValue: yearValues?.start,
-      ));
-    });
+      ),
+    );
   }
 }

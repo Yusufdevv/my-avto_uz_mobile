@@ -27,7 +27,7 @@ class EditAdState extends Equatable {
   final List<RegionEntity> regions;
   final List<DistrictEntity> districts;
 
-  final YearsEntity? yearEntity;
+  final int? selectedYear;
   final DistrictEntity? district;
   final List<String> gallery;
   final List<String> panaramaGallery;
@@ -90,7 +90,7 @@ class EditAdState extends Equatable {
     this.model,
     this.generationEntity,
     this.bodyType,
-    this.yearEntity,
+    this.selectedYear,
     this.equipmentOptionsList = const <EquipmentOptionsListEntity>[],
     this.gallery = const <String>[],
     this.panaramaGallery = const <String>[],
@@ -165,7 +165,7 @@ class EditAdState extends Equatable {
     List<DistrictEntity>? districts,
     List<String>? gallery,
     List<String>? panaramaGallery,
-    YearsEntity? yearEntity,
+    int? selectedYear,
     UserModel? userModel,
     num? minimumPrice,
     int? lastEquipmentId,
@@ -219,7 +219,7 @@ class EditAdState extends Equatable {
         panaramaGallery: panaramaGallery ?? this.panaramaGallery,
         createStatus: createStatus ?? this.createStatus,
         mapPointBytes: mapPointBytes ?? this.mapPointBytes,
-        yearEntity: yearEntity ?? this.yearEntity,
+        selectedYear: selectedYear ?? this.selectedYear,
         locationUrl: locationUrl ?? this.locationUrl,
         phoneController: phoneController ?? this.phoneController,
         emailController: emailController ?? this.emailController,
@@ -314,7 +314,7 @@ class EditAdState extends Equatable {
         engineId,
         model,
         make,
-        yearEntity,
+        selectedYear,
         status,
         generationEntity,
         colorName,

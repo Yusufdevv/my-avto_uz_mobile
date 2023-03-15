@@ -251,7 +251,6 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                     bottom: 0,
                     child: PostingAdSubmitBox(
                       onTab: () {
-                        log('::::::::::: MAP STATE LAT IS  ${statee.lat}  ::::::::::');
                         Navigator.of(context).pop(statee.lat == 0
                             ? null
                             : [statee.lat, statee.long, zoomLevel]);

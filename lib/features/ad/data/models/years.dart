@@ -7,9 +7,8 @@ part 'years.g.dart';
 class YearsModel extends YearsEntity {
   const YearsModel({
     required super.id,
-    required super.yearBegin,
-    required super.yearEnd,
-    required super.modelId,
+    required super.years,
+    required super.model,
   });
 
   factory YearsModel.fromJson(Map<String, dynamic> json) =>

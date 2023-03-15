@@ -35,16 +35,15 @@ class _YearIssueScreennState extends State<YearIssueScreenn> {
                       behavior: HitTestBehavior.opaque,
                       onTap: () {
                         context.read<PostingAdBloc>().add(PostingAdChooseEvent(
-                            yearEntity: state.years![index]));
+                            selectedYear: state.yearEntity!.years[index]));
                       },
                       child: YearItem(
-                        beginYear: '${state.years![index].yearBegin}',
-                        endYear: '${state.years![index].yearEnd}',
-                        isSelected: (state.yearEntity?.id ?? -1) ==
-                            state.years![index].id,
+                        year: '${state.yearEntity?.years[index]}',
+                        isSelected: state.selectedYear ==
+                            state.yearEntity!.years[index],
                       ),
                     ),
-                    itemCount: state.years?.length ?? 0,
+                    itemCount: state.yearEntity?.years.length ?? 0,
                   ),
           ),
         ),

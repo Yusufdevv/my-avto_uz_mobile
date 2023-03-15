@@ -83,7 +83,7 @@ class _ChooseBodyTypeState extends State<ChooseBodyType> {
                                     .add(GetBodyTypesSelectIndex(index)),
                                 logo: state.bodyTypes[index].logo,
                                 title: state.bodyTypes[index].type,
-                                isChecked: index == state.selected,
+                                isChecked: index == state.selected || state.selected == -1,
                               ),
                             ),
                           ],
