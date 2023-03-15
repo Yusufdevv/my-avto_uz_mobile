@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +31,9 @@ class CommercialTab extends StatelessWidget {
           padding: const EdgeInsets.all(2),
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           child: TabBar(
-
+            onTap: (v){
+              log(':::::::::::   TABBAR PREESED: $v    ::::::::::::::');
+            },
             controller: tabController,
             indicator: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),

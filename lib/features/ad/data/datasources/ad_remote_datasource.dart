@@ -229,7 +229,6 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
       ),
     );
     if (response.statusCode! >= 200 && response.statusCode! < 300) {
-      log(':::::::::: GOTTEN YEARS DATA:  ${response.data}  ::::::::::');
       return YearsModel.fromJson(response.data);
     } else {
       throw ServerException(

@@ -22,7 +22,7 @@ class DamagedPartsEntity extends Equatable {
       ];
 
    DamagedPartsAsEnum toEnum() => DamagedPartsAsEnum(
-      part: MyFunctions.stringToDamagePart(part),
+      part: MyFunctions.strToDamagePart(part),
       type: MyFunctions.strToDamageType(damageType));
 }
 

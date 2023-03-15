@@ -193,7 +193,7 @@ class _AdsScreenState extends State<AdsScreen>
                     ),
                     SliverPersistentHeader(
                       delegate: AdsSliverWidget(
-                        isNew: state.isNew,
+
                         size: MediaQuery.of(context).size,
                         theme: Theme.of(context).extension<ThemedColors>()!,
                         tabController: tabController,

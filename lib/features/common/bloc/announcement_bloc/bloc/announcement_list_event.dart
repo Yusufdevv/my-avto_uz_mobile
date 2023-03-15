@@ -5,33 +5,26 @@ part of 'announcement_list_bloc.dart';
 abstract class AnnouncementListEvent {
   const AnnouncementListEvent();
 }
+
 class AnnouncementListChooseEvent extends AnnouncementListEvent {
-
-
-
-  AnnouncementListChooseEvent( );
+  AnnouncementListChooseEvent();
 }
 
-
 class GetAnnouncementList extends AnnouncementListEvent {
-  final bool? isNew;
 
-  const GetAnnouncementList({this.isNew});
+
+  const GetAnnouncementList( );
 }
 
 class GetMoreAnnouncementList extends AnnouncementListEvent {
-  final bool? isNew;
-
-  const GetMoreAnnouncementList({this.isNew});
+  const GetMoreAnnouncementList();
 }
 
 class SetRegions extends AnnouncementListEvent {
-  final bool? isNew;
   final List<RegionEntity> regions;
 
   const SetRegions({
     required this.regions,
-    this.isNew,
   });
 }
 
@@ -52,12 +45,12 @@ class SetFilter extends AnnouncementListEvent {
   final RangeValues? priceValues;
   final bool? isFilter;
   final bool? historySaved;
-  final bool? isRentWithPurchase;
+  final SaleType? saleType;
   final bool? isNew;
   final int? historyId;
 
   const SetFilter({
-    this.isRentWithPurchase,
+    this.saleType,
     this.currency,
     this.historyId,
     this.gearboxType,
@@ -72,9 +65,7 @@ class SetFilter extends AnnouncementListEvent {
 }
 
 class ClearFilter extends AnnouncementListEvent {
-  final bool? isNew;
-
-  const ClearFilter(this.isNew);
+  const ClearFilter();
 }
 
 class SaveHistory extends AnnouncementListEvent {
@@ -91,14 +82,12 @@ class SetMakeModel extends AnnouncementListEvent {
   final MakeEntity make;
   final int? modelId;
   final String? modelName;
-  final bool? isNew;
   final bool? historySaved;
 
   const SetMakeModel({
     required this.make,
     this.modelId,
     this.modelName,
-    this.isNew,
     this.historySaved,
   });
 }
