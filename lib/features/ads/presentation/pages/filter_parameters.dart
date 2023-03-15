@@ -57,7 +57,6 @@ class _FilterParametersState extends State<FilterParameters> {
 
   @override
   void initState() {
-    log(':::::::::: CURRENCY IN INIT STATE:  ${widget.currency}  ::::::::::');
     super.initState();
     final yearValues = RangeValues(
         widget.yearValues != null && widget.yearValues!.start > 0
