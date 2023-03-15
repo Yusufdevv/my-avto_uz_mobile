@@ -78,7 +78,8 @@ class _ChooseGearboxState extends State<ChooseGearbox> {
                                     .add(GetGearboxesSelectEvent(index)),
                                 logo: state.gearBoxes[index].logo,
                                 title: state.gearBoxes[index].type,
-                                isChecked: index == state.selected,
+                                isChecked: index == state.selected ||
+                                    state.selected == -1,
                                 hasDivider: state.gearBoxes.length - 1 != index,
                               ),
                             ),
