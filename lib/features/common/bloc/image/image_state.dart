@@ -4,7 +4,7 @@ part of 'image_bloc.dart';
 class ImageState extends Equatable {
   final File image;
   final List<String> images;
-  final String secondImage;
+  final List<String> secondImage;
 
   const ImageState(
       {required this.image, required this.images, required this.secondImage});
@@ -12,7 +12,7 @@ class ImageState extends Equatable {
   ImageState copyWith({
     File? image,
     List<String>? images,
-    String? secondImage,
+    List<String>? secondImage,
   }) => ImageState(
         image: image ?? this.image,
         images: images ?? this.images,

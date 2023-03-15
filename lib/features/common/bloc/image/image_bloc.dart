@@ -18,8 +18,8 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
       : super(
           ImageState(
             image: File(''),
-            images: const [],
-            secondImage: '',
+            images: const ['',''],
+            secondImage: const ['',''],
           ),
         ) {
     on<GetImageEvent>((event, emit) async {
@@ -45,21 +45,17 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
       final permission = event.source == ImageSource.camera
           ? await MyFunctions.getCameraPermission(Platform.isAndroid)
           : await MyFunctions.getPhotosPermission(Platform.isAndroid);
+
       if (permission.isGranted) {
         final image =
             await picker.pickImage(source: event.source, imageQuality: 90);
 
         if (image != null) {
-          emit(state.copyWith(secondImage: image.path));
+          final images = [...state.secondImage];
+          images[event.index] = image.path;
+          emit(state.copyWith(secondImage: [...images]));
         }
       }
-      // else {
-      //   final what = event.source == ImageSource.camera
-      //       ? 'taking picture'
-      //       : 'picking image';
-      //   final how = permission.isPermanentlyDenied ? 'permanently' : '';
-      //   emit(state.copyWith(toastMessage: 'You have denied $what $how'));
-      // }
     });
 
     on<PickSTSImageEvent>((event, emit) async {
@@ -71,28 +67,26 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
         final image =
             await picker.pickImage(source: event.source, imageQuality: 90);
         if (image != null) {
-          emit(state.copyWith(images: [image.path, ...state.images]));
+          final images = [...state.images];
+          images[event.index] = image.path;
+          emit(state.copyWith(images: [...images]));
         }
       }
-      // else {
-      //   final what = event.source == ImageSource.camera
-      //       ? 'taking picture'
-      //       : 'picking image';
-      //   final how = permission.isPermanentlyDenied ? 'permanently' : '';
-      //   emit(state.copyWith(toastMessage: 'You have denied $what $how'));
-      // }
     });
 
     on<DeleteImageEvent>((event, emit) {
       final images = <String>[...state.images];
-      var image = state.secondImage;
+      final secondImage = <String>[...state.secondImage];
       if (images.contains(event.imageUrl)) {
-        images.remove(event.imageUrl);
+        final index = images.indexOf(event.imageUrl);
+        images[index] = '';
       }
-      if (image == event.imageUrl) {
-        image = '';
+      if (secondImage.contains(event.imageUrl)) {
+        final index = images.indexOf(event.imageUrl);
+        secondImage[index] = '';
       }
-      emit(state.copyWith(images: images, secondImage: image));
+
+      emit(state.copyWith(images: [...images], secondImage: [...secondImage]));
     });
   }
 }

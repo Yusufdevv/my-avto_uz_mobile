@@ -11,14 +11,16 @@ class GetImageEvent extends ImageEvent {
 
 class PickSTSImageEvent extends ImageEvent {
   final ImageSource source;
+  final int index;
 
-  PickSTSImageEvent({required this.source});
+  PickSTSImageEvent({required this.source, required this.index});
 }
 
 class PickDriverLicenceImageEvent extends ImageEvent {
   final ImageSource source;
+  final int index;
 
-  PickDriverLicenceImageEvent({required this.source});
+  PickDriverLicenceImageEvent({required this.source, required this.index});
 }
 
 class DeleteImageEvent extends ImageEvent {

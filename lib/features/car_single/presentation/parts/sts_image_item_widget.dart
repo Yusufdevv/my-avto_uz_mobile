@@ -11,12 +11,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class StsImageItemWidget extends StatefulWidget {
-  final List<String> images;
+  final String images;
   final VoidCallback onTap;
+  final String title;
 
-  const StsImageItemWidget(
-      {required this.images, required this.onTap, Key? key})
-      : super(key: key);
+  const StsImageItemWidget({
+    required this.images,
+    required this.onTap,
+    required this.title,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<StsImageItemWidget> createState() => _StsImageItemWidgetState();
@@ -29,10 +33,8 @@ class _StsImageItemWidgetState extends State<StsImageItemWidget> {
           onTap: widget.onTap,
           child: Container(
             alignment: Alignment.center,
-            height: 80,
-            width: double.infinity,
-            margin:
-                const EdgeInsets.only(right: 20, left: 20, top: 8, bottom: 20),
+            height: 110,
+            width: (MediaQuery.of(context).size.width / 2) - 24,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: purple),
@@ -40,76 +42,50 @@ class _StsImageItemWidgetState extends State<StsImageItemWidget> {
                   .extension<ThemedColors>()!
                   .ghostWhiteToUltramarine10,
             ),
-            child: const PlusCircle(),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const PlusCircle(),
+                Text(
+                  widget.title,
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(fontSize: 12),
+                )
+              ],
+            ),
           ),
         )
-      : Padding(
-          padding: const EdgeInsets.all(16),
-          child: Row(
-            children: [
-              if(widget.images.length<2)
-              Expanded(
-                child: WScaleAnimation(
-                  onTap: widget.onTap,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 8),
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 109,
-                      width: 109,
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: purple),
-                        borderRadius: BorderRadius.circular(8),
-                        color: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .ghostWhiteToUltramarine10,
-                      ),
-                      child: const PlusCircle(),
-                    ),
-                  ),
+      : Stack(
+          children: [
+            Container(
+              height: 110,
+              width: (MediaQuery.of(context).size.width / 2) - 24,
+              decoration: BoxDecoration(
+                border: Border.all(width: 1, color: purple),
+                color: Theme.of(context)
+                    .extension<ThemedColors>()!
+                    .ghostWhiteToUltramarine10,
+                borderRadius: BorderRadius.circular(8),
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: FileImage(File(widget.images)),
                 ),
               ),
-              ...List.generate(
-                  widget.images.length,
-                  (index) => Expanded(
-                    flex: 2,
-                    child: Padding(
-                          padding: EdgeInsets.only(right: index == 0 ? 8 : 0),
-                          child: Stack(
-                            children: [
-                              Container(
-                                height: 109,
-                                decoration: BoxDecoration(
-                                  border: Border.all(width: 1, color: purple),
-                                  color: Theme.of(context)
-                                      .extension<ThemedColors>()!
-                                      .ghostWhiteToUltramarine10,
-                                  borderRadius: BorderRadius.circular(8),
-                                  image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: FileImage(File(widget.images[index])),
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                top: 4,
-                                right: 4,
-                                child: WScaleAnimation(
-                                    onTap: () {
-                                      context.read<ImageBloc>().add(
-                                          DeleteImageEvent(
-                                              imageUrl: widget.images[index]));
-                                    },
-                                    child:
-                                        SvgPicture.asset(AppIcons.closeSquare)),
-                              ),
-                            ],
-                          ),
-                        ),
-                  )).toList(),
-              if(widget.images.length==1)
-             const Expanded(child: SizedBox()),
-            ],
-          ),
+            ),
+            Positioned(
+              top: 4,
+              right: 4,
+              child: WScaleAnimation(
+                  onTap: () {
+                    context
+                        .read<ImageBloc>()
+                        .add(DeleteImageEvent(imageUrl: widget.images));
+                  },
+                  child: SvgPicture.asset(AppIcons.closeSquare)),
+            ),
+          ],
         );
 }

@@ -43,7 +43,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
               body: BaseWidget(
                 headerText: LocaleKeys.photo.tr(),
                 extraAction: [
-                  const SizedBox(width: 12),
+                  const SizedBox(width: 8),
                   GestureDetector(
                       onTap: () {
                         Navigator.of(context, rootNavigator: true)
