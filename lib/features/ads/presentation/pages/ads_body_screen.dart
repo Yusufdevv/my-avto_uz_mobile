@@ -32,7 +32,7 @@ class AdsBodyScreen extends StatefulWidget {
 class _AdsBodyScreenState extends State<AdsBodyScreen> {
   @override
   void initState() {
-    widget.announcementListBloc.add(GetAnnouncementList(isNew: widget.isNew));
+    widget.announcementListBloc.add(GetAnnouncementList());
     super.initState();
   }
 
@@ -56,7 +56,7 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                     padding: EdgeInsets.only(
                         bottom: widget.isFromComparison ? 80 : 0),
                     child: Paginator(
-                      padding:const EdgeInsets.only(bottom: 12) ,
+                      padding: const EdgeInsets.only(bottom: 12),
                       physics: const NeverScrollableScrollPhysics(),
                       paginatorStatus: state.status,
                       itemBuilder: (context, index) => GestureDetector(
@@ -65,8 +65,7 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                             Navigator.of(context, rootNavigator: true).push(
                                 fade(
                                     page: CarSingleScreen(
-                                        id: state
-                                            .announcementList[index].id)));
+                                        id: state.announcementList[index].id)));
                           }
                         },
                         behavior: HitTestBehavior.opaque,
@@ -84,19 +83,19 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                               '${state.announcementList[index].make} ${state.announcementList[index].model} ${state.announcementList[index].generation.name}',
                           hasDiscount:
                               state.announcementList[index].discount != 0,
-                          location:
-                              state.announcementList[index].region.title,
-                          owner: state.announcementList[index].user.name
-                                  .isNotEmpty
-                              ? state.announcementList[index].user.name
-                              : state.announcementList[index].user.fullName,
+                          location: state.announcementList[index].region.title,
+                          owner:
+                              state.announcementList[index].user.name.isNotEmpty
+                                  ? state.announcementList[index].user.name
+                                  : state.announcementList[index].user.fullName,
                           ownerType: state.announcementList[index].userType,
                           publishTime: MyFunctions.getDateNamedMonthEdit(
                               state.announcementList[index].publishedAt),
                           subtitle: state.announcementList[index].description,
                           year: state.announcementList[index].year,
                           price: state.announcementList[index].price,
-                          discountPrice: state.announcementList[index].discount ?? 0,
+                          discountPrice:
+                              state.announcementList[index].discount ?? 0,
                           sellType:
                               state.announcementList[index].isRentWithPurchase
                                   ? LocaleKeys.rent_to_buy.tr()
@@ -107,7 +106,6 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                           initialLike:
                               state.announcementList[index].isWishlisted,
                           id: state.announcementList[index].id,
-
                           onTapFavorites: () {
                             /// tegma, ichkarida AddWishlistItemda function-i yozilgan
                           },
@@ -118,7 +116,7 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                       itemCount: state.announcementList.length,
                       fetchMoreFunction: () {
                         widget.announcementListBloc
-                            .add(GetMoreAnnouncementList(isNew: widget.isNew));
+                            .add(const GetMoreAnnouncementList());
                       },
                       hasMoreToFetch: state.next,
                       errorWidget: const SizedBox(),

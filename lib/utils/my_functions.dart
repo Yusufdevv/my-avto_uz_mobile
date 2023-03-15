@@ -532,7 +532,7 @@ class MyFunctions {
     }
   }
 
-  static DamagedPart stringToDamagePart(String name) {
+  static DamagedPart strToDamagePart(String name) {
     switch (name) {
       case 'left_front_door':
         return DamagedPart.leftFrontDoor;
@@ -660,21 +660,21 @@ class MyFunctions {
     return err;
   }
 
-  static DamageType stringToDamageType(String status) {
-    switch (status) {
-      case 'ideal':
-        return DamageType.ideal;
-      case 'scratched':
-        return DamageType.scratched;
-      case 'replaced':
-        return DamageType.replaced;
-      case 'with_dents':
-        return DamageType.withDents;
-      case 'requires_replacement':
-        return DamageType.requiresReplacement;
-    }
-    return DamageType.ideal;
-  }
+  // static DamageType stringToDamageType(String status) {
+  //   switch (status) {
+  //     case 'ideal':
+  //       return DamageType.ideal;
+  //     case 'scratched':
+  //       return DamageType.scratched;
+  //     case 'replaced':
+  //       return DamageType.replaced;
+  //     case 'with_dents':
+  //       return DamageType.withDents;
+  //     case 'requires_replacement':
+  //       return DamageType.requiresReplacement;
+  //   }
+  //   return DamageType.ideal;
+  // }
 
   static Color getStatusColor(DamageType? status) {
     if (status == null) return emerald;

@@ -10,8 +10,8 @@ class AnnouncementListState extends Equatable {
   final bool historySaved;
   final List<AnnouncementListEntity> announcementList;
   final SaveFilterModel saveFilterModel;
-  final RangeValues? yearValues;
-  final RangeValues? priceValues;
+  final RangeValues? yearValuess;
+  final RangeValues? priceValuess;
   final Currency? currency;
   final SortStatus? sortStatus;
   final GearboxTypeEntity? gearboxType;
@@ -20,13 +20,13 @@ class AnnouncementListState extends Equatable {
   final MakeEntity? make;
   final int? modelId;
   final String? modelName;
-  final bool? isNew;
-  final bool  isRentWithPurchase;
+  final bool? isNeww;
+  final SaleType saleType;
   final FormzStatus saveFilterStatus;
   final CrossFadeState crossFadeState;
 
   const AnnouncementListState({
-    this.isRentWithPurchase = false,
+    this.saleType = SaleType.all,
     this.status = FormzStatus.pure,
     this.next = false,
     this.historyId,
@@ -36,8 +36,8 @@ class AnnouncementListState extends Equatable {
     this.isFilter = false,
     this.announcementList = const [],
     this.saveFilterModel = const SaveFilterModel(),
-    this.yearValues,
-    this.priceValues,
+    this.yearValuess,
+    this.priceValuess,
     this.currency = Currency.none,
     this.sortStatus = SortStatus.newest,
     this.gearboxType,
@@ -46,7 +46,7 @@ class AnnouncementListState extends Equatable {
     this.make,
     this.modelId,
     this.modelName,
-    this.isNew,
+    this.isNeww,
     this.saveFilterStatus = FormzStatus.pure,
     this.crossFadeState = CrossFadeState.showFirst,
   });
@@ -54,7 +54,7 @@ class AnnouncementListState extends Equatable {
   AnnouncementListState copyWith({
     FormzStatus? status,
     bool? next,
-    bool? isRentWithPurchase,
+    SaleType? saleType,
     int? historyId,
     int? count,
     List<RegionEntity>? regions,
@@ -62,8 +62,8 @@ class AnnouncementListState extends Equatable {
     bool? historySaved,
     List<AnnouncementListEntity>? announcementList,
     SaveFilterModel? saveFilterModel,
-    RangeValues? yearValues,
-    RangeValues? priceValues,
+    RangeValues? yearValuess,
+    RangeValues? priceValuess,
     Currency? currency,
     SortStatus? sortResult,
     GearboxTypeEntity? gearboxType,
@@ -77,7 +77,7 @@ class AnnouncementListState extends Equatable {
     CrossFadeState? crossFadeState,
   }) =>
       AnnouncementListState(
-        isRentWithPurchase: isRentWithPurchase ?? this.isRentWithPurchase,
+        saleType: saleType ?? this.saleType,
         status: status ?? this.status,
         next: next ?? this.next,
         historyId: historyId ?? this.historyId,
@@ -87,8 +87,12 @@ class AnnouncementListState extends Equatable {
         historySaved: historySaved ?? this.historySaved,
         announcementList: announcementList ?? this.announcementList,
         saveFilterModel: saveFilterModel ?? this.saveFilterModel,
-        yearValues: yearValues ?? this.yearValues,
-        priceValues: priceValues ?? this.priceValues,
+        yearValuess: yearValuess?.end == 0 && yearValuess?.start == 0
+            ? null
+            : yearValuess ?? this.yearValuess,
+        priceValuess: priceValuess?.end == 0 && priceValuess?.start == 0
+            ? null
+            : priceValuess ?? this.priceValuess,
         currency: currency ?? this.currency,
         gearboxType: gearboxType ?? this.gearboxType,
         bodyType: bodyType ?? this.bodyType,
@@ -96,7 +100,7 @@ class AnnouncementListState extends Equatable {
         make: make ?? this.make,
         modelId: modelId ?? this.modelId,
         modelName: modelName ?? this.modelName,
-        isNew: isNew ?? this.isNew,
+        isNeww: isNew ?? this.isNeww,
         saveFilterStatus: saveFilterStatus ?? this.saveFilterStatus,
         crossFadeState: crossFadeState ?? this.crossFadeState,
         sortStatus: sortResult ?? sortStatus,
@@ -104,7 +108,7 @@ class AnnouncementListState extends Equatable {
 
   @override
   List<Object?> get props => [
-        isRentWithPurchase,
+        saleType,
         status,
         next,
         count,
@@ -113,8 +117,8 @@ class AnnouncementListState extends Equatable {
         historySaved,
         announcementList,
         saveFilterModel,
-        yearValues,
-        priceValues,
+        yearValuess,
+        priceValuess,
         currency,
         gearboxType,
         bodyType,
@@ -122,7 +126,7 @@ class AnnouncementListState extends Equatable {
         make,
         modelId,
         modelName,
-        isNew,
+        isNeww,
         saveFilterStatus,
         crossFadeState,
         historyId,
