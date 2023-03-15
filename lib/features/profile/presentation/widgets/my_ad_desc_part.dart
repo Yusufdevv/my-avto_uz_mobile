@@ -14,6 +14,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../../ad/const/constants.dart';
+
 class MyAdDesc extends StatelessWidget {
   const MyAdDesc({
     required this.moderationStatus,
@@ -37,8 +39,8 @@ class MyAdDesc extends StatelessWidget {
           '${item.stats.wishlistCount}',
           '${item.stats.viewedContactsCount}'
         ]),
-        if (item.moderationStatus != 'sold') const Divider(height: 24),
-        if (item.moderationStatus == 'active')
+        if (item.moderationStatus != ModerationStatusEnum.sold.value ) const Divider(height: 24),
+        if (item.moderationStatus == ModerationStatusEnum.active.value)
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -160,7 +162,7 @@ class MyAdDesc extends StatelessWidget {
               ),
             ],
           )
-        else if (item.moderationStatus == 'in_moderation')
+        else if (item.moderationStatus == ModerationStatusEnum.in_moderation.value)
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -218,27 +220,6 @@ class MyAdDesc extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // const SizedBox(width: 8),
-                  // WButton(
-                  //   border: Border.all(
-                  //       color: Theme.of(context)
-                  //           .extension<ThemedColors>()!
-                  //           .borderGreyToDark),
-                  //   color: Theme.of(context)
-                  //       .extension<ThemedColors>()!
-                  //       .whiteToDarkRider,
-                  //   borderRadius: 12,
-                  //   padding: const EdgeInsets.symmetric(
-                  //       vertical: 10, horizontal: 11),
-                  //   onTap: () {
-                  //     Share.share(
-                  //         'https://panel.avto.uz/api/v1/car/announcement/${item.id}/detail/');
-                  //   },
-                  //   child: SvgPicture.asset(AppIcons.share,
-                  //       color: Theme.of(context)
-                  //           .extension<ThemedColors>()!
-                  //           .mediumSlateBlueToWhite),
-                  // ),
                 ],
               )
             ],

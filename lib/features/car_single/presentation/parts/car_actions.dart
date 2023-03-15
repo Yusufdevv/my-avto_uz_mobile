@@ -14,7 +14,7 @@ class CarActions extends StatelessWidget {
   final VoidCallback onShare;
   final int id;
   final bool isComparised;
-  final bool inModeration;
+  final String inModeration;
 
   const CarActions({
     required this.onVin,
@@ -22,7 +22,7 @@ class CarActions extends StatelessWidget {
     required this.onShare,
     required this.id,
     required this.isComparised,
-      this.inModeration=false,
+      this.inModeration='',
     Key? key,
   }) : super(key: key);
 
@@ -47,7 +47,6 @@ class CarActions extends StatelessWidget {
             initialLike: isComparised,
             isText: true,
           ),
-          if(!inModeration)
           CarActionsBox(
             onTap: onShare,
             carStatistic: CarStatistic(

@@ -43,6 +43,16 @@ enum Currency  {
 
   final String value;
 }
+enum ModerationStatusEnum  {
+  active('active'),
+  blocked('blocked'),
+  sold('sold'),
+  in_moderation('in_moderation');
+
+  const ModerationStatusEnum(this.value);
+
+  final String value;
+}
 
 enum TransactionStatus {
   waiting('waiting'),

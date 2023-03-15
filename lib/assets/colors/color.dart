@@ -8,6 +8,7 @@ const red = _fuzzyWuzzyBrown;
 const dodgerBlue = _dodgerBlue2;
 const warmerGrey = _ghost;
 const grey = _greySuit;
+const floralWhite = _floralWhite;
 const dimGray = _dimGray;
 const white = _white;
 const transparentButton = _whiteTransparent;
@@ -82,6 +83,7 @@ const greyLight = _greyLight;
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
 const _popUpWarning = Color(0xffF1B747);
+const _floralWhite = Color(0xffFFF8EF);
 const _whiteToGrey = Color(0xFFFAFAFA);
 const _snow = Color(0xFFFFFCFB);
 const _yellowSea = Color(0xFFF4A937);

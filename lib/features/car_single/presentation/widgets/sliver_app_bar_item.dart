@@ -1,4 +1,5 @@
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/car_single/presentation/widgets/mine_more_bottomsheet.dart';
 import 'package:auto/features/car_single/presentation/widgets/more_actions_bottomsheet.dart';
 import 'package:auto/features/car_single/presentation/widgets/sliver_images_item.dart';
@@ -35,7 +36,7 @@ class SliverAppBarItem extends StatefulWidget {
   final VoidCallback onSold;
   final bool isMine;
   final bool isCompare;
-  final bool inModeration;
+  final String moderationStatus;
 
   const SliverAppBarItem({
     required this.brightness,
@@ -56,7 +57,7 @@ class SliverAppBarItem extends StatefulWidget {
     required this.status,
     required this.onSold,
     required this.isCompare,
-    this.inModeration = false,
+    this.moderationStatus = 'active',
     Key? key,
   }) : super(key: key);
 
@@ -153,6 +154,7 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                       initialLike: isLiked!,
                     ),
             ),
+            if(widget.moderationStatus==ModerationStatusEnum.active.value || widget.moderationStatus== ModerationStatusEnum.in_moderation.value)
             WScaleAnimation(
               child: SvgPicture.asset(
                 AppIcons.moreVertical,
@@ -168,7 +170,7 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                   context: context,
                   builder: (context) => widget.isMine
                       ? MineMoreBottomSheet(
-                          inModeration: widget.inModeration,
+                          moderationStatus: widget.moderationStatus,
                           name: widget.dealerName,
                           position: widget.position,
                           image: widget.avatar ?? '',
@@ -182,7 +184,6 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                           onSold: widget.onSold,
                         )
                       : MoreActionsBottomsheet(
-                          inModeration: widget.inModeration,
                           name: widget.dealerName,
                           position: widget.position == 'owner'
                               ? LocaleKeys.private_person.tr()

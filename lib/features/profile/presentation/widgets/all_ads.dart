@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/car_single/presentation/car_single_screen.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/pagination/presentation/paginator.dart';
@@ -66,8 +67,7 @@ class _AllAdsState extends State<AllAds> {
                           Navigator.of(context).push(fade(
                             page: CarSingleScreen(
                               id: item.id,
-                              inModeration:
-                                  item.moderationStatus == 'in_moderation',
+                              moderationStatus: item.moderationStatus,
                             ),
                           ));
                         },
@@ -90,7 +90,7 @@ class _AllAdsState extends State<AllAds> {
                                     //
                                     MyAdCarDescPart(item: item),
                                     //
-                                    if (item.moderationStatus != 'blocked')
+                                    if (item.moderationStatus != ModerationStatusEnum.blocked.value)
                                       MyAdDesc(
                                         moderationStatus:
                                             widget.moderationStatus,

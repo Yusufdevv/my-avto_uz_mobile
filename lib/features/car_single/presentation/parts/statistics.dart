@@ -11,12 +11,14 @@ class CarStatistics extends StatelessWidget {
   final String views;
   final String todayViewedCount;
   final String id;
+  final String moderationStatus;
 
   const CarStatistics({
     required this.date,
     required this.views,
     required this.todayViewedCount,
     required this.id,
+    required this.moderationStatus,
     Key? key,
   }) : super(key: key);
 

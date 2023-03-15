@@ -18,7 +18,6 @@ class MoreActionsBottomsheet extends StatefulWidget {
   final VoidCallback onDealer;
   final int id;
   final bool? isCompare;
-  final bool inModeration;
 
   const MoreActionsBottomsheet({
     required this.name,
@@ -29,7 +28,6 @@ class MoreActionsBottomsheet extends StatefulWidget {
     required this.onDealer,
     required this.id,
     required this.isCompare,
-    this.inModeration = false,
     Key? key,
   }) : super(key: key);
 
@@ -165,7 +163,6 @@ class _MoreActionsBottomsheetState extends State<MoreActionsBottomsheet> {
                   ),
                 ),
                 const SizedBox(width: 8),
-                if(!widget.inModeration)
                 Expanded(
                   child: WScaleAnimation(
                     onTap: () {

@@ -4,6 +4,8 @@ import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import '../../../ad/const/constants.dart';
+
 class MyAdImagesPart extends StatelessWidget {
   const MyAdImagesPart({
     required this.item,
@@ -51,7 +53,7 @@ class MyAdImagesPart extends StatelessWidget {
               ),
               Container(
                 decoration: BoxDecoration(
-                    color: item.moderationStatus == 'in_moderation'
+                    color: item.moderationStatus == ModerationStatusEnum.in_moderation.value
                         ? white.withOpacity(0.72)
                         : null),
                 height: 201,

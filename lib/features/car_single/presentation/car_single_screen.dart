@@ -2,6 +2,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
+import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/car_single/data/repository/car_single_repository_impl.dart';
 import 'package:auto/features/car_single/domain/usecases/call_count_usecase.dart';
 import 'package:auto/features/car_single/domain/usecases/get_ads_usecase.dart';
@@ -16,6 +17,7 @@ import 'package:auto/features/car_single/presentation/widgets/become_verifired_o
 import 'package:auto/features/car_single/presentation/widgets/bottom_item.dart';
 import 'package:auto/features/car_single/presentation/widgets/car_characteristic_image.dart';
 import 'package:auto/features/car_single/presentation/widgets/car_name_widget.dart';
+import 'package:auto/features/car_single/presentation/widgets/car_single_resend_btn.dart';
 import 'package:auto/features/car_single/presentation/widgets/cars_characteristic.dart';
 import 'package:auto/features/car_single/presentation/widgets/confirm_bottomsheet.dart';
 import 'package:auto/features/car_single/presentation/widgets/other_ads_item.dart';
@@ -41,11 +43,11 @@ import 'package:share_plus/share_plus.dart';
 
 class CarSingleScreen extends StatefulWidget {
   final int id;
-  final bool inModeration;
+  final String moderationStatus;
 
   const CarSingleScreen({
     required this.id,
-    this.inModeration = false,
+    this.moderationStatus = 'active',
     Key? key,
   }) : super(key: key);
 
@@ -144,7 +146,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                         controller: _scrollController,
                         slivers: [
                           SliverAppBarItem(
-                            inModeration: widget.inModeration,
+                            moderationStatus: widget.moderationStatus,
                             id: state.singleEntity.id,
                             userId: state.singleEntity.user.id,
                             brightness: brightness,
@@ -226,7 +228,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                   state.singleEntity.gasEquipment.name.isEmpty
                                       ? LocaleKeys.no.tr()
                                       : state.singleEntity.gasEquipment.name,
-                              inModeration: widget.inModeration,
+                              moderationStatus: widget.moderationStatus,
                               fullname: state.singleEntity.absoluteCarName,
                               price: MyFunctions.getFormatCost(
                                 state.singleEntity.price,
@@ -287,16 +289,25 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                   state.singleEntity.priceAnalytics.percentage,
                             ),
                           ),
-                          if (state.singleEntity.isMine)
+                          if (state.singleEntity.isMine &&
+                              (widget.moderationStatus ==
+                                      ModerationStatusEnum.active.value ||
+                                  widget.moderationStatus ==
+                                      ModerationStatusEnum.in_moderation.value))
                             const SliverToBoxAdapter(
                               child: BecomeVerifiredOwnerWidget(),
                             ),
-                          if (state.singleEntity.isMine)
+                          if (state.singleEntity.isMine &&
+                              (widget.moderationStatus ==
+                                      ModerationStatusEnum.active.value ||
+                                  widget.moderationStatus ==
+                                      ModerationStatusEnum.in_moderation.value))
                             const SliverToBoxAdapter(
                               child: OwnerActions(),
                             ),
                           SliverToBoxAdapter(
                             child: CarSellerCard(
+                              moderationStatus: widget.moderationStatus,
                               image: state.singleEntity.userType == 'dealer'
                                   ? state.singleEntity.user.avatar ?? ''
                                   : state.singleEntity.user.image ?? '',
@@ -482,29 +493,44 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                   )
                                 : const SizedBox(),
                           ),
-                          const SliverToBoxAdapter(
-                            child: SizedBox(height: 70),
-                          ),
+                          if (widget.moderationStatus ==
+                                  ModerationStatusEnum.active.value ||
+                              widget.moderationStatus ==
+                                  ModerationStatusEnum.blocked.value)
+                            const SliverToBoxAdapter(
+                              child: SizedBox(height: 74),
+                            ),
                         ],
                       ),
-                      Positioned(
-                        left: 16,
-                        right: 16,
-                        bottom: 16,
-                        child: BottomItem(
-                          isMine: state.singleEntity.isMine,
-                          callFrom: state.singleEntity.contactAvailableFrom,
-                          callTo: state.singleEntity.contactAvailableTo,
-                          phoneNumber: state.singleEntity.user.phoneNumber,
-                          userAvatar: state.singleEntity.userType == 'dealer'
-                              ? state.singleEntity.user.avatar ?? ''
-                              : state.singleEntity.user.image ?? '',
-                          id: state.singleEntity.id,
-                          userId: state.singleEntity.user.id,
-                          usertype: state.singleEntity.userType,
-                          slug: state.singleEntity.user.slug,
-                        ),
-                      ),
+                      if (widget.moderationStatus ==
+                              ModerationStatusEnum.active.value ||
+                          widget.moderationStatus ==
+                              ModerationStatusEnum.blocked.value) ...{
+                        Positioned(
+                          left: 16,
+                          right: 16,
+                          bottom: 16,
+                          child: widget.moderationStatus ==
+                                  ModerationStatusEnum.active.value
+                              ? BottomItem(
+                                  isMine: state.singleEntity.isMine,
+                                  callFrom:
+                                      state.singleEntity.contactAvailableFrom,
+                                  callTo: state.singleEntity.contactAvailableTo,
+                                  phoneNumber:
+                                      state.singleEntity.user.phoneNumber,
+                                  userAvatar:
+                                      state.singleEntity.userType == 'dealer'
+                                          ? state.singleEntity.user.avatar ?? ''
+                                          : state.singleEntity.user.image ?? '',
+                                  id: state.singleEntity.id,
+                                  userId: state.singleEntity.user.id,
+                                  usertype: state.singleEntity.userType,
+                                  slug: state.singleEntity.user.slug,
+                                )
+                              : const CarSingleResendBtn(),
+                        )
+                      },
                     ],
                   );
                 }

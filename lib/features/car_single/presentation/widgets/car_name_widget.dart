@@ -1,12 +1,16 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/car_single/presentation/parts/car_actions.dart';
 import 'package:auto/features/car_single/presentation/parts/car_details.dart';
 import 'package:auto/features/car_single/presentation/parts/statistics.dart';
 import 'package:auto/features/car_single/presentation/widgets/car_price_bottom.dart';
 import 'package:auto/features/car_single/presentation/widgets/day_like_call_item.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/profile/presentation/widgets/moderation_status_part.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -44,7 +48,7 @@ class CarNameWidget extends StatelessWidget {
   final int compareId;
   final bool isCompared;
   final double procent;
-  final bool inModeration;
+  final String moderationStatus;
 
   const CarNameWidget({
     required this.fullname,
@@ -80,7 +84,7 @@ class CarNameWidget extends StatelessWidget {
     required this.isCompared,
     required this.percenti,
     required this.procent,
-    this.inModeration = false,
+    this.moderationStatus = 'active',
     Key? key,
   }) : super(key: key);
 
@@ -94,8 +98,28 @@ class CarNameWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(height: 4),
+            if (moderationStatus == ModerationStatusEnum.blocked.value)
+              Padding(
+                padding: const EdgeInsets.only(left: 16),
+                child: ModerationWidget(
+                  title: LocaleKeys.blocked_by_moderator.tr(),
+                  titleColor: red,
+                  svgPath: AppIcons.info,
+                  color: red.withOpacity(0.1),
+                ),
+              )
+            else if (moderationStatus == ModerationStatusEnum.sold.value)
+              Padding(
+                padding: const EdgeInsets.only(left: 16),
+                child: ModerationWidget(
+                  title: LocaleKeys.sold.tr(),
+                  titleColor: emerald,
+                  color: green.withOpacity(0.1),
+                ),
+              ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
               child: Text(
                 fullname,
                 style: Theme.of(context)
@@ -105,8 +129,7 @@ class CarNameWidget extends StatelessWidget {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(
-                  top: 8, bottom: 12, left: 16, right: 16),
+              margin: const EdgeInsets.only(bottom: 12, left: 16, right: 16),
               child: Row(
                 children: [
                   Text(
@@ -153,36 +176,39 @@ class CarNameWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
               child: CarStatistics(
+                moderationStatus: moderationStatus,
                   date: date,
                   views: view,
                   todayViewedCount: todayViewedCount,
                   id: id),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-              child: Divider(
+            if (moderationStatus != ModerationStatusEnum.active.value)
+              const SizedBox(height: 8),
+            if (moderationStatus == ModerationStatusEnum.active.value) ...{
+              Divider(
                   height: 32,
                   thickness: 1,
+                  endIndent: 16,
+                  indent: 16,
                   color: Theme.of(context)
                       .extension<ThemedColors>()!
                       .solitudeToDarkRider),
-            ),
-            CarActions(
-              inModeration: inModeration,
-              onVin: onVin,
-              onComparison: onComparison,
-              onShare: onShare,
-              id: compareId,
-              isComparised: isCompared,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16),
-              child: Divider(
-                  thickness: 1,
-                  color: Theme.of(context)
-                      .extension<ThemedColors>()!
-                      .solitudeToDarkRider),
-            ),
+              CarActions(
+                inModeration: moderationStatus,
+                onVin: onVin,
+                onComparison: onComparison,
+                onShare: onShare,
+                id: compareId,
+                isComparised: isCompared,
+              ),
+            },
+            Divider(
+                thickness: 1,
+                endIndent: 16,
+                indent: 16,
+                color: Theme.of(context)
+                    .extension<ThemedColors>()!
+                    .solitudeToDarkRider),
             CarDetails(
               gasBalloonInfo: gasBalloonInfo,
               year: year,
@@ -194,7 +220,9 @@ class CarNameWidget extends StatelessWidget {
               gearType: gearType,
               uzb: uzb,
             ),
-            if (isMine == true)
+            if (isMine == true &&
+                (moderationStatus == ModerationStatusEnum.active.value ||
+                    moderationStatus == ModerationStatusEnum.sold.value))
               Column(
                 children: [
                   Padding(

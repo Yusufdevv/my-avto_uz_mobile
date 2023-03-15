@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/singletons/storage.dart';
+import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/car_single/presentation/parts/payments/service_extends_ads_page_.dart';
 import 'package:auto/features/car_single/presentation/parts/payments/service_top_page.dart';
 import 'package:auto/features/car_single/presentation/parts/payments/service_vip_page.dart';
@@ -21,7 +22,7 @@ class MineMoreBottomSheet extends StatelessWidget {
   final String image;
   final VoidCallback onShare;
   final VoidCallback onSold;
-  final bool inModeration;
+  final String moderationStatus;
 
   const MineMoreBottomSheet({
     required this.name,
@@ -31,7 +32,7 @@ class MineMoreBottomSheet extends StatelessWidget {
     required this.id,
     required this.status,
     required this.onSold,
-    this.inModeration = false,
+    this.moderationStatus = '',
     Key? key,
   }) : super(key: key);
 
@@ -117,7 +118,7 @@ class MineMoreBottomSheet extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 8),
-                if(!inModeration)
+                if(moderationStatus==ModerationStatusEnum.active.value || moderationStatus.isEmpty)
                   Expanded(
                   child: WScaleAnimation(
                     onTap: onShare,
@@ -205,7 +206,8 @@ class MineMoreBottomSheet extends StatelessWidget {
               onTap: () {},
               borderColor: const Color(0xffF63C07).withOpacity(0.12),
             ),
-            MoreActionItem(
+            if(moderationStatus==ModerationStatusEnum.active.value)
+              MoreActionItem(
               icon: AppIcons.surface,
               text: LocaleKeys.close_ad.tr(),
               color: const Color(0xff55BB00).withOpacity(0.12),
