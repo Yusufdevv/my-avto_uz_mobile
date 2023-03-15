@@ -599,6 +599,9 @@ class CodegenLoader extends AssetLoader{
   "wait_for_moderation_confirmation": "Ждите подтверждения модерации",
   "i_this_service_when_": "В этой услуге при продлении объявлении, объявления продлиться на:",
   "extends_for_day": "Продлить на {} дней",
+  "send_to_top_day": "Отправить в ТОП на {} дня",
+  "reels_for_eternity": "Рильз на вечно",
+  "vip_for_day": "VIP на {} дня",
   "top": "ТОП",
   "reels": "Рильз",
   "add_to_ways": "Добавить в полоса"
@@ -1187,6 +1190,9 @@ static const Map<String,dynamic> uz = {
   "wait_for_moderation_confirmation": "Moderatsiya tasdig'ini kuting",
   "i_this_service_when_": "Ushbu xizmatda e'lon yangilanganda e'lon quyidagi muddatga davom etadi:",
   "extends_for_day": "{} kunga uzaytirish",
+  "send_to_top_day": "{} kunga TOP-ga yuborish",
+  "reels_for_eternity": "Рильз на вечно",
+  "vip_for_day": "{} kunga VIP",
   "top": "ТОП",
   "reels": "Рильз",
   "add_to_ways": "Добавить в полоса"

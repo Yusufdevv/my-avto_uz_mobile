@@ -78,7 +78,7 @@ class _ServiceVipPageState extends State<ServiceVipPage> {
                             ),
                             const SizedBox(height: 8),
                             Text(
-                              LocaleKeys.i_this_service_when_.tr(),
+                              'В услуге VIP, вы Продлите и поднимете в ТОП свое объявление',
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium

@@ -78,7 +78,7 @@ class _ServiceAddToWayPageState extends State<ServiceAddToWayPage> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          LocaleKeys.i_this_service_when_.tr(),
+                          'В услуге Рильз вы можете загрузить несколько изображений или же один видео',
                           style: Theme.of(context)
                               .textTheme
                               .titleMedium
@@ -122,7 +122,7 @@ class _ServiceAddToWayPageState extends State<ServiceAddToWayPage> {
                               final item = state.tarifs.firstWhere(
                                       (e) => e.id == tarifValue.value);
                               return TarifItem(
-                                  amount: item.amount.toString(),
+                                  amount: LocaleKeys.vip_for_day.tr(args: [item.amount.toString()]),
                                   type: item.typeInt.toString(),
                                   id: item.id,
                                   date: '');

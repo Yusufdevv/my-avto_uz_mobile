@@ -18,17 +18,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ServiceTopPage extends StatefulWidget {
-  const ServiceTopPage({required this.announcementId, Key? key})
-      : super(key: key);
+class ServiceExtendsAdsPage extends StatefulWidget {
+  const ServiceExtendsAdsPage({required this.announcementId, Key? key}) : super(key: key);
   final int announcementId;
 
   @override
-  State<ServiceTopPage> createState() => _ServiceTopPageState();
+  State<ServiceExtendsAdsPage> createState() => _ServiceExtendsAdsPageState();
 }
 
 // ignore: prefer_mixin
-class _ServiceTopPageState extends State<ServiceTopPage> {
+class _ServiceExtendsAdsPageState extends State<ServiceExtendsAdsPage> {
   final ValueNotifier<int> tarifValue = ValueNotifier<int>(0);
   final ValueNotifier<int> paymentValue = ValueNotifier<int>(0);
   late InvoiceBloc bloc;
@@ -73,7 +72,7 @@ class _ServiceTopPageState extends State<ServiceTopPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              LocaleKeys.top.tr(),
+                              LocaleKeys.extends_ads.tr(),
                               style: Theme.of(context).textTheme.displayLarge,
                             ),
                             const SizedBox(height: 8),
@@ -123,7 +122,7 @@ class _ServiceTopPageState extends State<ServiceTopPage> {
                                       (e) => e.id == tarifValue.value);
                                   return TarifItem(
                                       amount: item.amount.toString(),
-                                      type: item.typeInt.toString(),
+                                      type: LocaleKeys.extends_for_day.tr(args: [item.typeInt.toString()]),
                                       id: item.id,
                                       date: '');
                                 }),

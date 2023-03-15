@@ -78,7 +78,7 @@ class _ServiceReelsPageState extends State<ServiceReelsPage> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          LocaleKeys.i_this_service_when_.tr(),
+                          'В услуге Рильз вы можете загрузить несколько изображений или же один видео',
                           style: Theme.of(context)
                               .textTheme
                               .titleMedium
@@ -123,7 +123,7 @@ class _ServiceReelsPageState extends State<ServiceReelsPage> {
                                       (e) => e.id == tarifValue.value);
                               return TarifItem(
                                   amount: item.amount.toString(),
-                                  type: item.typeInt.toString(),
+                                  type: LocaleKeys.reels_for_eternity.tr(),
                                   id: item.id,
                                   date: '');
                             }),

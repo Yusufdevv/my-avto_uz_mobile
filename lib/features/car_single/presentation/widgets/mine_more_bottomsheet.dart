@@ -1,8 +1,8 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/singletons/storage.dart';
-import 'package:auto/features/car_single/presentation/parts/extends_ads_payment_page_.dart';
-import 'package:auto/features/car_single/presentation/parts/send_to_top_page.dart';
+import 'package:auto/features/car_single/presentation/parts/service_extends_ads_page_.dart';
+import 'package:auto/features/car_single/presentation/parts/service_top_page.dart';
 import 'package:auto/features/car_single/presentation/parts/service_vip_page.dart';
 import 'package:auto/features/car_single/presentation/widgets/more_action_item.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -164,7 +164,7 @@ class MineMoreBottomSheet extends StatelessWidget {
               color: const Color(0xffF0FAF6),
               onTap: () {
                 Navigator.of(context, rootNavigator: true)
-                    .push(fade(page:   ExtendsAdsPaymentPage(announcementId: id)));
+                    .push(fade(page:   ServiceExtendsAdsPage(announcementId: id)));
               },
               borderColor: const Color(0xff5ECC81).withOpacity(0.12),
             ),

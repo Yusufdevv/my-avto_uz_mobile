@@ -585,6 +585,9 @@ abstract class  LocaleKeys {
   static const wait_for_moderation_confirmation = 'wait_for_moderation_confirmation';
   static const i_this_service_when_ = 'i_this_service_when_';
   static const extends_for_day = 'extends_for_day';
+  static const send_to_top_day = 'send_to_top_day';
+  static const reels_for_eternity = 'reels_for_eternity';
+  static const vip_for_day = 'vip_for_day';
   static const top = 'top';
   static const reels = 'reels';
   static const add_to_ways = 'add_to_ways';

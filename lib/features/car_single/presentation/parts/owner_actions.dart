@@ -2,8 +2,8 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/car_single/domain/entities/owner_action.dart';
 import 'package:auto/features/car_single/presentation/bloc/car_single_bloc.dart';
-import 'package:auto/features/car_single/presentation/parts/extends_ads_payment_page_.dart';
-import 'package:auto/features/car_single/presentation/parts/send_to_top_page.dart';
+import 'package:auto/features/car_single/presentation/parts/service_extends_ads_page_.dart';
+import 'package:auto/features/car_single/presentation/parts/service_top_page.dart';
 import 'package:auto/features/car_single/presentation/parts/service_vip_page.dart';
 import 'package:auto/features/car_single/presentation/widgets/owner_action_box.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -48,7 +48,7 @@ class OwnerActions extends StatelessWidget {
                 child: WScaleAnimation(
                   onTap: () {
                     Navigator.of(context, rootNavigator: true).push(fade(
-                        page: ExtendsAdsPaymentPage(
+                        page: ServiceExtendsAdsPage(
                             announcementId: context
                                 .read<CarSingleBloc>()
                                 .state

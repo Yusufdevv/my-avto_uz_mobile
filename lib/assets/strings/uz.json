@@ -582,6 +582,9 @@
   "wait_for_moderation_confirmation" : "Moderatsiya tasdig'ini kuting",
   "i_this_service_when_" : "Ushbu xizmatda e'lon yangilanganda e'lon quyidagi muddatga davom etadi:",
   "extends_for_day": "{} kunga uzaytirish",
+  "send_to_top_day": "{} kunga TOP-ga yuborish",
+  "reels_for_eternity": "Рильз на вечно",
+  "vip_for_day": "{} kunga VIP",
   "top": "ТОП",
   "reels": "Рильз",
   "add_to_ways": "Добавить в полоса"

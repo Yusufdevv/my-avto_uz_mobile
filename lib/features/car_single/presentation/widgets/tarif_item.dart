@@ -31,7 +31,7 @@ class TarifItem extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  LocaleKeys.extends_for_day.tr(args: [type]),
+                  type,
                   style: Theme
                       .of(context)
                       .textTheme

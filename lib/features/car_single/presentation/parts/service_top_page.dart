@@ -18,16 +18,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ExtendsAdsPaymentPage extends StatefulWidget {
-  const ExtendsAdsPaymentPage({required this.announcementId, Key? key}) : super(key: key);
+class ServiceTopPage extends StatefulWidget {
+  const ServiceTopPage({required this.announcementId, Key? key})
+      : super(key: key);
   final int announcementId;
 
   @override
-  State<ExtendsAdsPaymentPage> createState() => _ExtendsAdsPaymentPageState();
+  State<ServiceTopPage> createState() => _ServiceTopPageState();
 }
 
 // ignore: prefer_mixin
-class _ExtendsAdsPaymentPageState extends State<ExtendsAdsPaymentPage> {
+class _ServiceTopPageState extends State<ServiceTopPage> {
   final ValueNotifier<int> tarifValue = ValueNotifier<int>(0);
   final ValueNotifier<int> paymentValue = ValueNotifier<int>(0);
   late InvoiceBloc bloc;
@@ -72,7 +73,7 @@ class _ExtendsAdsPaymentPageState extends State<ExtendsAdsPaymentPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              LocaleKeys.extends_ads.tr(),
+                              LocaleKeys.top.tr(),
                               style: Theme.of(context).textTheme.displayLarge,
                             ),
                             const SizedBox(height: 8),
@@ -122,7 +123,7 @@ class _ExtendsAdsPaymentPageState extends State<ExtendsAdsPaymentPage> {
                                       (e) => e.id == tarifValue.value);
                                   return TarifItem(
                                       amount: item.amount.toString(),
-                                      type: item.typeInt.toString(),
+                                      type: LocaleKeys.send_to_top_day.tr(args: [item.typeInt.toString()]),
                                       id: item.id,
                                       date: '');
                                 }),
