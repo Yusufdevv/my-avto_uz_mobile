@@ -82,7 +82,8 @@ class _ChooseDriveTypeState extends State<ChooseDriveType> {
                                           .add(GetDriveTypesSelectEvent(index)),
                                       logo: state.driveTypes[index].logo,
                                       title: state.driveTypes[index].type,
-                                      isChecked: index == state.selected,
+                                      isChecked: index == state.selected ||
+                                          state.selected == -1,
                                       hasDivider:
                                           state.driveTypes.length - 1 != index,
                                     )),

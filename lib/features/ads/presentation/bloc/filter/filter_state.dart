@@ -1,6 +1,8 @@
 part of 'filter_bloc.dart';
 
 class FilterState extends Equatable {
+  final MinMaxPriceYearEntity? usdIfos;
+  final MinMaxPriceYearEntity? uzsIfos;
   final List<RegionEntity> regions;
   final MakeEntity? maker;
   final BodyTypeEntity? bodyType;
@@ -10,7 +12,6 @@ class FilterState extends Equatable {
   final RangeValues yearValues;
   final RangeValues priceValues;
   final bool isRentWithPurchase;
-
 
   final SaleType? saleType;
   final double minYearValue;
@@ -26,9 +27,10 @@ class FilterState extends Equatable {
     required this.maxYearValue,
     required this.minPriceValue,
     required this.maxPriceValue,
+    this.usdIfos,
+    this.uzsIfos,
     this.isRentWithPurchase = false,
     this.saleType,
-
     this.maker,
     this.bodyType,
     this.carDriveType,
@@ -37,6 +39,8 @@ class FilterState extends Equatable {
   });
 
   FilterState copyWith({
+    MinMaxPriceYearEntity? usdIfos,
+    MinMaxPriceYearEntity? uzsIfos,
     double? minYearValue,
     double? maxYearValue,
     double? minPriceValue,
@@ -50,11 +54,11 @@ class FilterState extends Equatable {
     RangeValues? yearValues,
     RangeValues? priceValues,
     Currency? currency,
-    bool? isCheckk,
     bool? isRentWithPurchase,
-
   }) =>
       FilterState(
+        usdIfos: usdIfos ?? this.usdIfos,
+        uzsIfos: uzsIfos ?? this.uzsIfos,
         minYearValue: minYearValue ?? this.minYearValue,
         maxYearValue: maxYearValue ?? this.maxYearValue,
         minPriceValue: minPriceValue ?? this.minPriceValue,
@@ -71,33 +75,12 @@ class FilterState extends Equatable {
         yearValues: yearValues ?? this.yearValues,
         priceValues: priceValues ?? this.priceValues,
         currency: currency ?? this.currency,
-
       );
-
-  Map<String, dynamic> get filterData {
-    var data = <String, dynamic>{};
-    if (maker != null) {
-      data['make'] = maker!.id;
-    }
-    if (bodyType != null) {
-      data['body_type'] = bodyType!.id;
-    }
-    if (gearboxType != null) {
-      data['gearbox_type'] = gearboxType!.id;
-    }
-    if (carDriveType != null) {
-      data['drive_type'] = carDriveType!.id;
-    }
-    data['price_to'] = priceValues.end;
-    data['price_from'] = priceValues.start;
-    data['year_from'] = yearValues.start;
-    data['year_to'] = yearValues.end;
-
-    return data;
-  }
 
   @override
   List<Object?> get props => [
+        usdIfos,
+        uzsIfos,
         minYearValue,
         maxYearValue,
         minPriceValue,
@@ -112,6 +95,49 @@ class FilterState extends Equatable {
         yearValues,
         priceValues,
         currency,
-
       ];
+
+  RangeValues getPriceValues(MinMaxPriceYearEntity? data) {
+    if (data == null) return const RangeValues(1000, 500000);
+    return RangeValues(
+        double.parse(data.minPrice), double.parse(data.maxPrice));
+  }
+
+  RangeValues getYearValues(MinMaxPriceYearEntity? data) {
+    if (data == null) return RangeValues(1970, DateTime.now().year + 0);
+    return RangeValues(data.minYear + 0, data.maxYear + 0);
+  }
+
+  bool get isFilter =>
+      (carDriveType != null && carDriveType?.id != -1) ||
+      (bodyType != null && bodyType?.id != -1) ||
+      (gearboxType != null && gearboxType?.id != -1) ||
+      (currency == Currency.usd
+          ? usdIsYearValuesChanged()
+          : uzsIsYearValuesChanged()) ||
+      (currency == Currency.usd
+          ? usdIsPriceValuesChanged()
+          : uzsIsPriceValuesChanged()) ||
+      (saleType != SaleType.directSale) ||
+      (currency != Currency.usd);
+
+  bool uzsIsPriceValuesChanged() {
+    final start = double.tryParse(uzsIfos?.minPrice ?? '0') ?? 0.0;
+    final end = double.tryParse(uzsIfos?.maxPrice ?? '0') ?? 0.0;
+    return priceValues.start != start && priceValues.end != end;
+  }
+
+  bool usdIsPriceValuesChanged() {
+    final start = double.tryParse(usdIfos?.minPrice ?? '0') ?? 0.0;
+    final end = double.tryParse(usdIfos?.maxPrice ?? '0') ?? 0.0;
+    return priceValues.start != start && priceValues.end != end;
+  }
+
+  bool usdIsYearValuesChanged() =>
+      yearValues.start != usdIfos?.minYear &&
+      yearValues.end != usdIfos?.maxYear;
+
+  bool uzsIsYearValuesChanged() =>
+      yearValues.start != uzsIfos?.minYear &&
+      yearValues.end != uzsIfos?.maxYear;
 }
