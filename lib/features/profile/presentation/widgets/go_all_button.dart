@@ -19,6 +19,7 @@ class GoAllButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
+
         padding: padding,
         child: Row(
           children: [
