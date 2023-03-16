@@ -37,7 +37,8 @@ class DealerScreen extends StatefulWidget {
 
 class _DealerScreenState extends State<DealerScreen>
     with TickerProviderStateMixin {
-  late DealerCardBloc bloc;
+
+  late DealerCardBloc deallerCardBloc;
   late DealerFilterBloc filterBloc;
   late MapOrganizationBloc mapOrganizationBloc;
   late TextEditingController controller;
@@ -50,7 +51,7 @@ class _DealerScreenState extends State<DealerScreen>
     _tabController = TabController(length: 2, vsync: this);
     _pageController = PageController();
 
-    bloc = DealerCardBloc(DealerUseCase());
+    deallerCardBloc = DealerCardBloc(DealerUseCase());
     mapOrganizationBloc = MapOrganizationBloc(
       GetMapDealersUseCase(),
       GetDirectoriesMapPointUseCase(),
@@ -61,7 +62,8 @@ class _DealerScreenState extends State<DealerScreen>
         FocusScope.of(context).unfocus();
         controller.clear();
       }
-      bloc.add(DealerCardEvent.changeTabIndex(index: _tabController.index));
+      deallerCardBloc
+          .add(DealerCardEvent.changeTabIndex(index: _tabController.index));
     });
     super.initState();
   }
@@ -70,7 +72,7 @@ class _DealerScreenState extends State<DealerScreen>
   void dispose() {
     controller.dispose();
     _tabController.dispose();
-    bloc.close();
+    deallerCardBloc.close();
     filterBloc.close();
     super.dispose();
   }
@@ -78,7 +80,7 @@ class _DealerScreenState extends State<DealerScreen>
   @override
   Widget build(BuildContext context) => MultiBlocProvider(
         providers: [
-          BlocProvider.value(value: bloc),
+          BlocProvider.value(value: deallerCardBloc),
           BlocProvider.value(value: filterBloc),
           BlocProvider.value(value: mapOrganizationBloc),
         ],
@@ -142,19 +144,21 @@ class _DealerScreenState extends State<DealerScreen>
                                     .extension<ThemedColors>()!
                                     .whiteSmokeToEclipse,
                                 onChanged: (value) {
-                                  bloc.add(DealerCardEvent.getResults(
-                                      isRefresh: false,
-                                      search: value,
-                                      onSuccess: (list) {
-                                        mapOrganizationBloc.add(
-                                            MapOrganizationEvent.setMapPoints(
-                                                list: list
-                                                    .map((e) => DealerCardModel
-                                                        .fromJson(
-                                                            const DealerCardConvert()
-                                                                .toJson(e)))
-                                                    .toList()));
-                                      }));
+
+                                  deallerCardBloc
+                                      .add(DealerCardEvent.getResults(
+                                          isRefresh: false,
+                                          search: value,
+                                          onSuccess: (list) {
+                                            mapOrganizationBloc.add(
+                                                MapOrganizationEvent.setMapPoints(
+                                                    list: list
+                                                        .map((e) => DealerCardModel
+                                                            .fromJson(
+                                                                const DealerCardConvert()
+                                                                    .toJson(e)))
+                                                        .toList()));
+                                          }));
                                 },
                                 controller: controller,
                                 hasSearch: true,
@@ -177,7 +181,10 @@ class _DealerScreenState extends State<DealerScreen>
                                         value: filterBloc,
                                         child: DealersFilterScreen(
                                           dealerFilterBloc: filterBloc,
-                                          dealerBloc: bloc,
+
+
+
+                                          dealerBloc: deallerCardBloc,
                                           mapOrganizationBloc:
                                               mapOrganizationBloc,
                                           maker: filterState.maker,
@@ -194,6 +201,7 @@ class _DealerScreenState extends State<DealerScreen>
                                 color: Theme.of(context)
                                     .extension<ThemedColors>()!
                                     .whiteSmokeToNightRider,
+
                                 padding: const EdgeInsets.all(8),
                                 child: SvgPicture.asset(
                                   AppIcons.delaerFilter,

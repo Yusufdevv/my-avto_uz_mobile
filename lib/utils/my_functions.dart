@@ -221,18 +221,19 @@ class MyFunctions {
       result.features[0].properties.geocoderMetaData.text;
 
   static Future<MapObject<dynamic>> getMyPoint(
-      Point point, BuildContext context) async {
+      Point point, BuildContext context,
+      [String icon = AppIcons.currentLoc, String id = 'my-point']) async {
     final myIconData = await getBytesFromCanvas(
       placeCount: 0,
-      image: AppIcons.currentLoc,
-      width: 170,
+      image: icon,
+      width: 200,
       height: 410,
       context: context,
       shouldAddText: false,
     );
     final myPoint = PlacemarkMapObject(
         opacity: 1,
-        mapId: const MapObjectId('my-point'),
+        mapId: MapObjectId(id),
         point: point,
         icon: PlacemarkIcon.single(PlacemarkIconStyle(
           scale: 0.6,
@@ -777,6 +778,7 @@ class MyFunctions {
 // temporary directory and image bytes from response is written to // that file.
       return file.path;
     } catch (e) {
+      print('::::::::::  THE URL TO PATH EXCEPTION: $e   ::::::::::');
       return null;
     }
   }

@@ -17,7 +17,7 @@ class _LocIconState extends State<LocIcon> {
           children: [
             WidgetToImage(builder: (key) {
               keys = key;
-              return const DealerLocationWidget();
+              return const DealerLocationWidgett();
             }),
           ],
         ),

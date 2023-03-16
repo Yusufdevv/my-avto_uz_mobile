@@ -33,20 +33,23 @@ class DioSettings {
   bool get chuck =>
       StorageRepository.getBool(StorageKeys.CHUCK, defValue: false);
 
-  Dio get dio => Dio(_dioBaseOptions)
-    // ..interceptors.add(LogInterceptor(
-    //   requestBody: kDebugMode,
-    //   request: kDebugMode,
-    //   requestHeader: kDebugMode,
-    //   responseBody: kDebugMode,
-    //   responseHeader: kDebugMode,
-    //   error: kDebugMode,
-    //   logPrint: (object) => dev.log(object.toString()),
-    // ))
-    ..interceptors.add(Alice(
-      navigatorKey: AppConstants.navigatorKey,
-      showNotification: chuck || kDebugMode,
-      showInspectorOnShake: chuck || kDebugMode,
-      darkTheme: false,
-    ).getDioInterceptor());
+  Dio get dio => Dio(_dioBaseOptions
+  // )
+  //   ..interceptors.add(LogInterceptor(
+  //     requestBody: kDebugMode,
+  //     request: kDebugMode,
+  //     requestHeader: kDebugMode,
+  //     responseBody: kDebugMode,
+  //     responseHeader: kDebugMode,
+  //     error: kDebugMode,
+  //     logPrint: (object) => dev.log(object.toString()),
+  //   ))
+  //   ..interceptors.add(Alice(
+  //     navigatorKey: AppConstants.navigatorKey,
+  //     showNotification: chuck || kDebugMode,
+  //     showInspectorOnShake: chuck || kDebugMode,
+  //     darkTheme: false,
+  //   )
+  //       .getDioInterceptor()
+  );
 }
