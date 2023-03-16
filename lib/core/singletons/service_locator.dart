@@ -50,8 +50,8 @@ void setupLocator() {
         comparisonCarsDataSource: serviceLocator<ComparisonDataSourceImpl>()))
     ..registerLazySingleton(() => AdRepositoryImpl(
         remoteDataSource: serviceLocator<AdRemoteDataSourceImpl>()))
-    ..registerLazySingleton(
-        () => CarSingleRepositoryImpl(dataSource: CarSingleDataSourceImpl()))
+    ..registerLazySingleton(CarSingleRepositoryImpl.new)
+    ..registerLazySingleton(CarSingleDataSourceImpl.new)
     ..registerLazySingleton(
         () => AddWishlistDatasourceImpl(serviceLocator<DioSettings>().dio))
     ..registerLazySingleton(() => AddWishlistRepositoryImpl(

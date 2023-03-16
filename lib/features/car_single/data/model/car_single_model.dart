@@ -5,6 +5,7 @@ import 'package:auto/features/ad/domain/entities/equipment/id_name_entity.dart';
 import 'package:auto/features/ad/domain/entities/rent_with_purchase/rent_with_purchase_entity.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/ad/domain/entities/types/modification_type.dart';
+import 'package:auto/features/car_single/domain/entities/announcement_verify_owner_entity.dart';
 import 'package:auto/features/car_single/domain/entities/car_single_entity.dart';
 import 'package:auto/features/car_single/domain/entities/car_user_entity.dart';
 import 'package:auto/features/car_single/domain/entities/damaged_parts_entity.dart';
@@ -80,7 +81,9 @@ class CarSingleModel extends CarSingleEntity {
       super.priceAnalytics,
       super.rentWithPurchase,
       super.region,
-      super.district});
+      super.district,
+      super.announcementVerifyOwners
+      });
 
   factory CarSingleModel.fromJson(Map<String, dynamic> json) =>
       _$CarSingleModelFromJson(json);

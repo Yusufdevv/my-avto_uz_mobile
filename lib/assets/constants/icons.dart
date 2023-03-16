@@ -240,6 +240,7 @@ class AppIcons {
   static const note = 'assets/icons/car_single/note.svg';
   static const blueCheckRounded = 'assets/icons/car_single/blue_check.svg';
   static const comparGreen = 'assets/icons/car_single/compar_green.svg';
+  static const moderationYellow = 'assets/icons/car_single/moderation_yellow.svg';
   static const comparison = 'assets/icons/global/comparison.svg';
   static const puzzle = 'assets/icons/global/puzzle.svg';
 

@@ -18,8 +18,8 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
       : super(
           ImageState(
             image: File(''),
-            images: const ['',''],
-            secondImage: const ['',''],
+            images: const ['', ''],
+            secondImage: const ['', ''],
           ),
         ) {
     on<GetImageEvent>((event, emit) async {
@@ -80,13 +80,18 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
       if (images.contains(event.imageUrl)) {
         final index = images.indexOf(event.imageUrl);
         images[index] = '';
+        print(' ev img$index == ${images[index]}');
       }
+
       if (secondImage.contains(event.imageUrl)) {
         final index = images.indexOf(event.imageUrl);
         secondImage[index] = '';
+        print(' ev sec$index == ${secondImage[index]}');
       }
 
       emit(state.copyWith(images: [...images], secondImage: [...secondImage]));
+      print(state.images);
+      print(state.secondImage);
     });
   }
 }
