@@ -1,6 +1,10 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/car_single/data/model/create_owner.dart';
+import 'package:auto/features/car_single/presentation/bloc/create_owner/create_owner_bloc.dart';
+import 'package:auto/features/car_single/presentation/parts/clue_btsht.dart';
 import 'package:auto/features/car_single/presentation/parts/sts_image_item_widget.dart';
 import 'package:auto/features/car_single/presentation/parts/verifired_owner_more_btsht.dart';
 import 'package:auto/features/car_single/presentation/widgets/invoice_termsofsuse.dart';
@@ -15,10 +19,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:formz/formz.dart';
 import 'package:image_picker/image_picker.dart';
 
 class VerifiredOwnerPage extends StatefulWidget {
-  const VerifiredOwnerPage({Key? key}) : super(key: key);
+  const VerifiredOwnerPage({required this.announcementId, Key? key})
+      : super(key: key);
+  final int announcementId;
 
   @override
   State<VerifiredOwnerPage> createState() => _VerifiredOwnerPageState();
@@ -26,12 +33,14 @@ class VerifiredOwnerPage extends StatefulWidget {
 
 class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
   late ImageBloc imageBloc;
+  late CreateOwnerBloc createOwnerBloc;
   late TextEditingController textController;
 
   @override
   void initState() {
     super.initState();
     imageBloc = ImageBloc(ImagePicker());
+    createOwnerBloc = CreateOwnerBloc();
     textController = TextEditingController();
   }
 
@@ -43,254 +52,421 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
   }
 
   @override
-  Widget build(BuildContext context) => BlocProvider.value(
-        value: imageBloc,
-        child: BlocConsumer<ImageBloc, ImageState>(
-          listener: (context, state) {},
-          builder: (context, state) => Scaffold(
-            backgroundColor: white,
-            appBar: WAppBar(
-              title: LocaleKeys.verified_owner.tr(),
-              extraActions: [
-                if (!(state.images.length < 2 || state.secondImage.isEmpty))
-                  WScaleAnimation(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: SvgPicture.asset(
-                        AppIcons.moreVertical,
-                        width: 32,
-                        height: 32,
-                        color: grey,
-                      ),
-                    ),
-                    onTap: () {
-                      showModalBottomSheet(
-                          useRootNavigator: true,
-                          backgroundColor: Colors.transparent,
-                          isScrollControlled: true,
-                          context: context,
-                          builder: (context) =>
-                              const VerifiredOwnerMoreBtsht());
-                    },
-                  ),
-              ],
-            ),
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 14),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Row(
-                    children: [
-                      Text(
-                        LocaleKeys.sts.tr(),
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium!
-                            .copyWith(color: grey),
-                      ),
-                      const SizedBox(width: 8),
-                      GestureDetector(
-                          onTap: () {
-                            showModalBottomSheet(
-                                useRootNavigator: true,
-                                backgroundColor: Colors.transparent,
-                                isScrollControlled: true,
-                                context: context,
-                                builder: (context) =>
-                                    const VerifiredOwnerMoreBtsht());
-                          },
-                          behavior: HitTestBehavior.opaque,
-                          child:
-                              SvgPicture.asset(AppIcons.infoCircle, height: 24))
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(16).copyWith(top: 8),
-                  child: Row(
-                    children: [
-                      StsImageItemWidget(
-                        title: 'передняя сторона',
-                        images: state.images[0],
-                        onTap: () async {
-                          await showModalBottomSheet<ImageSource>(
-                              backgroundColor: Colors.transparent,
-                              context: context,
-                              useRootNavigator: true,
-                              builder: (context) =>
-                                  const CameraBottomSheet()).then((value) {
+  Widget build(BuildContext context) => MultiBlocProvider(
+        providers: [
+          BlocProvider.value(value: imageBloc),
+          BlocProvider.value(value: createOwnerBloc),
+        ],
+        child: BlocBuilder<ImageBloc, ImageState>(
+          builder: (context, state) => GestureDetector(
+            onTap: () {
+              FocusScope.of(context).unfocus();
+            },
+            child: BlocBuilder<CreateOwnerBloc, CreateOwnerState>(
+              builder: (context, stateOwner) => Scaffold(
+                backgroundColor: white,
+                appBar: WAppBar(
+                  title: LocaleKeys.verified_owner.tr(),
+                  extraActions: [
+                    if (stateOwner.showMoreBtn)
+                      WScaleAnimation(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: SvgPicture.asset(AppIcons.moreVertical,
+                              width: 32, height: 32, color: grey),
+                        ),
+                        onTap: () {
+                          showModalBottomSheet(
+                            useRootNavigator: true,
+                            backgroundColor: Colors.transparent,
+                            isScrollControlled: true,
+                            context: context,
+                            builder: (context) =>
+                                const VerifiredOwnerMoreBtsht(),
+                          ).then((value) {
                             if (value != null) {
-                              context.read<ImageBloc>().add(
-                                  PickSTSImageEvent(source: value, index: 0));
+                              if (value is Map<String, dynamic>) {
+                                if (value['refresh']) {
+                                  createOwnerBloc.add(ChangeUIStatusEvent(
+                                      refresh: value['refresh']));
+                                }
+                                if (value['delete']) {
+                                  textController.clear();
+                                  for (var i = 0; i <= 1; i++) {
+                                    print(' image1 == ${state.images[i]}');
+                                    context.read<ImageBloc>().add(
+                                        DeleteImageEvent(
+                                            imageUrl: state.images[i]));
+                                    print(' sec1 == ${state.secondImage[i]}');
+                                    context.read<ImageBloc>().add(
+                                        DeleteImageEvent(
+                                            imageUrl: state.secondImage[i]));
+                                  }
+                                  createOwnerBloc.add(DeleteApplicaitionEvent(
+                                      id: stateOwner.createOwnerModel.id));
+                                }
+                              }
                             }
                           });
                         },
-                      ),
-                      const SizedBox(width: 12),
-                      StsImageItemWidget(
-                        title: 'задняя сторона',
-                        images: state.images[1],
-                        onTap: () async {
-                          await showModalBottomSheet<ImageSource>(
-                              backgroundColor: Colors.transparent,
-                              context: context,
-                              useRootNavigator: true,
-                              builder: (context) =>
-                                  const CameraBottomSheet()).then((value) {
-                            if (value != null) {
-                              context.read<ImageBloc>().add(
-                                  PickSTSImageEvent(source: value, index: 1));
-                            }
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Row(
-                    children: [
-                      Text(
-                        LocaleKeys.driver_licence.tr(),
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium!
-                            .copyWith(color: grey),
-                      ),
-                      const SizedBox(width: 8),
-                      GestureDetector(
-                          onTap: () {
-                            showModalBottomSheet(
-                                useRootNavigator: true,
-                                backgroundColor: Colors.transparent,
-                                isScrollControlled: true,
-                                context: context,
-                                builder: (context) =>
-                                    const VerifiredOwnerMoreBtsht());
-                          },
-                          behavior: HitTestBehavior.opaque,
-                          child:
-                              SvgPicture.asset(AppIcons.infoCircle, height: 24))
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(16).copyWith(top: 8),
-                  child: Row(
-                    children: [
-                      StsImageItemWidget(
-                        title: 'передняя сторона',
-                        images: state.secondImage[0],
-                        onTap: () async {
-                          await showModalBottomSheet<ImageSource>(
-                              backgroundColor: Colors.transparent,
-                              context: context,
-                              useRootNavigator: true,
-                              builder: (context) =>
-                                  const CameraBottomSheet()).then((value) {
-                            if (value != null) {
-                              context.read<ImageBloc>().add(
-                                  PickDriverLicenceImageEvent(
-                                      source: value, index: 0));
-                            }
-                          });
-                        },
-                      ),
-                      const SizedBox(width: 12),
-                      StsImageItemWidget(
-                        title: 'задняя сторона',
-                        images: state.secondImage[1],
-                        onTap: () async {
-                          await showModalBottomSheet<ImageSource>(
-                              backgroundColor: Colors.transparent,
-                              context: context,
-                              useRootNavigator: true,
-                              builder: (context) =>
-                                  const CameraBottomSheet()).then((value) {
-                            if (value != null) {
-                              context.read<ImageBloc>().add(
-                                  PickDriverLicenceImageEvent(
-                                      source: value, index: 1));
-                            }
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(
-                    'Дополнительная информация',
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium!
-                        .copyWith(color: grey),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(16).copyWith(top: 8),
-                  child: WTextField(
-                    onChanged: (value) {},
-                    hintText: 'Напишите информацию для модератора',
-                    disabledBorderColor: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .transparentToNightRider,
-                    enabledBorderColor: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .transparentToNightRider,
-                    borderColor: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .transparentToNightRider,
-                    fillColor: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .whiteSmokeToDark,
-                    focusColor: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .whiteSmokeToDark,
-                    disabledColor: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .whiteSmokeToDark,
-                    controller: textController,
-                    hideCounterText: true,
-                    borderRadius: 8,
-                    maxLength: 500,
-                    maxLines: 6,
-                    height: 125,
-                    textStyle: Theme.of(context)
-                        .textTheme
-                        .displayLarge!
-                        .copyWith(fontSize: 16, fontWeight: FontWeight.w400),
-                  ),
-                ),
-                const Spacer(),
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    children: [
-                      const InvoiceTermsOfUse(),
-                      const SizedBox(height: 16),
-                      WButton(
-                        // isLoading: state.payStatus.isSubmissionInProgress,
-                        isDisabled: state.images[0].isEmpty ||
-                            state.images[1].isEmpty ||
-                            state.secondImage[0].isEmpty ||
-                            state.secondImage[1].isEmpty,
-                        disabledColor: disabledButton,
-                        text: LocaleKeys.apply_app.tr(),
-                        color: orange,
-                        onTap: () {},
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).padding.bottom,
                       )
-                    ],
-                  ),
+                    else
+                      const SizedBox(),
+                  ],
                 ),
-              ],
+                body: stateOwner.isDeleted
+                    ? Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              AppImages.applicationRejected,
+                              height: 120,
+                              width: 120,
+                            ),
+                            Text(
+                              'Выша заявка отклонена!',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayLarge!
+                                  .copyWith(fontSize: 16),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              'Попробуйте повторно отправить заявку ',
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(fontSize: 14, color: greyText),
+                            ),
+                          ],
+                        ),
+                      )
+                    : SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 14),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    LocaleKeys.sts.tr(),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium!
+                                        .copyWith(color: grey),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  GestureDetector(
+                                      onTap: () {
+                                        showModalBottomSheet(
+                                            useRootNavigator: true,
+                                            backgroundColor: Colors.transparent,
+                                            isScrollControlled: true,
+                                            context: context,
+                                            builder: (context) =>
+                                                const ClueBtsht(
+                                                  title:
+                                                      'Сфотографируйте СТС машины с обоих сторон по подсказкам в хорошем качестве что-бы модератор мог рассмотреть все детали',
+                                                ));
+                                      },
+                                      behavior: HitTestBehavior.opaque,
+                                      child: SvgPicture.asset(
+                                          AppIcons.infoCircle,
+                                          height: 24))
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.all(16).copyWith(top: 8),
+                              child: Row(
+                                children: [
+                                  StsImageItemWidget(
+                                    title: 'передняя сторона',
+                                    images: state.images[0],
+                                    onTap: () async {
+                                      await showModalBottomSheet<ImageSource>(
+                                          backgroundColor: Colors.transparent,
+                                          context: context,
+                                          useRootNavigator: true,
+                                          builder: (context) =>
+                                              const CameraBottomSheet()).then(
+                                          (value) {
+                                        if (value != null) {
+                                          context.read<ImageBloc>().add(
+                                              PickSTSImageEvent(
+                                                  source: value, index: 0));
+                                        }
+                                      });
+                                    },
+                                  ),
+                                  const SizedBox(width: 12),
+                                  StsImageItemWidget(
+                                    title: 'задняя сторона',
+                                    images: state.images[1],
+                                    onTap: () async {
+                                      await showModalBottomSheet<ImageSource>(
+                                          backgroundColor: Colors.transparent,
+                                          context: context,
+                                          useRootNavigator: true,
+                                          builder: (context) =>
+                                              const CameraBottomSheet()).then(
+                                          (value) {
+                                        if (value != null) {
+                                          context.read<ImageBloc>().add(
+                                              PickSTSImageEvent(
+                                                  source: value, index: 1));
+                                        }
+                                      });
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    LocaleKeys.driver_licence.tr(),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium!
+                                        .copyWith(color: grey),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  GestureDetector(
+                                      onTap: () {
+                                        showModalBottomSheet(
+                                            useRootNavigator: true,
+                                            backgroundColor: Colors.transparent,
+                                            isScrollControlled: true,
+                                            context: context,
+                                            builder: (context) =>
+                                                const ClueBtsht(
+                                                  title:
+                                                      'Сфотографируйте Водительское удостоверение машины с обоих сторон по подсказкам в хорошем качестве что-бы модератор мог рассмотреть все детали',
+                                                ));
+                                      },
+                                      behavior: HitTestBehavior.opaque,
+                                      child: SvgPicture.asset(
+                                          AppIcons.infoCircle,
+                                          height: 24))
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.all(16).copyWith(top: 8),
+                              child: Row(
+                                children: [
+                                  StsImageItemWidget(
+                                    title: 'передняя сторона',
+                                    images: state.secondImage[0],
+                                    onTap: () async {
+                                      await showModalBottomSheet<ImageSource>(
+                                          backgroundColor: Colors.transparent,
+                                          context: context,
+                                          useRootNavigator: true,
+                                          builder: (context) =>
+                                              const CameraBottomSheet()).then(
+                                          (value) {
+                                        if (value != null) {
+                                          context.read<ImageBloc>().add(
+                                              PickDriverLicenceImageEvent(
+                                                  source: value, index: 0));
+                                        }
+                                      });
+                                    },
+                                  ),
+                                  const SizedBox(width: 12),
+                                  StsImageItemWidget(
+                                    title: 'задняя сторона',
+                                    images: state.secondImage[1],
+                                    onTap: () async {
+                                      await showModalBottomSheet<ImageSource>(
+                                          backgroundColor: Colors.transparent,
+                                          context: context,
+                                          useRootNavigator: true,
+                                          builder: (context) =>
+                                              const CameraBottomSheet()).then(
+                                          (value) {
+                                        if (value != null) {
+                                          context.read<ImageBloc>().add(
+                                              PickDriverLicenceImageEvent(
+                                                  source: value, index: 1));
+                                        }
+                                      });
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              child: Text(
+                                'Дополнительная информация',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(color: grey),
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.all(16).copyWith(top: 8),
+                              child: WTextField(
+                                onChanged: (value) {},
+                                hintText: 'Напишите информацию для модератора',
+                                disabledBorderColor: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .transparentToNightRider,
+                                enabledBorderColor: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .transparentToNightRider,
+                                borderColor: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .transparentToNightRider,
+                                fillColor: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .whiteSmokeToDark,
+                                focusColor: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .whiteSmokeToDark,
+                                disabledColor: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .whiteSmokeToDark,
+                                controller: textController,
+                                hideCounterText: true,
+                                readOnly: stateOwner.showModerationBtn,
+                                borderRadius: 8,
+                                maxLength: 500,
+                                maxLines: 5,
+                                height: 125,
+                                textStyle: Theme.of(context)
+                                    .textTheme
+                                    .displayLarge!
+                                    .copyWith(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                bottomNavigationBar: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: stateOwner.showModerationBtn
+                      ? Container(
+                          height: 53,
+                          padding: const EdgeInsets.all(12)
+                              .copyWith(top: 8, bottom: 3),
+                          decoration: BoxDecoration(
+                              color: const Color(0xFFF1B747).withOpacity(.1),
+                              borderRadius: BorderRadius.circular(12)),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      'Выша заявка принята!',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium
+                                          ?.copyWith(
+                                              fontWeight: FontWeight.w700,
+                                              color: const Color(0xFFFFC137)),
+                                    ),
+                                    Text(
+                                      'Ждите подтверждения модерации',
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium
+                                          ?.copyWith(
+                                              fontWeight: FontWeight.w400,
+                                              color: const Color(0xFFFFC137)),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SvgPicture.asset(AppIcons.moderationYellow),
+                            ],
+                          ),
+                        )
+                      : Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (!stateOwner.isDeleted) ...{
+                              const InvoiceTermsOfUse(),
+                              const SizedBox(height: 16),
+                              WButton(
+                                isLoading:
+                                    stateOwner.status.isSubmissionInProgress,
+                                isDisabled: state.images[0].isEmpty ||
+                                    state.images[1].isEmpty ||
+                                    state.secondImage[0].isEmpty ||
+                                    state.secondImage[1].isEmpty,
+                                disabledColor: disabledButton,
+                                text: stateOwner.isDeleted
+                                    ? 'Повторить заявку'
+                                    : LocaleKeys.apply_app.tr(),
+                                color: orange,
+                                onTap: () {
+                                  if (!stateOwner.isDeleted) {
+                                    FocusScope.of(context).unfocus();
+                                    createOwnerBloc.add(
+                                      VerifyOwnerCreateEvent(
+                                        createOwnerModel: CreateOwnerModel(
+                                          id: 0,
+                                          user: 0,
+                                          announcement: widget.announcementId,
+                                          additionalInfo: textController.text,
+                                          technicalPasswordFront:
+                                              state.images[0],
+                                          technicalPasswordBack:
+                                              state.images[1],
+                                          driverLicenceFront:
+                                              state.secondImage[0],
+                                          driverlicenceBack:
+                                              state.secondImage[1],
+                                        ),
+                                        onSuccess: () {},
+                                        onError: () {},
+                                      ),
+                                    );
+                                  }
+                                },
+                              ),
+                            },
+                            if (stateOwner.isDeleted)
+                              WButton(
+                                isLoading:
+                                    stateOwner.status.isSubmissionInProgress,
+                                text: 'Повторить заявку',
+                                color: orange,
+                                onTap: () {
+                                  if (stateOwner.isDeleted) {
+                                    createOwnerBloc
+                                        .add(ReApplicationEvent(refresh: true));
+                                  }
+                                },
+                              ),
+                          ],
+                        ),
+                ),
+              ),
             ),
           ),
         ),

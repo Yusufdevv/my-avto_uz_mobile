@@ -293,10 +293,36 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                               (widget.moderationStatus ==
                                       ModerationStatusEnum.active.value ||
                                   widget.moderationStatus ==
-                                      ModerationStatusEnum.in_moderation.value))
-                            const SliverToBoxAdapter(
-                              child: BecomeVerifiredOwnerWidget(),
+                                      ModerationStatusEnum
+                                          .in_moderation.value)) ...{
+                            SliverToBoxAdapter(
+                              child: Builder(builder: (context) {
+                                print(
+                                    'object ${state.singleEntity.announcementVerifyOwners.moderationStatus}');
+                                if (state.singleEntity.announcementVerifyOwners
+                                    .moderationStatus.isEmpty) {
+                                  return BecomeVerifiredOwnerWidget(
+                                      announcementId: state.singleEntity.id);
+                                }
+                                if (state.singleEntity.announcementVerifyOwners
+                                        .moderationStatus ==
+                                    'in_moderation') {
+                                  return const Text('in_moderation');
+                                }
+                                if (state.singleEntity.announcementVerifyOwners
+                                        .moderationStatus ==
+                                    'verified') {
+                                  return const Text('verified');
+                                }
+                                if (state.singleEntity.announcementVerifyOwners
+                                        .moderationStatus ==
+                                    'rejected') {
+                                  return const Text('rejected');
+                                }
+                                return const SizedBox();
+                              }),
                             ),
+                          },
                           if (state.singleEntity.isMine &&
                               (widget.moderationStatus ==
                                       ModerationStatusEnum.active.value ||

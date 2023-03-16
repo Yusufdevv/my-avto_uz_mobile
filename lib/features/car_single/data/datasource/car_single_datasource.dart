@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
@@ -22,6 +20,8 @@ abstract class CarSingleDataSource {
 
   Future<CreateOwnerModel> verifyOwnerCreate(
       {required CreateOwnerModel createOwnerModel});
+
+  Future<bool> deleteApplication(int id);
 }
 
 class CarSingleDataSourceImpl extends CarSingleDataSource {
@@ -39,8 +39,6 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
-        log(':::::::::: CarSingleDataSourceImpl  getCarSingle data  ${response.data} \n Seperator  Seperator  Seperator  Seperator  Seperator    ::::::::::');
-
         return CarSingleModel.fromJson(response.data);
       } else {
         throw ServerException(
@@ -166,15 +164,58 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
   @override
   Future<CreateOwnerModel> verifyOwnerCreate(
       {required CreateOwnerModel createOwnerModel}) async {
+    final datas = {
+      'announcement': createOwnerModel.announcement,
+      'technical_passport_front': await MultipartFile.fromFile(
+          createOwnerModel.technicalPasswordFront,
+          filename: createOwnerModel.technicalPasswordFront.split('/').last),
+      'technical_passport_back': await MultipartFile.fromFile(
+          createOwnerModel.technicalPasswordBack,
+          filename: createOwnerModel.technicalPasswordBack.split('/').last),
+      'driver_license_front': await MultipartFile.fromFile(
+          createOwnerModel.driverLicenceFront,
+          filename: createOwnerModel.driverLicenceFront.split('/').last),
+      'driver_license_back': await MultipartFile.fromFile(
+          createOwnerModel.driverlicenceBack,
+          filename: createOwnerModel.driverlicenceBack.split('/').last),
+      'additional_info': createOwnerModel.additionalInfo
+    };
     try {
-      final response = await _dio.post(
-        '/car/announcement/verify-owner/create/',
-        data: {},
-      );
+      final response = await _dio.post('/car/announcement/verify-owner/create/',
+          data: FormData.fromMap(datas),
+          options: Options(headers: {
+            'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          }));
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
-        return response.data;
+        return CreateOwnerModel.fromJson(response.data as Map<String, dynamic>);
+      } else {
+        throw ServerException(
+            statusCode: response.statusCode!,
+            errorMessage: response.data.toString());
+      }
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future<bool> deleteApplication(int id) async {
+    try {
+      final response = await _dio.delete(
+          '/car/announcement/verify-owner/$id/delete/',
+          options: Options(headers: {
+            'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          }));
+      if (response.statusCode != null &&
+          response.statusCode! >= 200 &&
+          response.statusCode! < 300) {
+        return true;
       } else {
         throw ServerException(
             statusCode: response.statusCode!,

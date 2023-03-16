@@ -17,4 +17,6 @@ abstract class CarSingleRepository {
 
   Future<Either<Failure, CreateOwnerModel>> verifyOwnerCreate(
       {required CreateOwnerModel createOwnerModel});
+
+  Future<Either<Failure, bool>> deleteApplication(int id);
 }

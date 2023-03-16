@@ -7,15 +7,21 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class BecomeVerifiredOwnerWidget extends StatelessWidget {
-  const BecomeVerifiredOwnerWidget({Key? key}) : super(key: key);
+  const BecomeVerifiredOwnerWidget({
+    required this.announcementId,
+    Key? key,
+  }) : super(key: key);
+  final int announcementId;
 
   @override
   Widget build(BuildContext context) => InkWell(
-    onTap: (){
-      Navigator.push(context, fade(page:const VerifiredOwnerPage()));
-    },
-    child: Container(
-          padding: const EdgeInsets.only(right: 10, left: 16, top: 7, bottom: 16),
+        onTap: () {
+          Navigator.push(context,
+              fade(page: VerifiredOwnerPage(announcementId: announcementId)));
+        },
+        child: Container(
+          padding:
+              const EdgeInsets.only(right: 10, left: 16, top: 7, bottom: 16),
           margin: const EdgeInsets.only(top: 12),
           decoration: BoxDecoration(
             color: white,
@@ -55,5 +61,5 @@ class BecomeVerifiredOwnerWidget extends StatelessWidget {
             ],
           ),
         ),
-  );
+      );
 }

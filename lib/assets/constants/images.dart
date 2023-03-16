@@ -59,6 +59,7 @@ class AppImages {
   static const one_nice = 'assets/images/car_single/one_nice.png';
   static const nice_two = 'assets/images/car_single/nice_two.png';
   static const nice_three = 'assets/images/car_single/nice_three.png';
+  static const applicationRejected = 'assets/images/car_single/application_rejected.png';
   static const optima_one = 'assets/images/car_single/optima_one.png';
   static const optima_two = 'assets/images/car_single/optima_two.png';
   static const optima_three = 'assets/images/car_single/optima_three.png';

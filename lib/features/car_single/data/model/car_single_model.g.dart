@@ -128,6 +128,10 @@ CarSingleModel _$CarSingleModelFromJson(Map<String, dynamic> json) =>
           ? const DistrictEntity()
           : const DistrictConverter()
               .fromJson(json['district'] as Map<String, dynamic>?),
+      announcementVerifyOwners: json['announcement_verify_owners'] == null
+          ? const AnnouncementVerifyOwnerEntity()
+          : const AnnouncementVerifyOwnerEntityConverter().fromJson(
+              json['announcement_verify_owners'] as Map<String, dynamic>?),
     );
 
 Map<String, dynamic> _$CarSingleModelToJson(CarSingleModel instance) =>
@@ -197,6 +201,9 @@ Map<String, dynamic> _$CarSingleModelToJson(CarSingleModel instance) =>
       'district': const DistrictConverter().toJson(instance.district),
       'gas_equipment': const IdNameConverter().toJson(instance.gasEquipment),
       'equipment': const EquipmentConverter().toJson(instance.equipment),
+      'announcement_verify_owners':
+          const AnnouncementVerifyOwnerEntityConverter()
+              .toJson(instance.announcementVerifyOwners),
       'options': instance.options
           .map(const EquipmentOptionsConverter().toJson)
           .toList(),

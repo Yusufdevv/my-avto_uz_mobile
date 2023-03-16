@@ -6,6 +6,7 @@ import 'package:auto/features/ad/domain/entities/rent_with_purchase/rent_with_pu
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/ad/domain/entities/types/modification_type.dart';
 import 'package:auto/features/car_single/data/model/car_single_model.dart';
+import 'package:auto/features/car_single/domain/entities/announcement_verify_owner_entity.dart';
 import 'package:auto/features/car_single/domain/entities/car_user_entity.dart';
 import 'package:auto/features/car_single/domain/entities/damaged_parts_entity.dart';
 import 'package:auto/features/car_single/domain/entities/drive_type_entity.dart';
@@ -133,11 +134,14 @@ class CarSingleEntity extends Equatable {
   final IdNameEntity gasEquipment;
   @EquipmentConverter()
   final EquipmentEntity equipment;
+  @AnnouncementVerifyOwnerEntityConverter()
+  final AnnouncementVerifyOwnerEntity announcementVerifyOwners;
   @EquipmentOptionsConverter()
   final List<EquipmentOptionsEntity> options;
 
   const CarSingleEntity({
     this.gasEquipment = const IdNameEntity(),
+    this.announcementVerifyOwners = const AnnouncementVerifyOwnerEntity(),
     this.options = const <EquipmentOptionsEntity>[],
     this.equipment = const EquipmentEntity(),
     this.district = const DistrictEntity(),
@@ -198,6 +202,7 @@ class CarSingleEntity extends Equatable {
 
   @override
   List<Object?> get props => [
+    announcementVerifyOwners,
         gasEquipment,
         options,
         equipment,
