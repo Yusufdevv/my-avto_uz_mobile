@@ -78,8 +78,8 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                           }
                         });
                       },
-                      hintText: state.region?.title ??
-                          LocaleKeys.choose_region.tr(),
+                      hintText:
+                          state.region?.title ?? LocaleKeys.choose_region.tr(),
                       title: LocaleKeys.area.tr(),
                     ),
                     const SizedBox(height: 16),
@@ -138,13 +138,16 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                           decoration: BoxDecoration(
                             color: Colors.amber,
                             borderRadius: BorderRadius.circular(12),
-                            image: state.mapPointBytes != null
-                                ? DecorationImage(
-                                    image: MemoryImage(state.mapPointBytes!),
-                                    fit: BoxFit.cover,
-                                  )
-                                : null,
+                            // image: state.mapPointBytes != null
+                            //     ? DecorationImage(
+                            //         image: MemoryImage(state.mapPointBytes!),
+                            //         fit: BoxFit.cover,
+                            //       )
+                            //     : null,
                           ),
+                          child: state.mapPointBytes == null
+                              ? null
+                              : Image.memory(state.mapPointBytes!),
                         ),
                       ),
                     } else if (state.mapPointBytes != null &&

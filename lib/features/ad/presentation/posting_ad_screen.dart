@@ -500,6 +500,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                             ))).then(
                                           (latLongZoom) {
                                             if (latLongZoom is List<double>) {
+                                              log(':::::::::: LAT: ${latLongZoom[0]}  ::::::::::');
+                                              log(':::::::::: LONG: ${latLongZoom[1]}  ::::::::::');
                                               postingAdBloc.add(
                                                 PostingAdGetMapScreenShotEvent(
                                                   lat: latLongZoom[0],

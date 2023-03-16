@@ -35,8 +35,9 @@ class DealerScreen extends StatefulWidget {
   State<DealerScreen> createState() => _DealerScreenState();
 }
 
-class _DealerScreenState extends State<DealerScreen> with TickerProviderStateMixin {
-  late DealerCardBloc bloc;
+class _DealerScreenState extends State<DealerScreen>
+    with TickerProviderStateMixin {
+  late DealerCardBloc deallerCardBloc;
   late DealerFilterBloc filterBloc;
   late MapOrganizationBloc mapOrganizationBloc;
   late TextEditingController controller;
@@ -49,7 +50,7 @@ class _DealerScreenState extends State<DealerScreen> with TickerProviderStateMix
     _tabController = TabController(length: 2, vsync: this);
     _pageController = PageController();
 
-    bloc = DealerCardBloc(DealerUseCase());
+    deallerCardBloc = DealerCardBloc(DealerUseCase());
     mapOrganizationBloc = MapOrganizationBloc(
       GetMapDealersUseCase(),
       GetDirectoriesMapPointUseCase(),
@@ -60,7 +61,8 @@ class _DealerScreenState extends State<DealerScreen> with TickerProviderStateMix
         FocusScope.of(context).unfocus();
         controller.clear();
       }
-      bloc.add(DealerCardEvent.changeTabIndex(index: _tabController.index));
+      deallerCardBloc
+          .add(DealerCardEvent.changeTabIndex(index: _tabController.index));
     });
     super.initState();
   }
@@ -69,7 +71,7 @@ class _DealerScreenState extends State<DealerScreen> with TickerProviderStateMix
   void dispose() {
     controller.dispose();
     _tabController.dispose();
-    bloc.close();
+    deallerCardBloc.close();
     filterBloc.close();
     super.dispose();
   }
@@ -77,14 +79,15 @@ class _DealerScreenState extends State<DealerScreen> with TickerProviderStateMix
   @override
   Widget build(BuildContext context) => MultiBlocProvider(
         providers: [
-          BlocProvider.value(value: bloc),
+          BlocProvider.value(value: deallerCardBloc),
           BlocProvider.value(value: filterBloc),
           BlocProvider.value(value: mapOrganizationBloc),
         ],
         child: BlocConsumer<DealerCardBloc, DealerCardState>(
           listener: (context, state) {},
           builder: (context, state) => AnnotatedRegion(
-            value: const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
+            value:
+                const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
             child: KeyboardDismisser(
               child: Scaffold(
                 body: CustomScrollView(
@@ -93,7 +96,9 @@ class _DealerScreenState extends State<DealerScreen> with TickerProviderStateMix
                     SliverAppBar(
                       pinned: true,
                       automaticallyImplyLeading: false,
-                      backgroundColor: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
+                      backgroundColor: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .whiteToNero,
                       leadingWidth: 0,
                       title: Padding(
                         padding: const EdgeInsets.only(top: 12, bottom: 5),
@@ -112,30 +117,46 @@ class _DealerScreenState extends State<DealerScreen> with TickerProviderStateMix
                             Expanded(
                               child: WTextField(
                                 readOnly: state.isIndexOne ?? false,
-                                contentPadding: const EdgeInsets.only(left: 12, right: 12, top: 12),
+                                contentPadding: const EdgeInsets.only(
+                                    left: 12, right: 12, top: 12),
                                 borderColor: purple,
-                                disabledBorderColor: Theme.of(context).extension<ThemedColors>()!.whiteSmokeToEclipse,
-                                fillColor: Theme.of(context).extension<ThemedColors>()!.whiteSmokeToEclipse,
+                                disabledBorderColor: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .whiteSmokeToEclipse,
+                                fillColor: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .whiteSmokeToEclipse,
                                 hintText: LocaleKeys.autosalon.tr(),
-                                hintTextStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: grey),
+                                hintTextStyle: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                    color: grey),
                                 textStyle: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w400,
                                   color: black,
                                 ),
-                                enabledBorderColor: Theme.of(context).extension<ThemedColors>()!.whiteSmokeToEclipse,
-                                focusColor: Theme.of(context).extension<ThemedColors>()!.whiteSmokeToEclipse,
+                                enabledBorderColor: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .whiteSmokeToEclipse,
+                                focusColor: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .whiteSmokeToEclipse,
                                 onChanged: (value) {
-                                  bloc.add(DealerCardEvent.getResults(
-                                      isRefresh: false,
-                                      search: value,
-                                      onSuccess: (list) {
-                                        mapOrganizationBloc.add(MapOrganizationEvent.setMapPoints(
-                                            list: list
-                                                .map((e) =>
-                                                    DealerCardModel.fromJson(const DealerCardConvert().toJson(e)))
-                                                .toList()));
-                                      }));
+                                  deallerCardBloc
+                                      .add(DealerCardEvent.getResults(
+                                          isRefresh: false,
+                                          search: value,
+                                          onSuccess: (list) {
+                                            mapOrganizationBloc.add(
+                                                MapOrganizationEvent.setMapPoints(
+                                                    list: list
+                                                        .map((e) => DealerCardModel
+                                                            .fromJson(
+                                                                const DealerCardConvert()
+                                                                    .toJson(e)))
+                                                        .toList()));
+                                          }));
                                 },
                                 controller: controller,
                                 hasSearch: true,
@@ -148,7 +169,9 @@ class _DealerScreenState extends State<DealerScreen> with TickerProviderStateMix
                                 height: 50,
                                 width: 50,
                                 onTap: () {
-                                  context.read<RegionsBloc>().add(RegionsEvent.getRegions());
+                                  context
+                                      .read<RegionsBloc>()
+                                      .add(RegionsEvent.getRegions());
                                   Navigator.push(
                                     context,
                                     fade(
@@ -156,18 +179,24 @@ class _DealerScreenState extends State<DealerScreen> with TickerProviderStateMix
                                         value: filterBloc,
                                         child: DealersFilterScreen(
                                           dealerFilterBloc: filterBloc,
-                                          dealerBloc: bloc,
-                                          mapOrganizationBloc: mapOrganizationBloc,
+                                          dealerBloc: deallerCardBloc,
+                                          mapOrganizationBloc:
+                                              mapOrganizationBloc,
                                           maker: filterState.maker,
                                           regions: filterState.region,
-                                          carType: filterState.carType == '' ? 'all' : filterState.carType,
+                                          carType: filterState.carType == ''
+                                              ? 'all'
+                                              : filterState.carType,
                                         ),
                                       ),
                                     ),
                                   );
                                 },
                                 borderRadius: 12,
-                                color: Theme.of(context).extension<ThemedColors>()!.whiteSmokeToNightRider,
+                                color: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .whiteSmokeToNightRider,
+                                // color: Colors.teal,
                                 padding: const EdgeInsets.all(8),
                                 child: SvgPicture.asset(
                                   AppIcons.delaerFilter,
@@ -181,7 +210,10 @@ class _DealerScreenState extends State<DealerScreen> with TickerProviderStateMix
                     SliverPersistentHeader(
                       pinned: true,
                       delegate: SegmentedControl(
-                          maxHeight: 64, minHeight: 64, tabController: _tabController, pageController: _pageController),
+                          maxHeight: 64,
+                          minHeight: 64,
+                          tabController: _tabController,
+                          pageController: _pageController),
                     ),
                     SliverFillRemaining(
                       child: PageView(

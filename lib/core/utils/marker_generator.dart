@@ -26,9 +26,9 @@ class MarkerGenerator {
 
     final entry = OverlayEntry(
         builder: (context) => _MarkerHelper(
-            markerWidgets: markerWidgets,
-            callback: callback,
-          ),
+              markerWidgets: markerWidgets,
+              callback: callback,
+            ),
         maintainState: true);
 
     overlayState.insert(entry);
@@ -70,21 +70,21 @@ class _MarkerHelperState extends State<_MarkerHelper> with AfterLayoutMixin {
 
   @override
   Widget build(BuildContext context) => Transform.translate(
-    offset: Offset(MediaQuery.of(context).size.width, 0),
-    child: Material(
-      type: MaterialType.transparency,
-      child: Stack(
-        children: widget.markerWidgets.map((i) {
-          final markerKey = GlobalKey();
-          globalKeys.add(markerKey);
-          return RepaintBoundary(
-            key: markerKey,
-            child: i,
-          );
-        }).toList(),
-      ),
-    ),
-  );
+        offset: Offset(MediaQuery.of(context).size.width, 0),
+        child: Material(
+          type: MaterialType.transparency,
+          child: Stack(
+            children: widget.markerWidgets.map((i) {
+              final markerKey = GlobalKey();
+              globalKeys.add(markerKey);
+              return RepaintBoundary(
+                key: markerKey,
+                child: i,
+              );
+            }).toList(),
+          ),
+        ),
+      );
 
   Future<List<Uint8List?>> _getBitmaps(BuildContext context) async {
     final futures = globalKeys.map(_getUint8List);
@@ -93,8 +93,8 @@ class _MarkerHelperState extends State<_MarkerHelper> with AfterLayoutMixin {
 
   Future<Uint8List?> _getUint8List(GlobalKey markerKey) async {
     final boundary =
-    markerKey.currentContext!.findRenderObject()! as RenderRepaintBoundary;
-    final image = await boundary.toImage(pixelRatio: 2);
+        markerKey.currentContext!.findRenderObject()! as RenderRepaintBoundary;
+    final image = await boundary.toImage(pixelRatio: 2,);
     final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
     return byteData?.buffer.asUint8List();
   }
