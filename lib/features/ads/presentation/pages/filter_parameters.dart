@@ -101,22 +101,25 @@ class _FilterParametersState extends State<FilterParameters> {
               title: LocaleKeys.options.tr(),
               centerTitle: false,
               extraActions: [
-                TextButton(
-                  onPressed: () {
+                WButton(
+                  disabledColor: Colors.transparent,
+                  isDisabled: !state.isFilter,
+                  color: Colors.transparent,
+                  onTap: () {
                     filterBloc.add(
                       const FilterClearEvent(),
                     );
                   },
                   child: Text(
                     LocaleKeys.clear.tr(),
-                    style: const TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w400,
-                      color: orange,
-                    ),
+                    style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w400,
+                          color: state.isFilter ? orange : null,
+                        ),
                   ),
                 ),
-                const SizedBox(width: 8),
+                const SizedBox(width: 16),
               ],
             ),
             body: SingleChildScrollView(
@@ -227,11 +230,6 @@ class _FilterParametersState extends State<FilterParameters> {
                           ? true
                           : state.gearboxType!.type.isEmpty,
                     ),
-                    WButton(onTap: () {
-                      log('::::::::::: maxYearValue: in button:   ${state.maxYearValue}    ::::::::::::::');
-                      log('::::::::::: minYearValue: in button:   ${state.minYearValue}    ::::::::::::::');
-                      log('::::::::::: yearValues: in button:   ${state.yearValues}    ::::::::::::::');
-                    }),
                     const SizedBox(height: 20),
                     if (state.minYearValue != null &&
                         state.maxYearValue != null &&
@@ -239,8 +237,6 @@ class _FilterParametersState extends State<FilterParameters> {
                       WRangeSlider(
                         values: state.yearValues!,
                         valueChanged: (value) {
-                          log('::::::::::: year end:   ${value.end}    ::::::::::::::');
-                          log('::::::::::: year start:   ${value.start}    ::::::::::::::');
                           filterBloc.add(FilterSelectEvent(yearValues: value));
                         },
                         title: LocaleKeys.year_of_issue.tr(),
@@ -254,8 +250,6 @@ class _FilterParametersState extends State<FilterParameters> {
                       WRangeSlider(
                         values: state.priceValues!,
                         valueChanged: (value) {
-                          log(':::::::::::price   end:   ${value.end}    ::::::::::::::');
-                          log('::::::::::: price start:   ${value.start}    ::::::::::::::');
                           filterBloc.add(
                             FilterSelectEvent(priceValues: value),
                           );

@@ -130,7 +130,7 @@ class FilterState extends Equatable {
     if (currency == Currency.usd
         ? usdIsYearValuesChanged('l-131')
         : uzsIsYearValuesChanged('l-132')) {
-      log(':::::::::: IS FILTER: UZS YEAR VALUES: ${uzsIsYearValuesChanged('132 - 131')}  ::::::::::');
+      log(':::::::::: IS FILTER: UZS YEAR VALUES: ${usdIsYearValuesChanged('132 - 131')}  ::::::::::');
       return true;
     }
 
@@ -159,7 +159,7 @@ class FilterState extends Equatable {
   bool uzsIsPriceValuesChanged(String where) {
     final start = double.tryParse(uzsIfos?.minPrice ?? '0') ?? 0.0;
     final end = double.tryParse(uzsIfos?.maxPrice ?? '0') ?? 0.0;
-    final v = priceValues?.start != start && priceValues?.end != end;
+    final v = priceValues?.start != start || priceValues?.end != end;
     log('::::::::::  PRICE USD: $v  $where }  ::::::::::');
     return v;
   }
@@ -167,13 +167,13 @@ class FilterState extends Equatable {
   bool usdIsPriceValuesChanged(String where) {
     final start = double.tryParse(usdIfos?.minPrice ?? '0') ?? 0.0;
     final end = double.tryParse(usdIfos?.maxPrice ?? '0') ?? 0.0;
-    final v = priceValues?.start != start && priceValues?.end != end;
+    final v = priceValues?.start != start || priceValues?.end != end;
     log('::::::::::  PRICE USD: $v  $where }  ::::::::::');
     return v;
   }
 
   bool usdIsYearValuesChanged(String where) {
-    final v = yearValues?.start != usdIfos?.minYear &&
+    final v = yearValues?.start != usdIfos?.minYear ||
         yearValues?.end != usdIfos?.maxYear;
     log(':::::::::: e  YEAR USD: $v  $where  year values}  ::::::::::');
     log('::::::::::  start:  ${yearValues?.start}  ::::::::::');
@@ -184,7 +184,7 @@ class FilterState extends Equatable {
   }
 
   bool uzsIsYearValuesChanged(String where) {
-    final v = yearValues?.start != uzsIfos?.minYear &&
+    final v = yearValues?.start != uzsIfos?.minYear ||
         yearValues?.end != uzsIfos?.maxYear;
     log(':::::::::: YEAR UZS: $v  $where ::::::::::');
     log('::::::::::   start:    ${yearValues?.start} ::::::::::');

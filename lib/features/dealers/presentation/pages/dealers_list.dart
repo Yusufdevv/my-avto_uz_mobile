@@ -19,9 +19,11 @@ class DealersList extends StatefulWidget {
   State<DealersList> createState() => _DealersListState();
 }
 
-class _DealersListState extends State<DealersList> with AutomaticKeepAliveClientMixin {
+class _DealersListState extends State<DealersList>
+    with AutomaticKeepAliveClientMixin {
   void onTap(String slug) {
-    Navigator.of(context, rootNavigator: true).push(fade(page: DealerSinglePage(slug: slug)));
+    Navigator.of(context, rootNavigator: true)
+        .push(fade(page: DealerSinglePage(slug: slug)));
   }
 
   @override
@@ -30,8 +32,12 @@ class _DealersListState extends State<DealersList> with AutomaticKeepAliveClient
         isRefresh: false,
         search: '',
         onSuccess: (list) {
-          context.read<MapOrganizationBloc>().add(MapOrganizationEvent.setMapPoints(
-              list: list.map((e) => DealerCardModel.fromJson(const DealerCardConvert().toJson(e))).toList()));
+          context.read<MapOrganizationBloc>().add(
+              MapOrganizationEvent.setMapPoints(
+                  list: list
+                      .map((e) => DealerCardModel.fromJson(
+                          const DealerCardConvert().toJson(e)))
+                      .toList()));
         }));
     super.initState();
   }
@@ -40,7 +46,8 @@ class _DealersListState extends State<DealersList> with AutomaticKeepAliveClient
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      body: BlocBuilder<DealerCardBloc, DealerCardState>(builder: (context, state) {
+      body: BlocBuilder<DealerCardBloc, DealerCardState>(
+          builder: (context, state) {
         if (state.status != FormzStatus.submissionSuccess) {
           return const Center(
             child: CupertinoActivityIndicator(),
@@ -50,7 +57,9 @@ class _DealersListState extends State<DealersList> with AutomaticKeepAliveClient
             return Paginator(
               paginatorStatus: state.paginationStatus,
               fetchMoreFunction: () {
-                context.read<DealerCardBloc>().add(DealerCardEvent.getMoreResults());
+                context
+                    .read<DealerCardBloc>()
+                    .add(DealerCardEvent.getMoreResults());
               },
               hasMoreToFetch: state.next != null,
               errorWidget: const SizedBox(),
@@ -68,10 +77,13 @@ class _DealersListState extends State<DealersList> with AutomaticKeepAliveClient
                   quantityOfCars: state.list[index].carCount,
                   latitude: state.list[index].latitude,
                   longitude: state.list[index].longitude,
-                  contractCode: '+998 ${state.list[index].phoneNumber.substring(4, 6)}',
+                  contractCode:
+                      '+998 ${state.list[index].phoneNumber.substring(4, 6)}',
                   contractNumber: state.list[index].phoneNumber.substring(6),
                   contactTo: state.list[index].contactTo,
                   contactFrom: state.list[index].contactFrom,
+                  isAllDay: state.list[index].isWorkingAllDays,
+                  workingDaysList: state.list[index].workingDays,
                 ),
               ),
               itemCount: state.list.length,

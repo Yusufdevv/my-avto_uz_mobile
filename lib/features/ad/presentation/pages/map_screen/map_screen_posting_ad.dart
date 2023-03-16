@@ -132,6 +132,19 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                       },
                       mapObjects: _mapObjects,
                       onMapCreated: (controller) async {
+                        mapBloc.add(
+                          MapChangeLatLongEvent(
+                              lat: widget.initialLat == 0
+                                  ? StorageRepository.getDouble('lat',
+                                      defValue: 41.310990)
+                                  : widget.initialLat,
+                              long: widget.initialLong == 0
+                                  ? StorageRepository.getDouble('long',
+                                      defValue: 69.281997)
+                                  : widget.initialLong,
+                              radius: MyFunctions.getRadiusFromZoom(zoomLevel)
+                                  .floor()),
+                        );
                         final lat = widget.initialLat == 0
                             ? StorageRepository.getDouble('lat',
                                 defValue: 41.310990)

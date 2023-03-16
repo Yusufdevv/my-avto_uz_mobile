@@ -19,6 +19,8 @@ class DealerCardEntity extends Equatable {
   final int carCount;
   @RegionConverter()
   final RegionEntity district;
+  final bool isWorkingAllDays;
+  final List<WorkingDaysModel> workingDays;
 
   const DealerCardEntity({
     this.id = 0,
@@ -35,6 +37,8 @@ class DealerCardEntity extends Equatable {
     this.latitude = 0.0,
     this.carCount = 0,
     this.district = const RegionEntity(),
+    this.isWorkingAllDays = false,
+    this.workingDays = const [],
   });
 
   @override
@@ -53,6 +57,7 @@ class DealerCardEntity extends Equatable {
         carCount,
         district,
         address,
+        isWorkingAllDays,
       ];
 }
 
@@ -66,4 +71,13 @@ class DealerCardConvert
 
   @override
   Map<String, dynamic> toJson(DealerCardEntity object) => {};
+}
+
+class WorkingDays extends Equatable {
+  final String dayOfWeek;
+
+  const WorkingDays({this.dayOfWeek = ''});
+
+  @override
+  List<Object?> get props => [dayOfWeek];
 }

@@ -13,6 +13,7 @@ import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/common/entities/position_entity.dart';
 import 'package:auto/features/common/models/yandex_search_model.dart';
 import 'package:auto/features/common/widgets/maps_list_in_app.dart';
+import 'package:auto/features/dealers/domain/entities/dealer_card_entity.dart';
 import 'package:auto/features/profile/domain/entities/dir_category_entity.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -455,12 +456,12 @@ class MyFunctions {
 
   static String getCategoriesName(List<Category> categories) {
     final res = StringBuffer();
-    if(categories.isEmpty) {
+    if (categories.isEmpty) {
       return '';
     }
 
-    for(var i=0; i<categories.length ;i++) {
-      if(i!=categories.length-1){
+    for (var i = 0; i < categories.length; i++) {
+      if (i != categories.length - 1) {
         res.write('${categories[i].name}, ');
       } else {
         res.write('${categories[i].name}');
@@ -468,8 +469,8 @@ class MyFunctions {
     }
 
     return res.toString();
-
   }
+
   static bool enableForCalling(
       {required String callFrom, required String callTo}) {
     final now = DateTime.now();
@@ -777,6 +778,22 @@ class MyFunctions {
       return file.path;
     } catch (e) {
       return null;
+    }
+  }
+
+  static String listToString(List<WorkingDays> list) {
+    if (list.isEmpty) {
+      return '';
+    } else {
+      final cardId = StringBuffer();
+      for (final element in list) {
+        if (element.dayOfWeek == list.last.dayOfWeek) {
+          cardId.write(element.dayOfWeek);
+        } else {
+          cardId.write('${element.dayOfWeek}, ');
+        }
+      }
+      return cardId.toString();
     }
   }
 }

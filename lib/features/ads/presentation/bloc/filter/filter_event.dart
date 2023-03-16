@@ -39,7 +39,7 @@ class FilterGetCurrencies extends FilterEvent {
 
   const FilterGetCurrencies({
     required this.currency,
-    this.yearValuesIsNull = false,
-    this.priceValuesIsNull = false,
+    this.yearValuesIsNull = true,
+    this.priceValuesIsNull = true,
   });
 }

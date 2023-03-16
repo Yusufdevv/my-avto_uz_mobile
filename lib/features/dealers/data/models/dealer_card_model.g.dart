@@ -25,6 +25,11 @@ DealerCardModel _$DealerCardModelFromJson(Map<String, dynamic> json) =>
           : const RegionConverter()
               .fromJson(json['district'] as Map<String, dynamic>?),
       address: json['address'] as String? ?? '',
+      isWorkingAllDays: json['is_working_all_days'] as bool? ?? false,
+      workingDays: (json['working_days'] as List<dynamic>?)
+              ?.map((e) => WorkingDaysModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$DealerCardModelToJson(DealerCardModel instance) =>
@@ -43,4 +48,16 @@ Map<String, dynamic> _$DealerCardModelToJson(DealerCardModel instance) =>
       'latitude': instance.latitude,
       'car_count': instance.carCount,
       'district': const RegionConverter().toJson(instance.district),
+      'is_working_all_days': instance.isWorkingAllDays,
+      'working_days': instance.workingDays,
+    };
+
+WorkingDaysModel _$WorkingDaysModelFromJson(Map<String, dynamic> json) =>
+    WorkingDaysModel(
+      dayOfWeek: json['day_of_week'] as String? ?? '',
+    );
+
+Map<String, dynamic> _$WorkingDaysModelToJson(WorkingDaysModel instance) =>
+    <String, dynamic>{
+      'day_of_week': instance.dayOfWeek,
     };
