@@ -70,6 +70,8 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
     RangeValues? yearV;
     MinMaxPriceYearEntity? usd;
     MinMaxPriceYearEntity? uzs;
+    log('::::::::::   usdIfos: ${state.usdIfos} / uzsIfos: ${state.uzsIfos}  / currency: ${state.currency} / currency: ${event.currency} ::::::::::');
+
     if (state.usdIfos == null ||
         state.uzsIfos == null ||
         event.currency != state.currency) {
@@ -135,6 +137,8 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
     log('::::::::::  CLEAR end: ${priceV.end}  ::::::::::');
     emit(
       FilterState(
+        uzsIfos: state.uzsIfos,
+        usdIfos: state.usdIfos,
         minPriceValue: priceV.start,
         maxPriceValue: priceV.end,
         minYearValue: yearV.start,
