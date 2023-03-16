@@ -151,7 +151,7 @@ class AnnouncementListBloc
 
   FutureOr<void> _setSort(
       SetSort event, Emitter<AnnouncementListState> emit) async {
-    emit(state.copyWith());
+    emit(state.copyWith(sortResult: event.sortResult));
     add(const GetAnnouncementList());
   }
 
@@ -242,11 +242,11 @@ class AnnouncementListBloc
     if (result.isRight) {
       emit(
         state.copyWith(
-          announcementList: result.right.results,
-          status: FormzStatus.submissionSuccess,
-          count: result.right.count,
-          next: result.right.next != null,
-        ),
+            announcementList: result.right.results,
+            status: FormzStatus.submissionSuccess,
+            count: result.right.count,
+            next: result.right.next != null,
+            sortResult: state.sortStatus),
       );
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
