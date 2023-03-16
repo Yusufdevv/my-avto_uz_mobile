@@ -3,6 +3,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/dealers/domain/entities/dealer_card_entity.dart';
 import 'package:auto/features/dealers/presentation/blocs/dealer_card_bloc/dealer_card_bloc.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
@@ -26,6 +27,8 @@ class DealerCard extends StatefulWidget {
   final String contractNumber;
   final double latitude;
   final double longitude;
+  final bool isAllDay;
+  final List<WorkingDays> workingDaysList;
 
   final VoidCallback onTap;
 
@@ -43,6 +46,8 @@ class DealerCard extends StatefulWidget {
     required this.longitude,
     required this.phoneNumber,
     required this.onTap,
+    required this.isAllDay,
+    required this.workingDaysList,
     Key? key,
   }) : super(key: key);
 
@@ -142,12 +147,17 @@ class _DealerCardState extends State<DealerCard> {
                     SvgPicture.asset(AppIcons.clock),
                     const SizedBox(width: 8),
                     Text(
-                        '${LocaleKeys.every_day.tr()}, ${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}',
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayLarge!
-                            .copyWith(
-                                fontSize: 14, fontWeight: FontWeight.w400))
+                      widget.isAllDay
+                          ? '${LocaleKeys.every_day.tr()}, ${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}'
+                          : widget.workingDaysList.isNotEmpty
+                              ? '${MyFunctions.listToString(widget.workingDaysList)},  ${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}'
+                              : '${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}',
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayLarge!
+                          .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
+                      overflow: TextOverflow.ellipsis,
+                    )
                   ],
                 ),
               },

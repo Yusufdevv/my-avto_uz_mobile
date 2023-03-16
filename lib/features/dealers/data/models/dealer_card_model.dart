@@ -21,10 +21,23 @@ class DealerCardModel extends DealerCardEntity {
     required super.carCount,
     required super.district,
     required super.address,
+    required super.isWorkingAllDays,
+    required super.workingDays,
   });
 
   factory DealerCardModel.fromJson(Map<String, dynamic> json) =>
       _$DealerCardModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$DealerCardModelToJson(this);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class WorkingDaysModel extends WorkingDays {
+  const WorkingDaysModel({
+    required super.dayOfWeek,
+  });
+  factory WorkingDaysModel.fromJson(Map<String, dynamic> json) =>
+      _$WorkingDaysModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$WorkingDaysModelToJson(this);
 }
