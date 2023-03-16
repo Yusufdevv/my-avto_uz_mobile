@@ -230,15 +230,6 @@ class _FilterParametersState extends State<FilterParameters> {
                           ? true
                           : state.gearboxType!.type.isEmpty,
                     ),
-                    WButton(onTap: () {
-                      log('::::::::::: maxYearValue: in button:   ${state.maxYearValue}    ::::::::::::::');
-                      log('::::::::::: minYearValue: in button:   ${state.minYearValue}    ::::::::::::::');
-                      log('::::::::::: yearValues: in button:   ${state.yearValues}    ::::::::::::::');
-                      log('::::::::::: PRICE    ::::::::::::::');
-                      log('::::::::::: maxPriceValue: in button:   ${state.maxPriceValue}    ::::::::::::::');
-                      log('::::::::::: minYearValue: in button:   ${state.minPriceValue}    ::::::::::::::');
-                      log('::::::::::: priceValues: in button:   ${state.priceValues}    ::::::::::::::');
-                    }),
                     const SizedBox(height: 20),
                     if (state.minYearValue != null &&
                         state.maxYearValue != null &&
@@ -246,8 +237,7 @@ class _FilterParametersState extends State<FilterParameters> {
                       WRangeSlider(
                         values: state.yearValues!,
                         valueChanged: (value) {
-                          log('::::::::::: year end:   ${value.end}    ::::::::::::::');
-                          log('::::::::::: year start:   ${value.start}    ::::::::::::::');
+
                           filterBloc.add(FilterSelectEvent(yearValues: value));
                         },
                         title: LocaleKeys.year_of_issue.tr(),
@@ -261,9 +251,7 @@ class _FilterParametersState extends State<FilterParameters> {
                       WRangeSlider(
                         values: state.priceValues!,
                         valueChanged: (value) {
-                          log(':::::::::::price   end:   ${value.end}    ::::::::::::::');
-                          log('::::::::::: price start:   ${value.start}    ::::::::::::::');
-                          filterBloc.add(
+                         filterBloc.add(
                             FilterSelectEvent(priceValues: value),
                           );
                         },
@@ -278,10 +266,6 @@ class _FilterParametersState extends State<FilterParameters> {
                     const SizedBox(height: 16),
                     WButton(
                       onTap: () {
-                        log(':::::::::: minPriceValue: in submit: ${state.minPriceValue}  ::::::::::');
-                        log(':::::::::: maxPriceValue: in submit: ${state.maxPriceValue}  ::::::::::');
-                        log(':::::::::: minYearValue: in submit: ${state.minYearValue}  ::::::::::');
-                        log(':::::::::: maxYearValue: in submit: ${state.maxYearValue}  ::::::::::');
                         Navigator.of(context).pop(state);
                       },
                       text: LocaleKeys.show.tr(),
