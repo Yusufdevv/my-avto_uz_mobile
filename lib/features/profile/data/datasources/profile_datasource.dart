@@ -2,9 +2,13 @@ import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
+import 'package:auto/features/profile/data/models/car_product.dart';
+import 'package:auto/features/profile/data/models/product_category.dart';
 import 'package:auto/features/profile/data/models/profile.dart';
 import 'package:auto/features/profile/data/models/profile_data_model.dart';
 import 'package:auto/features/profile/data/models/terms_of_use_model.dart';
+import 'package:auto/features/profile/domain/entities/car_product.dart';
+import 'package:auto/features/profile/domain/entities/product_category.dart';
 
 import 'package:dio/dio.dart';
 
@@ -25,6 +29,12 @@ abstract class ProfileDataSource {
       required String session});
 
   Future<TermsOfUseModel> getTermsOfUseData(String slug);
+
+  Future<List<ProductCategory>> productCategory(String slug);
+
+  Future<List<ProductCategory>> productList(String slug);
+
+  Future<List<CarProductModel>> getCarProductByCategory(String slug, int id);
 }
 
 class ProfileDataSourceImpl extends ProfileDataSource {
@@ -128,6 +138,7 @@ class ProfileDataSourceImpl extends ProfileDataSource {
       throw ParsingException(errorMessage: e.toString());
     }
   }
+
 //'/users/wishlist/announcement/list/'
 
   @override
@@ -211,6 +222,76 @@ class ProfileDataSourceImpl extends ProfileDataSource {
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return TermsOfUseModel.fromJson(response.data);
+      }
+      throw ServerException(
+          statusCode: response.statusCode ?? 0,
+          errorMessage: response.statusMessage ?? '');
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future<List<ProductCategoryModel>> productCategory(String slug) async {
+    try {
+      final response = await dio.get(
+        '/car-place/$slug/product/category/list/',
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return (response.data['results'] as List)
+            .map((e) => ProductCategoryModel.fromJson(e))
+            .toList();
+      }
+      throw ServerException(
+          statusCode: response.statusCode ?? 0,
+          errorMessage: response.statusMessage ?? '');
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future<List<CarProductModel>> getCarProductByCategory(
+      String slug, int id) async {
+    try {
+      final response = await dio.get(
+        '/car-place/$slug/$id/list/',
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return (response.data['results'] as List)
+            .map((e) => CarProductModel.fromJson(e))
+            .toList();
+      }
+      throw ServerException(
+          statusCode: response.statusCode ?? 0,
+          errorMessage: response.statusMessage ?? '');
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future<List<ProductCategory>> productList(String slug) async {
+    try {
+      final response = await dio.get(
+        '/car-place/$slug/product/list/',
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return (response.data['results'] as List)
+            .map((e) => ProductCategoryModel.fromJson(e))
+            .toList();
       }
       throw ServerException(
           statusCode: response.statusCode ?? 0,

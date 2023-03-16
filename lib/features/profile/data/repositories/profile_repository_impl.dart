@@ -2,6 +2,8 @@ import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/profile/data/datasources/profile_datasource.dart';
+import 'package:auto/features/profile/domain/entities/car_product.dart';
+import 'package:auto/features/profile/domain/entities/product_category.dart';
 import 'package:auto/features/profile/domain/entities/profile_data_entity.dart';
 import 'package:auto/features/profile/domain/entities/profile_entity.dart';
 import 'package:auto/features/profile/domain/entities/terms_of_use_entity.dart';
