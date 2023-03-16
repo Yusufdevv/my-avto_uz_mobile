@@ -6,6 +6,7 @@ import 'package:auto/features/profile/domain/usecases/get_directories_usecase.da
 import 'package:auto/features/profile/presentation/bloc/directory/directory_bloc.dart';
 import 'package:auto/features/profile/presentation/pages/directory/directory_info_part.dart';
 import 'package:auto/features/profile/presentation/pages/directory/directory_sliver_delegete.dart';
+import 'package:auto/features/profile/presentation/widgets/go_all_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,10 +38,19 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
     super.initState();
   }
 
+  final List<String> serviceProductList = const [
+    'Техническое ОБСЛУЖИВАНИЕ',
+    'РЕМОНТ ЭЛЕКТРООБОРУДОВАНИЯ',
+    'ЗАПРАВКА КОНДИЦИОНЕРА И РЕМОНТ',
+    'МОНТАЖ ДОП. ОБОРУДОВАНИЯ',
+    'ЗАРЯДНЫЕ СТАНЦИИ',
+  ];
+
   @override
   Widget build(BuildContext context) => BlocProvider.value(
         value: bloc,
         child: Scaffold(
+          // backgroundColor: Colors.teal,
           body: BlocBuilder<DirectoryBloc, DirectoryState>(
             builder: (context, state) {
               if (state.status.isSubmissionSuccess) {
@@ -78,6 +88,9 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
                           longitude: directory.longitude,
                           latitude: directory.latitude,
                         ),
+                        const SizedBox(height: 16),
+                        GoAllButton(
+                            title: 'Популярные продукты', onPressed: () {}),
                       ],
                     ),
                   ),

@@ -237,7 +237,6 @@ class _FilterParametersState extends State<FilterParameters> {
                       WRangeSlider(
                         values: state.yearValues!,
                         valueChanged: (value) {
-
                           filterBloc.add(FilterSelectEvent(yearValues: value));
                         },
                         title: LocaleKeys.year_of_issue.tr(),
@@ -251,7 +250,7 @@ class _FilterParametersState extends State<FilterParameters> {
                       WRangeSlider(
                         values: state.priceValues!,
                         valueChanged: (value) {
-                         filterBloc.add(
+                          filterBloc.add(
                             FilterSelectEvent(priceValues: value),
                           );
                         },

@@ -62,6 +62,7 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
+        // color:Colors.teal,
         border: Border.all(
           color: Theme.of(context)
               .extension<ThemedColors>()!
