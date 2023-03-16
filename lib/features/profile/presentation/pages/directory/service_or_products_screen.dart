@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/profile/presentation/widgets/contact_sheet_of_service_or_products.dart';
@@ -61,6 +62,10 @@ class ServiceOrProductsScreen extends StatelessWidget {
                     child: Container(
                       margin: const EdgeInsets.all(4),
                       decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(AppImages.defaultPhoto),
+                          fit: BoxFit.cover,
+                        ),
                         color: dividerColor,
                         borderRadius: BorderRadius.vertical(
                           top: Radius.circular(8),
