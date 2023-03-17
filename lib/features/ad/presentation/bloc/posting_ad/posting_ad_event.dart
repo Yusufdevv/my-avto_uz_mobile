@@ -98,6 +98,10 @@ class PostingAdMakesEvent extends PostingAdEvent {
   PostingAdMakesEvent();
 }
 
+class PostingAdMoreMakesEvent extends PostingAdEvent {
+  PostingAdMoreMakesEvent();
+}
+
 class PostingAdTopMakesEvent extends PostingAdEvent {
   final String? name;
 

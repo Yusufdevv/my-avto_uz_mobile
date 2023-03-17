@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
@@ -8,6 +10,7 @@ import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/pers
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/persistent_header_search.dart';
 import 'package:auto/features/ads/presentation/widgets/no_data_widget.dart';
 import 'package:auto/features/common/widgets/car_brand_item.dart';
+import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/main/presentation/widgets/brand_shimmer_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -202,14 +205,26 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                             top: 20,
                             left: 16,
                           ),
-                          child: Text(
-                            LocaleKeys.choose_brand_auto.tr(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayLarge!
-                                .copyWith(
-                                    color: _headerTextTweenColor
-                                        .evaluate(animeState.scaleAnimation)),
+                          child: Row(
+                            children: [
+                              Text(
+                                LocaleKeys.choose_brand_auto.tr(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayLarge!
+                                    .copyWith(
+                                        color: _headerTextTweenColor.evaluate(
+                                            animeState.scaleAnimation)),
+                              ),
+                              WButton(
+                                onTap: () {
+                                  log('::::::::::  next in state: ${state.nextMakes}  ::::::::::');
+                                  widget.postingAddBloc
+                                      .add(PostingAdMakesEvent());
+                                },
+                                text: ' teswertt ',
+                              )
+                            ],
                           ),
                         ),
                       ),
@@ -338,9 +353,9 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                           FormzStatus.submissionInProgress
                       ? Center(
                           child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
                               const CupertinoActivityIndicator(),
                               const SizedBox(height: 12),
                               Text(
@@ -352,39 +367,55 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                                       fontSize: 12,
                                       fontWeight: FontWeight.w400,
                                     ),
-                              )
-                            ]))
+                              ),
+                            ],
+                          ),
+                        )
                       : state.makes.isNotEmpty
                           ? ListView.builder(
                               physics: const BouncingScrollPhysics(),
                               controller: _makesController,
                               padding: const EdgeInsets.only(bottom: 66),
-                              itemBuilder: (context, index) => ChangeCarItems(
-                                hasBorder: (state.makes.length - 1) != index,
-                                onTap: () {
-                                  context.read<PostingAdBloc>().add(
-                                        PostingAdChooseEvent(
-                                          make: state.makes[index],
-                                        ),
-                                      );
-                                },
-                                selectedId: context
-                                        .watch<PostingAdBloc>()
-                                        .state
-                                        .make
-                                        ?.id ??
-                                    -1,
-                                id: state.makes[index].id,
-                                imageUrl: state.makes[index].logo,
-                                name: state.makes[index].name,
-                                text: state.searchController.text,
-                              ),
-                              itemCount: state.makes.length,
+                              itemBuilder: (context, index) {
+                                if (index == state.makes.length) {
+                                  if (state.nextMakes != null) {
+                                    widget.postingAddBloc
+                                        .add(PostingAdMoreMakesEvent());
+                                    return Container(
+                                      height: 90,
+                                      width: double.maxFinite,
+                                      alignment: Alignment.center,
+                                      child: const CupertinoActivityIndicator(),
+                                    );
+                                  }
+
+                                  return const SizedBox();
+                                }
+                                return ChangeCarItems(
+                                  index: index,
+                                  hasBorder: (state.makes.length - 1) != index,
+                                  onTap: () {
+                                    context.read<PostingAdBloc>().add(
+                                          PostingAdChooseEvent(
+                                            make: state.makes[index],
+                                          ),
+                                        );
+                                  },
+                                  isSelected:
+                                      state.make?.id == state.makes[index].id,
+                                  imageUrl: state.makes[index].logo,
+                                  name: state.makes[index].name,
+                                  text: state.searchController.text,
+                                );
+                              },
+                              itemCount: state.makes.length + 1,
                             )
-                          : ListView(children: const [
-                              SizedBox(height: 100),
-                              NoDataWidget()
-                            ]),
+                          : ListView(
+                              children: const [
+                                SizedBox(height: 100),
+                                NoDataWidget()
+                              ],
+                            ),
                 ),
               ),
             ),

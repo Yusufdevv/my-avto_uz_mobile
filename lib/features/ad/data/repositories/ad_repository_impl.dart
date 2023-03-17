@@ -237,10 +237,17 @@ class AdRepositoryImpl extends AdRepository {
 
   @override
   Future<Either<Failure, GenericPagination<MakeEntity>>> getMake(
-      {required int limit, required int offset, String? name}) async {
+      {required int limit,
+      required int offset,
+      String? name,
+      String? next}) async {
     try {
       final result = await remoteDataSource.getMake(
-          name: name, limit: limit, offset: offset);
+        name: name,
+        limit: limit,
+        offset: offset,
+        next: next,
+      );
       return Right(result);
     } on DioException {
       return Left(DioFailure());

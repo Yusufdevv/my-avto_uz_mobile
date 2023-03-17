@@ -10,7 +10,7 @@ class GetMakesState with _$GetMakesState {
     @Default([]) List<MakeEntity> topMakes,
     @Default('') String? next,
     @Default(false) bool ischeck,
-    @Default(GetMakeParam()) GetMakeParam search,
+    @Default(GetPaginationParam()) GetPaginationParam search,
     @Default(0) count,
     @Default(0) int index,
     @Default('A') String selectChar,

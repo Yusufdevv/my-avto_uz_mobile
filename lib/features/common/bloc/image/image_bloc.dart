@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:auto/utils/my_functions.dart';
@@ -75,6 +76,7 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
     });
 
     on<DeleteImageEvent>((event, emit) {
+      log(':::::::::: delete image event triggered for:  ${event.imageUrl}   ::::::::::');
       final images = <String>[...state.images];
       final secondImage = <String>[...state.secondImage];
       if (images.contains(event.imageUrl)) {

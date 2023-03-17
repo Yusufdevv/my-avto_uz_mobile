@@ -2257,7 +2257,7 @@ mixin _$GetMakesState {
   List<MakeEntity> get topMakes => throw _privateConstructorUsedError;
   String? get next => throw _privateConstructorUsedError;
   bool get ischeck => throw _privateConstructorUsedError;
-  GetMakeParam get search => throw _privateConstructorUsedError;
+  GetPaginationParam get search => throw _privateConstructorUsedError;
   dynamic get count => throw _privateConstructorUsedError;
   int get index => throw _privateConstructorUsedError;
   String get selectChar => throw _privateConstructorUsedError;
@@ -2286,7 +2286,7 @@ abstract class $GetMakesStateCopyWith<$Res> {
       List<MakeEntity> topMakes,
       String? next,
       bool ischeck,
-      GetMakeParam search,
+      GetPaginationParam search,
       dynamic count,
       int index,
       String selectChar,
@@ -2359,7 +2359,7 @@ class _$GetMakesStateCopyWithImpl<$Res, $Val extends GetMakesState>
       search: null == search
           ? _value.search
           : search // ignore: cast_nullable_to_non_nullable
-              as GetMakeParam,
+              as GetPaginationParam,
       count: freezed == count
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
@@ -2412,7 +2412,7 @@ abstract class _$$_GetMakesStateCopyWith<$Res>
       List<MakeEntity> topMakes,
       String? next,
       bool ischeck,
-      GetMakeParam search,
+      GetPaginationParam search,
       dynamic count,
       int index,
       String selectChar,
@@ -2483,7 +2483,7 @@ class __$$_GetMakesStateCopyWithImpl<$Res>
       search: null == search
           ? _value.search
           : search // ignore: cast_nullable_to_non_nullable
-              as GetMakeParam,
+              as GetPaginationParam,
       count: freezed == count ? _value.count! : count,
       index: null == index
           ? _value.index
@@ -2526,7 +2526,7 @@ class _$_GetMakesState implements _GetMakesState {
       final List<MakeEntity> topMakes = const [],
       this.next = '',
       this.ischeck = false,
-      this.search = const GetMakeParam(),
+      this.search = const GetPaginationParam(),
       this.count = 0,
       this.index = 0,
       this.selectChar = 'A',
@@ -2573,7 +2573,7 @@ class _$_GetMakesState implements _GetMakesState {
   final bool ischeck;
   @override
   @JsonKey()
-  final GetMakeParam search;
+  final GetPaginationParam search;
   @override
   @JsonKey()
   final dynamic count;
@@ -2670,7 +2670,7 @@ abstract class _GetMakesState implements GetMakesState {
       final List<MakeEntity> topMakes,
       final String? next,
       final bool ischeck,
-      final GetMakeParam search,
+      final GetPaginationParam search,
       final dynamic count,
       final int index,
       final String selectChar,
@@ -2695,7 +2695,7 @@ abstract class _GetMakesState implements GetMakesState {
   @override
   bool get ischeck;
   @override
-  GetMakeParam get search;
+  GetPaginationParam get search;
   @override
   dynamic get count;
   @override

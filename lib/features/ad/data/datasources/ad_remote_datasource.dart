@@ -46,7 +46,7 @@ abstract class AdRemoteDataSource {
   Future<GenericPagination<ColorEntity>> getColors({String? next});
 
   Future<GenericPagination<MakeModel>> getMake(
-      {required int limit, required int offset, String? name});
+      {required int limit, required int offset, String? name, String? next});
 
   Future<GenericPagination<MakeModel>> getCarModel(int makeId, {String? name});
 
@@ -164,16 +164,19 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
     required int limit,
     required int offset,
     String? name,
+    String? next,
   }) async {
     try {
       final response = await _dio.get(
-        '/car/makes/',
-        queryParameters: {
-          'search': name,
-          'limit': limit,
-          'offset': offset,
-          'ordering': 'name'
-        },
+        next ?? '/car/makes/',
+        queryParameters: next == null
+            ? {
+                'search': name,
+                'limit': limit,
+                'offset': offset,
+                'ordering': 'name'
+              }
+            : {},
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return GenericPagination.fromJson(response.data,
