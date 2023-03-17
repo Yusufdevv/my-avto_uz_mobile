@@ -1,4 +1,5 @@
 import 'package:auto/features/profile/domain/entities/car_product.dart';
+import 'package:auto/features/profile/domain/entities/product_category.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'car_product.g.dart';

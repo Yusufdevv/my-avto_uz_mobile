@@ -55,6 +55,8 @@ class AppImages {
   static const upaypng = 'assets/images/car_single/upay.png';
   static const vin_soon = 'assets/images/car_single/vin_soon.png';
   static const verifired_owner = 'assets/images/car_single/verifired_owner.png';
+  static const approved_application = 'assets/images/car_single/approved_application.png';
+  static const in_moderation_application = 'assets/images/car_single/in_moderation_application.png';
   static const noItemFoundCar = 'assets/images/global/no_item_found_car.png';
   static const one_nice = 'assets/images/car_single/one_nice.png';
   static const nice_two = 'assets/images/car_single/nice_two.png';
