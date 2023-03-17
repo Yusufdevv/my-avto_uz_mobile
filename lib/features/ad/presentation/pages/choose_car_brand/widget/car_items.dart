@@ -11,15 +11,13 @@ import 'package:flutter_svg/svg.dart';
 class ChangeCarItems extends StatelessWidget {
   final String name;
   final String imageUrl;
-  final int id;
-  final int selectedId;
+  final bool isSelected;
   final String text;
   final VoidCallback onTap;
   final bool hasBorder;
 
   const ChangeCarItems(
-      {required this.selectedId,
-      required this.id,
+      {required this.isSelected,
       required this.name,
       required this.imageUrl,
       required this.text,
@@ -35,15 +33,14 @@ class ChangeCarItems extends StatelessWidget {
         child: Container(
           height: 54,
           decoration: BoxDecoration(
-
-            color: id == selectedId
+            color: isSelected
                 ? Theme.of(context).extension<ThemedColors>()!.snowToNightRider
                 : Colors.transparent,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const SizedBox(/* for fix alignment*/),
+              const SizedBox.shrink(),
               Padding(
                 padding: const EdgeInsets.only(left: 16, right: 20),
                 child: Row(
@@ -99,7 +96,7 @@ class ChangeCarItems extends StatelessWidget {
                         ),
                       ],
                     ),
-                    if (id == selectedId)
+                    if (isSelected)
                       SvgPicture.asset(
                         AppIcons.check,
                         color: orange,

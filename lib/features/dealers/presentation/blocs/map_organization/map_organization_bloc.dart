@@ -57,9 +57,7 @@ class MapOrganizationBloc
 
       if (result.isRight) {
         final v = result.right;
-        for(var i = 0;i< result.right.length; i++){
-          log(':::::::::: text: ${v[i].avatar} / ${v[i].name}  ::::::::::');
-        }
+
         emit(state.copyWith(
             dealers: result.right, status: FormzStatus.submissionSuccess));
       } else {

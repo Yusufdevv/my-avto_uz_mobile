@@ -39,10 +39,10 @@ abstract class AdRepository {
       {String? next});
 
   Future<Either<Failure, GenericPagination<MakeEntity>>> getMake(
-      {required int offset, required int limit, String? name});
+      {required int offset, required int limit, String? name, String? next});
 
   Future<Either<Failure, GenericPagination<MakeEntity>>> getCarModel(int makeId,
-      {String? name});
+      {String? name,String? next});
 
   Future<Either<Failure, YearsEntity>> getYears({
     required int? modelId,

@@ -9,7 +9,6 @@ class PostingAdState extends Equatable {
   final FormzStatus getModificationStatus;
   final FormzStatus getLocationImage;
   final GlobalKey<FormState> contactsFormKey;
-
   final TextEditingController phoneController;
   final TextEditingController emailController;
   final TextEditingController nameController;
@@ -34,7 +33,6 @@ class PostingAdState extends Equatable {
   final RegionEntity? region;
   final List<RegionEntity> regions;
   final List<DistrictEntity> districts;
-
   final int? selectedYear;
   final YearsEntity? yearEntity;
   final DistrictEntity? district;
@@ -42,16 +40,16 @@ class PostingAdState extends Equatable {
   final List<String> panaramaGallery;
   final Map<int, RentWithPurchaseEntity> rentWithPurchaseConditions;
   final List<ColorEntity> colors;
-
   final Map<DamagedPart, DamageType> damagedParts;
   final Map<int, SO> selectOptions;
   final Map<int, String> radioOptions;
-
   final UserModel? userModel;
   final Uint8List? mapPointBytes;
   final num minimumPrice;
   final int? makeLetterIndex;
   final int? lastEquipmentId;
+  final String? nextMakes;
+  final String? nextModels;
   final String? milageImage;
   final String? letter;
   final String? ownerName;
@@ -106,6 +104,8 @@ class PostingAdState extends Equatable {
     this.gearBoxes = const <GearboxTypeEntity>[],
     this.driveTypeId,
     this.driveTypes = const <DriveTypeEntity>[],
+    this.nextMakes,
+    this.nextModels,
     this.make,
     this.makes = const <MakeEntity>[],
     this.engine,
@@ -209,21 +209,23 @@ class PostingAdState extends Equatable {
     List<DistrictEntity>? districts,
     List<String>? gallery,
     List<String>? panaramaGallery,
+    Uint8List? mapPointBytes,
     YearsEntity? yearEntity,
     int? selectedYear,
     UserModel? userModel,
     int? eventMakeScrrollIndex,
     num? minimumPrice,
-    String? milageImage,
-    String? eventLetter,
     ColorEntity? colorName,
     List<ColorEntity>? colors,
+    String? eventLetter,
     String? licenceType,
+    String? milageImage,
     String? ownerStep,
-    Uint8List? mapPointBytes,
     String? ownerName,
     String? ownerPhone,
     String? ownerEmail,
+    String? nextMakes,
+    String? nextModels,
     String? purchasedDate,
     String? description,
     String? city,
@@ -246,15 +248,15 @@ class PostingAdState extends Equatable {
     bool? rentToBuy,
     bool? isWithoutMileage,
     bool? showExactAddress,
+    bool isLastEquipmentIdToNull = false,
     bool isGasEquipmentsToNull = false,
+    bool isEquipmentToNull = false,
     GlobalKey<FormState>? contactsFormKey,
     List<GasEquipmentEntity>? gasEquipments,
     int? gasEquipmentId,
     List<EquipmentEntity>? equipments,
     EquipmentEntity? equipment,
     List<EquipmentOptionsListEntity>? equipmentOptionsList,
-    bool isEquipmentToNull = false,
-    bool isLastEquipmentIdToNull = false,
   }) =>
       PostingAdState(
         getLocationImage: getLocationImage ?? this.getLocationImage,
@@ -309,6 +311,8 @@ class PostingAdState extends Equatable {
         hasAppBarShadow: hasAppBarShadow ?? this.hasAppBarShadow,
         isSortByLetter: isSortByLetter,
         model: model ?? this.model,
+        nextModels: returnNullIfEmpty(nextModels, this.nextModels),
+        nextMakes: returnNullIfEmpty(nextMakes, this.nextMakes),
         make: make ?? this.make,
         letter: eventLetter,
         colorName: colorName ?? this.colorName,
@@ -348,83 +352,95 @@ class PostingAdState extends Equatable {
 
   @override
   List<Object?> get props => [
-        getLocationImage,
-        lastEquipmentId,
-        selectOptions,
-        radioOptions,
-        contactsFormKey,
         popStatus,
-        milageImage,
-        modification,
-        modifications,
+        status,
+        getDistrictsStatus,
         getMakesStatus,
-        searchController,
-        panaramaGallery,
         createStatus,
-        mapPointBytes,
-        makeLetterIndex,
-        long,
-        lat,
+        getModificationStatus,
+        getLocationImage,
+        contactsFormKey,
         phoneController,
         emailController,
         nameController,
-        userModel,
-        toastMessage,
-        minimumPrice,
-        getDistrictsStatus,
-        districts,
-        regions,
-        damagedParts,
-        rentWithPurchaseConditions,
-        gallery,
-        showExactAddress,
-        district,
-        isWithoutMileage,
-        rentToBuy,
-        callTimeTo,
-        callTimeFrom,
-        city,
-        region,
+        searchController,
+        modification,
+        modifications,
         gearbox,
         gearBoxes,
         driveTypeId,
         driveTypes,
         engine,
         engines,
-        generations,
         model,
-        isSortByLetter,
+        models,
         make,
-        letter,
-        hasAppBarShadow,
-        yearEntity,
-        selectedYear,
-        bodyTypes,
-        status,
+        makes,
+        topMakes,
         generation,
-        colorName,
-        licenceType,
+        generations,
+        bodyType,
+        bodyTypes,
+        region,
+        regions,
+        districts,
+        selectedYear,
+        yearEntity,
+        district,
+        gallery,
+        panaramaGallery,
+        rentWithPurchaseConditions,
+        colors,
+        damagedParts,
+        selectOptions,
+        radioOptions,
+        userModel,
+        mapPointBytes,
+        minimumPrice,
+        makeLetterIndex,
+        lastEquipmentId,
+        nextMakes,
+        nextModels,
+        milageImage,
+        letter,
+        ownerName,
+        ownerEmail,
+        ownerPhone,
+        city,
         ownerStep,
         purchasedDate,
-        bodyType,
-        notRegisteredInUzbekistan,
+        licenceType,
+        colorName,
         description,
-        ownerEmail,
-        ownerName,
-        ownerPhone,
         price,
         currency,
         mileage,
+        callTimeFrom,
+        callTimeTo,
+        toastMessage,
+        long,
+        lat,
+        hasAppBarShadow,
+        isSortByLetter,
+        notRegisteredInUzbekistan,
         isCallTimed,
         showOwnerContacts,
         isContactsVerified,
-        gasEquipments,
+        showExactAddress,
+        rentToBuy,
+        isWithoutMileage,
         gasEquipmentId,
-        equipments,
+        gasEquipments,
         equipment,
+        equipments,
         equipmentOptionsList,
-        getModificationStatus,
       ];
+
+  String? returnNullIfEmpty(String? v, String? origin) => v == null
+      ? origin
+      : v.isEmpty
+          ? null
+          : v;
 
   bool isOptionSelected({required String type, required int id}) {
     if (type == 'select') {

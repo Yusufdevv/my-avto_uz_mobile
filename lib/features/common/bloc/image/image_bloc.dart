@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:auto/utils/my_functions.dart';
@@ -77,7 +78,7 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
     });
 
     on<DeleteImageEvent>((event, emit) {
-      final images = <String>[...state.images];
+       final images = <String>[...state.images];
       final secondImage = <String>[...state.secondImage];
 
       /// ctc imagelarni delete qiladi

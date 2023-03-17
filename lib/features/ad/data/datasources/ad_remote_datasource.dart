@@ -46,9 +46,10 @@ abstract class AdRemoteDataSource {
   Future<GenericPagination<ColorEntity>> getColors({String? next});
 
   Future<GenericPagination<MakeModel>> getMake(
-      {required int limit, required int offset, String? name});
+      {required int limit, required int offset, String? name, String? next});
 
-  Future<GenericPagination<MakeModel>> getCarModel(int makeId, {String? name});
+  Future<GenericPagination<MakeModel>> getCarModel(int makeId,
+      {String? name, String? next});
 
   Future<YearsModel> getYears({
     int? modelId,
@@ -164,16 +165,19 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
     required int limit,
     required int offset,
     String? name,
+    String? next,
   }) async {
     try {
       final response = await _dio.get(
-        '/car/makes/',
-        queryParameters: {
-          'search': name,
-          'limit': limit,
-          'offset': offset,
-          'ordering': 'name'
-        },
+        next ?? '/car/makes/',
+        queryParameters: next == null
+            ? {
+                'search': name,
+                'limit': limit,
+                'offset': offset,
+                'ordering': 'name'
+              }
+            : {},
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return GenericPagination.fromJson(response.data,
@@ -188,21 +192,25 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
   }
 
   @override
-  Future<GenericPagination<MakeModel>> getCarModel(
-    int? makeId, {
-    String? name,
-  }) async {
-    final response = await _dio.get('/car/$makeId/models/',
-        options: Options(
-          headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
-              ? {
-                  'Authorization':
-                      'Token ${StorageRepository.getString(StorageKeys.TOKEN)}'
-                }
-              : {},
-        ),
-        queryParameters:
-            name == null ? null : {'search': name, 'limit': 100, 'offset': 0});
+  Future<GenericPagination<MakeModel>> getCarModel(int? makeId,
+      {String? name, String? next}) async {
+    final response = await _dio.get(
+      next ?? '/car/$makeId/models/',
+      options: Options(
+        headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
+            ? {
+                'Authorization':
+                    'Token ${StorageRepository.getString(StorageKeys.TOKEN)}'
+              }
+            : {},
+      ),
+
+      queryParameters: next == null || name == null
+          ? name != null && name.isNotEmpty
+              ? {'search': name, 'limit': 10, 'offset': 0}
+              : {}
+          : {},
+    );
     if (response.statusCode! >= 200 && response.statusCode! < 300) {
       return GenericPagination.fromJson(response.data,
           (p0) => MakeModel.fromJson(p0 as Map<String, dynamic>));

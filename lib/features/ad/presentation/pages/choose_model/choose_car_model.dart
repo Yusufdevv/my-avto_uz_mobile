@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
@@ -152,28 +154,40 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                         if (state.models.isNotEmpty)
                           SliverList(
                             delegate: SliverChildBuilderDelegate(
-                              (context, index) => Container(
-                                color: Theme.of(context)
-                                    .extension<ThemedColors>()!
-                                    .whiteToDark,
-                                child: ModelItems(
-                                  hasBorder: index != state.models.length - 1,
-                                  onTap: () => context
-                                      .read<PostingAdBloc>()
-                                      .add(PostingAdChooseEvent(
-                                          model: state.models[index])),
-                                  title: state.models[index].name,
-                                  isSelected: (context
-                                              .watch<PostingAdBloc>()
-                                              .state
-                                              .model
-                                              ?.id ??
-                                          -1) ==
-                                      state.models[index].id,
-                                  text: searchController.text,
-                                ),
-                              ),
-                              childCount: state.models.length,
+                              (context, index) {
+                                if (index == state.models.length) {
+                                  if (state.nextModels != null) {
+                                   context
+                                        .read<PostingAdBloc>()
+                                        .add(PostingAdMoreModelsEvent());
+                                   return Container(
+                                      height: 90,
+                                      color: Theme.of(context)
+                                          .extension<ThemedColors>()!
+                                          .whiteToDark,
+                                      child: const CupertinoActivityIndicator(),
+                                    );
+                                  }
+                                  return const SizedBox();
+                                }
+                                return Container(
+                                  color: Theme.of(context)
+                                      .extension<ThemedColors>()!
+                                      .whiteToDark,
+                                  child: ModelItems(
+                                    hasBorder: index != state.models.length - 1,
+                                    onTap: () => context
+                                        .read<PostingAdBloc>()
+                                        .add(PostingAdChooseEvent(
+                                            model: state.models[index])),
+                                    title: state.models[index].name,
+                                    isSelected: (state.model?.id ?? -1) ==
+                                        state.models[index].id,
+                                    text: searchController.text,
+                                  ),
+                                );
+                              },
+                              childCount: state.models.length + 1,
                             ),
                           )
                         else
@@ -192,48 +206,6 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                           width: double.infinity,
                         ),
                       ),
-
-                      /// NUMBER BOX
-                      // SliverSafeArea(
-                      //   top: false,
-                      //   bottom: false,
-                      //   sliver: SliverPersistentHeader(
-                      //     delegate: ModelHeader(),
-                      //     pinned: true,
-                      //   ),
-                      // ),
-
-                      /// CAR TYPES
-                      // if (state.status == FormzStatus.submissionInProgress) ...{
-                      //   const SliverToBoxAdapter(
-                      //       child: Center(child: CupertinoActivityIndicator()))
-                      // } else ...{
-                      //   SliverList(
-                      //     delegate: SliverChildBuilderDelegate(
-                      //       (context, index) => Container(
-                      //         color: Theme.of(context)
-                      //             .extension<ThemedColors>()!
-                      //             .whiteToDark,
-                      //         child: CarTypeItem(
-                      //           onTap: () => context.read<PostingAdBloc>().add(
-                      //               PostingAdChooseEvent(
-                      //                   carTypeEntity: CarTypeEntity(
-                      //                       title: state.models[index].name,
-                      //                       id: state.models[index].id))),
-                      //           title: state.models[index].name,
-                      //           isSelected: (context
-                      //                       .watch<PostingAdBloc>()
-                      //                       .state
-                      //                       .carTypeEntity
-                      //                       ?.id ??
-                      //                   -1) ==
-                      //               state.models[index].id,
-                      //         ),
-                      //       ),
-                      //       childCount: state.models.length,
-                      //     ),
-                      //   ),
-                      // }
                     ],
                   )),
         ),

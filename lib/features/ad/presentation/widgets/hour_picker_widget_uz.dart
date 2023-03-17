@@ -46,8 +46,9 @@ class _HourPickerWidgetUzState extends State<HourPickerWidgetUz> {
   @override
   Widget build(BuildContext context) => Container(
         padding: const EdgeInsets.only(left: 8),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8), color: Colors.white),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+        ),
         height: 120,
         // width: 170,
         child: Row(

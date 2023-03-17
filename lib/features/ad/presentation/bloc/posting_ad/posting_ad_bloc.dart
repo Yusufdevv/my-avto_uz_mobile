@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/ad/const/constants.dart';
+import 'package:auto/features/ad/data/models/pagination/get_pagination_param_model.dart';
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_entity.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_options_entity.dart';
@@ -104,7 +105,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdTopMakesEvent>(_topMakes);
     on<PostingAdChangeAppBarShadowEvent>(_changeAppBarShadow);
     on<PostingAdGenerationsEvent>(_generations);
-    on<PostingAdModelEvent>(_models);
     on<PostingAdEnginesEvent>(_engines);
     on<PostingAdDriveTypesEvent>(_driveTypes);
     on<PostingAdGearBoxesEvent>(_gearBoxes);
@@ -134,9 +134,28 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdChangeOption>(_getChangeOption);
     on<PostingAdSelectEquipmentEvent>(_selectEquipment);
     on<PostingAdGetColorsEvent>(_getColors);
+    on<PostingAdMoreMakesEvent>(_moreMakes);
+    on<PostingAdMoreModelsEvent>(_moreModels);
+    on<PostingAdModelEvent>(_models);
     on<CancelLoadinEvent>((event, emit) {
       emit(state.copyWith(createStatus: FormzStatus.pure));
     });
+  }
+
+  FutureOr<void> _moreModels(
+      PostingAdMoreModelsEvent event, Emitter<PostingAdState> emit) async {
+    final result = await modelsUseCase.call(
+      state.make?.id ?? -1,
+      next: state.nextModels,
+    );
+    if (result.isRight) {
+      emit(
+        state.copyWith(
+          nextModels: result.right.next ?? '',
+          models: [...state.models, ...result.right.results],
+        ),
+      );
+    }
   }
 
   FutureOr<void> _getColors(
@@ -212,6 +231,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         nameController: TextEditingController(),
         searchController: TextEditingController(),
         makes: state.makes,
+        topMakes: state.topMakes,
       ),
     );
     add(PostingAdMakesEvent());
@@ -254,7 +274,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       PostingAdSearchMakesEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(getMakesStatus: FormzStatus.submissionInProgress));
     final result = await makeUseCase
-        .call(GetMakeParam(offset: 0, limit: 1000, name: event.name ?? ''));
+        .call(GetPaginationParam(offset: 0, limit: 10, name: event.name ?? ''));
     if (result.isRight) {
       emit(state.copyWith(
           getMakesStatus: FormzStatus.submissionSuccess,
@@ -385,7 +405,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         state.copyWith(
             getDistrictsStatus: FormzStatus.submissionSuccess,
             districts: result.right.results,
-            district: DistrictEntity()),
+            district: const DistrictEntity()),
       );
     } else {
       emit(state.copyWith(
@@ -540,6 +560,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     if (result.isRight) {
       emit(
         state.copyWith(
+          nextModels: result.right.next ?? '',
           status: FormzStatus.submissionSuccess,
           models: result.right.results,
         ),
@@ -592,11 +613,13 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       PostingAdMakesEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(getMakesStatus: FormzStatus.submissionInProgress));
 
-    final result = await makeUseCase
-        .call(GetMakeParam(offset: 0, limit: 1000, name: null));
+    final result =
+        await makeUseCase.call(const GetPaginationParam(limit: 10, offset: 0));
+
     if (result.isRight) {
       emit(
         state.copyWith(
+          nextMakes: result.right.next ?? '',
           getMakesStatus: FormzStatus.submissionSuccess,
           makes: result.right.results,
         ),
@@ -608,7 +631,31 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         ),
       );
     }
-    add(PostingAdTopMakesEvent());
+  }
+
+  FutureOr<void> _moreMakes(
+      PostingAdMoreMakesEvent event, Emitter<PostingAdState> emit) async {
+    final result = await makeUseCase.call(
+      GetPaginationParam(next: state.nextMakes),
+    );
+
+    if (result.isRight) {
+      emit(
+        state.copyWith(
+          nextMakes: result.right.next ?? '',
+          makes: [
+            ...state.makes,
+            ...result.right.results,
+          ],
+        ),
+      );
+    } else {
+      emit(
+        state.copyWith(
+          getMakesStatus: FormzStatus.submissionFailure,
+        ),
+      );
+    }
   }
 
   void _changeAppBarShadow(
@@ -825,6 +872,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     switch (event.page) {
       case 0:
         if (state.makes.isEmpty) add(PostingAdMakesEvent());
+        if (state.topMakes.isEmpty) add(PostingAdTopMakesEvent());
         break;
       case 1:
         add(PostingAdModelEvent());

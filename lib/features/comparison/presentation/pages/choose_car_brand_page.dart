@@ -214,11 +214,11 @@ class _ChooseCarBrandPageState extends State<ChooseCarBrandPage> {
                                       .extension<ThemedColors>()!
                                       .whiteToDark,
                                   child: ChangeCarItems(
-                                    selectedId: state.selectId,
-                                    id: state.makes[index].id,
+                                    isSelected:
+                                        state.selectId == state.makes[index].id,
                                     imageUrl: state.makes[index].logo,
                                     name: state.makes[index].name,
-                                    text: state.search.name??'',
+                                    text: state.search.name ?? '',
                                     onTap: () {
                                       context.read<GetMakesBloc>().add(
                                             GetMakesBlocEvent.selectedCarItems(

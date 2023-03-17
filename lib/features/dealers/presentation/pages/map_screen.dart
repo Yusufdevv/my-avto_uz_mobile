@@ -68,7 +68,6 @@ class _MapScreenState extends State<MapScreen>
             return isBuild;
           },
           listener: (context, state) async {
-            log('::::::::::  Add dealler triggered in listener: ${state.directoriesPoints.length} / ${state.dealers.length} } / is directory: ${widget.isFromDirectoryPage}  ::::::::::');
             await addDealer(
               points: widget.isFromDirectoryPage
                   ? state.directoriesPoints
@@ -141,7 +140,7 @@ class _MapScreenState extends State<MapScreen>
                                   latitude: position.latitude,
                                   longitude: position.longitude);
                               final myPlaceMark = await MyFunctions.getMyPoint(
-                                  myPoint, context,AppIcons.dealersLocIcon);
+                                  myPoint, context, AppIcons.dealersLocIcon);
                               setState(() {
                                 _mapObjects.add(myPlaceMark);
                               });

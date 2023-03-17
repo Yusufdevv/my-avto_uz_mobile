@@ -25,11 +25,9 @@ class ComparisonBloc extends Bloc<ComparisonEvent, ComparisonState> {
           selectedModel: MakeEntity(),
         )) {
     on<GetComparableCars>((event, emit) async {
-      log(':::::::::: GetComparableCars event triggered:  ::::::::::');
-      emit(state.copyWith(status: FormzStatus.submissionInProgress));
+       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await comparisonCarsUseCase.call(NoParams());
-      log(':::::::::: GetComparableCars result: ${result} ::::::::::');
-      if (result.isRight) {
+     if (result.isRight) {
         emit(state.copyWith(
           cars: result.right,
           status: FormzStatus.submissionSuccess,
