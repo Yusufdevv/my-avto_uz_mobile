@@ -15,11 +15,9 @@ class ChangeCarItems extends StatelessWidget {
   final String text;
   final VoidCallback onTap;
   final bool hasBorder;
-  final int index;
 
   const ChangeCarItems(
       {required this.isSelected,
-      required this.index,
       required this.name,
       required this.imageUrl,
       required this.text,
@@ -98,7 +96,6 @@ class ChangeCarItems extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Text('$index'),
                     if (isSelected)
                       SvgPicture.asset(
                         AppIcons.check,

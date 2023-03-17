@@ -42,7 +42,7 @@ abstract class AdRepository {
       {required int offset, required int limit, String? name, String? next});
 
   Future<Either<Failure, GenericPagination<MakeEntity>>> getCarModel(int makeId,
-      {String? name});
+      {String? name,String? next});
 
   Future<Either<Failure, YearsEntity>> getYears({
     required int? modelId,

@@ -216,14 +216,6 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                                         color: _headerTextTweenColor.evaluate(
                                             animeState.scaleAnimation)),
                               ),
-                              WButton(
-                                onTap: () {
-                                  log('::::::::::  next in state: ${state.nextMakes}  ::::::::::');
-                                  widget.postingAddBloc
-                                      .add(PostingAdMakesEvent());
-                                },
-                                text: ' teswertt ',
-                              )
                             ],
                           ),
                         ),
@@ -392,7 +384,6 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                                   return const SizedBox();
                                 }
                                 return ChangeCarItems(
-                                  index: index,
                                   hasBorder: (state.makes.length - 1) != index,
                                   onTap: () {
                                     context.read<PostingAdBloc>().add(

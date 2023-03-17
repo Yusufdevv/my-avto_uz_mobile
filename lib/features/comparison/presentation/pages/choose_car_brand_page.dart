@@ -214,7 +214,6 @@ class _ChooseCarBrandPageState extends State<ChooseCarBrandPage> {
                                       .extension<ThemedColors>()!
                                       .whiteToDark,
                                   child: ChangeCarItems(
-                                    index: index,
                                     isSelected:
                                         state.selectId == state.makes[index].id,
                                     imageUrl: state.makes[index].logo,

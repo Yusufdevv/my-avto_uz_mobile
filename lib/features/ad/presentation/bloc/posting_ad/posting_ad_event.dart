@@ -102,6 +102,10 @@ class PostingAdMoreMakesEvent extends PostingAdEvent {
   PostingAdMoreMakesEvent();
 }
 
+class PostingAdMoreModelsEvent extends PostingAdEvent {
+  PostingAdMoreModelsEvent();
+}
+
 class PostingAdTopMakesEvent extends PostingAdEvent {
   final String? name;
 

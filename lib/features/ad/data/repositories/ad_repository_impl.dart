@@ -85,9 +85,9 @@ class AdRepositoryImpl extends AdRepository {
 
   @override
   Future<Either<Failure, GenericPagination<MakeEntity>>> getCarModel(int makeId,
-      {String? name}) async {
+      {String? name,String? next}) async {
     try {
-      final result = await remoteDataSource.getCarModel(makeId, name: name);
+      final result = await remoteDataSource.getCarModel(makeId, name: name,next:next);
       return Right(result);
     } on DioException {
       return Left(DioFailure());

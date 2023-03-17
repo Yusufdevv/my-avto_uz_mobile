@@ -90,9 +90,15 @@ class _PostingAdScreenState extends State<PostingAdScreen>
       animationController: animeController,
     );
     globalKey = GlobalKey();
-    postingAdBloc = PostingAdBloc();
+    postingAdBloc = PostingAdBloc()
+      ..add(
+        PostingAdMakesEvent(),
+      )
+      ..add(
+        PostingAdTopMakesEvent(),
+      );
     currentTabIndex = initialPage;
-    postingAdBloc.add(PostingAdMakesEvent());
+
     pageController = PageController(initialPage: initialPage);
     super.initState();
   }
@@ -219,6 +225,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                 onTapBack: () {
                                   if (currentTabIndex != 0) {
                                     --currentTabIndex;
+
                                     pageController.animateToPage(
                                         currentTabIndex,
                                         duration:

@@ -105,7 +105,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdTopMakesEvent>(_topMakes);
     on<PostingAdChangeAppBarShadowEvent>(_changeAppBarShadow);
     on<PostingAdGenerationsEvent>(_generations);
-    on<PostingAdModelEvent>(_models);
     on<PostingAdEnginesEvent>(_engines);
     on<PostingAdDriveTypesEvent>(_driveTypes);
     on<PostingAdGearBoxesEvent>(_gearBoxes);
@@ -136,9 +135,32 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdSelectEquipmentEvent>(_selectEquipment);
     on<PostingAdGetColorsEvent>(_getColors);
     on<PostingAdMoreMakesEvent>(_moreMakes);
+    on<PostingAdMoreModelsEvent>(_moreModels);
+    on<PostingAdModelEvent>(_models);
     on<CancelLoadinEvent>((event, emit) {
       emit(state.copyWith(createStatus: FormzStatus.pure));
     });
+  }
+
+  FutureOr<void> _moreModels(
+      PostingAdMoreModelsEvent event, Emitter<PostingAdState> emit) async {
+    log(':::::::::: get more models triggered by:   ${state.nextModels}  ::::::::::');
+    final result = await modelsUseCase.call(
+      state.make?.id ?? -1,
+      next: state.nextModels,
+    );
+    log(':::::::::: the result of more models:  ${result}  ::::::::::');
+    if (result.isRight) {
+    log(':::::::::: next in bloc:  ${result.right.next}  ::::::::::');
+    log(':::::::::: count in bloc:  ${result.right.count}  ::::::::::');
+    log(':::::::::: length in bloc:  ${result.right.results.length}  ::::::::::');
+      emit(
+        state.copyWith(
+          nextModels: result.right.next ?? '',
+          models: [...state.models, ...result.right.results],
+        ),
+      );
+    }
   }
 
   FutureOr<void> _getColors(
@@ -543,6 +565,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     if (result.isRight) {
       emit(
         state.copyWith(
+          nextModels: result.right.next ?? '',
           status: FormzStatus.submissionSuccess,
           models: result.right.results,
         ),
@@ -574,10 +597,12 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
   FutureOr<void> _topMakes(
       PostingAdTopMakesEvent event, Emitter<PostingAdState> emit) async {
+    log('::::::::::  Top makes triggered :  }  ::::::::::');
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
 
     final result = await topMakesUseCase.call(event.name);
     if (result.isRight) {
+      log(':::::::::: GOTTEN TOP MAKES: ${result.right.results.length}  ::::::::::');
       emit(state.copyWith(
         status: FormzStatus.submissionSuccess,
         topMakes: result.right.results,
@@ -851,6 +876,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
   FutureOr<void> _addEvent(
       PostingAdAddEventForEveryPage event, Emitter<PostingAdState> emit) {
+    log(':::::::::: EVERY PAGE EVENNT TRIGGERED FOR: ${event.page}  ::::::::::');
     switch (event.page) {
       case 0:
         if (state.makes.isEmpty) add(PostingAdMakesEvent());
