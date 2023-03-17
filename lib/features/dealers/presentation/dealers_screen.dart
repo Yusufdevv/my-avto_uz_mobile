@@ -78,7 +78,8 @@ class _DealerScreenState extends State<DealerScreen>
   }
 
   @override
-  Widget build(BuildContext context) => MultiBlocProvider(
+  Widget build(BuildContext context) =>
+      MultiBlocProvider(
         providers: [
           BlocProvider.value(value: deallerCardBloc),
           BlocProvider.value(value: filterBloc),
@@ -86,155 +87,160 @@ class _DealerScreenState extends State<DealerScreen>
         ],
         child: BlocConsumer<DealerCardBloc, DealerCardState>(
           listener: (context, state) {},
-          builder: (context, state) => AnnotatedRegion(
-            value:
+          builder: (context, state) =>
+              AnnotatedRegion(
+                value:
                 const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
-            child: KeyboardDismisser(
-              child: Scaffold(
-                body: CustomScrollView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  slivers: [
-                    SliverAppBar(
-                      pinned: true,
-                      automaticallyImplyLeading: false,
-                      backgroundColor: Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .whiteToNero,
-                      leadingWidth: 0,
-                      title: Padding(
-                        padding: const EdgeInsets.only(top: 12, bottom: 5),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            GestureDetector(
-                              behavior: HitTestBehavior.opaque,
-                              onTap: () => Navigator.pop(context),
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 5),
-                                child: SvgPicture.asset(AppIcons.chevronLeft),
-                              ),
-                            ),
-                            const SizedBox(width: 7),
-                            Expanded(
-                              child: WTextField(
-                                readOnly: state.isIndexOne ?? false,
-                                contentPadding: const EdgeInsets.only(
-                                    left: 12, right: 12, top: 12),
-                                borderColor: purple,
-                                disabledBorderColor: Theme.of(context)
-                                    .extension<ThemedColors>()!
-                                    .whiteSmokeToEclipse,
-                                fillColor: Theme.of(context)
-                                    .extension<ThemedColors>()!
-                                    .whiteSmokeToEclipse,
-                                hintText: LocaleKeys.autosalon.tr(),
-                                hintTextStyle: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                    color: grey),
-                                textStyle: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                                  color: black,
+                child: KeyboardDismisser(
+                  child: Scaffold(
+                    body: CustomScrollView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      slivers: [
+                        SliverAppBar(
+                          pinned: true,
+                          automaticallyImplyLeading: false,
+                          backgroundColor: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .whiteToNero,
+                          leadingWidth: 0,
+                          title: Padding(
+                            padding: const EdgeInsets.only(top: 12, bottom: 5),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                GestureDetector(
+                                  behavior: HitTestBehavior.opaque,
+                                  onTap: () => Navigator.pop(context),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 5),
+                                    child: SvgPicture.asset(
+                                        AppIcons.chevronLeft),
+                                  ),
                                 ),
-                                enabledBorderColor: Theme.of(context)
-                                    .extension<ThemedColors>()!
-                                    .whiteSmokeToEclipse,
-                                focusColor: Theme.of(context)
-                                    .extension<ThemedColors>()!
-                                    .whiteSmokeToEclipse,
-                                onChanged: (value) {
-
-                                  deallerCardBloc
-                                      .add(DealerCardEvent.getResults(
+                                const SizedBox(width: 7),
+                                Expanded(
+                                  child: WTextField(
+                                    readOnly: state.isIndexOne ?? false,
+                                    contentPadding: const EdgeInsets.only(
+                                        left: 12, right: 12, top: 12),
+                                    borderColor: purple,
+                                    disabledBorderColor: Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .whiteSmokeToEclipse,
+                                    fillColor: Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .whiteSmokeToEclipse,
+                                    hintText: LocaleKeys.autosalon.tr(),
+                                    hintTextStyle: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                        color: grey),
+                                    textStyle: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400,
+                                      color: black,
+                                    ),
+                                    enabledBorderColor: Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .whiteSmokeToEclipse,
+                                    focusColor: Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .whiteSmokeToEclipse,
+                                    onChanged: (value) {
+                                      deallerCardBloc
+                                          .add(DealerCardEvent.getResults(
                                           isRefresh: false,
                                           search: value,
                                           onSuccess: (list) {
                                             mapOrganizationBloc.add(
-                                                MapOrganizationEvent.setMapPoints(
+                                                MapOrganizationEvent
+                                                    .setMapPoints(
                                                     list: list
-                                                        .map((e) => DealerCardModel
+                                                        .map((e) =>
+                                                        DealerCardModel
                                                             .fromJson(
-                                                                const DealerCardConvert()
-                                                                    .toJson(e)))
+                                                            const DealerCardConvert()
+                                                                .toJson(e)))
                                                         .toList()));
                                           }));
-                                },
-                                controller: controller,
-                                hasSearch: true,
-                                borderRadius: 8,
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            BlocBuilder<DealerFilterBloc, DealerFilterState>(
-                              builder: (context, filterState) => WButton(
-                                height: 50,
-                                width: 50,
-                                onTap: () {
-                                  context
-                                      .read<RegionsBloc>()
-                                      .add(RegionsEvent.getRegions());
-                                  Navigator.push(
-                                    context,
-                                    fade(
-                                      page: BlocProvider.value(
-                                        value: filterBloc,
-                                        child: DealersFilterScreen(
-                                          dealerFilterBloc: filterBloc,
+                                    },
+                                    controller: controller,
+                                    hasSearch: true,
+                                    borderRadius: 8,
+                                  ),
+                                ),
+                                const SizedBox(width: 12),
+                                BlocBuilder<DealerFilterBloc,
+                                    DealerFilterState>(
+                                  builder: (context, filterState) =>
+                                      WButton(
+                                        height: 50,
+                                        width: 50,
+                                        onTap: () {
+                                          context
+                                              .read<RegionsBloc>()
+                                              .add(RegionsEvent.getRegions());
+                                          Navigator.push(
+                                            context,
+                                            fade(
+                                              page: BlocProvider.value(
+                                                value: filterBloc,
+                                                child: DealersFilterScreen(
+                                                  dealerFilterBloc: filterBloc,
 
 
+                                                  dealerBloc: deallerCardBloc,
+                                                  mapOrganizationBloc:
+                                                  mapOrganizationBloc,
+                                                  maker: filterState.maker,
+                                                  regions: filterState.region,
+                                                  carType: filterState
+                                                      .carType == ''
+                                                      ? 'all'
+                                                      : filterState.carType,
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        borderRadius: 12,
+                                        color: Theme.of(context)
+                                            .extension<ThemedColors>()!
+                                            .whiteSmokeToNightRider,
 
-                                          dealerBloc: deallerCardBloc,
-                                          mapOrganizationBloc:
-                                              mapOrganizationBloc,
-                                          maker: filterState.maker,
-                                          regions: filterState.region,
-                                          carType: filterState.carType == ''
-                                              ? 'all'
-                                              : filterState.carType,
+                                        padding: const EdgeInsets.all(8),
+                                        child: SvgPicture.asset(
+                                          AppIcons.delaerFilter,
                                         ),
                                       ),
-                                    ),
-                                  );
-                                },
-                                borderRadius: 12,
-                                color: Theme.of(context)
-                                    .extension<ThemedColors>()!
-                                    .whiteSmokeToNightRider,
-
-                                padding: const EdgeInsets.all(8),
-                                child: SvgPicture.asset(
-                                  AppIcons.delaerFilter,
                                 ),
-                              ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
-                      ),
+                        SliverPersistentHeader(
+                          pinned: true,
+                          delegate: SegmentedControl(
+                            maxHeight: 64,
+                            minHeight: 64,
+                            tabController: _tabController,
+                            pageController: _pageController,),
+                        ),
+                        SliverFillRemaining(
+                          child: PageView(
+                            controller: _pageController,
+                            physics: const NeverScrollableScrollPhysics(),
+                            children: [
+                              const DealersList(),
+                              const MapScreen(),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                    SliverPersistentHeader(
-                      pinned: true,
-                      delegate: SegmentedControl(
-                          maxHeight: 64,
-                          minHeight: 64,
-                          tabController: _tabController,
-                          pageController: _pageController),
-                    ),
-                    SliverFillRemaining(
-                      child: PageView(
-                        controller: _pageController,
-                        physics: const NeverScrollableScrollPhysics(),
-                        children: [
-                          const DealersList(),
-                          const MapScreen(),
-                        ],
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
-            ),
-          ),
         ),
       );
 }
