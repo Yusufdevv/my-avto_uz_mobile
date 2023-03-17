@@ -204,6 +204,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
               }
             : {},
       ),
+
       queryParameters: next == null || name == null
           ? name != null && name.isNotEmpty
               ? {'search': name, 'limit': 10, 'offset': 0}

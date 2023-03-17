@@ -114,83 +114,62 @@ class FilterState extends Equatable {
 
   bool get isFilter {
     if (driveType != null && driveType?.id != -1) {
-      log(':::::::::: IS FILTER:  driveType:  $driveType}  ::::::::::');
       return true;
     }
     if (bodyType != null && bodyType?.id != -1) {
-      log('::::::::::  IS FILTER: bodyType:  $bodyType}  ::::::::::');
       return true;
     }
 
     if (gearboxType != null && gearboxType?.id != -1) {
-      log(':::::::::: IS FILTER:  gearboxType:  $gearboxType}  ::::::::::');
       return true;
     }
 
     if (currency == Currency.usd
-        ? usdIsYearValuesChanged('l-131')
-        : uzsIsYearValuesChanged('l-132')) {
-      log(':::::::::: IS FILTER: UZS YEAR VALUES: ${usdIsYearValuesChanged('132 - 131')}  ::::::::::');
+        ? usdIsYearValuesChanged()
+        : uzsIsYearValuesChanged()) {
       return true;
     }
 
     if (currency == Currency.usd
-        ? usdIsPriceValuesChanged('l-138')
-        : uzsIsPriceValuesChanged('l-139')) {
-      log(':::::::::: IS FILTER: USD PRICE VALUES: ${usdIsPriceValuesChanged('138 - 139')}  ::::::::::');
+        ? usdIsPriceValuesChanged()
+        : uzsIsPriceValuesChanged()) {
       return true;
     }
 
     if (saleType != SaleType.all) {
-      log(':::::::::: IS FILTER:  saleType:  $saleType}  ::::::::::');
       return true;
     }
 
     if (currency != Currency.usd) {
-      log('::::::::::  IS FILTER: currency:  $currency}  ::::::::::');
       return true;
     }
-
-    log(':::::::::: IS FILTER: RETURNING FALSE:     ::::::::::');
 
     return false;
   }
 
-  bool uzsIsPriceValuesChanged(String where) {
+  bool uzsIsPriceValuesChanged() {
     final start = double.tryParse(uzsIfos?.minPrice ?? '0') ?? 0.0;
     final end = double.tryParse(uzsIfos?.maxPrice ?? '0') ?? 0.0;
     final v = priceValues?.start != start || priceValues?.end != end;
-    log('::::::::::  PRICE USD: $v  $where }  ::::::::::');
     return v;
   }
 
-  bool usdIsPriceValuesChanged(String where) {
+  bool usdIsPriceValuesChanged() {
     final start = double.tryParse(usdIfos?.minPrice ?? '0') ?? 0.0;
     final end = double.tryParse(usdIfos?.maxPrice ?? '0') ?? 0.0;
     final v = priceValues?.start != start || priceValues?.end != end;
-    log('::::::::::  PRICE USD: $v  $where }  ::::::::::');
     return v;
   }
 
-  bool usdIsYearValuesChanged(String where) {
+  bool usdIsYearValuesChanged() {
     final v = yearValues?.start != usdIfos?.minYear ||
         yearValues?.end != usdIfos?.maxYear;
-    log(':::::::::: e  YEAR USD: $v  $where  year values}  ::::::::::');
-    log('::::::::::  start:  ${yearValues?.start}  ::::::::::');
-    log('::::::::::  minYear:  ${usdIfos?.minYear}  ::::::::::');
-    log('::::::::::  end:  ${yearValues?.end}  ::::::::::');
-    log('::::::::::  maxYear:  ${usdIfos?.maxYear}  ::::::::::');
     return v;
   }
 
-  bool uzsIsYearValuesChanged(String where) {
+  bool uzsIsYearValuesChanged() {
     final v = yearValues?.start != uzsIfos?.minYear ||
         yearValues?.end != uzsIfos?.maxYear;
-    log(':::::::::: YEAR UZS: $v  $where ::::::::::');
-    log('::::::::::   start:    ${yearValues?.start} ::::::::::');
-    log('::::::::::   minYear:    ${uzsIfos?.minYear} ::::::::::');
-    log('::::::::::   end:    ${yearValues?.end} ::::::::::');
-    log('::::::::::   maxYear:    ${uzsIfos?.maxYear} ::::::::::');
     return v;
   }
 }

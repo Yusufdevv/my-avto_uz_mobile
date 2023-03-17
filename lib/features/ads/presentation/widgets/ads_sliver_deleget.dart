@@ -85,8 +85,6 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                 size: size,
                 theme: theme,
                 onTapParams1: () async {
-                  log(':::::::::: FILTER BUTTON yearValues: ${state.yearValuess}  ::::::::::');
-                  log(':::::::::: FILTER BUTTON priceValues: ${state.priceValuess}  ::::::::::');
                   final res = await Navigator.of(context).push(
                     fade(
                       page: FilterParameters(
@@ -105,9 +103,7 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
 
                     historySaved =
                         state.make?.id == null || state.make?.id == -1;
-                    log(':::::::::: in Filter data transfere:  ${res.isFilter} ::::::::::');
-                    if (res.isFilter) {
-                      log('::::::::::  Set filter triggereed  }  ::::::::::');
+                     if (res.isFilter) {
                       bloc.add(
                         SetFilter(
                           saleType: res.saleType,

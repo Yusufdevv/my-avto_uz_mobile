@@ -50,16 +50,13 @@ class PASingleton {
           v.rentWithPurchaseConditions.isNotEmpty && (v.rentToBuy ?? false),
     };
 
-    log('::::::::::  EQUIPMENT INITIALIZING:   ::::::::::');
     if (v.equipment != null && v.equipment?.id != -1) {
       announcementFields['equipment'] = v.equipment?.id;
     }
-    log(':::::::::: GAS EQUIPMENT INITILIZING:   ::::::::::');
     if (v.gasEquipmentId != -1) {
       announcementFields['gas_equipment'] = v.gasEquipmentId;
     }
 
-    log(':::::::::: MILAGE IMAGE INITIALIZING:   ::::::::::');
     if (v.milageImage != null && v.milageImage!.isNotEmpty) {
       final milageImage = await MultipartFile.fromFile(v.milageImage!);
       final List<MultipartFile> list = [milageImage];
@@ -67,14 +64,12 @@ class PASingleton {
           .addEntries(list.map((e) => MapEntry('mileage_image', e)));
     }
 
-    log(':::::::::: DAMAGED PARTS PART INITILIZING   ::::::::::');
     var i = -1;
     announcementFields.addEntries(v.damagedParts.entries.map((e) {
       i++;
       return MapEntry('damaged_parts[$i]part', e.key.value);
     }));
 
-    log(':::::::::: DAMAGED PARTS TYPE INITILIZING   ::::::::::');
     i = -1;
     announcementFields.addEntries(v.damagedParts.entries.map((e) {
       i++;
@@ -83,7 +78,6 @@ class PASingleton {
 
     var images = <MultipartFile>[];
 
-    log(':::::::::: GALLERY INITILIZING   ::::::::::');
     for (final element in [...v.gallery, ...v.panaramaGallery]) {
       final multiParFile = await MultipartFile.fromFile(element);
       images.add(multiParFile);
@@ -112,7 +106,6 @@ class PASingleton {
       return MapEntry('option_items[$i]', e.value.id);
     }));
 
-    log(':::::::::: RENT WITH PURCHASE INITILIZINIG  ::::::::::');
     i = -1;
     announcementFields.addEntries(v.rentWithPurchaseConditions.entries.map((e) {
       i++;
@@ -131,7 +124,6 @@ class PASingleton {
           'rent_with_purchase[$i]rental_period', e.value.rentalPeriod);
     }));
 
-    log('ANNOUNCEMENT FIELDS BEFORE FORMDATALIZE: ${announcementFields.toString()} \n Seperator Seperator Seperator Seperator Seperator Seperator Seperator Seperator Seperator ');
     final announcementFormData =
         FormData.fromMap(announcementFields, ListFormat.multiCompatible);
 

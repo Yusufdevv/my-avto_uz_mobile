@@ -21,13 +21,11 @@ class ComparisonDataSourceImpl extends ComparisonCarsDataSource {
 
   @override
   Future getComparableCars() async {
-    log('::::::::::  get comparable cars triggered:  ::::::::::');
     try {
       final response = await _dio.get('/car/comparison/',
           options: Options(headers: {
             'Authorization': 'Bearer ${StorageRepository.getString('token')}'
           }));
-      log(':::::::::: GOTTEN COMPARISON CARS DATA: ${response.data}  ::::::::::');
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
        try{
          return (response.data as List)

@@ -98,7 +98,6 @@ class AnnouncementListBloc
 
   FutureOr<void> _setFilter(
       SetFilter event, Emitter<AnnouncementListState> emit) async {
-    log(':::::::::: IS RENT  WITH PURCHASE IN SET FILTER: ${event.saleType}  ::::::::::');
     emit(state.copyWith(
       saleType: event.saleType,
       currency: event.currency,

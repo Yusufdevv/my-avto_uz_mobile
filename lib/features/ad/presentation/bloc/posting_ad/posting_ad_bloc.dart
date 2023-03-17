@@ -144,16 +144,11 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
   FutureOr<void> _moreModels(
       PostingAdMoreModelsEvent event, Emitter<PostingAdState> emit) async {
-    log(':::::::::: get more models triggered by:   ${state.nextModels}  ::::::::::');
     final result = await modelsUseCase.call(
       state.make?.id ?? -1,
       next: state.nextModels,
     );
-    log(':::::::::: the result of more models:  ${result}  ::::::::::');
     if (result.isRight) {
-    log(':::::::::: next in bloc:  ${result.right.next}  ::::::::::');
-    log(':::::::::: count in bloc:  ${result.right.count}  ::::::::::');
-    log(':::::::::: length in bloc:  ${result.right.results.length}  ::::::::::');
       emit(
         state.copyWith(
           nextModels: result.right.next ?? '',
@@ -597,12 +592,10 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
   FutureOr<void> _topMakes(
       PostingAdTopMakesEvent event, Emitter<PostingAdState> emit) async {
-    log('::::::::::  Top makes triggered :  }  ::::::::::');
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
 
     final result = await topMakesUseCase.call(event.name);
     if (result.isRight) {
-      log(':::::::::: GOTTEN TOP MAKES: ${result.right.results.length}  ::::::::::');
       emit(state.copyWith(
         status: FormzStatus.submissionSuccess,
         topMakes: result.right.results,
@@ -876,7 +869,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
   FutureOr<void> _addEvent(
       PostingAdAddEventForEveryPage event, Emitter<PostingAdState> emit) {
-    log(':::::::::: EVERY PAGE EVENNT TRIGGERED FOR: ${event.page}  ::::::::::');
     switch (event.page) {
       case 0:
         if (state.makes.isEmpty) add(PostingAdMakesEvent());

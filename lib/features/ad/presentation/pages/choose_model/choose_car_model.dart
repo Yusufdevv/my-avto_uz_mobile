@@ -157,12 +157,10 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                               (context, index) {
                                 if (index == state.models.length) {
                                   if (state.nextModels != null) {
-                                    log(':::::::::: NEXT MODELS IN PAGE:  ${state.nextModels}  ::::::::::');
-                                    context
+                                   context
                                         .read<PostingAdBloc>()
                                         .add(PostingAdMoreModelsEvent());
-                                    log('::::::::: AFTER CALL MORE MODEL EVENT:  ${state.nextModels}  ::::::::::');
-                                    return Container(
+                                   return Container(
                                       height: 90,
                                       color: Theme.of(context)
                                           .extension<ThemedColors>()!

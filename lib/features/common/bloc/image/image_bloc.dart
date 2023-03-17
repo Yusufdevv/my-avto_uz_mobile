@@ -78,8 +78,7 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
     });
 
     on<DeleteImageEvent>((event, emit) {
-      log(':::::::::: delete image event triggered for:  ${event.imageUrl}   ::::::::::');
-      final images = <String>[...state.images];
+       final images = <String>[...state.images];
       final secondImage = <String>[...state.secondImage];
 
       /// ctc imagelarni delete qiladi
