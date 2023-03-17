@@ -263,10 +263,10 @@ class AppIcons {
   static const draftIcon = 'assets/icons/reviews/drat_icon.svg';
   static const delete = 'assets/icons/reviews/delete.svg';
 
-  static const payme = 'assets/icons/global/payme.svg';
-  static const apelsin = 'assets/icons/global/apelsin.svg';
-  static const click = 'assets/icons/global/click.svg';
-  static const kpay = 'assets/icons/global/kpay.svg';
+  static const payme = 'assets/icons/global/payme.png';
+  static const apelsin = 'assets/icons/global/apelsin.png';
+  static const click = 'assets/icons/global/click.png';
+  static const paylov = 'assets/icons/global/paylov.png';
 
   static const succes = 'assets/images/car_single/succes.svg';
   static const unsucc = 'assets/images/car_single/unsucc.svg';

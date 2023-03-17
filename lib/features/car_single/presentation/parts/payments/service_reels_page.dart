@@ -2,22 +2,23 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/features/car_single/presentation/bloc/reels_service_bloc/reels_service_bloc.dart';
-import 'package:auto/features/car_single/presentation/parts/payments/invoice_in_progress.dart';
-import 'package:auto/features/car_single/presentation/widgets/img_video_radioBtn_item.dart';
-import 'package:auto/features/car_single/presentation/widgets/reels_photos.dart';
+import 'package:auto/features/ad/const/constants.dart';
+import 'package:auto/features/car_single/presentation/bloc/invoice_bloc/invoice_bloc.dart';
+import 'package:auto/features/car_single/presentation/parts/payments/invoice_status_page.dart';
+import 'package:auto/features/car_single/presentation/parts/sts_image_item_widget.dart';
 import 'package:auto/features/car_single/presentation/widgets/select_pay_way.dart';
+import 'package:auto/features/car_single/presentation/widgets/tarif_item.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/widgets/camera_bottom_sheet.dart';
 import 'package:auto/generated/locale_keys.g.dart';
+import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ServiceReelsPage extends StatefulWidget {
@@ -31,22 +32,21 @@ class ServiceReelsPage extends StatefulWidget {
 
 // ignore: prefer_mixin
 class _ServiceReelsPageState extends State<ServiceReelsPage> {
-  final ValueNotifier<int> tarifValue = ValueNotifier<int>(1);
+  final ValueNotifier<int> tarifValue = ValueNotifier<int>(0);
   final ValueNotifier<int> paymentValue = ValueNotifier<int>(0);
-  late ReelsServiceBloc bloc;
-  String provider = '';
+  late InvoiceBloc bloc;
 
   @override
   void initState() {
     super.initState();
-    bloc = ReelsServiceBloc()..add(GetReelsTarifsEvent());
+    bloc = InvoiceBloc()..add(GetTarifsEvent(tarifType: TarifTypeEnum.hot));
   }
 
-  Map<String, String> iconPathProvider = {
+  Map<String, String> iconPathProviders = {
     'payme': AppIcons.payme,
     'apelsin': AppIcons.apelsin,
     'click': AppIcons.click,
-    'kpay': AppIcons.kpay,
+    'paylov': AppIcons.paylov,
   };
 
   @override
@@ -59,7 +59,7 @@ class _ServiceReelsPageState extends State<ServiceReelsPage> {
             hasBackButton: true,
             title: LocaleKeys.service.tr(),
           ),
-          body: BlocBuilder<ReelsServiceBloc, ReelsServiceState>(
+          body: BlocBuilder<InvoiceBloc, InvoiceState>(
             builder: (context, state) {
               if (state.status.isSubmissionInProgress) {
                 return const Center(child: CupertinoActivityIndicator());
@@ -80,7 +80,7 @@ class _ServiceReelsPageState extends State<ServiceReelsPage> {
                             ),
                             const SizedBox(height: 8),
                             Text(
-                              'В услуге Рильз вы можете загрузить несколько изображений или же один видео',
+                              'В услуге добавить полоса вы можете загрузить изображение или видео',
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium
@@ -88,69 +88,80 @@ class _ServiceReelsPageState extends State<ServiceReelsPage> {
                                       color: LightThemeColors.darkGreyToWhite),
                             ),
                             const SizedBox(height: 16),
-                            ValueListenableBuilder<int>(
-                                valueListenable: tarifValue,
-                                builder: (context, value, child) => Row(
-                                      children: [
-                                        Expanded(
-                                          child: ImgVideoRadioBtnItem(
-                                              value: 1,
-                                              color: tarifValue.value == 1
-                                                  ? lavanda
-                                                  : white,
-                                              groupValue: tarifValue.value,
-                                              onTap: (val) {
-                                                tarifValue.value = val;
-                                              },
-                                              title: LocaleKeys.photo.tr()),
-                                        ),
-                                        const SizedBox(width: 12),
-                                        Expanded(
-                                          child: ImgVideoRadioBtnItem(
-                                              value: 2,
-                                              color: tarifValue.value == 2
-                                                  ? lavanda
-                                                  : white,
-                                              groupValue: tarifValue.value,
-                                              onTap: (val) {
-                                                tarifValue.value = val;
-                                              },
-                                              title: LocaleKeys.video.tr()),
-                                        ),
-                                      ],
-                                    )),
-                            const SizedBox(height: 16),
-
-                            ReelsPhotos(
-                                images: state.images,
-                                onTap: () async {
-                                  await showModalBottomSheet<ImageSource>(
-                                          backgroundColor: Colors.transparent,
-                                          context: context,
-                                          useRootNavigator: true,
-                                          builder: (context) =>
-                                              const CameraBottomSheet())
-                                      .then((value) {
-                                    if (value != null) {
-                                      bloc.add(PickImagesEvent(source: value));
-                                    }
-                                  });
-                                }),
-                            const SizedBox(height: 16),
-                            const Divider(height: 1),
-                            const SizedBox(height: 16),
                             // ValueListenableBuilder<int>(
                             //     valueListenable: tarifValue,
-                            //     builder: (context, value, child) {
-                            //       final item = state.tarifs.firstWhere(
-                            //           (e) => e.id == tarifValue.value);
-                            //       return TarifItem(
-                            //           amount: item.amount.toString(),
-                            //           type: LocaleKeys.reels_for_eternity.tr(),
-                            //           id: item.id,
-                            //           date: '');
-                            //     }),
+                            //     builder: (context, value, child) => Row(
+                            //           children: [
+                            //             Expanded(
+                            //               child: ImgVideoRadioBtnItem(
+                            //                   value: 1,
+                            //                   color: tarifValue.value == 1
+                            //                       ? lavanda
+                            //                       : white,
+                            //                   groupValue: tarifValue.value,
+                            //                   onTap: (val) {
+                            //                     tarifValue.value = val;
+                            //                   },
+                            //                   title: LocaleKeys.photo.tr()),
+                            //             ),
+                            //             const SizedBox(width: 12),
+                            //             Expanded(
+                            //               child: ImgVideoRadioBtnItem(
+                            //                   value: 2,
+                            //                   color: tarifValue.value == 2
+                            //                       ? lavanda
+                            //                       : white,
+                            //                   groupValue: tarifValue.value,
+                            //                   onTap: (val) {
+                            //                     tarifValue.value = val;
+                            //                   },
+                            //                   title: LocaleKeys.video.tr()),
+                            //             ),
+                            //           ],
+                            //         )),
                             // const SizedBox(height: 16),
+
+                            StsImageItemWidget(
+                              onTapDelete: () {
+                                context.read<InvoiceBloc>().add(
+                                    DeleteImageVideoEvent(path: state.media));
+                              },
+                              height: 116,
+                              width: 104,
+                              title: 'добавить\nфото/видео',
+                              images: state.media,
+                              onTap: () async {
+                                await showModalBottomSheet<
+                                            Map<String, dynamic>>(
+                                        backgroundColor: Colors.transparent,
+                                        context: context,
+                                        useRootNavigator: true,
+                                        builder: (context) =>
+                                            const CameraBottomSheet())
+                                    .then((value) {
+                                  if (value != null) {
+                                    context.read<InvoiceBloc>().add(
+                                          PickImageEvent(
+                                            source: value['image_type'],
+                                            index: value['index'],
+                                          ),
+                                        );
+                                  }
+                                });
+                              },
+                            ),
+                            const Divider(height: 33),
+                            ValueListenableBuilder<int>(
+                                valueListenable: tarifValue,
+                                builder: (context, value, child) {
+                                  final item = state.tarifs[tarifValue.value];
+                                  return TarifItem(
+                                      amount: item.amount.toString(),
+                                      type: LocaleKeys.reels_for_eternity.tr(),
+                                      id: item.id,
+                                      date: '');
+                                }),
+                            const SizedBox(height: 16),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -172,7 +183,7 @@ class _ServiceReelsPageState extends State<ServiceReelsPage> {
                                         builder: (context, value, child) =>
                                             SelectPaymentItem(
                                               onTap: (val) {
-                                                paymentValue.value = val;
+                                                // paymentValue.value = val;
 
                                                 // bloc.add(SetProviderEvent(
                                                 //     provider:iconPathProvider.keys.toList()[index]));
@@ -182,7 +193,7 @@ class _ServiceReelsPageState extends State<ServiceReelsPage> {
                                               color: paymentValue.value == index
                                                   ? lavanda
                                                   : borderCircular,
-                                              iconPath: iconPathProvider.values
+                                              iconPath: iconPathProviders.values
                                                   .toList()[index],
                                               borderColor:
                                                   paymentValue.value == index
@@ -199,7 +210,6 @@ class _ServiceReelsPageState extends State<ServiceReelsPage> {
                       ),
                     ),
                     WButton(
-                      isDisabled: true,
                       isLoading: state.payStatus.isSubmissionInProgress,
                       text: LocaleKeys.confirm.tr(),
                       margin: const EdgeInsets.all(16).copyWith(
@@ -207,11 +217,17 @@ class _ServiceReelsPageState extends State<ServiceReelsPage> {
                       color: orange,
                       onTap: () async {
                         bloc.add(
-                          PayReelsInvoiceEvent(
+                          PayInvoiceEvent(
+                            params: {
+                              'announcement': widget.announcementId,
+                              'provider': iconPathProviders.keys
+                                  .toList()[paymentValue.value],
+                              'redirect_url': '/',
+                              'tariff_type': state.tarifs[0].type,
+                              'reels_file':
+                                  await MultipartFile.fromFile(state.media)
+                            },
                             announcement: widget.announcementId,
-                            provider: iconPathProvider.keys
-                                .toList()[paymentValue.value],
-                            tariffType: state.tarifs[tarifValue.value].type,
                             onSucces: (paymentUrl) async {
                               if (!await launchUrl(
                                 Uri.parse(paymentUrl),
@@ -224,7 +240,7 @@ class _ServiceReelsPageState extends State<ServiceReelsPage> {
                                 fade(
                                   page: BlocProvider.value(
                                     value: bloc,
-                                    child: const InvoiceInProgress(),
+                                    child: const InvoiceStatusPage(),
                                   ),
                                 ),
                               );

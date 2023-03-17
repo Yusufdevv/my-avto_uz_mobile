@@ -4,21 +4,25 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/pages/add_photo/widgets/plus_circle.dart';
-import 'package:auto/features/common/bloc/image/image_bloc.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class StsImageItemWidget extends StatefulWidget {
   final String images;
   final VoidCallback onTap;
+  final VoidCallback onTapDelete;
   final String title;
+  final double height;
+  final double width;
 
   const StsImageItemWidget({
     required this.images,
     required this.onTap,
+    required this.onTapDelete,
     required this.title,
+    required this.height,
+    required this.width,
     Key? key,
   }) : super(key: key);
 
@@ -33,8 +37,8 @@ class _StsImageItemWidgetState extends State<StsImageItemWidget> {
           onTap: widget.onTap,
           child: Container(
             alignment: Alignment.center,
-            height: 110,
-            width: (MediaQuery.of(context).size.width / 2) - 24,
+            height: widget.height,
+            width: widget.width,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: purple),
@@ -49,6 +53,7 @@ class _StsImageItemWidgetState extends State<StsImageItemWidget> {
                 const PlusCircle(),
                 Text(
                   widget.title,
+                  textAlign: TextAlign.center,
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium!
@@ -61,8 +66,8 @@ class _StsImageItemWidgetState extends State<StsImageItemWidget> {
       : Stack(
           children: [
             Container(
-              height: 110,
-              width: (MediaQuery.of(context).size.width / 2) - 24,
+              height: widget.height,
+              width: widget.width,
               decoration: BoxDecoration(
                 border: Border.all(width: 1, color: purple),
                 color: Theme.of(context)
@@ -79,11 +84,7 @@ class _StsImageItemWidgetState extends State<StsImageItemWidget> {
               top: 4,
               right: 4,
               child: WScaleAnimation(
-                  onTap: () {
-                    context
-                        .read<ImageBloc>()
-                        .add(DeleteImageEvent(imageUrl: widget.images));
-                  },
+                  onTap: widget.onTapDelete,
                   child: SvgPicture.asset(AppIcons.closeSquare)),
             ),
           ],

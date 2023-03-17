@@ -88,9 +88,10 @@ class _OnBoardingBottomState extends State<OnBoardingBottom> {
                             index = 0;
                           });
                           context.setLocale(const Locale('uz'));
+                          StorageRepository.putString('language', 'uz');
                           serviceLocator<DioSettings>()
                               .setBaseOptions(lang: 'uz');
-                          StorageRepository.putString('language', 'uz');
+                          resetLocator();
                         },
                         color: index == 0
                             ? orange
@@ -142,9 +143,10 @@ class _OnBoardingBottomState extends State<OnBoardingBottom> {
                             index = 1;
                           });
                           context.setLocale(const Locale('ru'));
+                          StorageRepository.putString('language', 'ru');
                           serviceLocator<DioSettings>()
                               .setBaseOptions(lang: 'ru');
-                          StorageRepository.putString('language', 'ru');
+                          resetLocator();
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -186,11 +188,6 @@ class _OnBoardingBottomState extends State<OnBoardingBottom> {
             right: 0,
             child: WScaleAnimation(
               onTap: () {
-                if (index == 0) {
-                  context.setLocale(const Locale('uz'));
-                  serviceLocator<DioSettings>().setBaseOptions(lang: 'uz');
-                  StorageRepository.putString('language', 'uz');
-                }
                 Navigator.of(context)
                     .push(fade(page: const OnBoardingScreen()));
               },

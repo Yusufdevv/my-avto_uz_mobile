@@ -9,16 +9,20 @@ import 'package:dio/dio.dart';
 
 abstract class InvoiceDatasource {
   Future<GenericPagination<TarifModel>> getTarifs();
+
   Future<PaymentEntity> payInvoice(Map<String, dynamic> params);
+
   Future<String> getInvoiceStatus(int orderId);
 }
 
-class InvoiceDatasourceImplemation extends InvoiceDatasource{
+class InvoiceDatasourceImplemation extends InvoiceDatasource {
   final _dio = serviceLocator<DioSettings>().dio;
+
   @override
   Future<String> getInvoiceStatus(int orderId) async {
     try {
-      final response = await _dio.get('payment/last-transaction-status/$orderId',
+      final response = await _dio.get(
+          'payment/last-transaction-status/$orderId',
           options: Options(headers: {
             'Authorization': 'Bearer ${StorageRepository.getString('token')}'
           }));
@@ -31,8 +35,8 @@ class InvoiceDatasourceImplemation extends InvoiceDatasource{
         throw ServerException(
             statusCode: response.statusCode!,
             errorMessage: ((response.data as Map).values.isNotEmpty
-                ? (response.data as Map).values.first
-                : 'Error')
+                    ? (response.data as Map).values.first
+                    : 'Error')
                 .toString());
       } else {
         throw ServerException(
@@ -59,14 +63,14 @@ class InvoiceDatasourceImplemation extends InvoiceDatasource{
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
         return GenericPagination.fromJson(response.data,
-                (p0) => TarifModel.fromJson(p0 as Map<String, dynamic>));
+            (p0) => TarifModel.fromJson(p0 as Map<String, dynamic>));
       }
       if (response.data is Map) {
         throw ServerException(
             statusCode: response.statusCode!,
             errorMessage: ((response.data as Map).values.isNotEmpty
-                ? (response.data as Map).values.first
-                : 'Error')
+                    ? (response.data as Map).values.first
+                    : 'Error')
                 .toString());
       } else {
         throw ServerException(
@@ -86,21 +90,23 @@ class InvoiceDatasourceImplemation extends InvoiceDatasource{
   Future<PaymentEntity> payInvoice(Map<String, dynamic> params) async {
     try {
       final response = await _dio.post('payment/create-announcement-order/',
-          data: params,
+          data: FormData.fromMap(params),
           options: Options(headers: {
             'Authorization': 'Bearer ${StorageRepository.getString('token')}'
           }));
+
+      print('===status code ${response.statusCode}');
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
-        return  PaymentEntity.fromJson(response.data as Map<String, dynamic>);
+        return PaymentEntity.fromJson(response.data as Map<String, dynamic>);
       }
       if (response.data is Map) {
         throw ServerException(
             statusCode: response.statusCode!,
             errorMessage: ((response.data as Map).values.isNotEmpty
-                ? (response.data as Map).values.first
-                : 'Error')
+                    ? (response.data as Map).values.first
+                    : 'Error')
                 .toString());
       } else {
         throw ServerException(
@@ -115,6 +121,4 @@ class InvoiceDatasourceImplemation extends InvoiceDatasource{
       throw ParsingException(errorMessage: e.toString());
     }
   }
-
 }
-

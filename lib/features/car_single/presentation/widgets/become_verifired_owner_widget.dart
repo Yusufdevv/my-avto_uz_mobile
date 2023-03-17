@@ -3,8 +3,6 @@ import 'package:auto/assets/constants/images.dart';
 import 'package:auto/features/car_single/presentation/parts/verifered_owner_page.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/generated/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class BecomeVerifiredOwnerWidget extends StatelessWidget {
@@ -15,6 +13,7 @@ class BecomeVerifiredOwnerWidget extends StatelessWidget {
   }) : super(key: key);
   final int announcementId;
   final String moderationStatus;
+
   @override
   Widget build(BuildContext context) => Builder(builder: (context) {
         if (moderationStatus == 'in_moderation') {
@@ -90,9 +89,7 @@ class BecomeVerifiredOwnerWidget extends StatelessWidget {
                   SizedBox(
                     height: 96,
                     width: 96,
-                    child: Image.asset(
-                      AppImages.verifired_owner,
-                    ),
+                    child: Image.asset(AppImages.avtoUzHand),
                   )
                 ],
               ),
@@ -108,6 +105,7 @@ class VerifiredOwnerRejectedItem extends StatelessWidget {
     required this.announcementId,
     super.key,
   });
+
   final int announcementId;
 
   @override
@@ -197,9 +195,11 @@ class VerifiredOwnerModerationItem extends StatelessWidget {
     required this.icon,
     super.key,
   });
+
   final Color titleColor;
   final String subtitle;
   final String icon;
+
   @override
   Widget build(BuildContext context) => Container(
         padding: const EdgeInsets.only(left: 16),

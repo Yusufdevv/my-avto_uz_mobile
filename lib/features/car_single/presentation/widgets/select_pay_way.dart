@@ -1,7 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/car_single/presentation/widgets/w_radio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class SelectPaymentItem extends StatelessWidget {
   final int value;
@@ -43,7 +42,9 @@ class SelectPaymentItem extends StatelessWidget {
                 activeColor: purple,
               ),
               const SizedBox(width: 8),
-              SvgPicture.asset(iconPath),
+              Container(
+                  constraints:const BoxConstraints(maxHeight: 20, minHeight: 20, minWidth: 57, maxWidth: 77) ,
+                  child: Image.asset(iconPath)),
             ],
           ),
         ),

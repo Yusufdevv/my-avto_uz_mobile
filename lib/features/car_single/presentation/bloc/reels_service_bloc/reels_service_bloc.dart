@@ -75,7 +75,7 @@ class ReelsServiceBloc extends Bloc<ReelsServiceEvent, ReelsServiceState> {
 
       if (permission.isGranted) {
         final image =
-            await picker.pickImage(source: event.source, imageQuality: 90);
+            await picker.pickVideo(source: event.source);
         if (image != null) {
           emit(state.copyWith(videos: [image.path, ...state.videos]));
         }

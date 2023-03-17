@@ -253,7 +253,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                   state.singleEntity.distanceTraveled
                                       .toString()),
                               body: state.singleEntity.bodyType.type,
-                              color: 'state.singleEntity.color',
+                              color: state.singleEntity.color.name,
                               complectation: '',
                               engineVolume:
                                   '${state.singleEntity.modificationType.volume} (${state.singleEntity.modificationType.power})',

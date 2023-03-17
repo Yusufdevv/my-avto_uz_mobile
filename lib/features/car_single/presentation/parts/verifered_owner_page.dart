@@ -93,11 +93,9 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                 if (value['delete']) {
                                   textController.clear();
                                   for (var i = 0; i <= 1; i++) {
-                                    print(' image1 == ${state.images[i]}');
                                     context.read<ImageBloc>().add(
                                         DeleteImageEvent(
                                             imageUrl: state.images[i]));
-                                    print(' sec1 == ${state.secondImage[i]}');
                                     context.read<ImageBloc>().add(
                                         DeleteImageEvent(
                                             imageUrl: state.secondImage[i]));
@@ -187,6 +185,10 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                               child: Row(
                                 children: [
                                   StsImageItemWidget(
+                                    height: 110,
+                                    width: (MediaQuery.of(context).size.width /
+                                            2) -
+                                        24,
                                     title: 'передняя сторона',
                                     images: state.images[0],
                                     onTap: () async {
@@ -204,9 +206,18 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                         }
                                       });
                                     },
+                                    onTapDelete: () {
+                                      context.read<ImageBloc>().add(
+                                          DeleteImageEvent(
+                                              imageUrl: state.images[0]));
+                                    },
                                   ),
                                   const SizedBox(width: 12),
                                   StsImageItemWidget(
+                                    height: 110,
+                                    width: (MediaQuery.of(context).size.width /
+                                            2) -
+                                        24,
                                     title: 'задняя сторона',
                                     images: state.images[1],
                                     onTap: () async {
@@ -223,6 +234,11 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                                   source: value, index: 1));
                                         }
                                       });
+                                    },
+                                    onTapDelete: () {
+                                      context.read<ImageBloc>().add(
+                                          DeleteImageEvent(
+                                              imageUrl: state.images[0]));
                                     },
                                   ),
                                 ],
@@ -267,6 +283,10 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                               child: Row(
                                 children: [
                                   StsImageItemWidget(
+                                    height: 110,
+                                    width: (MediaQuery.of(context).size.width /
+                                            2) -
+                                        24,
                                     title: 'передняя сторона',
                                     images: state.secondImage[0],
                                     onTap: () async {
@@ -284,9 +304,18 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                         }
                                       });
                                     },
+                                    onTapDelete: () {
+                                      context.read<ImageBloc>().add(
+                                          DeleteImageEvent(
+                                              imageUrl: state.images[0]));
+                                    },
                                   ),
                                   const SizedBox(width: 12),
                                   StsImageItemWidget(
+                                    height: 110,
+                                    width: (MediaQuery.of(context).size.width /
+                                            2) -
+                                        24,
                                     title: 'задняя сторона',
                                     images: state.secondImage[1],
                                     onTap: () async {
@@ -303,6 +332,11 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                                   source: value, index: 1));
                                         }
                                       });
+                                    },
+                                    onTapDelete: () {
+                                      context.read<ImageBloc>().add(
+                                          DeleteImageEvent(
+                                              imageUrl: state.images[0]));
                                     },
                                   ),
                                 ],

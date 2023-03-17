@@ -2,8 +2,9 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/car_single/presentation/bloc/invoice_bloc/invoice_bloc.dart';
-import 'package:auto/features/car_single/presentation/parts/payments/invoice_in_progress.dart';
+import 'package:auto/features/car_single/presentation/parts/payments/invoice_status_page.dart';
 import 'package:auto/features/car_single/presentation/parts/invoice_tarif_item.dart';
 import 'package:auto/features/car_single/presentation/widgets/select_pay_way.dart';
 import 'package:auto/features/car_single/presentation/widgets/tarif_item.dart';
@@ -31,19 +32,18 @@ class _ServiceExtendsAdsPageState extends State<ServiceExtendsAdsPage> {
   final ValueNotifier<int> tarifValue = ValueNotifier<int>(0);
   final ValueNotifier<int> paymentValue = ValueNotifier<int>(0);
   late InvoiceBloc bloc;
-  String provider = '';
 
   @override
   void initState() {
     super.initState();
-    bloc = InvoiceBloc()..add(GetTarifsEvent());
+    bloc = InvoiceBloc()..add(GetTarifsEvent(tarifType: TarifTypeEnum.none));
   }
 
-  Map<String, String> iconPathProvider = {
+  Map<String, String> iconPathProviders = {
     'payme': AppIcons.payme,
     'apelsin': AppIcons.apelsin,
     'click': AppIcons.click,
-    'kpay': AppIcons.kpay,
+    'paylov': AppIcons.paylov,
   };
 
   @override
@@ -87,9 +87,6 @@ class _ServiceExtendsAdsPageState extends State<ServiceExtendsAdsPage> {
                             const SizedBox(height: 16),
                             ...List.generate(state.tarifs.length, (index) {
                               final item = state.tarifs[index];
-                              if (index == 0) {
-                                tarifValue.value = item.id;
-                              }
                               return Padding(
                                 padding: const EdgeInsets.only(bottom: 12),
                                 child: ValueListenableBuilder<int>(
@@ -98,11 +95,11 @@ class _ServiceExtendsAdsPageState extends State<ServiceExtendsAdsPage> {
                                         InvoiceTarifItem(
                                           tarifDay: item.typeInt.toString(),
                                           amount: item.amount.toString(),
-                                          dayColor: tarifValue.value == item.id
+                                          dayColor: tarifValue.value == index
                                               ? null
                                               : greyText,
-                                          value: item.id,
-                                          color: tarifValue.value == item.id
+                                          value: index,
+                                          color: tarifValue.value == index
                                               ? lavanda
                                               : white,
                                           groupValue: tarifValue.value,
@@ -118,8 +115,7 @@ class _ServiceExtendsAdsPageState extends State<ServiceExtendsAdsPage> {
                             ValueListenableBuilder<int>(
                                 valueListenable: tarifValue,
                                 builder: (context, value, child) {
-                                  final item = state.tarifs.firstWhere(
-                                      (e) => e.id == tarifValue.value);
+                                  final item = state.tarifs[tarifValue.value];
                                   return TarifItem(
                                       amount: item.amount.toString(),
                                       type: LocaleKeys.extends_for_day.tr(args: [item.typeInt.toString()]),
@@ -148,7 +144,7 @@ class _ServiceExtendsAdsPageState extends State<ServiceExtendsAdsPage> {
                                         builder: (context, value, child) =>
                                             SelectPaymentItem(
                                               onTap: (val) {
-                                                paymentValue.value = val;
+                                                // paymentValue.value = val;
 
                                                 // bloc.add(SetProviderEvent(
                                                 //     provider:iconPathProvider.keys.toList()[index]));
@@ -158,7 +154,7 @@ class _ServiceExtendsAdsPageState extends State<ServiceExtendsAdsPage> {
                                               color: paymentValue.value == index
                                                   ? lavanda
                                                   : borderCircular,
-                                              iconPath: iconPathProvider.values
+                                              iconPath: iconPathProviders.values
                                                   .toList()[index],
                                               borderColor:
                                                   paymentValue.value == index
@@ -180,13 +176,17 @@ class _ServiceExtendsAdsPageState extends State<ServiceExtendsAdsPage> {
                       margin: const EdgeInsets.all(16).copyWith(
                           bottom: 16 + MediaQuery.of(context).padding.bottom),
                       color: orange,
-                      onTap: () async {
+                      onTap: ()  {
                         bloc.add(
                           PayInvoiceEvent(
+                            params: {
+                              'announcement': widget.announcementId,
+                              'provider': iconPathProviders.keys
+                                  .toList()[paymentValue.value],
+                              'redirect_url': '/',
+                              'tariff_type': state.tarifs[tarifValue.value].type
+                            },
                             announcement: widget.announcementId,
-                            provider: iconPathProvider.keys
-                                .toList()[paymentValue.value],
-                            tariffType: state.tarifs[tarifValue.value].type,
                             onSucces: (paymentUrl) async {
                               if (!await launchUrl(
                                 Uri.parse(paymentUrl),
@@ -199,7 +199,7 @@ class _ServiceExtendsAdsPageState extends State<ServiceExtendsAdsPage> {
                                 fade(
                                   page: BlocProvider.value(
                                     value: bloc,
-                                    child: const InvoiceInProgress(),
+                                    child: const InvoiceStatusPage(),
                                   ),
                                 ),
                               );

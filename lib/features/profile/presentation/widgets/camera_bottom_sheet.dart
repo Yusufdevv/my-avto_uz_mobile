@@ -1,6 +1,5 @@
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -79,19 +78,7 @@ class CameraBottomSheetState extends State<CameraBottomSheet> {
               },
             ),
           ),
-          WButton(
-            margin: const EdgeInsets.symmetric(vertical: 20),
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Text(
-              LocaleKeys.confirm.tr(),
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineMedium!
-                  .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
-            ),
-          ),
+          SizedBox(height: 12+ MediaQuery.of(context).padding.bottom),
         ]),
       );
 }

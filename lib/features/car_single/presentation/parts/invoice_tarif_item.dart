@@ -37,7 +37,7 @@ class InvoiceTarifItem extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Text('$tarifDay ${LocaleKeys.day.tr() }', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 16, color: dayColor)),
+            Text('$tarifDay ${LocaleKeys.day.tr()} ', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 16, color: dayColor)),
             Text('($amount UZS)', style: Theme.of(context).textTheme.titleMedium?.copyWith(color: purple)),
            const Spacer(),
             const SizedBox(width: 8),

@@ -96,3 +96,13 @@ enum LicenceType {
 
   final String value;
 }
+enum TarifTypeEnum {
+  vip('vip'),
+  top('top'),
+  none(''),
+  hot('hot');
+
+  const TarifTypeEnum(this.value);
+
+  final String value;
+}
