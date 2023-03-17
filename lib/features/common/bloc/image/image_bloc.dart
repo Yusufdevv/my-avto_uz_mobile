@@ -41,6 +41,7 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
       emit(state.copyWith(image: images));
     });
 
+    /// haydovchilik guvohnomasini olish uchun
     on<PickDriverLicenceImageEvent>((event, emit) async {
       final permission = event.source == ImageSource.camera
           ? await MyFunctions.getCameraPermission(Platform.isAndroid)
@@ -58,6 +59,7 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
       }
     });
 
+    /// sts imagelarni olish uchun
     on<PickSTSImageEvent>((event, emit) async {
       final permission = event.source == ImageSource.camera
           ? await MyFunctions.getCameraPermission(Platform.isAndroid)
@@ -77,21 +79,20 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
     on<DeleteImageEvent>((event, emit) {
       final images = <String>[...state.images];
       final secondImage = <String>[...state.secondImage];
+
+      /// ctc imagelarni delete qiladi
       if (images.contains(event.imageUrl)) {
         final index = images.indexOf(event.imageUrl);
         images[index] = '';
-        print(' ev img$index == ${images[index]}');
       }
 
+      /// haydovchilik guvohnomasini deleted qiladi
       if (secondImage.contains(event.imageUrl)) {
-        final index = images.indexOf(event.imageUrl);
+        final index = secondImage.indexOf(event.imageUrl);
         secondImage[index] = '';
-        print(' ev sec$index == ${secondImage[index]}');
       }
 
       emit(state.copyWith(images: [...images], secondImage: [...secondImage]));
-      print(state.images);
-      print(state.secondImage);
     });
   }
 }
