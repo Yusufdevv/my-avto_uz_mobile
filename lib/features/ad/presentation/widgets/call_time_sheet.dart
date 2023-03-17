@@ -83,7 +83,7 @@ class _CallTimeSheetState extends State<CallTimeSheet> {
             ),
             const SizedBox(height: 27),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.only(left: 20),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
