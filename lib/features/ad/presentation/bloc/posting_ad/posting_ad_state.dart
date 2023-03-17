@@ -8,6 +8,7 @@ class PostingAdState extends Equatable {
   final FormzStatus createStatus;
   final FormzStatus getModificationStatus;
   final FormzStatus getLocationImage;
+
   final GlobalKey<FormState> contactsFormKey;
 
   final TextEditingController phoneController;
@@ -24,6 +25,7 @@ class PostingAdState extends Equatable {
   final List<EngineTypeEntity> engines;
   final MakeEntity? model;
   final List<MakeEntity> models;
+  final String? nextMakes;
   final MakeEntity? make;
   final List<MakeEntity> makes;
   final List<MakeEntity> topMakes;
@@ -106,6 +108,7 @@ class PostingAdState extends Equatable {
     this.gearBoxes = const <GearboxTypeEntity>[],
     this.driveTypeId,
     this.driveTypes = const <DriveTypeEntity>[],
+    this.nextMakes,
     this.make,
     this.makes = const <MakeEntity>[],
     this.engine,
@@ -202,6 +205,7 @@ class PostingAdState extends Equatable {
     List<GenerationEntity>? generations,
     BodyTypeEntity? bodyType,
     List<BodyTypeEntity>? bodyTypes,
+    String? nextMakes,
     MakeEntity? make,
     List<MakeEntity>? makes,
     List<RegionEntity>? regions,
@@ -309,6 +313,11 @@ class PostingAdState extends Equatable {
         hasAppBarShadow: hasAppBarShadow ?? this.hasAppBarShadow,
         isSortByLetter: isSortByLetter,
         model: model ?? this.model,
+        nextMakes: nextMakes == null
+            ? this.nextMakes
+            : nextMakes!.isEmpty
+                ? null
+                : nextMakes,
         make: make ?? this.make,
         letter: eventLetter,
         colorName: colorName ?? this.colorName,
@@ -348,6 +357,7 @@ class PostingAdState extends Equatable {
 
   @override
   List<Object?> get props => [
+        nextMakes,
         getLocationImage,
         lastEquipmentId,
         selectOptions,

@@ -2,6 +2,7 @@
 
 import 'dart:developer';
 
+import 'package:auto/features/ad/data/models/pagination/get_pagination_param_model.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
 import 'package:auto/features/ad/domain/usecases/get_top_makes.dart';
@@ -40,7 +41,7 @@ class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
     on<_GetIsCheck>((event, emit) => emit(state.copyWith(ischeck: true)));
 
     on<_GetMakes>((event, emit) async {
-       emit(state.copyWith(status: FormzStatus.submissionInProgress));
+      emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await useCase.call(state.search);
       if (result.isRight) {
         emit(
@@ -91,7 +92,7 @@ class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
     });
 
     on<_GetSerched>((event, emit) => emit(state.copyWith(
-        search: GetMakeParam(name: event.naem, limit: 1000, offset: 0))));
+        search: GetPaginationParam(name: event.naem, limit: 1000, offset: 0))));
 
     on<_SelectedCarItems>((event, emit) {
       emit(state.copyWith(
