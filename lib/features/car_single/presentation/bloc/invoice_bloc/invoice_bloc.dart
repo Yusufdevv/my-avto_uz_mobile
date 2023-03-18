@@ -119,9 +119,14 @@ class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
           : await MyFunctions.getPhotosPermission(Platform.isAndroid);
 
       if (permission.isGranted) {
-        if(event.index==0) {
+        if (event.index == 0) {
+          final media =
+              await picker.pickImage(source: event.source, imageQuality: 90);
+          if (media != null) {
+            emit(state.copyWith(media: media.path));
+          }
+        } else if (event.index == 1) {
           final media = await picker.pickVideo(source: event.source);
-
           if (media != null) {
             final thumbnailPath = await VideoThumbnail.thumbnailFile(
               video: media.path,
@@ -131,19 +136,13 @@ class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
             );
             emit(state.copyWith(media: thumbnailPath));
           }
-        } else if(event.index==1) {
-          final media =
-          await picker.pickImage(source: event.source, imageQuality: 90);
-          if (media != null) {
-            emit(state.copyWith(media: media.path));
-          }
-        } else if(event.index==2) {
+        } else if (event.index == 2) {
           final result = await FilePicker.platform.pickFiles(
             type: FileType.custom,
             allowedExtensions: ['mp4', 'jpg', 'jpeg', 'png'],
           );
           if (result != null) {
-            if(result.files.single.extension=='mp4') {
+            if (result.files.single.extension == 'mp4') {
               final thumbnailPath = await VideoThumbnail.thumbnailFile(
                 video: result.files.single.path ?? '',
                 imageFormat: ImageFormat.JPEG,
@@ -151,14 +150,12 @@ class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
                 quality: 25,
               );
 
-            emit(state.copyWith(media: thumbnailPath));
+              emit(state.copyWith(media: thumbnailPath));
             } else {
               emit(state.copyWith(media: result.files.single.path));
-
             }
           }
         }
-
       }
     });
 

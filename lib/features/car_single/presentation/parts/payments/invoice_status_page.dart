@@ -16,6 +16,7 @@ class InvoiceStatusPage extends StatefulWidget {
 }
 
 class _InvoiceStatusPageState extends State<InvoiceStatusPage>
+    // ignore: prefer_mixin
     with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {

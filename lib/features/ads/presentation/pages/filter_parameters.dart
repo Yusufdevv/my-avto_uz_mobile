@@ -1,7 +1,5 @@
 // ignore_for_file: avoid_bool_literals_in_conditional_expressions
 
-import 'dart:developer';
-
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
@@ -133,7 +131,7 @@ class _FilterParametersState extends State<FilterParameters> {
                       onTap: (v) {
                         filterBloc.add(FilterGetCurrencies(currency: v));
                       },
-                      selected: state.currency ?? Currency.uzs,
+                      selected: state.currency,
                     ),
                     const SizedBox(height: 16),
                     SelectorItem(

@@ -17,7 +17,7 @@ class CarInfoTile extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
-              flex: 3,
+              flex: 2,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -37,7 +37,7 @@ class CarInfoTile extends StatelessWidget {
               ),
             ),
             Expanded(
-              flex: 2,
+              flex: 1,
               child: Text(
                 ' $value',
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(

@@ -567,7 +567,7 @@
   "cannot_payment": "Toʻlov amalga oshmadi",
   "return_again": "Qayta urinib ko'rish",
   "back_to_ads": "E'longa qaytish",
-  "become_verified_owner": "Tasdiqlangan egaga aylaning",
+  "become_verifired_owner": "Tasdiqlangan egaga aylaning",
   "by_becoming_verified_owner_you": "Tasdiqlangan ega bo'lish orqali siz avtomobilingizni tezroq sotishingiz mumkin",
   "reapplication" : "Arizani qayta yuborish",
   "apply_app" : "Ariza yuborish",
@@ -583,11 +583,8 @@
   "i_this_service_when_" : "Ushbu xizmatda e'lon yangilanganda e'lon quyidagi muddatga davom etadi:",
   "extends_for_day": "{} kunga uzaytirish",
   "send_to_top_day": "{} kunga TOP-ga yuborish",
-  "reels_for_eternity": "Рильз на вечно",
   "vip_for_day": "{} kunga VIP",
   "top": "ТОП",
-  "reels": "Рильз",
-  "add_to_ways": "Добавить в полоса",
   "video": "Video"
 }
 

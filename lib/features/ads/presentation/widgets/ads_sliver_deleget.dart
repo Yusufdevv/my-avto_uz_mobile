@@ -99,7 +99,7 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                     ),
                   );
                   if (res is FilterState) {
-                    var historySaved = !(res.isFilter ?? false);
+                    var historySaved = !res.isFilter;
 
                     historySaved =
                         state.make?.id == null || state.make?.id == -1;

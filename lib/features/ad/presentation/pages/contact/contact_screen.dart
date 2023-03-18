@@ -105,7 +105,7 @@ class _ContactScreenState extends State<ContactScreen> {
       if (value is List) {
         widget.onCallTimeChanged(
             callTimeFrom: value![0].replaceAll(' ', ''),
-            callTimeTo: value![1].replaceAll(' ', ''),
+            callTimeTo: value[1].replaceAll(' ', ''),
             isCallTimed: true);
       } else {
         widget.onCallTimeChanged(isCallTimed: false);

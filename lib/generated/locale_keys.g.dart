@@ -591,6 +591,25 @@ abstract class  LocaleKeys {
   static const top = 'top';
   static const reels = 'reels';
   static const add_to_ways = 'add_to_ways';
-  static const video = 'video';
+  static const documents_checked = 'documents_checked';
+  static const i_want_to_be = 'i_want_to_be';
+  static const verified_ownerr = 'verified_ownerr';
+  static const get_verified_owner_status = 'get_verified_owner_status';
+  static const application_for_verified_owner = 'application_for_verified_owner';
+  static const not_approved = 'not_approved';
+  static const repeat_application = 'repeat_application';
+  static const take_a_picture_of_the_STS_car_from = 'take_a_picture_of_the_STS_car_from';
+  static const front_side = 'front_side';
+  static const back_side = 'back_side';
+  static const take_a_picture_of_the_drivers_license = 'take_a_picture_of_the_drivers_license';
+  static const additional_information = 'additional_information';
+  static const write_information_for_the_moderator = 'write_information_for_the_moderator';
+  static const take_photo = 'take_photo';
+  static const take_video = 'take_video';
+  static const choose_from_gallery = 'choose_from_gallery';
+  static const add_foto_video = 'add_foto_video';
+  static const you_currently_do_not_have_an_ad = 'you_currently_do_not_have_an_ad';
+  static const in_the_VIP_service_you_will = 'in_the_VIP_service_you_will';
+  static const this_payment_system_is_currently_unavailable = 'this_payment_system_is_currently_unavailable';
 
 }

@@ -18,14 +18,14 @@ class VideoCameraBtsht extends StatefulWidget {
 
 class VideoCameraBtshtState extends State<VideoCameraBtsht> {
   List<String> titleList = [
-    LocaleKeys.camera,
-    LocaleKeys.choose_photo,
-    'Galerayadan image yoki video tanlash'
+    LocaleKeys.take_photo,
+    LocaleKeys.take_video,
+    LocaleKeys.choose_from_gallery,
   ];
   List<String> img = [
     AppIcons.camera,
-    AppIcons.photo,
-    AppIcons.photo,
+    AppIcons.videoPlus,
+    AppIcons.gallery,
   ];
   List<ImageSource> sources = [
     ImageSource.camera,

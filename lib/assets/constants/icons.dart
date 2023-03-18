@@ -285,4 +285,5 @@ class AppIcons {
   static const carFromRight = 'assets/icons/global/car_from_right.svg';
   static const carFromBack = 'assets/icons/global/car_from_back.svg';
   static const carFromFront = 'assets/icons/global/car_from_front.svg';
+  static const videoPlus = 'assets/icons/global/video_plus.svg';
 }

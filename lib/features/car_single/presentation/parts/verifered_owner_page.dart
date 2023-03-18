@@ -123,7 +123,8 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                               width: 120,
                             ),
                             Text(
-                              'Выша заявка отклонена!',
+                              LocaleKeys.your_application_has_been_rejected
+                                  .tr(),
                               style: Theme.of(context)
                                   .textTheme
                                   .displayLarge!
@@ -131,7 +132,7 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              'Попробуйте повторно отправить заявку ',
+                              LocaleKeys.try_to_resubmit_the_application.tr(),
                               textAlign: TextAlign.center,
                               style: Theme.of(context)
                                   .textTheme
@@ -166,10 +167,10 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                             backgroundColor: Colors.transparent,
                                             isScrollControlled: true,
                                             context: context,
-                                            builder: (context) =>
-                                                const ClueBtsht(
-                                                  title:
-                                                      'Сфотографируйте СТС машины с обоих сторон по подсказкам в хорошем качестве что-бы модератор мог рассмотреть все детали',
+                                            builder: (context) => ClueBtsht(
+                                                  title: LocaleKeys
+                                                      .take_a_picture_of_the_STS_car_from
+                                                      .tr(),
                                                 ));
                                       },
                                       behavior: HitTestBehavior.opaque,
@@ -189,7 +190,7 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                     width: (MediaQuery.of(context).size.width /
                                             2) -
                                         24,
-                                    title: 'передняя сторона',
+                                    title: LocaleKeys.front_side.tr(),
                                     images: state.images[0],
                                     onTap: () async {
                                       await showModalBottomSheet<ImageSource>(
@@ -218,7 +219,7 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                     width: (MediaQuery.of(context).size.width /
                                             2) -
                                         24,
-                                    title: 'задняя сторона',
+                                    title: LocaleKeys.back_side.tr(),
                                     images: state.images[1],
                                     onTap: () async {
                                       await showModalBottomSheet<ImageSource>(
@@ -264,10 +265,10 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                             backgroundColor: Colors.transparent,
                                             isScrollControlled: true,
                                             context: context,
-                                            builder: (context) =>
-                                                const ClueBtsht(
-                                                  title:
-                                                      'Сфотографируйте Водительское удостоверение машины с обоих сторон по подсказкам в хорошем качестве что-бы модератор мог рассмотреть все детали',
+                                            builder: (context) => ClueBtsht(
+                                                  title: LocaleKeys
+                                                      .take_a_picture_of_the_drivers_license
+                                                      .tr(),
                                                 ));
                                       },
                                       behavior: HitTestBehavior.opaque,
@@ -287,7 +288,7 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                     width: (MediaQuery.of(context).size.width /
                                             2) -
                                         24,
-                                    title: 'передняя сторона',
+                                    title: LocaleKeys.front_side.tr(),
                                     images: state.secondImage[0],
                                     onTap: () async {
                                       await showModalBottomSheet<ImageSource>(
@@ -316,7 +317,7 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                     width: (MediaQuery.of(context).size.width /
                                             2) -
                                         24,
-                                    title: 'задняя сторона',
+                                    title: LocaleKeys.back_side.tr(),
                                     images: state.secondImage[1],
                                     onTap: () async {
                                       await showModalBottomSheet<ImageSource>(
@@ -346,7 +347,7 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 16),
                               child: Text(
-                                'Дополнительная информация',
+                                LocaleKeys.additional_information.tr(),
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleMedium!
@@ -358,7 +359,9 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                   const EdgeInsets.all(16).copyWith(top: 8),
                               child: WTextField(
                                 onChanged: (value) {},
-                                hintText: 'Напишите информацию для модератора',
+                                hintText: LocaleKeys
+                                    .write_information_for_the_moderator
+                                    .tr(),
                                 disabledBorderColor: Theme.of(context)
                                     .extension<ThemedColors>()!
                                     .transparentToNightRider,
@@ -413,7 +416,9 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Text(
-                                      'Выша заявка принята!',
+                                      LocaleKeys
+                                          .your_application_has_been_accepted
+                                          .tr(),
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleMedium
@@ -422,7 +427,9 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                               color: const Color(0xFFFFC137)),
                                     ),
                                     Text(
-                                      'Ждите подтверждения модерации',
+                                      LocaleKeys
+                                          .wait_for_moderation_confirmation
+                                          .tr(),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: Theme.of(context)
@@ -454,7 +461,7 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                     state.secondImage[1].isEmpty,
                                 disabledColor: disabledButton,
                                 text: stateOwner.isDeleted
-                                    ? 'Повторить заявку'
+                                    ? LocaleKeys.repeat_application.tr()
                                     : LocaleKeys.apply_app.tr(),
                                 color: orange,
                                 onTap: () {
@@ -488,7 +495,7 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                               WButton(
                                 isLoading:
                                     stateOwner.status.isSubmissionInProgress,
-                                text: 'Повторить заявку',
+                                text: LocaleKeys.repeat_application.tr(),
                                 color: orange,
                                 onTap: () {
                                   if (stateOwner.isDeleted) {

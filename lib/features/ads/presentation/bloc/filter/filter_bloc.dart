@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
@@ -100,10 +99,10 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
       usdIfos: usd,
       uzsIfos: uzs,
       currency: event.currency,
-      minPriceValue: priceV?.start,
-      maxPriceValue: priceV?.end,
-      maxYearValue: yearV?.end,
-      minYearValue: yearV?.start,
+      minPriceValue: priceV.start,
+      maxPriceValue: priceV.end,
+      maxYearValue: yearV.end,
+      minYearValue: yearV.start,
       priceValues: event.priceValuesIsNull ? priceV : null,
       yearValues: event.yearValuesIsNull ? yearV : null,
     ));
