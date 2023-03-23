@@ -586,10 +586,11 @@ abstract class  LocaleKeys {
   static const i_this_service_when_ = 'i_this_service_when_';
   static const extends_for_day = 'extends_for_day';
   static const send_to_top_day = 'send_to_top_day';
-  static const reels_for_eternity = 'reels_for_eternity';
   static const vip_for_day = 'vip_for_day';
   static const top = 'top';
+  static const video = 'video';
   static const reels = 'reels';
+  static const reels_for_eternity = 'reels_for_eternity';
   static const add_to_ways = 'add_to_ways';
   static const documents_checked = 'documents_checked';
   static const i_want_to_be = 'i_want_to_be';

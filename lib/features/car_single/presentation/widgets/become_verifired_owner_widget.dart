@@ -48,53 +48,58 @@ class BecomeVerifiredOwnerWidget extends StatelessWidget {
                           VerifiredOwnerPage(announcementId: announcementId)));
             },
             child: Container(
-              padding: const EdgeInsets.only(
-                  right: 10, left: 16, top: 8, bottom: 16),
               margin: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 color: black,
-                border: Border.all(color: border),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
+              child: Stack(
                 children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                  Container(
+                    padding:
+                        const EdgeInsets.only(left: 16, top: 8, bottom: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const SizedBox(height: 8),
-                        Text.rich(TextSpan(children: [
-                          TextSpan(
-                            text: LocaleKeys.i_want_to_be.tr(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayLarge!
-                                .copyWith(fontSize: 18, color: white),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(height: 8),
+                              Text.rich(TextSpan(children: [
+                                TextSpan(
+                                  text: LocaleKeys.i_want_to_be.tr(),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayLarge!
+                                      .copyWith(fontSize: 18, color: white),
+                                ),
+                                TextSpan(
+                                  text: LocaleKeys.verified_ownerr.tr(),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayLarge!
+                                      .copyWith(fontSize: 18, color: orange),
+                                )
+                              ])),
+                              const SizedBox(height: 8),
+                              Text(
+                                LocaleKeys.get_verified_owner_status.tr(),
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
+                              ),
+                            ],
                           ),
-                          TextSpan(
-                            text: LocaleKeys.verified_ownerr.tr(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayLarge!
-                                .copyWith(fontSize: 18, color: orange),
-                          )
-                        ])),
-                        const SizedBox(height: 8),
-                        Text(
-                          LocaleKeys.get_verified_owner_status.tr(),
-                          style: Theme.of(context).textTheme.displayMedium,
                         ),
+                        const SizedBox(height: 96, width: 96)
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: 96,
-                    width: 96,
-                    child: Image.asset(
-                      AppImages.avtoUzHand2
-                    ),
+                  Positioned(
+                    right: -30,
+                    top: 17,
+                    child: Image.asset(AppImages.avtoUzHand2, height: 122),
                   )
                 ],
               ),
