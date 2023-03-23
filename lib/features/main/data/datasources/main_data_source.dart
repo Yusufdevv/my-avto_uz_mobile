@@ -1,3 +1,4 @@
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
@@ -25,7 +26,7 @@ class MainDataSource {
           },
           options: Options(
             headers: {
-              'Authorization': 'Bearer ${StorageRepository.getString('token')}',
+              'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
             },
           ));
       return GenericPagination.fromJson(result.data,
@@ -41,7 +42,7 @@ class MainDataSource {
       final result = await dio.get('stories/item/$itemId/read/',
           options: Options(
             headers: {
-              'Authorization': 'Bearer ${StorageRepository.getString('token')}',
+              'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
             },
           ));
       return result;

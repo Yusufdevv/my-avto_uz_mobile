@@ -1,3 +1,4 @@
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/dealers/data/models/cars_in_marks_model.dart';
@@ -11,12 +12,13 @@ class CarsInMarksDataSource {
 
   Future<GenericPagination<CarsInMarksModel>> getCars(
       {required CarMarkParams params}) async {
-
     try {
       final results = await _dio.get(
-       params.next ?? 'users/dealers/${params.dealer}/mark/${params.mark}/cars/',
+        params.next ??
+            'users/dealers/${params.dealer}/mark/${params.mark}/cars/',
         options: Options(headers: {
-          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          'Authorization':
+              'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
         }),
       );
 

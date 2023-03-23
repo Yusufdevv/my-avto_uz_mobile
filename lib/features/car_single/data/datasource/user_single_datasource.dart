@@ -1,3 +1,4 @@
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
@@ -10,13 +11,16 @@ import 'package:dio/dio.dart';
 abstract class UserSingleDataSource {
   Future<UserSingleEntity> getUserSingle(
       {required int userId, required int announcementId});
+
   Future<GenericPagination<AnnouncementListModel>> getUserAds(
       {required int userId});
 }
 
 class UserSingleDataSourceImpl extends UserSingleDataSource {
   final Dio _dio = serviceLocator<DioSettings>().dio;
+
   UserSingleDataSourceImpl();
+
   @override
   Future<UserSingleEntity> getUserSingle(
       {required int userId, required int announcementId}) async {
@@ -25,7 +29,8 @@ class UserSingleDataSourceImpl extends UserSingleDataSource {
         'car/announcement/owner-detail/',
         data: {'user': userId, 'announcement': announcementId},
         options: Options(headers: {
-          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          'Authorization':
+              'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
         }),
       );
 
@@ -52,7 +57,7 @@ class UserSingleDataSourceImpl extends UserSingleDataSource {
       final results = await _dio.get(
         '/car/announcement/owner/$userId/',
         options: Options(headers: {
-          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
         }),
       );
 

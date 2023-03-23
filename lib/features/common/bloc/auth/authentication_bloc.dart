@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/domain/model/user.dart';
@@ -17,9 +18,15 @@ part 'authentication_event.dart';
 
 part 'authentication_state.dart';
 
-enum AuthenticationStatus { authenticated, unauthenticated, loading, cancelLoading }
+enum AuthenticationStatus {
+  authenticated,
+  unauthenticated,
+  loading,
+  cancelLoading
+}
 
-class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
+class AuthenticationBloc
+    extends Bloc<AuthenticationEvent, AuthenticationState> {
   final AuthRepository repository = AuthRepository();
   late StreamSubscription<AuthenticationStatus> statusSubscription;
 
@@ -33,9 +40,11 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
         final accessToken = result.accessToken!;
         log('object: ${accessToken.token}');
         emit(AuthenticationState.loading());
-        final authResult = await repository.loginWithFacebook(authToken: accessToken.token, code: '');
+        final authResult = await repository.loginWithFacebook(
+            authToken: accessToken.token, code: '');
         if (authResult.isRight) {
-          add(AuthenticationStatusChanged(status: AuthenticationStatus.authenticated));
+          add(AuthenticationStatusChanged(
+              status: AuthenticationStatus.authenticated));
         } else {
           emit(AuthenticationState.cancelLoading());
         }
@@ -53,7 +62,8 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
           ],
           webAuthenticationOptions: Platform.isAndroid
               ? WebAuthenticationOptions(
-                  clientId: 'org.uicgroup.avto.uz.client', redirectUri: Uri.parse('https://avto.uz/login'))
+                  clientId: 'org.uicgroup.avto.uz.client',
+                  redirectUri: Uri.parse('https://avto.uz/login'))
               : null);
 
       log(credential.toString());
@@ -64,9 +74,11 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       log(credential.toString());
       emit(AuthenticationState.loading());
       final result = await repository.loginWithApple(
-          authToken: credential.identityToken ?? '', code: credential.authorizationCode);
+          authToken: credential.identityToken ?? '',
+          code: credential.authorizationCode);
       if (result.isRight) {
-        add(AuthenticationStatusChanged(status: AuthenticationStatus.authenticated));
+        add(AuthenticationStatusChanged(
+            status: AuthenticationStatus.authenticated));
       } else {
         emit(AuthenticationState.cancelLoading());
       }
@@ -90,7 +102,8 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
             code: googleResult.serverAuthCode ?? '',
           );
           if (result.isRight) {
-            add(AuthenticationStatusChanged(status: AuthenticationStatus.authenticated));
+            add(AuthenticationStatusChanged(
+                status: AuthenticationStatus.authenticated));
           } else {
             emit(AuthenticationState.cancelLoading());
           }
@@ -121,9 +134,11 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
 
     on<LoginUser>((event, emit) async {
       emit(AuthenticationState.loading());
-      final result = await repository.login(login: event.userName, password: event.password);
+      final result = await repository.login(
+          login: event.userName, password: event.password);
       if (result.isRight) {
-        add(AuthenticationStatusChanged(status: AuthenticationStatus.authenticated));
+        add(AuthenticationStatusChanged(
+            status: AuthenticationStatus.authenticated));
       } else {
         if (event.onError != null) {
           event.onError!((result.left as ServerFailure).errorMessage);
@@ -133,24 +148,30 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     });
 
     on<CheckUser>((event, emit) async {
-      final hasToken = StorageRepository.getString('token', defValue: '').isNotEmpty;
+      final hasToken =
+          StorageRepository.getString(StorageKeys.TOKEN, defValue: '')
+              .isNotEmpty;
       if (hasToken) {
         final response = await repository.getUser();
         if (response.isRight) {
-          add(AuthenticationStatusChanged(status: AuthenticationStatus.authenticated));
+          add(AuthenticationStatusChanged(
+              status: AuthenticationStatus.authenticated));
         } else {
           add(RefreshToken());
         }
       } else {
-        add(AuthenticationStatusChanged(status: AuthenticationStatus.unauthenticated));
+        add(AuthenticationStatusChanged(
+            status: AuthenticationStatus.unauthenticated));
       }
     });
     on<RefreshToken>((event, emit) async {
       final result = await repository.refreshToken();
       if (result.isRight) {
-        add(AuthenticationStatusChanged(status: AuthenticationStatus.authenticated));
+        add(AuthenticationStatusChanged(
+            status: AuthenticationStatus.authenticated));
       } else {
-        add(AuthenticationStatusChanged(status: AuthenticationStatus.unauthenticated));
+        add(AuthenticationStatusChanged(
+            status: AuthenticationStatus.unauthenticated));
       }
     });
 

@@ -1,3 +1,4 @@
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/domain/model/type_model.dart';
@@ -19,10 +20,10 @@ class MapDatasourceImpl extends MapDatasource {
     try {
       final response = await _dio.get('/users/dealers/',
           options: Options(
-              headers: StorageRepository.getString('token').isNotEmpty
+              headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
                   ? {
                       'Authorization':
-                          'Token ${StorageRepository.getString('token')}'
+                          'Token ${StorageRepository.getString(StorageKeys.TOKEN)}'
                     }
                   : {}));
       if (response.statusCode! >= 200 && response.statusCode! < 300) {

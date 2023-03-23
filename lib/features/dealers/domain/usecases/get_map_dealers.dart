@@ -1,3 +1,4 @@
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/core/usecases/usecase.dart';
@@ -28,6 +29,6 @@ class GetMapDealersUseCase extends UseCase<List<MapModel>, String> {
         fromJson: MapModel.fromJson,
         query: query,
         responseDataKey: 'results',
-        sendToken: StorageRepository.getString('token').isNotEmpty);
+        sendToken: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty);
   }
 }

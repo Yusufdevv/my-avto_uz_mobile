@@ -1,3 +1,4 @@
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
@@ -12,7 +13,7 @@ class RegisterLeaseDataSource {
 
   Future<RegisterLeaseModel> register(
       {required RegisterLeaseEntity params}) async {
-    final token = StorageRepository.getString('token');
+    final token = StorageRepository.getString(StorageKeys.TOKEN);
     try {
       final results = await _dio.post('/rent/order/',
           data: params.toApi(),
