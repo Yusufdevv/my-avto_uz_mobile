@@ -22,9 +22,14 @@ import 'package:formz/formz.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ServiceTopPage extends StatefulWidget {
-  const ServiceTopPage({required this.announcementId, Key? key})
-      : super(key: key);
+  const ServiceTopPage({
+    required this.announcementId,
+    required this.date,
+    Key? key,
+  }) : super(key: key);
+
   final int announcementId;
+  final DateTime date;
 
   @override
   State<ServiceTopPage> createState() => _ServiceTopPageState();
@@ -121,12 +126,16 @@ class _ServiceTopPageState extends State<ServiceTopPage> {
                                   valueListenable: tarifValue,
                                   builder: (context, value, child) {
                                     final item = state.tarifs[tarifValue.value];
+                                    final date = widget.date
+                                        .add(Duration(days: item.typeInt));
+
                                     return TarifItem(
+                                        serviceTitle: LocaleKeys.top.tr(),
                                         amount: item.amount.toString(),
-                                        type: LocaleKeys.send_to_top_day.tr(
+                                        type: LocaleKeys.for_day.tr(
                                             args: [item.typeInt.toString()]),
                                         id: item.id,
-                                        date: '');
+                                        date: DateFormat('dd.MM.y').format(date));
                                   }),
                               const SizedBox(height: 16),
                               Column(

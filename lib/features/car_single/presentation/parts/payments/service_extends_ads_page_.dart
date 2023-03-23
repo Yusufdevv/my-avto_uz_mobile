@@ -22,9 +22,13 @@ import 'package:formz/formz.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ServiceExtendsAdsPage extends StatefulWidget {
-  const ServiceExtendsAdsPage({required this.announcementId, Key? key})
-      : super(key: key);
+  const ServiceExtendsAdsPage({
+    required this.announcementId,
+    required this.date,
+    Key? key,
+  }) : super(key: key);
   final int announcementId;
+  final DateTime date;
 
   @override
   State<ServiceExtendsAdsPage> createState() => _ServiceExtendsAdsPageState();
@@ -86,7 +90,8 @@ class _ServiceExtendsAdsPageState extends State<ServiceExtendsAdsPage> {
                                     .textTheme
                                     .titleMedium
                                     ?.copyWith(
-                                        color: LightThemeColors.darkGreyToWhite),
+                                        color:
+                                            LightThemeColors.darkGreyToWhite),
                               ),
                               const SizedBox(height: 16),
                               ...List.generate(state.tarifs.length, (index) {
@@ -120,12 +125,15 @@ class _ServiceExtendsAdsPageState extends State<ServiceExtendsAdsPage> {
                                   valueListenable: tarifValue,
                                   builder: (context, value, child) {
                                     final item = state.tarifs[tarifValue.value];
+                                    final date = widget.date.add(Duration(days: item.typeInt));
                                     return TarifItem(
+                                        serviceTitle:
+                                            LocaleKeys.extends_adss.tr(),
                                         amount: item.amount.toString(),
-                                        type: LocaleKeys.extends_for_day
-                                            .tr(args: [item.typeInt.toString()]),
+                                        type: LocaleKeys.for_day.tr(
+                                            args: [item.typeInt.toString()]),
                                         id: item.id,
-                                        date: '');
+                                        date: DateFormat('dd.MM.y').format(date));
                                   }),
                               const SizedBox(height: 16),
                               Column(
@@ -163,10 +171,12 @@ class _ServiceExtendsAdsPageState extends State<ServiceExtendsAdsPage> {
                                                 },
                                                 value: index,
                                                 groupValue: paymentValue.value,
-                                                color: paymentValue.value == index
-                                                    ? lavanda
-                                                    : borderCircular,
-                                                iconPath: iconPathProviders.values
+                                                color:
+                                                    paymentValue.value == index
+                                                        ? lavanda
+                                                        : borderCircular,
+                                                iconPath: iconPathProviders
+                                                    .values
                                                     .toList()[index],
                                                 borderColor:
                                                     paymentValue.value == index
@@ -196,7 +206,8 @@ class _ServiceExtendsAdsPageState extends State<ServiceExtendsAdsPage> {
                                 'provider': iconPathProviders.keys
                                     .toList()[paymentValue.value],
                                 'redirect_url': '/',
-                                'tariff_type': state.tarifs[tarifValue.value].type
+                                'tariff_type':
+                                    state.tarifs[tarifValue.value].type
                               },
                               announcement: widget.announcementId,
                               onSucces: (paymentUrl) async {
@@ -204,7 +215,8 @@ class _ServiceExtendsAdsPageState extends State<ServiceExtendsAdsPage> {
                                   Uri.parse(paymentUrl),
                                   mode: LaunchMode.externalApplication,
                                 )) {
-                                  throw Exception('Could not launch $paymentUrl');
+                                  throw Exception(
+                                      'Could not launch $paymentUrl');
                                 }
                                 await Navigator.push(
                                   context,

@@ -25,9 +25,13 @@ import 'package:formz/formz.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ServiceVipPage extends StatefulWidget {
-  const ServiceVipPage({required this.announcementId, Key? key})
-      : super(key: key);
+  const ServiceVipPage({
+    required this.announcementId,
+    required this.date,
+    Key? key,
+  }) : super(key: key);
   final int announcementId;
+  final DateTime date;
 
   @override
   State<ServiceVipPage> createState() => _ServiceVipPageState();
@@ -90,7 +94,8 @@ class _ServiceVipPageState extends State<ServiceVipPage> {
                                             .displayLarge),
                                     const SizedBox(height: 8),
                                     Text(
-                                      LocaleKeys.in_the_VIP_service_you_will.tr(),
+                                      LocaleKeys.in_the_VIP_service_you_will
+                                          .tr(),
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleMedium
@@ -111,15 +116,17 @@ class _ServiceVipPageState extends State<ServiceVipPage> {
                                                 InvoiceTarifItem(
                                                   tarifDay:
                                                       item.typeInt.toString(),
-                                                  amount: item.amount.toString(),
+                                                  amount:
+                                                      item.amount.toString(),
                                                   dayColor:
                                                       tarifValue.value == index
                                                           ? null
                                                           : greyText,
                                                   value: index,
-                                                  color: tarifValue.value == index
-                                                      ? lavanda
-                                                      : white,
+                                                  color:
+                                                      tarifValue.value == index
+                                                          ? lavanda
+                                                          : white,
                                                   groupValue: tarifValue.value,
                                                   onTap: (val) {
                                                     tarifValue.value = val;
@@ -148,7 +155,8 @@ class _ServiceVipPageState extends State<ServiceVipPage> {
                                     ),
                                     const SizedBox(height: 6),
                                     Text(
-                                      LocaleKeys.you_currently_do_not_have_an_ad.tr(),
+                                      LocaleKeys.you_currently_do_not_have_an_ad
+                                          .tr(),
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleMedium
@@ -203,11 +211,17 @@ class _ServiceVipPageState extends State<ServiceVipPage> {
                                         builder: (context, value, child) {
                                           final item =
                                               state.tarifs[tarifValue.value];
+                                          final date = widget.date.add(Duration(days: item.typeInt));
                                           return TarifItem(
+                                              serviceTitle: 'VIP',
                                               amount: item.amount.toString(),
-                                              type: item.typeInt.toString(),
+                                              type: LocaleKeys.for_day.tr(
+                                                  args: [
+                                                    item.typeInt.toString()
+                                                  ]),
                                               id: item.id,
-                                              date: '');
+                                              date: DateFormat('dd.MM.y').format(date),
+                                          );
                                         }),
                                     const SizedBox(height: 16),
                                     Column(
@@ -235,20 +249,31 @@ class _ServiceVipPageState extends State<ServiceVipPage> {
                                                     SelectPaymentItem(
                                                       onTap: (val) {
                                                         // paymentValue.value = val;
-                                                            if(val!=0) {
-                                                              context.read<ShowPopUpBloc>().add(ShowPopUp(message: LocaleKeys.this_payment_system_is_currently_unavailable.tr(), status: PopStatus.warning));
-                                                            }
+                                                        if (val != 0) {
+                                                          context
+                                                              .read<
+                                                                  ShowPopUpBloc>()
+                                                              .add(ShowPopUp(
+                                                                  message:
+                                                                      LocaleKeys
+                                                                          .this_payment_system_is_currently_unavailable
+                                                                          .tr(),
+                                                                  status: PopStatus
+                                                                      .warning));
+                                                        }
                                                       },
                                                       value: index,
                                                       groupValue:
                                                           paymentValue.value,
-                                                      color: paymentValue.value ==
-                                                              index
-                                                          ? lavanda
-                                                          : borderCircular,
-                                                      iconPath: iconPathProviders
-                                                          .values
-                                                          .toList()[index],
+                                                      color:
+                                                          paymentValue.value ==
+                                                                  index
+                                                              ? lavanda
+                                                              : borderCircular,
+                                                      iconPath:
+                                                          iconPathProviders
+                                                              .values
+                                                              .toList()[index],
                                                       borderColor:
                                                           paymentValue.value ==
                                                                   index
@@ -292,7 +317,8 @@ class _ServiceVipPageState extends State<ServiceVipPage> {
                                   Uri.parse(paymentUrl),
                                   mode: LaunchMode.externalApplication,
                                 )) {
-                                  throw Exception('Could not launch $paymentUrl');
+                                  throw Exception(
+                                      'Could not launch $paymentUrl');
                                 }
                                 await Navigator.push(
                                   context,

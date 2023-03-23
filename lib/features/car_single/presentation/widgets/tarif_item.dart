@@ -9,12 +9,14 @@ class TarifItem extends StatelessWidget {
   final String type;
   final int id;
   final String date;
+  final String serviceTitle;
 
   const TarifItem({
     required this.amount,
     required this.type,
     required this.id,
     required this.date,
+    required this.serviceTitle,
     super.key});
 
   @override
@@ -31,7 +33,7 @@ class TarifItem extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  type,
+                  serviceTitle,
                   style: Theme
                       .of(context)
                       .textTheme
@@ -50,6 +52,36 @@ class TarifItem extends StatelessWidget {
             ),
           ),
          const Divider(
+            color: dividerColor,
+            height: 1,
+            endIndent: 12,
+            indent: 12,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+                top: 10, right: 12, bottom: 12, left: 12),
+            child: Row(
+              children: [
+                Text(
+                  LocaleKeys.duration_service.tr(),
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .displayMedium,
+                ),
+                const Spacer(),
+                Text(
+                  type,
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .displayLarge!
+                      .copyWith(fontSize: 14),
+                ),
+              ],
+            ),
+          ),
+          const Divider(
             color: dividerColor,
             height: 1,
             endIndent: 12,

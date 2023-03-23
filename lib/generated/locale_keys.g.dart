@@ -612,5 +612,9 @@ abstract class  LocaleKeys {
   static const you_currently_do_not_have_an_ad = 'you_currently_do_not_have_an_ad';
   static const in_the_VIP_service_you_will = 'in_the_VIP_service_you_will';
   static const this_payment_system_is_currently_unavailable = 'this_payment_system_is_currently_unavailable';
+  static const extends_adss = 'extends_adss';
+  static const for_day = 'for_day';
+  static const duration_service = 'duration_service';
+  static const extends_again_for_day = 'extends_again_for_day';
 
 }

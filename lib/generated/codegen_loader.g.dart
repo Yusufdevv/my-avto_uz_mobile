@@ -625,7 +625,11 @@ class CodegenLoader extends AssetLoader{
   "add_foto_video": "добавить\nфото/видео",
   "you_currently_do_not_have_an_ad": "В текущее время у вас нету объявление в полосе. В услуге добавить полоса вы можете загрузить изображение или видео",
   "in_the_VIP_service_you_will": "В услуге VIP, вы Продлите и поднимете в ТОП свое объявление",
-  "this_payment_system_is_currently_unavailable": "Эта платежная система в настоящее время недоступна"
+  "this_payment_system_is_currently_unavailable": "Эта платежная система в настоящее время недоступна",
+  "extends_adss": "Продлить объявление",
+  "for_day": "{} дней",
+  "duration_service": "Длительность",
+  "extends_again_for_day": "Продлить еще на 15 дней"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -1237,7 +1241,11 @@ static const Map<String,dynamic> uz = {
   "add_foto_video": "добавить\nфото/видео",
   "you_currently_do_not_have_an_ad": "В текущее время у вас нету объявление в полосе. В услуге добавить полоса вы можете загрузить изображение или видео",
   "in_the_VIP_service_you_will": "В услуге VIP, вы Продлите и поднимете в ТОП свое объявление",
-  "this_payment_system_is_currently_unavailable": "Эта платежная система в настоящее время недоступна"
+  "this_payment_system_is_currently_unavailable": "Эта платежная система в настоящее время недоступна",
+  "extends_adss": "E'lonni uzaytirish",
+  "for_day": "{} kun",
+  "duration_service": "Davomiyligi",
+  "extends_again_for_day": "Yana 15 kunga uzaytirish"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }

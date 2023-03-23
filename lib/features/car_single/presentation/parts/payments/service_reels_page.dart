@@ -126,8 +126,9 @@ class _ServiceReelsPageState extends State<ServiceReelsPage> {
                                   builder: (context, value, child) {
                                     final item = state.tarifs[tarifValue.value];
                                     return TarifItem(
+                                      serviceTitle: LocaleKeys.add_to_ways.tr(),
                                         amount: item.amount.toString(),
-                                        type: LocaleKeys.reels_for_eternity.tr(),
+                                        type:'-',
                                         id: item.id,
                                         date: '');
                                   }),

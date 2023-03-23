@@ -89,7 +89,7 @@ class BottomItem extends StatelessWidget {
               textColor: Colors.white,
               child: isMine
                   ? const Center(
-                      child: Text('Продлить еще на 12 дней'),
+                      child: Text('Продлить еще на 7 дней'),
                     )
                   : Row(
                       children: [

@@ -279,7 +279,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                               callToNumber: state.singleEntity.callCount,
                               daysLeft: state.singleEntity.expiredAt != '' &&
                                       state.singleEntity.publishedAt != ''
-                                  ? '${DateTime.parse(state.singleEntity.expiredAt).difference(DateTime.parse(state.singleEntity.publishedAt)).inDays + 1}'
+                                  ? '${DateTime.parse(state.singleEntity.expiredAt).difference(DateTime.now()).inDays + 1}'
                                   : LocaleKeys.what_was_ordered.tr(),
                               compareId: state.singleEntity.id,
                               isCompared: state.singleEntity.isComparison,
