@@ -37,6 +37,8 @@ class SliverAppBarItem extends StatefulWidget {
   final bool isMine;
   final bool isCompare;
   final String moderationStatus;
+  final bool isExpired;
+  final String expiredDate;
 
   const SliverAppBarItem({
     required this.brightness,
@@ -57,6 +59,8 @@ class SliverAppBarItem extends StatefulWidget {
     required this.status,
     required this.onSold,
     required this.isCompare,
+    required this.isExpired,
+    required this.expiredDate,
     this.moderationStatus = 'active',
     Key? key,
   }) : super(key: key);
@@ -154,54 +158,58 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                       initialLike: isLiked!,
                     ),
             ),
-            if(widget.moderationStatus==ModerationStatusEnum.active.value || widget.moderationStatus== ModerationStatusEnum.in_moderation.value)
-            WScaleAnimation(
-              child: SvgPicture.asset(
-                AppIcons.moreVertical,
-                width: 36,
-                height: 36,
-                color: widget.iconColor,
+            if (widget.moderationStatus == ModerationStatusEnum.active.value ||
+                widget.moderationStatus ==
+                    ModerationStatusEnum.in_moderation.value)
+              WScaleAnimation(
+                child: SvgPicture.asset(
+                  AppIcons.moreVertical,
+                  width: 36,
+                  height: 36,
+                  color: widget.iconColor,
+                ),
+                onTap: () {
+                  showModalBottomSheet(
+                    useRootNavigator: true,
+                    backgroundColor: Colors.transparent,
+                    isScrollControlled: true,
+                    context: context,
+                    builder: (context) => widget.isMine
+                        ? MineMoreBottomSheet(
+                            expiredDate: widget.expiredDate,
+                            isExpired: widget.isExpired,
+                            moderationStatus: widget.moderationStatus,
+                            name: widget.dealerName,
+                            position: widget.position,
+                            image: widget.avatar ?? '',
+                            onShare: () {
+                              Share.share(
+                                widget.shareUrl,
+                              );
+                            },
+                            id: widget.id,
+                            status: widget.status,
+                            onSold: widget.onSold,
+                          )
+                        : MoreActionsBottomsheet(
+                            name: widget.dealerName,
+                            position: widget.position == 'owner'
+                                ? LocaleKeys.private_person.tr()
+                                : LocaleKeys.autosalon.tr(),
+                            image: widget.avatar ?? '',
+                            onShare: () {
+                              Share.share(
+                                widget.shareUrl,
+                              );
+                            },
+                            onCompare: widget.onCompare,
+                            onDealer: widget.onDealer,
+                            id: widget.id,
+                            isCompare: widget.isCompare,
+                          ),
+                  );
+                },
               ),
-              onTap: () {
-                showModalBottomSheet(
-                  useRootNavigator: true,
-                  backgroundColor: Colors.transparent,
-                  isScrollControlled: true,
-                  context: context,
-                  builder: (context) => widget.isMine
-                      ? MineMoreBottomSheet(
-                          moderationStatus: widget.moderationStatus,
-                          name: widget.dealerName,
-                          position: widget.position,
-                          image: widget.avatar ?? '',
-                          onShare: () {
-                            Share.share(
-                              widget.shareUrl,
-                            );
-                          },
-                          id: widget.id,
-                          status: widget.status,
-                          onSold: widget.onSold,
-                        )
-                      : MoreActionsBottomsheet(
-                          name: widget.dealerName,
-                          position: widget.position == 'owner'
-                              ? LocaleKeys.private_person.tr()
-                              : LocaleKeys.autosalon.tr(),
-                          image: widget.avatar ?? '',
-                          onShare: () {
-                            Share.share(
-                              widget.shareUrl,
-                            );
-                          },
-                          onCompare: widget.onCompare,
-                          onDealer: widget.onDealer,
-                          id: widget.id,
-                          isCompare: widget.isCompare,
-                        ),
-                );
-              },
-            ),
           ],
         ),
         flexibleSpace: FlexibleSpaceBar(
