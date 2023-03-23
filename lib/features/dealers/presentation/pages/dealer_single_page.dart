@@ -160,8 +160,8 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                                                           value: marksBloc,
                                                           child:
                                                               AllMarksWithAnnouncements(
-                                                            slug: widget.slug,
-                                                          ),
+                                                                  slug: widget
+                                                                      .slug),
                                                         )));
                                                   },
                                                   behavior:
@@ -176,9 +176,7 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                                                                 FontWeight.w400,
                                                             color: greyText),
                                                       ),
-                                                      const SizedBox(
-                                                        width: 4,
-                                                      ),
+                                                      const SizedBox(width: 4),
                                                       SvgPicture.asset(
                                                           AppIcons
                                                               .chevronRightBlack,

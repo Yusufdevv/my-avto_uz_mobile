@@ -39,6 +39,8 @@ class SliverAppBarItem extends StatefulWidget {
   final String moderationStatus;
   final bool isExpired;
   final String expiredDate;
+  final double long;
+  final double lat;
 
   const SliverAppBarItem({
     required this.brightness,
@@ -61,6 +63,8 @@ class SliverAppBarItem extends StatefulWidget {
     required this.isCompare,
     required this.isExpired,
     required this.expiredDate,
+    required this.long,
+    required this.lat,
     this.moderationStatus = 'active',
     Key? key,
   }) : super(key: key);
@@ -176,6 +180,8 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                     context: context,
                     builder: (context) => widget.isMine
                         ? MineMoreBottomSheet(
+                            long: widget.long,
+                            lat: widget.lat,
                             expiredDate: widget.expiredDate,
                             isExpired: widget.isExpired,
                             moderationStatus: widget.moderationStatus,

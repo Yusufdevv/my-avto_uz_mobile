@@ -22,6 +22,7 @@ class DirectoryInfoPart extends StatefulWidget {
   final double latitude;
   final String phone;
   final String address;
+  final Widget? mapBox;
 
   const DirectoryInfoPart({
     required this.name,
@@ -32,6 +33,8 @@ class DirectoryInfoPart extends StatefulWidget {
     required this.contactTo,
     required this.phone,
     required this.address,
+    this.mapBox,
+
     Key? key,
   }) : super(key: key);
 
@@ -91,59 +94,8 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
               child: DeaelerInfoWidget(
                   icon: AppIcons.location1, text: widget.address),
             ),
-          if (widget.latitude > 1 && widget.longitude > 1)
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(6),
-                    color: warmerGrey,
-                  ),
-                  padding: const EdgeInsets.all(1),
-                  height: 110,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(6),
-                    child: YandexMap(
-                      rotateGesturesEnabled: false,
-                      onMapCreated: (controller) async {
-                        controller = controller;
-                        await controller.moveCamera(
-                          CameraUpdate.newCameraPosition(
-                            CameraPosition(
-                              target: Point(
-                                  latitude: widget.latitude,
-                                  longitude: widget.longitude),
-                            ),
-                          ),
-                          animation: const MapAnimation(
-                              duration: 0.15, type: MapAnimationType.smooth),
-                        );
-                      },
-                      mapObjects: [
-                        PlacemarkMapObject(
-                          onTap: (mapObject, point) {
-                            openMapsSheet(context, widget.latitude,
-                                widget.longitude, widget.name);
-                          },
-                          icon: PlacemarkIcon.single(
-                            PlacemarkIconStyle(
-                              scale: 0.6,
-                              image: BitmapDescriptor.fromAssetImage(
-                                  AppIcons.currentLoc),
-                            ),
-                          ),
-                          mapId: MapObjectId(widget.latitude.toString()),
-                          point: Point(
-                              latitude: widget.latitude,
-                              longitude: widget.longitude),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            if (widget.latitude > 1 && widget.longitude > 1)
+              widget.mapBox ?? const SizedBox.shrink(),
           const SizedBox(height: 16),
           if (widget.description != '')
             DeaelerInfoWidget(

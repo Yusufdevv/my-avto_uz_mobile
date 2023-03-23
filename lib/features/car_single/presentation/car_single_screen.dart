@@ -146,6 +146,8 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                         controller: _scrollController,
                         slivers: [
                           SliverAppBarItem(
+                            lat: state.singleEntity.latitude,
+                            long: state.singleEntity.longitude,
                             isExpired: state.singleEntity.isExpired,
                             expiredDate: state.singleEntity.expiredAt,
                             moderationStatus: widget.moderationStatus,

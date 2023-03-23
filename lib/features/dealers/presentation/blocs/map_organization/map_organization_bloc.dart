@@ -1,12 +1,7 @@
-import 'dart:developer';
-import 'dart:typed_data';
-
 import 'package:auto/core/exceptions/exceptions.dart';
-import 'package:auto/features/ad/domain/usecases/get_map_screenshot_usecase.dart';
 import 'package:auto/features/common/usecases/yandex_get_address_use_case.dart';
 import 'package:auto/features/dealers/data/models/dealer_card_model.dart';
 import 'package:auto/features/dealers/data/models/map_model.dart';
-import 'package:auto/features/dealers/domain/entities/dealer_card_entity.dart';
 import 'package:auto/features/dealers/domain/entities/map_entity.dart';
 import 'package:auto/features/dealers/domain/entities/map_parameter.dart';
 import 'package:auto/features/dealers/domain/usecases/get_directories_map_point_usecase.dart';
@@ -56,8 +51,6 @@ class MapOrganizationBloc
               radius: event.radius?.floor() ?? state.radius));
 
       if (result.isRight) {
-        final v = result.right;
-
         emit(state.copyWith(
             dealers: result.right, status: FormzStatus.submissionSuccess));
       } else {

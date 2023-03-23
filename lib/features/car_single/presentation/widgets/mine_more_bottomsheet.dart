@@ -2,6 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/const/constants.dart';
+import 'package:auto/features/car_single/presentation/pages/inspection_place_screen.dart';
 import 'package:auto/features/car_single/presentation/parts/payments/service_extends_ads_page_.dart';
 import 'package:auto/features/car_single/presentation/parts/payments/service_reels_page.dart';
 import 'package:auto/features/car_single/presentation/parts/payments/service_top_page.dart';
@@ -26,6 +27,9 @@ class MineMoreBottomSheet extends StatelessWidget {
   final String moderationStatus;
   final bool isExpired;
   final String expiredDate;
+  final double long;
+  final double lat;
+
   const MineMoreBottomSheet({
     required this.name,
     required this.position,
@@ -35,6 +39,8 @@ class MineMoreBottomSheet extends StatelessWidget {
     required this.status,
     required this.onSold,
     required this.isExpired,
+    required this.lat,
+    required this.long,
     required this.expiredDate,
     this.moderationStatus = '',
     Key? key,
@@ -42,9 +48,7 @@ class MineMoreBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final date = isExpired
-        ? DateTime.now()
-        : DateTime.parse(expiredDate);
+    final date = isExpired ? DateTime.now() : DateTime.parse(expiredDate);
     return Container(
       decoration: const BoxDecoration(
         color: white,
@@ -208,11 +212,17 @@ class MineMoreBottomSheet extends StatelessWidget {
                   .push(fade(page: ServiceReelsPage(announcementId: id)));
             },
           ),
+          if (long != 0 && lat != 0)
           MoreActionItem(
             icon: AppIcons.redMapIcon,
             text: 'Место осмотра',
             color: const Color(0xffFFECE7),
-            onTap: () {},
+            onTap: () {
+              if (long != 0 && lat != 0) {
+                Navigator.of(context, rootNavigator: true).push(fade(
+                    page: InspectionPlaceSingleScreen(long: long, lat: lat)));
+              }
+            },
             borderColor: const Color(0xffF63C07).withOpacity(0.12),
           ),
           if (moderationStatus == ModerationStatusEnum.active.value)
@@ -223,9 +233,7 @@ class MineMoreBottomSheet extends StatelessWidget {
               onTap: onSold,
               borderColor: const Color(0xff55BB00).withOpacity(0.12),
             ),
-          SizedBox(
-            height: MediaQuery.of(context).padding.bottom + 24,
-          ),
+          SizedBox(height: MediaQuery.of(context).padding.bottom + 24),
         ],
       ),
     );

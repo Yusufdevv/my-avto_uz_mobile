@@ -5,15 +5,17 @@ import 'package:auto/features/profile/domain/usecases/directory_single_usecase.d
 import 'package:auto/features/profile/domain/usecases/get_dir_categories_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_directories_usecase.dart';
 import 'package:auto/features/profile/presentation/bloc/directory/directory_bloc.dart';
-import 'package:auto/features/profile/presentation/pages/directory/service_or_products_screen.dart';
 import 'package:auto/features/profile/presentation/pages/directory/directory_info_part.dart';
 import 'package:auto/features/profile/presentation/pages/directory/directory_sliver_delegete.dart';
+import 'package:auto/features/profile/presentation/pages/directory/service_or_products_screen.dart';
 import 'package:auto/features/profile/presentation/widgets/go_all_button.dart';
 import 'package:auto/features/profile/presentation/widgets/service_or_product_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+
+import '../../../../dealers/presentation/widgets/dealer_single_info_part.dart';
 
 class DirectorySinglePage extends StatefulWidget {
   final String slug;
@@ -84,6 +86,12 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         DirectoryInfoPart(
+                          mapBox: MapBox(
+                            dealerId: directory.id,
+                            dealerName: directory.name,
+                            latitude: directory.longitude,
+                            longitude: directory.latitude,
+                          ),
                           address: directory.address,
                           phone: directory.phone,
                           name: directory.name,

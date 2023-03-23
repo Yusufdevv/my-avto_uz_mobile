@@ -4,6 +4,7 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/car_single/presentation/bloc/user_single_bloc/user_single_bloc.dart';
 import 'package:auto/features/common/widgets/maps_list_in_app.dart';
 import 'package:auto/features/dealers/presentation/widgets/dealer_info_widget.dart';
+import 'package:auto/features/dealers/presentation/widgets/dealer_single_info_part.dart';
 import 'package:auto/features/profile/presentation/pages/directory/directory_sliver_delegete.dart';
 import 'package:auto/features/search/presentation/widgets/info_result_container.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -70,7 +71,6 @@ class _UserSinglePageState extends State<UserSinglePage> {
               }
               if (state.status.isSubmissionSuccess) {
                 final item = state.userSingleEntity;
-                print('++++++ ${item.announcement?.contactPhone}');
                 return NestedScrollView(
                   headerSliverBuilder: (context, innerBoxIsScrolled) =>
                       <Widget>[
@@ -132,83 +132,16 @@ class _UserSinglePageState extends State<UserSinglePage> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         const SizedBox(height: 16),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(6),
-                                            color: warmerGrey,
-                                          ),
-                                          padding: const EdgeInsets.all(1),
-                                          height: 110,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(6),
-                                            child: YandexMap(
-                                              rotateGesturesEnabled: false,
-                                              onMapCreated: (controller) async {
-                                                controller = controller;
-                                                await controller.moveCamera(
-                                                  CameraUpdate
-                                                      .newCameraPosition(
-                                                    CameraPosition(
-                                                      target: Point(
-                                                          latitude: item
-                                                                  .announcement
-                                                                  ?.latitude ??
-                                                              0.0,
-                                                          longitude: item
-                                                                  .announcement
-                                                                  ?.longitude ??
-                                                              0.0),
-                                                    ),
-                                                  ),
-                                                  animation: const MapAnimation(
-                                                      duration: 0.15,
-                                                      type: MapAnimationType
-                                                          .smooth),
-                                                );
-                                              },
-                                              mapObjects: [
-                                                PlacemarkMapObject(
-                                                  onTap: (mapObject, point) {
-                                                    openMapsSheet(
-                                                        context,
-                                                        item.announcement
-                                                                ?.latitude ??
-                                                            0,
-                                                        item.announcement
-                                                                ?.longitude ??
-                                                            0,
-                                                        '');
-                                                  },
-                                                  icon: PlacemarkIcon.single(
-                                                    PlacemarkIconStyle(
-                                                      scale: 0.6,
-                                                      image: BitmapDescriptor
-                                                          .fromAssetImage(
-                                                              AppIcons
-                                                                  .currentLoc),
-                                                    ),
-                                                  ),
-                                                  mapId: MapObjectId(item
-                                                          .announcement
-                                                          ?.latitude
-                                                          .toString() ??
-                                                      ''),
-                                                  point: Point(
-                                                      latitude: item
-                                                              .announcement
-                                                              ?.latitude ??
-                                                          0.0,
-                                                      longitude: item
-                                                              .announcement
-                                                              ?.longitude ??
-                                                          0.0),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
+                                        MapBox(
+                                          latitude:
+                                              item.announcement?.latitude ?? 0,
+                                          longitude:
+                                              item.announcement?.longitude ?? 0,
+                                          dealerName:
+                                              item.announcement?.contactName ??
+                                                  '',
+                                          dealerId: 99,
+                                        )
                                       ],
                                     ),
                                   if (item.announcement?.contactPhone != '')
@@ -219,7 +152,9 @@ class _UserSinglePageState extends State<UserSinglePage> {
                                           launchUrl(Uri.parse(
                                               'tel: ${item.announcement?.contactPhone}'));
                                         },
-                                        text: item.announcement?.contactPhone.toString() ?? '',
+                                        text: item.announcement?.contactPhone
+                                                .toString() ??
+                                            '',
                                         // MyFunctions.phoneFormat(
                                         //     item.announcement?.contactPhone ??
                                         //         ''),
