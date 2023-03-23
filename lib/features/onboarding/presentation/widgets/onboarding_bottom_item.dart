@@ -23,6 +23,13 @@ class OnBoardingBottom extends StatefulWidget {
 
 class _OnBoardingBottomState extends State<OnBoardingBottom> {
   int index = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    StorageRepository.putString('language', 'uz');
+  }
+
   @override
   Widget build(BuildContext context) => Stack(
         children: [
