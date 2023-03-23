@@ -1,3 +1,4 @@
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
@@ -24,7 +25,7 @@ class InvoiceDatasourceImplemation extends InvoiceDatasource {
       final response = await _dio.get(
           'payment/last-transaction-status/$orderId',
           options: Options(headers: {
-            'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+            'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
           }));
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
@@ -57,7 +58,7 @@ class InvoiceDatasourceImplemation extends InvoiceDatasource {
     try {
       final response = await _dio.get('payment/tariff/',
           options: Options(headers: {
-            'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+            'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
           }));
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
@@ -92,7 +93,7 @@ class InvoiceDatasourceImplemation extends InvoiceDatasource {
       final response = await _dio.post('payment/create-announcement-order/',
           data: FormData.fromMap(params),
           options: Options(headers: {
-            'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+            'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
           }));
 
       print('===status code ${response.statusCode}');

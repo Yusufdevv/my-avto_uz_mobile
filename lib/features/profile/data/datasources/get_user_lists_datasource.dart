@@ -1,3 +1,4 @@
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
@@ -58,7 +59,7 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
         next != null && next.isNotEmpty ? next : url,
         queryParameters: query,
         options: Options(headers: {
-          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
         }),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
@@ -91,7 +92,7 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
         next ?? '/users/notification/list/',
         queryParameters: query,
         options: Options(headers: {
-          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
         }),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
@@ -116,7 +117,7 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
       final response = await dio.get(
         next.isEmpty ? '/users/filter-history/list/' : next,
         options: Options(headers: {
-          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
         }),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
@@ -141,7 +142,7 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
       final response = await dio.get(
         'users/notification/$id/',
         options: Options(headers: {
-          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
         }),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
@@ -166,7 +167,7 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
       final response = await dio.get(
       next ?? '/car-place/list/?region__in=$regions&category__in=$categories&search=$search',
         options: Options(headers: {
-          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
         }),
       );
 
@@ -213,7 +214,7 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
       final response = await dio.get(
        next ??  '/car-place/category/list/',
         options: Options(headers: {
-          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
         }),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
@@ -238,7 +239,7 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
       final response = await dio.get(
         '/car-place/$id/',
         options: Options(headers: {
-          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
         }),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
@@ -262,7 +263,7 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
       final response = await dio.post(
         'users/notification/read-all/',
         options: Options(headers: {
-          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
         }),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
@@ -287,7 +288,7 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
         '/users/filter-history/delete/',
         data: {'ids_list': ids},
         options: Options(headers: {
-          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
         }),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {

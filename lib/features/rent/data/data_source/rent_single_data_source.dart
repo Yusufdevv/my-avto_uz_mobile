@@ -1,3 +1,4 @@
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/rent/data/models/rent_list_model.dart';
@@ -7,7 +8,7 @@ class RentSingleDataSource {
   final Dio _dio;
   RentSingleDataSource(this._dio);
   Future<RentListModel> getSingleRent({required int params}) async {
-    final token = StorageRepository.getString('token');
+    final token = StorageRepository.getString(StorageKeys.TOKEN);
     try {
       final results = await _dio.get('/rent/$params',
           options: token.isNotEmpty

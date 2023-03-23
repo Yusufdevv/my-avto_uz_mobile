@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
@@ -145,12 +146,13 @@ class _OnBoardingBottomState extends State<OnBoardingBottom> {
                             : Theme.of(context)
                                 .extension<ThemedColors>()!
                                 .solitudeToCharcoal,
-                        onTap: () {
+                        onTap: () async {
                           setState(() {
                             index = 1;
                           });
                           context.setLocale(const Locale('ru'));
-                          StorageRepository.putString('language', 'ru');
+                          await StorageRepository.putString(
+                              StorageKeys.LANGUAGE, 'ru');
                           serviceLocator<DioSettings>()
                               .setBaseOptions(lang: 'ru');
                           resetLocator();

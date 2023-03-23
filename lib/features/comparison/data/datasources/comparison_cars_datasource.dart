@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/comparison/data/models/comparison_model.dart';
@@ -24,7 +25,7 @@ class ComparisonDataSourceImpl extends ComparisonCarsDataSource {
     try {
       final response = await _dio.get('/car/comparison/',
           options: Options(headers: {
-            'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+            'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
           }));
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
        try{
@@ -54,7 +55,7 @@ class ComparisonDataSourceImpl extends ComparisonCarsDataSource {
     final response = await _dio.post('/car/comparison/',
         data: {'announcement': id, 'order': id},
         options: Options(headers: {
-          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
         }));
     if (response.statusCode! >= 200 && response.statusCode! < 300) {
     } else {
@@ -69,7 +70,7 @@ class ComparisonDataSourceImpl extends ComparisonCarsDataSource {
     final response = await _dio.delete(
         '/car/comparison/$id/delete-announcement/',
         options: Options(headers: {
-          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
         }));
     if (response.statusCode! >= 200 && response.statusCode! < 300) {
     } else {

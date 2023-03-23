@@ -1,3 +1,4 @@
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/storage.dart';
 
@@ -20,7 +21,7 @@ class AddWishlistDatasourceImpl extends AddWishlistDatasource {
       final response = await _dio.post('/users/wishlist/announcement/add/',
           data: {'announcement': id},
           options: Options(headers: {
-            'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+            'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
           }));
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
@@ -46,7 +47,7 @@ class AddWishlistDatasourceImpl extends AddWishlistDatasource {
       final response = await _dio.post('/users/wishlist/announcement/remove/',
           data: {'announcement': id},
           options: Options(headers: {
-            'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+            'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
           }));
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&

@@ -1,3 +1,4 @@
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
@@ -21,7 +22,7 @@ class AdsDataSource {
           },
           options: Options(
             headers: {
-              'Authorization': 'Bearer ${StorageRepository.getString('token')}',
+              'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
             },
           ));
       return MinMaxPriceYearModel.fromJson(result.data);
@@ -35,7 +36,7 @@ class AdsDataSource {
       final response = await _dio.post('users/filter-history/create/',
           data: model.toJson(),
           options: Options(headers: {
-            'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+            'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
           }));
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
@@ -57,7 +58,7 @@ class AdsDataSource {
       final response = await _dio.get(
         '/car/announcement/list/',
         options: Options(headers: {
-          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
         }),
         queryParameters: params,
       );

@@ -1,3 +1,4 @@
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/dealers/data/models/marks_with_ads_model.dart';
@@ -13,7 +14,7 @@ class MarksInDealerDataSource {
       final results = await _dio.get(
        next ?? 'users/dealers/$slug/marks/',
         options: Options(headers: {
-          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
         }),
       );
 
