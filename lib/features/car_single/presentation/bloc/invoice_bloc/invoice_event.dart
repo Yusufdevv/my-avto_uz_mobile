@@ -51,8 +51,3 @@ class DeleteImageVideoEvent extends InvoiceEvent {
 
   DeleteImageVideoEvent({required this.path});
 }
-class PickVideoEvent extends InvoiceEvent {
-  final ImageSource source;
-
-  PickVideoEvent({required this.source});
-}

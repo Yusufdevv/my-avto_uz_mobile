@@ -191,7 +191,8 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                             2) -
                                         24,
                                     title: LocaleKeys.front_side.tr(),
-                                    images: state.images[0],
+                                    image: state.images[0],
+                                    video: '',
                                     onTap: () async {
                                       await showModalBottomSheet<ImageSource>(
                                           backgroundColor: Colors.transparent,
@@ -220,7 +221,8 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                             2) -
                                         24,
                                     title: LocaleKeys.back_side.tr(),
-                                    images: state.images[1],
+                                    image: state.images[1],
+                                    video: '',
                                     onTap: () async {
                                       await showModalBottomSheet<ImageSource>(
                                           backgroundColor: Colors.transparent,
@@ -289,7 +291,8 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                             2) -
                                         24,
                                     title: LocaleKeys.front_side.tr(),
-                                    images: state.secondImage[0],
+                                    image: state.secondImage[0],
+                                    video: '',
                                     onTap: () async {
                                       await showModalBottomSheet<ImageSource>(
                                           backgroundColor: Colors.transparent,
@@ -318,7 +321,8 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                             2) -
                                         24,
                                     title: LocaleKeys.back_side.tr(),
-                                    images: state.secondImage[1],
+                                    image: state.secondImage[1],
+                                    video: '',
                                     onTap: () async {
                                       await showModalBottomSheet<ImageSource>(
                                           backgroundColor: Colors.transparent,

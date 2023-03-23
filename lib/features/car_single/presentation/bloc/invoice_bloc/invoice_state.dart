@@ -12,6 +12,7 @@ class InvoiceState extends Equatable {
   final int announcementId;
   final Map<String, dynamic> params;
   final String media;
+  final String video;
 
   const InvoiceState({
     required this.tarifs,
@@ -23,6 +24,7 @@ class InvoiceState extends Equatable {
     required this.params,
     required this.announcementId,
     required this.media,
+    required this.video,
     this.transactionStatus = TransactionStatus.waiting,
   });
 
@@ -36,6 +38,7 @@ class InvoiceState extends Equatable {
     PaymentEntity? paymentEntity,
     int? announcementId,
     String? media,
+    String? video,
     Map<String, dynamic>? params,
   }) =>
       InvoiceState(
@@ -43,6 +46,7 @@ class InvoiceState extends Equatable {
           status: status ?? this.status,
           params: params ?? this.params,
           media: media ?? this.media,
+          video: video ?? this.video,
           announcementId: announcementId ?? this.announcementId,
           payStatus: payStatus ?? this.payStatus,
           invoiceStatus: invoiceStatus ?? this.invoiceStatus,
@@ -62,5 +66,6 @@ class InvoiceState extends Equatable {
         params,
         announcementId,
         media,
+        video
       ];
 }

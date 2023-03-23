@@ -81,36 +81,39 @@ class TarifItem extends StatelessWidget {
               ],
             ),
           ),
-          const Divider(
-            color: dividerColor,
-            height: 1,
-            endIndent: 12,
-            indent: 12,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-                right: 12, bottom: 6, left: 12, top: 10),
-            child: Row(
-              children: [
-                Text(
-                  LocaleKeys.end_of_term.tr(),
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .displayMedium,
-                ),
-                const Spacer(),
-                Text(
-                  date,
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .displayLarge!
-                      .copyWith(fontSize: 14),
-                ),
-              ],
+          if(date!='-')... {
+            const Divider(
+              color: dividerColor,
+              height: 1,
+              endIndent: 12,
+              indent: 12,
             ),
-          ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  right: 12, bottom: 6, left: 12, top: 10),
+              child: Row(
+                children: [
+                  Text(
+                    LocaleKeys.end_of_term.tr(),
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .displayMedium,
+                  ),
+                  const Spacer(),
+                  Text(
+                    date,
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .displayLarge!
+                        .copyWith(fontSize: 14),
+                  ),
+                ],
+              ),
+            ),
+          },
+
           Row(
             children: [
               Container(

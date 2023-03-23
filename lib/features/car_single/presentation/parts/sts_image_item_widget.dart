@@ -4,12 +4,14 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/pages/add_photo/widgets/plus_circle.dart';
+import 'package:auto/features/car_single/presentation/parts/payments/video_page.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class StsImageItemWidget extends StatefulWidget {
-  final String images;
+  final String image;
+  final String video;
   final VoidCallback onTap;
   final VoidCallback onTapDelete;
   final String title;
@@ -17,7 +19,8 @@ class StsImageItemWidget extends StatefulWidget {
   final double width;
 
   const StsImageItemWidget({
-    required this.images,
+    required this.image,
+    required this.video,
     required this.onTap,
     required this.onTapDelete,
     required this.title,
@@ -31,8 +34,16 @@ class StsImageItemWidget extends StatefulWidget {
 }
 
 class _StsImageItemWidgetState extends State<StsImageItemWidget> {
+  Future<void> showMaximize() async {
+    await showDialog(
+      useSafeArea: false,
+        context: context,
+        barrierColor: dark.withOpacity(.95),
+        builder: (context) => VideoPage(video: widget.video));
+  }
+
   @override
-  Widget build(BuildContext context) => widget.images.isEmpty
+  Widget build(BuildContext context) => widget.image.isEmpty
       ? WScaleAnimation(
           onTap: widget.onTap,
           child: Container(
@@ -76,9 +87,25 @@ class _StsImageItemWidgetState extends State<StsImageItemWidget> {
                 borderRadius: BorderRadius.circular(8),
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: FileImage(File(widget.images)),
+                  image: FileImage(File(widget.image)),
                 ),
               ),
+              child: widget.video.isNotEmpty
+                  ? GestureDetector(
+                      onTap: showMaximize,
+                      child: const Center(
+                        child: SizedBox(
+                          height: 40,
+                          width: 40,
+                          child: Icon(
+                            Icons.play_arrow_rounded,
+                            color: white,
+                            size: 40,
+                          ),
+                        ),
+                      ),
+                    )
+                  : const SizedBox(),
             ),
             Positioned(
               top: 4,

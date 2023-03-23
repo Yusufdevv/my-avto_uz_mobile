@@ -39,7 +39,8 @@ class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
               paymentEntity: PaymentEntity(),
               announcementId: -1,
               params: {},
-              media: ''),
+              media: '',
+              video: ''),
         ) {
     ///
     on<PayInvoiceEvent>((event, emit) async {
@@ -51,16 +52,13 @@ class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
       ));
 
       final result = await _payInvoiceUseCase.call(event.params);
-      print('========evvv');
       if (result.isRight) {
-        print('========isright ');
         emit(state.copyWith(
           paymentEntity: result.right,
           payStatus: FormzStatus.submissionSuccess,
         ));
         event.onSucces(result.right.paymentUrl ?? '');
       } else {
-        print('========left ');
         emit(state.copyWith(payStatus: FormzStatus.submissionFailure));
       }
     });
@@ -130,11 +128,11 @@ class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
           if (media != null) {
             final thumbnailPath = await VideoThumbnail.thumbnailFile(
               video: media.path,
-              imageFormat: ImageFormat.JPEG,
+              imageFormat: ImageFormat.PNG,
               maxWidth: 128,
-              quality: 25,
+              quality: 90,
             );
-            emit(state.copyWith(media: thumbnailPath));
+            emit(state.copyWith(media: thumbnailPath, video: media.path));
           }
         } else if (event.index == 2) {
           final result = await FilePicker.platform.pickFiles(
@@ -145,12 +143,13 @@ class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
             if (result.files.single.extension == 'mp4') {
               final thumbnailPath = await VideoThumbnail.thumbnailFile(
                 video: result.files.single.path ?? '',
-                imageFormat: ImageFormat.JPEG,
+                imageFormat: ImageFormat.PNG,
                 maxWidth: 128,
-                quality: 25,
+                quality: 90,
               );
 
-              emit(state.copyWith(media: thumbnailPath));
+              emit(state.copyWith(
+                  media: thumbnailPath, video: result.files.single.path));
             } else {
               emit(state.copyWith(media: result.files.single.path));
             }
@@ -161,23 +160,13 @@ class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
 
     on<DeleteImageVideoEvent>((event, emit) {
       var media = state.media;
+      var video = state.video;
+
       if (media == event.path) {
         media = '';
+        video = '';
       }
-      emit(state.copyWith(media: media));
-    });
-
-    on<PickVideoEvent>((event, emit) async {
-      final permission = event.source == ImageSource.camera
-          ? await MyFunctions.getCameraPermission(Platform.isAndroid)
-          : await MyFunctions.getPhotosPermission(Platform.isAndroid);
-
-      if (permission.isGranted) {
-        final media = await picker.pickVideo(source: event.source);
-        if (media != null) {
-          emit(state.copyWith(media: media.path));
-        }
-      }
+      emit(state.copyWith(media: media, video: video));
     });
   }
 }
