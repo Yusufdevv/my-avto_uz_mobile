@@ -1,3 +1,4 @@
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
@@ -13,7 +14,7 @@ class DealerSingleDataSource {
       final results = await _dio.get(
         'users/dealers/$params/',
         options: Options(headers: {
-          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
         }),
       );
 
@@ -38,7 +39,7 @@ class DealerSingleDataSource {
       final results = await _dio.post(
         '/users/dealers/watch-contact/$id/',
         options: Options(headers: {
-          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
         }),
       );
       if (results.statusCode! >= 200 && results.statusCode! < 300) {

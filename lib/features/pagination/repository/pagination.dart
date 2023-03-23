@@ -2,6 +2,7 @@
 
 import 'dart:developer';
 
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
@@ -32,7 +33,7 @@ class PaginationRepository {
             headers: sendToken
                 ? {
                     'Authorization':
-                        "Bearer ${StorageRepository.getString('token', defValue: '')}"
+                        "Bearer ${StorageRepository.getString(StorageKeys.TOKEN, defValue: '')}"
                   }
                 : {}),
         queryParameters: queryParams,

@@ -1,3 +1,4 @@
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
@@ -46,7 +47,7 @@ class ProfileDataSourceImpl extends ProfileDataSource {
       final response = await dio.get(
         '/users/detail-with-counts/',
         options: Options(headers: {
-          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
         }),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
@@ -77,7 +78,7 @@ class ProfileDataSourceImpl extends ProfileDataSource {
       final response = await dio.patch('/users/detail/edit/',
           data: data,
           options: Options(headers: {
-            'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+            'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
           }));
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return ProfileModel.fromJson(response.data);
@@ -104,7 +105,7 @@ class ProfileDataSourceImpl extends ProfileDataSource {
         data: {'old_password': oldPassword, 'new_password': newPassword},
         options: Options(
           headers: {
-            'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+            'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
           },
         ),
       );
@@ -149,7 +150,7 @@ class ProfileDataSourceImpl extends ProfileDataSource {
         data: {'phone_number': phoneNumber},
         options: Options(
           headers: {
-            'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+            'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
           },
         ),
       );
@@ -195,7 +196,7 @@ class ProfileDataSourceImpl extends ProfileDataSource {
         data: {'phone_number': phoneNumber, 'code': code, 'session': session},
         options: Options(
           headers: {
-            'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+            'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
           },
         ),
       );

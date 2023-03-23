@@ -6,6 +6,7 @@ import 'dart:ui' as ui;
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/storage.dart';
@@ -382,7 +383,7 @@ class MyFunctions {
   }
 
   static String getMonthByIndex(int index) {
-    final language = StorageRepository.getString('language');
+    final language = StorageRepository.getString(StorageKeys.LANGUAGE);
     switch (index) {
       case 1:
         return language == 'uz' ? 'Yanvar' : 'Январь';
@@ -422,7 +423,7 @@ class MyFunctions {
   }
 
   static String getDateNamedMonthEdit(String data) {
-    final language = StorageRepository.getString('language');
+    final language = StorageRepository.getString(StorageKeys.LANGUAGE);
     final date = DateTime.now();
     final list = data.substring(0, 10).split('-');
     if (date.year.toString() == list[0]) {
@@ -438,7 +439,7 @@ class MyFunctions {
   }
 
   static String getAutoPublishDate(String data) {
-    final language = StorageRepository.getString('language');
+    final language = StorageRepository.getString(StorageKeys.LANGUAGE);
 
     final dateNow = DateTime.now();
     final date = getDateNamedMonth(data).split(',');
@@ -650,7 +651,7 @@ class MyFunctions {
   }
 
   static String getErrorMessage(Failure failure) {
-    final language = StorageRepository.getString('language');
+    final language = StorageRepository.getString(StorageKeys.LANGUAGE);
 
     var err =
         (failure is ServerFailure) ? failure.errorMessage : failure.toString();
@@ -661,22 +662,6 @@ class MyFunctions {
     }
     return err;
   }
-
-  // static DamageType stringToDamageType(String status) {
-  //   switch (status) {
-  //     case 'ideal':
-  //       return DamageType.ideal;
-  //     case 'scratched':
-  //       return DamageType.scratched;
-  //     case 'replaced':
-  //       return DamageType.replaced;
-  //     case 'with_dents':
-  //       return DamageType.withDents;
-  //     case 'requires_replacement':
-  //       return DamageType.requiresReplacement;
-  //   }
-  //   return DamageType.ideal;
-  // }
 
   static Color getStatusColor(DamageType? status) {
     if (status == null) return emerald;

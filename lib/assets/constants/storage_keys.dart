@@ -7,6 +7,7 @@ class StorageKeys {
   static const CHUCK = 'chuck';
   static const LANGUAGE = 'language';
   static const TOKEN = 'token';
+  static const REFRESH = 'refresh';
   static const ON_BOARDING = 'onboarding';
   static const LATITUDE = 'lat';
   static const LONGITUDE = 'long';

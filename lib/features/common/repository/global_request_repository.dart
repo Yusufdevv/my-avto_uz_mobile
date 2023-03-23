@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_catches_without_on_clauses, always_put_required_named_parameters_first, omit_local_variable_types
 
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
@@ -20,7 +21,7 @@ class GlobalRequestRepository {
       final result = await dio.get(endpoint,
           queryParameters: query,
           options: Options(headers: {
-            'Authorization': "Bearer ${StorageRepository.getString('token')}"
+            'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
           }));
       if (result.statusCode! >= 200 && result.statusCode! < 300) {
         return Right(fromJson(result.data));
@@ -49,7 +50,7 @@ class GlobalRequestRepository {
               headers: sendToken
                   ? {
                       'Authorization':
-                          "Bearer ${StorageRepository.getString('token', defValue: '')}"
+                          "Bearer ${StorageRepository.getString(StorageKeys.TOKEN, defValue: '')}"
                     }
                   : {}));
 
@@ -92,7 +93,7 @@ class GlobalRequestRepository {
               headers: sendToken
                   ? {
                       'Authorization':
-                          "Bearer ${StorageRepository.getString('token', defValue: '')}"
+                          "Bearer ${StorageRepository.getString(StorageKeys.TOKEN, defValue: '')}"
                     }
                   : {}));
       if (result.statusCode! >= 200 && result.statusCode! < 300) {
@@ -139,7 +140,7 @@ class GlobalRequestRepository {
               headers: sendToken
                   ? {
                       'Authorization':
-                          "Bearer ${StorageRepository.getString('token', defValue: '')}"
+                          "Bearer ${StorageRepository.getString(StorageKeys.TOKEN, defValue: '')}"
                     }
                   : {}));
       var list = <S>[];

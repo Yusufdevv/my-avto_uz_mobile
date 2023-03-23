@@ -1,3 +1,4 @@
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/domain/model/auto_review_model.dart';
@@ -20,7 +21,7 @@ class CreateReviewDatasourceImpl implements CreateReviewDatasource {
         'review/create/',
         queryParameters: model.toJson(),
         options: Options(headers: {
-          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
         }),
       );
       if (response.statusCode != null &&

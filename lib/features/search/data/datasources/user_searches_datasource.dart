@@ -1,3 +1,4 @@
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
@@ -24,7 +25,7 @@ class UserSearchesDatasourceImpl extends UserSearchesDatasource {
       final response = await _dio.get('users/searches/',
           queryParameters: {'search': search},
           options: Options(headers: {
-            'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+            'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
           }));
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&

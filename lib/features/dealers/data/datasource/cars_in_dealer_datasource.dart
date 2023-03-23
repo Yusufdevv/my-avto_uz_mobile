@@ -1,3 +1,4 @@
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/dealers/data/models/cars_in_dealer_model.dart';
@@ -6,16 +7,19 @@ import 'package:dio/dio.dart';
 
 class CarsInDealerDataSource {
   final Dio _dio;
+
   CarsInDealerDataSource(this._dio);
+
   Future<GenericPagination<CarsInDealerModel>> getCars({
     required String slug,
     String? next,
   }) async {
     try {
       final results = await _dio.get(
-       next ?? 'users/dealers/$slug/cars/',
+        next ?? 'users/dealers/$slug/cars/',
         options: Options(headers: {
-          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          'Authorization':
+              'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
         }),
       );
 

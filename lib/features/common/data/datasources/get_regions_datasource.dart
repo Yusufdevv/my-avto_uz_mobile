@@ -24,9 +24,6 @@ class GetRegionsDatasourceImpl extends GetRegionsDatasourse {
       final response = await _dio.get(
         '/common/regions/',
         queryParameters: {'limit': 30},
-        // options: Options(headers: {
-        //   'Authorization': 'Bearer ${StorageRepository.getString('token')}'
-        // })
       );
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&

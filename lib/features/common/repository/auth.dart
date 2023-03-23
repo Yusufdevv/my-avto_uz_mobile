@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/storage.dart';
@@ -36,8 +37,10 @@ class AuthRepository {
         },
       );
       if (result.isRight) {
-        await StorageRepository.putString('token', result.right.access);
-        await StorageRepository.putString('refresh', result.right.refresh);
+        await StorageRepository.putString(
+            StorageKeys.TOKEN, result.right.access);
+        await StorageRepository.putString(
+            StorageKeys.REFRESH, result.right.refresh);
         return Right(result.right);
       } else {
         return Left(result.left);
@@ -57,12 +60,13 @@ class AuthRepository {
       fromJson: TokenModel.fromJson,
       sendToken: false,
       data: {
-        'refresh': StorageRepository.getString('token', defValue: ''),
+        'refresh': StorageRepository.getString(StorageKeys.TOKEN, defValue: ''),
       },
     );
     if (result.isRight) {
-      await StorageRepository.putString('token', result.right.access);
-      await StorageRepository.putString('refresh', result.right.refresh);
+      await StorageRepository.putString(StorageKeys.TOKEN, result.right.access);
+      await StorageRepository.putString(
+          StorageKeys.REFRESH, result.right.refresh);
       return Right(result.right);
     } else {
       return Left(result.left);
@@ -78,8 +82,10 @@ class AuthRepository {
       data: {'access_token': authToken, 'code': code},
     );
     if (result.isRight) {
-      await StorageRepository.putString('token', result.right.accessToken);
-      await StorageRepository.putString('refresh', result.right.refreshToken);
+      await StorageRepository.putString(
+          StorageKeys.TOKEN, result.right.accessToken);
+      await StorageRepository.putString(
+          StorageKeys.REFRESH, result.right.refreshToken);
       return Right(result.right);
     } else {
       return Left(result.left);
@@ -95,8 +101,10 @@ class AuthRepository {
       data: {'access_token': authToken, 'code': ''},
     );
     if (result.isRight) {
-      await StorageRepository.putString('token', result.right.accessToken);
-      await StorageRepository.putString('refresh', result.right.refreshToken);
+      await StorageRepository.putString(
+          StorageKeys.TOKEN, result.right.accessToken);
+      await StorageRepository.putString(
+          StorageKeys.REFRESH, result.right.refreshToken);
       return Right(result.right);
     } else {
       return Left(result.left);
@@ -112,8 +120,10 @@ class AuthRepository {
       data: {'code': code},
     );
     if (result.isRight) {
-      await StorageRepository.putString('token', result.right.accessToken);
-      await StorageRepository.putString('refresh', result.right.refreshToken);
+      await StorageRepository.putString(
+          StorageKeys.TOKEN, result.right.accessToken);
+      await StorageRepository.putString(
+          StorageKeys.REFRESH, result.right.refreshToken);
       return Right(result.right);
     } else {
       return Left(result.left);

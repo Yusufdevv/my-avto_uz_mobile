@@ -1,3 +1,4 @@
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/core/usecases/usecase.dart';
@@ -35,12 +36,13 @@ class RegisterUseCase extends UseCase<TokenModel, RegisterModel> {
     final result = await repo.postAndSingle(
         endpoint: '/users/registration/',
         fromJson: TokenModel.fromJson,
-        responseDataKey: 'token',
+        responseDataKey: StorageKeys.TOKEN,
         formData: formData,
         sendToken: false);
     if (result.isRight) {
-      await StorageRepository.putString('token', result.right.access);
-      await StorageRepository.putString('refresh', result.right.refresh);
+      await StorageRepository.putString(StorageKeys.TOKEN, result.right.access);
+      await StorageRepository.putString(
+          StorageKeys.REFRESH, result.right.refresh);
       return Right(result.right);
     } else {
       return Left(result.left);
