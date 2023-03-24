@@ -149,7 +149,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
               .isCollapsed) {
         context.read<ChooseMakeAnimeBloc>().add(
             ChooseMakeAnimeChangeParamsEvent(
-                where: 'Make else', isAnimating: true, isCollapsed: false));
+                where: 'Make else', isAnimating: true, isCollapsed: false) );
         widget.postingAddBloc
             .add(PostingAdChangeAppBarShadowEvent(value: true));
         context

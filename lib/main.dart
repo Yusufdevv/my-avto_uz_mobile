@@ -6,6 +6,7 @@ import 'package:auto/assets/constants/app_constants.dart';
 import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/assets/themes/dark.dart';
 import 'package:auto/assets/themes/light.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/core/utils/size_config.dart';
@@ -85,8 +86,7 @@ class _AppProviderState extends State<AppProvider> {
   }
 
   @override
-  Widget build(BuildContext context) =>
-      BlocProvider.value(value: bloc, child: const App());
+  Widget build(BuildContext context) => BlocProvider.value(value: bloc, child: const App());
 }
 
 class App extends StatefulWidget {
@@ -105,22 +105,17 @@ class _AppState extends State<App> {
   void initState() {
     bloc = InternetBloc();
     streamSubscription = Connectivity().onConnectivityChanged.listen((status) {
-      bloc.add(GlobalCheck(
-          isConnected: status == ConnectivityResult.mobile ||
-              status == ConnectivityResult.wifi));
+      bloc.add(GlobalCheck(isConnected: status == ConnectivityResult.mobile || status == ConnectivityResult.wifi));
       log('app log: status ${status == ConnectivityResult.mobile || status == ConnectivityResult.wifi}');
     });
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) => MultiBlocProvider(
         providers: [
           BlocProvider(create: (c) => bloc),
           BlocProvider(create: (c) => AuthenticationBloc()..add(CheckUser())),
-          BlocProvider(
-              create: (context) =>
-                  RegionsBloc()..add(RegionsEvent.getRegions())),
+          BlocProvider(create: (context) => RegionsBloc()..add(RegionsEvent.getRegions())),
           BlocProvider(create: (context) => ShowPopUpBloc()),
           BlocProvider(create: (context) => ProfileBloc()),
           BlocProvider(create: (context) => DeepLinkBloc()),
@@ -144,7 +139,7 @@ class _AppState extends State<App> {
             title: 'Avto.uz',
             theme: LightTheme.theme(),
             darkTheme: DarkTheme.theme(),
-            themeMode: ThemeMode.light,
+            themeMode: ThemeMode.system,
             navigatorKey: AppConstants.navigatorKey,
             onGenerateRoute: (settings) => SplashSc.route(),
             builder: (context, child) {
@@ -158,52 +153,42 @@ class _AppState extends State<App> {
                     listener: (context, state) {
                       switch (state.status) {
                         case AuthenticationStatus.unauthenticated:
-                          if (!StorageRepository.getBool(
-                              StorageKeys.ON_BOARDING,
-                              defValue: false)) {
+                          if (!StorageRepository.getBool(StorageKeys.ON_BOARDING, defValue: false)) {
                             AppConstants.navigatorKey.currentState
-                                ?.pushAndRemoveUntil(
-                                    fade(page: const FirstOnBoarding()),
-                                    (route) => false);
+                                ?.pushAndRemoveUntil(fade(page: const FirstOnBoarding()), (route) => false);
                             break;
                           }
-                          AppConstants.navigatorKey.currentState
-                              ?.pushAndRemoveUntil(
-                                  fade(
-                                    page: BlocProvider(
-                                      create: (c) => RegisterBloc(
-                                        sendCodeUseCase: SendCodeUseCase(),
-                                        registerUseCase: RegisterUseCase(),
-                                        verifyCodeUseCase: VerifyCodeUseCase(),
-                                      ),
-                                      child: const LoginScreen(),
-                                    ),
+                          AppConstants.navigatorKey.currentState?.pushAndRemoveUntil(
+                              fade(
+                                page: BlocProvider(
+                                  create: (c) => RegisterBloc(
+                                    sendCodeUseCase: SendCodeUseCase(),
+                                    registerUseCase: RegisterUseCase(),
+                                    verifyCodeUseCase: VerifyCodeUseCase(),
                                   ),
-                                  (route) => false);
+                                  child: const LoginScreen(),
+                                ),
+                              ),
+                              (route) => false);
                           break;
                         case AuthenticationStatus.authenticated:
                           context.read<ShowPopUpBloc>().add(HidePopUp());
-                          if (StorageRepository.getString(StorageKeys.TOKEN)
-                              .isEmpty) {
-                            AppConstants.navigatorKey.currentState
-                                ?.pushAndRemoveUntil(
-                                    fade(
-                                      page: BlocProvider(
-                                        create: (c) => RegisterBloc(
-                                          sendCodeUseCase: SendCodeUseCase(),
-                                          registerUseCase: RegisterUseCase(),
-                                          verifyCodeUseCase:
-                                              VerifyCodeUseCase(),
-                                        ),
-                                        child: const LoginScreen(),
-                                      ),
+                          if (StorageRepository.getString(StorageKeys.TOKEN).isEmpty) {
+                            AppConstants.navigatorKey.currentState?.pushAndRemoveUntil(
+                                fade(
+                                  page: BlocProvider(
+                                    create: (c) => RegisterBloc(
+                                      sendCodeUseCase: SendCodeUseCase(),
+                                      registerUseCase: RegisterUseCase(),
+                                      verifyCodeUseCase: VerifyCodeUseCase(),
                                     ),
-                                    (route) => false);
+                                    child: const LoginScreen(),
+                                  ),
+                                ),
+                                (route) => false);
                           } else {
                             AppConstants.navigatorKey.currentState
-                                ?.pushAndRemoveUntil(
-                                    fade(page: const HomeScreen()),
-                                    (route) => false);
+                                ?.pushAndRemoveUntil(fade(page: const HomeScreen()), (route) => false);
                           }
                           break;
                         case AuthenticationStatus.loading:
@@ -223,7 +208,5 @@ class _AppState extends State<App> {
 
 class MyBehavior extends ScrollBehavior {
   @override
-  Widget buildOverscrollIndicator(
-          BuildContext context, Widget child, ScrollableDetails details) =>
-      child;
+  Widget buildOverscrollIndicator(BuildContext context, Widget child, ScrollableDetails details) => child;
 }
