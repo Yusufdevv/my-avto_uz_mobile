@@ -139,16 +139,16 @@ class PASingleton {
   static PostingAdState initUserFromApi(UserModel user, PostingAdState state) =>
       state.copyWith(
         contactsFormKey: GlobalKey<FormState>(),
-        isContactsVerified: true,
+        isContactsVerified: user.phoneNumber.length> 4,
         showOwnerContacts: true,
         status: FormzStatus.submissionSuccess,
         phoneController: TextEditingController(
-            text: MyFunctions.phoneFormat(user.phoneNumber.substring(4))),
+            text: MyFunctions.phoneFormat(user.phoneNumber.length> 4?user.phoneNumber.substring(4) : '')),
         emailController: TextEditingController(text: user.email),
         nameController: TextEditingController(text: user.fullName),
         ownerEmail: user.email,
         ownerName: user.fullName,
-        ownerPhone: user.phoneNumber.substring(4),
+        ownerPhone:user.phoneNumber.length> 4? user.phoneNumber.substring(4):'',
         userModel: user,
       );
 
@@ -156,18 +156,16 @@ class PASingleton {
       state.copyWith(
           contactsFormKey: GlobalKey<FormState>(),
           phoneController: TextEditingController(
-            text: MyFunctions.phoneFormat(
-              state.userModel!.phoneNumber.substring(4),
-            ),
-          ),
+              text: state.userModel!.phoneNumber.length> 4 ? MyFunctions.phoneFormat(
+                  state.userModel!.phoneNumber.substring(4)) : ''),
           emailController: TextEditingController(text: state.userModel!.email),
           nameController:
               TextEditingController(text: state.userModel!.fullName),
           ownerEmail: state.userModel?.email,
           ownerName: state.userModel?.fullName,
-          ownerPhone: state.userModel?.phoneNumber.substring(4),
+          ownerPhone: state.userModel!.phoneNumber.length> 4 ? state.userModel?.phoneNumber.substring(4) : '',
           showOwnerContacts: true,
-          isContactsVerified: true,
+          isContactsVerified:state.userModel!.phoneNumber.length> 4,
           status: FormzStatus.submissionSuccess);
 
   static Map<DamagedPart, DamageType> damagedPartAdopter(

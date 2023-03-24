@@ -40,7 +40,12 @@ class _SplashScState extends State<SplashSc> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    print('this is height: $height');
+    print('this is width: $width');
+    return Scaffold(
         body: Center(
           child: Column(
             children: [
@@ -54,4 +59,5 @@ class _SplashScState extends State<SplashSc> {
           ),
         ),
       );
+  }
 }

@@ -81,7 +81,7 @@ class _UserSinglePageState extends State<UserSinglePage> {
                           gallery: item.announcement?.gallery ?? [],
                           avatarImage: item.user?.image ?? '',
                           name: item.announcement?.contactName ?? '',
-                          minHeight: MediaQuery.of(context).size.height * 0.11,
+                          minHeight: 100,
                           category: LocaleKeys.private_person.tr()),
                     ),
                   ],

@@ -68,8 +68,10 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
                           gallery: directory.gallery,
                           avatarImage: directory.avatar,
                           name: directory.name,
-                          minHeight: MediaQuery.of(context).size.height * 0.11,
-                          category: ''),
+                          minHeight: 100,
+                          category: ''
+                          // MyFunctions.getCategoriesName(dirCategories.cast<Category>())
+                          ),
                     ),
                   ],
                   body: ListView(

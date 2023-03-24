@@ -147,10 +147,12 @@ class _NotificationPageState extends State<NotificationPage> {
                                   ));
                             },
                           )
-                        : EmptyItemBody(
-                            title: LocaleKeys.no_notice.tr(),
-                            subtitle: LocaleKeys.w_t_is_no_n_t_w_be.tr(),
-                            image: AppIcons.notification);
+                        : Center(
+                          child: EmptyItemBody(
+                              title: LocaleKeys.no_notice.tr(),
+                              subtitle: LocaleKeys.w_t_is_no_n_t_w_be.tr(),
+                              image: AppIcons.notification),
+                        );
                   }
                   return Center(
                     child: Text(LocaleKeys.error.tr()),
