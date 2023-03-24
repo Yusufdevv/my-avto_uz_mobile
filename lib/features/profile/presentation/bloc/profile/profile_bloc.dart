@@ -2,12 +2,18 @@ import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:auto/features/common/repository/auth.dart';
+import 'package:auto/features/profile/data/models/product_category.dart';
+import 'package:auto/features/profile/domain/entities/car_product.dart';
+import 'package:auto/features/profile/domain/entities/products_list.dart';
 import 'package:auto/features/profile/domain/entities/profile_data_entity.dart';
 import 'package:auto/features/profile/domain/entities/terms_of_use_entity.dart';
+import 'package:auto/features/profile/domain/usecases/cart_product_category_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/change_password_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/edit_profile_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_notification_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_terms_of_use_usecase.dart';
+import 'package:auto/features/profile/domain/usecases/product_category_usecase.dart';
+import 'package:auto/features/profile/domain/usecases/product_list_use_case.dart';
 import 'package:auto/features/profile/domain/usecases/profile_usecase.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -15,7 +21,6 @@ import 'package:formz/formz.dart';
 import 'package:meta/meta.dart';
 
 part 'profile_event.dart';
-
 part 'profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
@@ -26,16 +31,28 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final GetTermsOfUseUseCase getTermsOfUseUseCase = GetTermsOfUseUseCase();
   final GetNotificationsUseCase getNotificationsUseCase =
       GetNotificationsUseCase();
+  final ProductCategoryUseCase productCategoryUseCase =
+      ProductCategoryUseCase();
+  final GetCarProductByCategory getCarProductByCategory =
+      GetCarProductByCategory();
+  final ProductListUseCase productListUseCase = ProductListUseCase();
 
   ProfileBloc()
       : super(
           ProfileState(
-              changeStatus: FormzStatus.pure,
-              editStatus: FormzStatus.pure,
-              status: FormzStatus.pure,
-              profileEntity: ProfileDataEntity(usercountdata: Usercountdata()),
-              termsOfUseEntity: TermsOfUseEntity(),
-              isNotificationAllRead: true),
+            changeStatus: FormzStatus.pure,
+            editStatus: FormzStatus.pure,
+            status: FormzStatus.pure,
+            profileEntity: ProfileDataEntity(usercountdata: Usercountdata()),
+            termsOfUseEntity: TermsOfUseEntity(),
+            isNotificationAllRead: true,
+            productCategory: const [],
+            cartProductEntity: const [],
+            getCarProductByCategoryStatus: FormzStatus.pure,
+            getProductCategoryStatus: FormzStatus.pure,
+            getProductListStatus: FormzStatus.pure,
+            productCategoryModel: [],
+          ),
         ) {
     on<GetProfileEvent>(_onGetProfile);
     on<ChangePasswordEvent>(_onChangePassword);
@@ -44,6 +61,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<LoginUser>(_onLoginUser);
     on<ChangeCountDataEvent>(_onChangeCountData);
     on<GetNoReadNotificationsEvent>(_onGetNoReadNotificationsEvent);
+    on<GetCarProductByCategoryEvent>(_GetCarProductByCategoryEvent);
+    on<GetProductCategoryEvent>(_GetProductCategoryEvent);
+    on<GetProductListEvent>(_GetProductListEvent);
 
     on<ChangeNotificationAllRead>(
       // notifikatsiya iconini bosganda iconni o'zgartirish
@@ -194,5 +214,67 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     // ignore: unused_local_variable
     final result =
         await repository.login(login: event.phone, password: event.password);
+  }
+
+  Future<void> _GetCarProductByCategoryEvent(
+      GetCarProductByCategoryEvent event, Emitter<ProfileState> emit) async {
+    emit(state.copyWith(
+        getCarProductByCategoryStatus: FormzStatus.submissionInProgress));
+    final result = await getCarProductByCategory
+        .call(Params(slug: event.slug, id: event.id));
+    if (result.isRight) {
+      print(
+          'BLOC SUCCES _GetCarProductByCategoryEvent - > ${result.right.results}');
+      emit(state.copyWith(
+        getCarProductByCategoryStatus: FormzStatus.submissionSuccess,
+        cartProductEntity: result.right.results,
+      ));
+    } else {
+      print('BLOC FAIL _GetCarProductByCategoryEvent - > ${result.left}');
+      emit(state.copyWith(
+        getCarProductByCategoryStatus: FormzStatus.submissionFailure,
+      ));
+    }
+  }
+
+  Future<void> _GetProductCategoryEvent(
+      GetProductCategoryEvent event, Emitter<ProfileState> emit) async {
+    print('EVENT CALLED GET CATEGORY');
+    emit(state.copyWith(
+        getProductCategoryStatus: FormzStatus.submissionInProgress));
+    final result = await productCategoryUseCase.call(event.slug);
+    if (result.isRight) {
+      print('BLOC SUCCES _GetProductCategoryEvent - > ${result.right.results}');
+      emit(state.copyWith(
+        getProductCategoryStatus: FormzStatus.submissionSuccess,
+        productCategoryModel: result.right.results,
+      ));
+    } else {
+      print('BLOC FAIL _GetProductCategoryEvent - > ${result.left}');
+      emit(
+        state.copyWith(
+          getProductCategoryStatus: FormzStatus.submissionFailure,
+        ),
+      );
+    }
+  }
+
+  Future<void> _GetProductListEvent(
+      GetProductListEvent event, Emitter<ProfileState> emit) async {
+    emit(
+        state.copyWith(getProductListStatus: FormzStatus.submissionInProgress));
+    final result = await productListUseCase.call(event.slug);
+    if (result.isRight) {
+      print('BLOC SUCCES _GetProductListEvent - > ${result.right.results}');
+      emit(state.copyWith(
+        getProductListStatus: FormzStatus.submissionSuccess,
+        productCategory: result.right.results,
+      ));
+    } else {
+      print('BLOC FAIL _GetProductListEvent - > ${result.left}');
+      emit(state.copyWith(
+        getProductListStatus: FormzStatus.submissionFailure,
+      ));
+    }
   }
 }

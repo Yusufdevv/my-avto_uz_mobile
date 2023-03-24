@@ -4,9 +4,15 @@ part of 'profile_bloc.dart';
 class ProfileState extends Equatable {
   final ProfileDataEntity profileEntity;
   final TermsOfUseEntity termsOfUseEntity;
+  final List<ProductsList> productCategory;
+  final List<CarProductEntity> cartProductEntity;
+  final List<ProductCategoryModel> productCategoryModel;
   final FormzStatus status;
   final FormzStatus editStatus;
   final FormzStatus changeStatus;
+  final FormzStatus getCarProductByCategoryStatus;
+  final FormzStatus getProductCategoryStatus;
+  final FormzStatus getProductListStatus;
   final bool isNotificationAllRead;
 
   const ProfileState({
@@ -16,6 +22,12 @@ class ProfileState extends Equatable {
     required this.editStatus,
     required this.changeStatus,
     required this.isNotificationAllRead,
+    required this.productCategory,
+    required this.cartProductEntity,
+    required this.getCarProductByCategoryStatus,
+    required this.getProductCategoryStatus,
+    required this.getProductListStatus,
+    required this.productCategoryModel,
   });
 
   ProfileState copyWith({
@@ -26,16 +38,30 @@ class ProfileState extends Equatable {
     FormzStatus? editStatus,
     FormzStatus? secondStatus,
     FormzStatus? changeStatus,
+    FormzStatus? getCarProductByCategoryStatus,
+    FormzStatus? getProductCategoryStatus,
+    FormzStatus? getProductListStatus,
     bool? isNotificationAllRead,
+    List<ProductsList>? productCategory,
+    List<CarProductEntity>? cartProductEntity,
+    List<ProductCategoryModel>? productCategoryModel,
   }) =>
       ProfileState(
         status: status ?? this.status,
         profileEntity: profileEntity ?? this.profileEntity,
         termsOfUseEntity: termsOfUseEntity ?? this.termsOfUseEntity,
+        productCategory: productCategory ?? this.productCategory,
+        cartProductEntity: cartProductEntity ?? this.cartProductEntity,
+        getCarProductByCategoryStatus:
+            getCarProductByCategoryStatus ?? this.getCarProductByCategoryStatus,
+        getProductCategoryStatus:
+            getProductCategoryStatus ?? this.getProductCategoryStatus,
+        getProductListStatus: getProductListStatus ?? this.getProductListStatus,
         editStatus: editStatus ?? this.editStatus,
         changeStatus: changeStatus ?? this.changeStatus,
         isNotificationAllRead:
             isNotificationAllRead ?? this.isNotificationAllRead,
+        productCategoryModel: productCategoryModel ?? this.productCategoryModel,
       );
 
   @override
@@ -45,6 +71,11 @@ class ProfileState extends Equatable {
         termsOfUseEntity,
         editStatus,
         changeStatus,
-        isNotificationAllRead
+        isNotificationAllRead,
+        cartProductEntity,
+        productCategory,
+        getCarProductByCategoryStatus,
+        getProductCategoryStatus,
+        getProductListStatus,
       ];
 }
