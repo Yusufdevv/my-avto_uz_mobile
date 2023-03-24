@@ -173,6 +173,7 @@ class _DirectoryPageState extends State<DirectoryPage>
                   ),
                   SliverFillRemaining(
                     child: TabBarView(
+
                       controller: _tabController,
                       physics: const NeverScrollableScrollPhysics(),
                       children: const [
