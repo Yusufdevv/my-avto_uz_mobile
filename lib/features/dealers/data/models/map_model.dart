@@ -1,3 +1,4 @@
+import 'package:auto/features/ad/domain/entities/equipment/id_name_entity.dart';
 import 'package:auto/features/dealers/domain/entities/map_entity.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -22,6 +23,7 @@ class MapModel extends MapEntity {
     required super.district,
     required super.gallery,
     required super.category,
+    required super.dealerType,
   });
 
   factory MapModel.fromJson(Map<String, dynamic> json) =>

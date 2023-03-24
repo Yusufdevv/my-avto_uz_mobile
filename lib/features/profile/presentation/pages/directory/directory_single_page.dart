@@ -18,9 +18,7 @@ import 'package:formz/formz.dart';
 class DirectorySinglePage extends StatefulWidget {
   final String slug;
 
-  const DirectorySinglePage({
-    required this.slug,
-  });
+  const DirectorySinglePage({required this.slug});
 
   @override
   State<DirectorySinglePage> createState() => _DirectorySinglePageState();
@@ -75,7 +73,6 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
                           ),
                     ),
                   ],
-
                   body: SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
                     padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -95,9 +92,10 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
                         ),
                         const SizedBox(height: 16),
                         GoAllButton(
-                            padding: EdgeInsets.zero,
-                            title: 'Популярные продукты',
-                            onPressed: () {}),
+                          padding: EdgeInsets.zero,
+                          title: 'Популярные продукты',
+                          onPressed: () {},
+                        ),
                         ListView.separated(
                           scrollDirection: Axis.vertical,
                           physics: const NeverScrollableScrollPhysics(),
@@ -106,12 +104,12 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
                           itemBuilder: (context, index) =>
                               ServiceOrProductButton(
                             onTap: () {
-                              Navigator.of(context,rootNavigator: true).push(
+                              Navigator.of(context, rootNavigator: true).push(
                                 fade(
-                                  page: ServiceOrProductsScreen(title: serviceProductList[index],),
-
+                                  page: ServiceOrProductsScreen(
+                                    title: serviceProductList[index],
+                                  ),
                                 ),
-
                               );
                             },
                             title: serviceProductList[index],

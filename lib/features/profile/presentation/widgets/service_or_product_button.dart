@@ -48,19 +48,17 @@ class ServiceOrProductButton extends StatelessWidget {
                       ),
                 ),
               ),
-              if (more > 0) ...{
-                Text(
-                  more.toString(),
-                  style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
-                ),
-                const SizedBox(width: 16),
-                SvgPicture.asset(
-                  AppIcons.chevronRight1,
-                  color: grey,
-                ),
-              }
+              Text(
+                more.toString(),
+                style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+              ),
+              const SizedBox(width: 16),
+              SvgPicture.asset(
+                AppIcons.chevronRight1,
+                color: grey,
+              ),
             ],
           ),
         ),

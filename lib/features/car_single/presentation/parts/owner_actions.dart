@@ -20,92 +20,87 @@ class OwnerActions extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
         margin: const EdgeInsets.symmetric(horizontal: 16),
-        child: Container(
-          // color:Colors.teal,
-          color: Theme.of(context).scaffoldBackgroundColor,
-          padding: const EdgeInsets.symmetric(vertical: 12),
-          child: Row(
-            children: [
-              Expanded(
-                child: WScaleAnimation(
-                  onTap: () {
-                    Navigator.of(context, rootNavigator: true).push(fade(
-                        page: ServiceVipPage(
-                            announcementId: context
-                                .read<CarSingleBloc>()
-                                .state
-                                .singleEntity
-                                .id)));
-                  },
-                  child: OwnerActionBox(
-                      color: accentYellow,
-                      entity: OwnerActionEntity(
-                          title: LocaleKeys.become_vip_for_3_days.tr(),
-                          icon: AppIcons.crown)),
-                ),
+        color: Theme.of(context).scaffoldBackgroundColor,
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        child: Row(
+          children: [
+            Expanded(
+              child: WScaleAnimation(
+                onTap: () {
+                  Navigator.of(context, rootNavigator: true).push(fade(
+                      page: ServiceVipPage(
+                          announcementId: context
+                              .read<CarSingleBloc>()
+                              .state
+                              .singleEntity
+                              .id)));
+                },
+                child: OwnerActionBox(
+                    color: accentYellow,
+                    entity: OwnerActionEntity(
+                        title: LocaleKeys.become_vip_for_3_days.tr(),
+                        icon: AppIcons.crown)),
               ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: WScaleAnimation(
-                  onTap: () {
-                    Navigator.of(context, rootNavigator: true).push(fade(
-                        page: ServiceExtendsAdsPage(
-                            announcementId: context
-                                .read<CarSingleBloc>()
-                                .state
-                                .singleEntity
-                                .id)));
-                  },
-                  child: OwnerActionBox(
-                      color: accentGreen,
-                      entity: OwnerActionEntity(
-                          title: LocaleKeys.extends_for_day.tr(args: ['7']),
-                          icon: AppIcons.refresher)),
-                ),
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: WScaleAnimation(
+                onTap: () {
+                  Navigator.of(context, rootNavigator: true).push(fade(
+                      page: ServiceExtendsAdsPage(
+                          announcementId: context
+                              .read<CarSingleBloc>()
+                              .state
+                              .singleEntity
+                              .id)));
+                },
+                child: OwnerActionBox(
+                    color: accentGreen,
+                    entity: OwnerActionEntity(
+                        title: LocaleKeys.extends_for_day.tr(args: ['7']),
+                        icon: AppIcons.refresher)),
               ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: WScaleAnimation(
-                  onTap: () {
-                    Navigator.of(context, rootNavigator: true).push(fade(
-                        page: ServiceTopPage(
-                            announcementId: context
-                                .read<CarSingleBloc>()
-                                .state
-                                .singleEntity
-                                .id)));
-                  },
-                  child: OwnerActionBox(
-                      color: accentRed,
-                      entity: OwnerActionEntity(
-                          title: LocaleKeys.send_to_top.tr(),
-                          icon: AppIcons.rocket)),
-                ),
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: WScaleAnimation(
+                onTap: () {
+                  Navigator.of(context, rootNavigator: true).push(fade(
+                      page: ServiceTopPage(
+                          announcementId: context
+                              .read<CarSingleBloc>()
+                              .state
+                              .singleEntity
+                              .id)));
+                },
+                child: OwnerActionBox(
+                    color: accentRed,
+                    entity: OwnerActionEntity(
+                        title: LocaleKeys.send_to_top.tr(),
+                        icon: AppIcons.rocket)),
               ),
-              const SizedBox(
-                width: 8,
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: WScaleAnimation(
+                onTap: () {
+                  Navigator.of(context, rootNavigator: true).push(fade(
+                      page: ServiceReelsPage(
+                          announcementId: context
+                              .read<CarSingleBloc>()
+                              .state
+                              .singleEntity
+                              .id)));
+                },
+                child: OwnerActionBox(
+                    color: const Color(0xffDFEFFF),
+                    entity: OwnerActionEntity(
+                      title: LocaleKeys.in_hot.tr(),
+                      icon: AppIcons.blue_fire,
+                    )),
               ),
-              Expanded(
-                child: WScaleAnimation(
-                  onTap: () {
-                    Navigator.of(context, rootNavigator: true).push(fade(
-                        page: ServiceReelsPage(
-                            announcementId: context
-                                .read<CarSingleBloc>()
-                                .state
-                                .singleEntity
-                                .id)));
-                  },
-                  child: OwnerActionBox(
-                      color: const Color(0xffDFEFFF),
-                      entity: OwnerActionEntity(
-                        title: LocaleKeys.in_hot.tr(),
-                        icon: AppIcons.blue_fire,
-                      )),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       );
 }

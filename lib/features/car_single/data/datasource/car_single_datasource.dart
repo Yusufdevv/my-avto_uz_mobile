@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
@@ -40,6 +42,7 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
+        log(':::::::::: Car single data:  ${response.data}  ::::::::::');
         return CarSingleModel.fromJson(response.data);
       } else {
         throw ServerException(
