@@ -31,42 +31,7 @@ class SellerSliverDelegate extends SliverPersistentHeaderDelegate {
           BuildContext context, double shrinkOffset, bool overlapsContent) =>
       Stack(
         children: [
-          // if (showroomOrPerson == 'showroom')
-          //   AnimatedOpacity(
-          //     duration: const Duration(milliseconds: 100),
-          //     opacity: shrinkOffset >= 20 && shrinkOffset <= 60
-          //         ? 0.8
-          //         : shrinkOffset >= 60 && shrinkOffset <= 80
-          //             ? 0.6
-          //             : shrinkOffset >= 80 && shrinkOffset <= 160
-          //                 ? 0.4
-          //                 : shrinkOffset >= 158
-          //                     ? 0.2
-          //                     : 1,
-          //     child: AnimatedImages(
-          //       screenWidth: MediaQuery.of(context).size.width,
-          //     ),
-          //   )
-          // else
-          //   Stack(
-          //     children: [
-          //       Container(
-          //         height: 260,
-          //         color: red,
-          //         width: MediaQuery.of(context).size.width,
-          //       ),
-          //       Positioned(
-          //         bottom: 0,
-          //         child: Container(
-          //           width: MediaQuery.of(context).size.width,
-          //           height: 36,
-          //           color: Theme.of(context)
-          //               .extension<ThemedColors>()!
-          //               .solitudeTo1Black,
-          //         ),
-          //       ),
-          //     ],
-          //   ),
+
           AnimatedOpacity(
             duration: const Duration(milliseconds: 100),
             opacity: shrinkOffset >= 20 && shrinkOffset <= 60

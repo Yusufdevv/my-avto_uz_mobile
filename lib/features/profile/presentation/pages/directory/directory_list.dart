@@ -51,7 +51,8 @@ class _DirectoryListState extends State<DirectoryList> {
                         return DirectoryCard(
                           slug: item.slug ?? '',
                           region: item.region ?? '',
-                          dealerType:MyFunctions.getCategoriesName(item.category),
+                          dealerType:
+                              MyFunctions.getCategoriesName(item.category),
                           dealerName: item.name ?? '',
                           phoneNumber: '',
                           dealerInfo: '',

@@ -34,7 +34,6 @@ class OwnerActions extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
       child: Container(
-        // color:Colors.teal,
         color: Theme.of(context).scaffoldBackgroundColor,
         padding: const EdgeInsets.symmetric(vertical: 12),
         child: Row(
@@ -42,14 +41,15 @@ class OwnerActions extends StatelessWidget {
             Expanded(
               child: WScaleAnimation(
                 onTap: () {
-                  Navigator.of(context, rootNavigator: true).push(fade(
+                  Navigator.of(context, rootNavigator: true).push(
+                    fade(
                       page: ServiceVipPage(
-                          date: date,
-                          announcementId: context
-                              .read<CarSingleBloc>()
-                              .state
-                              .singleEntity
-                              .id)));
+                        date: date,
+                        announcementId:
+                            context.read<CarSingleBloc>().state.singleEntity.id,
+                      ),
+                    ),
+                  );
                 },
                 child: OwnerActionBox(
                     color: accentYellow,

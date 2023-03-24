@@ -51,7 +51,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
             getCarProductByCategoryStatus: FormzStatus.pure,
             getProductCategoryStatus: FormzStatus.pure,
             getProductListStatus: FormzStatus.pure,
-            productCategoryModel: [],
+            productCategoryModell:const  [],
           ),
         ) {
     on<GetProfileEvent>(_onGetProfile);
@@ -247,7 +247,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       print('BLOC SUCCES _GetProductCategoryEvent - > ${result.right.results}');
       emit(state.copyWith(
         getProductCategoryStatus: FormzStatus.submissionSuccess,
-        productCategoryModel: result.right.results,
+        productCategoryModell: result.right.results,
       ));
     } else {
       print('BLOC FAIL _GetProductCategoryEvent - > ${result.left}');

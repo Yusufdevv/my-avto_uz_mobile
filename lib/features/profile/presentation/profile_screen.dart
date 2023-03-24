@@ -176,7 +176,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               iconPath: AppIcons.dealers),
                           const ProfileDivider(),
                           ProfileMenuTile(
-                              name: LocaleKeys.directory.tr(),
+                              name: LocaleKeys.directory.tr() ,
                               onTap: () {
                                 Navigator.of(context)
                                     .push(fade(page: const DirectoryPage()));
