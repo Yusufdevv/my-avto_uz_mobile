@@ -1,22 +1,22 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/app_constants.dart';
 import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/assets/themes/dark.dart';
 import 'package:auto/assets/themes/light.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
 import 'package:auto/features/common/bloc/deeplinking/deep_link_bloc.dart';
-import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/bloc/internet_bloc/internet_bloc.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
+import 'package:auto/features/common/bloc/theme_switcher_bloc/theme_switcher_bloc.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/login/domain/usecases/register_user.dart';
 import 'package:auto/features/login/domain/usecases/send_code.dart';
@@ -31,7 +31,6 @@ import 'package:auto/features/splash/presentation/pages/splash_sc.dart';
 import 'package:auto/generated/codegen_loader.g.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
-
 // import 'package:firebase_core/firebase_core.dart';
 // import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
@@ -113,6 +112,8 @@ class _AppState extends State<App> {
     super.initState();
   }
 
+//900470792
+  //pppppp
   @override
   Widget build(BuildContext context) => MultiBlocProvider(
         providers: [
@@ -127,16 +128,10 @@ class _AppState extends State<App> {
           BlocProvider(create: (context) => GetMakesBloc()),
           BlocProvider(create: (context) => WishlistAddBloc()),
           BlocProvider(create: (context) => ComparisonAddBloc()),
+          BlocProvider(create: (context) => ThemeSwitcherBloc())
         ],
-        child: AnnotatedRegion(
-          value: const SystemUiOverlayStyle(
-            statusBarColor: white,
-            systemNavigationBarColor: white,
-            statusBarBrightness: Brightness.light,
-            statusBarIconBrightness: Brightness.dark,
-            systemNavigationBarIconBrightness: Brightness.dark,
-          ),
-          child: MaterialApp(
+        child: BlocBuilder<ThemeSwitcherBloc, ThemeSwitcherState>(
+          builder: (context, themeState) => MaterialApp(
             supportedLocales: context.supportedLocales,
             localizationsDelegates: context.localizationDelegates,
             locale: context.locale,
@@ -144,47 +139,39 @@ class _AppState extends State<App> {
             title: 'Avto.uz',
             theme: LightTheme.theme(),
             darkTheme: DarkTheme.theme(),
-            themeMode: ThemeMode.light,
+            themeMode: themeState.themeMode,
             navigatorKey: AppConstants.navigatorKey,
             onGenerateRoute: (settings) => SplashSc.route(),
             builder: (context, child) {
               SizeConfig().init(context);
-
-              return ScrollConfiguration(
-                behavior: MyBehavior(),
-                child: BlocListener<DeepLinkBloc, DeepLinkState>(
-                  listener: (context, state) {},
-                  child: BlocListener<AuthenticationBloc, AuthenticationState>(
-                    listener: (context, state) {
-                      switch (state.status) {
-                        case AuthenticationStatus.unauthenticated:
-                          if (!StorageRepository.getBool(
-                              StorageKeys.ON_BOARDING,
-                              defValue: false)) {
-                            AppConstants.navigatorKey.currentState
-                                ?.pushAndRemoveUntil(
-                                    fade(page: const FirstOnBoarding()),
-                                    (route) => false);
-                            break;
-                          }
-                          AppConstants.navigatorKey.currentState
-                              ?.pushAndRemoveUntil(
-                                  fade(
-                                    page: BlocProvider(
-                                      create: (c) => RegisterBloc(
-                                        sendCodeUseCase: SendCodeUseCase(),
-                                        registerUseCase: RegisterUseCase(),
-                                        verifyCodeUseCase: VerifyCodeUseCase(),
-                                      ),
-                                      child: const LoginScreen(),
-                                    ),
-                                  ),
-                                  (route) => false);
-                          break;
-                        case AuthenticationStatus.authenticated:
-                          context.read<ShowPopUpBloc>().add(HidePopUp());
-                          if (StorageRepository.getString(StorageKeys.TOKEN)
-                              .isEmpty) {
+              return AnnotatedRegion(
+                value: SystemUiOverlayStyle(
+                  statusBarColor:
+                      Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+                  systemNavigationBarColor:
+                      Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+                  statusBarBrightness: Brightness.light,
+                  statusBarIconBrightness: Brightness.dark,
+                  systemNavigationBarIconBrightness: Brightness.dark,
+                ),
+                child: ScrollConfiguration(
+                  behavior: MyBehavior(),
+                  child: BlocListener<DeepLinkBloc, DeepLinkState>(
+                    listener: (context, state) {},
+                    child:
+                        BlocListener<AuthenticationBloc, AuthenticationState>(
+                      listener: (context, state) {
+                        switch (state.status) {
+                          case AuthenticationStatus.unauthenticated:
+                            if (!StorageRepository.getBool(
+                                StorageKeys.ON_BOARDING,
+                                defValue: false)) {
+                              AppConstants.navigatorKey.currentState
+                                  ?.pushAndRemoveUntil(
+                                      fade(page: const FirstOnBoarding()),
+                                      (route) => false);
+                              break;
+                            }
                             AppConstants.navigatorKey.currentState
                                 ?.pushAndRemoveUntil(
                                     fade(
@@ -199,19 +186,39 @@ class _AppState extends State<App> {
                                       ),
                                     ),
                                     (route) => false);
-                          } else {
-                            AppConstants.navigatorKey.currentState
-                                ?.pushAndRemoveUntil(
-                                    fade(page: const HomeScreen()),
-                                    (route) => false);
-                          }
-                          break;
-                        case AuthenticationStatus.loading:
-                        case AuthenticationStatus.cancelLoading:
-                          break;
-                      }
-                    },
-                    child: child,
+                            break;
+                          case AuthenticationStatus.authenticated:
+                            context.read<ShowPopUpBloc>().add(HidePopUp());
+                            if (StorageRepository.getString(StorageKeys.TOKEN)
+                                .isEmpty) {
+                              AppConstants.navigatorKey.currentState
+                                  ?.pushAndRemoveUntil(
+                                      fade(
+                                        page: BlocProvider(
+                                          create: (c) => RegisterBloc(
+                                            sendCodeUseCase: SendCodeUseCase(),
+                                            registerUseCase: RegisterUseCase(),
+                                            verifyCodeUseCase:
+                                                VerifyCodeUseCase(),
+                                          ),
+                                          child: const LoginScreen(),
+                                        ),
+                                      ),
+                                      (route) => false);
+                            } else {
+                              AppConstants.navigatorKey.currentState
+                                  ?.pushAndRemoveUntil(
+                                      fade(page: const HomeScreen()),
+                                      (route) => false);
+                            }
+                            break;
+                          case AuthenticationStatus.loading:
+                          case AuthenticationStatus.cancelLoading:
+                            break;
+                        }
+                      },
+                      child: child,
+                    ),
                   ),
                 ),
               );

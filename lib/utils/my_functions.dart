@@ -45,6 +45,31 @@ class MyFunctions {
     );
   }
 
+  static ThemeMode getThemeMode() {
+    final themeMode = StorageRepository.getString('themeMode');
+    switch (themeMode) {
+      case 'light':
+        return ThemeMode.light;
+      case 'dark':
+        return ThemeMode.dark;
+      case 'system':
+        return ThemeMode.system;
+      default:
+        return ThemeMode.light;
+    }
+  }
+
+  // static Brightness getIconBrightNess(){
+  //   switch(getThemeMode()){
+  //     case ThemeMode.system:
+  //       break;
+  //     case ThemeMode.light:
+  //       break;
+  //     case ThemeMode.dark:
+  //       break;
+  //   }
+  // }
+
   static String getData(String data) =>
       Jiffy(data).format('dd-MM-yyyy').replaceAll('-', '/').toString();
 

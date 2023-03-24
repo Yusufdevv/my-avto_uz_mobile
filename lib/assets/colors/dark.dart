@@ -148,6 +148,7 @@ class DarkThemeColors {
   static const silverToNightRider = _nightRider;
   static const seashellToCinnabar15 = _cinnabar15;
   static const dividerColor = _darkGrey;
+  static const fairPinkToIndianTan = _indianTan;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
@@ -208,3 +209,4 @@ const _cocoaBrown = Color(0xff241815);
 const _charcoal1 = Color(0xff404040);
 const _cinnabar15 = Color(0x26EA5930);
 const _darkGrey = Color(0xffA0A0A0);
+const _indianTan = Color(0xff4f2b21);

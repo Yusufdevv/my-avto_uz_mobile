@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/search/presentation/search_screen.dart';
@@ -39,7 +40,8 @@ class _PopularSearchesFieldState extends State<PopularSearchesField> {
         child: Column(
           children: [
             const SizedBox(height: 13),
-            Padding(
+            Container(
+              color: Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
               padding: widget.titlePadding,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -86,7 +88,8 @@ class _PopularSearchesFieldState extends State<PopularSearchesField> {
                   addSearchToStorage(widget.textController.text);
                 },
                 child: Container(
-                  color: white,
+                  color:
+                      Theme.of(context).extension<ThemedColors>()!.whiteToNero,
                   padding: EdgeInsets.only(
                       top: 16,
                       bottom: 16,

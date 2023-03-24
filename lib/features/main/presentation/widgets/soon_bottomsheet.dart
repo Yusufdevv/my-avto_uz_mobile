@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -15,9 +16,9 @@ class SoonBottomsheet extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-      decoration: const BoxDecoration(
-          color: white,
-          borderRadius: BorderRadius.only(
+      decoration: BoxDecoration(
+          color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
+          borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(20), topRight: Radius.circular(20))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -45,10 +46,8 @@ class SoonBottomsheet extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             LocaleKeys.our_team_developers.tr(),
-            style: Theme.of(context)
-                .textTheme
-                .displayMedium!
-                .copyWith(fontWeight: FontWeight.w400, fontSize: 16),
+            style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                fontWeight: FontWeight.w400, fontSize: 16, color: greyText),
             textAlign: TextAlign.center,
           ),
           SizedBox(height: size.height * 0.079),

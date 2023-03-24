@@ -34,7 +34,7 @@ class CarModelItem extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            color: Theme.of(context).extension<ThemedColors>()!.whiteToWhite8,
+            color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
             boxShadow: [
               BoxShadow(
                   offset: const Offset(0, 8),

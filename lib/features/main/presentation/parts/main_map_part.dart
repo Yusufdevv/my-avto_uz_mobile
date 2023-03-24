@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/dealers/presentation/dealers_screen.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -40,15 +41,20 @@ class MainMapPart extends StatelessWidget {
               ),
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
               padding: const EdgeInsets.symmetric(horizontal: 15),
-              color: white,
+              color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SvgPicture.asset(AppIcons.mapPin,
                       color: purple, height: 15, width: 13),
                   const SizedBox(width: 12),
-                  Text(LocaleKeys.show_all_dealers.tr(),
-                      style: Theme.of(context).textTheme.titleMedium),
+                  Text(
+                    LocaleKeys.show_all_dealers.tr(),
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .midnightExpressToWhite),
+                  ),
                 ],
               ),
             ),
