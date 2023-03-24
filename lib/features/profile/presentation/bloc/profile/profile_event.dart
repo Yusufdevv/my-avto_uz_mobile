@@ -8,6 +8,7 @@ class GetProfileEvent extends ProfileEvent {}
 
 class GetTermsOfUseEvent extends ProfileEvent {
   final String slug;
+
   GetTermsOfUseEvent({required this.slug});
 }
 
@@ -28,6 +29,7 @@ class ChangeCountDataEvent extends ProfileEvent {
 class LoginUser extends ProfileEvent {
   final String phone;
   final String password;
+
   LoginUser({required this.password, required this.phone});
 }
 
@@ -70,5 +72,32 @@ class ChangeNotificationAllRead extends ProfileEvent {}
 // ignore: must_be_immutable
 class GetNoReadNotificationsEvent extends ProfileEvent {
   int? filter;
+
   GetNoReadNotificationsEvent({this.filter});
+}
+
+class GetCarProductByCategoryEvent extends ProfileEvent {
+  final String slug;
+  final int id;
+
+  GetCarProductByCategoryEvent({
+    required this.slug,
+    required this.id,
+  });
+}
+
+class GetProductCategoryEvent extends ProfileEvent {
+  final String slug;
+
+  GetProductCategoryEvent({
+    required this.slug,
+  });
+}
+
+class GetProductListEvent extends ProfileEvent {
+  final String slug;
+
+  GetProductListEvent({
+    required this.slug,
+  });
 }

@@ -9,17 +9,18 @@ class GoAllButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String title;
   final EdgeInsets padding;
+  final bool hasButton;
 
   const GoAllButton(
       {required this.title,
       required this.onPressed,
+      this.hasButton = true,
       this.padding = const EdgeInsets.only(bottom: 12, left: 16, right: 16),
       Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) => Padding(
-
         padding: padding,
         child: Row(
           children: [
@@ -33,23 +34,27 @@ class GoAllButton extends StatelessWidget {
                 ),
               ),
             ),
-            GestureDetector(
-              onTap: onPressed,
-              behavior: HitTestBehavior.opaque,
-              child: Row(
-                children: [
-                  Text(
-                    LocaleKeys.all.tr(),
-                    style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: greyText),
-                  ),
-                  const SizedBox(width: 4),
-                  SvgPicture.asset(AppIcons.chevronRightBlack, color: greyText)
-                ],
-              ),
-            )
+            if (hasButton)
+              GestureDetector(
+                onTap: onPressed,
+                behavior: HitTestBehavior.opaque,
+                child: Row(
+                  children: [
+                    Text(
+                      LocaleKeys.all.tr(),
+                      style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: greyText),
+                    ),
+                    const SizedBox(width: 4),
+                    SvgPicture.asset(AppIcons.chevronRightBlack,
+                        color: greyText)
+                  ],
+                ),
+              )
+            else
+              const SizedBox(),
           ],
         ),
       );

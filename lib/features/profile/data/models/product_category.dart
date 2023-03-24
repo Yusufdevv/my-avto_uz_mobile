@@ -3,12 +3,12 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'product_category.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class ProductCategoryModel extends ProductCategory {
   const ProductCategoryModel({
     required super.id,
     required super.name,
-    required super.productCount,
+    required super.productsCount,
   });
 
   factory ProductCategoryModel.fromJson(Map<String, dynamic> json) =>

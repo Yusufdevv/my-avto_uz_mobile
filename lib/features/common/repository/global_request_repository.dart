@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_catches_without_on_clauses, always_put_required_named_parameters_first, omit_local_variable_types
 
+import 'dart:developer';
+
 import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
@@ -21,7 +23,8 @@ class GlobalRequestRepository {
       final result = await dio.get(endpoint,
           queryParameters: query,
           options: Options(headers: {
-            'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+            'Authorization':
+                'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
           }));
       if (result.statusCode! >= 200 && result.statusCode! < 300) {
         return Right(fromJson(result.data));
@@ -55,6 +58,7 @@ class GlobalRequestRepository {
                   : {}));
 
       List<S> list = [];
+      log(' :::::::::::::::::::  getList:  $endpoint => DATA: ${result.data}  ::::::::::');
 
       if (result.statusCode! >= 200 && result.statusCode! < 300) {
         if (responseDataKey != null && responseDataKey.isNotEmpty) {

@@ -1,3 +1,4 @@
+import 'package:auto/features/ad/domain/entities/equipment/id_name_entity.dart';
 import 'package:auto/features/dealers/data/models/map_model.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:equatable/equatable.dart';
@@ -16,12 +17,16 @@ class MapEntity extends Equatable {
   final double longitude;
   final double latitude;
   final int carCount;
+
+  @IdNameConverter()
+  final IdNameEntity dealerType;
   final dynamic category;
   @RegionConverter()
   final RegionEntity district;
   final List<String> gallery;
 
   const MapEntity({
+    this.dealerType = const IdNameEntity(),
     this.id = 0,
     this.name = '',
     this.slug = '',

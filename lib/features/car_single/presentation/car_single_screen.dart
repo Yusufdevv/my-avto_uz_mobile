@@ -3,6 +3,9 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/const/constants.dart';
+import 'package:auto/features/ad/domain/entities/equipment/equipment_entity.dart';
+import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
+import 'package:auto/features/ad/presentation/pages/preview/widgets/complectation_box.dart';
 import 'package:auto/features/car_single/data/repository/car_single_repository_impl.dart';
 import 'package:auto/features/car_single/domain/usecases/call_count_usecase.dart';
 import 'package:auto/features/car_single/domain/usecases/get_ads_usecase.dart';
@@ -132,6 +135,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
         value: bloc,
         child: CustomScreen(
           child: Scaffold(
+            // backgroundColor:Colors.teal,
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             body: BlocBuilder<CarSingleBloc, CarSingleState>(
               builder: (context, state) {
@@ -371,6 +375,14 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                           comment:
                                               state.singleEntity.description,
                                         ),
+                                      ComplectationBox(
+                                        equipment: state.singleEntity.equipment,
+                                        radios: PASingleton.makeRadiosSelected(
+                                            v: state.singleEntity.options),
+                                        selects:
+                                            PASingleton.makeSelectsSelected(
+                                                v: state.singleEntity.options),
+                                      ),
                                       const VinSoonItem(),
                                     ],
                                   )
