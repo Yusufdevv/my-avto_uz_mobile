@@ -83,9 +83,15 @@ class ProductsScreen extends StatelessWidget {
                           bottom: Radius.circular(4),
                         ),
                       ),
-                      child: CachedNetworkImage(
-                        imageUrl: products[index].image ?? '',
-                        fit: BoxFit.cover,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(8),
+                          bottom: Radius.circular(4),
+                        ),
+                        child: CachedNetworkImage(
+                          imageUrl: products[index].image ?? '',
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
