@@ -10,7 +10,7 @@ class CarProductEntity extends Equatable {
   @JsonKey(name: 'car_place', defaultValue: 0)
   final int carPlace;
   @ProductCategoryConverter()
-  final ProductCategory category;
+  final ProductCategoryEntity category;
   @JsonKey(name: 'price', defaultValue: '')
   final String price;
   @JsonKey(name: 'image', defaultValue: '')

@@ -156,8 +156,10 @@ class PASingleton {
       state.copyWith(
           contactsFormKey: GlobalKey<FormState>(),
           phoneController: TextEditingController(
-              text: MyFunctions.phoneFormat(
-                  state.userModel!.phoneNumber.substring(4))),
+            text: MyFunctions.phoneFormat(
+              state.userModel!.phoneNumber.substring(4),
+            ),
+          ),
           emailController: TextEditingController(text: state.userModel!.email),
           nameController:
               TextEditingController(text: state.userModel!.fullName),
@@ -294,7 +296,7 @@ class PASingleton {
         return false;
       // DamageScreen
       case 14:
-        return state.damagedParts.isEmpty;
+        return false;
       // ContactsScreen
       case 15:
         final v = !(((state.contactsFormKey.currentState?.validate() ??

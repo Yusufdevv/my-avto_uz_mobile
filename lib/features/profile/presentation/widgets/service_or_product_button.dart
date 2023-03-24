@@ -7,10 +7,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 class ServiceOrProductButton extends StatelessWidget {
   final String title;
   final VoidCallback onTap;
-  final int more;
+  final int productCount;
 
   const ServiceOrProductButton(
-      {required this.onTap, required this.title, this.more = 0, Key? key})
+      {required this.onTap, required this.title, this.productCount = 0, Key? key})
       : super(key: key);
 
   @override
@@ -19,7 +19,7 @@ class ServiceOrProductButton extends StatelessWidget {
         child: Container(
           height: 49,
           padding: const EdgeInsets.symmetric(horizontal: 12),
-          margin: const EdgeInsets.only(left: 16,right: 16,bottom: 8),
+          margin: const EdgeInsets.only(left: 16, right: 16, bottom: 8),
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
@@ -49,20 +49,17 @@ class ServiceOrProductButton extends StatelessWidget {
                       ),
                 ),
               ),
-              if (more > 0) ...{
-                Text(
-                  more.toString(),
-                  style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                        fontWeight: FontWeight.w600,
-
-                      ),
-                ),
-                const SizedBox(width: 16),
-                SvgPicture.asset(
-                  AppIcons.chevronRight1,
-                  color: grey,
-                ),
-              }
+              Text(
+                productCount.toString(),
+                style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+              ),
+              const SizedBox(width: 16),
+              SvgPicture.asset(
+                AppIcons.chevronRight1,
+                color: grey,
+              ),
             ],
           ),
         ),

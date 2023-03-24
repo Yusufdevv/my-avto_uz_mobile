@@ -33,7 +33,7 @@ abstract class ProfileDataSource {
 
   Future<TermsOfUseModel> getTermsOfUseData(String slug);
 
-  Future<GenericPagination<ProductCategory>> productCategory(String slug);
+  Future<GenericPagination<ProductCategoryEntity>> productCategory(String slug);
 
   Future<GenericPagination<ProductsList>> productList(String slug);
 
