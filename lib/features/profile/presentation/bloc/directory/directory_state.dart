@@ -5,6 +5,9 @@ class DirectoryState extends Equatable {
   final DealerSingleEntity directory;
   final List<DirCategoryEntity> categories;
   final FormzStatus status;
+  final List<ProductsList> popularProducts;
+
+  List<ProductCategoryEntity> singleCategories;
   List<DirCategoryEntity> selectedCategories;
   String regions;
   String search;
@@ -15,11 +18,13 @@ class DirectoryState extends Equatable {
   final bool fetchMoreDirectories;
   final bool isIndexOne;
 
-  DirectoryState({
+    DirectoryState({
     required this.status,
     required this.directories,
     required this.directory,
     required this.categories,
+    this.popularProducts = const <ProductsList>[],
+    this.singleCategories = const <ProductCategoryEntity>[],
     this.selectedCategories = const <DirCategoryEntity>[],
     this.regions = '',
     this.regionId = '',
@@ -32,6 +37,8 @@ class DirectoryState extends Equatable {
   });
 
   DirectoryState copyWith({
+    List<ProductsList>? popularProducts,
+    List<ProductCategoryEntity>? singleCategories,
     List<DirectoryEntity>? directories,
     DealerSingleEntity? directory,
     FormzStatus? status,
@@ -47,6 +54,8 @@ class DirectoryState extends Equatable {
     bool? fetchMoreDirectories,
   }) =>
       DirectoryState(
+        popularProducts: popularProducts ?? this.popularProducts,
+        singleCategories: singleCategories ?? this.singleCategories,
         directories: directories ?? this.directories,
         directory: directory ?? this.directory,
         categories: categories ?? this.categories,
@@ -64,6 +73,8 @@ class DirectoryState extends Equatable {
 
   @override
   List<Object?> get props => [
+        popularProducts,
+        singleCategories,
         directories,
         directory,
         status,

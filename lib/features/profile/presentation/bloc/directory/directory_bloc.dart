@@ -1,9 +1,17 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:auto/features/dealers/domain/entities/dealer_single_entity.dart';
+import 'package:auto/features/profile/domain/entities/car_product.dart';
 import 'package:auto/features/profile/domain/entities/dir_category_entity.dart';
 import 'package:auto/features/profile/domain/entities/directory_entity.dart';
+import 'package:auto/features/profile/domain/entities/product_category.dart';
+import 'package:auto/features/profile/domain/entities/products_list.dart';
+import 'package:auto/features/profile/domain/usecases/cart_product_category_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/directory_single_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_dir_categories_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_directories_usecase.dart';
+import 'package:auto/features/profile/domain/usecases/product_list_use_case.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -14,9 +22,12 @@ part 'directory_event.dart';
 part 'directory_state.dart';
 
 class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
+  final ProductListUseCase productListUseCase = ProductListUseCase();
   final GetDirectoriesUseCase getDirectoriesUseCase;
   final GetDirCategoriesUseCase getDirCategoriesUseCase;
   final DirectorySingleSingleUseCase directorySingleSingleUseCase;
+  final ProductCategoryUseCase productCategoryUseCase =
+      ProductCategoryUseCase();
 
   DirectoryBloc({
     required this.getDirCategoriesUseCase,
@@ -29,6 +40,8 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
           selectedCategories: const <DirCategoryEntity>[],
           directory: const DealerSingleEntity(),
         )) {
+    on<DirectoryGetProductsOfSingleEvent>(_getProducts);
+    on<DirectoryGetCategoriesOfSingleEvent>(_getCategoriesOfSingle);
     on<GetDirectoriesEvent>((event, emit) async {
       emit(state.copyWith(
           status: FormzStatus.submissionInProgress, search: event.search));
@@ -116,5 +129,41 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     });
+  }
+
+  FutureOr<void> _getProducts(DirectoryGetProductsOfSingleEvent event,
+      Emitter<DirectoryState> emit) async {
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    final result = await productListUseCase.call(event.slug);
+    if (result.isRight) {
+      emit(state.copyWith(
+          status: FormzStatus.submissionSuccess,
+          popularProducts: result.right.results));
+    } else {
+      emit(state.copyWith(status: FormzStatus.submissionFailure));
+    }
+  }
+
+  FutureOr<void> _getCategoriesOfSingle(
+      DirectoryGetCategoriesOfSingleEvent event,
+      Emitter<DirectoryState> emit) async {
+    log(':::::::::: DirectoryGetCategoriesOfSingleEvent triggered by:  ${event.slug}  ::::::::::');
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    final result = await productCategoryUseCase.call(event.slug);
+    if (result.isRight) {
+      log(':::::::::: GOTTEN SINGLE CATEGORIES:  ${result.right.results}  ::::::::::');
+      emit(state.copyWith(
+        status: FormzStatus.submissionSuccess,
+        singleCategories: result.right.results
+            .where((element) => element.productsCount > 0)
+            .toList(),
+      ));
+    } else {
+      emit(
+        state.copyWith(
+          status: FormzStatus.submissionFailure,
+        ),
+      );
+    }
   }
 }

@@ -86,18 +86,4 @@ class GetCarProductByCategoryEvent extends ProfileEvent {
   });
 }
 
-class GetProductCategoryEvent extends ProfileEvent {
-  final String slug;
 
-  GetProductCategoryEvent({
-    required this.slug,
-  });
-}
-
-class GetProductListEvent extends ProfileEvent {
-  final String slug;
-
-  GetProductListEvent({
-    required this.slug,
-  });
-}
