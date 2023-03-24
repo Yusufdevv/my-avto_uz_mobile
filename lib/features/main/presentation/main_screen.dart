@@ -146,7 +146,7 @@ class _MainScreenState extends State<MainScreen> {
         child: BlocBuilder<MainBloc, MainState>(
           builder: (context, state) => Scaffold(
             backgroundColor:
-                Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+                Theme.of(context).extension<ThemedColors>()!.whiteToBlack,
             appBar: const MainAppBar(),
             body: RefreshIndicator(
               color: purple,

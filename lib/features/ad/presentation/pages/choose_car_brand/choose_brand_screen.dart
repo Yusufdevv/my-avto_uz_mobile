@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
@@ -10,7 +8,6 @@ import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/pers
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/persistent_header_search.dart';
 import 'package:auto/features/ads/presentation/widgets/no_data_widget.dart';
 import 'package:auto/features/common/widgets/car_brand_item.dart';
-import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/main/presentation/widgets/brand_shimmer_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -187,7 +184,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
             },
             builder: (context, state) => Scaffold(
               backgroundColor:
-                  _bgTweenColor.evaluate(animeState.scaleAnimation),
+                  Theme.of(context).extension<ThemedColors>()!.whiteToBlack,
               body: NestedScrollView(
                 physics: const BouncingScrollPhysics(),
                 controller: _nestsController,
@@ -213,8 +210,9 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                                     .textTheme
                                     .displayLarge!
                                     .copyWith(
-                                        color: _headerTextTweenColor.evaluate(
-                                            animeState.scaleAnimation)),
+                                        color: Theme.of(context)
+                                            .extension<ThemedColors>()!
+                                            .midnightExpressToWhite),
                               ),
                             ],
                           ),
@@ -224,7 +222,6 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                   ),
 
                   /// SEARCH FIELD WITH PERSISTENT HEADER
-
                   SliverSafeArea(
                     top: false,
                     bottom: false,
@@ -232,8 +229,9 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                       delegate: PersistentHeaderSearch(
                         child: AnimatedContainer(
                           duration: const Duration(milliseconds: 150),
-                          color:
-                              _bgTweenColor.evaluate(animeState.scaleAnimation),
+                          color: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .whiteToBlack,
                           padding: const EdgeInsets.only(top: 16, bottom: 12),
                           child: WTextField(
                             focusColor: _fillTweenColor

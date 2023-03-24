@@ -1,4 +1,4 @@
-import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/material.dart';
 
 class CompletionBar extends StatelessWidget {
@@ -22,7 +22,7 @@ class CompletionBar extends StatelessWidget {
         alignment: Alignment.centerLeft,
         height: 2,
         width: screenWidth,
-        color: white,
+        color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
         duration: const Duration(milliseconds: 500),
         child: visibile
             ? Container(

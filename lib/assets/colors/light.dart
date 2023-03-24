@@ -61,6 +61,7 @@ class LightThemeColors {
   static const whiteToNero1 = _white;
   static const whiteLilacToPayneGrey = _whiteLilac;
   static const whiteToNero2 = _white;
+  static const whiteToWithOpacity8 = _white;
 
   //for keyboard
   static const whiteToDimGray = _white;
@@ -139,6 +140,7 @@ class LightThemeColors {
   static const solitudeToNightRider = _solitude;
   static const whiteToBlack = _white;
   static const snow1ToCocoaBrown = _snow1;
+  static const fairPinkToIndianTan = _fairPink;
 
   static const lavenderBlueToCharcoal = _lavenderBlue;
   static const ghostWhite1ToNero = _ghostWhite1;
@@ -203,3 +205,4 @@ const _blueText = Color(0xff4D88C8);
 const _seashell = Color(0xffFFF8F5);
 const _smoky = Color(0xff5D5D67);
 const _mischka = Color(0xffA5AAB4);
+const _fairPink = Color(0xffF3E1DD);

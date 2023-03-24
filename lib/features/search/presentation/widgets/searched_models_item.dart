@@ -25,7 +25,7 @@ class SearchedModelsItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
         padding: const EdgeInsets.symmetric(vertical: 10),
-        color: white,
+        color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
         child: InkWell(
           onTap: onTap,
           child: Container(
