@@ -54,6 +54,7 @@ class CarSingleModel extends CarSingleEntity {
       super.isNew,
       super.isRegisteredLocally,
       super.isWishlisted,
+      super.isFaceToFaceCheck,
       super.latitude,
       super.licenceType,
       super.longitude,
@@ -82,8 +83,7 @@ class CarSingleModel extends CarSingleEntity {
       super.rentWithPurchase,
       super.region,
       super.district,
-      super.announcementVerifyOwners
-      });
+      super.announcementVerifyOwners});
 
   factory CarSingleModel.fromJson(Map<String, dynamic> json) =>
       _$CarSingleModelFromJson(json);

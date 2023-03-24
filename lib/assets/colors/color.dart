@@ -67,6 +67,7 @@ const stormGrey12 = _stormGrey12;
 const tutu = _tutu;
 const lavender = _lavender;
 const lavender2 = _lavender2;
+const lavender3 = _lavender3;
 const lavanda = _lavender;
 const secondBackground = _gainsboro2;
 const nero = _nero3;
@@ -80,15 +81,18 @@ const orangeMid = _orangeMid;
 const makeSearchCancel = _makeSearchCancelColor;
 const popUpWarning = _popUpWarning;
 const greyLight = _greyLight;
+const sunglow = _sunglow;
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
 const _popUpWarning = Color(0xffF1B747);
+const _sunglow = Color(0xffFFC137);
 const _floralWhite = Color(0xffFFF8EF);
 const _whiteToGrey = Color(0xFFFAFAFA);
 const _snow = Color(0xFFFFFCFB);
 const _yellowSea = Color(0xFFF4A937);
 const _seashell = Color(0xFFFFF8F5);
 const _lavender2 = Color(0xFFE7E5FB);
+const _lavender3 = Color(0xffEDEBFC);
 const _gainsboro2 = Color(0xFFE5E5E5);
 const _bittersweet = Color(0xFFFF7474);
 const _whiteSmoke = Color(0xFFF4F4F4);

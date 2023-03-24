@@ -4,7 +4,6 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ads/presentation/widgets/filter_bottom_sheet.dart';
-import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/pagination/presentation/paginator.dart';
 import 'package:auto/features/profile/domain/entities/dealer_type_entity.dart';
@@ -167,25 +166,22 @@ class _SearchScreenState extends State<SearchScreen> {
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 4),
-                          child: WButton(
-                            onTap: () => filterBottomSheet(
-                              context,
-                              onChanged: (value) => searchBloc.add(
-                                  SearchEvent.setSortStatus(sortStatus: value)),
-                              sortingValue: state.sortStatus,
-                            ),
-                            width: 48,
-                            height: 48,
-                            borderRadius: 12,
+                        GestureDetector(
+                          onTap: () => filterBottomSheet(
+                            context,
+                            onChanged: (value) => searchBloc.add(
+                                SearchEvent.setSortStatus(sortStatus: value)),
+                            sortingValue: state.sortStatus,
+                          ),
+                          child: Container(
+                            padding: const EdgeInsets.all(10),
                             margin: const EdgeInsets.only(left: 10, right: 16),
-                            color: lavender,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              color: purple.withOpacity(0.1),
+                            ),
                             child: SvgPicture.asset(AppIcons.arrowsSort,
-                                height: 24,
-                                width: 24,
-                                fit: BoxFit.cover,
-                                color: purple),
+                                height: 24, width: 24, color: purple),
                           ),
                         ),
                       ],

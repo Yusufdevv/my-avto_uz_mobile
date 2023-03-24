@@ -45,6 +45,31 @@ class MyFunctions {
     );
   }
 
+  static ThemeMode getThemeMode() {
+    final themeMode = StorageRepository.getString('themeMode');
+    switch (themeMode) {
+      case 'light':
+        return ThemeMode.light;
+      case 'dark':
+        return ThemeMode.dark;
+      case 'system':
+        return ThemeMode.system;
+      default:
+        return ThemeMode.light;
+    }
+  }
+
+  // static Brightness getIconBrightNess(){
+  //   switch(getThemeMode()){
+  //     case ThemeMode.system:
+  //       break;
+  //     case ThemeMode.light:
+  //       break;
+  //     case ThemeMode.dark:
+  //       break;
+  //   }
+  // }
+
   static String getData(String data) =>
       Jiffy(data).format('dd-MM-yyyy').replaceAll('-', '/').toString();
 
@@ -567,23 +592,24 @@ class MyFunctions {
     return DamagedPart.hood;
   }
 
-  static DamagePosition getDamagePosition(
-      {required DamagedPart part,
-      required double width,
-      required double height}) {
+  static DamagePosition getDamagePosition({
+    required DamagedPart part,
+    required double width,
+    required double height,
+  }) {
     switch (part) {
       case DamagedPart.leftFrontDoor:
-        return DamagePosition(left: width * 0.3, top: 35);
+        return DamagePosition(left: width * 0.28, top: 37);
       case DamagedPart.rightFrontDoor:
-        return DamagePosition(right: width * 0.3, bottom: 42);
+        return DamagePosition(right: width * 0.28, bottom: 39);
       case DamagedPart.leftRearDoor:
-        return DamagePosition(top: 35, right: width * 0.24);
+        return DamagePosition(top: 37, right: width * 0.23);
       case DamagedPart.rightRearDoor:
-        return DamagePosition(left: width * 0.22, bottom: 42);
+        return DamagePosition(left: width * 0.22, bottom: 39);
       case DamagedPart.frontBumper:
-        return DamagePosition(top: height * 0.22, left: width * 0.14);
+        return DamagePosition(top: height * 0.19, left: width * 0.13);
       case DamagedPart.rearBumper:
-        return DamagePosition(bottom: height * 0.163, right: width * 0.14);
+        return DamagePosition(bottom: height * 0.137, right: width * 0.13);
       case DamagedPart.frontLeftFender:
         return DamagePosition(left: width * 0.12, top: 28);
       case DamagedPart.frontRightFender:
@@ -593,11 +619,11 @@ class MyFunctions {
       case DamagedPart.rearRightFender:
         return DamagePosition(left: width * 0.08, bottom: 48);
       case DamagedPart.roof:
-        return DamagePosition(top: height * 0.13, left: width * 0.14);
+        return DamagePosition(top: height * 0.12, left: width * 0.13);
       case DamagedPart.hood:
-        return DamagePosition(top: height * 0.18, left: width * 0.14);
+        return DamagePosition(top: height * 0.15, left: width * 0.13);
       case DamagedPart.trunk:
-        return DamagePosition(top: height * 0.15, right: width * 0.14);
+        return DamagePosition(top: height * 0.15, right: width * 0.13);
     }
   }
 

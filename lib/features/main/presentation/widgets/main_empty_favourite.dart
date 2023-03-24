@@ -89,7 +89,7 @@ class MainEmptyFavourite extends StatelessWidget {
               text: LocaleKeys.go_search.tr(),
               color: Theme.of(context)
                   .extension<ThemedColors>()!
-                  .cinnabar12ToCinnabar,
+                  .fairPinkToIndianTan,
               textStyle: Theme.of(context)
                   .textTheme
                   .headlineSmall!

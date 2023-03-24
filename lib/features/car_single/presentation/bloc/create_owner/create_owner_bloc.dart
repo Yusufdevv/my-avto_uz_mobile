@@ -1,13 +1,12 @@
 import 'package:auto/features/car_single/data/model/create_owner.dart';
-import 'package:auto/features/car_single/domain/usecases/verify_owner_create_usecase.dart';
 import 'package:auto/features/car_single/domain/usecases/delete_application_usecase.dart';
+import 'package:auto/features/car_single/domain/usecases/verify_owner_create_usecase.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 import 'package:meta/meta.dart';
 
 part 'create_owner_event.dart';
-
 part 'create_owner_state.dart';
 
 class CreateOwnerBloc extends Bloc<CreateOwnerEvent, CreateOwnerState> {
@@ -48,8 +47,6 @@ class CreateOwnerBloc extends Bloc<CreateOwnerEvent, CreateOwnerState> {
           status: FormzStatus.submissionSuccess,
           showModerationBtn: false,
           showMoreBtn: false,
-          refresh: true,
-          isDeleted: true,
         ));
       } else {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
@@ -65,6 +62,8 @@ class CreateOwnerBloc extends Bloc<CreateOwnerEvent, CreateOwnerState> {
       emit(state.copyWith(refresh: !event.refresh, isDeleted: !event.refresh));
     });
 
-
+    on<SetRejectedStatusEvent>((event, emit) {
+      emit(state.copyWith(isDeleted: event.rejected));
+    });
   }
 }

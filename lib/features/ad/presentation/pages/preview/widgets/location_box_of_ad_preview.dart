@@ -28,6 +28,7 @@ class LocationBoxOfAdPreview extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Text(LocaleKeys.place_of_inspection.tr(),
                 style: Theme.of(context)
@@ -51,18 +52,22 @@ class LocationBoxOfAdPreview extends StatelessWidget {
                 // child:Image.asset(AppIcons.currentLoc),
               ),
             },
-            Row(
-              children: [
-                SvgPicture.asset(AppIcons.send2),
-                const SizedBox(width: 8),
-                Text(
-                  '$regionName, $districtName',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodySmall!
-                      .copyWith(fontSize: 14),
-                ),
-              ],
+            Expanded(
+              child: Row(
+                children: [
+                  SvgPicture.asset(AppIcons.send2),
+                  const SizedBox(width: 8),
+                  Text(
+                    '$regionName, $districtName',
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontSize: 14),
+                  ),
+                ],
+              ),
             )
           ],
         ),

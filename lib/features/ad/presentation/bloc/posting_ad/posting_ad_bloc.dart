@@ -151,7 +151,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     if (result.isRight) {
       emit(
         state.copyWith(
-          nextModels: result.right.next ?? '',
+          nextModels: result.right.next,
           models: [...state.models, ...result.right.results],
         ),
       );
@@ -558,9 +558,10 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     final result =
         await modelsUseCase.call(state.make?.id ?? -1, name: event.name);
     if (result.isRight) {
+      print('result.right.next:${result.right.next}');
       emit(
         state.copyWith(
-          nextModels: result.right.next ?? '',
+          nextModels: result.right.next,
           status: FormzStatus.submissionSuccess,
           models: result.right.results,
         ),

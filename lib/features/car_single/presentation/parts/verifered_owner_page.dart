@@ -23,9 +23,15 @@ import 'package:formz/formz.dart';
 import 'package:image_picker/image_picker.dart';
 
 class VerifiredOwnerPage extends StatefulWidget {
-  const VerifiredOwnerPage({required this.announcementId, Key? key})
-      : super(key: key);
+  const VerifiredOwnerPage({
+    required this.announcementId,
+    this.isDeleted = false,
+    this.comment = '',
+    Key? key,
+  }) : super(key: key);
   final int announcementId;
+  final bool isDeleted;
+  final String comment;
 
   @override
   State<VerifiredOwnerPage> createState() => _VerifiredOwnerPageState();
@@ -40,7 +46,8 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
   void initState() {
     super.initState();
     imageBloc = ImageBloc(ImagePicker());
-    createOwnerBloc = CreateOwnerBloc();
+    createOwnerBloc = CreateOwnerBloc()
+      ..add(SetRejectedStatusEvent(rejected: widget.isDeleted));
     textController = TextEditingController();
   }
 
@@ -108,40 +115,10 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                           });
                         },
                       )
-                    else
-                      const SizedBox(),
                   ],
                 ),
                 body: stateOwner.isDeleted
-                    ? Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              AppImages.applicationRejected,
-                              height: 120,
-                              width: 120,
-                            ),
-                            Text(
-                              LocaleKeys.your_application_has_been_rejected
-                                  .tr(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayLarge!
-                                  .copyWith(fontSize: 16),
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              LocaleKeys.try_to_resubmit_the_application.tr(),
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .copyWith(fontSize: 14, color: greyText),
-                            ),
-                          ],
-                        ),
-                      )
+                    ? ApplicationRejectedUI(widget.comment)
                     : SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -405,51 +382,7 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                 bottomNavigationBar: Padding(
                   padding: const EdgeInsets.all(16),
                   child: stateOwner.showModerationBtn
-                      ? Container(
-                          height: 53,
-                          padding: const EdgeInsets.all(12)
-                              .copyWith(top: 8, bottom: 3),
-                          decoration: BoxDecoration(
-                              color: const Color(0xFFF1B747).withOpacity(.1),
-                              borderRadius: BorderRadius.circular(12)),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      LocaleKeys
-                                          .your_application_has_been_accepted
-                                          .tr(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium
-                                          ?.copyWith(
-                                              fontWeight: FontWeight.w700,
-                                              color: const Color(0xFFFFC137)),
-                                    ),
-                                    Text(
-                                      LocaleKeys
-                                          .wait_for_moderation_confirmation
-                                          .tr(),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium
-                                          ?.copyWith(
-                                              fontWeight: FontWeight.w400,
-                                              color: const Color(0xFFFFC137)),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SvgPicture.asset(AppIcons.moderationYellow),
-                            ],
-                          ),
-                        )
+                      ? VerifyOwnerModerationBtn()
                       : Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -514,6 +447,116 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
               ),
             ),
           ),
+        ),
+      );
+}
+
+class ApplicationRejectedUI extends StatelessWidget {
+  final String comment;
+
+  const ApplicationRejectedUI(this.comment);
+
+  @override
+  Widget build(BuildContext context) => Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(
+              AppImages.applicationRejected,
+              height: 120,
+              width: 120,
+            ),
+            Text(
+              LocaleKeys.your_application_has_been_rejected.tr(),
+              style: Theme.of(context)
+                  .textTheme
+                  .displayLarge!
+                  .copyWith(fontSize: 16),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              LocaleKeys.try_to_resubmit_the_application.tr(),
+              textAlign: TextAlign.center,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge!
+                  .copyWith(fontSize: 14, color: greyText),
+            ),
+            if (comment != '') ...{
+              const SizedBox(height: 20),
+              Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 28),
+              child:DecoratedBox(
+                decoration: BoxDecoration(
+                  color: red.withOpacity(0.04),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        LocaleKeys.cause.tr(),
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            color: red),
+                      ),
+                      Text(
+                        comment,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge!
+                            .copyWith(fontSize: 14, color: red),
+                      ),
+                    ],
+                  ),
+                ),
+              ))
+            },
+          ],
+        ),
+      );
+}
+
+class VerifyOwnerModerationBtn extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => Container(
+        height: 53,
+        padding: const EdgeInsets.all(12).copyWith(top: 8, bottom: 3),
+        decoration: BoxDecoration(
+            color: const Color(0xFFF1B747).withOpacity(.1),
+            borderRadius: BorderRadius.circular(12)),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    LocaleKeys.your_application_has_been_accepted.tr(),
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                        color: const Color(0xFFFFC137)),
+                  ),
+                  Text(
+                    LocaleKeys.wait_for_moderation_confirmation.tr(),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w400,
+                        color: const Color(0xFFFFC137)),
+                  ),
+                ],
+              ),
+            ),
+            SvgPicture.asset(AppIcons.moderationYellow),
+          ],
         ),
       );
 }

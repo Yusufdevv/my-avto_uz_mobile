@@ -613,5 +613,6 @@
   "extends_adss": "Продлить объявление",
   "for_day": "{} дней",
   "duration_service" : "Длительность",
-  "extends_again_for_day": "Продлить еще на 15 дней"
+  "extends_again_for_day": "Продлить еще на 15 дней",
+  "cause": "Причина: "
 }

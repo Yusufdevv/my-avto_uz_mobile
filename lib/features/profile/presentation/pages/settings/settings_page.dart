@@ -7,6 +7,7 @@ import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/pages/settings/password_changing_page.dart';
+import 'package:auto/features/profile/presentation/widgets/theme_bottom_sheet.dart';
 import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -89,6 +90,57 @@ class _SettingsPageState extends State<SettingsPage> {
                                   .extension<ThemedColors>()!
                                   .darkGreyToWhite,
                             )
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    WScaleAnimation(
+                      onTap: () {
+                        showModalBottomSheet(
+                            context: context,
+                            useRootNavigator: true,
+                            backgroundColor: Colors.transparent,
+                            constraints: BoxConstraints(
+                                minWidth: MediaQuery.of(context).size.width),
+                            builder: (context) => const ThemeBottomSheet());
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 12),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .whiteToNero1,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                              color: Theme.of(context)
+                                  .extension<WTextFieldStyle>()!
+                                  .borderColor),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  'Тема приложения',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayLarge!
+                                      .copyWith(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600),
+                                ),
+                                const Spacer(),
+                                SvgPicture.asset(
+                                  AppIcons.chevronRightBlack,
+                                  color: Theme.of(context)
+                                      .extension<ThemedColors>()!
+                                      .darkGreyToWhite,
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       ),

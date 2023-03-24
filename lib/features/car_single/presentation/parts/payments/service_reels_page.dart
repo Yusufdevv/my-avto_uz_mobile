@@ -84,11 +84,13 @@ class _ServiceReelsPageState extends State<ServiceReelsPage> {
                               children: [
                                 Text(
                                   LocaleKeys.add_to_ways.tr(),
-                                  style: Theme.of(context).textTheme.displayLarge,
+                                  style:
+                                      Theme.of(context).textTheme.displayLarge,
                                 ),
                                 const SizedBox(height: 8),
                                 Text(
-                                  LocaleKeys.you_currently_do_not_have_an_ad.tr(),
+                                  LocaleKeys.you_currently_do_not_have_an_ad
+                                      .tr(),
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleMedium
@@ -100,7 +102,8 @@ class _ServiceReelsPageState extends State<ServiceReelsPage> {
                                 StsImageItemWidget(
                                   onTapDelete: () {
                                     context.read<InvoiceBloc>().add(
-                                        DeleteImageVideoEvent(path: state.media));
+                                        DeleteImageVideoEvent(
+                                            path: state.media));
                                   },
                                   height: 116,
                                   width: 104,
@@ -131,12 +134,17 @@ class _ServiceReelsPageState extends State<ServiceReelsPage> {
                                 ValueListenableBuilder<int>(
                                     valueListenable: tarifValue,
                                     builder: (context, value, child) {
-                                      final item = state.tarifs[tarifValue.value];
+                                      final item =
+                                          state.tarifs[tarifValue.value];
                                       return TarifItem(
                                           serviceTitle:
                                               LocaleKeys.add_to_ways.tr(),
                                           amount: item.amount.toString(),
-                                          type: '-',
+                                          type: item.typeInt == 0
+                                              ? '-'
+                                              : LocaleKeys.for_day.tr(args: [
+                                                  item.typeInt.toString()
+                                                ]),
                                           id: item.id,
                                           date: '-');
                                     }),
@@ -175,16 +183,18 @@ class _ServiceReelsPageState extends State<ServiceReelsPage> {
                                                     }
                                                   },
                                                   value: index,
-                                                  groupValue: paymentValue.value,
-                                                  color:
-                                                      paymentValue.value == index
-                                                          ? lavanda
-                                                          : borderCircular,
+                                                  groupValue:
+                                                      paymentValue.value,
+                                                  color: paymentValue.value ==
+                                                          index
+                                                      ? lavanda
+                                                      : borderCircular,
                                                   iconPath: iconPathProviders
                                                       .values
                                                       .toList()[index],
                                                   borderColor:
-                                                      paymentValue.value == index
+                                                      paymentValue.value ==
+                                                              index
                                                           ? purple
                                                           : border,
                                                 )),
@@ -201,7 +211,8 @@ class _ServiceReelsPageState extends State<ServiceReelsPage> {
                           isLoading: state.payStatus.isSubmissionInProgress,
                           text: LocaleKeys.confirm.tr(),
                           margin: const EdgeInsets.all(16).copyWith(
-                              bottom: 16 + MediaQuery.of(context).padding.bottom),
+                              bottom:
+                                  16 + MediaQuery.of(context).padding.bottom),
                           color: orange,
                           onTap: () async {
                             bloc.add(

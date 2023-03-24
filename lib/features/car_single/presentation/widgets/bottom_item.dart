@@ -141,7 +141,7 @@ class BottomItem extends StatelessWidget {
               }
             } else {
               Share.share(
-                  'https://panel.avto.uz/api/v1/car/announcement/$id/detail/');
+                  'https://avto.uz/post/$id');
             }
           },
           child: Container(

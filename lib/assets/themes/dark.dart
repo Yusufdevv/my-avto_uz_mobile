@@ -182,6 +182,7 @@ abstract class DarkTheme {
             whiteToNero2: DarkThemeColors.whiteToNero2,
             seashellToCinnabar15: DarkThemeColors.seashellToCinnabar15,
             dividerColor: DarkThemeColors.dividerColor,
+            fairPinkToIndianTan: DarkThemeColors.fairPinkToIndianTan,
           ),
           WTextFieldStyle(
             fillColor: DarkThemeColors.solitudeToNero,

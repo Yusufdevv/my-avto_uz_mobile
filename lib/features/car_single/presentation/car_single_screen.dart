@@ -3,6 +3,8 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/const/constants.dart';
+import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
+import 'package:auto/features/ad/presentation/pages/preview/widgets/complectation_box.dart';
 import 'package:auto/features/car_single/data/repository/car_single_repository_impl.dart';
 import 'package:auto/features/car_single/domain/usecases/call_count_usecase.dart';
 import 'package:auto/features/car_single/domain/usecases/get_ads_usecase.dart';
@@ -72,7 +74,6 @@ class _CarSingleScreenState extends State<CarSingleScreen>
   Color tabColor = border;
   Color iconColor = white;
   Color likeColor = white;
-  int currentindex = 0;
   int currentIndex = 0;
   double height = 36;
 
@@ -133,6 +134,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
         value: bloc,
         child: CustomScreen(
           child: Scaffold(
+            // backgroundColor:Colors.teal,
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             body: BlocBuilder<CarSingleBloc, CarSingleState>(
               builder: (context, state) {
@@ -166,7 +168,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                 ? state.singleEntity.user.image
                                 : state.singleEntity.user.avatar,
                             shareUrl:
-                                'https://panel.avto.uz/api/v1/car/announcement/${state.singleEntity.id}/detail/',
+                                'https://avto.uz/post/${state.singleEntity.id}',
                             images: state.singleEntity.gallery,
                             onDealer: () {
                               if (state.singleEntity.userType == 'owner') {
@@ -250,7 +252,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                               },
                               onShare: () {
                                 Share.share(
-                                    'https://panel.avto.uz/api/v1/car/announcement/${state.singleEntity.id}/detail/');
+                                    'https://avto.uz/post/${state.singleEntity.id}');
                               },
                               year: '${state.singleEntity.year}',
                               mileage: MyFunctions.getThousandsSeparatedPrice(
@@ -293,6 +295,8 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                   state.singleEntity.priceAnalytics.percentage,
                             ),
                           ),
+
+                          ///
                           if (state.singleEntity.isMine &&
                               (widget.moderationStatus ==
                                       ModerationStatusEnum.active.value ||
@@ -301,6 +305,8 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                           .in_moderation.value)) ...{
                             SliverToBoxAdapter(
                               child: BecomeVerifiredOwnerWidget(
+                                  comment: state.singleEntity
+                                      .announcementVerifyOwners.comment,
                                   moderationStatus: state
                                       .singleEntity
                                       .announcementVerifyOwners
@@ -308,6 +314,8 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                   announcementId: state.singleEntity.id),
                             ),
                           },
+
+                          ///
                           if (state.singleEntity.isMine &&
                               (widget.moderationStatus ==
                                       ModerationStatusEnum.active.value ||
@@ -316,6 +324,8 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                             const SliverToBoxAdapter(
                               child: OwnerActions(),
                             ),
+
+                          ///
                           SliverToBoxAdapter(
                             child: CarSellerCard(
                               moderationStatus: widget.moderationStatus,
@@ -340,16 +350,13 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                               controller: _tabController,
                               onTap: (integer) {
                                 changeIndex(integer);
-                                setState(
-                                  () {
-                                    currentindex = integer;
-                                  },
-                                );
                               },
                             ),
                           ),
+
+                          ///
                           SliverToBoxAdapter(
-                            child: (currentindex == 0)
+                            child: (currentIndex == 0)
                                 ? Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -369,6 +376,14 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                           comment:
                                               state.singleEntity.description,
                                         ),
+                                      ComplectationBox(
+                                        equipment: state.singleEntity.equipment,
+                                        radios: PASingleton.makeRadiosSelected(
+                                            v: state.singleEntity.options),
+                                        selects:
+                                            PASingleton.makeSelectsSelected(
+                                                v: state.singleEntity.options),
+                                      ),
                                       const VinSoonItem(),
                                     ],
                                   )
@@ -388,12 +403,18 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                         .singleEntity.modificationType.volume,
                                   ),
                           ),
+
+                          ///
                           if (state.singleEntity.damagedParts.isNotEmpty)
                             SliverToBoxAdapter(
                               child: CarCharacteristicImage(
+                                  isFaceToFaceCheck:
+                                      state.singleEntity.isFaceToFaceCheck,
                                   informAboutDoors:
                                       state.singleEntity.damagedParts),
                             ),
+
+                          ///
                           SliverToBoxAdapter(
                             child: state.elasticSearchEntity.length > 1
                                 ? OtherAdsItem(

@@ -12,29 +12,32 @@ class BecomeVerifiredOwnerWidget extends StatelessWidget {
   const BecomeVerifiredOwnerWidget({
     required this.announcementId,
     required this.moderationStatus,
+    required this.comment,
     Key? key,
   }) : super(key: key);
   final int announcementId;
   final String moderationStatus;
+  final String comment;
 
   @override
   Widget build(BuildContext context) => Builder(builder: (context) {
         if (moderationStatus == 'in_moderation') {
           return VerifiredOwnerModerationItem(
-            titleColor: const Color(0xFFFFC137),
+            titleColor: sunglow,
             subtitle: LocaleKeys.at_moderation.tr(),
             icon: AppImages.in_moderation_application,
           );
         }
         if (moderationStatus == 'verified') {
           return VerifiredOwnerModerationItem(
-            titleColor: const Color(0xFF55BB00),
+            titleColor: hoursGreen,
             subtitle: LocaleKeys.documents_checked.tr(),
             icon: AppImages.approved_application,
           );
         }
         if (moderationStatus == 'rejected') {
           return VerifiredOwnerRejectedItem(
+            comment: comment,
             announcementId: announcementId,
           );
         }

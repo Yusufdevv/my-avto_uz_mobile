@@ -27,17 +27,16 @@ class _ChatPageState extends State<ChatPage> {
     super.initState();
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setBackgroundColor(const Color(0x00000000))
       ..setNavigationDelegate(
         NavigationDelegate(
-          onProgress: (int progress) {
+          onProgress: (progress) {
             // Update loading bar.
           },
         ),
       )
-      ..loadHtmlString(htmlCode('phone', ''))
-      ..reload()
-      ..clearLocalStorage();
+      // ..loadHtmlString(htmlCode('phone', ''))
+      // ..reload()
+      ..loadRequest(Uri.parse('https://jivo.chat/J70GNF82kE'));
   }
 
   String htmlCode(String phone, String userName) {
@@ -89,9 +88,23 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
         child: Scaffold(
-          appBar: ChatAppBar(phone: widget.phone),
-          body: WebViewWidget(
-            controller: controller,
+          body: Stack(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                    bottom: 16 + MediaQuery.of(context).padding.bottom,
+                    top: 20),
+                child: WebViewWidget(
+                  controller: controller,
+                ),
+              ),
+              Positioned(
+                top: 0,
+                right: 0,
+                left: 0,
+                child: ChatAppBar(phone: widget.phone),
+              )
+            ],
           ),
         ),
       );

@@ -56,6 +56,7 @@ class _MapScreenState extends State<MapScreen>
 
   @override
   Widget build(BuildContext context) {
+    log(':::::::::: IS FROM DIRECTORY PAGE:  ${widget.isFromDirectoryPage}  ::::::::::');
     super.build(context);
     return CustomScreen(
       child: Scaffold(
@@ -100,6 +101,7 @@ class _MapScreenState extends State<MapScreen>
                       await StorageRepository.putDouble(
                           'long', cameraPosition.target.longitude);
                     }
+                    // setState(() {});
                   },
                   onMapTap: (point) {
                     WidgetsBinding.instance.focusManager.primaryFocus
@@ -275,10 +277,8 @@ class _MapScreenState extends State<MapScreen>
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
                         color: white,
-                        border: Border.all(
-                          color: borderCircular,
-                          width: 1,
-                        ),
+                        // color:Colors.teal,
+                        border: Border.all(color: borderCircular, width: 1),
                         boxShadow: [
                           BoxShadow(
                             offset: const Offset(0, 2),
@@ -313,7 +313,6 @@ class _MapScreenState extends State<MapScreen>
     required Point point,
     required double accuracy,
     required bool isDirectoryPage,
-    double? iconScale,
   }) async {
     final placeMarks = <PlacemarkMapObject>[];
     bitmaps.asMap().forEach((key, value) {
@@ -334,14 +333,14 @@ class _MapScreenState extends State<MapScreen>
                 CameraPosition(
                   target: Point(
                       latitude: point.latitude, longitude: point.longitude),
-                  zoom: 15,
+                  zoom: zoomLevel,
                 ),
               ),
             );
           },
           icon: PlacemarkIcon.single(
             PlacemarkIconStyle(
-              scale: isDirectoryPage ? 1 : 3,
+              scale: isDirectoryPage ? 1 : 0.9,
               image: value != null
                   ? BitmapDescriptor.fromBytes(value)
                   : BitmapDescriptor.fromAssetImage(
@@ -414,7 +413,6 @@ class _MapScreenState extends State<MapScreen>
             .toList(), (lis) {
       setState(() {
         mapBitmapsToMarkers(lis,
-            iconScale: 1,
             points: points,
             isDirectoryPage: isDirectoryPage,
             context: buildContext,

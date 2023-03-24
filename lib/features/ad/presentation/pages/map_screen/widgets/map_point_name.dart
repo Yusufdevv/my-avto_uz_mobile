@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
@@ -52,7 +54,12 @@ class MapPointName extends StatelessWidget {
               MapItemImageNameWidget(
                   dealerImageUrl: currentDealer?.avatar ?? '',
                   dealerName: currentDealer?.name ?? '',
-                  dealerType:isFromDirectoryPage ? currentDealer?.category!=null ? currentDealer?.category['name'] : LocaleKeys.autosalon_autoservice.tr() :  LocaleKeys.autosalon.tr()),
+                  dealerType: isFromDirectoryPage
+                      ? currentDealer?.category != null
+                          ? currentDealer?.category['name']
+                          : LocaleKeys.autosalon_autoservice.tr()
+                      : currentDealer?.dealerType.name ??
+                          LocaleKeys.autosalon.tr()),
               const SizedBox(height: 12),
               Row(
                 children: [

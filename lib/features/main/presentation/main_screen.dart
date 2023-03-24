@@ -26,7 +26,6 @@ import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dar
 import 'package:auto/features/reels/presentation/pages/reels_screen.dart';
 import 'package:auto/features/rent/presentation/rent_screen.dart';
 import 'package:auto/generated/locale_keys.g.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -82,7 +81,8 @@ class _MainScreenState extends State<MainScreen> {
     topAdBloc = TopAdBloc(GetTopAdsUseCase())
       ..add(TopAdEvent.getTopAds())
       ..add(TopAdEvent.getFavorites());
-    topBrandBloc = TopBrandBloc(GetTopBrandUseCase())..add(TopBrandEvent.getBrand());
+    topBrandBloc = TopBrandBloc(GetTopBrandUseCase())
+      ..add(TopBrandEvent.getBrand());
     serviceTaps = [
       () {
         showModalBottomSheet(
@@ -93,7 +93,8 @@ class _MainScreenState extends State<MainScreen> {
         );
       },
       () {
-        Navigator.of(context, rootNavigator: true).push(fade(page: const AdsScreen()));
+        Navigator.of(context, rootNavigator: true)
+            .push(fade(page: const AdsScreen()));
       },
       () {
         showModalBottomSheet(
@@ -122,7 +123,8 @@ class _MainScreenState extends State<MainScreen> {
         //     .push(fade(page: const CommercialScreen()));
       },
       () {
-        Navigator.of(context, rootNavigator: true).push(fade(page: const RentScreen()));
+        Navigator.of(context, rootNavigator: true)
+            .push(fade(page: const RentScreen()));
       }
     ];
     super.initState();
@@ -143,7 +145,8 @@ class _MainScreenState extends State<MainScreen> {
         ],
         child: BlocBuilder<MainBloc, MainState>(
           builder: (context, state) => Scaffold(
-            backgroundColor: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+            backgroundColor:
+                Theme.of(context).extension<ThemedColors>()!.whiteToBlack,
             appBar: const MainAppBar(),
             body: RefreshIndicator(
               color: purple,
@@ -152,7 +155,9 @@ class _MainScreenState extends State<MainScreen> {
                   ..add(InitialEvent())
                   ..add(GetAnnouncement());
                 context.read<ProfileBloc>().add(GetProfileEvent());
-                context.read<ProfileBloc>().add(GetNoReadNotificationsEvent(filter: 0));
+                context
+                    .read<ProfileBloc>()
+                    .add(GetNoReadNotificationsEvent(filter: 0));
                 topBrandBloc.add(TopBrandEvent.getBrand());
                 topAdBloc
                   ..add(TopAdEvent.getTopAds())
@@ -166,7 +171,8 @@ class _MainScreenState extends State<MainScreen> {
                   children: [
                     Visibility(
                       visible: state.statusStoriesGet.isSubmissionInProgress ||
-                          state.statusStoriesGet.isSubmissionSuccess && state.stories.isNotEmpty,
+                          state.statusStoriesGet.isSubmissionSuccess &&
+                              state.stories.isNotEmpty,
                       child: Stories(
                         status: state.statusStoriesGet,
                         stories: state.stories,
@@ -183,14 +189,15 @@ class _MainScreenState extends State<MainScreen> {
                       },
                     ),
                     CarModelItem(
-                      onTapSelect: () => Navigator.of(context, rootNavigator: true)
-                          .push(fade(
-                              page: ChooseCarBrandPage(
+                      onTapSelect: () =>
+                          Navigator.of(context, rootNavigator: true)
+                              .push(fade(
+                                  page: ChooseCarBrandPage(
                         selectedMakeId: state.makeId,
                         selectedModelId: state.modelId,
                         announcementCount: state.announcementCount,
                       )))
-                          .then((value) {
+                              .then((value) {
                         if (value != null) {
                           if (value is Map<String, dynamic>) {
                             final result = value;
@@ -208,8 +215,9 @@ class _MainScreenState extends State<MainScreen> {
                                   makeName: makeName,
                                   historySaved: false))
                               ..add(GetAnnouncement());
-                            Navigator.of(context, rootNavigator: true).push(fade(
-                                page: AdsScreen(
+                            Navigator.of(context, rootNavigator: true)
+                                .push(fade(
+                                    page: AdsScreen(
                               modelId: modelId,
 
                               modelName: modelName,
@@ -272,9 +280,14 @@ class _MainScreenState extends State<MainScreen> {
                     const TopAds(),
                     BlocListener<WishlistAddBloc, WishlistAddState>(
                       listener: (context, stateWish) {
-                        if (stateWish.addStatus.isSubmissionSuccess || stateWish.removeStatus.isSubmissionSuccess) {
-                          context.read<TopAdBloc>().add(TopAdEvent.getFavorites());
-                          context.read<WishlistAddBloc>().add(WishlistAddEvent.clearState());
+                        if (stateWish.addStatus.isSubmissionSuccess ||
+                            stateWish.removeStatus.isSubmissionSuccess) {
+                          context
+                              .read<TopAdBloc>()
+                              .add(TopAdEvent.getFavorites());
+                          context
+                              .read<WishlistAddBloc>()
+                              .add(WishlistAddEvent.clearState());
                         }
                       },
                       child: MainFavorites(

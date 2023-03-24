@@ -8,6 +8,7 @@ class AnnouncementVerifyOwnerModel extends AnnouncementVerifyOwnerEntity {
   const AnnouncementVerifyOwnerModel({
     required super.id,
     required super.moderationStatus,
+    required super.comment,
   });
 
   factory AnnouncementVerifyOwnerModel.fromJson(Map<String, dynamic> json) =>

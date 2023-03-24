@@ -7,25 +7,28 @@ class DotAndText extends StatelessWidget {
   const DotAndText({required this.text, Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            margin: const EdgeInsets.only(left: 8, right: 10),
-            height: 3,
-            width: 3,
-            decoration: BoxDecoration(
-              color: dark,
-              borderRadius: BorderRadius.circular(1.5),
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.only(bottom: 12),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(left: 8, right: 10),
+              height: 3,
+              width: 3,
+              decoration: BoxDecoration(
+                color: dark,
+                borderRadius: BorderRadius.circular(1.5),
+              ),
             ),
-          ),
-          Text(
-           text,
-            style: Theme.of(context)
-                .textTheme
-                .displayLarge!
-                .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
-          )
-        ],
+            Text(
+              text,
+              style: Theme.of(context)
+                  .textTheme
+                  .displayLarge!
+                  .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
+            ),
+          ],
+        ),
       );
 }

@@ -31,6 +31,14 @@ class ReApplicationEvent extends CreateOwnerEvent {
   });
 }
 
+class SetRejectedStatusEvent extends CreateOwnerEvent {
+  final bool rejected;
+
+  SetRejectedStatusEvent({
+    required this.rejected,
+  });
+}
+
 class DeleteApplicaitionEvent extends CreateOwnerEvent {
   final int id;
 
