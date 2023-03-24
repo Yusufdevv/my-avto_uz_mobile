@@ -72,7 +72,6 @@ class _CarSingleScreenState extends State<CarSingleScreen>
   Color tabColor = border;
   Color iconColor = white;
   Color likeColor = white;
-  int currentindex = 0;
   int currentIndex = 0;
   double height = 36;
 
@@ -293,6 +292,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                   state.singleEntity.priceAnalytics.percentage,
                             ),
                           ),
+                          ///
                           if (state.singleEntity.isMine &&
                               (widget.moderationStatus ==
                                       ModerationStatusEnum.active.value ||
@@ -301,6 +301,9 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                           .in_moderation.value)) ...{
                             SliverToBoxAdapter(
                               child: BecomeVerifiredOwnerWidget(
+                                comment: state
+                                    .singleEntity
+                                    .announcementVerifyOwners.comment,
                                   moderationStatus: state
                                       .singleEntity
                                       .announcementVerifyOwners
@@ -308,6 +311,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                   announcementId: state.singleEntity.id),
                             ),
                           },
+                          ///
                           if (state.singleEntity.isMine &&
                               (widget.moderationStatus ==
                                       ModerationStatusEnum.active.value ||
@@ -316,6 +320,8 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                             const SliverToBoxAdapter(
                               child: OwnerActions(),
                             ),
+
+                          ///
                           SliverToBoxAdapter(
                             child: CarSellerCard(
                               moderationStatus: widget.moderationStatus,
@@ -340,16 +346,12 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                               controller: _tabController,
                               onTap: (integer) {
                                 changeIndex(integer);
-                                setState(
-                                  () {
-                                    currentindex = integer;
-                                  },
-                                );
                               },
                             ),
                           ),
+                          ///
                           SliverToBoxAdapter(
-                            child: (currentindex == 0)
+                            child: (currentIndex == 0)
                                 ? Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -388,12 +390,14 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                         .singleEntity.modificationType.volume,
                                   ),
                           ),
+                          ///
                           if (state.singleEntity.damagedParts.isNotEmpty)
                             SliverToBoxAdapter(
                               child: CarCharacteristicImage(
                                   informAboutDoors:
                                       state.singleEntity.damagedParts),
                             ),
+                          ///
                           SliverToBoxAdapter(
                             child: state.elasticSearchEntity.length > 1
                                 ? OtherAdsItem(

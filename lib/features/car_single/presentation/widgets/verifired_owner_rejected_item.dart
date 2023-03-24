@@ -10,10 +10,12 @@ import 'package:flutter/material.dart';
 class VerifiredOwnerRejectedItem extends StatelessWidget {
   const VerifiredOwnerRejectedItem({
     required this.announcementId,
+    required this.comment,
     super.key,
   });
 
   final int announcementId;
+  final String comment;
 
   @override
   Widget build(BuildContext context) => Container(
@@ -34,14 +36,14 @@ class VerifiredOwnerRejectedItem extends StatelessWidget {
                 children: [
                   Text.rich(TextSpan(children: [
                     TextSpan(
-                      text: LocaleKeys.application_for_verified_owner.tr(),
+                      text: '${LocaleKeys.application_for_verified_owner.tr()} ',
                       style: Theme.of(context).textTheme.displayLarge!.copyWith(
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
                           color: black),
                     ),
                     TextSpan(
-                      text:LocaleKeys.not_approved.tr(),
+                      text: LocaleKeys.not_approved.tr(),
                       style: Theme.of(context).textTheme.displayLarge!.copyWith(
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
@@ -55,7 +57,10 @@ class VerifiredOwnerRejectedItem extends StatelessWidget {
                           context,
                           fade(
                               page: VerifiredOwnerPage(
-                                  announcementId: announcementId)));
+                            comment: comment,
+                            announcementId: announcementId,
+                            isDeleted: true,
+                          )));
                     },
                     child: Container(
                       decoration: BoxDecoration(

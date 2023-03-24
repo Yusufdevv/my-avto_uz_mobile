@@ -5,16 +5,19 @@ import 'package:json_annotation/json_annotation.dart';
 class AnnouncementVerifyOwnerEntity extends Equatable {
   final int id;
   final String moderationStatus;
+  final String comment;
 
   const AnnouncementVerifyOwnerEntity({
     this.id = 0,
     this.moderationStatus = '',
+    this.comment = '',
   });
 
   @override
   List<Object?> get props => [
         id,
         moderationStatus,
+        comment,
       ];
 }
 

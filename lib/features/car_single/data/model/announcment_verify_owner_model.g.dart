@@ -11,6 +11,7 @@ AnnouncementVerifyOwnerModel _$AnnouncementVerifyOwnerModelFromJson(
     AnnouncementVerifyOwnerModel(
       id: json['id'] as int? ?? 0,
       moderationStatus: json['moderation_status'] as String? ?? '',
+      comment: json['comment'] as String? ?? '',
     );
 
 Map<String, dynamic> _$AnnouncementVerifyOwnerModelToJson(
@@ -18,4 +19,5 @@ Map<String, dynamic> _$AnnouncementVerifyOwnerModelToJson(
     <String, dynamic>{
       'id': instance.id,
       'moderation_status': instance.moderationStatus,
+      'comment': instance.comment,
     };

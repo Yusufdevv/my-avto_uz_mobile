@@ -80,9 +80,11 @@ const orangeMid = _orangeMid;
 const makeSearchCancel = _makeSearchCancelColor;
 const popUpWarning = _popUpWarning;
 const greyLight = _greyLight;
+const sunglow = _sunglow;
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
 const _popUpWarning = Color(0xffF1B747);
+const _sunglow = Color(0xffFFC137);
 const _floralWhite = Color(0xffFFF8EF);
 const _whiteToGrey = Color(0xFFFAFAFA);
 const _snow = Color(0xFFFFFCFB);

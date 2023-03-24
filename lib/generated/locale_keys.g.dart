@@ -616,5 +616,6 @@ abstract class  LocaleKeys {
   static const for_day = 'for_day';
   static const duration_service = 'duration_service';
   static const extends_again_for_day = 'extends_again_for_day';
+  static const cause = 'cause';
 
 }
