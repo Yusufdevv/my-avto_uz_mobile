@@ -3,7 +3,6 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/const/constants.dart';
-import 'package:auto/features/ad/domain/entities/equipment/equipment_entity.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/preview/widgets/complectation_box.dart';
 import 'package:auto/features/car_single/data/repository/car_single_repository_impl.dart';
@@ -169,7 +168,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                 ? state.singleEntity.user.image
                                 : state.singleEntity.user.avatar,
                             shareUrl:
-                                'https://panel.avto.uz/api/v1/car/announcement/${state.singleEntity.id}/detail/',
+                                'https://avto.uz/post/${state.singleEntity.id}',
                             images: state.singleEntity.gallery,
                             onDealer: () {
                               if (state.singleEntity.userType == 'owner') {
@@ -253,7 +252,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                               },
                               onShare: () {
                                 Share.share(
-                                    'https://panel.avto.uz/api/v1/car/announcement/${state.singleEntity.id}/detail/');
+                                    'https://avto.uz/post/${state.singleEntity.id}');
                               },
                               year: '${state.singleEntity.year}',
                               mileage: MyFunctions.getThousandsSeparatedPrice(

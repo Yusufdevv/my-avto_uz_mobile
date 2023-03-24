@@ -150,7 +150,7 @@ class MyAdDesc extends StatelessWidget {
                           vertical: 10, horizontal: 11),
                       onTap: () {
                         Share.share(
-                            'https://panel.avto.uz/api/v1/car/announcement/${item.id}/detail/');
+                            'https://avto.uz/post/${item.id}');
                       },
                       child: SvgPicture.asset(AppIcons.share,
                           color: Theme.of(context)

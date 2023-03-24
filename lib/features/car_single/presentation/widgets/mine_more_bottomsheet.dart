@@ -48,7 +48,8 @@ class MineMoreBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final date = isExpired ? DateTime.now() : DateTime.parse(expiredDate);
+    print('==== $expiredDate');
+    final date = isExpired ? DateTime.now() : expiredDate.isNotEmpty ? DateTime.parse(expiredDate) : DateTime.now();
     return Container(
       decoration: const BoxDecoration(
         color: white,
