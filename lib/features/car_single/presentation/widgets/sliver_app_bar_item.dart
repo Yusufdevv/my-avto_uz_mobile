@@ -102,7 +102,7 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                 Navigator.pop(context);
               },
               child: Padding(
-                padding: const EdgeInsets.only(right: 8),
+                padding: const EdgeInsets.only(right: 16),
                 child: SvgPicture.asset(
                   AppIcons.chevronLeft,
                   width: 24,
