@@ -18,7 +18,7 @@ class DirectoryList extends StatefulWidget {
   State<DirectoryList> createState() => _DirectoryListState();
 }
 
-class _DirectoryListState extends State<DirectoryList> {
+class _DirectoryListState extends State<DirectoryList> with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     context.read<DirectoryBloc>().add(GetDirectoriesEvent());
@@ -29,57 +29,59 @@ class _DirectoryListState extends State<DirectoryList> {
   Widget build(BuildContext context) => Scaffold(
         body: BlocBuilder<DirectoryBloc, DirectoryState>(
           builder: (context, state) {
-            if (state.status.isSubmissionInProgress) {
+            if (state.status != FormzStatus.submissionSuccess) {
               return const Center(child: CupertinoActivityIndicator());
-            }
-            if (state.status.isSubmissionSuccess) {
+            } else{
               final directories = state.directories;
               return directories.isNotEmpty
                   ? Paginator(
-                      hasMoreToFetch: state.fetchMoreDirectories,
-                      fetchMoreFunction: () {
-                        context
-                            .read<DirectoryBloc>()
-                            .add(GetMoreDirectoriesEvent());
-                      },
-                      errorWidget: const SizedBox(),
-                      physics: const BouncingScrollPhysics(),
-                      padding: const EdgeInsets.only(
-                          left: 16, right: 16, top: 20, bottom: 20),
-                      itemBuilder: (context, index) {
-                        final item = directories[index];
-                        return DirectoryCard(
-                          slug: item.slug ?? '',
-                          region: item.region ?? '',
-                          dealerType:
-                              MyFunctions.getCategoriesName(item.category),
-                          dealerName: item.name ?? '',
-                          phoneNumber: '',
-                          dealerInfo: '',
-                          dealerImageUrl: item.avatar ?? '',
-                          quantityOfCars: 0,
-                          latitude: (item.latitude ?? 0).toDouble(),
-                          longitude: (item.longitude ?? 0).toDouble(),
-                          contractCode: '',
-                          contractNumber: '',
-                          contactTo: item.contactTo ?? '',
-                          contactFrom: item.contactFrom ?? '',
-                        );
-                      },
-                      separatorBuilder: (context, index) =>
-                          const SizedBox(height: 16),
-                      itemCount: directories.length,
-                      paginatorStatus: state.status,
-                    )
+                hasMoreToFetch: state.fetchMoreDirectories,
+                fetchMoreFunction: () {
+                  context
+                      .read<DirectoryBloc>()
+                      .add(GetMoreDirectoriesEvent());
+                },
+                errorWidget: const SizedBox(),
+                physics: const BouncingScrollPhysics(),
+                padding: const EdgeInsets.only(
+                    left: 16, right: 16, top: 20, bottom: 20),
+                itemBuilder: (context, index) {
+                  final item = directories[index];
+                  return DirectoryCard(
+                    slug: item.slug ?? '',
+                    region: item.region ?? '',
+                    dealerType:
+                    MyFunctions.getCategoriesName(item.category),
+                    dealerName: item.name ?? '',
+                    phoneNumber: '',
+                    dealerInfo: '',
+                    dealerImageUrl: item.avatar ?? '',
+                    quantityOfCars: 0,
+                    latitude: (item.latitude ?? 0).toDouble(),
+                    longitude: (item.longitude ?? 0).toDouble(),
+                    contractCode: '',
+                    contractNumber: '',
+                    contactTo: item.contactTo ?? '',
+                    contactFrom: item.contactFrom ?? '',
+                  );
+                },
+                separatorBuilder: (context, index) =>
+                const SizedBox(height: 16),
+                itemCount: directories.length,
+                paginatorStatus: state.status,
+              )
                   : Center(
-                      child: EmptyItemBody(
-                          title: LocaleKeys.no_dealer.tr(),
-                          subtitle: '',
-                          image: AppIcons.emptyFolder),
-                    );
+                child: EmptyItemBody(
+                    title: LocaleKeys.no_dealer.tr(),
+                    subtitle: '',
+                    image: AppIcons.emptyFolder),
+              );
             }
-            return const Center(child: Text(''));
+
           },
         ),
       );
+
+  @override
+  bool get wantKeepAlive => true;
 }
