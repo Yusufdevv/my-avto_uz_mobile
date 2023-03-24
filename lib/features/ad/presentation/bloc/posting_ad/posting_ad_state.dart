@@ -311,7 +311,7 @@ class PostingAdState extends Equatable {
         hasAppBarShadow: hasAppBarShadow ?? this.hasAppBarShadow,
         isSortByLetter: isSortByLetter,
         model: model ?? this.model,
-        nextModels: returnNullIfEmpty(nextModels, this.nextModels),
+        nextModels: nextModels,
         nextMakes: returnNullIfEmpty(nextMakes, this.nextMakes),
         make: make ?? this.make,
         letter: eventLetter,

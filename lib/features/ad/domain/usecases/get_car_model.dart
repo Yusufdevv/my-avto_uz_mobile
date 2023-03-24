@@ -13,6 +13,7 @@ class GetCarModelUseCase extends UseCase<GenericPagination<MakeEntity>, int> {
   GetCarModelUseCase();
 
   @override
-  Future<Either<Failure, GenericPagination<MakeEntity>>> call(int params, {String? name, String? next}) =>
-      repository.getCarModel(params, name: name);
+  Future<Either<Failure, GenericPagination<MakeEntity>>> call(int params,
+          {String? name, String? next}) =>
+      repository.getCarModel(params, name: name, next: next);
 }

@@ -204,13 +204,15 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
               }
             : {},
       ),
-
       queryParameters: next == null || name == null
           ? name != null && name.isNotEmpty
               ? {'search': name, 'limit': 10, 'offset': 0}
               : {}
           : {},
     );
+    print(response.statusCode);
+    print(response.realUri);
+
     if (response.statusCode! >= 200 && response.statusCode! < 300) {
       return GenericPagination.fromJson(response.data,
           (p0) => MakeModel.fromJson(p0 as Map<String, dynamic>));
