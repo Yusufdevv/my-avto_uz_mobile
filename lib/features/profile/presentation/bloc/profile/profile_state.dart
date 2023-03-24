@@ -6,7 +6,7 @@ class ProfileState extends Equatable {
   final TermsOfUseEntity termsOfUseEntity;
   final List<ProductsList> productCategory;
   final List<CarProductEntity> cartProductEntity;
-  final List<ProductCategoryModel> productCategoryModel;
+  final List<ProductCategoryModel> productCategoryModell;
   final FormzStatus status;
   final FormzStatus editStatus;
   final FormzStatus changeStatus;
@@ -27,7 +27,7 @@ class ProfileState extends Equatable {
     required this.getCarProductByCategoryStatus,
     required this.getProductCategoryStatus,
     required this.getProductListStatus,
-    required this.productCategoryModel,
+    required this.productCategoryModell,
   });
 
   ProfileState copyWith({
@@ -44,7 +44,7 @@ class ProfileState extends Equatable {
     bool? isNotificationAllRead,
     List<ProductsList>? productCategory,
     List<CarProductEntity>? cartProductEntity,
-    List<ProductCategoryModel>? productCategoryModel,
+    List<ProductCategoryModel>? productCategoryModell,
   }) =>
       ProfileState(
         status: status ?? this.status,
@@ -61,11 +61,13 @@ class ProfileState extends Equatable {
         changeStatus: changeStatus ?? this.changeStatus,
         isNotificationAllRead:
             isNotificationAllRead ?? this.isNotificationAllRead,
-        productCategoryModel: productCategoryModel ?? this.productCategoryModel,
+        productCategoryModell:
+            productCategoryModell ?? this.productCategoryModell,
       );
 
   @override
   List<Object?> get props => [
+        productCategoryModell,
         status,
         profileEntity,
         termsOfUseEntity,

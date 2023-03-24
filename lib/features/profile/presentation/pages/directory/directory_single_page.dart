@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/pagination/presentation/paginator.dart';
@@ -12,7 +14,6 @@ import 'package:auto/features/profile/presentation/pages/directory/directory_sli
 import 'package:auto/features/profile/presentation/pages/directory/product_screen.dart';
 import 'package:auto/features/profile/presentation/pages/directory/service_or_products_screen.dart';
 import 'package:auto/features/profile/presentation/widgets/directory_item.dart';
-import 'package:auto/features/profile/presentation/pages/directory/service_or_products_screen.dart';
 import 'package:auto/features/profile/presentation/widgets/go_all_button.dart';
 import 'package:auto/features/profile/presentation/widgets/service_or_product_button.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,7 +21,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
-import '../../../../dealers/presentation/widgets/dealer_single_info_part.dart';
 
 class DirectorySinglePage extends StatefulWidget {
   final String slug;
@@ -90,14 +90,9 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
                     ),
                   ],
                   body: BlocBuilder<ProfileBloc, ProfileState>(
-                    builder: (context, state) {
-                      print('dkslnl -> ${state.productCategoryModel}');
-                      print('dkslnl -> ${state.getProductCategoryStatus}');
-                      print('fskl -> ${state.productCategory}');
-                      print('fskl -> ${state.getProductListStatus}');
+                    builder: (context, statee) {
+                      log(':::::::::: product category model length  ${statee.productCategoryModell.length}  ::::::::::');
                       return ListView(
-                        // crossAxisAlignment: CrossAxisAlignment.start,
-                        // mainAxisSize: MainAxisSize.max,
                         children: [
                           DirectoryInfoPart(
                             address: directory.address,
@@ -110,50 +105,43 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
                             latitude: directory.latitude,
                           ),
                           const SizedBox(height: 16),
-                          if (state.productCategory.isNotEmpty)
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16),
-                              child: GoAllButton(
-                                padding: EdgeInsets.zero,
-                                title: 'Популярные продукты',
-                                onPressed: () {
-                                  Navigator.of(context).push(
-                                    fade(
-                                      page: ProductsScreen(
-                                        title: 'Все продукты',
-                                        bloc: profileBloc,
-                                        slug: widget.slug,
-                                      ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: GoAllButton(
+                              hasButton: statee.cartProductEntity.length > 10,
+                              padding: EdgeInsets.zero,
+                              title: 'Популярные продукты',
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  fade(
+                                    page: ProductsScreen(
+                                      title: 'Все продукты',
+                                      bloc: profileBloc,
+                                      slug: widget.slug,
                                     ),
-                                  );
-                                },
-                              ),
-                            )
-                          else
-                            const SizedBox(),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
                           Container(
                             height: 120,
                             margin: const EdgeInsets.only(top: 13, bottom: 32),
-                            child: Paginator(
+                            child: ListView.separated(
+                              shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
                               physics: const BouncingScrollPhysics(),
                               itemBuilder: (context, index) => DirectoryItem(
-                                image: state.cartProductEntity[index].image,
-                                title: state.cartProductEntity[index].name,
+                                image: '',
+                                title: 'MEGAWATT ENERGY 36 КВТ',
                                 idx: index,
                               ),
                               separatorBuilder: (context, index) =>
                                   const SizedBox(width: 13),
-                              paginatorStatus: FormzStatus.submissionSuccess,
-                              // state.getProductListStatus,
-                              itemCount: state.productCategory.length,
-                              fetchMoreFunction: () {},
-                              hasMoreToFetch: false,
-                              errorWidget: const CupertinoActivityIndicator(),
+                              itemCount: 12,
                             ),
                           ),
-                          if (state.productCategoryModel.isNotEmpty)
+                          if (statee.productCategoryModell.isNotEmpty)
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 16),
@@ -175,8 +163,8 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
                                 Navigator.of(context, rootNavigator: true).push(
                                   fade(
                                     page: ServiceOrProductsScreen(
-                                      title: state
-                                          .productCategoryModel[index].name,
+                                      title: statee
+                                          .productCategoryModell[index].name,
                                       bloc: profileBloc,
                                       slug: widget.slug,
                                       id: 1,
@@ -184,37 +172,40 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
                                   ),
                                 );
                               },
-                              title: state.productCategoryModel[index].name,
+                              title: statee.productCategoryModell[index].name,
                               more: index % 2,
                             ),
-                            itemCount: state.productCategoryModel.length,
+                            itemCount: statee.productCategoryModell.length,
                             fetchMoreFunction: () {},
                             hasMoreToFetch: false,
                             physics: const NeverScrollableScrollPhysics(),
                             errorWidget: const CupertinoActivityIndicator(),
                           ),
-                          // ListView.separated(
-                          //   scrollDirection: Axis.vertical,
-                          //   physics: const NeverScrollableScrollPhysics(),
-                          //   shrinkWrap: true,
-                          //   itemCount: serviceProductList.length,
-                          //   itemBuilder: (context, index) =>
-                          //       ServiceOrProductButton(
-                          //     onTap: () {
-                          //       Navigator.of(context, rootNavigator: true).push(
-                          //         fade(
-                          //           page: ServiceOrProductsScreen(
-                          //             title: serviceProductList[index],
-                          //           ),
-                          //         ),
-                          //       );
-                          //     },
-                          //     title: serviceProductList[index],
-                          //     more: index % 2,
-                          //   ),
-                          //   separatorBuilder: (context, index) =>
-                          //       const SizedBox(height: 8),
-                          // ),
+                          ListView.separated(
+                            scrollDirection: Axis.vertical,
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: serviceProductList.length,
+                            itemBuilder: (context, index) =>
+                                ServiceOrProductButton(
+                              onTap: () {
+                                Navigator.of(context, rootNavigator: true).push(
+                                  fade(
+                                    page: ServiceOrProductsScreen(
+                                      id: -1,
+                                      bloc: ProfileBloc(),
+                                      slug: 'fefae',
+                                      title: serviceProductList[index],
+                                    ),
+                                  ),
+                                );
+                              },
+                              title: serviceProductList[index],
+                              more: index % 2,
+                            ),
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(height: 8),
+                          ),
                         ],
                       );
                     },

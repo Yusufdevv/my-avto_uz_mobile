@@ -1,10 +1,15 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/colors/light.dart';
+import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_entity.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/preview/widgets/dot_and_text.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ComplectationBox extends StatefulWidget {
   final EquipmentEntity? equipment;
@@ -24,6 +29,8 @@ class ComplectationBox extends StatefulWidget {
 
 class _ComplectationBoxState extends State<ComplectationBox> {
   List<String> allOptions = [];
+  List<String> chunckOfOptions = [];
+  final l = 6;
 
   @override
   void initState() {
@@ -35,7 +42,14 @@ class _ComplectationBoxState extends State<ComplectationBox> {
     allOptions
       ..addAll(widget.selects.entries.map((e) => e.value.optionName))
       ..addAll(widget.radios.entries.map((e) => e.value));
+    if (allOptions.length > l) {
+      chunckOfOptions = allOptions.getRange(0, l).toList();
+    } else {
+      chunckOfOptions = allOptions;
+    }
   }
+
+  bool get isCollapsed => chunckOfOptions.length != allOptions.length;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +60,8 @@ class _ComplectationBoxState extends State<ComplectationBox> {
       return Divider(
           height: 1, thickness: 1, color: Theme.of(context).dividerColor);
     }
-    return Container(
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 300),
       decoration: BoxDecoration(
           border: Border.symmetric(
               horizontal:
@@ -56,15 +71,44 @@ class _ComplectationBoxState extends State<ComplectationBox> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-              widget.equipment == null || widget.equipment!.name.isEmpty
-                  ? LocaleKeys.complectation.tr()
-                  : widget.equipment!.name,
-              style: Theme.of(context)
-                  .textTheme
-                  .displayLarge!
-                  .copyWith(fontSize: 18)),
+            widget.equipment == null || widget.equipment!.name.isEmpty
+                ? LocaleKeys.complectation.tr()
+                : widget.equipment!.name,
+            style: Theme.of(context)
+                .textTheme
+                .displayLarge!
+                .copyWith(fontSize: 18),
+          ),
           const SizedBox(height: 8),
-          ...allOptions.map((e) => DotAndText(text: e)).toList()
+          ...chunckOfOptions.map((e) => DotAndText(text: e)).toList(),
+          WScaleAnimation(
+            onTap: () {
+              if (isCollapsed) {
+                chunckOfOptions = allOptions;
+              } else {
+                chunckOfOptions = allOptions.getRange(0, l).toList();
+              }
+              setState(() {});
+            },
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Показать все',
+                  style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
+                const SizedBox(width: 8),
+                SvgPicture.asset(
+                  isCollapsed ? AppIcons.chevronDown : AppIcons.chevronTop,
+                  color: purple,
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
