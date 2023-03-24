@@ -10,15 +10,14 @@ class ProductsList extends Equatable {
   final String name;
   final int carPlace;
   @ProductCategoryConverter()
-  final ProductCategory productCategory;
+  final ProductCategoryEntity category;
   final String? price;
   final String? image;
   final bool isAgreedPrice;
   final bool isPopular;
 
   ProductsList({
-    this.productCategory =
-        const ProductCategory(id: 0, name: '', productsCount: 0),
+    this.category = const ProductCategoryEntity(),
     this.id = 0,
     this.name = '',
     this.image = '',
@@ -29,18 +28,11 @@ class ProductsList extends Equatable {
   });
 
   @override
-  List<Object?> get props => [
-        id,
-        name,
-        image,
-        productCategory,
-        price,
-        carPlace,
-        isAgreedPrice,
-        isPopular
-      ];
+  List<Object?> get props =>
+      [id, name, image, category, price, carPlace, isAgreedPrice, isPopular];
 
   factory ProductsList.fromJson(Map<String, dynamic> json) =>
       _$ProductsListFromJson(json);
+
   Map<String, dynamic> toJson() => _$ProductsListToJson(this);
 }

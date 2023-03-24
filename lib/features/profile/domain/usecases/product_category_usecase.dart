@@ -7,21 +7,21 @@ import 'package:auto/features/profile/data/repositories/profile_repository_impl.
 import 'package:auto/features/profile/domain/entities/car_product.dart';
 import 'package:auto/features/profile/domain/repositories/profile_repository.dart';
 
-class GetCarProductByCategory extends UseCase<GenericPagination<CarProductEntity>, Params> {
+class GetCarProductByCategory extends UseCase<GenericPagination<CarProductEntity>, SlugId> {
   final ProfileRepository repository = serviceLocator<ProfileRepositoryImpl>();
 
   GetCarProductByCategory();
 
   @override
-  Future<Either<Failure, GenericPagination<CarProductEntity>>> call(Params params) async =>
+  Future<Either<Failure, GenericPagination<CarProductEntity>>> call(SlugId params) async =>
       await repository.getCarProductByCategory(params.slug, params.id);
 }
 
-class Params {
+class SlugId {
   final String slug;
   final int id;
 
-  Params({
+  SlugId({
     required this.slug,
     required this.id,
   });

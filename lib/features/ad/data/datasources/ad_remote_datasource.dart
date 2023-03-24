@@ -679,6 +679,9 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
     try {
       final response = await _dio.get(
         '/common/colors/',
+        queryParameters: {
+          'limit': 40,
+        },
         options: Options(
           headers: StorageRepository.getString(StorageKeys.TOKEN).isNotEmpty
               ? {

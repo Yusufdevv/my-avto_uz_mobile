@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'product_category.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class ProductCategoryModel extends ProductCategory {
+class ProductCategoryModel extends ProductCategoryEntity {
   const ProductCategoryModel({
     required super.id,
     required super.name,

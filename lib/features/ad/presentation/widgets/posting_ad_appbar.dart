@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/widgets/completion_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -56,7 +57,7 @@ class PostingAdAppBar extends StatelessWidget implements PreferredSizeWidget {
                       ),
                     ]
                   : null,
-              color: white,
+              color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
             ),
             child: Stack(
               alignment: Alignment.center,
@@ -94,7 +95,9 @@ class PostingAdAppBar extends StatelessWidget implements PreferredSizeWidget {
                                     Theme.of(context)
                                         .textTheme
                                         .displayMedium!
-                                        .copyWith(fontWeight: FontWeight.w600),
+                                        .copyWith(
+                                            fontWeight: FontWeight.w600,
+                                            color: grey),
                               ),
                             ),
                           ],

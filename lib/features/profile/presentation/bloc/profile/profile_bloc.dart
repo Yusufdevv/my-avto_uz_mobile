@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
@@ -21,6 +23,7 @@ import 'package:formz/formz.dart';
 import 'package:meta/meta.dart';
 
 part 'profile_event.dart';
+
 part 'profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
@@ -51,7 +54,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
             getCarProductByCategoryStatus: FormzStatus.pure,
             getProductCategoryStatus: FormzStatus.pure,
             getProductListStatus: FormzStatus.pure,
-            productCategoryModell:const  [],
+            productCategoryModell: const [],
           ),
         ) {
     on<GetProfileEvent>(_onGetProfile);
@@ -62,8 +65,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<ChangeCountDataEvent>(_onChangeCountData);
     on<GetNoReadNotificationsEvent>(_onGetNoReadNotificationsEvent);
     on<GetCarProductByCategoryEvent>(_GetCarProductByCategoryEvent);
-    on<GetProductCategoryEvent>(_GetProductCategoryEvent);
-    on<GetProductListEvent>(_GetProductListEvent);
 
     on<ChangeNotificationAllRead>(
       // notifikatsiya iconini bosganda iconni o'zgartirish
@@ -218,13 +219,16 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
   Future<void> _GetCarProductByCategoryEvent(
       GetCarProductByCategoryEvent event, Emitter<ProfileState> emit) async {
+    log(':::::::::: GET PRODUCT BY CATEGORY EVENT TRIGGERED:   ${event.id} / ${event.slug} ::::::::::');
     emit(state.copyWith(
         getCarProductByCategoryStatus: FormzStatus.submissionInProgress));
     final result = await getCarProductByCategory
-        .call(Params(slug: event.slug, id: event.id));
+        .call(SlugId(slug: event.slug, id: event.id));
+
+    log(':::::::::: GET PRODUCT BY CATEGORY RESULT IS:   ${result} ::::::::::');
     if (result.isRight) {
       print(
-          'BLOC SUCCES _GetCarProductByCategoryEvent - > ${result.right.results}');
+          'BLOC SUCCES _GetCarProductByCategoryEvent - > ${result.right.results.length}');
       emit(state.copyWith(
         getCarProductByCategoryStatus: FormzStatus.submissionSuccess,
         cartProductEntity: result.right.results,
@@ -237,44 +241,5 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     }
   }
 
-  Future<void> _GetProductCategoryEvent(
-      GetProductCategoryEvent event, Emitter<ProfileState> emit) async {
-    print('EVENT CALLED GET CATEGORY');
-    emit(state.copyWith(
-        getProductCategoryStatus: FormzStatus.submissionInProgress));
-    final result = await productCategoryUseCase.call(event.slug);
-    if (result.isRight) {
-      print('BLOC SUCCES _GetProductCategoryEvent - > ${result.right.results}');
-      emit(state.copyWith(
-        getProductCategoryStatus: FormzStatus.submissionSuccess,
-        productCategoryModell: result.right.results,
-      ));
-    } else {
-      print('BLOC FAIL _GetProductCategoryEvent - > ${result.left}');
-      emit(
-        state.copyWith(
-          getProductCategoryStatus: FormzStatus.submissionFailure,
-        ),
-      );
-    }
-  }
 
-  Future<void> _GetProductListEvent(
-      GetProductListEvent event, Emitter<ProfileState> emit) async {
-    emit(
-        state.copyWith(getProductListStatus: FormzStatus.submissionInProgress));
-    final result = await productListUseCase.call(event.slug);
-    if (result.isRight) {
-      print('BLOC SUCCES _GetProductListEvent - > ${result.right.results}');
-      emit(state.copyWith(
-        getProductListStatus: FormzStatus.submissionSuccess,
-        productCategory: result.right.results,
-      ));
-    } else {
-      print('BLOC FAIL _GetProductListEvent - > ${result.left}');
-      emit(state.copyWith(
-        getProductListStatus: FormzStatus.submissionFailure,
-      ));
-    }
-  }
 }

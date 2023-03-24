@@ -173,6 +173,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   indicator: const BoxDecoration(),
                   controller: _controller,
                   labelPadding: EdgeInsets.zero,
+                  indicatorSize: TabBarIndicatorSize.tab,
                   tabs: [
                     GestureDetector(
                       onDoubleTap: () => _navigatorKeys[NavItemEnum.values[_currentIndex]]!

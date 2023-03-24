@@ -340,7 +340,7 @@ class _MapScreenState extends State<MapScreen>
           },
           icon: PlacemarkIcon.single(
             PlacemarkIconStyle(
-              scale: isDirectoryPage ? 1 : 3,
+              scale: isDirectoryPage ? 1 : 0.9,
               image: value != null
                   ? BitmapDescriptor.fromBytes(value)
                   : BitmapDescriptor.fromAssetImage(

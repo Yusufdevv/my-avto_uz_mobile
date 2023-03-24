@@ -7,10 +7,10 @@ part of 'products_list.dart';
 // **************************************************************************
 
 ProductsList _$ProductsListFromJson(Map<String, dynamic> json) => ProductsList(
-      productCategory: json['product_category'] == null
-          ? const ProductCategory(id: 0, name: '', productsCount: 0)
+      category: json['category'] == null
+          ? const ProductCategoryEntity()
           : const ProductCategoryConverter()
-              .fromJson(json['product_category'] as Map<String, dynamic>?),
+              .fromJson(json['category'] as Map<String, dynamic>?),
       id: json['id'] as int? ?? 0,
       name: json['name'] as String? ?? '',
       image: json['image'] as String? ?? '',
@@ -25,8 +25,7 @@ Map<String, dynamic> _$ProductsListToJson(ProductsList instance) =>
       'id': instance.id,
       'name': instance.name,
       'car_place': instance.carPlace,
-      'product_category':
-          const ProductCategoryConverter().toJson(instance.productCategory),
+      'category': const ProductCategoryConverter().toJson(instance.category),
       'price': instance.price,
       'image': instance.image,
       'is_agreed_price': instance.isAgreedPrice,

@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/pagination/presentation/paginator.dart';
 import 'package:auto/features/profile/data/repositories/get_user_list_repo_impl.dart';
 import 'package:auto/features/profile/domain/usecases/directory_single_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_dir_categories_usecase.dart';
@@ -21,7 +20,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
-
 class DirectorySinglePage extends StatefulWidget {
   final String slug;
 
@@ -35,7 +33,6 @@ class DirectorySinglePage extends StatefulWidget {
 
 class _DirectorySinglePageState extends State<DirectorySinglePage> {
   late DirectoryBloc bloc;
-  late ProfileBloc profileBloc;
 
   @override
   void initState() {
@@ -45,23 +42,12 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
         getDirectoriesUseCase: GetDirectoriesUseCase(repository: repo),
         directorySingleSingleUseCase:
             DirectorySingleSingleUseCase(repository: repo))
-      ..add(GetDirectorySingleEvent(slug: widget.slug));
-    profileBloc = ProfileBloc()
-      ..add(GetProductCategoryEvent(
-        slug: widget.slug,
-      ))
-      ..add(GetProductListEvent(slug: widget.slug));
+      ..add(GetDirectorySingleEvent(slug: widget.slug))
+      ..add(DirectoryGetCategoriesOfSingleEvent(slug: widget.slug))
+      ..add(DirectoryGetProductsOfSingleEvent(slug: widget.slug));
+
     super.initState();
   }
-
-  final List<String> serviceProductList = const [
-    'Техническое ОБСЛУЖИВАНИЕ',
-    'СЛЕСАРНЫЕ РАБОТЫ',
-    'РЕМОНТ ЭЛЕКТРООБОРУДОВАНИЯ',
-    'ЗАПРАВКА КОНДИЦИОНЕРА И РЕМОНТ',
-    'МОНТАЖ ДОП. ОБОРУДОВАНИЯ',
-    'ЗАРЯДНЫЕ СТАНЦИИ',
-  ];
 
   @override
   Widget build(BuildContext context) => BlocProvider.value(
@@ -73,7 +59,6 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
               print('SLUG IS -> ${widget.slug}');
               if (state.status.isSubmissionSuccess) {
                 final directory = state.directory;
-                // final dirCategories = List<DirCategoryEntity>.from(state.directory.category.map((x) => DirCategoryEntity.fromJson(x)));
                 return NestedScrollView(
                   headerSliverBuilder: (context, innerBoxIsScrolled) =>
                       <Widget>[
@@ -83,132 +68,107 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
                           gallery: directory.gallery,
                           avatarImage: directory.avatar,
                           name: directory.name,
-                          minHeight: MediaQuery.of(context).size.height * 0.11,
+                          minHeight: 100,
                           category: ''
                           // MyFunctions.getCategoriesName(dirCategories.cast<Category>())
                           ),
                     ),
                   ],
-                  body: BlocBuilder<ProfileBloc, ProfileState>(
-                    builder: (context, statee) {
-                      log(':::::::::: product category model length  ${statee.productCategoryModell.length}  ::::::::::');
-                      return ListView(
-                        children: [
-                          DirectoryInfoPart(
-                            address: directory.address,
-                            phone: directory.phone,
-                            name: directory.name,
-                            contactFrom: directory.contactFrom,
-                            contactTo: directory.contactTo,
-                            description: directory.description,
-                            longitude: directory.longitude,
-                            latitude: directory.latitude,
+                  body: ListView(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    children: [
+                      DirectoryInfoPart(
+                        address: directory.address,
+                        phone: directory.phone,
+                        name: directory.name,
+                        contactFrom: directory.contactFrom,
+                        contactTo: directory.contactTo,
+                        description: directory.description,
+                        longitude: directory.longitude,
+                        latitude: directory.latitude,
+                      ),
+                      const SizedBox(height: 16),
+                      if (state.popularProducts.isNotEmpty)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: GoAllButton(
+                            hasButton: true,
+                            padding: EdgeInsets.zero,
+                            title: 'Популярные продукты',
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                fade(
+                                  page: ProductsScreen(
+                                    title: 'Популярные продукты',
+                                    products: state.popularProducts,
+                                    slug: widget.slug,
+                                  ),
+                                ),
+                              );
+                            },
                           ),
-                          const SizedBox(height: 16),
-                          Padding(
+                        )
+                      else
+                        const SizedBox(),
+                      if (state.popularProducts.isNotEmpty)
+                        Container(
+                          height: 120,
+                          margin: const EdgeInsets.only(top: 13, bottom: 32),
+                          child: ListView.separated(
                             padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: GoAllButton(
-                              hasButton: statee.cartProductEntity.length > 10,
-                              padding: EdgeInsets.zero,
-                              title: 'Популярные продукты',
-                              onPressed: () {
-                                Navigator.of(context).push(
-                                  fade(
-                                    page: ProductsScreen(
-                                      title: 'Все продукты',
-                                      bloc: profileBloc,
-                                      slug: widget.slug,
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                          Container(
-                            height: 120,
-                            margin: const EdgeInsets.only(top: 13, bottom: 32),
-                            child: ListView.separated(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              physics: const BouncingScrollPhysics(),
-                              itemBuilder: (context, index) => DirectoryItem(
-                                image: '',
-                                title: 'MEGAWATT ENERGY 36 КВТ',
-                                idx: index,
-                              ),
-                              separatorBuilder: (context, index) =>
-                                  const SizedBox(width: 13),
-                              itemCount: 12,
-                            ),
-                          ),
-                          if (statee.productCategoryModell.isNotEmpty)
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16),
-                              child: GoAllButton(
-                                padding: EdgeInsets.zero,
-                                title: 'Категории услуг/товаров',
-                                onPressed: () {},
-                                hasButton: false,
-                              ),
-                            )
-                          else
-                            const SizedBox(),
-                          Paginator(
-                            padding: const EdgeInsets.only(top: 16, bottom: 8),
-                            paginatorStatus: FormzStatus.submissionSuccess,
-                            itemBuilder: (context, index) =>
-                                ServiceOrProductButton(
-                              onTap: () {
-                                Navigator.of(context, rootNavigator: true).push(
-                                  fade(
-                                    page: ServiceOrProductsScreen(
-                                      title: statee
-                                          .productCategoryModell[index].name,
-                                      bloc: profileBloc,
-                                      slug: widget.slug,
-                                      id: 1,
-                                    ),
-                                  ),
-                                );
-                              },
-                              title: statee.productCategoryModell[index].name,
-                              more: index % 2,
-                            ),
-                            itemCount: statee.productCategoryModell.length,
-                            fetchMoreFunction: () {},
-                            hasMoreToFetch: false,
-                            physics: const NeverScrollableScrollPhysics(),
-                            errorWidget: const CupertinoActivityIndicator(),
-                          ),
-                          ListView.separated(
-                            scrollDirection: Axis.vertical,
-                            physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
-                            itemCount: serviceProductList.length,
-                            itemBuilder: (context, index) =>
-                                ServiceOrProductButton(
-                              onTap: () {
-                                Navigator.of(context, rootNavigator: true).push(
-                                  fade(
-                                    page: ServiceOrProductsScreen(
-                                      id: -1,
-                                      bloc: ProfileBloc(),
-                                      slug: 'fefae',
-                                      title: serviceProductList[index],
-                                    ),
-                                  ),
-                                );
-                              },
-                              title: serviceProductList[index],
-                              more: index % 2,
+                            scrollDirection: Axis.horizontal,
+                            physics: const BouncingScrollPhysics(),
+                            itemBuilder: (context, index) => DirectoryItem(
+                              image: state.popularProducts[index].image ?? '',
+                              title: state.popularProducts[index].name,
                             ),
                             separatorBuilder: (context, index) =>
-                                const SizedBox(height: 8),
+                                const SizedBox(width: 13),
+                            itemCount: state.popularProducts.length,
                           ),
-                        ],
-                      );
-                    },
+                        )
+                      else
+                        const SizedBox(),
+                      if (state.singleCategories.isNotEmpty)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: GoAllButton(
+                            padding: EdgeInsets.zero,
+                            title: 'Категории услуг/товаров',
+                            onPressed: () {},
+                            hasButton: false,
+                          ),
+                        )
+                      else
+                        const SizedBox(),
+                      ListView.separated(
+                        padding: const EdgeInsets.only(top: 12),
+                        scrollDirection: Axis.vertical,
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: state.singleCategories.length,
+                        itemBuilder: (context, index) => ServiceOrProductButton(
+                          onTap: () {
+                            Navigator.of(context, rootNavigator: true).push(
+                              fade(
+                                page: ServiceOrProductsScreen(
+                                  id: state.singleCategories[index].id,
+                                  slug: widget.slug,
+                                  title: state.singleCategories[index].name,
+                                ),
+                              ),
+                            );
+                          },
+                          title: state.singleCategories[index].name,
+                          productCount:
+                              state.singleCategories[index].productsCount,
+                        ),
+                        separatorBuilder: (context, index) =>
+                            const SizedBox(height: 8),
+                      ),
+                    ],
                   ),
                 );
               }

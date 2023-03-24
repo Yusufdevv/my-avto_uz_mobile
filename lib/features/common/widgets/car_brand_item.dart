@@ -27,7 +27,7 @@ class CarBrandItem extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 8),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            color: white,
+            color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
             border: Border.all(
               width: 1,
               color: Theme.of(context)

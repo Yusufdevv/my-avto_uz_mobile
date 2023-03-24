@@ -24,6 +24,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
           ],
         ),
         child: AppBar(
+          backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
           elevation: 0,
           actions: const [NotificationButton()],
           centerTitle: false,
