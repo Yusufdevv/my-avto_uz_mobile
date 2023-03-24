@@ -30,14 +30,16 @@ class _ChatPageState extends State<ChatPage> {
       ..setBackgroundColor(const Color(0x00000000))
       ..setNavigationDelegate(
         NavigationDelegate(
-          onProgress: (int progress) {
+          onProgress: (  progress) {
             // Update loading bar.
           },
         ),
       )
-      ..loadHtmlString(htmlCode('phone', ''))
-      ..reload()
-      ..clearLocalStorage();
+      // ..loadHtmlString(htmlCode('phone', ''))
+      // ..reload()
+      ..loadRequest(Uri.parse('https://jivo.chat/J70GNF82kE'))
+      ..clearLocalStorage()
+    ;
   }
 
   String htmlCode(String phone, String userName) {

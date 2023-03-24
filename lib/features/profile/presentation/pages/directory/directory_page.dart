@@ -4,6 +4,9 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
+import 'package:auto/features/dealers/domain/usecases/get_directories_map_point_usecase.dart';
+import 'package:auto/features/dealers/domain/usecases/get_map_dealers.dart';
+import 'package:auto/features/dealers/presentation/blocs/map_organization/map_organization_bloc.dart';
 import 'package:auto/features/dealers/presentation/pages/map_screen.dart';
 import 'package:auto/features/dealers/presentation/widgets/segmented_control.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
@@ -34,17 +37,25 @@ class _DirectoryPageState extends State<DirectoryPage>
   late DirectoryBloc bloc;
   late TextEditingController controller;
   late TabController _tabController;
+  late PageController _pageController;
+  late MapOrganizationBloc mapOrganizationBloc;
 
   @override
   void initState() {
     controller = TextEditingController();
     _tabController = TabController(length: 2, vsync: this);
+    _pageController = PageController();
+
     final repo = serviceLocator<GetUserListRepoImpl>();
     bloc = DirectoryBloc(
         getDirCategoriesUseCase: GetDirCategoriesUseCase(repository: repo),
         getDirectoriesUseCase: GetDirectoriesUseCase(repository: repo),
         directorySingleSingleUseCase:
             DirectorySingleSingleUseCase(repository: repo));
+    mapOrganizationBloc = MapOrganizationBloc(
+      GetMapDealersUseCase(),
+      GetDirectoriesMapPointUseCase(),
+    );
     _tabController.addListener(() {
       if (_tabController.index == 1) {
         FocusScope.of(context).unfocus();
@@ -64,8 +75,11 @@ class _DirectoryPageState extends State<DirectoryPage>
   }
 
   @override
-  Widget build(BuildContext context) => BlocProvider.value(
-        value: bloc,
+  Widget build(BuildContext context) => MultiBlocProvider(
+        providers: [
+          BlocProvider.value(value: bloc),
+          BlocProvider.value(value: mapOrganizationBloc),
+        ],
         child: AnnotatedRegion(
           value: const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
           child: KeyboardDismisser(
@@ -167,13 +181,15 @@ class _DirectoryPageState extends State<DirectoryPage>
                   SliverPersistentHeader(
                     pinned: true,
                     delegate: SegmentedControl(
-                        maxHeight: 64,
-                        minHeight: 64,
-                        tabController: _tabController),
+                      maxHeight: 64,
+                      minHeight: 64,
+                      tabController: _tabController,
+                      pageController: _pageController,
+                    ),
                   ),
                   SliverFillRemaining(
-                    child: TabBarView(
-                      controller: _tabController,
+                    child: PageView(
+                      controller: _pageController,
                       physics: const NeverScrollableScrollPhysics(),
                       children: const [
                         DirectoryList(),
