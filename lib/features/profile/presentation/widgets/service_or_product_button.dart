@@ -17,8 +17,9 @@ class ServiceOrProductButton extends StatelessWidget {
   Widget build(BuildContext context) => WScaleAnimation(
         onTap: onTap,
         child: Container(
-          height: 39,
+          height: 49,
           padding: const EdgeInsets.symmetric(horizontal: 12),
+          margin: const EdgeInsets.only(left: 16,right: 16,bottom: 8),
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
@@ -53,6 +54,7 @@ class ServiceOrProductButton extends StatelessWidget {
                   more.toString(),
                   style: Theme.of(context).textTheme.displaySmall!.copyWith(
                         fontWeight: FontWeight.w600,
+
                       ),
                 ),
                 const SizedBox(width: 16),

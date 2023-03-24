@@ -10,39 +10,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
-class ServiceOrProductsScreen extends StatefulWidget {
+class ProductsScreen extends StatelessWidget {
   final String title;
   final ProfileBloc bloc;
   final String slug;
-  final int id;
 
-  ServiceOrProductsScreen(
-      {required this.title,
-      Key? key,
-      required this.bloc,
-      required this.slug,
-      required this.id})
+  ProductsScreen(
+      {required this.title, Key? key, required this.bloc, required this.slug})
       : super(key: key);
-
-  @override
-  State<ServiceOrProductsScreen> createState() =>
-      _ServiceOrProductsScreenState();
-}
-
-class _ServiceOrProductsScreenState extends State<ServiceOrProductsScreen> {
   final List<String> items = List.generate(30, (index) => 'Station $index');
 
   @override
   Widget build(BuildContext context) {
-    widget.bloc.add(GetCarProductByCategoryEvent(
-      slug: widget.slug,
-      id: widget.id,
-    ));
+    bloc.add(
+      GetProductListEvent(
+        slug: slug,
+      ),
+    );
     return BlocBuilder<ProfileBloc, ProfileState>(
       builder: (context, state) {
-        print('CAR PRODUCT BY CATEGORY -> ${state.cartProductEntity}');
-        print(
-            'CAR PRODUCT BY CATEGORY -> ${state.getCarProductByCategoryStatus}');
+        print('LIST OF PRODUCTS -> ${state.productCategory}');
+        print('LIST OF PRODUCTS -> ${state.getProductListStatus}');
         return Scaffold(
           appBar: WAppBar(
             centerTitle: false,
@@ -50,7 +38,7 @@ class _ServiceOrProductsScreenState extends State<ServiceOrProductsScreen> {
             onTapBack: () {
               Navigator.pop(context);
             },
-            title: widget.title,
+            title: title,
           ),
           bottomNavigationBar: WButton(
             color: emerald,
@@ -69,11 +57,10 @@ class _ServiceOrProductsScreenState extends State<ServiceOrProductsScreen> {
             },
             text: 'Показать контакты',
           ),
-          body: Center(
-            child: state.getCarProductByCategoryStatus !=
-                    FormzStatus.submissionSuccess
-                ? const CupertinoActivityIndicator()
-                : GridView.builder(
+          body: state.getProductListStatus != FormzStatus.submissionSuccess
+              ? const Center(child: CupertinoActivityIndicator())
+              : Center(
+                  child: GridView.builder(
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
@@ -82,7 +69,7 @@ class _ServiceOrProductsScreenState extends State<ServiceOrProductsScreen> {
                     ),
                     padding: const EdgeInsets.symmetric(
                         horizontal: 16, vertical: 25),
-                    itemCount: state.cartProductEntity.length,
+                    itemCount: state.productCategory.length,
                     itemBuilder: (context, index) => Container(
                       decoration: BoxDecoration(
                         color: white,
@@ -118,7 +105,7 @@ class _ServiceOrProductsScreenState extends State<ServiceOrProductsScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    state.cartProductEntity[index].name,
+                                    state.productCategory[index].name,
                                     style: Theme.of(context)
                                         .textTheme
                                         .displayLarge!
@@ -132,13 +119,13 @@ class _ServiceOrProductsScreenState extends State<ServiceOrProductsScreen> {
                                   //       .textTheme
                                   //       .displayLarge!
                                   //       .copyWith(
-                                  //           fontSize: 12,
-                                  //           fontWeight: FontWeight.w400),
+                                  //           fontSize: 12, fontWeight: FontWeight.w400),
                                   // ),
                                   const Spacer(),
                                   Text(
                                     MyFunctions.getFormatCost(
-                                        state.cartProductEntity[index].price),
+                                        state.productCategory[index].price ??
+                                            ''),
                                     style: Theme.of(context)
                                         .textTheme
                                         .displaySmall!
@@ -155,7 +142,7 @@ class _ServiceOrProductsScreenState extends State<ServiceOrProductsScreen> {
                       ),
                     ),
                   ),
-          ),
+                ),
         );
       },
     );

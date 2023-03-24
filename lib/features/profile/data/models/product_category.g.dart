@@ -11,7 +11,7 @@ ProductCategoryModel _$ProductCategoryModelFromJson(
     ProductCategoryModel(
       id: json['id'] as int? ?? 0,
       name: json['name'] as String? ?? '',
-      productCount: json['product_count'] as int? ?? 0,
+      productsCount: json['products_count'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$ProductCategoryModelToJson(
@@ -19,5 +19,5 @@ Map<String, dynamic> _$ProductCategoryModelToJson(
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'product_count': instance.productCount,
+      'products_count': instance.productsCount,
     };

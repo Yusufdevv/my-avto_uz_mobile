@@ -40,6 +40,7 @@ class Paginator extends StatelessWidget {
         scrollDirection: scrollDirection,
         physics: physics ?? const BouncingScrollPhysics(),
         padding: padding,
+        shrinkWrap: true,
         itemBuilder: (context, index) {
           if (index == itemCount) {
             if (hasMoreToFetch) {
