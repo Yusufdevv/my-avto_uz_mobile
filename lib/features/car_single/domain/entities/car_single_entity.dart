@@ -110,6 +110,8 @@ class CarSingleEntity extends Equatable {
   final String userType;
   @JsonKey(defaultValue: false)
   final bool isWishlisted;
+  @JsonKey(defaultValue: false)
+  final bool isFaceToFaceCheck;
   @JsonKey(defaultValue: 0)
   final int wishlistCount;
   @JsonKey(defaultValue: 0)
@@ -159,6 +161,7 @@ class CarSingleEntity extends Equatable {
     this.contactAvailableTo = '',
     this.userType = '',
     this.isWishlisted = false,
+    this.isFaceToFaceCheck = false,
     this.id = 0,
     this.make = const RentCarMakeEntity(),
     this.model = const RentCarModelsEntity(),
@@ -202,9 +205,10 @@ class CarSingleEntity extends Equatable {
 
   @override
   List<Object?> get props => [
-    announcementVerifyOwners,
+        announcementVerifyOwners,
         gasEquipment,
         options,
+        isFaceToFaceCheck,
         equipment,
         absoluteCarName,
         publishedAt,

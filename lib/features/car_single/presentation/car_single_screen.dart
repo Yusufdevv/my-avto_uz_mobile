@@ -295,6 +295,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                   state.singleEntity.priceAnalytics.percentage,
                             ),
                           ),
+
                           ///
                           if (state.singleEntity.isMine &&
                               (widget.moderationStatus ==
@@ -304,9 +305,8 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                           .in_moderation.value)) ...{
                             SliverToBoxAdapter(
                               child: BecomeVerifiredOwnerWidget(
-                                comment: state
-                                    .singleEntity
-                                    .announcementVerifyOwners.comment,
+                                  comment: state.singleEntity
+                                      .announcementVerifyOwners.comment,
                                   moderationStatus: state
                                       .singleEntity
                                       .announcementVerifyOwners
@@ -314,6 +314,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                   announcementId: state.singleEntity.id),
                             ),
                           },
+
                           ///
                           if (state.singleEntity.isMine &&
                               (widget.moderationStatus ==
@@ -352,6 +353,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                               },
                             ),
                           ),
+
                           ///
                           SliverToBoxAdapter(
                             child: (currentIndex == 0)
@@ -401,13 +403,17 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                         .singleEntity.modificationType.volume,
                                   ),
                           ),
+
                           ///
                           if (state.singleEntity.damagedParts.isNotEmpty)
                             SliverToBoxAdapter(
                               child: CarCharacteristicImage(
+                                  isFaceToFaceCheck:
+                                      state.singleEntity.isFaceToFaceCheck,
                                   informAboutDoors:
                                       state.singleEntity.damagedParts),
                             ),
+
                           ///
                           SliverToBoxAdapter(
                             child: state.elasticSearchEntity.length > 1

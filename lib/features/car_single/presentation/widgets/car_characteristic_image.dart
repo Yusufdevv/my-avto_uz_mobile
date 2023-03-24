@@ -12,8 +12,8 @@ import 'package:flutter_svg/svg.dart';
 
 class CarCharacteristicImage extends StatefulWidget {
   final List<DamagedPartsEntity> informAboutDoors;
-
-  const CarCharacteristicImage({required this.informAboutDoors, Key? key})
+  final bool isFaceToFaceCheck;
+  const CarCharacteristicImage({required this.informAboutDoors, required this.isFaceToFaceCheck, Key? key})
       : super(key: key);
 
   @override
@@ -65,6 +65,7 @@ class _CarCharacteristicImageState extends State<CarCharacteristicImage> {
                 .displayLarge!
                 .copyWith(fontSize: 18),
           ),
+          if(widget.isFaceToFaceCheck)
           Row(
             children: [
               SvgPicture.asset(AppIcons.doubleCheck),
@@ -78,7 +79,7 @@ class _CarCharacteristicImageState extends State<CarCharacteristicImage> {
               ),
             ],
           ),
-          const SizedBox(height: 15),
+          const SizedBox(height: 16),
           Center(
             child: Padding(
               padding: const EdgeInsets.only(right: 16),
