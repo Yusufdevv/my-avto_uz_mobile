@@ -77,15 +77,16 @@ class PreviewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: Builder(builder: (context) {
-          if (isWaiting) {
-            return const Center(child: CupertinoActivityIndicator());
-          }
-          return SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.only(bottom: 80),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+        body: Builder(
+          builder: (context) {
+            if (isWaiting) {
+              return const Center(child: CupertinoActivityIndicator());
+            }
+            return ListView(
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              padding: const EdgeInsets.only(bottom: 80),
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 16, left: 16, bottom: 12),
@@ -162,8 +163,8 @@ class PreviewScreen extends StatelessWidget {
                   regionName: regionName,
                 ),
               ],
-            ),
-          );
-        }),
+            );
+          },
+        ),
       );
 }

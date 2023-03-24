@@ -52,12 +52,12 @@ class LocationBoxOfAdPreview extends StatelessWidget {
                 // child:Image.asset(AppIcons.currentLoc),
               ),
             },
-            Expanded(
-              child: Row(
-                children: [
-                  SvgPicture.asset(AppIcons.send2),
-                  const SizedBox(width: 8),
-                  Text(
+            Row(
+              children: [
+                SvgPicture.asset(AppIcons.send2),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
                     '$regionName, $districtName',
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -66,8 +66,8 @@ class LocationBoxOfAdPreview extends StatelessWidget {
                         .bodySmall!
                         .copyWith(fontSize: 14),
                   ),
-                ],
-              ),
+                ),
+              ],
             )
           ],
         ),

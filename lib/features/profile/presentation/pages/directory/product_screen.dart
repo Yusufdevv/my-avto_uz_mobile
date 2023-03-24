@@ -84,7 +84,7 @@ class ProductsScreen extends StatelessWidget {
                         ),
                       ),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.vertical(
+                        borderRadius: const BorderRadius.vertical(
                           top: Radius.circular(8),
                           bottom: Radius.circular(4),
                         ),

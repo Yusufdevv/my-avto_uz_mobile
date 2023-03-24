@@ -80,7 +80,6 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
           BlocProvider.value(value: carsBloc),
         ],
         child: Scaffold(
-          backgroundColor: Colors.teal,
           body: BlocBuilder<DealerSingleBloc, DealerSingleState>(
             builder: (context, dealerSingleState) {
               if (dealerSingleState.status.isSubmissionInProgress) {

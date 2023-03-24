@@ -63,15 +63,19 @@ class PASingleton {
       announcementFields
           .addEntries(list.map((e) => MapEntry('mileage_image', e)));
     }
+    Map<DamagedPart, DamageType> allDamages = {};
+    for (final d in DamagedPart.values) {
+      allDamages[d] = v.damagedParts[d] ?? DamageType.ideal;
+    }
 
     var i = -1;
-    announcementFields.addEntries(v.damagedParts.entries.map((e) {
+    announcementFields.addEntries(allDamages.entries.map((e) {
       i++;
       return MapEntry('damaged_parts[$i]part', e.key.value);
     }));
 
     i = -1;
-    announcementFields.addEntries(v.damagedParts.entries.map((e) {
+    announcementFields.addEntries(allDamages.entries.map((e) {
       i++;
       return MapEntry('damaged_parts[$i]damage_type', e.value.value);
     }));
@@ -139,16 +143,19 @@ class PASingleton {
   static PostingAdState initUserFromApi(UserModel user, PostingAdState state) =>
       state.copyWith(
         contactsFormKey: GlobalKey<FormState>(),
-        isContactsVerified: user.phoneNumber.length> 4,
+        isContactsVerified: user.phoneNumber.length > 4,
         showOwnerContacts: true,
         status: FormzStatus.submissionSuccess,
         phoneController: TextEditingController(
-            text: MyFunctions.phoneFormat(user.phoneNumber.length> 4?user.phoneNumber.substring(4) : '')),
+            text: MyFunctions.phoneFormat(user.phoneNumber.length > 4
+                ? user.phoneNumber.substring(4)
+                : '')),
         emailController: TextEditingController(text: user.email),
         nameController: TextEditingController(text: user.fullName),
         ownerEmail: user.email,
         ownerName: user.fullName,
-        ownerPhone:user.phoneNumber.length> 4? user.phoneNumber.substring(4):'',
+        ownerPhone:
+            user.phoneNumber.length > 4 ? user.phoneNumber.substring(4) : '',
         userModel: user,
       );
 
@@ -156,16 +163,20 @@ class PASingleton {
       state.copyWith(
           contactsFormKey: GlobalKey<FormState>(),
           phoneController: TextEditingController(
-              text: state.userModel!.phoneNumber.length> 4 ? MyFunctions.phoneFormat(
-                  state.userModel!.phoneNumber.substring(4)) : ''),
+              text: state.userModel!.phoneNumber.length > 4
+                  ? MyFunctions.phoneFormat(
+                      state.userModel!.phoneNumber.substring(4))
+                  : ''),
           emailController: TextEditingController(text: state.userModel!.email),
           nameController:
               TextEditingController(text: state.userModel!.fullName),
           ownerEmail: state.userModel?.email,
           ownerName: state.userModel?.fullName,
-          ownerPhone: state.userModel!.phoneNumber.length> 4 ? state.userModel?.phoneNumber.substring(4) : '',
+          ownerPhone: state.userModel!.phoneNumber.length > 4
+              ? state.userModel?.phoneNumber.substring(4)
+              : '',
           showOwnerContacts: true,
-          isContactsVerified:state.userModel!.phoneNumber.length> 4,
+          isContactsVerified: state.userModel!.phoneNumber.length > 4,
           status: FormzStatus.submissionSuccess);
 
   static Map<DamagedPart, DamageType> damagedPartAdopter(
