@@ -85,6 +85,7 @@ class ProductsScreen extends StatelessWidget {
                       ),
                       child: CachedNetworkImage(
                         imageUrl: products[index].image ?? '',
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
