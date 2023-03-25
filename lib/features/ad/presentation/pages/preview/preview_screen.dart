@@ -153,9 +153,6 @@ class PreviewScreen extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 12),
-                // WButton(onTap: (){
-                //   context.read<PostingAdBloc>().add(CancelLoadinEvent());
-                // }),
 
                 LocationBoxOfAdPreview(
                   bodyBytes: mapPointBodyBytes,
