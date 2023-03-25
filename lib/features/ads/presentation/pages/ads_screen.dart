@@ -128,7 +128,8 @@ class _AdsScreenState extends State<AdsScreen>
                   ));
               announcementListBloc
                   .add(const ChangeSaveFilterStatus(FormzStatus.pure));
-              //!mysearches ni sonini oshirish uchun ishlatilgan, mySearchesCount ga 1 ta qo'shishni bildiradi
+
+              /// mysearches ni sonini oshirish uchun ishlatilgan, mySearchesCount ga 1 ta qo'shishni bildiradi
               if (state.historyId != null) {
                 context.read<ProfileBloc>().add(
                     ChangeCountDataEvent(adding: true, mySearchesCount: 1));
@@ -174,7 +175,6 @@ class _AdsScreenState extends State<AdsScreen>
                             filterBottomSheet(
                               context,
                               onChanged: (value) {
-                                print('value:$value');
                                 announcementListBloc
                                     .add(SetSort(sortResult: value));
                               },
@@ -193,7 +193,6 @@ class _AdsScreenState extends State<AdsScreen>
                     ),
                     SliverPersistentHeader(
                       delegate: AdsSliverWidget(
-
                         size: MediaQuery.of(context).size,
                         theme: Theme.of(context).extension<ThemedColors>()!,
                         tabController: tabController,
