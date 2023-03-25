@@ -366,6 +366,10 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                           state.singleEntity.longitude != 0)
                                         PlaceInspection(
                                           id: state.singleEntity.id,
+                                          region:
+                                              state.singleEntity.region.title,
+                                          district:
+                                              state.singleEntity.district.title,
                                           name: state.singleEntity.contactName,
                                           lat: state.singleEntity.latitude,
                                           long: state.singleEntity.longitude,

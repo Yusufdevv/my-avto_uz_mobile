@@ -11,19 +11,23 @@ class PlaceInspection extends StatelessWidget {
     required this.long,
     required this.id,
     required this.name,
+    required this.region,
+    required this.district,
     Key? key,
   }) : super(key: key);
   final double lat;
   final double long;
   final int id;
   final String name;
+  final String region;
+  final String district;
 
   @override
   Widget build(BuildContext context) => Container(
         margin: const EdgeInsets.only(bottom: 12),
         decoration: BoxDecoration(
-            border: Border.symmetric(
-                horizontal: BorderSide(
+            border: Border(
+                bottom: BorderSide(
                     width: 1, color: Theme.of(context).dividerColor))),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
         child: Column(
@@ -46,12 +50,16 @@ class PlaceInspection extends StatelessWidget {
               children: [
                 SvgPicture.asset(AppIcons.send2),
                 const SizedBox(width: 8),
-                Text(
-                  r'$regionName, $districtName',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodySmall!
-                      .copyWith(fontSize: 14),
+                Expanded(
+                  child: Text(
+                    '$region, $district',
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontSize: 14),
+                  ),
                 ),
               ],
             )
