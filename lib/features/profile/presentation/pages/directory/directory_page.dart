@@ -1,7 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/dealers/domain/usecases/get_directories_map_point_usecase.dart';
@@ -10,10 +9,6 @@ import 'package:auto/features/dealers/presentation/blocs/map_organization/map_or
 import 'package:auto/features/dealers/presentation/pages/map_screen.dart';
 import 'package:auto/features/dealers/presentation/widgets/segmented_control.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/profile/data/repositories/get_user_list_repo_impl.dart';
-import 'package:auto/features/profile/domain/usecases/directory_single_usecase.dart';
-import 'package:auto/features/profile/domain/usecases/get_dir_categories_usecase.dart';
-import 'package:auto/features/profile/domain/usecases/get_directories_usecase.dart';
 import 'package:auto/features/profile/presentation/bloc/directory/directory_bloc.dart';
 import 'package:auto/features/profile/presentation/pages/directory/directory_filter_page.dart';
 import 'package:auto/features/profile/presentation/pages/directory/directory_list.dart';
@@ -46,12 +41,7 @@ class _DirectoryPageState extends State<DirectoryPage>
     _tabController = TabController(length: 2, vsync: this);
     _pageController = PageController();
 
-    final repo = serviceLocator<GetUserListRepoImpl>();
-    bloc = DirectoryBloc(
-        getDirCategoriesUseCase: GetDirCategoriesUseCase(repository: repo),
-        getDirectoriesUseCase: GetDirectoriesUseCase(repository: repo),
-        directorySingleSingleUseCase:
-            DirectorySingleSingleUseCase(repository: repo));
+    bloc = DirectoryBloc();
     mapOrganizationBloc = MapOrganizationBloc(
       GetMapDealersUseCase(),
       GetDirectoriesMapPointUseCase(),

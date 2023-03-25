@@ -1,13 +1,5 @@
-import 'dart:developer';
-
-import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/profile/data/repositories/get_user_list_repo_impl.dart';
-import 'package:auto/features/profile/domain/usecases/directory_single_usecase.dart';
-import 'package:auto/features/profile/domain/usecases/get_dir_categories_usecase.dart';
-import 'package:auto/features/profile/domain/usecases/get_directories_usecase.dart';
 import 'package:auto/features/profile/presentation/bloc/directory/directory_bloc.dart';
-import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/features/profile/presentation/pages/directory/directory_info_part.dart';
 import 'package:auto/features/profile/presentation/pages/directory/directory_sliver_delegete.dart';
 import 'package:auto/features/profile/presentation/pages/directory/product_screen.dart';
@@ -36,12 +28,7 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
 
   @override
   void initState() {
-    final repo = serviceLocator<GetUserListRepoImpl>();
-    bloc = DirectoryBloc(
-        getDirCategoriesUseCase: GetDirCategoriesUseCase(repository: repo),
-        getDirectoriesUseCase: GetDirectoriesUseCase(repository: repo),
-        directorySingleSingleUseCase:
-            DirectorySingleSingleUseCase(repository: repo))
+    bloc = DirectoryBloc()
       ..add(GetDirectorySingleEvent(slug: widget.slug))
       ..add(DirectoryGetCategoriesOfSingleEvent(slug: widget.slug))
       ..add(DirectoryGetProductsOfSingleEvent(slug: widget.slug));
@@ -56,7 +43,6 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
           // backgroundColor: Colors.teal,
           body: BlocBuilder<DirectoryBloc, DirectoryState>(
             builder: (context, state) {
-              print('SLUG IS -> ${widget.slug}');
               if (state.status.isSubmissionSuccess) {
                 final directory = state.directory;
                 return NestedScrollView(

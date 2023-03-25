@@ -20,6 +20,7 @@ class DirectoryFilterCategory extends StatefulWidget {
 }
 
 class _DirectoryFilterCategoryState extends State<DirectoryFilterCategory> {
+  // ignore: prefer_final_fields
   List<DirCategoryEntity> _selectedIndexes = [];
 
   @override

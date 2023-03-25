@@ -212,7 +212,7 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
   Future<GenericPagination<DirCategoryModel>> getDirCategory(String? next) async {
     try {
       final response = await dio.get(
-       next ??  '/car-place/category/list/',
+       next ??  '/car-place/category/list/?limit=100',
         options: Options(headers: {
           'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
         }),

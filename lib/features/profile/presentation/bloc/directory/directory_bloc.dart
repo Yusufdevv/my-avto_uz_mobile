@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:auto/features/dealers/domain/entities/dealer_single_entity.dart';
-import 'package:auto/features/profile/domain/entities/car_product.dart';
 import 'package:auto/features/profile/domain/entities/dir_category_entity.dart';
 import 'package:auto/features/profile/domain/entities/directory_entity.dart';
 import 'package:auto/features/profile/domain/entities/product_category.dart';
@@ -23,17 +22,16 @@ part 'directory_state.dart';
 
 class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
   final ProductListUseCase productListUseCase = ProductListUseCase();
-  final GetDirectoriesUseCase getDirectoriesUseCase;
-  final GetDirCategoriesUseCase getDirCategoriesUseCase;
-  final DirectorySingleSingleUseCase directorySingleSingleUseCase;
+  final GetDirectoriesUseCase getDirectoriesUseCase = GetDirectoriesUseCase();
+  final GetDirCategoriesUseCase getDirCategoriesUseCase =
+      GetDirCategoriesUseCase();
+  final DirectorySingleSingleUseCase directorySingleSingleUseCase =
+      DirectorySingleSingleUseCase();
   final ProductCategoryUseCase productCategoryUseCase =
       ProductCategoryUseCase();
 
-  DirectoryBloc({
-    required this.getDirCategoriesUseCase,
-    required this.getDirectoriesUseCase,
-    required this.directorySingleSingleUseCase,
-  }) : super(DirectoryState(
+  DirectoryBloc()
+      : super(DirectoryState(
           status: FormzStatus.pure,
           directories: const <DirectoryEntity>[],
           categories: const <DirCategoryEntity>[],
@@ -51,7 +49,6 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
           categories:
               MyFunctions.textForDirCategory(state.selectedCategories)));
       if (result.isRight) {
-        print('isright ${result.isRight}');
         emit(state.copyWith(
             status: FormzStatus.submissionSuccess,
             directories: result.right.results,

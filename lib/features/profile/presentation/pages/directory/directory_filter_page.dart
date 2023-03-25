@@ -21,6 +21,7 @@ import 'package:formz/formz.dart';
 class DirectoryFilterPage extends StatefulWidget {
   const DirectoryFilterPage({required this.bloc, Key? key}) : super(key: key);
   final DirectoryBloc bloc;
+
   @override
   State<DirectoryFilterPage> createState() => _DirectoryFilterPageState();
 }
@@ -37,109 +38,117 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      backgroundColor: white,
-      appBar: WAppBar(
-        boxShadow: const [],
-        titleStyle:
-            Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 16),
-        extraActions: [
-          Text(LocaleKeys.filter.tr(),
-              style: Theme.of(context)
-                  .textTheme
-                  .displayLarge!
-                  .copyWith(fontSize: 16, fontWeight: FontWeight.w600)),
-          const Spacer(
-            flex: 30,
-          ),
-          WScaleAnimation(
-            onTap: () {
-              context.read<DirectoryBloc>().add(DirectoryFilterEvent(
-                  regions: '', regionId: '', selectedCategories: []));
-            },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                LocaleKeys.clear.tr(),
+        backgroundColor: white,
+        appBar: WAppBar(
+          boxShadow: const [],
+          titleStyle:
+              Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 16),
+          extraActions: [
+            Text(LocaleKeys.filter.tr(),
                 style: Theme.of(context)
                     .textTheme
-                    .titleMedium!
-                    .copyWith(color: blue),
+                    .displayLarge!
+                    .copyWith(fontSize: 16, fontWeight: FontWeight.w600)),
+            const Spacer(
+              flex: 30,
+            ),
+            WScaleAnimation(
+              onTap: () {
+                context.read<DirectoryBloc>().add(DirectoryFilterEvent(
+                    regions: '', regionId: '', selectedCategories: []));
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  LocaleKeys.clear.tr(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(color: blue),
+                ),
               ),
             ),
-          ),
-        ],
-      ),
-      body:
-          BlocBuilder<DirectoryBloc, DirectoryState>(builder: (context, state) {
-        if (state.status.isSubmissionInProgress) {
-          return const Center(child: CupertinoActivityIndicator());
-        }
-        if (state.status.isSubmissionSuccess) {
-          return Container(
-            padding: const EdgeInsets.fromLTRB(16, 20, 16, 16),
-            child: Column(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(LocaleKeys.region.tr(),
-                          style: TextStyle(
-                              color: Theme.of(context)
-                                  .extension<ThemedColors>()!
-                                  .greySuitToWhite,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400)),
-                      const SizedBox(height: 8),
-                      WScaleAnimation(
-                        onTap: () async {
-                          await showModalBottomSheet<List<RegionEntity>>(
-                            isDismissible: false,
-                            context: context,
-                            isScrollControlled: true,
-                            backgroundColor: Colors.transparent,
-                            builder: (c) => RentChooseRegionBottomSheet(
-                                checkedRegions: _checkedRegions.asMap(),
-                                list:
-                                    context.read<RegionsBloc>().state.regions),
-                          ).then((value) {
-                            if (value != null && value.isNotEmpty) {
-                              final regionsId = MyFunctions.text(value);
-                              final regions = MyFunctions.text(value, true);
-                              context.read<DirectoryBloc>().add(
-                                  DirectoryFilterEvent(
-                                      regionId: regionsId, regions: regions));
-                              _checkedRegions = value;
-                            }
-                          });
-                        },
-                        child: EditItemContainer(
-                            isOtherPage: true,
-                            icon: AppIcons.chevronRightBlack,
-                            region:
-                                context.read<DirectoryBloc>().state.regions),
+          ],
+        ),
+        body: BlocBuilder<DirectoryBloc, DirectoryState>(
+          builder: (context, state) {
+            if (state.status.isSubmissionInProgress) {
+              return const Center(child: CupertinoActivityIndicator());
+            }
+            if (state.status.isSubmissionSuccess) {
+              return Container(
+                padding: const EdgeInsets.fromLTRB(16, 20, 16, 16),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(LocaleKeys.region.tr(),
+                              style: TextStyle(
+                                  color: Theme.of(context)
+                                      .extension<ThemedColors>()!
+                                      .greySuitToWhite,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400)),
+                          const SizedBox(height: 8),
+                          WScaleAnimation(
+                            onTap: () async {
+                              await showModalBottomSheet<List<RegionEntity>>(
+                                isDismissible: false,
+                                context: context,
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                builder: (c) => RentChooseRegionBottomSheet(
+                                    checkedRegions: _checkedRegions.asMap(),
+                                    list: context
+                                        .read<RegionsBloc>()
+                                        .state
+                                        .regions),
+                              ).then((value) {
+                                if (value != null && value.isNotEmpty) {
+                                  final regionsId = MyFunctions.text(value);
+                                  final regions = MyFunctions.text(value, true);
+                                  context.read<DirectoryBloc>().add(
+                                      DirectoryFilterEvent(
+                                          regionId: regionsId,
+                                          regions: regions));
+                                  _checkedRegions = value;
+                                }
+                              });
+                            },
+                            child: EditItemContainer(
+                                isOtherPage: true,
+                                icon: AppIcons.chevronRightBlack,
+                                region: context
+                                    .read<DirectoryBloc>()
+                                    .state
+                                    .regions),
+                          ),
+                          const SizedBox(height: 16),
+
+                          /// Категории
+                          DirectoryFilterCategory(category: state.categories),
+                        ],
                       ),
-                      const SizedBox(height: 16),
-                      //Категории
-                      DirectoryFilterCategory(
-                        category: state.categories,
-                      ),
-                    ],
-                  ),
+                    ),
+                    WButton(
+                      textStyle: const TextStyle(
+                          fontWeight: FontWeight.w600, fontSize: 14),
+                      onTap: () {
+                        context
+                            .read<DirectoryBloc>()
+                            .add(GetDirectoriesEvent());
+                        Navigator.pop(context);
+                      },
+                      text: LocaleKeys.apply.tr(),
+                    ),
+                  ],
                 ),
-                WButton(
-                  textStyle: const TextStyle(
-                      fontWeight: FontWeight.w600, fontSize: 14),
-                  onTap: () {
-                    context.read<DirectoryBloc>().add(GetDirectoriesEvent());
-                    Navigator.pop(context);
-                  },
-                  text: LocaleKeys.apply.tr(),
-                ),
-              ],
-            ),
-          );
-        }
-        return const SizedBox();
-      }));
+              );
+            }
+            return const SizedBox();
+          },
+        ),
+      );
 }
