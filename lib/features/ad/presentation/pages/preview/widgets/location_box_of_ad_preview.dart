@@ -12,12 +12,12 @@ class LocationBoxOfAdPreview extends StatelessWidget {
   final String districtName;
   final String regionName;
 
-  const LocationBoxOfAdPreview(
-      {required this.bodyBytes,
-      required this.districtName,
-      required this.regionName,
-      Key? key})
-      : super(key: key);
+  const LocationBoxOfAdPreview({
+    required this.bodyBytes,
+    required this.districtName,
+    required this.regionName,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(
@@ -42,14 +42,14 @@ class LocationBoxOfAdPreview extends StatelessWidget {
                 height: 150,
                 width: double.maxFinite,
                 decoration: BoxDecoration(
-                    border: Border.all(color: warmerGrey, width: 1),
-                    color: Colors.amber,
-                    borderRadius: BorderRadius.circular(12),
-                    image: DecorationImage(
-                      image: MemoryImage(bodyBytes!),
-                      fit: BoxFit.cover,
-                    )),
-                // child:Image.asset(AppIcons.currentLoc),
+                  border: Border.all(color: warmerGrey, width: 1),
+                  color: Colors.amber,
+                  borderRadius: BorderRadius.circular(12),
+                  image: DecorationImage(
+                    image: MemoryImage(bodyBytes!),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             },
             Row(

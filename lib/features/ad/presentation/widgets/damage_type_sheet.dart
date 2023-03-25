@@ -14,6 +14,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 class DamageTypeChooseSheet extends StatefulWidget {
   final String title;
   final DamageType? initialType;
+
   const DamageTypeChooseSheet(
       {required this.title, required this.initialType, super.key});
 
@@ -73,48 +74,50 @@ class _DamageTypeChooseSheetState extends State<DamageTypeChooseSheet> {
                     .copyWith(fontSize: 13, fontWeight: FontWeight.w600),
               ),
             ),
-            ...List.generate(
-                DamageType.values.length,
-                (index) => GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      onTap: () =>
-                          setState(() => selected = DamageType.values[index]),
-                      child: Container(
-                        padding: const EdgeInsets.all(12),
-                        margin: const EdgeInsets.only(
-                            left: 16, bottom: 10, right: 16),
-                        decoration: BoxDecoration(
-                          color: selected == DamageType.values[index]
-                              ? purple.withOpacity(.1)
-                              : null,
-                          borderRadius: BorderRadius.circular(12),
+            ...DamageType.values.map(
+              (damageType) {
+                if (damageType == DamageType.ideal) {
+                  return const SizedBox();
+                }
+                return GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () => setState(() => selected = damageType),
+                  child: Container(
+                    padding: const EdgeInsets.all(12),
+                    margin:
+                        const EdgeInsets.only(left: 16, bottom: 10, right: 16),
+                    decoration: BoxDecoration(
+                      color: selected == damageType
+                          ? purple.withOpacity(.1)
+                          : null,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Row(
+                      children: [
+                        WarningCircleWidget(
+                          damageType: damageType,
                         ),
-                        child: Row(
-                          children: [
-                            WarningCircleWidget(
-                              damageType: DamageType.values[index],
-                            ),
-                            const SizedBox(width: 8),
-                            Text(
-                              MyFunctions.getStatusTitle(
-                                  DamageType.values[index]).tr(),
-                              style: DamageType.values[index] == selected
-                                  ? Theme.of(context)
-                                      .textTheme
-                                      .titleMedium!
-                                      .copyWith(fontSize: 16)
-                                  : Theme.of(context)
-                                      .textTheme
-                                      .titleLarge!
-                                      .copyWith(color: LightThemeColors.smoky),
-                            ),
-                            const Spacer(),
-                            RadioCircleWidget(
-                                selected: DamageType.values[index] == selected)
-                          ],
+                        const SizedBox(width: 8),
+                        Text(
+                          MyFunctions.getStatusTitle(damageType).tr(),
+                          style: damageType == selected
+                              ? Theme.of(context)
+                                  .textTheme
+                                  .titleMedium!
+                                  .copyWith(fontSize: 16)
+                              : Theme.of(context)
+                                  .textTheme
+                                  .titleLarge!
+                                  .copyWith(color: LightThemeColors.smoky),
                         ),
-                      ),
-                    )),
+                        const Spacer(),
+                        RadioCircleWidget(selected: damageType == selected)
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ).toList(),
             WButton(
               onTap: () {
                 Navigator.of(context).pop(selected);
