@@ -29,7 +29,7 @@ class AllAds extends StatefulWidget {
   State<AllAds> createState() => _AllAdsState();
 }
 
-class _AllAdsState extends State<AllAds> {
+class _AllAdsState extends State<AllAds>  with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     context
@@ -39,8 +39,9 @@ class _AllAdsState extends State<AllAds> {
   }
 
   @override
-  Widget build(BuildContext context) =>
-      BlocBuilder<UserWishListsBloc, UserWishListsState>(
+  Widget build(BuildContext context) {
+    super.build(context);
+    return BlocBuilder<UserWishListsBloc, UserWishListsState>(
           builder: (context, state) {
         if (state.myAdsStatus.isSubmissionInProgress) {
           return const Center(child: CupertinoActivityIndicator());
@@ -120,4 +121,8 @@ class _AllAdsState extends State<AllAds> {
         }
         return Center(child: Text(LocaleKeys.error.tr()));
       });
+  }
+
+  @override
+  bool get wantKeepAlive => true;
 }
