@@ -617,5 +617,8 @@ abstract class  LocaleKeys {
   static const duration_service = 'duration_service';
   static const extends_again_for_day = 'extends_again_for_day';
   static const cause = 'cause';
+  static const featured_products = 'featured_products';
+  static const all_products = 'all_products';
+  static const categories_services_products = 'categories_services_products';
 
 }

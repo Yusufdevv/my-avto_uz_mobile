@@ -16,6 +16,7 @@ import 'package:auto/features/common/models/yandex_search_model.dart';
 import 'package:auto/features/common/widgets/maps_list_in_app.dart';
 import 'package:auto/features/dealers/domain/entities/dealer_card_entity.dart';
 import 'package:auto/features/profile/domain/entities/dir_category_entity.dart';
+import 'package:auto/features/profile/domain/entities/directory_entity.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -28,8 +29,6 @@ import 'package:map_launcher/map_launcher.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
-
-import '../features/profile/domain/entities/directory_entity.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class MyFunctions {

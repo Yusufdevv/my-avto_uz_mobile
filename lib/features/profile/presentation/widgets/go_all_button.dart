@@ -53,8 +53,6 @@ class GoAllButton extends StatelessWidget {
                   ],
                 ),
               )
-            else
-              const SizedBox(),
           ],
         ),
       );

@@ -630,7 +630,10 @@ class CodegenLoader extends AssetLoader{
   "for_day": "{} дней",
   "duration_service": "Длительность",
   "extends_again_for_day": "Продлить еще на 15 дней",
-  "cause": "Причина: "
+  "cause": "Причина: ",
+  "featured_products": "Популярные продукты",
+  "all_products": "Все продукты",
+  "categories_services_products": "Категории услуг/товаров"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -1247,7 +1250,10 @@ static const Map<String,dynamic> uz = {
   "for_day": "{} kun",
   "duration_service": "Davomiyligi",
   "extends_again_for_day": "Yana 15 kunga uzaytirish",
-  "cause": "Sabab: "
+  "cause": "Sabab: ",
+  "featured_products": "Популярные продукты",
+  "all_products": "Barcha maxsulotlar",
+  "categories_services_products": "Xizmat/maxsulotlar kategoriyalari"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }

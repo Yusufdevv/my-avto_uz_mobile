@@ -53,7 +53,9 @@ class _DirectoryCardState extends State<DirectoryCard> {
   Widget build(BuildContext context) => GestureDetector(
         onTap: () {
           Navigator.of(context)
-              .push(fade(page: DirectorySinglePage(slug: widget.slug)));
+              .push(fade(page: DirectorySinglePage(
+              categoriesTitle: widget.dealerType,
+              slug: widget.slug)));
         },
         behavior: HitTestBehavior.opaque,
         child: Container(
@@ -80,7 +82,7 @@ class _DirectoryCardState extends State<DirectoryCard> {
                   Text(widget.region,
                       style: Theme.of(context)
                           .textTheme
-                          .headline1!
+                          .displayLarge!
                           .copyWith(fontSize: 14, fontWeight: FontWeight.w400))
                 ],
               ),
@@ -93,7 +95,7 @@ class _DirectoryCardState extends State<DirectoryCard> {
                       '${LocaleKeys.every_day.tr()}, ${widget.contactFrom} - ${widget.contactTo}',
                       style: Theme.of(context)
                           .textTheme
-                          .headline1!
+                          .displayLarge!
                           .copyWith(fontSize: 14, fontWeight: FontWeight.w400))
                 ],
               ),
@@ -143,7 +145,7 @@ class ItemImageNameWidget extends StatelessWidget {
                 Text(dealerName,
                     style: Theme.of(context)
                         .textTheme
-                        .headline1!
+                        .displayLarge!
                         .copyWith(fontSize: 16),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1),
@@ -151,7 +153,7 @@ class ItemImageNameWidget extends StatelessWidget {
                 Text(dealerType,
                     style: Theme.of(context)
                         .textTheme
-                        .bodyText1!
+                        .bodyLarge!
                         .copyWith(color: purple),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1)

@@ -55,7 +55,7 @@ class DirectoryItem extends StatelessWidget {
                   title,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.headline1!.copyWith(
+                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
                         fontWeight: FontWeight.w400,
                         fontSize: 12,
                         color: const Color(0xff171725),

@@ -61,11 +61,9 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
 
   @override
   Widget build(BuildContext context) => Container(
-      margin: const EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
-        // color:Colors.teal,
         border: Border.all(
           color: Theme.of(context)
               .extension<ThemedColors>()!

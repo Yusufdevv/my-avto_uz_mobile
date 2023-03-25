@@ -9,7 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ContactSheetOfServiceOrProduct extends StatelessWidget {
-  const ContactSheetOfServiceOrProduct({Key? key}) : super(key: key);
+  const ContactSheetOfServiceOrProduct({
+    required this.phoneNumber,
+    Key? key,
+  }) : super(key: key);
+  final String phoneNumber;
 
   @override
   Widget build(BuildContext context) => Container(
@@ -31,7 +35,7 @@ class ContactSheetOfServiceOrProduct extends StatelessWidget {
                 SvgPicture.asset(AppIcons.phoneCall1),
                 const SizedBox(width: 12),
                 Text(
-                  MyFunctions.phoneFormat('+998900470793'),
+                  MyFunctions.phoneFormat(phoneNumber),
                   style: Theme.of(context).textTheme.displayLarge!.copyWith(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,

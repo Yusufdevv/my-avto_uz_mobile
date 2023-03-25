@@ -614,5 +614,8 @@
   "for_day": "{} дней",
   "duration_service" : "Длительность",
   "extends_again_for_day": "Продлить еще на 15 дней",
-  "cause": "Причина: "
+  "cause": "Причина: ",
+  "featured_products": "Популярные продукты",
+  "all_products": "Все продукты",
+  "categories_services_products": "Категории услуг/товаров"
 }

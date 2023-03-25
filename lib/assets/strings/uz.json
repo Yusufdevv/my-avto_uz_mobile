@@ -613,6 +613,9 @@
   "for_day": "{} kun",
   "duration_service" : "Davomiyligi",
   "extends_again_for_day": "Yana 15 kunga uzaytirish",
-  "cause": "Sabab: "
+  "cause": "Sabab: ",
+  "featured_products": "Популярные продукты",
+  "all_products": "Barcha maxsulotlar",
+  "categories_services_products": "Xizmat/maxsulotlar kategoriyalari"
 }
 

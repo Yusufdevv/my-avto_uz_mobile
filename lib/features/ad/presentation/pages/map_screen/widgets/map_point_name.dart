@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
@@ -38,6 +37,7 @@ class MapPointName extends StatelessWidget {
                     context,
                     fade(
                         page: DirectorySinglePage(
+                          categoriesTitle: currentDealer?.category['name'],
                             slug: currentDealer?.slug ?? '')))
                 : Navigator.push(
                     context,

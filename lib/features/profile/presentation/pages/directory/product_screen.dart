@@ -4,22 +4,25 @@ import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/profile/domain/entities/products_list.dart';
 import 'package:auto/features/profile/presentation/widgets/contact_sheet_of_service_or_products.dart';
+import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class ProductsScreen extends StatelessWidget {
   final String title;
   final List<ProductsList> products;
   final String slug;
+  final String phoneNumber;
 
-  ProductsScreen(
-      {required this.title,
-      Key? key,
-      required this.products,
-      required this.slug})
-      : super(key: key);
+  ProductsScreen({
+    required this.title,
+    required this.products,
+    required this.slug,
+    required this.phoneNumber,
+    Key? key,
+  }) : super(key: key);
   final List<String> items = List.generate(30, (index) => 'Station $index');
 
   @override
@@ -44,10 +47,11 @@ class ProductsScreen extends StatelessWidget {
               context: context,
               backgroundColor: Colors.transparent,
               isScrollControlled: true,
-              builder: (context) => const ContactSheetOfServiceOrProduct(),
+              builder: (context) =>
+                  ContactSheetOfServiceOrProduct(phoneNumber: phoneNumber),
             );
           },
-          text: 'Показать контакты',
+          text: LocaleKeys.show_contact.tr(),
         ),
         body: Center(
           child: GridView.builder(
@@ -121,8 +125,7 @@ class ProductsScreen extends StatelessWidget {
                           // ),
                           const Spacer(),
                           Text(
-                            MyFunctions.getFormatCost(
-                                products[index].price ?? ''),
+                            '${MyFunctions.getFormatCost(products[index].price ?? '')} UZS',
                             style: Theme.of(context)
                                 .textTheme
                                 .displaySmall!

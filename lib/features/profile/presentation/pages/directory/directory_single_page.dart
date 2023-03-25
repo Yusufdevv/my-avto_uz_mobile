@@ -7,6 +7,8 @@ import 'package:auto/features/profile/presentation/pages/directory/service_or_pr
 import 'package:auto/features/profile/presentation/widgets/directory_item.dart';
 import 'package:auto/features/profile/presentation/widgets/go_all_button.dart';
 import 'package:auto/features/profile/presentation/widgets/service_or_product_button.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,9 +16,10 @@ import 'package:formz/formz.dart';
 
 class DirectorySinglePage extends StatefulWidget {
   final String slug;
-
+  final String categoriesTitle;
   const DirectorySinglePage({
     required this.slug,
+    required this.categoriesTitle,
   });
 
   @override
@@ -32,7 +35,6 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
       ..add(GetDirectorySingleEvent(slug: widget.slug))
       ..add(DirectoryGetCategoriesOfSingleEvent(slug: widget.slug))
       ..add(DirectoryGetProductsOfSingleEvent(slug: widget.slug));
-
     super.initState();
   }
 
@@ -43,6 +45,9 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
           // backgroundColor: Colors.teal,
           body: BlocBuilder<DirectoryBloc, DirectoryState>(
             builder: (context, state) {
+              if (state.status.isSubmissionInProgress) {
+                return const Center(child: CupertinoActivityIndicator());
+              }
               if (state.status.isSubmissionSuccess) {
                 final directory = state.directory;
                 return NestedScrollView(
@@ -55,24 +60,25 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
                           avatarImage: directory.avatar,
                           name: directory.name,
                           minHeight: 100,
-                          category: ''
-                          // MyFunctions.getCategoriesName(dirCategories.cast<Category>())
-                          ),
+                          category: widget.categoriesTitle,)
                     ),
                   ],
                   body: ListView(
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
                     children: [
-                      DirectoryInfoPart(
-                        address: directory.address,
-                        phone: directory.phone,
-                        name: directory.name,
-                        contactFrom: directory.contactFrom,
-                        contactTo: directory.contactTo,
-                        description: directory.description,
-                        longitude: directory.longitude,
-                        latitude: directory.latitude,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: DirectoryInfoPart(
+                          address: directory.address,
+                          phone: directory.phone,
+                          name: directory.name,
+                          contactFrom: directory.contactFrom,
+                          contactTo: directory.contactTo,
+                          description: directory.description,
+                          longitude: directory.longitude,
+                          latitude: directory.latitude,
+                        ),
                       ),
                       const SizedBox(height: 16),
                       if (state.popularProducts.isNotEmpty)
@@ -81,22 +87,21 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
                           child: GoAllButton(
                             hasButton: true,
                             padding: EdgeInsets.zero,
-                            title: 'Популярные продукты',
+                            title: LocaleKeys.featured_products.tr(),
                             onPressed: () {
-                              Navigator.of(context).push(
+                              Navigator.of(context, rootNavigator: true).push(
                                 fade(
                                   page: ProductsScreen(
-                                    title: 'Популярные продукты',
+                                    title: LocaleKeys.all_products.tr(),
                                     products: state.popularProducts,
                                     slug: widget.slug,
+                                    phoneNumber: directory.phone,
                                   ),
                                 ),
                               );
                             },
                           ),
-                        )
-                      else
-                        const SizedBox(),
+                        ),
                       if (state.popularProducts.isNotEmpty)
                         Container(
                           height: 120,
@@ -114,23 +119,19 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
                                 const SizedBox(width: 13),
                             itemCount: state.popularProducts.length,
                           ),
-                        )
-                      else
-                        const SizedBox(),
+                        ),
                       if (state.singleCategories.isNotEmpty)
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: GoAllButton(
                             padding: EdgeInsets.zero,
-                            title: 'Категории услуг/товаров',
+                            title: LocaleKeys.categories_services_products.tr(),
                             onPressed: () {},
                             hasButton: false,
                           ),
-                        )
-                      else
-                        const SizedBox(),
+                        ),
                       ListView.separated(
-                        padding: const EdgeInsets.only(top: 12),
+                        padding: const EdgeInsets.symmetric(vertical: 12),
                         scrollDirection: Axis.vertical,
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
@@ -140,6 +141,7 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
                             Navigator.of(context, rootNavigator: true).push(
                               fade(
                                 page: ServiceOrProductsScreen(
+                                  phoneNumber: directory.phone,
                                   id: state.singleCategories[index].id,
                                   slug: widget.slug,
                                   title: state.singleCategories[index].name,

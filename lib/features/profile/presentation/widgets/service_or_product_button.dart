@@ -19,7 +19,7 @@ class ServiceOrProductButton extends StatelessWidget {
         child: Container(
           height: 49,
           padding: const EdgeInsets.symmetric(horizontal: 12),
-          margin: const EdgeInsets.only(left: 16, right: 16, bottom: 8),
+          margin: const EdgeInsets.only(left: 16, right: 16),
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
