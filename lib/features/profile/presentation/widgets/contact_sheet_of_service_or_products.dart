@@ -7,6 +7,7 @@ import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ContactSheetOfServiceOrProduct extends StatelessWidget {
   const ContactSheetOfServiceOrProduct({
@@ -54,6 +55,7 @@ class ContactSheetOfServiceOrProduct extends StatelessWidget {
               ],
               margin: const EdgeInsets.only(top: 20),
               onTap: () {
+                launchUrl(Uri.parse('tel: $phoneNumber'));
                 Navigator.pop(context);
               },
               child: Text(
