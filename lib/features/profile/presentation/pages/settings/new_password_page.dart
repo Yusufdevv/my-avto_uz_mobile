@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
@@ -31,7 +32,8 @@ class _NewPasswordsPageState extends State<NewPasswordsPage> {
         child: CustomScreen(
           child: Scaffold(
             resizeToAvoidBottomInset: false,
-            backgroundColor: white,
+            backgroundColor:
+                Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
             appBar: WAppBar(
               textWithButton: LocaleKeys.change_password.tr(),
             ),
@@ -59,13 +61,19 @@ class _NewPasswordsPageState extends State<NewPasswordsPage> {
                       const SizedBox(height: 6),
                       Text(LocaleKeys.create_unfoget.tr(),
                           textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.displayMedium),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium!
+                              .copyWith(color: grey)),
                       const SizedBox(height: 36),
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
                           LocaleKeys.old_password.tr(),
-                          style: Theme.of(context).textTheme.displayMedium,
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium!
+                              .copyWith(color: grey),
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -80,7 +88,10 @@ class _NewPasswordsPageState extends State<NewPasswordsPage> {
                         alignment: Alignment.centerLeft,
                         child: Text(
                           LocaleKeys.new_password.tr(),
-                          style: Theme.of(context).textTheme.displayMedium,
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium!
+                              .copyWith(color: grey),
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -94,7 +105,10 @@ class _NewPasswordsPageState extends State<NewPasswordsPage> {
                         alignment: Alignment.centerLeft,
                         child: Text(
                           LocaleKeys.confirm_password.tr(),
-                          style: Theme.of(context).textTheme.displayMedium,
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium!
+                              .copyWith(color: grey),
                         ),
                       ),
                       const SizedBox(height: 8),

@@ -64,6 +64,7 @@ abstract class LightTheme {
             unselectedBackgroundColor1: LightThemeColors.whiteToEclipse,
           ),
           ThemedColors(
+            redToWhite: LightThemeColors.redToWhite,
             dolphinToWhite: LightThemeColors.dolphinToWhite,
             dolphinToGhost: LightThemeColors.dolphinToGhost,
             seashellToCinnabar15: LightThemeColors.seashellToCinnabar15,
@@ -179,6 +180,8 @@ abstract class LightTheme {
             whiteToNero2: LightThemeColors.whiteToNero2,
             dividerColor: LightThemeColors.dividerColor,
             fairPinkToIndianTan: LightThemeColors.fairPinkToIndianTan,
+            scaffoldBackground: LightThemeColors.scaffoldBackground,
+            tutuToRed: LightThemeColors.tutuToRed,
           ),
           WTextFieldStyle(
             fillColor: LightThemeColors.solitudeToNero,

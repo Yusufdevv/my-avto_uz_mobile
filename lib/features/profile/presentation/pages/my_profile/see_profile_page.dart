@@ -118,13 +118,13 @@ class SeeProfilePage extends StatelessWidget {
                                   0
                               ? LocaleKeys.no_ads.tr()
                               : LocaleKeys.how_many_ads.tr(args: [
-                                      '${state.profileEntity.usercountdata.announcementsCount}'
-                                    ], namedArgs: {
-                                      'appendix': MyFunctions.getAppendix(state
-                                          .profileEntity
-                                          .usercountdata
-                                          .announcementsCount)
-                                    }),
+                                  '${state.profileEntity.usercountdata.announcementsCount}'
+                                ], namedArgs: {
+                                  'appendix': MyFunctions.getAppendix(state
+                                      .profileEntity
+                                      .usercountdata
+                                      .announcementsCount)
+                                }),
                           style: Theme.of(context)
                               .textTheme
                               .displayMedium!
@@ -132,7 +132,8 @@ class SeeProfilePage extends StatelessWidget {
                                   fontWeight: FontWeight.w600, color: grey)),
                       TextSpacer(
                         title: LocaleKeys.tel_number.tr(),
-                        value: MyFunctions.phoneFormat(state.profileEntity.phoneNumber ?? ''),
+                        value: MyFunctions.phoneFormat(
+                            state.profileEntity.phoneNumber ?? ''),
                         padding: const EdgeInsets.only(top: 36, bottom: 16),
                       ),
                       if (state.profileEntity.region?.title != null)
@@ -147,43 +148,43 @@ class SeeProfilePage extends StatelessWidget {
                             value: state.profileEntity.email ?? ''),
                       const Spacer(),
                       OrangeButton(
-                          content: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(AppIcons.logout),
-                              const SizedBox(width: 8),
-                              Text(LocaleKeys.exit_from_account.tr(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displaySmall!
-                                      .copyWith(color: red))
-                            ],
-                          ),
-                          onTap: () {
-                            showModalBottomSheet(
-                                useRootNavigator: true,
-                                context: context,
-                                backgroundColor: Colors.transparent,
-                                builder: (context) => CustomProfileBottomsheet(
-                                      title: LocaleKeys
-                                          .do_you_really_want_to_leave
-                                          .tr(),
-                                      subTitle: LocaleKeys
-                                          .after_exiting_the_application
-                                          .tr(),
-                                      betweenHeight: 64,
-                                      onTap: () {
-                                        StorageRepository.deleteString(StorageKeys.TOKEN);
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .pushAndRemoveUntil(
-                                                fade(page: const LoginScreen()),
-                                                (route) => false);
-                                      },
-                                    ));
-                          },
-                          color: red.withOpacity(0.1),
-                          shadowColor: white)
+                        content: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(AppIcons.logout),
+                            const SizedBox(width: 8),
+                            Text(LocaleKeys.exit_from_account.tr(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displaySmall!
+                                    .copyWith(color: red))
+                          ],
+                        ),
+                        onTap: () {
+                          showModalBottomSheet(
+                              useRootNavigator: true,
+                              context: context,
+                              backgroundColor: Colors.transparent,
+                              builder: (context) => CustomProfileBottomsheet(
+                                    title: LocaleKeys
+                                        .do_you_really_want_to_leave
+                                        .tr(),
+                                    subTitle: LocaleKeys
+                                        .after_exiting_the_application
+                                        .tr(),
+                                    betweenHeight: 64,
+                                    onTap: () {
+                                      StorageRepository.deleteString(
+                                          StorageKeys.TOKEN);
+                                      Navigator.of(context, rootNavigator: true)
+                                          .pushAndRemoveUntil(
+                                              fade(page: const LoginScreen()),
+                                              (route) => false);
+                                    },
+                                  ));
+                        },
+                        color: red.withOpacity(0.1),
+                      )
                     ],
                   ),
                 );

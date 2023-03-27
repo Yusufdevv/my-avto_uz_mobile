@@ -20,18 +20,17 @@ class EditItemContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        padding: EdgeInsets.only(
-            left: 16,
-            top: 12,
-            bottom: 12,
-            right: 10),
+        padding:
+            const EdgeInsets.only(left: 16, top: 12, bottom: 12, right: 10),
         decoration: BoxDecoration(
-            color: Theme.of(context).scaffoldBackgroundColor,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-                color: Theme.of(context)
-                    .extension<WTextFieldStyle>()!
-                    .borderColor)),
+          color: Theme.of(context).extension<WTextFieldStyle>()!.fillColor,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: Theme.of(context)
+                .extension<ThemedColors>()!
+                .solitudeToDarkRider,
+          ),
+        ),
         child: Row(
           children: [
             Expanded(
@@ -39,10 +38,12 @@ class EditItemContainer extends StatelessWidget {
                 region.isEmpty ? LocaleKeys.choose_region.tr() : region,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium!
-                    .copyWith(color: region.isEmpty ? grey : dark),
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    color: region.isEmpty
+                        ? grey
+                        : Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .midnightExpressToWhite),
               ),
             ),
             const SizedBox(width: 8),

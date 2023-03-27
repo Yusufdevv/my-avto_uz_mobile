@@ -15,13 +15,9 @@ class PhoneContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        padding: EdgeInsets.only(
-            left: 16,
-            top: 4,
-            bottom: 4,
-            right: 4),
+        padding: const EdgeInsets.only(left: 16, top: 4, bottom: 4, right: 4),
         decoration: BoxDecoration(
-            color: Theme.of(context).scaffoldBackgroundColor,
+            color: Theme.of(context).extension<WTextFieldStyle>()!.fillColor,
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
                 color: Theme.of(context)

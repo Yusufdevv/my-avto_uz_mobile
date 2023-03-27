@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -15,12 +16,14 @@ class PasswordChangingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => CustomScreen(
         child: Scaffold(
-          backgroundColor: white,
+          backgroundColor:
+              Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
           appBar: WAppBar(
             textWithButton: LocaleKeys.settings.tr(),
           ),
           body: Padding(
-            padding: const EdgeInsets.only(right: 16,left: 16, top: 36, bottom: 20),
+            padding:
+                const EdgeInsets.only(right: 16, left: 16, top: 36, bottom: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -36,15 +39,21 @@ class PasswordChangingPage extends StatelessWidget {
                   LocaleKeys.to_change_your_password.tr(),
                   style: Theme.of(context).textTheme.displayMedium,
                 ),
-                ConstrainedBox(constraints: const BoxConstraints(maxHeight: 64, minHeight: 36, minWidth: double.maxFinite), child: const SizedBox(),),
+                ConstrainedBox(
+                  constraints: const BoxConstraints(
+                      maxHeight: 64, minHeight: 36, minWidth: double.maxFinite),
+                  child: const SizedBox(),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                        height: MediaQuery.of(context).size.width*0.664,
-                        width: MediaQuery.of(context).size.width*0.664,
-                        child: Image.asset(AppImages.editPassword, height: MediaQuery.of(context).size.width*0.664,
-                          width: MediaQuery.of(context).size.width*0.664,
+                        height: MediaQuery.of(context).size.width * 0.664,
+                        width: MediaQuery.of(context).size.width * 0.664,
+                        child: Image.asset(
+                          AppImages.editPassword,
+                          height: MediaQuery.of(context).size.width * 0.664,
+                          width: MediaQuery.of(context).size.width * 0.664,
                         )),
                   ],
                 ),

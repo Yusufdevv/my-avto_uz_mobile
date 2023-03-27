@@ -1,7 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/features/rent/data/models/region_model.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/region_sheet_all_select_item.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/region_sheet_item.dart';
@@ -43,9 +43,9 @@ class _RentChooseRegionBottomSheetState
     final isAllChecked = checkStatus.length == widget.list.length;
     return Container(
       margin: const EdgeInsets.only(top: 48),
-      decoration: const BoxDecoration(
-        color: white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      decoration: BoxDecoration(
+        color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
       ),
       child: Column(
         children: [
@@ -54,7 +54,12 @@ class _RentChooseRegionBottomSheetState
               onCancelPressed: () {
                 Navigator.of(context).pop();
               }),
-          const Divider(thickness: 1, color: border, height: 1),
+          Divider(
+              thickness: 1,
+              color: Theme.of(context)
+                  .extension<ThemedColors>()!
+                  .solitudeToNightRider,
+              height: 1),
           Expanded(
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
@@ -104,9 +109,11 @@ class _RentChooseRegionBottomSheetState
                                 checkStatus.containsKey(widget.list[index].id),
                           ),
                         ),
-                        const Divider(
+                        Divider(
                           thickness: 1,
-                          color: border,
+                          color: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .solitudeToNightRider,
                           height: 1,
                           indent: 16,
                         )
@@ -127,7 +134,8 @@ class _RentChooseRegionBottomSheetState
               disabledColor: disabledButton,
               isDisabled: checkStatus.isEmpty,
               onTap: () {
-                Navigator.of(context).pop(checkStatus.entries.map((e) => e.value).toList());
+                Navigator.of(context)
+                    .pop(checkStatus.entries.map((e) => e.value).toList());
               },
               color: orange,
               text: LocaleKeys.apply.tr(),

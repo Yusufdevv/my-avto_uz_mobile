@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
@@ -83,6 +84,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
             return CustomScreen(
               child: KeyboardDismisser(
                 child: Scaffold(
+                  backgroundColor:
+                      Theme.of(context).extension<ThemedColors>()!.whiteToBlack,
                   appBar: WAppBar(
                     textWithButton: LocaleKeys.my_profile.tr(),
                   ),
@@ -186,7 +189,9 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                     decoration: BoxDecoration(
                       borderRadius:
                           const BorderRadius.vertical(top: Radius.circular(20)),
-                      color: Theme.of(context).appBarTheme.backgroundColor,
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .whiteToBlack,
                     ),
                     child: SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),
@@ -286,7 +291,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                             TitleTextFieldTop(title: LocaleKeys.region.tr()),
                             WScaleAnimation(
                                 onTap: () async {
-                                  await showModalBottomSheet<List<RegionEntity>>(
+                                  await showModalBottomSheet<
+                                          List<RegionEntity>>(
                                       isDismissible: false,
                                       context: context,
                                       useRootNavigator: true,

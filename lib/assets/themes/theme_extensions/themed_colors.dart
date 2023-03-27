@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ThemedColors extends ThemeExtension<ThemedColors> {
+  final Color redToWhite;
+  final Color scaffoldBackground;
   final Color whiteToWhiteOpacity20;
   final Color dividerColorToGrey;
   final Color blackToWhite;
@@ -107,9 +109,12 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
   final Color fairPinkToIndianTan;
   final Color dolphinToWhite;
   final Color dolphinToGhost;
+  final Color tutuToRed;
 
   const ThemedColors(
-      {required this.dolphinToGhost,
+      {required this.tutuToRed,
+      required this.redToWhite,
+      required this.dolphinToGhost,
       required this.ghostToGondola,
       required this.whiteToWhiteOpacity20,
       required this.whiteToSmoky,
@@ -214,11 +219,13 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
       required this.seashellToCinnabar15,
       required this.dividerColor,
       required this.fairPinkToIndianTan,
-      required this.dolphinToWhite});
+      required this.dolphinToWhite,
+      required this.scaffoldBackground});
 
   @override
   ThemeExtension<ThemedColors> copyWith({
     Color? whiteToWhiteOpacity20,
+    Color? redToWhite,
     Color? whiteToSmoky,
     Color? whiteSmokeToNightRider,
     Color? whiteToNero,
@@ -323,9 +330,13 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     Color? fairPinkToIndianTan,
     Color? dolphinToWhite,
     Color? dolphinToGhost,
+    Color? scaffoldBackground,
+    Color? tutuToRed,
   }) =>
       ThemedColors(
         whiteToBlack: whiteToBlack ?? this.whiteToBlack,
+        redToWhite: redToWhite ?? this.redToWhite,
+        tutuToRed: tutuToRed ?? this.tutuToRed,
         seashellToCinnabar15: seashellToCinnabar15 ?? this.seashellToCinnabar15,
         ghostToGondola: ghostToGondola ?? this.ghostToGondola,
         greyToCinnabar: greyToCinnabar ?? this.greyToCinnabar,
@@ -466,6 +477,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
         fairPinkToIndianTan: fairPinkToIndianTan ?? this.fairPinkToIndianTan,
         dolphinToWhite: dolphinToWhite ?? this.dolphinToWhite,
         dolphinToGhost: dolphinToGhost ?? this.dolphinToGhost,
+        scaffoldBackground: scaffoldBackground ?? this.scaffoldBackground,
       );
 
   @override
@@ -477,6 +489,10 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     return ThemedColors(
       dividerColor:
           Color.lerp(dividerColor, other.dividerColor, t) ?? dividerColor,
+      tutuToRed: Color.lerp(tutuToRed, other.tutuToRed, t) ?? tutuToRed,
+      scaffoldBackground:
+          Color.lerp(scaffoldBackground, other.scaffoldBackground, t) ??
+              scaffoldBackground,
       whiteToBlack:
           Color.lerp(whiteToBlack, other.whiteToBlack, t) ?? whiteToBlack,
       seashellToCinnabar15:
@@ -760,6 +776,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
           Color.lerp(dolphinToWhite, other.dolphinToWhite, t) ?? dolphinToWhite,
       dolphinToGhost:
           Color.lerp(dolphinToGhost, other.dolphinToGhost, t) ?? dolphinToGhost,
+      redToWhite: Color.lerp(redToWhite, other.redToWhite, t) ?? redToWhite,
     );
   }
 }

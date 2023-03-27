@@ -41,7 +41,7 @@ class CameraBottomSheetState extends State<CameraBottomSheet> {
             topRight: Radius.circular(20),
             topLeft: Radius.circular(20),
           ),
-          color: Theme.of(context).extension<ThemedColors>()!.whiteToBlack,
+          color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
         ),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           Row(
@@ -78,7 +78,7 @@ class CameraBottomSheetState extends State<CameraBottomSheet> {
               },
             ),
           ),
-          SizedBox(height: 12+ MediaQuery.of(context).padding.bottom),
+          SizedBox(height: 12 + MediaQuery.of(context).padding.bottom),
         ]),
       );
 }

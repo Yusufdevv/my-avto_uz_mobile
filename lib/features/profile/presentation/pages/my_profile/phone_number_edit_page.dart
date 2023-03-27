@@ -13,7 +13,6 @@ import 'package:auto/features/profile/data/repositories/profile_repository_impl.
 import 'package:auto/features/profile/domain/usecases/change_phone_number_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/send_sms_verifiaction_code_usecase.dart';
 import 'package:auto/features/profile/presentation/bloc/change_phone_number/change_phone_number_bloc.dart';
-
 import 'package:auto/features/profile/presentation/pages/my_profile/phone_verifiy_page.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -61,7 +60,8 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
           builder: (context, state) => KeyboardDismisser(
             child: CustomScreen(
               child: Scaffold(
-                backgroundColor: white,
+                backgroundColor:
+                    Theme.of(context).extension<ThemedColors>()!.whiteToBlack,
                 appBar: WAppBar(title: LocaleKeys.tel_number.tr()),
                 body: Padding(
                   padding: const EdgeInsets.only(
@@ -75,7 +75,7 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                             title: LocaleKeys.tel_number.tr(),
                             description:
                                 LocaleKeys.we_will_send_a_verification.tr()),
-                       const SizedBox(height: 50),
+                        const SizedBox(height: 50),
                         ZTextFormField(
                           disabledBorderColor: border,
                           onChanged: (value) {
@@ -186,7 +186,7 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                                     .extension<ThemedColors>()!
                                     .veryLightGreyToEclipse,
                             text: LocaleKeys.continuee.tr(),
-                            border: Border.all(width: 1, color: white),
+                            // border: Border.all(width: 1, color: white),
                           ),
                         ),
                       ],

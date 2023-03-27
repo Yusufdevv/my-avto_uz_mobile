@@ -1,3 +1,4 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:flutter/material.dart';
 
 //ignore_for_file: public_member_api_docs
@@ -45,6 +46,7 @@ class DarkThemeColors {
   static const warmerGreyToDarkGrey = _darkGray;
   static const whiteToDimGray = _dimGray;
   static const whiteToWhiteOpacity20 = _whiteOpacity20;
+  static const redToWhite = white;
 
   static const whiteToSmoky = _smoky;
   static const whiteSmokeToNightRider = _nightRider;
@@ -68,6 +70,7 @@ class DarkThemeColors {
   static const snowToNero1 = _nero1;
   static const whiteToNero1 = _nero1;
   static const whiteLilacToPayneGrey = _payneGrey;
+  static const tutuToRed = red;
 
   static const dividerColorToGrey = _grey;
   static const warmerGreyToDarkGray = _dolphin;
