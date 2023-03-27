@@ -1,32 +1,36 @@
 // ignore_for_file: avoid_bool_literals_in_conditional_expressions
 
+import 'dart:core';
 import 'dart:developer';
 
 import 'package:auto/features/ad/data/models/pagination/get_pagination_param_model.dart';
+import 'package:auto/features/ad/domain/entities/generation/generation.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
 import 'package:auto/features/ad/domain/usecases/get_top_makes.dart';
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'get_makes_bloc_event.dart';
 
 part 'get_makes_bloc_state.dart';
 
-part 'get_makes_bloc_bloc.freezed.dart';
-
-class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
+class GetMakesBloc extends Bloc<GetMakesEvent, GetMakesState> {
   final GetMakesUseCase useCase = GetMakesUseCase();
   final GetTopMakesUseCase topUseCase = GetTopMakesUseCase();
 
   GetMakesBloc({int? initialId})
-      : super(GetMakesState(selectId: initialId ?? -1)) {
-    on<_ChangeSelected>((event, emit) {
-      emit(state.copyWith(selectId: event.id));
+      : super(GetMakesState(
+          selectId: initialId ?? -1,
+          status: FormzStatus.pure,
+          statusController: FormzStatus.pure,
+        )) {
+    on<GetMakesChangeSelectedMakeEvent>((event, emit) {
+      emit(state.copyWith(selectId: event.makeId));
     });
 
-    on<_SortMakes>((event, emit) {
+    on<GetMakesSortMakesEvent>((event, emit) {
       final firstMakes = state.makes
           .where((element) => element.name.startsWith(event.letter))
           .toList();
@@ -38,9 +42,9 @@ class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
               : [...firstMakes, ...secondMakes]));
     });
 
-    on<_GetIsCheck>((event, emit) => emit(state.copyWith(ischeck: true)));
+    on<GetMakesGetIsCheckEvent>((event, emit) => emit(state.copyWith(ischeck: true)));
 
-    on<_GetMakes>((event, emit) async {
+    on<GetMakesGetEvent>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await useCase.call(state.search);
       if (result.isRight) {
@@ -48,7 +52,6 @@ class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
           state.copyWith(
             makes: result.right.results,
             status: FormzStatus.submissionSuccess,
-            count: result.right.count,
             next: result.right.next,
           ),
         );
@@ -57,7 +60,7 @@ class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
       }
     });
 
-    on<_GetTopMakes>((event, emit) async {
+    on<GetMakesGetTopMakesEvent>((event, emit) async {
       emit(state.copyWith(statusTop: FormzStatus.submissionInProgress));
       final result = await topUseCase.call('');
       if (result.isRight) {
@@ -73,7 +76,7 @@ class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
       }
     });
 
-    on<_GetNextTop>((event, emit) async {
+    on<GetMakesGetNextTopEvent>((event, emit) async {
       if (state.next != null) {
         final result =
             await topUseCase.call(state.next == null ? '' : state.next!);
@@ -91,8 +94,8 @@ class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
       }
     });
 
-    on<_GetSerched>((event, emit) => emit(state.copyWith(
-        search: GetPaginationParam(name: event.naem, limit: 1000, offset: 0))));
+    on<GetMakesGetSearchedEvent>((event, emit) => emit(state.copyWith(
+        search: GetPaginationParam(name: event.name, limit: 1000, offset: 0))));
 
     on<_SelectedCarItems>((event, emit) {
       emit(state.copyWith(
@@ -107,18 +110,20 @@ class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
       emit(state.copyWith(selectId: state.confirmId));
     });
 
-    on<_ChangeControlleStatus>((event, emit) {
+    on<GetMakesChangeControlleStatusEvent>((event, emit) {
       emit(state.copyWith(statusController: FormzStatus.pure));
     });
 
-    on<_GetIndex>((event, emit) {
-      emit(state.copyWith(selectChar: event.index));
+    on<GetMakesGetIndexEvent>((event, emit) {
       final index = state.makes.indexWhere((element) =>
           element.name.toLowerCase().startsWith(event.index.toLowerCase()));
-      if (index >= 0) {
-        emit(state.copyWith(
-            index: index, statusController: FormzStatus.submissionSuccess));
-      }
+
+      emit(state.copyWith(
+          selectChar: event.index,
+          index: index,
+          statusController: index > -1
+              ? FormzStatus.submissionSuccess
+              : FormzStatus.submissionFailure));
     });
   }
 }

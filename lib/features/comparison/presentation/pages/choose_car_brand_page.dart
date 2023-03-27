@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:auto/assets/colors/color.dart';
@@ -180,6 +181,11 @@ class _ChooseCarBrandPageState extends State<ChooseCarBrandPage> {
                       if (state.search.name?.isEmpty ?? true)
                         SliverPersistentHeader(
                           delegate: AlphabeticHeader(
+                            onLetterTap: (letter) {
+                              context.read<GetMakesBloc>().add(
+                                    GetMakesBlocEvent.getIndex(letter),
+                                  );
+                            },
                             color: color,
                             controller: _controllerScroll,
                           ),
@@ -188,11 +194,12 @@ class _ChooseCarBrandPageState extends State<ChooseCarBrandPage> {
                     ],
                     body: BlocConsumer<GetMakesBloc, GetMakesState>(
                         listener: (context, stateCons) {
-                      if (stateCons.statusController.isSubmissionSuccess) {
-                        _scrollController.animateTo(state.index.toDouble() * 54,
-                            duration: const Duration(milliseconds: 1000),
-                            curve: Curves.ease);
-                      }
+                      log(':::::::::: scroolcontroller status:  ${stateCons.statusController.isSubmissionSuccess}  ::::::::::');
+
+                      _scrollController.animateTo(state.index.toDouble() * 54,
+                          duration: const Duration(milliseconds: 1000),
+                          curve: Curves.ease);
+                      setState(() {});
                       context
                           .read<GetMakesBloc>()
                           .add(GetMakesBlocEvent.changeControlleStatus());

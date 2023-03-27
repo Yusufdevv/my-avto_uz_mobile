@@ -5,10 +5,14 @@ import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
 
 class AlphabeticHeader extends SliverPersistentHeaderDelegate {
+  final Function(String) onLetterTap;
   final Color color;
   final ScrollController controller;
 
-  AlphabeticHeader({required this.color, required this.controller});
+  AlphabeticHeader(
+      {required this.onLetterTap,
+      required this.color,
+      required this.controller});
 
   @override
   double get minExtent => 38;
@@ -48,9 +52,11 @@ class AlphabeticHeader extends SliverPersistentHeaderDelegate {
               child: ListView.builder(
                 padding: const EdgeInsets.only(left: 8),
                 itemBuilder: (context, index) => CharactersList(
+                  onTap: () {
+                    onLetterTap(letters[index]);
+                  },
                   letter: letters[index],
                   color: white,
-                  controller: controller,
                 ),
                 itemCount: letters.length,
                 shrinkWrap: true,

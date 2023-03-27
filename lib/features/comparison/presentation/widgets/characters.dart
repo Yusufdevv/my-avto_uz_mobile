@@ -6,11 +6,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class CharactersList extends StatefulWidget {
   final String letter;
   final Color color;
-  final ScrollController controller;
+  final VoidCallback onTap;
+
   const CharactersList({
     required this.letter,
     required this.color,
-    required this.controller,
+    required this.onTap,
     Key? key,
   }) : super(key: key);
 
@@ -23,12 +24,7 @@ class _AzListState extends State<CharactersList> {
   Widget build(BuildContext context) =>
       BlocBuilder<GetMakesBloc, GetMakesState>(
         builder: (context, state) => GestureDetector(
-          onTap: () {
-            // widget.controller.jumpTo(146);
-            context
-                .read<GetMakesBloc>()
-                .add(GetMakesBlocEvent.getIndex(widget.letter));
-          },
+          onTap: widget.onTap,
           behavior: HitTestBehavior.opaque,
           child: Container(
             color: widget.color,
