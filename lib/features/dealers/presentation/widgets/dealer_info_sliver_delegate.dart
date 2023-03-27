@@ -31,7 +31,6 @@ class SellerSliverDelegate extends SliverPersistentHeaderDelegate {
           BuildContext context, double shrinkOffset, bool overlapsContent) =>
       Stack(
         children: [
-
           AnimatedOpacity(
             duration: const Duration(milliseconds: 100),
             opacity: shrinkOffset >= 20 && shrinkOffset <= 60
@@ -47,6 +46,7 @@ class SellerSliverDelegate extends SliverPersistentHeaderDelegate {
                 images: gallery,
                 screenWidth: MediaQuery.of(context).size.width),
           ),
+
           /// back button
           Positioned(
               top: 60,
@@ -86,8 +86,7 @@ class SellerSliverDelegate extends SliverPersistentHeaderDelegate {
                                     .whiteSmoke2ToNightRider)),
                     padding: shrinkOffset >= 158
                         ? EdgeInsets.only(
-                            top: MediaQuery.of(context).padding.top +
-                                MediaQuery.of(context).size.height * 0.02,
+                            top: MediaQuery.of(context).padding.top + 12,
                             left: 16,
                             bottom: 16,
                           )
@@ -169,14 +168,6 @@ class SellerSliverDelegate extends SliverPersistentHeaderDelegate {
                       ],
                     ),
                   ),
-                  AnimatedCrossFade(
-                    firstChild: const Divider(height: 1),
-                    secondChild: const SizedBox(),
-                    crossFadeState: shrinkOffset >= 158
-                        ? CrossFadeState.showFirst
-                        : CrossFadeState.showSecond,
-                    duration: _duration,
-                  )
                 ],
               ),
             ),

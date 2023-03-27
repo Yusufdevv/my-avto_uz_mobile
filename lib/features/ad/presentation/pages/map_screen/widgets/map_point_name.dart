@@ -1,7 +1,7 @@
-
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/pages/map_screen/widgets/point_name_shimmer.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/dealers/domain/entities/map_entity.dart';
@@ -71,7 +71,10 @@ class MapPointName extends StatelessWidget {
                       child: Text(
                         '${LocaleKeys.every_day.tr()}, ${currentDealer?.contactFrom.substring(0, 5)} - ${currentDealer?.contactTo.substring(0, 5)}',
                         maxLines: 4,
-                        style: Theme.of(context).textTheme.titleSmall!,
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                            color: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .dolphinToGhost),
                       ),
                     ),
                 ],
@@ -89,7 +92,10 @@ class MapPointName extends StatelessWidget {
                   Expanded(
                     child: Text(
                       name ?? '',
-                      style: Theme.of(context).textTheme.titleSmall!,
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          color: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .dolphinToGhost),
                     ),
                   ),
                 }
@@ -138,10 +144,11 @@ class MapItemImageNameWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(dealerName,
-                    style: Theme.of(context)
-                        .textTheme
-                        .displayLarge!
-                        .copyWith(fontSize: 14),
+                    style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                        fontSize: 14,
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .whiteToNero),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1),
                 Text(dealerType,

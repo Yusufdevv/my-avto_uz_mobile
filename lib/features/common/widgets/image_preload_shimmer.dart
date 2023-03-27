@@ -1,3 +1,4 @@
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -19,7 +20,9 @@ class ImagePreloadShimmer extends StatelessWidget {
               right: -1,
               left: 0,
               bottom: 0,
-              child: Container(color: Colors.white),
+              child: Container(
+                  color:
+                      Theme.of(context).extension<ThemedColors>()!.whiteToNero),
             ),
             Shimmer(
               gradient: const LinearGradient(
@@ -45,8 +48,9 @@ class ImagePreloadShimmer extends StatelessWidget {
               child: Container(
                 width: width,
                 height: height,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
+                decoration: BoxDecoration(
+                  color:
+                      Theme.of(context).extension<ThemedColors>()!.whiteToNero,
                 ),
               ),
             ),

@@ -9,29 +9,49 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) => DecoratedBox(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: dark.withOpacity(0.08),
+            offset: const Offset(0, 8),
+            blurRadius: 19,
+          ),
+          BoxShadow(
+            color: dark.withOpacity(0.16),
+            offset: const Offset(0, -1),
+            blurRadius: 0,
+          ),
+        ],
+      ),
+      child: Container(
         decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: dark.withOpacity(0.08),
-              offset: const Offset(0, 8),
-              blurRadius: 19,
+          color: Theme.of(context).appBarTheme.backgroundColor,
+        ),
+        padding:
+            EdgeInsets.only(top: MediaQuery.of(context).padding.top, left: 16),
+        child: Row(
+          children: [
+            Expanded(
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: SvgPicture.asset(
+                  Theme.of(context).extension<ThemedIcons>()!.imageUrl,
+                ),
+              ),
             ),
-            BoxShadow(
-              color: dark.withOpacity(0.16),
-              offset: const Offset(0, -1),
-              blurRadius: 0,
-            ),
+            const NotificationButton()
           ],
         ),
-        child: AppBar(
-          backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-          elevation: 0,
-          actions: const [NotificationButton()],
-          centerTitle: false,
-          title: SvgPicture.asset(
-            Theme.of(context).extension<ThemedIcons>()!.imageUrl,
-          ),
-        ),
+      )
+      // AppBar(
+      //   backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+      //   elevation: 0,
+      //   actions: const [NotificationButton()],
+      //   centerTitle: false,
+      //   title: SvgPicture.asset(
+      //     Theme.of(context).extension<ThemedIcons>()!.imageUrl,
+      //   ),
+      // ),
       );
 
   @override

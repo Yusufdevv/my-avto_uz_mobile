@@ -1,6 +1,9 @@
 import 'dart:async';
+
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 
@@ -40,24 +43,26 @@ class _SplashScState extends State<SplashSc> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
-    print('this is height: $height');
-    print('this is width: $width');
-    return Scaffold(
-        body: Center(
-          child: Column(
-            children: [
-              const Spacer(),
-              SvgPicture.asset(
-                Theme.of(context).extension<ThemedIcons>()!.autoUzLightDark,
-              ),
-              const Spacer(),
-              Lottie.asset('assets/lottie/red_car.json', height: 120),
-            ],
+  Widget build(BuildContext context) => AnnotatedRegion(
+        value: SystemUiOverlayStyle(
+          statusBarColor:
+              Theme.of(context).extension<ThemedColors>()!.whiteToBlack,
+          systemNavigationBarColor:
+              Theme.of(context).extension<ThemedColors>()!.whiteToBlack,
+        ),
+        child: Scaffold(
+          body: Center(
+            child: Column(
+              children: [
+                const Spacer(),
+                SvgPicture.asset(
+                  Theme.of(context).extension<ThemedIcons>()!.autoUzLightDark,
+                ),
+                const Spacer(),
+                Lottie.asset('assets/lottie/red_car.json', height: 120),
+              ],
+            ),
           ),
         ),
       );
-  }
 }

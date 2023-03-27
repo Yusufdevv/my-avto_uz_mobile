@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/core/utils/marker_generator.dart';
 import 'package:auto/features/ad/presentation/pages/map_screen/widgets/map_point_name.dart';
@@ -276,7 +277,9 @@ class _MapScreenState extends State<MapScreen>
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
-                        color: white,
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .whiteToNero,
                         // color:Colors.teal,
                         border: Border.all(color: borderCircular, width: 1),
                         boxShadow: [

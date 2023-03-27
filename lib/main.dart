@@ -5,6 +5,7 @@ import 'package:auto/assets/constants/app_constants.dart';
 import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/assets/themes/dark.dart';
 import 'package:auto/assets/themes/light.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_brightness.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
@@ -150,9 +151,13 @@ class _AppState extends State<App> {
                       Theme.of(context).extension<ThemedColors>()!.whiteToDark,
                   systemNavigationBarColor:
                       Theme.of(context).extension<ThemedColors>()!.whiteToDark,
-                  statusBarBrightness: Brightness.light,
-                  statusBarIconBrightness: Brightness.dark,
-                  systemNavigationBarIconBrightness: Brightness.dark,
+                  // statusBarBrightness: Brightness.light,
+                  statusBarIconBrightness: Theme.of(context)
+                      .extension<ThemedBrightness>()!
+                      .brightness,
+                  systemNavigationBarIconBrightness: Theme.of(context)
+                      .extension<ThemedBrightness>()!
+                      .brightness,
                 ),
                 child: ScrollConfiguration(
                   behavior: MyBehavior(),

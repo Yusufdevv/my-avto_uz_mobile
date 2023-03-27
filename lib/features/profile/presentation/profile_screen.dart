@@ -1,26 +1,26 @@
 import 'dart:async';
-import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
-import 'package:auto/features/common/widgets/notification_button.dart';
-import 'package:auto/features/comparison/presentation/comparison_page.dart';
-import 'package:auto/features/profile/domain/entities/profile_data_entity.dart';
-import 'package:auto/utils/my_functions.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:formz/formz.dart';
 
 // ignore: directives_ordering
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
+import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
+import 'package:auto/features/common/widgets/notification_button.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
+import 'package:auto/features/comparison/presentation/comparison_page.dart';
 import 'package:auto/features/dealers/presentation/dealers_screen.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/profile/domain/entities/profile_data_entity.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/features/profile/presentation/pages/pages.dart';
 import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:auto/generated/locale_keys.g.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -170,13 +170,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ProfileMenuTile(
                               name: LocaleKeys.dealers.tr(),
                               onTap: () {
-                                Navigator.of(context)
+                                Navigator.of(context, rootNavigator: true)
                                     .push(fade(page: const DealerScreen()));
                               },
                               iconPath: AppIcons.dealers),
                           const ProfileDivider(),
                           ProfileMenuTile(
-                              name: LocaleKeys.directory.tr() ,
+                              name: LocaleKeys.directory.tr(),
                               onTap: () {
                                 Navigator.of(context)
                                     .push(fade(page: const DirectoryPage()));

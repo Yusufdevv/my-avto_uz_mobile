@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/dealers/presentation/blocs/map_organization/map_organization_bloc.dart';
@@ -27,15 +28,16 @@ class MapControllerButtons extends StatelessWidget {
             onTap: onPlusTap,
             height: 36,
             width: 36,
-            color: white,
             borderRadius: 8,
+            color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
             border: Border.all(
               color: dividerColor,
             ),
             padding: const EdgeInsets.all(10),
             child: SvgPicture.asset(
               AppIcons.plus,
-              color: greyText,
+              color:
+                  Theme.of(context).extension<ThemedColors>()!.dolphinToWhite,
             ),
           ),
           const SizedBox(height: 16),
@@ -43,7 +45,7 @@ class MapControllerButtons extends StatelessWidget {
             onTap: onMinusTap,
             height: 36,
             width: 36,
-            color: white,
+            color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
             borderRadius: 8,
             border: Border.all(
               color: dividerColor,
@@ -51,7 +53,8 @@ class MapControllerButtons extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             child: SvgPicture.asset(
               AppIcons.minus,
-              color: greyText,
+              color:
+                  Theme.of(context).extension<ThemedColors>()!.dolphinToWhite,
             ),
           ),
           const SizedBox(height: 28),
@@ -80,10 +83,12 @@ class CurrentLocationButton extends StatelessWidget {
             width: 36,
             decoration: BoxDecoration(
               color: state.getCurrentLocationStatus.isSubmissionInProgress
-                  ? white.withOpacity(0.7)
-                  : white,
+                  ? Theme.of(context).extension<ThemedColors>()!.whiteToDark
+                  : Theme.of(context).extension<ThemedColors>()!.whiteToDark,
               border: Border.all(
-                color: dividerColor,
+                color: Theme.of(context)
+                    .extension<ThemedColors>()!
+                    .solitudeToNightRider,
               ),
               borderRadius: BorderRadius.circular(8),
             ),
@@ -91,7 +96,10 @@ class CurrentLocationButton extends StatelessWidget {
               duration: const Duration(milliseconds: 150),
               child: state.getCurrentLocationStatus.isSubmissionInProgress
                   ? const AnimatedLocationIcon()
-                  : SvgPicture.asset(AppIcons.currentLocation),
+                  : SvgPicture.asset(AppIcons.currentLocation,
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .dolphinToWhite),
             ),
           ),
         ),
@@ -138,7 +146,9 @@ class _AnimatedLocationIconState extends State<AnimatedLocationIcon>
                   const BoxDecoration(color: green, shape: BoxShape.circle),
             ),
           ),
-          SvgPicture.asset(AppIcons.currentLocation),
+          SvgPicture.asset(AppIcons.currentLocation,
+              color:
+                  Theme.of(context).extension<ThemedColors>()!.dolphinToWhite),
         ],
       );
 }
