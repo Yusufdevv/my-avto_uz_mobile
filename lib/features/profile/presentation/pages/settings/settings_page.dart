@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
+import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
@@ -162,6 +165,12 @@ class _SettingsPageState extends State<SettingsPage> {
                             setState(() {});
                             await StorageRepository.putString(
                                 'language', value.toString());
+                            log(':::::::::: the language value is: ${value.toString()}  ::::::::::');
+                            await context.setLocale(Locale(value.toString()));
+                            await StorageRepository.putString(
+                                'language', value.toString());
+                            serviceLocator<DioSettings>()
+                                .setBaseOptions(lang: value.toString());
                             await resetLocator();
                           }
                         });
