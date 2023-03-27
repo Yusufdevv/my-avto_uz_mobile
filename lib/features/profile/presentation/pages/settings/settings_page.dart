@@ -165,10 +165,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             setState(() {});
                             await StorageRepository.putString(
                                 'language', value.toString());
-                            log(':::::::::: the language value is: ${value.toString()}  ::::::::::');
-                            await context.setLocale(Locale(value.toString()));
-                            await StorageRepository.putString(
-                                'language', value.toString());
+
                             serviceLocator<DioSettings>()
                                 .setBaseOptions(lang: value.toString());
                             await resetLocator();
