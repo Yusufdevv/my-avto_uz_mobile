@@ -10,6 +10,7 @@ import 'package:auto/features/car_single/presentation/widgets/day_like_call_item
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/profile/presentation/widgets/moderation_status_part.dart';
 import 'package:auto/generated/locale_keys.g.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -92,6 +93,7 @@ class CarNameWidget extends StatelessWidget {
   Widget build(BuildContext context) => Container(
         margin: EdgeInsets.only(bottom: isMine ? 0 : 12),
         decoration: BoxDecoration(
+          // color: Colors.teal,
           color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
           border: const Border(bottom: BorderSide(color: border)),
         ),
@@ -165,7 +167,7 @@ class CarNameWidget extends StatelessWidget {
                     },
                     height: 24,
                     borderRadius: 6,
-                    color: blue,
+                    color: MyFunctions.getPriceStatusColor(percenti),
                     width: 24,
                     child: SvgPicture.asset(AppIcons.chevronDown,
                         color: Colors.white),
@@ -176,7 +178,7 @@ class CarNameWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
               child: CarStatistics(
-                moderationStatus: moderationStatus,
+                  moderationStatus: moderationStatus,
                   date: date,
                   views: view,
                   todayViewedCount: todayViewedCount,

@@ -58,17 +58,6 @@ class MyFunctions {
     }
   }
 
-  // static Brightness getIconBrightNess(){
-  //   switch(getThemeMode()){
-  //     case ThemeMode.system:
-  //       break;
-  //     case ThemeMode.light:
-  //       break;
-  //     case ThemeMode.dark:
-  //       break;
-  //   }
-  // }
-
   static String getData(String data) =>
       Jiffy(data).format('dd-MM-yyyy').replaceAll('-', '/').toString();
 
@@ -404,6 +393,32 @@ class MyFunctions {
       buffer.write(content[i]);
     }
     return buffer.toString();
+  }
+
+  static Color getPriceStatusColor(double? percent) {
+    if (percent == null) {
+      return Colors.green;
+    }
+    if (percent <= 90) {
+      return Colors.green;
+    } else if (percent! > 90 && percent < 94) {
+      return Colors.green;
+    } else if (percent >= 94 && percent < 98) {
+      return Colors.green;
+    } else if (percent >= 98 && percent < 100) {
+      return Colors.blue;
+    } else if (percent == 100) {
+      return Colors.blue;
+    } else if (percent >= 101 && percent < 103) {
+      return Colors.blue;
+    } else if (percent >= 103 && percent < 107) {
+      return Colors.red;
+    } else if (percent >= 107 && percent < 110) {
+      return Colors.red;
+    } else if (percent > 100) {
+      return Colors.red;
+    }
+    return Colors.green;
   }
 
   static String getMonthByIndex(int index) {

@@ -80,9 +80,7 @@ class CarPriceBottom extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 4,
-            ),
+            const SizedBox(height: 4),
             GestureDetector(
               onTap: () {
                 Navigator.of(context).pop();
@@ -92,7 +90,8 @@ class CarPriceBottom extends StatelessWidget {
                 margin: const EdgeInsets.only(left: 16),
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4), color: blue),
+                    borderRadius: BorderRadius.circular(4),
+                    color: MyFunctions.getPriceStatusColor(percenti)),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -107,13 +106,14 @@ class CarPriceBottom extends StatelessWidget {
                               color: Colors.white),
                     ),
                     RotatedBox(
-                        quarterTurns: 1,
-                        child: SvgPicture.asset(
-                          AppIcons.chevronLeft,
-                          width: 24,
-                          height: 24,
-                          color: Colors.white,
-                        ))
+                      quarterTurns: 1,
+                      child: SvgPicture.asset(
+                        AppIcons.chevronLeft,
+                        width: 24,
+                        height: 24,
+                        color: Colors.white,
+                      ),
+                    ),
                   ],
                 ),
               ),

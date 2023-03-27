@@ -10,7 +10,7 @@ class PriceStatisticItem extends StatefulWidget {
   final String price;
   final String currency;
 
-  PriceStatisticItem({
+  const PriceStatisticItem({
     required this.percent,
     required this.price,
     required this.currency,
@@ -24,61 +24,53 @@ class PriceStatisticItem extends StatefulWidget {
 class _PriceStatisticItemState extends State<PriceStatisticItem> {
   CrossAxisAlignment alighment = CrossAxisAlignment.start;
 
-  Color itemColor = Colors.green;
-
+  late double pointLeft;
   late String icon;
 
-  double getPointleft(double percent) {
+  double getPointleft(double? percent) {
     if (percent == null) {
-      itemColor = Colors.green;
       alighment = CrossAxisAlignment.start;
       icon = AppImages.one_nice;
       return 0.3;
     }
     if (percent <= 90) {
-      itemColor = Colors.green;
       alighment = CrossAxisAlignment.start;
       icon = AppImages.one_nice;
       return 0.07;
       // ignore: invariant_booleans
     } else if (percent > 90 && percent < 94) {
-      itemColor = Colors.green;
       alighment = CrossAxisAlignment.center;
       icon = AppImages.nice_two;
       return 0.080;
     } else if (percent >= 94 && percent < 98) {
-      itemColor = Colors.green;
       icon = AppImages.nice_three;
       alighment = CrossAxisAlignment.center;
       return 0.2;
     } else if (percent >= 98 && percent < 100) {
-      itemColor = Colors.blue;
       icon = AppImages.optima_one;
       alighment = CrossAxisAlignment.center;
       return 0.3;
     } else if (percent == 100) {
       icon = AppImages.optima_two;
-      itemColor = Colors.blue;
+
       alighment = CrossAxisAlignment.center;
       return 0.4;
     } else if (percent >= 101 && percent < 103) {
-      itemColor = Colors.blue;
       icon = AppImages.optima_three;
       alighment = CrossAxisAlignment.end;
       return 0.45;
     } else if (percent >= 103 && percent < 107) {
-      itemColor = Colors.red;
       alighment = CrossAxisAlignment.end;
       icon = AppImages.bad_one;
       return 0.52;
     } else if (percent >= 107 && percent < 110) {
       icon = AppImages.bad_two;
-      itemColor = Colors.red;
+
       alighment = CrossAxisAlignment.end;
       return 0.62;
     } else if (percent > 100) {
       icon = AppImages.bad_three;
-      itemColor = Colors.red;
+
       alighment = CrossAxisAlignment.end;
       return 0.74;
     }
@@ -87,7 +79,7 @@ class _PriceStatisticItemState extends State<PriceStatisticItem> {
 
   @override
   void initState() {
-    getPointleft(widget.percent);
+    pointLeft = getPointleft(widget.percent);
     super.initState();
   }
 
@@ -144,61 +136,13 @@ class _PriceStatisticItemState extends State<PriceStatisticItem> {
                     height: 25,
                   ),
                   Image.asset(icon, fit: BoxFit.cover, width: double.infinity),
-                  // Row(
-                  //   children: [
-                  //     // Container(
-                  //     //   width: MediaQuery.of(context).size.width * .3,
-                  //     //   alignment: Alignment.center,
-                  //     //   child: Text(
-                  //     //     LocaleKeys.excellent.tr(),
-                  //     //     style: Theme.of(context)
-                  //     //         .textTheme
-                  //     //         .displayLarge!
-                  //     //         .copyWith(
-                  //     //             fontSize: 16, fontWeight: FontWeight.w600),
-                  //     //     textAlign: TextAlign.center,
-                  //     //   ),
-                  //     // ),
-                  //     const Spacer(),
-                  //     Container(
-                  //       width: MediaQuery.of(context).size.width * .3,
-                  //       alignment: Alignment.center,
-                  //       child: Text(
-                  //         LocaleKeys.optimal.tr(),
-                  //         style: Theme.of(context)
-                  //             .textTheme
-                  //             .displayLarge!
-                  //             .copyWith(
-                  //                 fontSize: 16, fontWeight: FontWeight.w600),
-                  //         textAlign: TextAlign.center,
-                  //       ),
-                  //     ),
-                  //     const Spacer(),
-                  //     Container(
-                  //       width: MediaQuery.of(context).size.width * .3,
-                  //       alignment: Alignment.center,
-                  //       child: Text(
-                  //         LocaleKeys.overpriced.tr(),
-                  //         style: Theme.of(context)
-                  //             .textTheme
-                  //             .displayLarge!
-                  //             .copyWith(
-                  //               fontSize: 16,
-                  //               fontWeight: FontWeight.w600,
-                  //             ),
-                  //         textAlign: TextAlign.center,
-                  //       ),
-                  //     ),
-                  //   ],
-                  // )
                 ],
               ),
             ),
             Positioned(
               top: MediaQuery.of(context).size.height *
                   getPointTop(widget.percent),
-              left: MediaQuery.of(context).size.width *
-                  getPointleft(widget.percent),
+              left: MediaQuery.of(context).size.width * pointLeft,
               child: Column(
                 //  crossAxisAlignment: alighment,
                 children: [
@@ -211,15 +155,6 @@ class _PriceStatisticItemState extends State<PriceStatisticItem> {
                         ),
                   ),
                   const SizedBox(height: 4),
-                  // Container(
-                  //   height: 16,
-                  //   width: 16,
-                  //   decoration: BoxDecoration(
-                  //     color: white,
-                  //     borderRadius: BorderRadius.circular(50),
-                  //     border: Border.all(color: Colors.red, width: 2),
-                  //   ),
-                  // ),
                 ],
               ),
             ),

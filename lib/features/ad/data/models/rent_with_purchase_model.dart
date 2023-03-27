@@ -1,4 +1,3 @@
-
 import 'package:auto/features/ad/domain/entities/rent_with_purchase/rent_with_purchase_entity.dart';
 
 class RentWithPurchaseModel extends RentWithPurchaseEntity {
