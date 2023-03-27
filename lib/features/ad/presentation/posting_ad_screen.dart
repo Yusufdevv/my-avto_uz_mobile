@@ -129,7 +129,17 @@ class _PostingAdScreenState extends State<PostingAdScreen>
   Widget build(BuildContext context) => WillPopScope(
         onWillPop: () async {
           FocusScope.of(context).unfocus();
-          return Future.value(false);
+          if (currentTabIndex != 0) {
+            --currentTabIndex;
+
+            await pageController.animateToPage(currentTabIndex,
+                duration: const Duration(milliseconds: 150),
+                curve: Curves.linear);
+            setState(() {});
+            return Future.value(false);
+          } else {
+            return Future.value(true);
+          }
         },
         child: KeyboardDismisser(
           child: CustomScreen(
