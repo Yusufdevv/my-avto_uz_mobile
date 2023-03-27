@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -36,7 +37,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
         inputFormatters: <TextInputFormatter>[
           FilteringTextInputFormatter.allow(RegExp(r'[\da-zA-Z!@#$&*~]')),
         ],
-        onChanged:widget.onChanged,
+        onChanged: widget.onChanged,
         decoration: InputDecoration(
           filled: true,
           hoverColor: const Color(0xFFFAFAFB),
@@ -52,7 +53,10 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
           contentPadding: const EdgeInsets.only(top: 13, bottom: 13, left: 16),
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: Color(0xFFF1F1F5))),
+              borderSide: BorderSide(
+                  color: Theme.of(context)
+                      .extension<ThemedColors>()!
+                      .solitudeToDarkRider)),
           suffixIcon: IconButton(
             color: grey,
             splashRadius: 1,

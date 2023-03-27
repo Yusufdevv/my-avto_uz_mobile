@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'color.dart';
+
 //ignore_for_file: public_member_api_docs
 
 /// Semantic aliases.
@@ -44,6 +46,7 @@ class LightThemeColors {
   static const whiteToSmoky = _white;
   static const whiteSmokeToNightRider = _whiteSmoke;
   static const whiteToNero = _white;
+  static const redToWhite = red;
   static const mediumSlateBlueToDolphin = _mediumSlateBlue;
   static const whiteSmokeToEclipse = _whiteSmoke1;
   static const solitudeToEclipse = _solitude;
@@ -152,6 +155,7 @@ class LightThemeColors {
   static const silverToNightRider = _silver;
   static const textBlue = _blueText;
   static const dividerColor = _solitude;
+  static const tutuToRed = tutu;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).

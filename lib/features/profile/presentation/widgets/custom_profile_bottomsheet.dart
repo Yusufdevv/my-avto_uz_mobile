@@ -1,10 +1,11 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomProfileBottomsheet extends StatelessWidget {
   const CustomProfileBottomsheet(
@@ -22,9 +23,9 @@ class CustomProfileBottomsheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
         padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-        decoration: const BoxDecoration(
-            color: white,
-            borderRadius: BorderRadius.only(
+        decoration: BoxDecoration(
+            color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+            borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
             )),
@@ -46,28 +47,35 @@ class CustomProfileBottomsheet extends StatelessWidget {
                 textAlign: TextAlign.center),
             const SizedBox(height: 8),
             Text(subTitle,
-                style: Theme.of(context)
-                    .textTheme
-                    .displayMedium!
-                    .copyWith(fontWeight: FontWeight.w400, fontSize: 16),
+                style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                    fontWeight: FontWeight.w400, fontSize: 16, color: grey),
                 textAlign: TextAlign.center),
             SizedBox(height: betweenHeight.toDouble()),
             Row(
               children: [
                 Expanded(
                   child: WButton(
-                      color: solitude,
-                      onTap: () => Navigator.pop(context),
-                      text: LocaleKeys.no.tr(),
-                      textColor: greyText),
+                    color: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .solitudeToGondola,
+                    onTap: () => Navigator.pop(context),
+                    text: LocaleKeys.no.tr(),
+                    textColor: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .dolphinToWhite,
+                  ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: WButton(
-                      color: tutu,
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .tutuToRed,
                       onTap: onTap,
                       text: LocaleKeys.yes.tr(),
-                      textColor: red),
+                      textColor: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .redToWhite),
                 ),
               ],
             )

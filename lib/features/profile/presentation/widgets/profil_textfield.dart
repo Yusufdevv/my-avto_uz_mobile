@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:flutter/material.dart';
 
@@ -28,6 +29,8 @@ class _ProfilTextFieldState extends State<ProfilTextField> {
         focusColor: Theme.of(context).scaffoldBackgroundColor,
         borderColor: purple,
         cursorColor: purple,
+        enabledBorderColor:
+            Theme.of(context).extension<ThemedColors>()!.solitudeToDarkRider,
         disabledColor: Theme.of(context).scaffoldBackgroundColor,
         textStyle: Theme.of(context)
             .textTheme
