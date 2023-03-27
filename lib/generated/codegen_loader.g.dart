@@ -633,7 +633,8 @@ class CodegenLoader extends AssetLoader{
   "cause": "Причина: ",
   "featured_products": "Популярные продукты",
   "all_products": "Все продукты",
-  "categories_services_products": "Категории услуг/товаров"
+  "categories_services_products": "Категории услуг/товаров",
+  "theme_of_app": "Тема приложения"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -1253,7 +1254,8 @@ static const Map<String,dynamic> uz = {
   "cause": "Sabab: ",
   "featured_products": "Популярные продукты",
   "all_products": "Barcha maxsulotlar",
-  "categories_services_products": "Xizmat/maxsulotlar kategoriyalari"
+  "categories_services_products": "Xizmat/maxsulotlar kategoriyalari",
+  "theme_of_app": "Тема приложения"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }

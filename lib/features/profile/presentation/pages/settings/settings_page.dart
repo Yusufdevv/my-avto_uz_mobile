@@ -125,7 +125,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             Row(
                               children: [
                                 Text(
-                                  'Тема приложения',
+                                  LocaleKeys.theme_of_app.tr(),
                                   style: Theme.of(context)
                                       .textTheme
                                       .displayLarge!

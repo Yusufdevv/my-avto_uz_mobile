@@ -620,5 +620,6 @@ abstract class  LocaleKeys {
   static const featured_products = 'featured_products';
   static const all_products = 'all_products';
   static const categories_services_products = 'categories_services_products';
+  static const theme_of_app = 'theme_of_app';
 
 }
