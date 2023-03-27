@@ -152,7 +152,7 @@ class PreviewScreen extends StatelessWidget {
                   selects: selectedSelectOptions,
                 ),
 
-                const SizedBox(height: 12),
+
 
                 LocationBoxOfAdPreview(
                   bodyBytes: mapPointBodyBytes,

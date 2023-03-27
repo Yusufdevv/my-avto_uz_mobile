@@ -225,9 +225,19 @@ class ProfileDataSourceImpl extends ProfileDataSource {
 
   @override
   Future<TermsOfUseModel> getTermsOfUseData(String slug) async {
+    log(':::::::::: DIO OPTIONS:   ${dio.options.headers}  ::::::::::');
+
     try {
       final response = await dio.get(
         '/common/static-pages/$slug/',
+        options: Options(
+          headers: {
+            'Accept-Language': StorageRepository.getString(StorageKeys.LANGUAGE,
+                defValue: 'uz'),
+            'Authorization':
+                'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+          },
+        ),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return TermsOfUseModel.fromJson(response.data);

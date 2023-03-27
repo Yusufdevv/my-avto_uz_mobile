@@ -2,6 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/light.dart';
 import 'package:auto/assets/themes/theme_extensions/checkbox_style.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_brightness.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
@@ -21,6 +22,7 @@ abstract class LightTheme {
         dividerColor: LightThemeColors.divider,
         hintColor: LightThemeColors.hintColor,
         unselectedWidgetColor: grey,
+        brightness: Brightness.dark,
         appBarTheme: const AppBarTheme(
           color: LightThemeColors.appBarColor,
           actionsIconTheme: CupertinoIconThemeData(
@@ -29,7 +31,7 @@ abstract class LightTheme {
         ),
         colorScheme: const ColorScheme(
           background: LightThemeColors.surface,
-          brightness: Brightness.light,
+          brightness: Brightness.dark,
           primary: LightThemeColors.primaryColor,
           secondary: LightThemeColors.surface,
           error: LightThemeColors.surface,
@@ -62,6 +64,8 @@ abstract class LightTheme {
             unselectedBackgroundColor1: LightThemeColors.whiteToEclipse,
           ),
           ThemedColors(
+            dolphinToWhite: LightThemeColors.dolphinToWhite,
+            dolphinToGhost: LightThemeColors.dolphinToGhost,
             seashellToCinnabar15: LightThemeColors.seashellToCinnabar15,
             whiteToBlack: LightThemeColors.whiteToBlack,
             dividerColorToGrey: LightThemeColors.dividerColorToGrey,
@@ -187,6 +191,7 @@ abstract class LightTheme {
             autoUzLightDark: LightIcons.autoUzLightDark,
             google: LightIcons.google,
           ),
+          ThemedBrightness(brightness: Brightness.dark)
         },
       );
 

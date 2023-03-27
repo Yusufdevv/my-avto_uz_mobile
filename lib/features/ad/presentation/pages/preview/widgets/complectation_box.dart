@@ -1,7 +1,7 @@
+import 'dart:developer';
+
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_entity.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/preview/widgets/dot_and_text.dart';
@@ -29,8 +29,12 @@ class ComplectationBox extends StatefulWidget {
 
 class _ComplectationBoxState extends State<ComplectationBox> {
   List<String> allOptions = [];
-  List<String> chunckOfOptions = [];
-  final l = 6;
+
+  late int length;
+  final int limit = 6;
+  late bool isCollapsable;
+
+  late bool isCollapsed = true;
 
   @override
   void initState() {
@@ -42,27 +46,20 @@ class _ComplectationBoxState extends State<ComplectationBox> {
     allOptions
       ..addAll(widget.selects.entries.map((e) => e.value.optionName))
       ..addAll(widget.radios.entries.map((e) => e.value));
-    if (allOptions.length > l) {
-      chunckOfOptions = allOptions.getRange(0, l).toList();
-    } else {
-      chunckOfOptions = allOptions;
-    }
+    length = allOptions.length > limit ? limit : allOptions.length;
+    isCollapsable = length == limit && limit != allOptions.length;
   }
-
-  bool get isCollapsed => chunckOfOptions.length != allOptions.length;
 
   @override
   Widget build(BuildContext context) {
-    if (!(((widget.equipment?.options.length ?? 0) +
-            widget.radios.length +
-            widget.selects.length) >
-        0)) {
-      return Divider(
-          height: 1, thickness: 1, color: Theme.of(context).dividerColor);
+    if (allOptions.isEmpty) {
+      return const SizedBox();
     }
     return AnimatedContainer(
+      margin: const EdgeInsets.only(bottom: 12),
       duration: const Duration(milliseconds: 300),
       decoration: BoxDecoration(
+          color: white,
           border: Border.symmetric(
               horizontal:
                   BorderSide(width: 1, color: Theme.of(context).dividerColor))),
@@ -80,35 +77,38 @@ class _ComplectationBoxState extends State<ComplectationBox> {
                 .copyWith(fontSize: 18),
           ),
           const SizedBox(height: 8),
-          ...chunckOfOptions.map((e) => DotAndText(text: e)).toList(),
-          WScaleAnimation(
-            onTap: () {
-              if (isCollapsed) {
-                chunckOfOptions = allOptions;
-              } else {
-                chunckOfOptions = allOptions.getRange(0, l).toList();
-              }
-              setState(() {});
-            },
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Показать все',
-                  style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                ),
-                const SizedBox(width: 8),
-                SvgPicture.asset(
-                  isCollapsed ? AppIcons.chevronDown : AppIcons.chevronTop,
-                  color: purple,
-                ),
-              ],
+          ...List.generate(
+              length, (index) => DotAndText(text: allOptions[index])),
+          if (isCollapsable)
+            WScaleAnimation(
+              onTap: () {
+                if (isCollapsed) {
+                  length = allOptions.length;
+                } else {
+                  length = limit;
+                }
+                isCollapsed = !isCollapsed;
+                setState(() {});
+              },
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Показать все',
+                    style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ),
+                  const SizedBox(width: 8),
+                  SvgPicture.asset(
+                    isCollapsed ? AppIcons.chevronDown : AppIcons.chevronTop,
+                    color: purple,
+                  ),
+                ],
+              ),
             ),
-          ),
         ],
       ),
     );

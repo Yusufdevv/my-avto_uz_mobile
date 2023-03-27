@@ -82,84 +82,72 @@ class _ReelsScreenState extends State<ReelsScreen>
   }
 
   @override
-  Widget build(BuildContext context) => AnnotatedRegion(
-        value: const SystemUiOverlayStyle(
-          statusBarColor: black,
-          systemNavigationBarColor: black,
-          statusBarBrightness: Brightness.light,
-          statusBarIconBrightness: Brightness.light,
-          systemNavigationBarIconBrightness: Brightness.light,
-        ),
-        child: SafeArea(
-          child: BlocProvider(
-            create: (context) => bloc,
-            child: BlocBuilder<ReelsBloc, ReelsState>(
-              builder: (context, state) => CustomScreen(
-                child: Scaffold(
-                  backgroundColor: Colors.black,
-                  body: ClipRRect(
-                    borderRadius:
-                        const BorderRadius.vertical(top: Radius.circular(20)),
-                    child: Stack(
-                      children: [
-                        if (state.statusReelsGet.isSubmissionSuccess)
-                          PageView.builder(
-                            scrollDirection: Axis.vertical,
-                            controller: _pageController,
-                            itemCount: state.reels.length,
-                            itemBuilder: (context, index) => ContentItem(
-                              reel: state.reels[index],
-                              isLiked: state.reels[index].isLiked,
-                              onTapLike: () {
-                                bloc.add(ReelsLike(state.reels[index].id, index));
-                              },
-                              pageIndex: index,
-                              currentPageIndex: _currentPage,
-                              isPaused: _isOnPageTurning,
-                              videoEnded: () {
-                                if (index == state.reels.length - 1 &&
-                                    !state.hasNext) {
-                                  Navigator.pop(context);
-                                }
-                              },
-                            ),
-                          ),
-                        Positioned(
-                          top: 16,
-                          right: 16,
-                          left: 16,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              WScaleAnimation(
-                                child:
-                                    SvgPicture.asset(AppIcons.chevronLeftWhite),
-                                onTap: () => Navigator.pop(context),
-                              ),
-                              const Spacer(),
-                              SvgPicture.asset(AppIcons.whiteLogo),
-                            ],
-                          ),
+  Widget build(BuildContext context) => BlocProvider(
+        create: (context) => bloc,
+        child: BlocBuilder<ReelsBloc, ReelsState>(
+          builder: (context, state) => CustomScreen(
+            child: Scaffold(
+              backgroundColor: Colors.black,
+              body: ClipRRect(
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(20)),
+                child: Stack(
+                  children: [
+                    if (state.statusReelsGet.isSubmissionSuccess)
+                      PageView.builder(
+                        scrollDirection: Axis.vertical,
+                        controller: _pageController,
+                        itemCount: state.reels.length,
+                        itemBuilder: (context, index) => ContentItem(
+                          reel: state.reels[index],
+                          isLiked: state.reels[index].isLiked,
+                          onTapLike: () {
+                            bloc.add(ReelsLike(state.reels[index].id, index));
+                          },
+                          pageIndex: index,
+                          currentPageIndex: _currentPage,
+                          isPaused: _isOnPageTurning,
+                          videoEnded: () {
+                            if (index == state.reels.length - 1 &&
+                                !state.hasNext) {
+                              Navigator.pop(context);
+                            }
+                          },
                         ),
-                        if (isFirstTimeWatchReel)
-                          AnimatedPositioned(
-                            top: isIncreasing ? topMax : topMin,
-                            left: 0,
-                            right: 0,
-                            duration: Duration(seconds: timeInSec),
-                            child: SvgPicture.asset(AppIcons.introduce),
+                      ),
+                    Positioned(
+                      top: MediaQuery.of(context).padding.top + 16,
+                      right: 16,
+                      left: 16,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          WScaleAnimation(
+                            child: SvgPicture.asset(AppIcons.chevronLeftWhite),
+                            onTap: () => Navigator.of(context).pop(),
                           ),
-                        if (isFirstTimeWatchReel)
-                          AnimatedPositioned(
-                            bottom: (isIncreasing ? topMax : topMin) + 100,
-                            left: 0,
-                            right: 0,
-                            duration: Duration(seconds: timeInSec),
-                            child: SvgPicture.asset(AppIcons.introduce1),
-                          ),
-                      ],
+                          const Spacer(),
+                          SvgPicture.asset(AppIcons.whiteLogo),
+                        ],
+                      ),
                     ),
-                  ),
+                    if (isFirstTimeWatchReel)
+                      AnimatedPositioned(
+                        top: isIncreasing ? topMax : topMin,
+                        left: 0,
+                        right: 0,
+                        duration: Duration(seconds: timeInSec),
+                        child: SvgPicture.asset(AppIcons.introduce),
+                      ),
+                    if (isFirstTimeWatchReel)
+                      AnimatedPositioned(
+                        bottom: (isIncreasing ? topMax : topMin) + 100,
+                        left: 0,
+                        right: 0,
+                        duration: Duration(seconds: timeInSec),
+                        child: SvgPicture.asset(AppIcons.introduce1),
+                      ),
+                  ],
                 ),
               ),
             ),

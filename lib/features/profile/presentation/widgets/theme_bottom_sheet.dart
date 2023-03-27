@@ -10,6 +10,7 @@ import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -34,7 +35,6 @@ class _ThemeBottomSheetState extends State<ThemeBottomSheet> {
   @override
   void initState() {
     super.initState();
-    print(StorageRepository.getString('themeMode'));
     if (StorageRepository.getString('themeMode') == 'light') {
       selectedTheme = 1;
     } else if (StorageRepository.getString('themeMode') == 'dark') {
@@ -58,82 +58,86 @@ class _ThemeBottomSheetState extends State<ThemeBottomSheet> {
   }
 
   @override
-  Widget build(BuildContext context) => Container(
-        padding:
-            const EdgeInsets.only(left: 16, right: 16, top: 20, bottom: 20),
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.only(
-            topRight: Radius.circular(20),
-            topLeft: Radius.circular(20),
+  Widget build(BuildContext context) => AnnotatedRegion(
+        value: SystemUiOverlayStyle(
+            systemNavigationBarColor:
+                Theme.of(context).extension<ThemedColors>()!.whiteToDark),
+        child: Container(
+          padding:
+              const EdgeInsets.only(left: 16, right: 16, top: 20, bottom: 20),
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.only(
+              topRight: Radius.circular(20),
+              topLeft: Radius.circular(20),
+            ),
+            color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
           ),
-          color: Theme.of(context).extension<ThemedColors>()!.whiteToBlack,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              children: [
-                Text(
-                  LocaleKeys.language.tr(),
-                  style: Theme.of(context).textTheme.displayLarge,
-                ),
-                const Spacer(),
-                WScaleAnimation(
-                    child: SvgPicture.asset(
-                      AppIcons.close,
-                      width: 32,
-                      height: 32,
-                    ),
-                    onTap: () {
-                      Navigator.of(context).pop(-1);
-                    }),
-              ],
-            ),
-            const SizedBox(height: 12),
-            ListView.separated(
-                separatorBuilder: (context, index) => Container(
-                      height: 1,
-                      color: Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .greyToDarkRider,
-                    ),
-                itemCount: titleList.length,
-                shrinkWrap: true,
-                physics: const BouncingScrollPhysics(),
-                itemBuilder: (context, index) => RadioItem(
-                      isHaveImage: false,
-                      onTap: (value) {
-                        selectedTheme = index;
-                        setState(() {});
-                      },
-                      title: titleList[index],
-                      value: index,
-                      groupValue: selectedTheme,
-                    )),
-            WButton(
-              shadow: [
-                BoxShadow(
-                  blurRadius: 20,
-                  offset: const Offset(0, 4),
-                  color: orange.withOpacity(0.2),
-                ),
-              ],
-              margin: const EdgeInsets.only(top: 20),
-              onTap: () {
-                Navigator.pop(context);
-                context
-                    .read<ThemeSwitcherBloc>()
-                    .add(SwitchThemeEvent(themeMode: getTheme(selectedTheme)));
-              },
-              child: Text(
-                LocaleKeys.confirm.tr(),
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineMedium!
-                    .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    LocaleKeys.language.tr(),
+                    style: Theme.of(context).textTheme.displayLarge,
+                  ),
+                  const Spacer(),
+                  WScaleAnimation(
+                      child: SvgPicture.asset(
+                        AppIcons.close,
+                        width: 32,
+                        height: 32,
+                      ),
+                      onTap: () {
+                        Navigator.of(context).pop(-1);
+                      }),
+                ],
               ),
-            ),
-          ],
+              const SizedBox(height: 12),
+              ListView.separated(
+                  separatorBuilder: (context, index) => Container(
+                        height: 1,
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .greyToDarkRider,
+                      ),
+                  itemCount: titleList.length,
+                  shrinkWrap: true,
+                  physics: const BouncingScrollPhysics(),
+                  itemBuilder: (context, index) => RadioItem(
+                        isHaveImage: false,
+                        onTap: (value) {
+                          selectedTheme = index;
+                          setState(() {});
+                        },
+                        title: titleList[index],
+                        value: index,
+                        groupValue: selectedTheme,
+                      )),
+              WButton(
+                shadow: [
+                  BoxShadow(
+                    blurRadius: 20,
+                    offset: const Offset(0, 4),
+                    color: orange.withOpacity(0.2),
+                  ),
+                ],
+                margin: const EdgeInsets.only(top: 20),
+                onTap: () {
+                  Navigator.pop(context);
+                  context.read<ThemeSwitcherBloc>().add(
+                      SwitchThemeEvent(themeMode: getTheme(selectedTheme)));
+                },
+                child: Text(
+                  LocaleKeys.confirm.tr(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineMedium!
+                      .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
+                ),
+              ),
+            ],
+          ),
         ),
       );
 }
