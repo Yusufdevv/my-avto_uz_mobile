@@ -19,8 +19,7 @@ class Header extends SliverPersistentHeaderDelegate {
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
 
-  final List<String> letters = MyFunctions.getUpperLetter(
-      StorageRepository.getString(StorageKeys.LANGUAGE, defValue: 'uz'));
+  final List<String> letters = MyFunctions.getUpperLetter();
 
   @override
   Widget build(

@@ -1,7 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/comparison/presentation/widgets/characters.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +19,7 @@ class AlphabeticHeader extends SliverPersistentHeaderDelegate {
   @override
   bool shouldRebuild(AlphabeticHeader oldDelegate) =>
       color != oldDelegate.color;
-  final List<String> letters = MyFunctions.getUpperLetter(
-      StorageRepository.getString(StorageKeys.LANGUAGE, defValue: 'uz'));
+  final List<String> letters = MyFunctions.getUpperLetter();
 
   @override
   Widget build(
