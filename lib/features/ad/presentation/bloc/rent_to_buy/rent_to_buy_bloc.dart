@@ -20,7 +20,7 @@ class RentToBuyBloc extends Bloc<RentToBuyEvent, RentToBuyState> {
             title: StorageRepository.getString(StorageKeys.LANGUAGE)=='ru' ? 'Предоплата' : "Oldindan to'lov",
             controller: TextEditingController(
                 text: MyFunctions.getFormatCost(
-                    entityForEdit?.prepayment ?? '')))) {
+                    '${entityForEdit?.prepayment ?? ' '}')))) {
     on<RentToBuyEvent>((event, emit) {
       emit(
         state.copyWith(

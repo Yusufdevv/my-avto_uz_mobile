@@ -138,7 +138,10 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                               },
                               autofocus: true,
                               focusNode: state.focusNode,
-                              maxLength: MyFunctions.getFormatCost( widget.price.toString()).length+1,
+                              maxLength: MyFunctions.getFormatCost(
+                                          widget.price.toString())
+                                      .length +
+                                  1,
                               inputFormatters: [
                                 FilteringTextInputFormatter.digitsOnly,
                                 ThousandsSeparatorInputFormatter()
@@ -205,14 +208,15 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                                           title:
                                               '${LocaleKeys.rent_period.tr()} (${LocaleKeys.for_month.tr()})',
                                           step: state.step + 1,
-                                          prepayment: state.controller.text
-                                              .replaceAll(' ', '')));
+                                          prepayment: int.tryParse(state
+                                                  .controller.text
+                                                  .replaceAll(' ', '')) ??
+                                              0));
                                       break;
                                     case 2:
                                       {
-                                        final prePayment = int.tryParse(
-                                                state.prepayment ?? '0') ??
-                                            0;
+                                        final prePayment =
+                                            state.prepayment ?? 0;
                                         final rentalPeriod = int.tryParse(state
                                                 .controller.text
                                                 .replaceAll(' ', '')) ??
@@ -224,11 +228,13 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                                         rentToBuyBloc.add(RentToBuyEvent(
                                             controller: TextEditingController(
                                                 text: MyFunctions.getFormatCost(
-                                                    state.entityForEdit
-                                                            ?.monthlyPayment ??
-                                                        '')),
-                                            rentalPeriod: state.controller.text
-                                                .replaceAll(' ', ''),
+                                                    state.entityForEdit != null
+                                                        ? '${state.entityForEdit!.monthlyPayment}'
+                                                        : '')),
+                                            rentalPeriod: int.tryParse(state
+                                                    .controller.text
+                                                    .replaceAll(' ', '')) ??
+                                                0,
                                             title: LocaleKeys.monthly_pay.tr(),
                                             step: state.step + 1,
                                             minimumMonthlyPay: mini));
@@ -242,12 +248,12 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                                     RentWithPurchaseEntity(
                                         id: state.entityForEdit?.id ??
                                             widget.idForNewCondition,
-                                        monthlyPayment: state.controller.text
-                                            .replaceAll(' ', ''),
+                                        monthlyPayment: int.tryParse(state
+                                                .controller.text
+                                                .replaceAll(' ', '')) ??
+                                            0,
                                         prepayment: state.prepayment!,
-                                        rentalPeriod:
-                                            int.tryParse(state.rentalPeriod!) ??
-                                                -1),
+                                        rentalPeriod: state.rentalPeriod ?? 0),
                                   );
                                 }
                               }

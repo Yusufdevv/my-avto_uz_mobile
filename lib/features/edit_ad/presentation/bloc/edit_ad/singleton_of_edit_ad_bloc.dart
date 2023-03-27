@@ -133,6 +133,7 @@ class EASingleton {
 
   static Future<EditAdState> stateForEdit(
       CarSingleEntity v, bool showExactAddress) async {
+    log(':::::::::: rent with purchase in edit:  ${v.rentWithPurchase}  ::::::::::');
     String? phone = '';
     try {
       phone = MyFunctions.phoneFormat(v.user.phoneNumber.substring(4));

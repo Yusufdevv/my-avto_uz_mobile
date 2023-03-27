@@ -238,7 +238,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                 onTapCancel: () async {
                                   postingAdBloc.add(PostingAdClearStateEvent());
                                   currentTabIndex = 0;
-                                   await pageController.animateToPage(
+                                  await pageController.animateToPage(
                                       currentTabIndex,
                                       duration:
                                           const Duration(milliseconds: 100),
@@ -504,7 +504,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                             ))).then(
                                           (latLongZoom) {
                                             if (latLongZoom is List<double>) {
-                                            postingAdBloc.add(
+                                              postingAdBloc.add(
                                                 PostingAdGetMapScreenShotEvent(
                                                   lat: latLongZoom[0],
                                                   long: latLongZoom[1],
