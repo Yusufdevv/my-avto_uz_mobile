@@ -99,6 +99,7 @@ class _ReelsScreenState extends State<ReelsScreen>
                         controller: _pageController,
                         itemCount: state.reels.length,
                         itemBuilder: (context, index) => ContentItem(
+                          deviceWidth: MediaQuery.of(context).size.width,
                           reel: state.reels[index],
                           isLiked: state.reels[index].isLiked,
                           onTapLike: () {

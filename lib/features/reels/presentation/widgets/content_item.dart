@@ -21,6 +21,7 @@ class ContentItem extends StatefulWidget {
   final bool isLiked;
   final bool autoPlayNextVideo;
   final void Function()? videoEnded;
+  final double deviceWidth;
 
   const ContentItem({
     required this.reel,
@@ -29,6 +30,7 @@ class ContentItem extends StatefulWidget {
     required this.currentPageIndex,
     required this.isPaused,
     required this.isLiked,
+    required this.deviceWidth,
     Key? key,
     this.videoEnded,
     this.loop = false,
@@ -91,12 +93,23 @@ class _ContentItemState extends State<ContentItem> {
                 currency: widget.reel.announcement.currency,
               ),
               const SizedBox(height: 20),
-              Text(
-                widget.reel.title,
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineMedium!
-                    .copyWith(fontSize: 20),
+              SizedBox(
+                width: widget.deviceWidth - 48,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        widget.reel.title,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium!
+                            .copyWith(fontSize: 20),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(height: 10),
               Row(
