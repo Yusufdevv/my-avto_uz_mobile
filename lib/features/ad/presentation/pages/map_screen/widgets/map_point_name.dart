@@ -37,7 +37,7 @@ class MapPointName extends StatelessWidget {
                     context,
                     fade(
                         page: DirectorySinglePage(
-                          categoriesTitle: currentDealer?.category['name'],
+                            categoriesTitle: currentDealer?.category['name'],
                             slug: currentDealer?.slug ?? '')))
                 : Navigator.push(
                     context,
