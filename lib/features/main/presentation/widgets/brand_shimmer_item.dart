@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -9,7 +10,7 @@ class BrandShimmerItem extends StatelessWidget {
         height: 100,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: white,
+          color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
           border: Border.all(color: border, width: 1),
           boxShadow: [
             BoxShadow(

@@ -2,6 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/colors/dark.dart';
 import 'package:auto/assets/constants/dark.dart';
 import 'package:auto/assets/themes/theme_extensions/checkbox_style.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_brightness.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
@@ -22,7 +23,7 @@ abstract class DarkTheme {
         unselectedWidgetColor: grey,
         colorScheme: const ColorScheme(
           background: DarkThemeColors.surface,
-          brightness: Brightness.dark,
+          brightness: Brightness.light,
           primary: DarkThemeColors.primaryColor,
           secondary: DarkThemeColors.surface,
           error: DarkThemeColors.surface,
@@ -33,6 +34,7 @@ abstract class DarkTheme {
           onError: DarkThemeColors.surface,
           onSurface: DarkThemeColors.solitudeToGhost,
         ),
+        brightness: Brightness.light,
         appBarTheme: const AppBarTheme(
           color: DarkThemeColors.appBarColor,
           actionsIconTheme: CupertinoIconThemeData(
@@ -70,6 +72,8 @@ abstract class DarkTheme {
             unselectedBackgroundColor1: DarkThemeColors.whiteToEclipse,
           ),
           ThemedColors(
+            dolphinToWhite: DarkThemeColors.dolphinToWhite,
+            dolphinToGhost: DarkThemeColors.dolphinToGhost,
             darkToGrey: DarkThemeColors.darkToGrey,
             greyContainer26: DarkThemeColors.greyContainer26,
             redContainer26: DarkThemeColors.redContainer26,
@@ -195,6 +199,7 @@ abstract class DarkTheme {
             autoUzLightDark: DarkIcons.autoUzLightDark,
             google: DarkIcons.google,
           ),
+          ThemedBrightness(brightness: Brightness.light)
         },
       );
 

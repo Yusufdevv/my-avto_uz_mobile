@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/presentation/bloc/bloc/choose_make_anime_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
@@ -41,20 +42,37 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
   late ColorTween _bgTweenColor;
   late ColorTween _fillTweenColor;
   late ColorTween _headerTextTweenColor;
-
+  bool get isLight => StorageRepository.getString('themeMode') == 'light';
+  bool get isDark => StorageRepository.getString('themeMode') == 'dark';
   @override
   void initState() {
     _fillTweenColor = ColorTween(
-      begin: whiteSmoke,
-      end: white,
+      begin: isLight
+          ? whiteSmoke
+          : isDark
+              ? nero
+              : whiteSmoke,
+      end: isLight
+          ? white
+          : isDark
+              ? nero
+              : white,
     );
     _bgTweenColor = ColorTween(
-      begin: white,
-      end: whiteSmoke,
+      begin: isLight
+          ? whiteSmoke
+          : isDark
+              ? nero
+              : whiteSmoke,
+      end: isLight
+          ? white
+          : isDark
+              ? background
+              : white,
     );
     _headerTextTweenColor = ColorTween(
-      begin: white,
-      end: const Color(0xff171725),
+      begin: const Color(0xff171725),
+      end: white,
     );
     _nestsController = ScrollController()..addListener(_nestListener);
     _makesController = ScrollController()..addListener(_makesListener);
@@ -184,7 +202,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
             },
             builder: (context, state) => Scaffold(
               backgroundColor:
-                  Theme.of(context).extension<ThemedColors>()!.whiteToBlack,
+                  _bgTweenColor.evaluate(animeState.scaleAnimation),
               body: NestedScrollView(
                 physics: const BouncingScrollPhysics(),
                 controller: _nestsController,
@@ -210,9 +228,8 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                                     .textTheme
                                     .displayLarge!
                                     .copyWith(
-                                        color: Theme.of(context)
-                                            .extension<ThemedColors>()!
-                                            .midnightExpressToWhite),
+                                        color: _headerTextTweenColor.evaluate(
+                                            animeState.scaleAnimation)),
                               ),
                             ],
                           ),
@@ -229,9 +246,8 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                       delegate: PersistentHeaderSearch(
                         child: AnimatedContainer(
                           duration: const Duration(milliseconds: 150),
-                          color: Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .whiteToBlack,
+                          color:
+                              _bgTweenColor.evaluate(animeState.scaleAnimation),
                           padding: const EdgeInsets.only(top: 16, bottom: 12),
                           child: WTextField(
                             focusColor: _fillTweenColor

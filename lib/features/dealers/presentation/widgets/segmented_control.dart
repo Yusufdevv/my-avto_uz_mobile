@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -49,28 +50,32 @@ class SegmentedControl extends SliverPersistentHeaderDelegate {
             controller: tabController,
             indicator: BoxDecoration(
               borderRadius: BorderRadius.circular(7),
-              color: Theme.of(context).extension<ThemedColors>()!.whiteToSmoky,
+              color: white,
             ),
             tabs: [
               Tab(
                 child: Text(
                   LocaleKeys.list.tr(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .displayLarge!
-                      .copyWith(fontSize: 13),
                 ),
               ),
               Tab(
                 child: Text(
                   LocaleKeys.on_map.tr(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .displayLarge!
-                      .copyWith(fontSize: 13),
                 ),
               ),
             ],
+            unselectedLabelColor: Theme.of(context)
+                .extension<ThemedColors>()!
+                .midnightExpressToWhite,
+            labelColor: LightThemeColors.midnightExpressToWhite,
+            unselectedLabelStyle: Theme.of(context)
+                .textTheme
+                .displayLarge!
+                .copyWith(fontSize: 13, fontWeight: FontWeight.w500),
+            labelStyle: Theme.of(context).textTheme.displayLarge!.copyWith(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                ),
           ),
         ),
       );
