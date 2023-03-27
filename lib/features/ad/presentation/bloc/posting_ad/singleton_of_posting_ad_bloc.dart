@@ -291,7 +291,7 @@ class PASingleton {
       // AddPhotoScreen
       case 10:
         // return false;
-        return [...state.gallery, ...state.panaramaGallery].isEmpty;
+        return [...state.gallery, ...state.panaramaGallery].length < 3 ;
       // PtsScreen
       case 11:
         return state.ownerStep == null ||
