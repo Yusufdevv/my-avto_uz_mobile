@@ -47,7 +47,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
           create: (c) {
             imageBloc = ImageBloc(
               images: widget.gallery,
-              panaramas: widget.panoramas,
+              panoramas: widget.panoramas,
             );
             return imageBloc;
           },

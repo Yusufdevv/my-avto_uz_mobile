@@ -14,10 +14,10 @@ part 'image_state.dart';
 class ImageBloc extends Bloc<ImageEvent, ImageState> {
   final imagePicker = ImagePicker();
 
-  ImageBloc({List<String> images = const [], List<String> panaramas = const []})
+  ImageBloc({List<String> images = const [], List<String> panoramas = const []})
       : super(
           ImageState(
-            panaramaImages: panaramas,
+            panaramaImages: panoramas,
             images: images,
             image: File(''),
           ),
