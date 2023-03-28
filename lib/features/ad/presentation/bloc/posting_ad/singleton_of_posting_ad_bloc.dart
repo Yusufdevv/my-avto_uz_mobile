@@ -82,7 +82,7 @@ class PASingleton {
 
     var images = <MultipartFile>[];
 
-    for (final element in [...v.gallery, ...v.panaramaGallery]) {
+    for (final element in [...v.gallery, ...v.panoramas]) {
       final multiParFile = await MultipartFile.fromFile(element);
       images.add(multiParFile);
     }
@@ -256,6 +256,7 @@ class PASingleton {
   }
 
   static bool nextButtonIsDisabled(int page, PostingAdState state) {
+    log(':::::::::: status  triggered by:  ${page}  ::::::::::');
     switch (page) {
       //make
       case 0:
@@ -290,7 +291,9 @@ class PASingleton {
       // AddPhotoScreen
       case 10:
         // return false;
-        return [...state.gallery, ...state.panaramaGallery].length < 3;
+        final v = [...state.gallery, ...state.panoramas].length < 3;
+        log(':::::::::: the photo page status:  $v}  ::::::::::');
+        return v;
       // PtsScreen
       case 11:
         return state.ownerStep == null ||

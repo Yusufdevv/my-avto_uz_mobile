@@ -618,5 +618,6 @@
   "featured_products": "Популярные продукты",
   "all_products": "Все продукты",
   "categories_services_products": "Категории услуг/товаров",
-  "theme_of_app": "Тема приложения"
+  "theme_of_app": "Тема приложения",
+  "you_can_not_upload_more_than_30": "Вы не можете загрузить более 30 изображений"
 }

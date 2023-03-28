@@ -37,7 +37,7 @@ class PostingAdState extends Equatable {
   final YearsEntity? yearEntity;
   final DistrictEntity? district;
   final List<String> gallery;
-  final List<String> panaramaGallery;
+  final List<String> panoramas;
   final Map<int, RentWithPurchaseEntity> rentWithPurchaseConditions;
   final List<ColorEntity> colors;
   final Map<DamagedPart, DamageType> damagedParts;
@@ -120,7 +120,7 @@ class PostingAdState extends Equatable {
     this.selectedYear,
     this.yearEntity = const YearsEntity(),
     this.gallery = const <String>[],
-    this.panaramaGallery = const <String>[],
+    this.panoramas = const <String>[],
     this.rentWithPurchaseConditions = const <int, RentWithPurchaseEntity>{},
     this.regions = const <RegionEntity>[],
     this.damagedParts = const <DamagedPart, DamageType>{},
@@ -276,7 +276,7 @@ class PostingAdState extends Equatable {
         modifications: modifications ?? this.modifications,
         getMakesStatus: getMakesStatus ?? this.getMakesStatus,
         searchController: searchController ?? this.searchController,
-        panaramaGallery: panaramaGallery ?? this.panaramaGallery,
+        panoramas: panaramaGallery ?? this.panoramas,
         createStatus: createStatus ?? this.createStatus,
         mapPointBytes: mapPointBytes ?? this.mapPointBytes,
         makeLetterIndex: eventMakeScrrollIndex,
@@ -388,7 +388,7 @@ class PostingAdState extends Equatable {
         yearEntity,
         district,
         gallery,
-        panaramaGallery,
+        panoramas,
         rentWithPurchaseConditions,
         colors,
         damagedParts,

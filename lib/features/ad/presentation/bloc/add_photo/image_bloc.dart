@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:auto/utils/my_functions.dart';
@@ -31,7 +32,7 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
             source: ImageSource.gallery, imageQuality: 90);
         if (image != null) {
           emit(state
-              .copyWith(panaramaImages: [image.path, ...state.panaramaImages]));
+              .copyWith(panaramaImages: [...state.panaramaImages, image.path]));
         }
       } else {
         final how = permission.isPermanentlyDenied ? 'permanently' : '';
@@ -40,6 +41,7 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
       }
     });
     on<PickImage>((event, emit) async {
+      log(':::::::::: pick image triggered:  ${event.source}  ::::::::::');
       final permission = event.source == ImageSource.camera
           ? await MyFunctions.getCameraPermission(Platform.isAndroid)
           : await MyFunctions.getPhotosPermission(Platform.isAndroid);
@@ -48,7 +50,7 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
         final image =
             await imagePicker.pickImage(source: event.source, imageQuality: 90);
         if (image != null) {
-          emit(state.copyWith(images: [image.path, ...state.images]));
+          emit(state.copyWith(images: [...state.images, image.path]));
         }
       } else {
         final what = event.source == ImageSource.camera

@@ -157,128 +157,458 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                   BlocProvider(create: (c) => postingAdBloc)
                 ],
                 child: BlocConsumer<PostingAdBloc, PostingAdState>(
-                    listener: (context, state) async {
-                      if (state.createStatus == FormzStatus.submissionSuccess) {
-                        FocusScope.of(context).unfocus();
-                        var error = state.toastMessage ?? '';
-                        if (error.toLowerCase().contains('dio') ||
-                            error.toLowerCase().contains('type')) {
-                          error = LocaleKeys.service_error.tr();
-                        } else if (error.toLowerCase().contains('bad')) {
-                          error = LocaleKeys.bad_request.tr();
-                        } else if (error.toLowerCase().contains('internal') ||
-                            error.toLowerCase().contains('internet')) {
-                          error = LocaleKeys.internal_error_server.tr();
-                        }
-                        context.read<ShowPopUpBloc>().add(
-                              ShowPopUp(
-                                message: error,
-                                status: PopStatus.success,
-                              ),
-                            );
-                        await Future.delayed(
-                            const Duration(milliseconds: 1000));
-                        context
-                            .read<WishlistAddBloc>()
-                            .add(WishlistAddEvent.goToAdds(1));
-                        context.read<ProfileBloc>().add(
-                            ChangeCountDataEvent(adding: true, myAdsCount: 1));
-
-                        currentTabNotifier.value = 0;
-                        await Future.delayed(const Duration(milliseconds: 500));
-                        await pageController.animateToPage(
-                            currentTabNotifier.value,
-                            duration: const Duration(milliseconds: 150),
-                            curve: Curves.linear);
-                        postingAdBloc.add(PostingAdClearStateEvent());
-
-                        Navigator.of(context).pop(true);
-
-                        return;
+                  listener: (context, state) async {
+                    if (state.createStatus == FormzStatus.submissionSuccess) {
+                      FocusScope.of(context).unfocus();
+                      var error = state.toastMessage ?? '';
+                      if (error.toLowerCase().contains('dio') ||
+                          error.toLowerCase().contains('type')) {
+                        error = LocaleKeys.service_error.tr();
+                      } else if (error.toLowerCase().contains('bad')) {
+                        error = LocaleKeys.bad_request.tr();
+                      } else if (error.toLowerCase().contains('internal') ||
+                          error.toLowerCase().contains('internet')) {
+                        error = LocaleKeys.internal_error_server.tr();
                       }
+                      context.read<ShowPopUpBloc>().add(
+                            ShowPopUp(
+                              message: error,
+                              status: PopStatus.success,
+                            ),
+                          );
+                      await Future.delayed(const Duration(milliseconds: 1000));
+                      context
+                          .read<WishlistAddBloc>()
+                          .add(WishlistAddEvent.goToAdds(1));
+                      context.read<ProfileBloc>().add(
+                          ChangeCountDataEvent(adding: true, myAdsCount: 1));
 
-                      if (state.toastMessage != null &&
-                          state.toastMessage!.isNotEmpty) {
-                        var error = state.toastMessage ?? '';
-                        if (error.toLowerCase().contains('dio') ||
-                            error.toLowerCase().contains('type')) {
-                          error = LocaleKeys.service_error.tr();
-                        } else if (error.toLowerCase().contains('bad')) {
-                          error = LocaleKeys.bad_request.tr();
-                        } else if (error.toLowerCase().contains('internal') ||
-                            error.toLowerCase().contains('internet')) {
-                          error = LocaleKeys.internal_error_server.tr();
-                        }
-                        context.read<ShowPopUpBloc>().add(
-                              ShowPopUp(
-                                message: error,
-                                status: state.popStatus,
-                              ),
-                            );
-                        postingAdBloc.add(PostingAdShowToastEvent(
-                            message: '', status: PopStatus.success));
+                      currentTabNotifier.value = 0;
+                      await Future.delayed(const Duration(milliseconds: 500));
+                      await pageController.animateToPage(
+                          currentTabNotifier.value,
+                          duration: const Duration(milliseconds: 150),
+                          curve: Curves.linear);
+                      postingAdBloc.add(PostingAdClearStateEvent());
+
+                      Navigator.of(context).pop(true);
+
+                      return;
+                    }
+
+                    if (state.toastMessage != null &&
+                        state.toastMessage!.isNotEmpty) {
+                      var error = state.toastMessage ?? '';
+                      if (error.toLowerCase().contains('dio') ||
+                          error.toLowerCase().contains('type')) {
+                        error = LocaleKeys.service_error.tr();
+                      } else if (error.toLowerCase().contains('bad')) {
+                        error = LocaleKeys.bad_request.tr();
+                      } else if (error.toLowerCase().contains('internal') ||
+                          error.toLowerCase().contains('internet')) {
+                        error = LocaleKeys.internal_error_server.tr();
                       }
-                    },
-                    builder: (context, state) =>
-                        BlocBuilder<ChooseMakeAnimeBloc, ChooseMakeAnimeState>(
-                          builder: (context, animeState) => Scaffold(
-                            appBar: PreferredSize(
-                              preferredSize: const Size.fromHeight(54),
-                              child: ValueListenableBuilder<int>(
-                                valueListenable: currentTabNotifier,
-                                builder: (c, val, child) => PostingAdAppBar(
-                                  hasCancelButton:
-                                      currentTabNotifier.value != 0,
-                                  currentTabIndex: currentTabNotifier.value,
-                                  reversScaleAnimation:
-                                      animeState.reversScaleAnimation,
-                                  reverseTitle:
-                                      LocaleKeys.choose_brand_auto.tr(),
-                                  scaleAnimation: animeState.scaleAnimation,
-                                  tabLength: tabLength,
-                                  hasShadow: state.hasAppBarShadow,
-                                  onTapBack: () {
-                                    if (currentTabNotifier.value != 0) {
-                                      --currentTabNotifier.value;
+                      context.read<ShowPopUpBloc>().add(
+                            ShowPopUp(
+                              message: error,
+                              status: state.popStatus,
+                            ),
+                          );
+                      postingAdBloc.add(PostingAdShowToastEvent(
+                          message: '', status: PopStatus.success));
+                    }
+                  },
+                  builder: (context, state) =>
+                      BlocBuilder<ChooseMakeAnimeBloc, ChooseMakeAnimeState>(
+                    builder: (context, animeState) => Scaffold(
+                      appBar: PreferredSize(
+                        preferredSize: const Size.fromHeight(54),
+                        child: ValueListenableBuilder<int>(
+                          valueListenable: currentTabNotifier,
+                          builder: (c, val, child) => PostingAdAppBar(
+                            hasCancelButton: currentTabNotifier.value != 0,
+                            currentTabIndex: currentTabNotifier.value,
+                            reversScaleAnimation:
+                                animeState.reversScaleAnimation,
+                            reverseTitle: LocaleKeys.choose_brand_auto.tr(),
+                            scaleAnimation: animeState.scaleAnimation,
+                            tabLength: tabLength,
+                            hasShadow: state.hasAppBarShadow,
+                            onTapBack: () {
+                              if (currentTabNotifier.value != 0) {
+                                --currentTabNotifier.value;
 
-                                      pageController.animateToPage(
-                                          currentTabNotifier.value,
-                                          duration:
-                                              const Duration(milliseconds: 150),
-                                          curve: Curves.linear);
-                                    } else {
-                                      Navigator.pop(context);
+                                pageController.animateToPage(
+                                    currentTabNotifier.value,
+                                    duration: const Duration(milliseconds: 150),
+                                    curve: Curves.linear);
+                              } else {
+                                Navigator.pop(context);
+                              }
+                            },
+                            onTapCancel: () async {
+                              postingAdBloc.add(PostingAdClearStateEvent());
+                              currentTabNotifier.value = 0;
+                              await pageController.animateToPage(
+                                  currentTabNotifier.value,
+                                  duration: const Duration(milliseconds: 100),
+                                  curve: Curves.linear);
+                            },
+                            title: currentTabNotifier.value == 0
+                                ? LocaleKeys.get_back.tr()
+                                : tabs[currentTabNotifier.value - 1],
+                          ),
+                        ),
+                      ),
+                      body: Stack(
+                        children: [
+                          PageView(
+                            controller: pageController,
+                            physics: const NeverScrollableScrollPhysics(),
+                            children: [
+                              //0
+                              ChooseCarBrand(
+                                tabLength: tabLength,
+                                postingAddBloc: postingAdBloc,
+                                onTopBrandPressed: (makeId) {
+                                  postingAdBloc
+                                      .add(PostingAdChooseEvent(make: makeId));
+                                  currentTabNotifier.value++;
+                                  postingAdBloc.add(
+                                      PostingAdAddEventForEveryPage(
+                                          page: currentTabNotifier.value));
+                                  pageController.animateToPage(
+                                      currentTabNotifier.value,
+                                      duration:
+                                          const Duration(milliseconds: 150),
+                                      curve: Curves.linear);
+                                },
+                              ),
+                              //1
+                              const ChooseCarModelScreen(),
+                              //2
+                              const YearIssueScreenn(),
+                              //3
+                              const GenerationScreen(),
+                              //4
+                              const BodyTypeScreen(),
+                              //5
+                              const EngineScreen(),
+                              //6
+                              const DriveTypeScreen(),
+                              //7
+                              const GearboxScreen(),
+                              //8
+                              ModificationScreen(
+                                noData: () {
+                                  FocusScope.of(context).unfocus();
+                                  if (currentTabNotifier.value <
+                                      tabLength - 1) {
+                                    if (currentTabNotifier.value == 0 &&
+                                        animeState.isCollapsed) {
+                                      animeState.animationController.reverse();
                                     }
-                                  },
-                                  onTapCancel: () async {
-                                    postingAdBloc
-                                        .add(PostingAdClearStateEvent());
-                                    currentTabNotifier.value = 0;
-                                    await pageController.animateToPage(
+                                    currentTabNotifier.value++;
+                                    postingAdBloc.add(
+                                        PostingAdAddEventForEveryPage(
+                                            page: currentTabNotifier.value));
+                                    pageController.animateToPage(
                                         currentTabNotifier.value,
                                         duration:
-                                            const Duration(milliseconds: 100),
+                                            const Duration(milliseconds: 60),
                                         curve: Curves.linear);
-                                  },
-                                  title: currentTabNotifier.value == 0
-                                      ? LocaleKeys.get_back.tr()
-                                      : tabs[currentTabNotifier.value - 1],
-                                ),
+
+                                    postingAdBloc.add(PostingAdChooseEvent(
+                                        getModificationStatus:
+                                            FormzStatus.pure));
+                                  }
+                                },
                               ),
-                            ),
-                            body: Stack(
-                              children: [
-                                PageView(
-                                  controller: pageController,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  children: [
-                                    //0
-                                    ChooseCarBrand(
-                                      tabLength: tabLength,
-                                      postingAddBloc: postingAdBloc,
-                                      onTopBrandPressed: (makeId) {
+                              //9
+                              const ColorsScreen(),
+                              //10
+                              AddPhotoScreen(
+                                panoramas: state.panoramas,
+                                gallery: state.gallery,
+                                onImagesChanged: (gallery, panoramas) {
+                                  postingAdBloc.add(
+                                    PostingAdChooseEvent(
+                                      gallery: gallery,
+                                      panaramaGallery: panoramas,
+                                    ),
+                                  );
+                                },
+                                onShowToast: (message, status) {
+                                  postingAdBloc.add(
+                                    PostingAdShowToastEvent(
+                                      message: message,
+                                      status: status,
+                                    ),
+                                  );
+                                },
+                              ),
+                              //11
+                              const PtsScreen(),
+                              //12
+                              DescriptionScreen(
+                                  initialText: state.description ?? ''),
+                              //13
+                              EquipmentScreen(
+                                selectOptions: state.selectOptions,
+                                onEquipmentOptionPressed: ({
+                                  required id,
+                                  required isAdd,
+                                  required type,
+                                  required itemName,
+                                  selectOption,
+                                }) {
+                                  context.read<PostingAdBloc>().add(
+                                      PostingAdChangeOption(
+                                          id: id,
+                                          type: type,
+                                          itemName: itemName,
+                                          isAdd: isAdd,
+                                          selectOption: selectOption));
+                                },
+                                isOptionSelected: state.isOptionSelected,
+                                onEquipmentSelected: (equipment) {
+                                  context.read<PostingAdBloc>().add(
+                                        PostingAdSelectEquipmentEvent(
+                                            equipment: equipment),
+                                      );
+                                },
+                                equipmentOptionsList:
+                                    state.equipmentOptionsList,
+                                equipments: state.equipments,
+                                equipment: state.equipment,
+                              ),
+                              //14
+                              const DamageScreen(),
+                              //15
+                              ContactScreen(
+                                isContactsVerified: state.isContactsVerified,
+                                isCallTimed: state.isCallTimed,
+                                showOwnerContacts: state.showOwnerContacts,
+                                isWaiting: state.status ==
+                                    FormzStatus.submissionInProgress,
+                                emailController: state.emailController,
+                                nameController: state.nameController,
+                                phoneController: state.phoneController,
+                                callTimeFrom: state.callTimeFrom,
+                                callTimeTo: state.callTimeTo,
+                                formKey: state.contactsFormKey,
+                                onSubmitPhonePressed: () {
+                                  postingAdBloc.add(PostingAdSendCodeEvent(
+                                      phone: state.phoneController.text,
+                                      onSuccess: (session) {
+                                        showModalBottomSheet<dynamic>(
+                                            useRootNavigator: true,
+                                            isScrollControlled: true,
+                                            backgroundColor: Colors.transparent,
+                                            isDismissible: false,
+                                            context: context,
+                                            builder: (context) =>
+                                                SmsVerificationSheet(
+                                                    session: session,
+                                                    phoneNumber: state
+                                                        .phoneController
+                                                        .text)).then((value) {
+                                          if (value is bool) {
+                                            context.read<PostingAdBloc>().add(
+                                                  PostingAdChooseEvent(
+                                                    isContactsVerified: value,
+                                                    ownerEmail: state
+                                                        .emailController.text,
+                                                    ownerName: state
+                                                        .nameController.text,
+                                                    ownerPhone: state
+                                                        .phoneController.text,
+                                                  ),
+                                                );
+                                          } else if (value is String) {
+                                            context.read<PostingAdBloc>().add(
+                                                  PostingAdChooseEvent(
+                                                    isContactsVerified: false,
+                                                    ownerEmail: state
+                                                        .emailController.text,
+                                                    ownerName: state
+                                                        .nameController.text,
+                                                    ownerPhone: state
+                                                        .phoneController.text,
+                                                  ),
+                                                );
+                                            context
+                                                .read<ShowPopUpBloc>()
+                                                .add(ShowPopUp(
+                                                  message: value.toString(),
+                                                  status: PopStatus.error,
+                                                ));
+                                          }
+                                        });
+                                      }));
+                                },
+                                onPhoneChanged: (value) {
+                                  final v =
+                                      state.isContactsVerified ? false : null;
+                                  postingAdBloc.add(
+                                    PostingAdChooseEvent(
+                                        ownerName: value,
+                                        isContactsVerified: v,
+                                        showOwnerContacts: v),
+                                  );
+                                },
+                                onShowMyContactChanged: (v) {
+                                  context
+                                      .read<PostingAdBloc>()
+                                      .add(PostingAdClearControllersEvent());
+
+                                  context.read<PostingAdBloc>().add(
+                                        PostingAdChooseEvent(
+                                          showOwnerContacts: v,
+                                          isContactsVerified: v,
+                                        ),
+                                      );
+                                },
+                                onEmailChanged: (value) {
+                                  postingAdBloc.add(
+                                      PostingAdChooseEvent(ownerEmail: value));
+                                },
+                                onNameChanged: (value) {
+                                  final v =
+                                      state.isContactsVerified ? false : null;
+                                  postingAdBloc.add(PostingAdChooseEvent(
+                                    ownerName: value,
+                                    showOwnerContacts: v,
+                                  ));
+                                },
+                                onGetUserDatas: () => context
+                                    .read<PostingAdBloc>()
+                                    .add(PostingAdGetUserDataEvent()),
+                                onCallTimeChanged: ({
+                                  required isCallTimed,
+                                  callTimeFrom,
+                                  callTimeTo,
+                                }) {
+                                  postingAdBloc.add(
+                                    PostingAdChooseEvent(
+                                      callTimeFrom: callTimeFrom,
+                                      callTimeTo: callTimeTo,
+                                      isCallTimed: isCallTimed,
+                                    ),
+                                  );
+                                },
+                              ),
+                              //16
+                              InspectionPlaceScreen(
+                                onToMapPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      fade(
+                                          page: MapScreenPostingAd(
+                                        initialLat: state.lat ?? 0,
+                                        initialLong: state.long ?? 0,
+                                      ))).then(
+                                    (latLongZoom) {
+                                      if (latLongZoom is List<double>) {
                                         postingAdBloc.add(
-                                            PostingAdChooseEvent(make: makeId));
+                                          PostingAdGetMapScreenShotEvent(
+                                            lat: latLongZoom[0],
+                                            long: latLongZoom[1],
+                                            zoomLevel: latLongZoom[2],
+                                          ),
+                                        );
+                                      }
+                                    },
+                                  );
+                                },
+                              ),
+                              //17
+                              PriceScreen(
+                                  currency: state.currency,
+                                  minimumPrice: state.minimumPrice,
+                                  price: state.price ?? '',
+                                  rentToBuy: state.rentToBuy ?? false,
+                                  onCurrencyChanged: (currency) =>
+                                      postingAdBloc.add(PostingAdChooseEvent(
+                                          currency: currency)),
+                                  onSwitchChanged: (v) => postingAdBloc
+                                      .add(PostingAdChooseEvent(rentToBuy: v)),
+                                  onConditionChanged: (condition) =>
+                                      postingAdBloc.add(
+                                          PostingAdOnRentWithPurchaseConditionChangedEvent(
+                                              condition: condition)),
+                                  onPriceChanged: (price) => postingAdBloc
+                                      .add(PostingAdChooseEvent(price: price)),
+                                  initialPrice: state.price ?? '',
+                                  conditions: state
+                                      .rentWithPurchaseConditions.entries
+                                      .map((e) => e.value)
+                                      .toList()),
+                              //18
+                              MileageScreen(
+                                  onImageChange: (image) {
+                                    postingAdBloc.add(PostingAdChooseEvent(
+                                        milageImage: image));
+                                  },
+                                  initialMileageImage: state.milageImage,
+                                  initialMileage: state.mileage ?? ''),
+                              //19
+
+                              PreviewScreen(
+                                isWaiting:
+                                    state.getMakesStatus.isSubmissionInProgress,
+                                regionName: state.region?.title ?? '',
+                                districtName: state.district?.title ?? '',
+                                equipment: state.equipment,
+                                currency: state.currency,
+                                price: state.price ?? '',
+                                description: state.description ?? '',
+                                bodyType: state.bodyType?.type ?? '',
+                                colorName: state.colorName?.name ?? '',
+                                gallery: state.gallery,
+                                gearboxType: state.gearbox?.type ?? '',
+                                generationName: state.generation?.name ?? '',
+                                makeName: state.make?.name ?? '',
+                                mapPointBodyBytes: state.mapPointBytes,
+                                mileage: state.mileage ?? '0',
+                                modelName: state.model?.name ?? '',
+                                modificationPower:
+                                    state.modification?.power ?? '',
+                                modificationVolume:
+                                    state.modification?.volume ?? '',
+                                panaramaGallery: state.panoramas,
+                                purchasedDate: state.purchasedDate ?? '',
+                                registeredInUzbekistan:
+                                    !state.notRegisteredInUzbekistan,
+                                selectedRadioOptions: state.radioOptions,
+                                selectedSelectOptions: state.selectOptions,
+                                year: '${state.selectedYear ?? ''}',
+                              ),
+                            ],
+                          ),
+                          ValueListenableBuilder<int>(
+                            valueListenable: currentTabNotifier,
+                            builder: (context, val, child) {
+                              if (val < tabLength - 1) {
+                                return Positioned(
+                                  bottom:
+                                      MediaQuery.of(context).padding.bottom +
+                                          16,
+                                  right: 16,
+                                  left: 16,
+                                  child: WButton(
+                                    disabledColor: disabledButton,
+                                    isDisabled: state
+                                        .buttonStatus(currentTabNotifier.value),
+                                    onTap: () {
+                                      FocusScope.of(context).unfocus();
+                                      if (currentTabNotifier.value <
+                                          tabLength - 1) {
+                                        if (currentTabNotifier.value == 0 &&
+                                            animeState.isCollapsed) {
+                                          animeState.animationController
+                                              .reverse();
+                                        }
                                         currentTabNotifier.value++;
                                         postingAdBloc.add(
                                             PostingAdAddEventForEveryPage(
@@ -289,397 +619,53 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                             duration: const Duration(
                                                 milliseconds: 150),
                                             curve: Curves.linear);
-                                      },
-                                    ),
-                                    //1
-                                    const ChooseCarModelScreen(),
-                                    //2
-                                    const YearIssueScreenn(),
-                                    //3
-                                    const GenerationScreen(),
-                                    //4
-                                    const BodyTypeScreen(),
-                                    //5
-                                    const EngineScreen(),
-                                    //6
-                                    const DriveTypeScreen(),
-                                    //7
-                                    const GearboxScreen(),
-                                    //8
-                                    ModificationScreen(
-                                      noData: () {
-                                        FocusScope.of(context).unfocus();
-                                        if (currentTabNotifier.value <
-                                            tabLength - 1) {
-                                          if (currentTabNotifier.value == 0 &&
-                                              animeState.isCollapsed) {
-                                            animeState.animationController
-                                                .reverse();
-                                          }
-                                          currentTabNotifier.value++;
-                                          postingAdBloc.add(
-                                              PostingAdAddEventForEveryPage(
-                                                  page: currentTabNotifier
-                                                      .value));
-                                          pageController.animateToPage(
-                                              currentTabNotifier.value,
-                                              duration: const Duration(
-                                                  milliseconds: 60),
-                                              curve: Curves.linear);
-
-                                          postingAdBloc.add(
-                                              PostingAdChooseEvent(
-                                                  getModificationStatus:
-                                                      FormzStatus.pure));
-                                        }
-                                      },
-                                    ),
-                                    //9
-                                    const ColorsScreen(),
-                                    //10
-                                    const AddPhotoScreen(),
-                                    //11
-                                    const PtsScreen(),
-                                    //12
-                                    DescriptionScreen(
-                                        initialText: state.description ?? ''),
-                                    //13
-                                    EquipmentScreen(
-                                      selectOptions: state.selectOptions,
-                                      onEquipmentOptionPressed: ({
-                                        required id,
-                                        required isAdd,
-                                        required type,
-                                        required itemName,
-                                        selectOption,
-                                      }) {
-                                        context.read<PostingAdBloc>().add(
-                                            PostingAdChangeOption(
-                                                id: id,
-                                                type: type,
-                                                itemName: itemName,
-                                                isAdd: isAdd,
-                                                selectOption: selectOption));
-                                      },
-                                      isOptionSelected: state.isOptionSelected,
-                                      onEquipmentSelected: (equipment) {
-                                        context.read<PostingAdBloc>().add(
-                                              PostingAdSelectEquipmentEvent(
-                                                  equipment: equipment),
-                                            );
-                                      },
-                                      equipmentOptionsList:
-                                          state.equipmentOptionsList,
-                                      equipments: state.equipments,
-                                      equipment: state.equipment,
-                                    ),
-                                    //14
-                                    const DamageScreen(),
-                                    //15
-                                    ContactScreen(
-                                      isContactsVerified:
-                                          state.isContactsVerified,
-                                      isCallTimed: state.isCallTimed,
-                                      showOwnerContacts:
-                                          state.showOwnerContacts,
-                                      isWaiting: state.status ==
-                                          FormzStatus.submissionInProgress,
-                                      emailController: state.emailController,
-                                      nameController: state.nameController,
-                                      phoneController: state.phoneController,
-                                      callTimeFrom: state.callTimeFrom,
-                                      callTimeTo: state.callTimeTo,
-                                      formKey: state.contactsFormKey,
-                                      onSubmitPhonePressed: () {
-                                        postingAdBloc.add(
-                                            PostingAdSendCodeEvent(
-                                                phone:
-                                                    state.phoneController.text,
-                                                onSuccess: (session) {
-                                                  showModalBottomSheet<dynamic>(
-                                                      useRootNavigator: true,
-                                                      isScrollControlled: true,
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                      isDismissible: false,
-                                                      context: context,
-                                                      builder: (context) =>
-                                                          SmsVerificationSheet(
-                                                              session: session,
-                                                              phoneNumber: state
-                                                                  .phoneController
-                                                                  .text)).then(
-                                                      (value) {
-                                                    if (value is bool) {
-                                                      context
-                                                          .read<PostingAdBloc>()
-                                                          .add(
-                                                            PostingAdChooseEvent(
-                                                              isContactsVerified:
-                                                                  value,
-                                                              ownerEmail: state
-                                                                  .emailController
-                                                                  .text,
-                                                              ownerName: state
-                                                                  .nameController
-                                                                  .text,
-                                                              ownerPhone: state
-                                                                  .phoneController
-                                                                  .text,
-                                                            ),
-                                                          );
-                                                    } else if (value
-                                                        is String) {
-                                                      context
-                                                          .read<PostingAdBloc>()
-                                                          .add(
-                                                            PostingAdChooseEvent(
-                                                              isContactsVerified:
-                                                                  false,
-                                                              ownerEmail: state
-                                                                  .emailController
-                                                                  .text,
-                                                              ownerName: state
-                                                                  .nameController
-                                                                  .text,
-                                                              ownerPhone: state
-                                                                  .phoneController
-                                                                  .text,
-                                                            ),
-                                                          );
-                                                      context
-                                                          .read<ShowPopUpBloc>()
-                                                          .add(ShowPopUp(
-                                                            message: value
-                                                                .toString(),
-                                                            status:
-                                                                PopStatus.error,
-                                                          ));
-                                                    }
-                                                  });
-                                                }));
-                                      },
-                                      onPhoneChanged: (value) {
-                                        final v = state.isContactsVerified
-                                            ? false
-                                            : null;
-                                        postingAdBloc.add(
-                                          PostingAdChooseEvent(
-                                              ownerName: value,
-                                              isContactsVerified: v,
-                                              showOwnerContacts: v),
-                                        );
-                                      },
-                                      onShowMyContactChanged: (v) {
-                                        context.read<PostingAdBloc>().add(
-                                            PostingAdClearControllersEvent());
-
-                                        context.read<PostingAdBloc>().add(
-                                              PostingAdChooseEvent(
-                                                showOwnerContacts: v,
-                                                isContactsVerified: v,
-                                              ),
-                                            );
-                                      },
-                                      onEmailChanged: (value) {
-                                        postingAdBloc.add(PostingAdChooseEvent(
-                                            ownerEmail: value));
-                                      },
-                                      onNameChanged: (value) {
-                                        final v = state.isContactsVerified
-                                            ? false
-                                            : null;
-                                        postingAdBloc.add(PostingAdChooseEvent(
-                                          ownerName: value,
-                                          showOwnerContacts: v,
-                                        ));
-                                      },
-                                      onGetUserDatas: () => context
-                                          .read<PostingAdBloc>()
-                                          .add(PostingAdGetUserDataEvent()),
-                                      onCallTimeChanged: ({
-                                        required isCallTimed,
-                                        callTimeFrom,
-                                        callTimeTo,
-                                      }) {
-                                        postingAdBloc.add(
-                                          PostingAdChooseEvent(
-                                            callTimeFrom: callTimeFrom,
-                                            callTimeTo: callTimeTo,
-                                            isCallTimed: isCallTimed,
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                    //16
-                                    InspectionPlaceScreen(
-                                      onToMapPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            fade(
-                                                page: MapScreenPostingAd(
-                                              initialLat: state.lat ?? 0,
-                                              initialLong: state.long ?? 0,
-                                            ))).then(
-                                          (latLongZoom) {
-                                            if (latLongZoom is List<double>) {
-                                              postingAdBloc.add(
-                                                PostingAdGetMapScreenShotEvent(
-                                                  lat: latLongZoom[0],
-                                                  long: latLongZoom[1],
-                                                  zoomLevel: latLongZoom[2],
-                                                ),
-                                              );
-                                            }
-                                          },
-                                        );
-                                      },
-                                    ),
-                                    //17
-                                    PriceScreen(
-                                        currency: state.currency,
-                                        minimumPrice: state.minimumPrice,
-                                        price: state.price ?? '',
-                                        rentToBuy: state.rentToBuy ?? false,
-                                        onCurrencyChanged: (currency) =>
-                                            postingAdBloc.add(
-                                                PostingAdChooseEvent(
-                                                    currency: currency)),
-                                        onSwitchChanged: (v) => postingAdBloc.add(
-                                            PostingAdChooseEvent(rentToBuy: v)),
-                                        onConditionChanged: (condition) =>
-                                            postingAdBloc.add(
-                                                PostingAdOnRentWithPurchaseConditionChangedEvent(
-                                                    condition: condition)),
-                                        onPriceChanged: (price) => postingAdBloc.add(
-                                            PostingAdChooseEvent(price: price)),
-                                        initialPrice: state.price ?? '',
-                                        conditions: state
-                                            .rentWithPurchaseConditions.entries
-                                            .map((e) => e.value)
-                                            .toList()),
-                                    //18
-                                    MileageScreen(
-                                        onImageChange: (image) {
-                                          postingAdBloc.add(
-                                              PostingAdChooseEvent(
-                                                  milageImage: image));
-                                        },
-                                        initialMileageImage: state.milageImage,
-                                        initialMileage: state.mileage ?? ''),
-                                    //19
-
-                                    PreviewScreen(
-                                      isWaiting: state.getMakesStatus
-                                          .isSubmissionInProgress,
-                                      regionName: state.region?.title ?? '',
-                                      districtName: state.district?.title ?? '',
-                                      equipment: state.equipment,
-                                      currency: state.currency,
-                                      price: state.price ?? '',
-                                      description: state.description ?? '',
-                                      bodyType: state.bodyType?.type ?? '',
-                                      colorName: state.colorName?.name ?? '',
-                                      gallery: state.gallery,
-                                      gearboxType: state.gearbox?.type ?? '',
-                                      generationName:
-                                          state.generation?.name ?? '',
-                                      makeName: state.make?.name ?? '',
-                                      mapPointBodyBytes: state.mapPointBytes,
-                                      mileage: state.mileage ?? '0',
-                                      modelName: state.model?.name ?? '',
-                                      modificationPower:
-                                          state.modification?.power ?? '',
-                                      modificationVolume:
-                                          state.modification?.volume ?? '',
-                                      panaramaGallery: state.panaramaGallery,
-                                      purchasedDate: state.purchasedDate ?? '',
-                                      registeredInUzbekistan:
-                                          !state.notRegisteredInUzbekistan,
-                                      selectedRadioOptions: state.radioOptions,
-                                      selectedSelectOptions:
-                                          state.selectOptions,
-                                      year: '${state.selectedYear ?? ''}',
-                                    ),
-                                  ],
-                                ),
-                                if (currentTabNotifier.value <
-                                    tabLength - 1) ...{
-                                  Positioned(
-                                    bottom:
-                                        MediaQuery.of(context).padding.bottom +
-                                            16,
-                                    right: 16,
-                                    left: 16,
-                                    child: WButton(
-                                      disabledColor: disabledButton,
-                                      isDisabled: state.buttonStatus(
-                                          currentTabNotifier.value),
-                                      onTap: () {
-                                        FocusScope.of(context).unfocus();
-                                        if (currentTabNotifier.value <
-                                            tabLength - 1) {
-                                          if (currentTabNotifier.value == 0 &&
-                                              animeState.isCollapsed) {
-                                            animeState.animationController
-                                                .reverse();
-                                          }
-                                          currentTabNotifier.value++;
-                                          postingAdBloc.add(
-                                              PostingAdAddEventForEveryPage(
-                                                  page: currentTabNotifier
-                                                      .value));
-                                          pageController.animateToPage(
-                                              currentTabNotifier.value,
-                                              duration: const Duration(
-                                                  milliseconds: 150),
-                                              curve: Curves.linear);
-                                        }
-                                      },
-                                      text: LocaleKeys.further.tr(),
-                                      shadow: state.buttonStatus(
-                                              currentTabNotifier.value)
-                                          ? null
-                                          : [
-                                              BoxShadow(
-                                                  offset: const Offset(0, 4),
-                                                  blurRadius: 20,
-                                                  color:
-                                                      orange.withOpacity(0.2)),
-                                            ],
-                                    ),
+                                      }
+                                    },
+                                    text: LocaleKeys.further.tr(),
+                                    shadow: state.buttonStatus(
+                                            currentTabNotifier.value)
+                                        ? null
+                                        : [
+                                            BoxShadow(
+                                                offset: const Offset(0, 4),
+                                                blurRadius: 20,
+                                                color: orange.withOpacity(0.2)),
+                                          ],
                                   ),
-                                } else ...{
-                                  Positioned(
-                                    bottom:
-                                        MediaQuery.of(context).padding.bottom +
-                                            16,
-                                    right: 16,
-                                    left: 16,
-                                    child: WButton(
-                                      isDisabled: state.createStatus ==
-                                          FormzStatus.submissionSuccess,
-                                      isLoading: state.createStatus ==
-                                          FormzStatus.submissionInProgress,
-                                      onTap: () async {
-                                        postingAdBloc
-                                            .add(PostingAdCreateEvent());
-                                      },
-                                      text: LocaleKeys.start_free_week.tr(),
-                                      shadow: [
-                                        BoxShadow(
-                                          offset: const Offset(0, 4),
-                                          blurRadius: 20,
-                                          color: orange.withOpacity(0.2),
-                                        ),
-                                      ],
-                                    ),
+                                );
+                              } else {
+                                return Positioned(
+                                  bottom:
+                                      MediaQuery.of(context).padding.bottom +
+                                          16,
+                                  right: 16,
+                                  left: 16,
+                                  child: WButton(
+                                    isDisabled: state.createStatus ==
+                                        FormzStatus.submissionSuccess,
+                                    isLoading: state.createStatus ==
+                                        FormzStatus.submissionInProgress,
+                                    onTap: () async {
+                                      postingAdBloc.add(PostingAdCreateEvent());
+                                    },
+                                    text: LocaleKeys.start_free_week.tr(),
+                                    shadow: [
+                                      BoxShadow(
+                                        offset: const Offset(0, 4),
+                                        blurRadius: 20,
+                                        color: orange.withOpacity(0.2),
+                                      ),
+                                    ],
                                   ),
-                                }
-                              ],
-                            ),
+                                );
+                              }
+                            },
                           ),
-                        )),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
