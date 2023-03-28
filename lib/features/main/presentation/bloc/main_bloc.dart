@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ads/domain/usecases/get_announcement_list_usecase.dart';
 import 'package:auto/features/main/domain/entities/story_entity.dart';
@@ -33,17 +35,21 @@ class MainBloc extends Bloc<MainEvent, MainState> {
   }
 
   void _onGetMakeModel(GetMakeModelEvent event, Emitter<MainState> emit) {
-    emit(state.copWith(
-        modelId: event.modelId,
-        modelName: event.modelName,
-        historySaved: event.historySaved));
+    log(':::::::::: _onGetMakeModel triggered:  ${event.make}  ::::::::::');
+    emit(
+      state.copWith(
+        model: event.model,
+        make: event.make,
+        historySaved: event.historySaved,
+      ),
+    );
   }
 
   Future _onGetAnnouncement(
       GetAnnouncement event, Emitter<MainState> emit) async {
     final result = await announcementListUseCase.call({
       'make': state.make?.id,
-      'model': state.modelId == -1 ? null : state.modelId,
+      'model': state.model == -1 ? null : state.model,
     });
     if (result.isRight) {
       emit(state.copWith(announcementCount: result.right.count));

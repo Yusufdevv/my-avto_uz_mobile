@@ -148,7 +148,7 @@ class _ComparisonState extends State<Comparison> {
                       ///
                       Navigator.of(context)
                           .push(
-                        fade(page: const ChooseCarBrandPage()),
+                        fade(page: const ChooseCarMakeAndModelPage()),
                       )
                           .then((value) {
                         if (value != null) {

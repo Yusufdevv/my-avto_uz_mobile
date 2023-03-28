@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ads/presentation/pages/ads_screen.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_car_brand_page.dart';
@@ -25,6 +26,7 @@ import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/features/reels/presentation/pages/reels_screen.dart';
 import 'package:auto/features/rent/presentation/rent_screen.dart';
+import 'package:auto/features/reviews/domain/entities/model_entity.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -189,68 +191,66 @@ class _MainScreenState extends State<MainScreen> {
                       },
                     ),
                     CarModelItem(
-                      onTapSelect: () =>
-                          Navigator.of(context, rootNavigator: true)
-                              .push(fade(
-                                  page: ChooseCarBrandPage(
-                        selectedMake: state.make,
-                        selectedModelId: state.modelId,
-                        announcementCount: state.announcementCount,
-                      )))
-                              .then((value) {
-                        if (value != null) {
-                          if (value is Map<String, dynamic>) {
-                            final result = value;
-                            final makeId = result['makeId'];
-                            final modelId = result['modelId'];
-                            final modelName = result['modelName'];
-                            final makeName = result['makeName'];
-                            final makeLogo = result['makeLogo'];
-                            mainBloc
-                              ..add(GetMakeModelEvent(
-                                  makeId: makeId,
-                                  modelId: modelId,
-                                  modelName: modelName,
-                                  makeLogo: makeLogo,
-                                  makeName: makeName,
-                                  historySaved: false))
-                              ..add(GetAnnouncement());
-                            Navigator.of(context, rootNavigator: true)
-                                .push(fade(
-                                    page: AdsScreen(
-                              modelId: modelId,
+                      onTapSelect: () {
+                        Navigator.of(context, rootNavigator: true)
+                            .push(
+                          fade(
+                            page: ChooseCarMakeAndModelPage(
+                              selectedMake: state.make,
+                              selectedModelId: state.model?.id ?? -1,
+                              announcementCount: state.announcementCount,
+                            ),
+                          ),
+                        )
+                            .then((value) {
+                          if (value != null) {
+                            if (value is Map<String, dynamic>) {
+                              final MakeEntity model = value['model'];
+                              final MakeEntity make = value['make'];
 
-                              modelName: modelName,
-                              // feko  have to giv makeEntity instead of makeLogo, makeName, makeId
-                              // makeLogo: makeLogo,
-                              historySaved: false,
-                            )));
-                          } else {
-                            mainBloc
-                              ..add(const GetMakeModelEvent(
-                                  makeId: -1,
-                                  modelId: -1,
-                                  modelName: '',
-                                  makeName: '',
-                                  makeLogo: '',
-                                  historySaved: true))
-                              ..add(GetAnnouncement());
+                              mainBloc
+                                ..add(
+                                  GetMakeModelEvent(
+                                    make: make,
+                                    model: model,
+                                    historySaved: false,
+                                  ),
+                                )
+                                ..add(GetAnnouncement());
+                              Navigator.of(context, rootNavigator: true)
+                                  .push(fade(
+                                      page: AdsScreen(
+                                make: make,
+                                modelId: model.id,
+                                modelName: model.name,
+                                historySaved: false,
+                              )));
+                            } else {
+                              mainBloc
+                                ..add(const GetMakeModelEvent(
+                                    make: MakeEntity(),
+                                    model: MakeEntity(),
+                                    historySaved: true))
+                                ..add(GetAnnouncement());
+                            }
                           }
-                        }
-                      }),
+                        });
+                      },
                       onTapShow: () {
-                        Navigator.of(context, rootNavigator: true).push(fade(
+                        Navigator.of(context, rootNavigator: true).push(
+                          fade(
                             page: AdsScreen(
-                          modelId: state.modelId,
-
-                          modelName: state.modelName,
-                          // feko  have to giv makeEntity instead of makeLogo, makeName, makeId
-                          // makeLogo: makeLogo,
-                          historySaved: state.historySaved,
-                        )));
+                              modelId: state.model?.id ?? -1,
+                              modelName: state.model?.name ?? '',
+                              make: state.make,
+                              historySaved: state.historySaved,
+                            ),
+                          ),
+                        );
                       },
                       imageUrl: state.make?.logo ?? '',
-                      title: '${state.make?.name ?? ''} ${state.modelName ?? ''}',
+                      title:
+                          '${state.make?.name ?? ''} ${state.model?.name ?? ''}',
                       count: state.announcementCount,
                       isCheck: true,
                     ),

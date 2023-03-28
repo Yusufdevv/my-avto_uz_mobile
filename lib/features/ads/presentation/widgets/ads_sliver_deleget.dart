@@ -63,7 +63,7 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                     final res = await Navigator.push(
                       context,
                       fade(
-                        page: ChooseCarBrandPage(
+                        page: ChooseCarMakeAndModelPage(
                           selectedMake: state.make,
                           selectedModelId: state.modelId,
                         ),

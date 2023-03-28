@@ -3,7 +3,7 @@ part of 'get_car_model_bloc.dart';
 class CarModelsState extends Equatable {
   final FormzStatus status;
   final FormzStatus getAnnouncementStatus;
-  final MakeEntity model;
+  final MakeEntity? model;
   final List<MakeEntity> models;
   final String next;
   final String name;
@@ -20,7 +20,7 @@ class CarModelsState extends Equatable {
     this.getId = -1,
     this.count = 0,
     this.announcementCount = 0,
-    this.model = const MakeEntity(),
+    this.model,
   });
 
   CarModelsState copyWith({
@@ -38,7 +38,7 @@ class CarModelsState extends Equatable {
         status: status ?? this.status,
         getAnnouncementStatus:
             getAnnouncementStatus ?? this.getAnnouncementStatus,
-        model: model ?? this.model,
+        model: model != null && model.id == -1 ? null : model ?? this.model,
         models: models ?? this.models,
         next: next ?? this.next,
         name: name ?? this.name,

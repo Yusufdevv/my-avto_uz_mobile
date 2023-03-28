@@ -23,12 +23,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
-class ChooseCarBrandPage extends StatefulWidget {
+class ChooseCarMakeAndModelPage extends StatefulWidget {
   final MakeEntity? selectedMake;
   final int? selectedModelId;
   final int? announcementCount;
 
-  const ChooseCarBrandPage({
+  const ChooseCarMakeAndModelPage({
     this.selectedMake,
     this.selectedModelId,
     this.announcementCount,
@@ -36,10 +36,10 @@ class ChooseCarBrandPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<ChooseCarBrandPage> createState() => _ChooseCarBrandPageState();
+  State<ChooseCarMakeAndModelPage> createState() => _ChooseCarMakeAndModelPageState();
 }
 
-class _ChooseCarBrandPageState extends State<ChooseCarBrandPage> {
+class _ChooseCarMakeAndModelPageState extends State<ChooseCarMakeAndModelPage> {
   late TextEditingController _searchController;
   late TopBrandBloc _topBrandBloc;
   late GetMakesBloc _getMakesBloc;

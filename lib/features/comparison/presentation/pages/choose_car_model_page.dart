@@ -150,7 +150,7 @@ class _ChooseCarModelPageState extends State<ChooseCarModelPage> {
                                             .whiteToDark,
                                         child: ModelItems(
                                           title: state.models[index].name,
-                                          isSelected: state.model.id ==
+                                          isSelected: state.model?.id ==
                                               state.models[index].id,
                                           text: _searchController.text,
                                           onTap: () {
@@ -184,30 +184,14 @@ class _ChooseCarModelPageState extends State<ChooseCarModelPage> {
                           left: 16,
                           child: WButton(
                             onTap: () {
-                              if (state.model.id != -1) {
-                                if (state.model.id == -1) {
-                                  final item = state.models.firstWhere(
-                                      (element) =>
-                                          element.id == state.model.id);
-                                  Navigator.pop(context);
-                                  Navigator.of(widget.parentContext).pop({
-                                    'modelId': item.id,
-                                    'modelName': item.name,
-                                    'make': widget.selectedMake,
-                                    'count': state.announcementCount,
-                                  });
-                                } else {
-                                  Navigator.pop(context);
-                                  Navigator.of(widget.parentContext).pop({
-                                    'make': widget.selectedMake,
-                                    'modelId': state.model.id,
-                                    'modelName': state.model.name,
-                                    'count': state.announcementCount,
-                                  });
-                                }
-                              }
+                              Navigator.pop(context);
+
+                              Navigator.of(widget.parentContext).pop({
+                                'model': state.model,
+                                'make': widget.selectedMake,
+                              });
                             },
-                            text: state.model.id == -1
+                            text: state.model == null
                                 ? LocaleKeys.choose_model.tr()
                                 : state.announcementCount > 0
                                     ? LocaleKeys.show_offers.tr(args: [
@@ -221,10 +205,10 @@ class _ChooseCarModelPageState extends State<ChooseCarModelPage> {
                             isLoading: state
                                 .getAnnouncementStatus.isSubmissionInProgress,
                             isDisabled: state.announcementCount == 0 ||
-                                state.model.id == -1,
+                                state.model == null,
                             disabledColor: disabledButton,
                             shadow: state.announcementCount != 0 &&
-                                    state.model.id != -1
+                                    state.model != null
                                 ? [
                                     BoxShadow(
                                       offset: const Offset(0, 4),

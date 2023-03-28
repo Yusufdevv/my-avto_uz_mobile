@@ -4,8 +4,7 @@ class MainState extends Equatable {
   final List<StoryEntity> stories;
   final FormzStatus statusStoriesGet;
 
-  final int? modelId;
-  final String? modelName;
+  final MakeEntity? model;
 
   final MakeEntity? make;
   final int announcementCount;
@@ -14,8 +13,7 @@ class MainState extends Equatable {
   const MainState({
     this.stories = const [],
     this.statusStoriesGet = FormzStatus.pure,
-    this.modelId,
-    this.modelName,
+    this.model,
     this.make,
     this.announcementCount = 0,
     this.historySaved = true,
@@ -24,8 +22,7 @@ class MainState extends Equatable {
   MainState copWith({
     List<StoryEntity>? stories,
     FormzStatus? statusStoriesGet,
-    int? modelId,
-    String? modelName,
+    MakeEntity? model,
     MakeEntity? make,
     int? announcementCount,
     bool? historySaved,
@@ -33,8 +30,7 @@ class MainState extends Equatable {
       MainState(
         stories: stories ?? this.stories,
         statusStoriesGet: statusStoriesGet ?? this.statusStoriesGet,
-        modelId: modelId ?? this.modelId,
-        modelName: modelName ?? this.modelName,
+        model: model ?? this.model,
         make: make?.id == -1 ? null : make ?? this.make,
         historySaved: historySaved ?? this.historySaved,
         announcementCount: announcementCount ?? this.announcementCount,
@@ -44,8 +40,7 @@ class MainState extends Equatable {
   List<Object?> get props => [
         stories,
         statusStoriesGet,
-        modelId,
-        modelName,
+        model,
         make,
         announcementCount,
         historySaved,

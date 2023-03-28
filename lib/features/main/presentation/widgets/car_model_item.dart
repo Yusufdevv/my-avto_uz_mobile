@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
@@ -33,14 +35,17 @@ class CarModelItem extends StatelessWidget {
         margin: const EdgeInsets.all(16),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
-            boxShadow: [
-              BoxShadow(
-                  offset: const Offset(0, 8),
-                  blurRadius: 19,
-                  color: dark.withOpacity(.07))
-            ]),
+          borderRadius: BorderRadius.circular(12),
+          color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
+          // color: Colors.teal,
+          boxShadow: [
+            BoxShadow(
+              offset: const Offset(0, 8),
+              blurRadius: 19,
+              color: dark.withOpacity(.07),
+            ),
+          ],
+        ),
         child: Column(
           children: [
             WButton(
@@ -59,18 +64,11 @@ class CarModelItem extends StatelessWidget {
               child: Row(
                 children: [
                   if (imageUrl.isEmpty)
-                    SvgPicture.asset(
-                      AppIcons.vehicle,
-                    )
+                    SvgPicture.asset(AppIcons.vehicle)
                   else
                     CachedNetworkImage(
-                      imageUrl: imageUrl,
-                      height: 28,
-                      width: 28,
-                    ),
-                  const SizedBox(
-                    width: 8,
-                  ),
+                        imageUrl: imageUrl, height: 28, width: 28),
+                  const SizedBox(width: 8),
                   Container(
                     margin: const EdgeInsets.symmetric(vertical: 6),
                     width: 2,
@@ -78,9 +76,7 @@ class CarModelItem extends StatelessWidget {
                         .extension<ThemedColors>()!
                         .solitudeToCharcoal,
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
+                  const SizedBox(width: 10),
                   Text(
                     title.trim().isEmpty
                         ? LocaleKeys.choose_brand_model.tr()
