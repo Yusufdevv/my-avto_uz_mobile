@@ -1,11 +1,11 @@
 import 'dart:io';
-
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/car_items.dart';
 import 'package:auto/features/ads/presentation/widgets/no_data_widget.dart';
-import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
+import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_car_model_page.dart';
 import 'package:auto/features/comparison/presentation/widgets/alphabetic_header.dart';
@@ -24,12 +24,12 @@ import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class ChooseCarBrandPage extends StatefulWidget {
-  final int? selectedMakeId;
+  final MakeEntity? selectedMake;
   final int? selectedModelId;
   final int? announcementCount;
 
   const ChooseCarBrandPage({
-    this.selectedMakeId,
+    this.selectedMake,
     this.selectedModelId,
     this.announcementCount,
     Key? key,
@@ -54,17 +54,18 @@ class _ChooseCarBrandPageState extends State<ChooseCarBrandPage> {
     _topBrandBloc = TopBrandBloc(GetTopBrandUseCase())
       ..add(TopBrandEvent.getBrand());
     _getMakesBloc = GetMakesBloc()
-      ..add(GetMakesBlocEvent.getMakes())
-      ..add(GetMakesBlocEvent.changeSelected(widget.selectedMakeId ?? -1));
+      ..add(GetMakesGetEvent())
+      ..add(GetMakesSelectedCarItemsEvent(
+          makeEntity: widget.selectedMake ?? const MakeEntity()));
     _scrollController = ScrollController();
     _controllerScroll = ScrollController();
-    if (_getMakesBloc.state.makes.isNotEmpty && widget.selectedMakeId != null) {
+    if (_getMakesBloc.state.makes.isNotEmpty && widget.selectedMake != null) {
       //! tanlangan itemga borish uchun
       final index = context
           .read<GetMakesBloc>()
           .state
           .makes
-          .indexWhere((element) => element.id == widget.selectedMakeId);
+          .indexWhere((element) => element.id == widget.selectedMake!.id);
       Future.delayed(const Duration(seconds: 1), () {
         _scrollController.animateTo(index.toDouble() * 54,
             duration: const Duration(milliseconds: 1000), curve: Curves.ease);
@@ -92,7 +93,12 @@ class _ChooseCarBrandPageState extends State<ChooseCarBrandPage> {
               create: (context) => _getMakesBloc,
             ),
           ],
-          child: BlocBuilder<GetMakesBloc, GetMakesState>(
+          child: BlocConsumer<GetMakesBloc, GetMakesState>(
+            listener: (context, state) {
+              _scrollController.animateTo((state.goToIndex ?? 0) * 54,
+                  duration: const Duration(milliseconds: 1000),
+                  curve: Curves.ease);
+            },
             builder: (context, state) => Scaffold(
               resizeToAvoidBottomInset: false,
               body: Stack(
@@ -143,26 +149,22 @@ class _ChooseCarBrandPageState extends State<ChooseCarBrandPage> {
                         delegate: ComparisonSearchBar(
                           controller: _searchController,
                           onChanged: () {
-                            _getMakesBloc
-                              ..add(GetMakesBlocEvent.getSerched(
-                                  _searchController.text))
-                              ..add(GetMakesBlocEvent.getMakes());
+                            _getMakesBloc.add(GetMakesGetSearchedEvent(
+                                name: _searchController.text));
                           },
                           onClear: () {
-                            _getMakesBloc
-                              ..add(GetMakesBlocEvent.getSerched(
-                                  _searchController.text))
-                              ..add(GetMakesBlocEvent.getMakes());
+                            _getMakesBloc.add(GetMakesGetSearchedEvent(
+                                name: _searchController.text));
                           },
                         ),
                         pinned: true,
                       ),
-                      if (state.search.name?.isEmpty ?? true)
+                      if (state.name?.isEmpty ?? true)
                         SliverPersistentHeader(
                           delegate: TopBrandSliverWidget(
                             onTap: (selectedMake) {
                               context.read<GetMakesBloc>().add(
-                                    GetMakesBlocEvent.selectedCarItems(
+                                    GetMakesSelectedCarItemsEvent(
                                       makeEntity: selectedMake,
                                     ),
                                   );
@@ -177,62 +179,57 @@ class _ChooseCarBrandPageState extends State<ChooseCarBrandPage> {
                             },
                           ),
                         ),
-                      if (state.search.name?.isEmpty ?? true)
+                      if (state.name?.isEmpty ?? true)
                         SliverPersistentHeader(
                           delegate: AlphabeticHeader(
-                            color: color,
-                            controller: _controllerScroll,
-                          ),
+                            currentLetter: state.selectChar,
+                              onLetterTap: (letter) {
+                                context.read<GetMakesBloc>().add(
+                                      GetMakesGoToIndexEvent(letter: letter),
+                                    );
+                              },),
                           pinned: true,
                         ),
                     ],
-                    body: BlocConsumer<GetMakesBloc, GetMakesState>(
-                        listener: (context, stateCons) {
-                      if (stateCons.statusController.isSubmissionSuccess) {
-                        _scrollController.animateTo(state.index.toDouble() * 54,
-                            duration: const Duration(milliseconds: 1000),
-                            curve: Curves.ease);
-                      }
-                      context
-                          .read<GetMakesBloc>()
-                          .add(GetMakesBlocEvent.changeControlleStatus());
-                    }, builder: (context, stateCons) {
-                      if (state.status.isSubmissionInProgress) {
-                        return const Center(
-                          child: CupertinoActivityIndicator(),
-                        );
-                      }
-                      if (state.status.isSubmissionSuccess) {
-                        return state.makes.isNotEmpty
-                            ? ListView.builder(
-                                padding: const EdgeInsets.only(bottom: 60),
-                                itemCount: state.makes.length,
-                                controller: _scrollController,
-                                itemBuilder: (context, index) => Container(
-                                  height: 54,
-                                  color: Theme.of(context)
-                                      .extension<ThemedColors>()!
-                                      .whiteToDark,
-                                  child: ChangeCarItems(
-                                    isSelected:
-                                        state.selectId == state.makes[index].id,
-                                    imageUrl: state.makes[index].logo,
-                                    name: state.makes[index].name,
-                                    text: state.search.name ?? '',
-                                    onTap: () {
-                                      context.read<GetMakesBloc>().add(
-                                            GetMakesBlocEvent.selectedCarItems(
-                                              makeEntity: state.makes[index],
-                                            ),
-                                          );
-                                    },
+                    body: Builder(
+                      builder: (context) {
+                        if (state.status.isSubmissionInProgress) {
+                          return const Center(
+                            child: CupertinoActivityIndicator(),
+                          );
+                        }
+                        if (state.status.isSubmissionSuccess) {
+                          return state.makes.isNotEmpty
+                              ? ListView.builder(
+                                  padding: const EdgeInsets.only(bottom: 60),
+                                  itemCount: state.makes.length,
+                                  controller: _scrollController,
+                                  itemBuilder: (context, index) => Container(
+                                    height: 54,
+                                    color: Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .whiteToDark,
+                                    child: ChangeCarItems(
+                                      isSelected: state.selectedMake?.id ==
+                                          state.makes[index].id,
+                                      imageUrl: state.makes[index].logo,
+                                      name: state.makes[index].name,
+                                      text: state.name ?? '',
+                                      onTap: () {
+                                        context.read<GetMakesBloc>().add(
+                                              GetMakesSelectedCarItemsEvent(
+                                                makeEntity: state.makes[index],
+                                              ),
+                                            );
+                                      },
+                                    ),
                                   ),
-                                ),
-                              )
-                            : const NoDataWidget();
-                      }
-                      return const SizedBox();
-                    }),
+                                )
+                              : const NoDataWidget();
+                        }
+                        return const SizedBox();
+                      },
+                    ),
                   ),
                   Positioned(
                     bottom: Platform.isAndroid ? 20 : 50,
@@ -240,34 +237,21 @@ class _ChooseCarBrandPageState extends State<ChooseCarBrandPage> {
                     left: 16,
                     child: WButton(
                       onTap: () {
-                        if (state.selectId != -1) {
-                          if (state.selectedMake.id == -1) {
-                            final item = state.makes.firstWhere(
-                                (element) => element.id == state.selectId);
-                            Navigator.push(
-                                context,
-                                fade(
-                                    page: ChooseCarModelPage(
-                                        parentContext: context,
-                                        selectedMake: item,
-                                        selectedModelId:
-                                            widget.selectedModelId)));
-                          } else {
-                            Navigator.push(
-                                context,
-                                fade(
-                                    page: ChooseCarModelPage(
-                                        parentContext: context,
-                                        selectedMake: state.selectedMake,
-                                        selectedModelId:
-                                            widget.selectedModelId)));
-                          }
+                        if (state.selectedMake != null) {
+                          Navigator.push(
+                              context,
+                              fade(
+                                  page: ChooseCarModelPage(
+                                      parentContext: context,
+                                      selectedMake: state.selectedMake,
+                                      selectedModelId:
+                                          widget.selectedModelId)));
                         }
                       },
-                      isDisabled: state.selectId == -1,
+                      isDisabled: state.selectedMake == null,
                       disabledColor: disabledButton,
                       text: LocaleKeys.further.tr(),
-                      shadow: state.selectId != -1
+                      shadow: state.selectedMake != null
                           ? [
                               BoxShadow(
                                 offset: const Offset(0, 4),

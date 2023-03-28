@@ -5,11 +5,11 @@ import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/presentation/bloc/bloc/choose_make_anime_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/car_items.dart';
-import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/persistant_header.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/persistent_header_search.dart';
 import 'package:auto/features/ads/presentation/widgets/no_data_widget.dart';
 import 'package:auto/features/common/widgets/car_brand_item.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
+import 'package:auto/features/comparison/presentation/widgets/alphabetic_header.dart';
 import 'package:auto/features/main/presentation/widgets/brand_shimmer_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -42,8 +42,11 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
   late ColorTween _bgTweenColor;
   late ColorTween _fillTweenColor;
   late ColorTween _headerTextTweenColor;
+
   bool get isLight => StorageRepository.getString('themeMode') == 'light';
+
   bool get isDark => StorageRepository.getString('themeMode') == 'dark';
+
   @override
   void initState() {
     _fillTweenColor = ColorTween(
@@ -164,7 +167,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
               .isCollapsed) {
         context.read<ChooseMakeAnimeBloc>().add(
             ChooseMakeAnimeChangeParamsEvent(
-                where: 'Make else', isAnimating: true, isCollapsed: false) );
+                where: 'Make else', isAnimating: true, isCollapsed: false));
         widget.postingAddBloc
             .add(PostingAdChangeAppBarShadowEvent(value: true));
         context
@@ -347,7 +350,12 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                     top: false,
                     bottom: false,
                     sliver: SliverPersistentHeader(
-                      delegate: Header(),
+                      delegate: AlphabeticHeader(
+                          currentLetter: state.letter,
+                          onLetterTap: (letter) {
+                            widget.postingAddBloc
+                                .add(PostingAdChooseEvent(letter: letter));
+                          }),
                       pinned: true,
                     ),
                   ),
@@ -382,38 +390,22 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                               physics: const BouncingScrollPhysics(),
                               controller: _makesController,
                               padding: const EdgeInsets.only(bottom: 66),
-                              itemBuilder: (context, index) {
-                                if (index == state.makes.length) {
-                                  if (state.nextMakes != null) {
-                                    widget.postingAddBloc
-                                        .add(PostingAdMoreMakesEvent());
-                                    return Container(
-                                      height: 90,
-                                      width: double.maxFinite,
-                                      alignment: Alignment.center,
-                                      child: const CupertinoActivityIndicator(),
-                                    );
-                                  }
-
-                                  return const SizedBox();
-                                }
-                                return ChangeCarItems(
-                                  hasBorder: (state.makes.length - 1) != index,
-                                  onTap: () {
-                                    context.read<PostingAdBloc>().add(
-                                          PostingAdChooseEvent(
-                                            make: state.makes[index],
-                                          ),
-                                        );
-                                  },
-                                  isSelected:
-                                      state.make?.id == state.makes[index].id,
-                                  imageUrl: state.makes[index].logo,
-                                  name: state.makes[index].name,
-                                  text: state.searchController.text,
-                                );
-                              },
-                              itemCount: state.makes.length + 1,
+                              itemBuilder: (context, index) => ChangeCarItems(
+                                hasBorder: (state.makes.length - 1) != index,
+                                onTap: () {
+                                  context.read<PostingAdBloc>().add(
+                                        PostingAdChooseEvent(
+                                          make: state.makes[index],
+                                        ),
+                                      );
+                                },
+                                isSelected:
+                                    state.make?.id == state.makes[index].id,
+                                imageUrl: state.makes[index].logo,
+                                name: state.makes[index].name,
+                                text: state.searchController.text,
+                              ),
+                              itemCount: state.makes.length,
                             )
                           : ListView(
                               children: const [

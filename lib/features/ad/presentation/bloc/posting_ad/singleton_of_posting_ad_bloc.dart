@@ -238,18 +238,17 @@ class PASingleton {
         phoneController: event.phoneController,
         emailController: event.emailController,
         nameController: event.nameController,
-        eventMakeScrrollIndex: _getMakeLetterIndex(event, state.makes),
+        eventMakeScrrollIndex: _getMakeLetterIndex(event.letter, state.makes),
         description: event.description,
         gasEquipmentId: event.gasEquipmentId,
         getModificationStatus: event.getModificationStatus,
       );
 
-  static int? _getMakeLetterIndex(
-      PostingAdChooseEvent event, List<MakeEntity> makes) {
-    if (event.letter == null) return null;
+  static int? _getMakeLetterIndex(String? letter, List<MakeEntity> makes) {
+    if (letter == null) return null;
 
-    final i = makes.indexWhere(
-        (element) => element.name.toUpperCase().startsWith(event.letter!));
+    final i = makes.indexWhere((element) =>
+        element.name.toUpperCase().startsWith(letter!.toUpperCase()));
 
     if (i > -1) return i;
 
@@ -291,7 +290,7 @@ class PASingleton {
       // AddPhotoScreen
       case 10:
         // return false;
-        return [...state.gallery, ...state.panaramaGallery].length < 3 ;
+        return [...state.gallery, ...state.panaramaGallery].length < 3;
       // PtsScreen
       case 11:
         return state.ownerStep == null ||

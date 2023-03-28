@@ -2,6 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/search/presentation/search_screen.dart';
@@ -22,6 +23,8 @@ class SortBottomSheet extends StatefulWidget {
       required this.onChanged,
       required this.defaultValue,
       super.key});
+
+
 
   @override
   State<SortBottomSheet> createState() => _SortBottomSheetState();
@@ -69,15 +72,10 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
               ),
             ),
           ),
-          Divider(
-            color: Theme.of(context).extension<ThemedColors>()!.divider,
-            thickness: 1,
-            height: 1,
-          ),
+          const Divider(color: border, thickness: 1, height: 1),
           Container(
             padding: const EdgeInsets.only(top: 16),
-            color:
-                Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
+            color: white,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [

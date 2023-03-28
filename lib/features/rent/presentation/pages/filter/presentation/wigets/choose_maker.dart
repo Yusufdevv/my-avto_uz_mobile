@@ -1,7 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
+import 'package:auto/features/ad/domain/entities/types/make.dart';
+import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/maker_sheet_item.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/sheet_header.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -12,9 +12,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 class ChooseMaker extends StatefulWidget {
-  final int selectedId;
+  final MakeEntity? selectedMake;
 
-  const ChooseMaker({required this.selectedId, super.key});
+  const ChooseMaker({required this.selectedMake, super.key});
 
   @override
   State<ChooseMaker> createState() => _ChooseMakerState();
@@ -25,8 +25,8 @@ class _ChooseMakerState extends State<ChooseMaker> {
 
   @override
   void initState() {
-    getMakesBloc = GetMakesBloc(initialId: widget.selectedId)
-      ..add(GetMakesBlocEvent.getMakes());
+    getMakesBloc = GetMakesBloc(initialMake: widget.selectedMake)
+      ..add(GetMakesGetEvent());
     super.initState();
   }
 
@@ -61,12 +61,13 @@ class _ChooseMakerState extends State<ChooseMaker> {
                               (index) => RentSheetItemm(
                                 onTap: () {
                                   getMakesBloc.add(
-                                      GetMakesBlocEvent.changeSelected(
-                                          getMakesState.makes[index].id));
+                                      GetMakesSelectedCarItemsEvent(
+                                          makeEntity:
+                                              getMakesState.makes[index]));
                                 },
                                 logo: getMakesState.makes[index].logo,
                                 title: getMakesState.makes[index].name,
-                                isChecked: getMakesState.selectId ==
+                                isChecked: getMakesState.selectedMake?.id ==
                                     getMakesState.makes[index].id,
                                 hasDivider:
                                     getMakesState.makes.length - 1 != index,
@@ -81,11 +82,8 @@ class _ChooseMakerState extends State<ChooseMaker> {
                           left: 16, right: 16, bottom: 16),
                       child: WButton(
                           onTap: () {
-                            Navigator.of(context).pop(getMakesState.selectId >=
-                                    0
-                                ? getMakesState.makes.firstWhere((element) =>
-                                    element.id == getMakesState.selectId)
-                                : null);
+                            Navigator.of(context)
+                                .pop(getMakesState.selectedMake);
                           },
                           color: orange,
                           text: LocaleKeys.apply.tr()),

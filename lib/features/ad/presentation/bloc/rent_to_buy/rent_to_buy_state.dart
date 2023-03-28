@@ -5,9 +5,9 @@ class RentToBuyState extends Equatable {
   final FocusNode focusNode;
   final String title;
   final int? minimumSumma;
-  final String? prepayment;
-  final String? rentalPeriod;
-  final String? monthlyPayment;
+  final int? prepayment;
+  final int? rentalPeriod;
+  final int? monthlyPayment;
   final int step;
   final TextEditingController controller;
 
@@ -27,9 +27,9 @@ class RentToBuyState extends Equatable {
     required String title,
     List<RentWithPurchaseEntity>? conditions,
     int? step,
-    String? monthlyPayment,
-    String? prepayment,
-    String? rentalPeriod,
+    int? monthlyPayment,
+    int? prepayment,
+    int? rentalPeriod,
     int? minimumSumma,
     TextEditingController? controller,
     FormzStatus? status,

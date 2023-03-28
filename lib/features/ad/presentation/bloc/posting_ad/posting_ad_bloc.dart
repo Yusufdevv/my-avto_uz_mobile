@@ -134,12 +134,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdChangeOption>(_getChangeOption);
     on<PostingAdSelectEquipmentEvent>(_selectEquipment);
     on<PostingAdGetColorsEvent>(_getColors);
-    on<PostingAdMoreMakesEvent>(_moreMakes);
     on<PostingAdMoreModelsEvent>(_moreModels);
     on<PostingAdModelEvent>(_models);
-    on<CancelLoadinEvent>((event, emit) {
-      emit(state.copyWith(createStatus: FormzStatus.pure));
-    });
   }
 
   FutureOr<void> _moreModels(
@@ -273,8 +269,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   FutureOr<void> _searchMake(
       PostingAdSearchMakesEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(getMakesStatus: FormzStatus.submissionInProgress));
-    final result = await makeUseCase
-        .call(GetPaginationParam(offset: 0, limit: 10, name: event.name ?? ''));
+    final result = await makeUseCase.call(
+        GetPaginationParam(offset: 0, limit: 1000, name: event.name ?? ''));
     if (result.isRight) {
       emit(state.copyWith(
           getMakesStatus: FormzStatus.submissionSuccess,
@@ -614,8 +610,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       PostingAdMakesEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(getMakesStatus: FormzStatus.submissionInProgress));
 
-    final result =
-        await makeUseCase.call(const GetPaginationParam(limit: 10, offset: 0));
+    final result = await makeUseCase
+        .call(const GetPaginationParam(limit: 1000, offset: 0));
 
     if (result.isRight) {
       emit(
@@ -623,31 +619,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
           nextMakes: result.right.next ?? '',
           getMakesStatus: FormzStatus.submissionSuccess,
           makes: result.right.results,
-        ),
-      );
-    } else {
-      emit(
-        state.copyWith(
-          getMakesStatus: FormzStatus.submissionFailure,
-        ),
-      );
-    }
-  }
-
-  FutureOr<void> _moreMakes(
-      PostingAdMoreMakesEvent event, Emitter<PostingAdState> emit) async {
-    final result = await makeUseCase.call(
-      GetPaginationParam(next: state.nextMakes),
-    );
-
-    if (result.isRight) {
-      emit(
-        state.copyWith(
-          nextMakes: result.right.next ?? '',
-          makes: [
-            ...state.makes,
-            ...result.right.results,
-          ],
         ),
       );
     } else {

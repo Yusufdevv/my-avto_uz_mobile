@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
@@ -56,9 +57,10 @@ class _PostingAdScreenState extends State<PostingAdScreen>
   late PostingAdBloc postingAdBloc;
   late ChooseMakeAnimeBloc animeBloc;
   late GlobalKey globalKey;
-  late int currentTabIndex;
+
+  final ValueNotifier<int> currentTabNotifier = ValueNotifier(0);
   late AnimationController animeController;
-  static int initialPage = 0;
+
   final int tabLength = 20;
 
   @override
@@ -96,9 +98,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
       ..add(
         PostingAdTopMakesEvent(),
       );
-    currentTabIndex = initialPage;
 
-    pageController = PageController(initialPage: initialPage);
+    pageController = PageController(initialPage: 0);
     super.initState();
   }
 
@@ -129,7 +130,17 @@ class _PostingAdScreenState extends State<PostingAdScreen>
   Widget build(BuildContext context) => WillPopScope(
         onWillPop: () async {
           FocusScope.of(context).unfocus();
-          return Future.value(false);
+          if (currentTabNotifier.value != 0) {
+            --currentTabNotifier.value;
+
+            await pageController.animateToPage(currentTabNotifier.value,
+                duration: const Duration(milliseconds: 150),
+                curve: Curves.linear);
+
+            return Future.value(false);
+          } else {
+            return Future.value(true);
+          }
         },
         child: KeyboardDismisser(
           child: CustomScreen(
@@ -173,13 +184,14 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                         context.read<ProfileBloc>().add(
                             ChangeCountDataEvent(adding: true, myAdsCount: 1));
 
-                        currentTabIndex = 0;
+                        currentTabNotifier.value = 0;
                         await Future.delayed(const Duration(milliseconds: 500));
-                        await pageController.animateToPage(currentTabIndex,
+                        await pageController.animateToPage(
+                            currentTabNotifier.value,
                             duration: const Duration(milliseconds: 150),
                             curve: Curves.linear);
                         postingAdBloc.add(PostingAdClearStateEvent());
-                        setState(() {});
+
                         Navigator.of(context).pop(true);
 
                         return;
@@ -212,41 +224,46 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                           builder: (context, animeState) => Scaffold(
                             appBar: PreferredSize(
                               preferredSize: const Size.fromHeight(54),
-                              child: PostingAdAppBar(
-                                hasCancelButton: currentTabIndex != 0,
-                                currentTabIndex: currentTabIndex,
-                                reversScaleAnimation:
-                                    animeState.reversScaleAnimation,
-                                reverseTitle: LocaleKeys.choose_brand_auto.tr(),
-                                scaleAnimation: animeState.scaleAnimation,
-                                tabLength: tabLength,
-                                hasShadow: state.hasAppBarShadow,
-                                onTapBack: () {
-                                  if (currentTabIndex != 0) {
-                                    --currentTabIndex;
+                              child: ValueListenableBuilder<int>(
+                                valueListenable: currentTabNotifier,
+                                builder: (c, val, child) => PostingAdAppBar(
+                                  hasCancelButton:
+                                      currentTabNotifier.value != 0,
+                                  currentTabIndex: currentTabNotifier.value,
+                                  reversScaleAnimation:
+                                      animeState.reversScaleAnimation,
+                                  reverseTitle:
+                                      LocaleKeys.choose_brand_auto.tr(),
+                                  scaleAnimation: animeState.scaleAnimation,
+                                  tabLength: tabLength,
+                                  hasShadow: state.hasAppBarShadow,
+                                  onTapBack: () {
+                                    if (currentTabNotifier.value != 0) {
+                                      --currentTabNotifier.value;
 
-                                    pageController.animateToPage(
-                                        currentTabIndex,
+                                      pageController.animateToPage(
+                                          currentTabNotifier.value,
+                                          duration:
+                                              const Duration(milliseconds: 150),
+                                          curve: Curves.linear);
+                                    } else {
+                                      Navigator.pop(context);
+                                    }
+                                  },
+                                  onTapCancel: () async {
+                                    postingAdBloc
+                                        .add(PostingAdClearStateEvent());
+                                    currentTabNotifier.value = 0;
+                                    await pageController.animateToPage(
+                                        currentTabNotifier.value,
                                         duration:
-                                            const Duration(milliseconds: 150),
+                                            const Duration(milliseconds: 100),
                                         curve: Curves.linear);
-                                    setState(() {});
-                                  } else {
-                                    Navigator.pop(context);
-                                  }
-                                },
-                                onTapCancel: () async {
-                                  postingAdBloc.add(PostingAdClearStateEvent());
-                                  currentTabIndex = 0;
-                                   await pageController.animateToPage(
-                                      currentTabIndex,
-                                      duration:
-                                          const Duration(milliseconds: 100),
-                                      curve: Curves.linear);
-                                },
-                                title: currentTabIndex == 0
-                                    ? LocaleKeys.get_back.tr()
-                                    : tabs[currentTabIndex - 1],
+                                  },
+                                  title: currentTabNotifier.value == 0
+                                      ? LocaleKeys.get_back.tr()
+                                      : tabs[currentTabNotifier.value - 1],
+                                ),
                               ),
                             ),
                             body: Stack(
@@ -262,16 +279,16 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                       onTopBrandPressed: (makeId) {
                                         postingAdBloc.add(
                                             PostingAdChooseEvent(make: makeId));
-                                        currentTabIndex++;
+                                        currentTabNotifier.value++;
                                         postingAdBloc.add(
                                             PostingAdAddEventForEveryPage(
-                                                page: currentTabIndex));
+                                                page:
+                                                    currentTabNotifier.value));
                                         pageController.animateToPage(
-                                            currentTabIndex,
+                                            currentTabNotifier.value,
                                             duration: const Duration(
                                                 milliseconds: 150),
                                             curve: Curves.linear);
-                                        setState(() {});
                                       },
                                     ),
                                     //1
@@ -292,22 +309,24 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                     ModificationScreen(
                                       noData: () {
                                         FocusScope.of(context).unfocus();
-                                        if (currentTabIndex < tabLength - 1) {
-                                          if (currentTabIndex == 0 &&
+                                        if (currentTabNotifier.value <
+                                            tabLength - 1) {
+                                          if (currentTabNotifier.value == 0 &&
                                               animeState.isCollapsed) {
                                             animeState.animationController
                                                 .reverse();
                                           }
-                                          currentTabIndex++;
+                                          currentTabNotifier.value++;
                                           postingAdBloc.add(
                                               PostingAdAddEventForEveryPage(
-                                                  page: currentTabIndex));
+                                                  page: currentTabNotifier
+                                                      .value));
                                           pageController.animateToPage(
-                                              currentTabIndex,
+                                              currentTabNotifier.value,
                                               duration: const Duration(
                                                   milliseconds: 60),
                                               curve: Curves.linear);
-                                          setState(() {});
+
                                           postingAdBloc.add(
                                               PostingAdChooseEvent(
                                                   getModificationStatus:
@@ -504,7 +523,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                             ))).then(
                                           (latLongZoom) {
                                             if (latLongZoom is List<double>) {
-                                            postingAdBloc.add(
+                                              postingAdBloc.add(
                                                 PostingAdGetMapScreenShotEvent(
                                                   lat: latLongZoom[0],
                                                   long: latLongZoom[1],
@@ -584,7 +603,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                     ),
                                   ],
                                 ),
-                                if (currentTabIndex < tabLength - 1) ...{
+                                if (currentTabNotifier.value <
+                                    tabLength - 1) ...{
                                   Positioned(
                                     bottom:
                                         MediaQuery.of(context).padding.bottom +
@@ -593,31 +613,32 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                     left: 16,
                                     child: WButton(
                                       disabledColor: disabledButton,
-                                      isDisabled:
-                                          state.buttonStatus(currentTabIndex),
+                                      isDisabled: state.buttonStatus(
+                                          currentTabNotifier.value),
                                       onTap: () {
                                         FocusScope.of(context).unfocus();
-                                        if (currentTabIndex < tabLength - 1) {
-                                          if (currentTabIndex == 0 &&
+                                        if (currentTabNotifier.value <
+                                            tabLength - 1) {
+                                          if (currentTabNotifier.value == 0 &&
                                               animeState.isCollapsed) {
                                             animeState.animationController
                                                 .reverse();
                                           }
-                                          currentTabIndex++;
+                                          currentTabNotifier.value++;
                                           postingAdBloc.add(
                                               PostingAdAddEventForEveryPage(
-                                                  page: currentTabIndex));
+                                                  page: currentTabNotifier
+                                                      .value));
                                           pageController.animateToPage(
-                                              currentTabIndex,
+                                              currentTabNotifier.value,
                                               duration: const Duration(
                                                   milliseconds: 150),
                                               curve: Curves.linear);
-                                          setState(() {});
                                         }
                                       },
                                       text: LocaleKeys.further.tr(),
-                                      shadow: state
-                                              .buttonStatus(currentTabIndex)
+                                      shadow: state.buttonStatus(
+                                              currentTabNotifier.value)
                                           ? null
                                           : [
                                               BoxShadow(

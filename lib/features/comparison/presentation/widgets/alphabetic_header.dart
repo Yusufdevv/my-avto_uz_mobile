@@ -1,16 +1,13 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/core/singletons/storage.dart';
-import 'package:auto/features/comparison/presentation/widgets/characters.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
 
 class AlphabeticHeader extends SliverPersistentHeaderDelegate {
-  final Color color;
-  final ScrollController controller;
+  final Function(String) onLetterTap;
+  final String? currentLetter;
 
-  AlphabeticHeader({required this.color, required this.controller});
+  AlphabeticHeader({required this.onLetterTap, required this.currentLetter});
 
   @override
   double get minExtent => 38;
@@ -20,9 +17,8 @@ class AlphabeticHeader extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(AlphabeticHeader oldDelegate) =>
-      color != oldDelegate.color;
-  final List<String> letters = MyFunctions.getUpperLetter(
-      StorageRepository.getString(StorageKeys.LANGUAGE, defValue: 'uz'));
+      currentLetter != oldDelegate.currentLetter;
+  final List<String> letters = MyFunctions.getUpperLetter();
 
   @override
   Widget build(
@@ -30,10 +26,8 @@ class AlphabeticHeader extends SliverPersistentHeaderDelegate {
       Container(
         decoration: BoxDecoration(
           color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
-          border:  Border(
-            bottom: BorderSide(color: Theme.of(context)
-                .extension<ThemedColors>()!
-                .snowToNightRider,),
+          border: const Border(
+            bottom: BorderSide(color: dividerColor),
           ),
           boxShadow: [
             BoxShadow(
@@ -52,12 +46,26 @@ class AlphabeticHeader extends SliverPersistentHeaderDelegate {
             Expanded(
               child: ListView.builder(
                 padding: const EdgeInsets.only(left: 8),
-                itemBuilder: (context, index) => CharactersList(
-                  letter: letters[index],
-                  color: Theme.of(context)
-                      .extension<ThemedColors>()!
-                      .solitudeContainerToDark,
-                  controller: controller,
+                itemBuilder: (context, index) => GestureDetector(
+                  onTap: () {
+                    onLetterTap(letters[index]);
+                  },
+                  behavior: HitTestBehavior.opaque,
+                  child: Container(
+                    color: white,
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: Text(
+                      letters[index],
+                      style: letters[index] == currentLetter
+                          ? Theme.of(context).textTheme.titleLarge!.copyWith(
+                                color: grey,
+                              )
+                          : Theme.of(context)
+                              .textTheme
+                              .titleLarge!
+                              .copyWith(color: warmerGrey),
+                    ),
+                  ),
                 ),
                 itemCount: letters.length,
                 shrinkWrap: true,

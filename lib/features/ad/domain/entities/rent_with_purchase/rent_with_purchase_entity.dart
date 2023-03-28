@@ -4,15 +4,15 @@ import 'package:json_annotation/json_annotation.dart';
 
 class RentWithPurchaseEntity extends Equatable {
   final int id;
-  final String prepayment;
+  final int prepayment;
   final int rentalPeriod;
-  final String monthlyPayment;
+  final int monthlyPayment;
 
- const  RentWithPurchaseEntity({
+  const RentWithPurchaseEntity({
     this.id = -1,
-    this.monthlyPayment = '',
-    this.prepayment = '',
-    this.rentalPeriod = -1,
+    this.monthlyPayment = 0,
+    this.prepayment = 0,
+    this.rentalPeriod = 0,
   });
 
   @override
@@ -24,10 +24,10 @@ class RentWithPurchaseEntity extends Equatable {
       ];
 
   Map<String, dynamic> toApi() => {
-      'prepayment': prepayment,
-      'rental_period': rentalPeriod,
-      'monthly_payment': monthlyPayment,
-    };
+        'prepayment': prepayment,
+        'rental_period': rentalPeriod,
+        'monthly_payment': monthlyPayment,
+      };
 }
 
 class RentWithPurchaseEntityConverter

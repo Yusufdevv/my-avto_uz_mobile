@@ -2,12 +2,13 @@ part of 'rent_to_buy_bloc.dart';
 
 class RentToBuyEvent {
   final int? minimumMonthlyPay;
-  final String? prepayment;
-  final String? rentalPeriod;
-  final String? monthlyPayment;
+  final int? prepayment;
+  final int? rentalPeriod;
+  final int? monthlyPayment;
   final String title;
   final int step;
   TextEditingController controller;
+
   RentToBuyEvent({
     required this.step,
     required this.title,

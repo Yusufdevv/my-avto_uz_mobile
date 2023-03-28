@@ -137,8 +137,7 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
                         context: context,
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
-                        builder: (c) =>
-                            ChooseMaker(selectedId: state.maker?.id ?? -1),
+                        builder: (c) => ChooseMaker(selectedMake: state.maker),
                       ).then((value) {
                         filterBloc.add(FilterSelectEvent(maker: value));
                       });

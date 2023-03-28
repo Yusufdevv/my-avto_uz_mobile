@@ -193,7 +193,7 @@ class _MainScreenState extends State<MainScreen> {
                           Navigator.of(context, rootNavigator: true)
                               .push(fade(
                                   page: ChooseCarBrandPage(
-                        selectedMakeId: state.makeId,
+                        selectedMake: state.make,
                         selectedModelId: state.modelId,
                         announcementCount: state.announcementCount,
                       )))
@@ -249,8 +249,8 @@ class _MainScreenState extends State<MainScreen> {
                           historySaved: state.historySaved,
                         )));
                       },
-                      imageUrl: state.makeLogo ?? '',
-                      title: '${state.makeName ?? ''} ${state.modelName ?? ''}',
+                      imageUrl: state.make?.logo ?? '',
+                      title: '${state.make?.name ?? ''} ${state.modelName ?? ''}',
                       count: state.announcementCount,
                       isCheck: true,
                     ),
