@@ -56,7 +56,7 @@ class _WRangeSliderState extends State<WRangeSlider> {
               style: Theme.of(context)
                   .textTheme
                   .displayMedium!
-                  .copyWith(fontWeight: FontWeight.w400),
+                  .copyWith(fontWeight: FontWeight.w400,color: grey),
             ),
           const SizedBox(
             height: 12,
@@ -92,7 +92,7 @@ class _WRangeSliderState extends State<WRangeSlider> {
                     style: Theme.of(context)
                         .textTheme
                         .displayMedium!
-                        .copyWith(fontWeight: FontWeight.w600)),
+                        .copyWith(fontWeight: FontWeight.w600,color: grey)),
                 Text(
                     widget.isForPrice
                         ? '${MyFunctions.getFormatCost(widget.values.end.toInt().toString())} ${widget.description}'
@@ -100,7 +100,7 @@ class _WRangeSliderState extends State<WRangeSlider> {
                     style: Theme.of(context)
                         .textTheme
                         .displayMedium!
-                        .copyWith(fontWeight: FontWeight.w600)),
+                        .copyWith(fontWeight: FontWeight.w600,color: grey)),
               ],
             ),
           ),

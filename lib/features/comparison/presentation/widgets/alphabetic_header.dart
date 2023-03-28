@@ -30,8 +30,10 @@ class AlphabeticHeader extends SliverPersistentHeaderDelegate {
       Container(
         decoration: BoxDecoration(
           color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
-          border: const Border(
-            bottom: BorderSide(color: dividerColor),
+          border:  Border(
+            bottom: BorderSide(color: Theme.of(context)
+                .extension<ThemedColors>()!
+                .snowToNightRider,),
           ),
           boxShadow: [
             BoxShadow(
@@ -52,7 +54,9 @@ class AlphabeticHeader extends SliverPersistentHeaderDelegate {
                 padding: const EdgeInsets.only(left: 8),
                 itemBuilder: (context, index) => CharactersList(
                   letter: letters[index],
-                  color: white,
+                  color: Theme.of(context)
+                      .extension<ThemedColors>()!
+                      .solitudeContainerToDark,
                   controller: controller,
                 ),
                 itemCount: letters.length,

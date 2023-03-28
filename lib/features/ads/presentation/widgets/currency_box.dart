@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ads/presentation/widgets/currency_button.dart';
-import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -15,8 +12,7 @@ class CurrencyBox extends StatelessWidget {
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
+  Widget build(BuildContext context) => Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
@@ -43,5 +39,4 @@ class CurrencyBox extends StatelessWidget {
         ),
       ],
     );
-  }
 }

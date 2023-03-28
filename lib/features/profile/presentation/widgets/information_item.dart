@@ -4,11 +4,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class InformationGrid extends StatelessWidget {
-  InformationGrid({required this.listData, Key? key}) : super(key: key);
+  InformationGrid({required this.listData, Key? key, required this.color}) : super(key: key);
 
   final List<String> listData;
+  final List<Color> color;
 
-  final List color = <Color>[
+  final List colors = <Color>[
     const Color(0xffF7F7F8),
     const Color(0xffEBFAF0),
     const Color(0xffFDF4F3),

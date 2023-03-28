@@ -27,7 +27,7 @@ class SheetHeader extends StatelessWidget {
                 fontSize: 20,
                 color: Theme.of(context)
                     .extension<ThemedColors>()!
-                    .midnightExpressToWhite,
+                    .darkToWhite,
                 fontWeight: FontWeight.w700,
               ),
             ),

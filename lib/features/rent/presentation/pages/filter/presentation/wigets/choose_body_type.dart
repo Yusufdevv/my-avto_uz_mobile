@@ -1,8 +1,8 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/rent/domain/usecases/get_body_types_usecase.dart';
 import 'package:auto/features/rent/presentation/bloc/get_body_types/get_body_types_bloc.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/maker_sheet_item.dart';
@@ -42,9 +42,11 @@ class _ChooseBodyTypeState extends State<ChooseBodyType> {
         value: getBodyTypesBloc,
         child: Container(
           margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 44),
-          decoration: const BoxDecoration(
-            color: white,
-            borderRadius: BorderRadius.vertical(
+          decoration: BoxDecoration(
+            color: Theme.of(context)
+                .extension<ThemedColors>()!
+                .scaffoldBackground,
+            borderRadius: const BorderRadius.vertical(
               top: Radius.circular(20),
             ),
           ),
@@ -61,7 +63,9 @@ class _ChooseBodyTypeState extends State<ChooseBodyType> {
                               ? state.bodyTypes[state.selected]
                               : null);
                         }),
-                    const Divider(thickness: 1, color: border, height: 1),
+                     Divider(thickness: 1, color: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .divider, height: 1),
                     Expanded(
                       child: SingleChildScrollView(
                         physics: const BouncingScrollPhysics(),

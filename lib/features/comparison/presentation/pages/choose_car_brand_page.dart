@@ -119,10 +119,10 @@ class _ChooseCarBrandPageState extends State<ChooseCarBrandPage> {
                         titleSpacing: 0,
                         title: Text(
                           LocaleKeys.choose_brand_auto.tr(),
-                          style: const TextStyle(
+                          style:  TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
-                            color: dark,
+                            color: Theme.of(context).extension<ThemedColors>()!.darkToWhite,
                           ),
                         ),
                         actions: [

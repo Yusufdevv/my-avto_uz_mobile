@@ -1,4 +1,3 @@
-import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +8,7 @@ class EmptyItemBody extends StatelessWidget {
     this.title,
     super.key,
   });
+
   final String subtitle;
   final String? title;
   final String image;
@@ -19,8 +19,8 @@ class EmptyItemBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            height:  92 ,
-            width:  92,
+            height: 92,
+            width: 92,
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Theme.of(context)
@@ -31,13 +31,14 @@ class EmptyItemBody extends StatelessWidget {
           const SizedBox(height: 24),
           if (title != null)
             Padding(
-              padding: const EdgeInsets.only(bottom:  8),
+              padding: const EdgeInsets.only(bottom: 8),
               child: Text(
                 title!,
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge
-                    ?.copyWith(color: black),
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .midnightExpressToGreySuit,
+                    ),
               ),
             )
           else

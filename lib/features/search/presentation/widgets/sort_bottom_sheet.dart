@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/search/presentation/search_screen.dart';
@@ -14,6 +15,7 @@ class SortBottomSheet extends StatefulWidget {
   final ValueChanged<SortStatus> onChanged;
   final List<SortSearchResultsModel> values;
   final SortStatus? defaultValue;
+
   const SortBottomSheet(
       {required this.title,
       required this.values,
@@ -38,35 +40,44 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
   Widget build(BuildContext context) => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    widget.title,
-                    style: Theme.of(context).textTheme.displayLarge,
+          Container(
+            color:
+                Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      widget.title,
+                      style: Theme.of(context).textTheme.displayLarge,
+                    ),
                   ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  behavior: HitTestBehavior.opaque,
-                  child: SvgPicture.asset(
-                    AppIcons.close,
-                    height: 24,
-                    width: 24,
-                    fit: BoxFit.cover,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    behavior: HitTestBehavior.opaque,
+                    child: SvgPicture.asset(
+                      AppIcons.close,
+                      height: 24,
+                      width: 24,
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-          const Divider(color: border, thickness: 1, height: 1),
+          Divider(
+            color: Theme.of(context).extension<ThemedColors>()!.divider,
+            thickness: 1,
+            height: 1,
+          ),
           Container(
             padding: const EdgeInsets.only(top: 16),
-            color: white,
+            color:
+                Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [

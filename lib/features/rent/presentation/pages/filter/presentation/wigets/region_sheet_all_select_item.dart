@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/region_checkbox.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -18,8 +19,12 @@ class RegionSelectAllItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
         padding: const EdgeInsets.all(16),
-        decoration: const BoxDecoration(
-            border: Border(bottom: BorderSide(color: border))),
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+                color: Theme.of(context).extension<ThemedColors>()!.divider),
+          ),
+        ),
         child: WScaleAnimation(
           onTap: onTap,
           child: Row(

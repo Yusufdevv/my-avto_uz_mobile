@@ -58,11 +58,11 @@ class _RentChooseRegionBottomSheetState
               thickness: 1,
               color: Theme.of(context)
                   .extension<ThemedColors>()!
-                  .solitudeToNightRider,
+                  .divider,
               height: 1),
           Expanded(
             child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
+              // physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
                   if (widget.isMultiChoice)

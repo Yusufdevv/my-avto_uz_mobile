@@ -131,10 +131,6 @@ class LightThemeColors {
   static const greyToDarkRider = _solitude1;
   static const darkToPurple = _midnightExpress;
   static const darkToGrey = _midnightExpress;
-  static const greyContainer26 = _whiteLilac1;
-  static const redContainer26 = _roseWhite;
-  static const greenContainer26 = _cosmicLatte;
-  static const blueContainer26 = _lavender1;
   static const solitudeToDolphinBorder = _solitudeBorder;
   static const whiteSmoke78ToWhiteSmoke12 = _whiteSmoke78;
   static const ghostToGondola = _ghost;
@@ -156,6 +152,14 @@ class LightThemeColors {
   static const textBlue = _blueText;
   static const dividerColor = _solitude;
   static const tutuToRed = tutu;
+
+  static const greyContainer27 = _whiteLilac1;
+  static const greenContainer27 = _cosmicLatte;
+  static const redContainer27 = _roseWhite;
+  static const blueContainer27 = _lavender1;
+
+
+
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
@@ -194,10 +198,6 @@ const _solitudeBorder = Color(0xffF1F1F5);
 const _solitude1 = Color(0xFFF1F1F5);
 const _spunPearl = Color(0xFF9E9EA9);
 const _hummingBird = Color(0xffF0FAF6);
-const _whiteLilac1 = Color(0xFFF7F7F8);
-const _roseWhite = Color(0xFFFDF4F3);
-const _cosmicLatte = Color(0xFFEBFAF0);
-const _lavender1 = Color(0xFFF2F4FC);
 const _eclipse = Color(0xff373737);
 const _whiteSmoke2 = Color(0xfff4f4f4);
 const _whiteSmoke78 = Color(0xc7e9e9e9);
@@ -212,3 +212,11 @@ const _seashell = Color(0xffFFF8F5);
 const _smoky = Color(0xff5D5D67);
 const _mischka = Color(0xffA5AAB4);
 const _fairPink = Color(0xffF3E1DD);
+const _whiteLilac1 = Color(0xFFF7F7F8);
+const _cosmicLatte = Color(0xFFEBFAF0);
+const _roseWhite = Color(0xFFFDF4F3);
+const _lavender1 = Color(0xFFF2F4FC);
+
+
+
+
