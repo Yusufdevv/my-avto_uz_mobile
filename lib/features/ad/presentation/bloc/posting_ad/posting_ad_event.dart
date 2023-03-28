@@ -2,9 +2,7 @@ part of 'posting_ad_bloc.dart';
 
 abstract class PostingAdEvent {}
 
-class CancelLoadinEvent extends PostingAdEvent {
-  CancelLoadinEvent();
-}
+
 
 class PostingAdShowToastEvent extends PostingAdEvent {
   final String message;
@@ -98,9 +96,7 @@ class PostingAdMakesEvent extends PostingAdEvent {
   PostingAdMakesEvent();
 }
 
-class PostingAdMoreMakesEvent extends PostingAdEvent {
-  PostingAdMoreMakesEvent();
-}
+
 
 class PostingAdMoreModelsEvent extends PostingAdEvent {
   PostingAdMoreModelsEvent();
@@ -237,6 +233,8 @@ class PostingAdChooseEvent extends PostingAdEvent {
     this.getModificationStatus,
   });
 }
+
+
 
 class PostingAdSelectEquipmentEvent extends PostingAdEvent {
   final EquipmentEntity equipment;

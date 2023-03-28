@@ -1,18 +1,13 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/comparison/presentation/widgets/characters.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
 
 class AlphabeticHeader extends SliverPersistentHeaderDelegate {
   final Function(String) onLetterTap;
-  final Color color;
   final String? currentLetter;
 
-  AlphabeticHeader(
-      {required this.onLetterTap,
-      required this.color,
-      required this.currentLetter});
+  AlphabeticHeader({required this.onLetterTap, required this.currentLetter});
 
   @override
   double get minExtent => 38;
@@ -22,7 +17,7 @@ class AlphabeticHeader extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(AlphabeticHeader oldDelegate) =>
-      color != oldDelegate.color;
+      currentLetter != oldDelegate.currentLetter;
   final List<String> letters = MyFunctions.getUpperLetter();
 
   @override
@@ -51,13 +46,26 @@ class AlphabeticHeader extends SliverPersistentHeaderDelegate {
             Expanded(
               child: ListView.builder(
                 padding: const EdgeInsets.only(left: 8),
-                itemBuilder: (context, index) => CharactersList(
+                itemBuilder: (context, index) => GestureDetector(
                   onTap: () {
                     onLetterTap(letters[index]);
                   },
-                  isSelected: currentLetter == letters[index],
-                  letter: letters[index],
-                  color: white,
+                  behavior: HitTestBehavior.opaque,
+                  child: Container(
+                    color: white,
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: Text(
+                      letters[index],
+                      style: letters[index] == currentLetter
+                          ? Theme.of(context).textTheme.titleLarge!.copyWith(
+                                color: grey,
+                              )
+                          : Theme.of(context)
+                              .textTheme
+                              .titleLarge!
+                              .copyWith(color: warmerGrey),
+                    ),
+                  ),
                 ),
                 itemCount: letters.length,
                 shrinkWrap: true,

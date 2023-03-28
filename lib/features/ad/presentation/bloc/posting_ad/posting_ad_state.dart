@@ -260,6 +260,8 @@ class PostingAdState extends Equatable {
   }) =>
       PostingAdState(
         getLocationImage: getLocationImage ?? this.getLocationImage,
+        letter: eventLetter,
+        licenceType: licenceType ?? this.licenceType,
         lat: lat ?? this.lat,
         long: long ?? this.long,
         lastEquipmentId: isLastEquipmentIdToNull
@@ -314,10 +316,8 @@ class PostingAdState extends Equatable {
         nextModels: nextModels,
         nextMakes: returnNullIfEmpty(nextMakes, this.nextMakes),
         make: make ?? this.make,
-        letter: eventLetter,
         colorName: colorName ?? this.colorName,
         colors: colors ?? this.colors,
-        licenceType: licenceType ?? this.licenceType,
         ownerStep: ownerStep ?? this.ownerStep,
         purchasedDate: purchasedDate ?? this.purchasedDate,
         notRegisteredInUzbekistan:

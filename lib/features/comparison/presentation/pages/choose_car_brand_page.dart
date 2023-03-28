@@ -187,8 +187,7 @@ class _ChooseCarBrandPageState extends State<ChooseCarBrandPage> {
                                 context.read<GetMakesBloc>().add(
                                       GetMakesGoToIndexEvent(letter: letter),
                                     );
-                              },
-                              color: color),
+                              },),
                           pinned: true,
                         ),
                     ],

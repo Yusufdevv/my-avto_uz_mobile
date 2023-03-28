@@ -352,7 +352,6 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                     sliver: SliverPersistentHeader(
                       delegate: AlphabeticHeader(
                           currentLetter: state.letter,
-                          color: Colors.teal,
                           onLetterTap: (letter) {
                             widget.postingAddBloc
                                 .add(PostingAdChooseEvent(letter: letter));
@@ -391,38 +390,22 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                               physics: const BouncingScrollPhysics(),
                               controller: _makesController,
                               padding: const EdgeInsets.only(bottom: 66),
-                              itemBuilder: (context, index) {
-                                if (index == state.makes.length) {
-                                  if (state.nextMakes != null) {
-                                    widget.postingAddBloc
-                                        .add(PostingAdMoreMakesEvent());
-                                    return Container(
-                                      height: 90,
-                                      width: double.maxFinite,
-                                      alignment: Alignment.center,
-                                      child: const CupertinoActivityIndicator(),
-                                    );
-                                  }
-
-                                  return const SizedBox();
-                                }
-                                return ChangeCarItems(
-                                  hasBorder: (state.makes.length - 1) != index,
-                                  onTap: () {
-                                    context.read<PostingAdBloc>().add(
-                                          PostingAdChooseEvent(
-                                            make: state.makes[index],
-                                          ),
-                                        );
-                                  },
-                                  isSelected:
-                                      state.make?.id == state.makes[index].id,
-                                  imageUrl: state.makes[index].logo,
-                                  name: state.makes[index].name,
-                                  text: state.searchController.text,
-                                );
-                              },
-                              itemCount: state.makes.length + 1,
+                              itemBuilder: (context, index) => ChangeCarItems(
+                                hasBorder: (state.makes.length - 1) != index,
+                                onTap: () {
+                                  context.read<PostingAdBloc>().add(
+                                        PostingAdChooseEvent(
+                                          make: state.makes[index],
+                                        ),
+                                      );
+                                },
+                                isSelected:
+                                    state.make?.id == state.makes[index].id,
+                                imageUrl: state.makes[index].logo,
+                                name: state.makes[index].name,
+                                text: state.searchController.text,
+                              ),
+                              itemCount: state.makes.length,
                             )
                           : ListView(
                               children: const [
