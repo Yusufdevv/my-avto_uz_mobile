@@ -256,7 +256,6 @@ class PASingleton {
   }
 
   static bool nextButtonIsDisabled(int page, PostingAdState state) {
-    log(':::::::::: status  triggered by:  ${page}  ::::::::::');
     switch (page) {
       //make
       case 0:
@@ -291,9 +290,8 @@ class PASingleton {
       // AddPhotoScreen
       case 10:
         // return false;
-        final v = [...state.gallery, ...state.panoramas].length < 3;
-        log(':::::::::: the photo page status:  $v}  ::::::::::');
-        return v;
+       return  [...state.gallery, ...state.panoramas].length < 3;
+
       // PtsScreen
       case 11:
         return state.ownerStep == null ||

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/presentation/pages/add_photo/add_photo_screen.dart';
 import 'package:auto/features/ad/presentation/pages/contact/contact_screen.dart';
 import 'package:auto/features/ad/presentation/pages/equipment/equipment_screen.dart';
 import 'package:auto/features/ad/presentation/pages/map_screen/map_screen_posting_ad.dart';
@@ -11,7 +12,6 @@ import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/edit_ad/presentation/bloc/edit_ad/edit_ad_bloc.dart';
-import 'package:auto/features/edit_ad/presentation/pages/add_photo/add_photo_screen.dart';
 import 'package:auto/features/edit_ad/presentation/pages/damage/damage_screen.dart';
 import 'package:auto/features/edit_ad/presentation/pages/description/description_screen.dart';
 import 'package:auto/features/edit_ad/presentation/pages/inspection_place/inspection_place_screen.dart';
@@ -195,7 +195,20 @@ class _EditAdScreenState extends State<EditAdScreen>
                           physics: const NeverScrollableScrollPhysics(),
                           children: [
                             // 0
-                            const AddPhotoScreen(),
+                            AddPhotoScreen(
+                                isWaiting: state.getAnnouncementToEditStatus
+                                    .isSubmissionInProgress,
+                                gallery: state.gallery,
+                                panoramas: state.panaramaGallery,
+                                onShowToast: (message, status) {
+                                  editAdBloc.add(EditAdShowToastEvent(
+                                      message: message, status: status));
+                                },
+                                onImagesChanged: (gallery, panoramas) {
+                                  editAdBloc.add(EditAdChooseEvent(
+                                      gallery: gallery,
+                                      panaramaGallery: panoramas));
+                                }),
                             // 1
                             const PtsScreen(),
                             // 2

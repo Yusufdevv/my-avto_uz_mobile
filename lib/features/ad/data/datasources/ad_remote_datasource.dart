@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_catches_without_on_clauses, prefer_final_locals
 
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:auto/assets/constants/storage_keys.dart';
@@ -168,8 +167,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
     String? name,
     String? next,
   }) async {
-    log(':::::::::: Get Make entities triggered:  name: $name next: $next offset: $offset limit: $limit  ::::::::::');
-    try {
+     try {
       final response = await _dio.get(
         next ?? '/car/makes/',
         queryParameters: next == null

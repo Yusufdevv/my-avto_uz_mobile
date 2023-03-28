@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
@@ -328,6 +327,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                               const ColorsScreen(),
                               //10
                               AddPhotoScreen(
+                                isWaiting: false,
                                 panoramas: state.panoramas,
                                 gallery: state.gallery,
                                 onImagesChanged: (gallery, panoramas) {

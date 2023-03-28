@@ -1,5 +1,4 @@
 import 'dart:developer' as dev;
-import 'dart:developer';
 
 import 'package:alice/alice.dart';
 import 'package:auto/assets/constants/app_constants.dart';
@@ -21,7 +20,6 @@ class DioSettings {
   );
 
   void setBaseOptions({String? lang}) {
-    log(':::::::::: the lang in set baseOptions is: $lang}  ::::::::::');
     _dioBaseOptions = BaseOptions(
       baseUrl: 'https://panel.avto.uz/api/v1/',
       connectTimeout: 35000,

@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
@@ -28,9 +28,7 @@ class RentToSaleDetailsBox extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    log(':::::::::: the profit:  ${profit}  ::::::::::');
-    return Container(
+  Widget build(BuildContext context) => Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.only(left: 12, top: 16, bottom: 16),
       decoration: BoxDecoration(
@@ -84,7 +82,6 @@ class RentToSaleDetailsBox extends StatelessWidget {
         ],
       ),
     );
-  }
 }
 
 class TextInRow extends StatelessWidget {

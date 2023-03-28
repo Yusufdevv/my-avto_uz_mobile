@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 import 'dart:io';
 
 import 'package:auto/utils/my_functions.dart';
@@ -41,7 +41,6 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
       }
     });
     on<PickImage>((event, emit) async {
-      log(':::::::::: pick image triggered:  ${event.source}  ::::::::::');
       final permission = event.source == ImageSource.camera
           ? await MyFunctions.getCameraPermission(Platform.isAndroid)
           : await MyFunctions.getPhotosPermission(Platform.isAndroid);
