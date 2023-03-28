@@ -35,6 +35,7 @@ class OwnerActions extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 16),
       child: Container(
         color: Theme.of(context).scaffoldBackgroundColor,
+        // color: Colors.teal,
         padding: const EdgeInsets.symmetric(vertical: 12),
         child: Row(
           children: [
@@ -99,7 +100,7 @@ class OwnerActions extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              width: 8,
+              width: 8
             ),
             Expanded(
               child: WScaleAnimation(
@@ -115,8 +116,8 @@ class OwnerActions extends StatelessWidget {
                 child: OwnerActionBox(
                     color: const Color(0xffDFEFFF),
                     entity: OwnerActionEntity(
-                      title: LocaleKeys.in_hot.tr(),
-                      icon: AppIcons.blue_fire,
+                      title: LocaleKeys.add_to_ways.tr(),
+                      icon: AppIcons.reels,
                     )),
               ),
             ),

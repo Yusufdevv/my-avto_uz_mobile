@@ -226,7 +226,7 @@ class AppIcons {
   static const rocket = 'assets/icons/car_single/rocket.svg';
   static const redMapIcon = 'assets/icons/car_single/red_map_icon.svg';
   static const soon = 'assets/icons/car_single/soon.svg';
-  static const blue_fire = 'assets/icons/car_single/blue_fire.svg';
+  static const reels = 'assets/icons/car_single/reels.svg';
   static const vin_skoro = 'assets/icons/car_single/vin_skoro.svg';
   static const vin_tezorada = 'assets/icons/car_single/vin_tezorada.svg';
   static const blue_vin_skoro = 'assets/icons/car_single/blue_vin_skoro.svg';

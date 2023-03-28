@@ -204,8 +204,8 @@ class MineMoreBottomSheet extends StatelessWidget {
             borderColor: const Color(0xffF63C07).withOpacity(0.12),
           ),
           MoreActionItem(
-            icon: AppIcons.blue_fire,
-            text: LocaleKeys.in_hot_one_line.tr(),
+            icon: AppIcons.reels,
+            text: LocaleKeys.add_to_ways.tr(),
             color: const Color(0xffDFEFFF),
             borderColor: const Color(0xff4D88C8).withOpacity(0.12),
             onTap: () {
