@@ -64,7 +64,7 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                       context,
                       fade(
                         page: ChooseCarBrandPage(
-                          selectedMakeId: state.make?.id,
+                          selectedMake: state.make,
                           selectedModelId: state.modelId,
                         ),
                       ),

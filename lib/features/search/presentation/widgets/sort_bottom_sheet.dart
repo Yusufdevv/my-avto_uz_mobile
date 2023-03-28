@@ -14,12 +14,14 @@ class SortBottomSheet extends StatefulWidget {
   final ValueChanged<SortStatus> onChanged;
   final List<SortSearchResultsModel> values;
   final SortStatus? defaultValue;
-  const SortBottomSheet(
-      {required this.title,
-      required this.values,
-      required this.onChanged,
-      required this.defaultValue,
-      super.key});
+
+  const SortBottomSheet({
+    required this.title,
+    required this.values,
+    required this.onChanged,
+    required this.defaultValue,
+    super.key,
+  });
 
   @override
   State<SortBottomSheet> createState() => _SortBottomSheetState();

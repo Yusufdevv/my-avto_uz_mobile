@@ -13,7 +13,7 @@ import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
 import 'package:auto/features/common/bloc/deeplinking/deep_link_bloc.dart';
-import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
+import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc.dart';
 import 'package:auto/features/common/bloc/internet_bloc/internet_bloc.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';

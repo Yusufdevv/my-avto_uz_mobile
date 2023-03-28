@@ -7,12 +7,12 @@ import 'package:flutter/material.dart';
 class AlphabeticHeader extends SliverPersistentHeaderDelegate {
   final Function(String) onLetterTap;
   final Color color;
-  final ScrollController controller;
+  final String? currentLetter;
 
   AlphabeticHeader(
       {required this.onLetterTap,
       required this.color,
-      required this.controller});
+      required this.currentLetter});
 
   @override
   double get minExtent => 38;
@@ -55,6 +55,7 @@ class AlphabeticHeader extends SliverPersistentHeaderDelegate {
                   onTap: () {
                     onLetterTap(letters[index]);
                   },
+                  isSelected: currentLetter == letters[index],
                   letter: letters[index],
                   color: white,
                 ),

@@ -154,15 +154,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               count: state.profileEntity.usercountdata
                                   .filterHistoryCount),
                           const ProfileDivider(),
-                          // ProfileMenuTile(
-                          //     name: 'Мои отзывы',
-                          //     onTap: () {
-                          //       Navigator.of(context)
-                          //           .push(fade(page: const ReviewsScreen()));
-                          //     },
-                          //     iconPath: AppIcons.message,
-                          //     count: state
-                          //         .profileEntity.usercountdata.reviewsCount),
                         ]),
 
                         //Дилеры - Справочник - Чат

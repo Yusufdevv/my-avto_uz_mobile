@@ -1,3 +1,4 @@
+import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ads/domain/usecases/get_announcement_list_usecase.dart';
 import 'package:auto/features/main/domain/entities/story_entity.dart';
 import 'package:auto/features/main/domain/usecases/get_stories_use_case.dart';
@@ -33,18 +34,15 @@ class MainBloc extends Bloc<MainEvent, MainState> {
 
   void _onGetMakeModel(GetMakeModelEvent event, Emitter<MainState> emit) {
     emit(state.copWith(
-        makeId: event.makeId,
         modelId: event.modelId,
         modelName: event.modelName,
-        makeName: event.makeName,
-        makeLogo: event.makeLogo,
         historySaved: event.historySaved));
   }
 
   Future _onGetAnnouncement(
       GetAnnouncement event, Emitter<MainState> emit) async {
     final result = await announcementListUseCase.call({
-      'make': state.makeId == -1 ? null : state.makeId,
+      'make': state.make?.id,
       'model': state.modelId == -1 ? null : state.modelId,
     });
     if (result.isRight) {

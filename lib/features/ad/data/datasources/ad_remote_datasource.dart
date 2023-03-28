@@ -20,6 +20,7 @@ import 'package:auto/features/ad/data/models/generation.dart';
 import 'package:auto/features/ad/data/models/modification_type.dart';
 import 'package:auto/features/ad/data/models/years.dart';
 import 'package:auto/features/ad/domain/entities/foto_instruction_entity.dart';
+import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/common/entities/color_entity.dart';
 import 'package:auto/features/common/models/color_model.dart';
 
@@ -45,7 +46,7 @@ abstract class AdRemoteDataSource {
 
   Future<GenericPagination<ColorEntity>> getColors({String? next});
 
-  Future<GenericPagination<MakeModel>> getMake(
+  Future<GenericPagination<MakeEntity>> getMake(
       {required int limit, required int offset, String? name, String? next});
 
   Future<GenericPagination<MakeModel>> getCarModel(int makeId,
@@ -161,12 +162,13 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
   }
 
   @override
-  Future<GenericPagination<MakeModel>> getMake({
+  Future<GenericPagination<MakeEntity>> getMake({
     required int limit,
     required int offset,
     String? name,
     String? next,
   }) async {
+    log(':::::::::: Get Make entities triggered:  name: $name next: $next offset: $offset limit: $limit  ::::::::::');
     try {
       final response = await _dio.get(
         next ?? '/car/makes/',
