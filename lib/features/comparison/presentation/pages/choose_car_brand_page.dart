@@ -55,8 +55,9 @@ class _ChooseCarBrandPageState extends State<ChooseCarBrandPage> {
     _topBrandBloc = TopBrandBloc(GetTopBrandUseCase())
       ..add(TopBrandEvent.getBrand());
     _getMakesBloc = GetMakesBloc()
-      ..add(GetMakesBlocEvent.getMakes())
-      ..add(GetMakesBlocEvent.changeSelected(widget.selectedMakeId ?? -1));
+      ..add(GetMakesGetEvent())
+      ..add(
+          GetMakesChangeSelectedMakeEvent(makeId: widget.selectedMakeId ?? -1));
     _scrollController = ScrollController();
     _controllerScroll = ScrollController();
     if (_getMakesBloc.state.makes.isNotEmpty && widget.selectedMakeId != null) {
@@ -145,15 +146,15 @@ class _ChooseCarBrandPageState extends State<ChooseCarBrandPage> {
                           controller: _searchController,
                           onChanged: () {
                             _getMakesBloc
-                              ..add(GetMakesBlocEvent.getSerched(
-                                  _searchController.text))
-                              ..add(GetMakesBlocEvent.getMakes());
+                              ..add(GetMakesGetSearchedEvent(
+                                  name: _searchController.text))
+                              ..add(GetMakesGetEvent());
                           },
                           onClear: () {
                             _getMakesBloc
-                              ..add(GetMakesBlocEvent.getSerched(
-                                  _searchController.text))
-                              ..add(GetMakesBlocEvent.getMakes());
+                              ..add(GetMakesGetSearchedEvent(
+                                  name: _searchController.text))
+                              ..add(GetMakesGetEvent());
                           },
                         ),
                         pinned: true,
@@ -163,7 +164,7 @@ class _ChooseCarBrandPageState extends State<ChooseCarBrandPage> {
                           delegate: TopBrandSliverWidget(
                             onTap: (selectedMake) {
                               context.read<GetMakesBloc>().add(
-                                    GetMakesBlocEvent.selectedCarItems(
+                                    GetMakesSelectedCarItemsEvent(
                                       makeEntity: selectedMake,
                                     ),
                                   );
@@ -183,7 +184,7 @@ class _ChooseCarBrandPageState extends State<ChooseCarBrandPage> {
                           delegate: AlphabeticHeader(
                             onLetterTap: (letter) {
                               context.read<GetMakesBloc>().add(
-                                    GetMakesBlocEvent.getIndex(letter),
+                                    GetMakesGetIndexEvent(index: letter),
                                   );
                             },
                             color: color,
@@ -202,7 +203,7 @@ class _ChooseCarBrandPageState extends State<ChooseCarBrandPage> {
                       setState(() {});
                       context
                           .read<GetMakesBloc>()
-                          .add(GetMakesBlocEvent.changeControlleStatus());
+                          .add(GetMakesChangeControlleStatusEvent());
                     }, builder: (context, stateCons) {
                       if (state.status.isSubmissionInProgress) {
                         return const Center(
@@ -228,7 +229,7 @@ class _ChooseCarBrandPageState extends State<ChooseCarBrandPage> {
                                     text: state.search.name ?? '',
                                     onTap: () {
                                       context.read<GetMakesBloc>().add(
-                                            GetMakesBlocEvent.selectedCarItems(
+                                            GetMakesSelectedCarItemsEvent(
                                               makeEntity: state.makes[index],
                                             ),
                                           );
@@ -248,7 +249,7 @@ class _ChooseCarBrandPageState extends State<ChooseCarBrandPage> {
                     child: WButton(
                       onTap: () {
                         if (state.selectId != -1) {
-                          if (state.selectedMake.id == -1) {
+                          if (state.selectedMake?.id == -1) {
                             final item = state.makes.firstWhere(
                                 (element) => element.id == state.selectId);
                             Navigator.push(

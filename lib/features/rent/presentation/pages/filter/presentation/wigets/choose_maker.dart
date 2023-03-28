@@ -1,7 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/maker_sheet_item.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/sheet_header.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -26,7 +25,7 @@ class _ChooseMakerState extends State<ChooseMaker> {
   @override
   void initState() {
     getMakesBloc = GetMakesBloc(initialId: widget.selectedId)
-      ..add(GetMakesBlocEvent.getMakes());
+      ..add(GetMakesGetEvent());
     super.initState();
   }
 
@@ -61,8 +60,9 @@ class _ChooseMakerState extends State<ChooseMaker> {
                               (index) => RentSheetItemm(
                                 onTap: () {
                                   getMakesBloc.add(
-                                      GetMakesBlocEvent.changeSelected(
-                                          getMakesState.makes[index].id));
+                                      GetMakesChangeSelectedMakeEvent(
+                                          makeId:
+                                              getMakesState.makes[index].id));
                                 },
                                 logo: getMakesState.makes[index].logo,
                                 title: getMakesState.makes[index].name,

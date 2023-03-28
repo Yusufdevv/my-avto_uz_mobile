@@ -1,12 +1,19 @@
 part of 'get_makes_bloc_bloc.dart';
 
-abstract class GetMakesEvent {
-  // factory GetMakesBlocEvent.selectedCarItems({
-  //   required MakeEntity makeEntity,
-  // }) = _SelectedCarItems;
-  //
-  // factory GetMakesBlocEvent.confirmCarOption() = _ConfirmCarOption;
-  // factory GetMakesBlocEvent.revertCarOption() = _RevertCarOption;
+abstract class GetMakesEvent {}
+
+class GetMakesRevertCarOptionEvent extends GetMakesEvent {
+  GetMakesRevertCarOptionEvent();
+}
+
+class GetMakesConfirmCarOptionEvent extends GetMakesEvent {
+  GetMakesConfirmCarOptionEvent();
+}
+
+class GetMakesSelectedCarItemsEvent extends GetMakesEvent {
+  final MakeEntity makeEntity;
+
+  GetMakesSelectedCarItemsEvent({required this.makeEntity});
 }
 
 class GetMakesChangeControlleStatusEvent extends GetMakesEvent {

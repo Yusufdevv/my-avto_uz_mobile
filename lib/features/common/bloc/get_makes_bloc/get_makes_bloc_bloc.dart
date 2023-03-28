@@ -97,16 +97,16 @@ class GetMakesBloc extends Bloc<GetMakesEvent, GetMakesState> {
     on<GetMakesGetSearchedEvent>((event, emit) => emit(state.copyWith(
         search: GetPaginationParam(name: event.name, limit: 1000, offset: 0))));
 
-    on<_SelectedCarItems>((event, emit) {
+    on<GetMakesSelectedCarItemsEvent>((event, emit) {
       emit(state.copyWith(
           selectId: event.makeEntity.id, selectedMake: event.makeEntity));
     });
 
-    on<_ConfirmCarOption>((event, emit) {
+    on<GetMakesConfirmCarOptionEvent>((event, emit) {
       emit(state.copyWith(confirmId: state.selectId));
     });
 
-    on<_RevertCarOption>((event, emit) {
+    on<GetMakesRevertCarOptionEvent>((event, emit) {
       emit(state.copyWith(selectId: state.confirmId));
     });
 
