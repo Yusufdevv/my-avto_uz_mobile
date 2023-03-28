@@ -17,7 +17,7 @@ class CustomTabBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.only(right: 16),
+        padding: const EdgeInsets.only(right: 16, left: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

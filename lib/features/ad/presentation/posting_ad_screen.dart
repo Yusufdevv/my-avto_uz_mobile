@@ -383,7 +383,14 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                 equipment: state.equipment,
                               ),
                               //14
-                              const DamageScreen(),
+                              DamageScreen(
+                                damagedParts: state.damagedParts,
+                                onDamageTypeChanged: (part, type) {
+                                  context.read<PostingAdBloc>().add(
+                                      PostingAdDamageEvent(
+                                          part: part, type: type));
+                                },
+                              ),
                               //15
                               ContactScreen(
                                 isContactsVerified: state.isContactsVerified,

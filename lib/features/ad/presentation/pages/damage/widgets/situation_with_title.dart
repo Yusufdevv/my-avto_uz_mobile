@@ -19,44 +19,47 @@ class SituationTitleItem extends StatelessWidget {
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 24),
-          Text(
-            title,
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge!
-                .copyWith(color: greyText),
-          ),
-          const SizedBox(height: 24),
-          Row(
-            children: [
-              WarningCircleWidget(damageType: damageType),
-              const SizedBox(width: 10),
-              Text(
-                MyFunctions.getStatusTitle(damageType??DamageType.ideal).tr(),
-                style: Theme.of(context)
-                    .textTheme
-                    .displayLarge!
-                    .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
-              ),
-              const Spacer(),
-              GestureDetector(
-                onTap: onTap,
-                behavior: HitTestBehavior.opaque,
-                child: SvgPicture.asset(AppIcons.editProfile, height: 24),
-              ),
-              const SizedBox(width: 16)
-            ],
-          ),
-          const SizedBox(height: 20),
-          Divider(
-            height: 1,
-            thickness: 1,
-            color: Theme.of(context).dividerColor,
-          ),
-        ],
-      );
+  Widget build(BuildContext context) => Padding(
+    padding: const EdgeInsets.only(left: 16),
+    child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 24),
+            Text(
+              title,
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge!
+                  .copyWith(color: greyText),
+            ),
+            const SizedBox(height: 24),
+            Row(
+              children: [
+                WarningCircleWidget(damageType: damageType),
+                const SizedBox(width: 10),
+                Text(
+                  MyFunctions.getStatusTitle(damageType??DamageType.ideal).tr(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .displayLarge!
+                      .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
+                ),
+                const Spacer(),
+                GestureDetector(
+                  onTap: onTap,
+                  behavior: HitTestBehavior.opaque,
+                  child: SvgPicture.asset(AppIcons.editProfile, height: 24),
+                ),
+                const SizedBox(width: 16)
+              ],
+            ),
+            const SizedBox(height: 20),
+            Divider(
+              height: 1,
+              thickness: 1,
+              color: Theme.of(context).dividerColor,
+            ),
+          ],
+        ),
+  );
 }

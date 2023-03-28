@@ -3,6 +3,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/pages/add_photo/add_photo_screen.dart';
 import 'package:auto/features/ad/presentation/pages/contact/contact_screen.dart';
+import 'package:auto/features/ad/presentation/pages/damage/damage_screen.dart';
 import 'package:auto/features/ad/presentation/pages/equipment/equipment_screen.dart';
 import 'package:auto/features/ad/presentation/pages/map_screen/map_screen_posting_ad.dart';
 import 'package:auto/features/ad/presentation/pages/preview/preview_screen.dart';
@@ -12,7 +13,6 @@ import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/edit_ad/presentation/bloc/edit_ad/edit_ad_bloc.dart';
-import 'package:auto/features/edit_ad/presentation/pages/damage/damage_screen.dart';
 import 'package:auto/features/edit_ad/presentation/pages/description/description_screen.dart';
 import 'package:auto/features/edit_ad/presentation/pages/inspection_place/inspection_place_screen.dart';
 import 'package:auto/features/edit_ad/presentation/pages/mileage/mileage_screen.dart';
@@ -244,7 +244,13 @@ class _EditAdScreenState extends State<EditAdScreen>
                               equipment: state.equipment,
                             ),
                             // 4
-                            const DamageScreen(),
+                            DamageScreen(
+                              damagedParts: state.damagedParts,
+                              onDamageTypeChanged: (part, type) {
+                                context.read<EditAdBloc>().add(
+                                    EditAdDamageEvent(part: part, type: type));
+                              },
+                            ),
                             // 5
                             ContactScreen(
                               isContactsVerified: state.isContactsVerified,

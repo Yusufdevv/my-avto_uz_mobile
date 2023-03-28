@@ -1,6 +1,6 @@
 import 'package:auto/features/ad/const/constants.dart';
+import 'package:auto/features/ad/presentation/pages/damage/widgets/damage_button.dart';
 import 'package:auto/features/common/entities/position_entity.dart';
-import 'package:auto/features/edit_ad/presentation/pages/damage/widgets/damage_pluc_button.dart';
 import 'package:flutter/material.dart';
 
 class CarStatusIconInPicture extends StatelessWidget {

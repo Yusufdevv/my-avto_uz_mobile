@@ -6,8 +6,8 @@ import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/switcher_row.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
-import 'package:auto/features/edit_ad/presentation/bloc/mileage/mileage_image_bloc.dart';
 import 'package:auto/features/edit_ad/presentation/bloc/edit_ad/edit_ad_bloc.dart';
+import 'package:auto/features/edit_ad/presentation/bloc/mileage/mileage_image_bloc.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +19,7 @@ class MileageScreen extends StatefulWidget {
   final Function(String) onImageChange;
   final String initialMileage;
   final String? initialMileageImage;
+
   const MileageScreen(
       {required this.onImageChange,
       required this.initialMileage,

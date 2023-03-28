@@ -16,8 +16,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+typedef OnDamageTypeChanged = Function(DamagedPart part, DamageType type);
+
 class DamageScreen extends StatefulWidget {
-  const DamageScreen({Key? key}) : super(key: key);
+  final OnDamageTypeChanged onDamageTypeChanged;
+  final Map<DamagedPart, DamageType> damagedParts;
+
+  const DamageScreen(
+      {required this.onDamageTypeChanged, required this.damagedParts, Key? key})
+      : super(key: key);
 
   @override
   State<DamageScreen> createState() => _DamageScreenState();
@@ -52,9 +59,7 @@ class _DamageScreenState extends State<DamageScreen>
       ),
     ).then((value) {
       if (value != null) {
-        context
-            .read<PostingAdBloc>()
-            .add(PostingAdDamageEvent(part: part, type: value));
+        widget.onDamageTypeChanged(part, value);
       }
     });
   }
@@ -90,12 +95,13 @@ class _DamageScreenState extends State<DamageScreen>
           headerText: LocaleKeys.body_state.tr(),
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.fromLTRB(16, 16, 0, 70),
-            child: BlocBuilder<PostingAdBloc, PostingAdState>(
-              builder: (context, state) => Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
+            padding: const EdgeInsets.fromLTRB(0, 16, 0, 70),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 16),
+                  child: Text(
                     LocaleKeys.mark_all_the_colored_and_damaged_parts.tr(),
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                         fontSize: 14,
@@ -103,176 +109,175 @@ class _DamageScreenState extends State<DamageScreen>
                             .extension<ThemedColors>()!
                             .aluminumToDolphin),
                   ),
-                  const SizedBox(height: 32),
-                  DamageCarsItem(
-                    onPressed: _showChoosDamageTypeSheet,
-                    damagedParts: state.damagedParts,
-                  ),
-                  // DOOR
-                  CustomTabBar(
-                      title: LocaleKeys.door.tr(),
-                      tabController: doorController,
-                      firstTab: LocaleKeys.left.tr(),
-                      secondTab: LocaleKeys.right.tr()),
-                  SizedBox(
-                    height: 150,
-                    child: TabBarView(
-                      controller: doorController,
-                      children: [
-                        Column(children: [
-                          SituationItem(
+                ),
+                const SizedBox(height: 32),
+                DamageCarsItem(
+                  onPressed: _showChoosDamageTypeSheet,
+                  damagedParts: widget.damagedParts,
+                ),
+                // DOOR
+                CustomTabBar(
+                    title: LocaleKeys.door.tr(),
+                    tabController: doorController,
+                    firstTab: LocaleKeys.left.tr(),
+                    secondTab: LocaleKeys.right.tr()),
+                SizedBox(
+                  height: 150,
+                  child: TabBarView(
+                    controller: doorController,
+                    children: [
+                      Column(children: [
+                        SituationItem(
+                          onTap: () {
+                            _showChoosDamageTypeSheet(
+                                DamagedPart.leftFrontDoor);
+                          },
+                          position: LocaleKeys.left_front_door.tr(),
+                          damageType:
+                              widget.damagedParts[DamagedPart.leftFrontDoor],
+                        ),
+                        SituationItem(
                             onTap: () {
                               _showChoosDamageTypeSheet(
-                                  DamagedPart.leftFrontDoor);
+                                  DamagedPart.leftRearDoor);
                             },
-                            position: LocaleKeys.left_front_door.tr(),
+                            position: LocaleKeys.left_rear_door.tr(),
                             damageType:
-                                state.damagedParts[DamagedPart.leftFrontDoor],
-                          ),
+                                widget.damagedParts[DamagedPart.leftRearDoor]),
+                      ]),
+                      Column(children: [
+                        SituationItem(
+                          onTap: () {
+                            _showChoosDamageTypeSheet(
+                                DamagedPart.rightFrontDoor);
+                          },
+                          position: LocaleKeys.right_front_door.tr(),
+                          damageType:
+                              widget.damagedParts[DamagedPart.rightFrontDoor],
+                        ),
+                        SituationItem(
+                          onTap: () {
+                            _showChoosDamageTypeSheet(
+                                DamagedPart.rightRearDoor);
+                          },
+                          position: LocaleKeys.right_rear_door.tr(),
+                          damageType:
+                              widget.damagedParts[DamagedPart.rightRearDoor],
+                        ),
+                      ]),
+                    ],
+                  ),
+                ),
+                // BUMPER
+                CustomTabBar(
+                    title: LocaleKeys.bamper.tr(),
+                    tabController: bumperController,
+                    firstTab: LocaleKeys.backk.tr(),
+                    secondTab: LocaleKeys.frontt.tr()),
+                SizedBox(
+                  height: 100,
+                  child: TabBarView(
+                    controller: bumperController,
+                    children: [
+                      SituationItem(
+                          onTap: () {
+                            _showChoosDamageTypeSheet(DamagedPart.rearBumper);
+                          },
+                          position: LocaleKeys.back_bumper.tr(),
+                          damageType:
+                              widget.damagedParts[DamagedPart.rearBumper]),
+                      SituationItem(
+                          onTap: () {
+                            _showChoosDamageTypeSheet(DamagedPart.frontBumper);
+                          },
+                          position: LocaleKeys.front_bumper.tr(),
+                          damageType:
+                              widget.damagedParts[DamagedPart.frontBumper]),
+                    ],
+                  ),
+                ),
+
+                // FENDER
+                CustomTabBar(
+                    title: LocaleKeys.fender.tr(),
+                    tabController: wingController,
+                    firstTab: LocaleKeys.back.tr(),
+                    secondTab: LocaleKeys.front.tr()),
+                SizedBox(
+                  height: 170,
+                  child: TabBarView(
+                    controller: wingController,
+                    children: [
+                      Column(
+                        children: [
                           SituationItem(
                               onTap: () {
                                 _showChoosDamageTypeSheet(
-                                    DamagedPart.leftRearDoor);
+                                    DamagedPart.rearLeftFender);
                               },
-                              position: LocaleKeys.left_rear_door.tr(),
-                              damageType:
-                                  state.damagedParts[DamagedPart.leftRearDoor]),
-                        ]),
-                        Column(children: [
+                              position: LocaleKeys.left_back_fender.tr(),
+                              damageType: widget
+                                  .damagedParts[DamagedPart.rearLeftFender]),
                           SituationItem(
-                            onTap: () {
-                              _showChoosDamageTypeSheet(
-                                  DamagedPart.rightFrontDoor);
-                            },
-                            position: LocaleKeys.right_front_door.tr(),
-                            damageType:
-                                state.damagedParts[DamagedPart.rightFrontDoor],
-                          ),
+                              onTap: () {
+                                _showChoosDamageTypeSheet(
+                                    DamagedPart.rearRightFender);
+                              },
+                              position: LocaleKeys.right_back_fender.tr(),
+                              damageType: widget
+                                  .damagedParts[DamagedPart.rearRightFender]),
+                        ],
+                      ),
+                      Column(
+                        children: [
                           SituationItem(
-                            onTap: () {
-                              _showChoosDamageTypeSheet(
-                                  DamagedPart.rightRearDoor);
-                            },
-                            position: LocaleKeys.right_rear_door.tr(),
-                            damageType:
-                                state.damagedParts[DamagedPart.rightRearDoor],
-                          ),
-                        ]),
-                      ],
-                    ),
+                              onTap: () {
+                                _showChoosDamageTypeSheet(
+                                    DamagedPart.frontLeftFender);
+                              },
+                              position: LocaleKeys.left_front_fender.tr(),
+                              damageType: widget
+                                  .damagedParts[DamagedPart.frontLeftFender]),
+                          SituationItem(
+                              onTap: () {
+                                _showChoosDamageTypeSheet(
+                                    DamagedPart.frontRightFender);
+                              },
+                              position: LocaleKeys.right_front_fender.tr(),
+                              damageType: widget
+                                  .damagedParts[DamagedPart.frontRightFender]),
+                        ],
+                      ),
+                    ],
                   ),
-                  // BUMPER
-                  CustomTabBar(
-                      title: LocaleKeys.bamper.tr(),
-                      tabController: bumperController,
-                      firstTab: LocaleKeys.backk.tr(),
-                      secondTab: LocaleKeys.frontt.tr()),
-                  SizedBox(
-                    height: 100,
-                    child: TabBarView(
-                      controller: bumperController,
-                      children: [
-                        SituationItem(
-                            onTap: () {
-                              _showChoosDamageTypeSheet(DamagedPart.rearBumper);
-                            },
-                            position: LocaleKeys.back_bumper.tr(),
-                            damageType:
-                                state.damagedParts[DamagedPart.rearBumper]),
-                        SituationItem(
-                            onTap: () {
-                              _showChoosDamageTypeSheet(
-                                  DamagedPart.frontBumper);
-                            },
-                            position: LocaleKeys.front_bumper.tr(),
-                            damageType:
-                                state.damagedParts[DamagedPart.frontBumper]),
-                      ],
-                    ),
-                  ),
+                ),
 
-                  // FENDER
-                  CustomTabBar(
-                      title: LocaleKeys.fender.tr(),
-                      tabController: wingController,
-                      firstTab: LocaleKeys.back.tr(),
-                      secondTab: LocaleKeys.front.tr()),
-                  SizedBox(
-                    height: 170,
-                    child: TabBarView(
-                      controller: wingController,
-                      children: [
-                        Column(
-                          children: [
-                            SituationItem(
-                                onTap: () {
-                                  _showChoosDamageTypeSheet(
-                                      DamagedPart.rearLeftFender);
-                                },
-                                position: LocaleKeys.left_back_fender.tr(),
-                                damageType: state
-                                    .damagedParts[DamagedPart.rearLeftFender]),
-                            SituationItem(
-                                onTap: () {
-                                  _showChoosDamageTypeSheet(
-                                      DamagedPart.rearRightFender);
-                                },
-                                position: LocaleKeys.right_back_fender.tr(),
-                                damageType: state
-                                    .damagedParts[DamagedPart.rearRightFender]),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            SituationItem(
-                                onTap: () {
-                                  _showChoosDamageTypeSheet(
-                                      DamagedPart.frontLeftFender);
-                                },
-                                position: LocaleKeys.left_front_fender.tr(),
-                                damageType: state
-                                    .damagedParts[DamagedPart.frontLeftFender]),
-                            SituationItem(
-                                onTap: () {
-                                  _showChoosDamageTypeSheet(
-                                      DamagedPart.frontRightFender);
-                                },
-                                position: LocaleKeys.right_front_fender.tr(),
-                                damageType: state.damagedParts[
-                                    DamagedPart.frontRightFender]),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  //  ROOF
-                  SituationTitleItem(
-                      onTap: () {
-                        _showChoosDamageTypeSheet(DamagedPart.roof);
-                      },
-                      title: LocaleKeys.roof.tr(),
-                      damageType: state.damagedParts[DamagedPart.roof]),
-
-                  // HOOD
-                  SituationTitleItem(
+                //  ROOF
+                SituationTitleItem(
                     onTap: () {
-                      _showChoosDamageTypeSheet(DamagedPart.hood);
+                      _showChoosDamageTypeSheet(DamagedPart.roof);
                     },
-                    title: LocaleKeys.hood.tr(),
-                    damageType: state.damagedParts[DamagedPart.hood],
-                  ),
+                    title: LocaleKeys.roof.tr(),
+                    damageType: widget.damagedParts[DamagedPart.roof]),
 
-                  // TRUNK
-                  SituationTitleItem(
-                    onTap: () {
-                      _showChoosDamageTypeSheet(DamagedPart.trunk);
-                    },
-                    title: LocaleKeys.trunk.tr(),
-                    damageType: state.damagedParts[DamagedPart.trunk],
-                  ),
-                ],
-              ),
+                // HOOD
+                SituationTitleItem(
+                  onTap: () {
+                    _showChoosDamageTypeSheet(DamagedPart.hood);
+                  },
+                  title: LocaleKeys.hood.tr(),
+                  damageType: widget.damagedParts[DamagedPart.hood],
+                ),
+
+                // TRUNK
+                SituationTitleItem(
+                  onTap: () {
+                    _showChoosDamageTypeSheet(DamagedPart.trunk);
+                  },
+                  title: LocaleKeys.trunk.tr(),
+                  damageType: widget.damagedParts[DamagedPart.trunk],
+                ),
+              ],
             ),
           ),
         ),

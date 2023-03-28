@@ -21,7 +21,7 @@ class SituationItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.only(top: 12),
+        padding: const EdgeInsets.only(top: 12, left: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
