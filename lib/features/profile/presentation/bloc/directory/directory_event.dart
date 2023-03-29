@@ -1,11 +1,11 @@
 part of 'directory_bloc.dart';
 
 class DirectoryEvent {}
-class DirectoryGetProductsOfSingleEvent extends DirectoryEvent  {
+
+class DirectoryGetProductsOfSingleEvent extends DirectoryEvent {
   final String slug;
 
-
-  DirectoryGetProductsOfSingleEvent({required this.slug} );
+  DirectoryGetProductsOfSingleEvent({required this.slug});
 }
 
 class DirectoryGetCategoriesOfSingleEvent extends DirectoryEvent {
@@ -43,10 +43,18 @@ class ChangeTabIndexEvent extends DirectoryEvent {
   ChangeTabIndexEvent({required this.index});
 }
 
-class DirectoryFilterEvent extends DirectoryEvent {
-  String? regions;
-  String? regionId;
-  List<DirCategoryEntity>? selectedCategories;
+class DirectorySetRegionEvent extends DirectoryEvent {
+  List<RegionEntity> regionId;
 
-  DirectoryFilterEvent({this.regions, this.selectedCategories, this.regionId});
+  DirectorySetRegionEvent({required this.regionId});
+}
+
+class DirectorySetCategoryEvent extends DirectoryEvent {
+  DirCategoryEntity category;
+
+  DirectorySetCategoryEvent({required this.category});
+}
+
+class DirectoryClearFilterEvent extends DirectoryEvent {
+  DirectoryClearFilterEvent();
 }

@@ -98,24 +98,30 @@ class MyFunctions {
     return formattedPhone.toString();
   }
 
-  static String text(List<RegionEntity>? list, [bool doName = false]) {
+  static String regionsToToText(
+    List<RegionEntity>? list,
+  ) {
     var result = '';
     if (list != null) {
-      if (doName) {
-        for (var i = 0; i < list.length; i++) {
-          // ignore: use_string_buffers
-          result += list[i].title;
-          if (i != list.length - 1) {
-            result += ', ';
-          }
+      for (var i = 0; i < list.length; i++) {
+        // ignore: use_string_buffers
+        result += list[i].title;
+        if (i != list.length - 1) {
+          result += ', ';
         }
-      } else {
-        for (var i = 0; i < list.length; i++) {
-          // ignore: use_string_buffers
-          result += list[i].id.toString();
-          if (i != list.length - 1) {
-            result += ',';
-          }
+      }
+    }
+    return result;
+  }
+
+  static String regionsToApi(List<RegionEntity>? list) {
+    var result = '';
+    if (list != null) {
+      for (var i = 0; i < list.length; i++) {
+        // ignore: use_string_buffers
+        result += list[i].id.toString();
+        if (i != list.length - 1) {
+          result += ',';
         }
       }
     }
@@ -605,9 +611,7 @@ class MyFunctions {
     return DamagedPart.hood;
   }
 
-  static Alignment getDamagePosition({
-    required DamagedPart part
-  }) {
+  static Alignment getDamagePosition({required DamagedPart part}) {
     switch (part) {
       case DamagedPart.leftFrontDoor:
         return const Alignment(-.1, -.75);
@@ -637,11 +641,12 @@ class MyFunctions {
         return const Alignment(.6, -.1);
     }
   }
-  static String?  returnNullIfEmpty(String? v, String? origin) => v == null
+
+  static String? returnNullIfEmpty(String? v, String? origin) => v == null
       ? origin
       : v.isEmpty
-      ? null
-      : v;
+          ? null
+          : v;
 
   static String getStatusTitle(DamageType? type) {
     /// the string requires .tr() suffix to get translated content

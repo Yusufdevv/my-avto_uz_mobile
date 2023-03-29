@@ -173,7 +173,7 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
                             .add(DealerFilterSelectEvent(region: value));
                       });
                     },
-                    hintText: MyFunctions.text(state.region, true),
+                    hintText: MyFunctions.regionsToToText(state.region ),
                     title: LocaleKeys.region.tr(),
                     defaultText: LocaleKeys.choose_region.tr(),
                   ),
@@ -205,7 +205,7 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
                           search: '',
                           regionId: state.region.isEmpty
                               ? ''
-                              : MyFunctions.text(state.region),
+                              : MyFunctions.regionsToApi(state.region),
                           mark: state.maker.id != -1 ? state.maker.id : null,
                           carType: selectedCategory,
                           onSuccess: (list) {

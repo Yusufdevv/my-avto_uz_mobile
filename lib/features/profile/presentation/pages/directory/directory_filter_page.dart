@@ -38,7 +38,9 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        backgroundColor: Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
+        // backgroundColor: Colors.teal,
+        backgroundColor:
+            Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
         appBar: WAppBar(
           boxShadow: const [],
           titleStyle:
@@ -54,8 +56,7 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
             ),
             WScaleAnimation(
               onTap: () {
-                context.read<DirectoryBloc>().add(DirectoryFilterEvent(
-                    regions: '', regionId: '', selectedCategories: []));
+                context.read<DirectoryBloc>().add(DirectoryClearFilterEvent());
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -107,12 +108,8 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
                                         .regions),
                               ).then((value) {
                                 if (value != null && value.isNotEmpty) {
-                                  final regionsId = MyFunctions.text(value);
-                                  final regions = MyFunctions.text(value, true);
                                   context.read<DirectoryBloc>().add(
-                                      DirectoryFilterEvent(
-                                          regionId: regionsId,
-                                          regions: regions));
+                                      DirectorySetRegionEvent(regionId: value));
                                   _checkedRegions = value;
                                 }
                               });
@@ -120,10 +117,10 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
                             child: EditItemContainer(
                                 isOtherPage: true,
                                 icon: AppIcons.chevronRightBlack,
-                                region: context
+                                region: MyFunctions.regionsToToText(context
                                     .read<DirectoryBloc>()
                                     .state
-                                    .regions),
+                                    .regions)),
                           ),
                           const SizedBox(height: 16),
 

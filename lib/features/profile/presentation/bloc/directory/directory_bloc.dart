@@ -11,6 +11,7 @@ import 'package:auto/features/profile/domain/usecases/directory_single_usecase.d
 import 'package:auto/features/profile/domain/usecases/get_dir_categories_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_directories_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/product_list_use_case.dart';
+import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -40,6 +41,9 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
         )) {
     on<DirectoryGetProductsOfSingleEvent>(_getProducts);
     on<DirectoryGetCategoriesOfSingleEvent>(_getCategoriesOfSingle);
+    on<DirectorySetRegionEvent>(_setRegion);
+    on<DirectoryClearFilterEvent>(_clearFilter);
+    on<DirectorySetCategoryEvent>(_setCategory);
     on<GetDirectoriesEvent>((event, emit) async {
       emit(state.copyWith(
           status: FormzStatus.submissionInProgress, search: event.search));
@@ -105,13 +109,7 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
       emit(state.copyWith(isIndexOne: event.index == 1));
     });
 
-    on<DirectoryFilterEvent>((event, emit) {
-      emit(state.copyWith(
-          regions: event.regions ?? state.regions,
-          regionId: event.regionId ?? state.regionId,
-          selectedCategories:
-              event.selectedCategories ?? state.selectedCategories));
-    });
+
 
     on<GetDirectorySingleEvent>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
@@ -128,6 +126,17 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
     });
   }
 
+  FutureOr<void> _setCategory(
+      DirectorySetCategoryEvent event, Emitter<DirectoryState> emit) async {
+    final v = state.selectedCategories..add(event.category);
+    emit(state.copyWith(selectedCategories: v));
+  }
+
+  FutureOr<void> _setRegion(
+      DirectorySetRegionEvent event, Emitter<DirectoryState> emit) async {
+    emit(state.copyWith(regions: event.regionId));
+  }
+
   FutureOr<void> _getProducts(DirectoryGetProductsOfSingleEvent event,
       Emitter<DirectoryState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
@@ -139,6 +148,17 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
+  }
+
+  FutureOr<void> _clearFilter(
+      DirectoryClearFilterEvent event, Emitter<DirectoryState> emit) async {
+    emit(DirectoryState(
+        status: state.status,
+        directories: state.directories,
+        directory: state.directory,
+        categories: [],
+        regions: [],
+        popularProducts: state.popularProducts));
   }
 
   FutureOr<void> _getCategoriesOfSingle(

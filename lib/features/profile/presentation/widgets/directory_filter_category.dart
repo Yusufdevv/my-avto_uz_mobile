@@ -22,7 +22,7 @@ class DirectoryFilterCategory extends StatefulWidget {
 
 class _DirectoryFilterCategoryState extends State<DirectoryFilterCategory> {
   // ignore: prefer_final_fields
-  List<DirCategoryEntity> _selectedIndexes = [];
+
 
   @override
   Widget build(BuildContext context) => Column(
@@ -68,19 +68,8 @@ class _DirectoryFilterCategoryState extends State<DirectoryFilterCategory> {
                             : darkBlack.withOpacity(0.05))
                   ],
                   onTap: () {
-                    if (context
-                        .read<DirectoryBloc>()
-                        .state
-                        .selectedCategories
-                        .contains(item)) {
-                      _selectedIndexes.remove(item);
-                      context.read<DirectoryBloc>().add(DirectoryFilterEvent(
-                          selectedCategories: _selectedIndexes));
-                    } else {
-                      _selectedIndexes.add(item);
-                      context.read<DirectoryBloc>().add(DirectoryFilterEvent(
-                          selectedCategories: _selectedIndexes));
-                    }
+                    context.read<DirectoryBloc>().add(DirectorySetCategoryEvent(
+                        category: item));
                     setState(() {});
                   },
                   padding: const EdgeInsets.symmetric(

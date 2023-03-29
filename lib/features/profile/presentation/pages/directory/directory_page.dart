@@ -74,6 +74,7 @@ class _DirectoryPageState extends State<DirectoryPage>
           value: const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
           child: KeyboardDismisser(
             child: Scaffold(
+              backgroundColor: Colors.teal,
               body: CustomScrollView(
                 physics: const NeverScrollableScrollPhysics(),
                 slivers: [
