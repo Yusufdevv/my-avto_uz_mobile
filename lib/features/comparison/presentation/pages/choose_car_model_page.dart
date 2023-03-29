@@ -150,7 +150,6 @@ class _ChooseCarModelPageState extends State<ChooseCarModelPage> {
                                   itemBuilder: (context, index) {
                                     if (index == state.models.length) {
                                       if (state.next != null) {
-                                        log('state.nextModels != null:${state.next}');
                                         _getCarModelBloc
                                             .add(GetMoreModelsEvent());
                                         return Container(
