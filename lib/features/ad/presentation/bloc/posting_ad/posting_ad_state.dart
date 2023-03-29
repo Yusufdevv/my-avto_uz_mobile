@@ -48,7 +48,6 @@ class PostingAdState extends Equatable {
   final num minimumPrice;
   final int? makeLetterIndex;
   final int? lastEquipmentId;
-  final String? nextMakes;
   final String? nextModels;
   final String? milageImage;
   final String? letter;
@@ -104,7 +103,6 @@ class PostingAdState extends Equatable {
     this.gearBoxes = const <GearboxTypeEntity>[],
     this.driveTypeId,
     this.driveTypes = const <DriveTypeEntity>[],
-    this.nextMakes,
     this.nextModels,
     this.make,
     this.makes = const <MakeEntity>[],
@@ -208,18 +206,18 @@ class PostingAdState extends Equatable {
     List<MakeEntity>? topMakes,
     List<DistrictEntity>? districts,
     List<String>? gallery,
-    List<String>? panaramaGallery,
+    List<String>? panoramas,
     Uint8List? mapPointBytes,
     YearsEntity? yearEntity,
     int? selectedYear,
     UserModel? userModel,
-    int? eventMakeScrrollIndex,
+    int? eventMakeScrollIndex,
     num? minimumPrice,
     ColorEntity? colorName,
     List<ColorEntity>? colors,
     String? eventLetter,
     String? licenceType,
-    String? milageImage,
+    String? mileageImage,
     String? ownerStep,
     String? ownerName,
     String? ownerPhone,
@@ -271,15 +269,15 @@ class PostingAdState extends Equatable {
         radioOptions: radioOptions ?? this.radioOptions,
         contactsFormKey: contactsFormKey ?? this.contactsFormKey,
         popStatus: popStatus ?? this.popStatus,
-        milageImage: milageImage ?? this.milageImage,
+        milageImage: mileageImage ?? this.milageImage,
         modification: modification ?? this.modification,
         modifications: modifications ?? this.modifications,
         getMakesStatus: getMakesStatus ?? this.getMakesStatus,
         searchController: searchController ?? this.searchController,
-        panoramas: panaramaGallery ?? this.panoramas,
+        panoramas: panoramas ?? this.panoramas,
         createStatus: createStatus ?? this.createStatus,
         mapPointBytes: mapPointBytes ?? this.mapPointBytes,
-        makeLetterIndex: eventMakeScrrollIndex,
+        makeLetterIndex: eventMakeScrollIndex,
         selectedYear: selectedYear ?? this.selectedYear,
         phoneController: phoneController ?? this.phoneController,
         emailController: emailController ?? this.emailController,
@@ -313,8 +311,7 @@ class PostingAdState extends Equatable {
         hasAppBarShadow: hasAppBarShadow ?? this.hasAppBarShadow,
         isSortByLetter: isSortByLetter,
         model: model ?? this.model,
-        nextModels: nextModels,
-        nextMakes: returnNullIfEmpty(nextMakes, this.nextMakes),
+        nextModels: MyFunctions.returnNullIfEmpty(nextModels, this.nextModels),
         make: make ?? this.make,
         colorName: colorName ?? this.colorName,
         colors: colors ?? this.colors,
@@ -399,7 +396,6 @@ class PostingAdState extends Equatable {
         minimumPrice,
         makeLetterIndex,
         lastEquipmentId,
-        nextMakes,
         nextModels,
         milageImage,
         letter,
@@ -435,12 +431,6 @@ class PostingAdState extends Equatable {
         equipments,
         equipmentOptionsList,
       ];
-
-  String? returnNullIfEmpty(String? v, String? origin) => v == null
-      ? origin
-      : v.isEmpty
-          ? null
-          : v;
 
   bool isOptionSelected({required String type, required int id}) {
     if (type == 'select') {

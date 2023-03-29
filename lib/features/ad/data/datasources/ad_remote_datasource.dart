@@ -167,7 +167,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
     String? name,
     String? next,
   }) async {
-     try {
+    try {
       final response = await _dio.get(
         next ?? '/car/makes/',
         queryParameters: next == null
@@ -204,11 +204,8 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
               }
             : {},
       ),
-      queryParameters: next == null || name == null
-          ? name != null && name.isNotEmpty
-              ? {'search': name, 'limit': 10, 'offset': 0}
-              : {}
-          : {},
+      queryParameters:
+          next == null ? {'search': name, 'limit': 10, 'offset': 0} : null,
     );
     print(response.statusCode);
     print(response.realUri);

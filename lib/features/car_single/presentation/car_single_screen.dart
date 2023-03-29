@@ -413,9 +413,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                             SliverToBoxAdapter(
                               child: CarCharacteristicImage(
                                   width: MediaQuery.of(context).size.width,
-                                  height: MediaQuery.of(context).size.height,
-                                  k: MediaQuery.of(context).size.width /
-                                      mockWith,
+
                                   isFaceToFaceCheck:
                                       state.singleEntity.isFaceToFaceCheck,
                                   informAboutDoors:

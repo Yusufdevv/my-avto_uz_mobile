@@ -606,9 +606,7 @@ class MyFunctions {
   }
 
   static Alignment getDamagePosition({
-    required DamagedPart part,
-    required double width,
-    required double height,
+    required DamagedPart part
   }) {
     switch (part) {
       case DamagedPart.leftFrontDoor:
@@ -639,6 +637,11 @@ class MyFunctions {
         return const Alignment(.6, -.1);
     }
   }
+  static String?  returnNullIfEmpty(String? v, String? origin) => v == null
+      ? origin
+      : v.isEmpty
+      ? null
+      : v;
 
   static String getStatusTitle(DamageType? type) {
     /// the string requires .tr() suffix to get translated content

@@ -196,9 +196,9 @@ class PASingleton {
       state.copyWith(
         isEquipmentToNull: event.isEquipmentToNull ?? false,
         createStatus: event.createStatus,
-        milageImage: event.milageImage,
+        mileageImage: event.milageImage,
         modification: event.modification,
-        panaramaGallery: event.panaramaGallery,
+        panoramas: event.panaramaGallery,
         mapPointBytes: event.bodyBytes,
         selectedYear: event.selectedYear,
         toastMessage: event.toastMessage,
@@ -238,7 +238,7 @@ class PASingleton {
         phoneController: event.phoneController,
         emailController: event.emailController,
         nameController: event.nameController,
-        eventMakeScrrollIndex: _getMakeLetterIndex(event.letter, state.makes),
+        eventMakeScrollIndex: _getMakeLetterIndex(event.letter, state.makes),
         description: event.description,
         gasEquipmentId: event.gasEquipmentId,
         getModificationStatus: event.getModificationStatus,
@@ -289,26 +289,13 @@ class PASingleton {
         return false;
       // AddPhotoScreen
       case 10:
-        // return false;
-        {
-          if (kDebugMode) {
-            return false;
-            // return [...state.gallery, ...state.panoramas].isNotEmpty;
-          }
-          return [...state.gallery, ...state.panoramas].length < 3;
-        }
+        return [...state.gallery, ...state.panoramas].length < 3;
 
       // PtsScreen
       case 11:
-        {
-          if (kDebugMode) {
-            return false;
-            // return [...state.gallery, ...state.panoramas].isNotEmpty;
-          }
-          return state.ownerStep == null ||
-              state.licenceType == null ||
-              state.purchasedDate == null;
-        }
+        return state.ownerStep == null ||
+            state.licenceType == null ||
+            state.purchasedDate == null;
 
       //  DescriptionScreen
       case 12:

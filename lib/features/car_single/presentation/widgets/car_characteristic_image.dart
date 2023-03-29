@@ -15,17 +15,15 @@ class CarCharacteristicImage extends StatefulWidget {
   final List<DamagedPartsEntity> informAboutDoors;
   final bool isFaceToFaceCheck;
   final double k;
-  final double height;
   final double width;
 
   const CarCharacteristicImage({
     required this.informAboutDoors,
     required this.isFaceToFaceCheck,
-    required this.height,
     required this.width,
-    required this.k,
     Key? key,
-  }) : super(key: key);
+  })  : k = width / mockWith,
+        super(key: key);
 
   @override
   State<CarCharacteristicImage> createState() => _CarCharacteristicImageState();
@@ -39,84 +37,75 @@ class _CarCharacteristicImageState extends State<CarCharacteristicImage> {
   void initState() {
     asEnum = widget.informAboutDoors.map((e) => e.toEnum()).toList();
 
-    // asEnum = List.generate(
-    //     3,
-    //     (index) => DamagedPartsAsEnum(
-    //         part: DamagedPart.values[index],
-    //         type: DamageType.values[index % 4]));
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) {
-    log('::::::::::     ::::::::::');
-    return Container(
-      padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-      margin: const EdgeInsets.only(bottom: 12, top: 12),
-      decoration: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(
-              width: 1,
-              color: Theme.of(context)
-                  .extension<ThemedColors>()!
-                  .solitudeToDarkRider,
+  Widget build(BuildContext context) => Container(
+        padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+        margin: const EdgeInsets.only(bottom: 12, top: 12),
+        decoration: BoxDecoration(
+            border: Border(
+              bottom: BorderSide(
+                width: 1,
+                color: Theme.of(context)
+                    .extension<ThemedColors>()!
+                    .solitudeToDarkRider,
+              ),
             ),
-          ),
-          color: Theme.of(context).extension<ThemedColors>()!.whiteToNero),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 16),
-            child: Text(
-              LocaleKeys.auto_characters.tr(),
-              style: Theme.of(context)
-                  .textTheme
-                  .displayLarge!
-                  .copyWith(fontSize: 18),
+            color: Theme.of(context).extension<ThemedColors>()!.whiteToNero),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 16),
+              child: Text(
+                LocaleKeys.auto_characters.tr(),
+                style: Theme.of(context)
+                    .textTheme
+                    .displayLarge!
+                    .copyWith(fontSize: 18),
+              ),
             ),
-          ),
-          if (widget.isFaceToFaceCheck)
-            Row(
-              children: [
-                SvgPicture.asset(AppIcons.doubleCheck),
-                const SizedBox(width: 4),
-                Text(
-                  LocaleKeys.checked_by_autouz.tr(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .displayLarge!
-                      .copyWith(fontSize: 12, fontWeight: FontWeight.w600),
-                ),
-              ],
+            if (widget.isFaceToFaceCheck)
+              Row(
+                children: [
+                  SvgPicture.asset(AppIcons.doubleCheck),
+                  const SizedBox(width: 4),
+                  Text(
+                    LocaleKeys.checked_by_autouz.tr(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayLarge!
+                        .copyWith(fontSize: 12, fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
+            const SizedBox(height: 16),
+            DamagedPartsInTheSingle(
+              imageSize: const Size(285, 313),
+              k: widget.k,
+              damages: asEnum,
+              width: widget.width,
             ),
-          const SizedBox(height: 16),
-          DamagedPartsInTheSingle(
-            imageSize: const Size(285, 313),
-            k: widget.k,
-            damages: asEnum,
-            width: widget.width,
-            height: widget.height,
-          ),
-          ListView(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            scrollDirection: Axis.vertical,
-            children: _getDamgeItems(
-                asEnum,
-                (firstItem, secondItem, hasDivider) => DamagePartRowItem(
-                    k: widget.k,
-                    firstItem: firstItem,
-                    secondItem: secondItem,
-                    hasDivider: hasDivider)).toList(),
-          )
-        ],
-      ),
-    );
-  }
+            ListView(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              children: _getDamageItems(
+                  asEnum,
+                  (firstItem, secondItem, hasDivider) => DamagePartRowItem(
+                      k: widget.k,
+                      firstItem: firstItem,
+                      secondItem: secondItem,
+                      hasDivider: hasDivider)).toList(),
+            )
+          ],
+        ),
+      );
 }
 
-Iterable<E> _getDamgeItems<E, T>(
+Iterable<E> _getDamageItems<E, T>(
     List<DamagedPartsAsEnum> items,
     E Function(DamagedPartsAsEnum firstItem, DamagedPartsAsEnum? secondItem,
             bool hasDivider)
