@@ -113,11 +113,12 @@ class OwnerActions extends StatelessWidget {
                               .id)));
                 },
                 child: OwnerActionBox(
-                    color: const Color(0xffDFEFFF),
-                    entity: OwnerActionEntity(
-                      title: LocaleKeys.in_hot.tr(),
-                      icon: AppIcons.blue_fire,
-                    )),
+                  color: const Color(0xffDFEFFF),
+                  entity: OwnerActionEntity(
+                    title: LocaleKeys.in_hot.tr(),
+                    icon: AppIcons.blue_fire,
+                  ),
+                ),
               ),
             ),
           ],
