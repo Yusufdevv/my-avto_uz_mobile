@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
@@ -34,7 +35,9 @@ class RentToSaleDetailsBox extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.only(left: 12, top: 16, bottom: 16),
       decoration: BoxDecoration(
-          color: whiteToGrey, borderRadius: BorderRadius.circular(12)),
+          color: Theme.of(context)
+              .extension<ThemedColors>()!
+              .greyToDarkRider, borderRadius: BorderRadius.circular(12)),
       child: Column(
         children: [
           Row(

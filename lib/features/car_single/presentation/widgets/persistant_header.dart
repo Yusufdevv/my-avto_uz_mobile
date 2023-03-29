@@ -30,7 +30,11 @@ class DescriptionHeader extends SliverPersistentHeaderDelegate {
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           border: Border(
-              bottom: BorderSide(color: shrinkOffset > 1 ? border : border)),
+              bottom: BorderSide(color: shrinkOffset > 1 ?  Theme.of(context)
+                  .extension<ThemedColors>()!
+                  .divider : Theme.of(context)
+                  .extension<ThemedColors>()!
+                  .divider)),
           boxShadow: shrinkOffset > 1
               ? [
                   BoxShadow(
@@ -46,15 +50,19 @@ class DescriptionHeader extends SliverPersistentHeaderDelegate {
                 ]
               : [],
           color: shrinkOffset > 0
-              ? white
-              : const Color(
-                  0xffFAFAFB,
-                ),
+              ?  Theme.of(context)
+              .extension<ThemedColors>()!
+              .whiteToDark
+              : Theme.of(context)
+            .extension<ThemedColors>()!
+            .solitudeContainerToDark,
         ),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            color: const Color(0xffE5E5E5),
+            color: Theme.of(context)
+                .extension<ThemedColors>()!
+                .whiteSmoke2ToNightRider ,
           ),
           child: TabBar(
             controller: controller,
@@ -75,7 +83,9 @@ class DescriptionHeader extends SliverPersistentHeaderDelegate {
               color: Theme.of(context).extension<ThemedColors>()!.whiteToSmoky,
             ),
             labelPadding: const EdgeInsets.symmetric(vertical: 6),
-            unselectedLabelColor: Colors.black,
+            unselectedLabelColor: Theme.of(context)
+                .extension<ThemedColors>()!
+                .blackToWhite,
             unselectedLabelStyle: Theme.of(context)
                 .textTheme
                 .displayLarge
@@ -90,6 +100,9 @@ class DescriptionHeader extends SliverPersistentHeaderDelegate {
               Tab(
                 child: Text(
                   LocaleKeys.description.tr(),
+                  style: TextStyle(color: Theme.of(context)
+                      .extension<ThemedColors>()!
+                      .blackToWhite ),
                 ),
               ),
               Tab(child: Text(LocaleKeys.characteristic.tr())),

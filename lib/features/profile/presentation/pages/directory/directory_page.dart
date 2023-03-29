@@ -119,10 +119,11 @@ class _DirectoryPageState extends State<DirectoryPage>
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,
                                     color: grey),
-                                textStyle: const TextStyle(
+                                textStyle:  TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w400,
-                                  color: black,
+                                  color:                 Theme.of(context).extension<ThemedColors>()!.darkToWhite,
+
                                 ),
                                 enabledBorderColor: Theme.of(context)
                                     .extension<ThemedColors>()!

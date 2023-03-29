@@ -1,7 +1,6 @@
-import 'dart:developer';
-
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_entity.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/preview/widgets/dot_and_text.dart';
@@ -59,7 +58,9 @@ class _ComplectationBoxState extends State<ComplectationBox> {
       margin: const EdgeInsets.only(bottom: 12),
       duration: const Duration(milliseconds: 300),
       decoration: BoxDecoration(
-          color: white,
+          color: Theme.of(context)
+              .extension<ThemedColors>()!
+              .whiteToDark,
           border: Border.symmetric(
               horizontal:
                   BorderSide(width: 1, color: Theme.of(context).dividerColor))),

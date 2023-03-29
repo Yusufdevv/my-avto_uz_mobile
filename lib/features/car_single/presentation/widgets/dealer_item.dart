@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,9 @@ class DealerItem extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           decoration: BoxDecoration(
-            color: const Color(0xffF6F6F6),
+            color: Theme.of(context)
+                .extension<ThemedColors>()!
+                .divider,
             borderRadius: BorderRadius.circular(8),
           ),
           child: Row(
@@ -69,7 +72,9 @@ class DealerItem extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                          color: const Color(0xff171725),
+                          color: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .blackToWhite,
                           fontSize: 14,
                           fontWeight: FontWeight.w600),
                     ),

@@ -54,7 +54,7 @@ class BecomeVerifiredOwnerWidget extends StatelessWidget {
               margin: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                color: black,
+                color: dark,
               ),
               child: Stack(
                 children: [

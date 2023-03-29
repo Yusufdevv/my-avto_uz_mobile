@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/material.dart';
 
 class CarInfoRow extends StatelessWidget {
@@ -20,15 +21,14 @@ class CarInfoRow extends StatelessWidget {
               flex: 35,
               child: Row(
                 children: [
-                  Text(title, style: Theme.of(context).textTheme.displayMedium),
+                  Text(title, style: Theme.of(context).textTheme.displayMedium!.copyWith(color:  greyText)),
                   Expanded(
                       child: Container(
                           margin: const EdgeInsets.only(top: 13),
                           height: 1,
                           color: Theme.of(context)
-                              .textTheme
-                              .displayMedium!
-                              .color)),
+                              .extension<ThemedColors>()!
+                              .divider,)),
                 ],
               ),
             ),

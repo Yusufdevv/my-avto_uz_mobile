@@ -24,9 +24,10 @@ class DamageTypeInfoSheet extends StatelessWidget {
         padding:
             EdgeInsets.only(top: MediaQuery.of(context).viewInsets.top + 60),
         child: Container(
-          decoration: const BoxDecoration(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-              color: white),
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+            color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -54,7 +55,11 @@ class DamageTypeInfoSheet extends StatelessWidget {
                   ],
                 ),
               ),
-              const Divider(color: border, thickness: 1, height: 1),
+              Divider(
+                color: Theme.of(context).extension<ThemedColors>()!.divider,
+                thickness: 1,
+                height: 1,
+              ),
               Expanded(
                 child: ListView.separated(
                   physics: const BouncingScrollPhysics(),
@@ -64,8 +69,14 @@ class DamageTypeInfoSheet extends StatelessWidget {
                   itemBuilder: (context, index) => Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: border, width: 1)),
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .divider,
+                        width: 1,
+                      ),
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

@@ -1,5 +1,5 @@
-import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/car_single/presentation/widgets/dealer_item.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -48,9 +48,11 @@ class _MoreActionsBottomsheetState extends State<MoreActionsBottomsheet> {
 
   @override
   Widget build(BuildContext context) => Container(
-        decoration: const BoxDecoration(
-          color: white,
-          borderRadius: BorderRadius.only(
+        decoration: BoxDecoration(
+          color: Theme.of(context)
+              .extension<ThemedColors>()!
+              .whiteToDark,
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(
               16,
             ),
@@ -113,7 +115,9 @@ class _MoreActionsBottomsheetState extends State<MoreActionsBottomsheet> {
                       bottom: 16,
                     ),
                     decoration: BoxDecoration(
-                      color: const Color(0xffF0EFFD),
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .blueContainer26,
                       borderRadius: BorderRadius.circular(
                         8,
                       ),
@@ -132,9 +136,9 @@ class _MoreActionsBottomsheetState extends State<MoreActionsBottomsheet> {
                                 .textTheme
                                 .displayLarge!
                                 .copyWith(
-                                    color: const Color(
-                                      0xff171725,
-                                    ),
+                                color: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .blackToWhite,
                                     fontWeight: FontWeight.w600,
                                     fontSize: 12),
                           ),
@@ -151,11 +155,14 @@ class _MoreActionsBottomsheetState extends State<MoreActionsBottomsheet> {
                       bottom: 16,
                     ),
                     decoration: BoxDecoration(
-                      color: const Color(0xffEFFAF3),
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .greenContainer26,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: AddComparisonItem(
                       id: widget.id,
+                      isSingle: true,
                       initialLike: widget.isCompare ?? false,
                       isText: true,
                       isGreen: true,
@@ -174,7 +181,9 @@ class _MoreActionsBottomsheetState extends State<MoreActionsBottomsheet> {
                         bottom: 16,
                       ),
                       decoration: BoxDecoration(
-                        color: const Color(0xffFDEFEB),
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .redContainer26,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Center(
@@ -191,7 +200,9 @@ class _MoreActionsBottomsheetState extends State<MoreActionsBottomsheet> {
                                   .textTheme
                                   .displayLarge!
                                   .copyWith(
-                                    color: const Color(0xff171725),
+                                    color: Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .blackToWhite,
                                     fontWeight: FontWeight.w600,
                                     fontSize: 12,
                                   ),

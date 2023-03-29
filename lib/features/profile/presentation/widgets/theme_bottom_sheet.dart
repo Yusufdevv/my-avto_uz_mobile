@@ -78,7 +78,7 @@ class _ThemeBottomSheetState extends State<ThemeBottomSheet> {
               Row(
                 children: [
                   Text(
-                    LocaleKeys.language.tr(),
+                    LocaleKeys.theme_of_app.tr(),
                     style: Theme.of(context).textTheme.displayLarge,
                   ),
                   const Spacer(),

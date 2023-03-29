@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/material.dart';
 
 class CarInfoTile extends StatelessWidget {
@@ -28,9 +29,11 @@ class CarInfoTile extends StatelessWidget {
                   ),
                   Expanded(
                     child: Container(
-                      decoration: const BoxDecoration(
+                      decoration:  BoxDecoration(
                           border:
-                              Border(bottom: BorderSide(color: dividerColor))),
+                              Border(bottom: BorderSide(color: Theme.of(context)
+                                  .extension<ThemedColors>()!
+                                  .divider,))),
                     ),
                   ),
                 ],

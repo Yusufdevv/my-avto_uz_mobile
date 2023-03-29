@@ -191,6 +191,11 @@ abstract class DarkTheme {
             tutuToRed: DarkThemeColors.tutuToRed,
             redToWhite: DarkThemeColors.redToWhite,
             divider: DarkThemeColors.divider,
+            darkblueContainer27: DarkThemeColors.darkblueContainer27,
+            lightGreenContainer27: DarkThemeColors.lightGreenContainer27,
+            yelowOneContainer27: DarkThemeColors.yelowOneContainer27,
+            yelowTwoContainer27: DarkThemeColors.yelowTwoContainer27,
+            brownContainer27: DarkThemeColors.brownContainer27,
           ),
           WTextFieldStyle(
             fillColor: DarkThemeColors.solitudeToNero,

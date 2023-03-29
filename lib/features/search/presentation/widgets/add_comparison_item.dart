@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -11,6 +12,7 @@ import 'package:flutter_svg/svg.dart';
 class AddComparisonItem extends StatelessWidget {
   final bool initialLike;
   final int id;
+  final bool isSingle;
   final bool isText;
   final bool isGreen;
 
@@ -20,6 +22,7 @@ class AddComparisonItem extends StatelessWidget {
     Key? key,
     this.isText = false,
     this.isGreen = false,
+    this.isSingle = false,
   }) : super(key: key);
 
   @override
@@ -76,7 +79,9 @@ class AddComparisonItem extends StatelessWidget {
                     LocaleKeys.compare.tr(),
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           fontSize: 12,
-                          color: a ? orange : dark,
+                          color: a ? isSingle ?Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .blackToWhite : orange:     dark,
                         ),
                   )
                 else

@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -35,9 +36,10 @@ class _ChooseMakerState extends State<ChooseMaker> {
         value: getMakesBloc,
         child: Container(
           margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 44),
-          decoration: const BoxDecoration(
-            color: white,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+          decoration: BoxDecoration(
+            color:
+                Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
           ),
           child: BlocBuilder<GetMakesBloc, GetMakesState>(
             builder: (context, getMakesState) {
@@ -50,7 +52,12 @@ class _ChooseMakerState extends State<ChooseMaker> {
                         onCancelPressed: () {
                           Navigator.of(context).pop();
                         }),
-                    const Divider(thickness: 1, color: border, height: 1),
+                    Divider(
+                      thickness: 1,
+                      color:
+                          Theme.of(context).extension<ThemedColors>()!.divider,
+                      height: 1,
+                    ),
                     Expanded(
                       child: SingleChildScrollView(
                         physics: const BouncingScrollPhysics(),
@@ -81,12 +88,12 @@ class _ChooseMakerState extends State<ChooseMaker> {
                       padding: const EdgeInsets.only(
                           left: 16, right: 16, bottom: 16),
                       child: WButton(
-                          onTap: () {
-                            Navigator.of(context)
-                                .pop(getMakesState.selectedMake);
-                          },
-                          color: orange,
-                          text: LocaleKeys.apply.tr()),
+                        onTap: () {
+                          Navigator.of(context).pop(getMakesState.selectedMake);
+                        },
+                        color: orange,
+                        text: LocaleKeys.apply.tr(),
+                      ),
                     ),
                   ],
                 );

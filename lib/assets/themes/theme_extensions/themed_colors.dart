@@ -111,6 +111,13 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
   final Color dolphinToGhost;
   final Color tutuToRed;
   final Color divider;
+  final Color darkblueContainer27;
+  final Color lightGreenContainer27;
+  final Color yelowOneContainer27;
+
+  final Color yelowTwoContainer27;
+
+  final Color brownContainer27;
 
   const ThemedColors({
     required this.tutuToRed,
@@ -223,6 +230,11 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     required this.dolphinToWhite,
     required this.scaffoldBackground,
     required this.divider,
+    required this.darkblueContainer27,
+    required this.lightGreenContainer27,
+    required this.yelowOneContainer27,
+    required this.yelowTwoContainer27,
+    required this.brownContainer27,
   });
 
   @override
@@ -336,6 +348,11 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     Color? scaffoldBackground,
     Color? tutuToRed,
     Color? divider,
+    Color? darkblueContainer27,
+    Color? lightGreenContainer27,
+    Color? yelowOneContainer27,
+    Color? yelowTwoContainer27,
+    Color? brownContainer27,
   }) =>
       ThemedColors(
         whiteToBlack: whiteToBlack ?? this.whiteToBlack,
@@ -483,6 +500,12 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
         dolphinToGhost: dolphinToGhost ?? this.dolphinToGhost,
         scaffoldBackground: scaffoldBackground ?? this.scaffoldBackground,
         divider: divider ?? this.divider,
+        darkblueContainer27: darkblueContainer27 ?? this.darkblueContainer27,
+        lightGreenContainer27:
+            lightGreenContainer27 ?? this.lightGreenContainer27,
+        yelowOneContainer27: yelowOneContainer27 ?? this.yelowOneContainer27,
+        yelowTwoContainer27: yelowTwoContainer27 ?? this.yelowTwoContainer27,
+        brownContainer27: brownContainer27 ?? this.brownContainer27,
       );
 
   @override
@@ -783,6 +806,21 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
           Color.lerp(dolphinToGhost, other.dolphinToGhost, t) ?? dolphinToGhost,
       redToWhite: Color.lerp(redToWhite, other.redToWhite, t) ?? redToWhite,
       divider: Color.lerp(divider, other.divider, t) ?? divider,
+      darkblueContainer27:
+          Color.lerp(darkblueContainer27, other.darkblueContainer27, t) ??
+              darkblueContainer27,
+      lightGreenContainer27:
+          Color.lerp(lightGreenContainer27, other.lightGreenContainer27, t) ??
+              lightGreenContainer27,
+      yelowOneContainer27:
+          Color.lerp(yelowOneContainer27, other.yelowOneContainer27, t) ??
+              yelowOneContainer27,
+      yelowTwoContainer27:
+          Color.lerp(yelowTwoContainer27, other.yelowTwoContainer27, t) ??
+              yelowTwoContainer27,
+      brownContainer27:
+          Color.lerp(brownContainer27, other.brownContainer27, t) ??
+              brownContainer27,
     );
   }
 }

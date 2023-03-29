@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -22,6 +23,7 @@ class CurrencyChooseSheet extends StatefulWidget {
 
 class _CurrencyChooseSheetState extends State<CurrencyChooseSheet> {
   late String selected;
+
   @override
   void initState() {
     selected = widget.selected;
@@ -30,9 +32,13 @@ class _CurrencyChooseSheetState extends State<CurrencyChooseSheet> {
 
   @override
   Widget build(BuildContext context) => Container(
-        decoration: const BoxDecoration(
-          color: white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        decoration: BoxDecoration(
+          color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+          borderRadius: const BorderRadius.vertical(
+            top: Radius.circular(
+              20,
+            ),
+          ),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -42,7 +48,9 @@ class _CurrencyChooseSheetState extends State<CurrencyChooseSheet> {
                 onCancelPressed: () {
                   Navigator.of(context).pop();
                 }),
-            const Divider(thickness: 1, color: border, height: 1),
+             Divider(thickness: 1, color: Theme.of(context)
+                .extension<ThemedColors>()!
+                .divider, height: 1),
             SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Column(
@@ -65,9 +73,11 @@ class _CurrencyChooseSheetState extends State<CurrencyChooseSheet> {
                             isChecked: selected == Currency.values[index].name,
                           ),
                         ),
-                        const Divider(
+                         Divider(
                           thickness: 1,
-                          color: border,
+                          color: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .divider,
                           height: 1,
                           indent: 16,
                         )

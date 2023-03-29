@@ -1,10 +1,12 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/common/bloc/theme_switcher_bloc/theme_switcher_bloc.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void showCupertinoDatePicker(BuildContext context,
     Function(DateTime) datePicked, DateTime? minDateTime) {
@@ -62,17 +64,26 @@ void showCupertinoDatePicker(BuildContext context,
                   height: 216,
                   child: SafeArea(
                     top: false,
-                    child: CupertinoDatePicker(
-                      initialDateTime: minDateTime,
-                      mode: CupertinoDatePickerMode.date,
-                      use24hFormat: true,
-                      maximumDate: DateTime.now(),
-                      maximumYear: DateTime.now().year,
-                      minimumDate: minDateTime,
-                      minimumYear: minDateTime?.year ?? 1,
-                      onDateTimeChanged: (newDate) {
-                        date = newDate;
-                      },
+                    child: CupertinoTheme(
+                      data: CupertinoThemeData(
+                        brightness:
+                            context.read<ThemeSwitcherBloc>().state.themeMode ==
+                                    ThemeMode.dark
+                                ? Brightness.dark
+                                : Brightness.light,
+                      ),
+                      child: CupertinoDatePicker(
+                        initialDateTime: minDateTime,
+                        mode: CupertinoDatePickerMode.date,
+                        use24hFormat: true,
+                        maximumDate: DateTime.now(),
+                        maximumYear: DateTime.now().year,
+                        minimumDate: minDateTime,
+                        minimumYear: minDateTime?.year ?? 1,
+                        onDateTimeChanged: (newDate) {
+                          date = newDate;
+                        },
+                      ),
                     ),
                   ),
                 ),

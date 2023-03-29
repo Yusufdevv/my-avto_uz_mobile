@@ -1,12 +1,11 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/domain/entities/equipment/equipment_option_entity.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/widgets/equipment_option_sheet.dart';
 import 'package:auto/features/common/widgets/w_check_box.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 typedef OnEquipmentOptionPressed = Function({
@@ -61,7 +60,9 @@ class EquipmentCategory extends StatelessWidget {
                     context: context,
                     useRootNavigator: true,
                     isScrollControlled: true,
-                    backgroundColor: LightThemeColors.appBarColor,
+                    backgroundColor: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .whiteToDark,
                     shape: const RoundedRectangleBorder(
                       borderRadius:
                           BorderRadius.vertical(top: Radius.circular(20)),
@@ -102,8 +103,8 @@ class EquipmentCategory extends StatelessWidget {
                 color: isOptionSelected(
                             type: options[index].type, id: options[index].id) ||
                         options[index].type == 'radio'
-                    ? null
-                    : greyLight,
+                    ? Theme.of(context).extension<ThemedColors>()!.whiteToDark
+                    : Theme.of(context).extension<ThemedColors>()!.whiteToDark,
                 padding: const EdgeInsets.only(
                     left: 16, right: 16, top: 16, bottom: 16),
                 child: Row(
@@ -123,7 +124,9 @@ class EquipmentCategory extends StatelessWidget {
                                       type: options[index].type,
                                       id: options[index].id) ||
                                   options[index].type == 'radio'
-                              ? black
+                              ? Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .blackToWhite
                               : grey,
                           fontSize: 16,
                           fontWeight: FontWeight.w600,

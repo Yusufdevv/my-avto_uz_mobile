@@ -61,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return KeyboardDismisser(
       child: CustomScreen(
         child: Scaffold(
-          backgroundColor: white,
+          backgroundColor: Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
           appBar: WAppBar(
             hasBackButton: false,
             title: LocaleKeys.enter.tr(),

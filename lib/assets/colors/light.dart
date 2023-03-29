@@ -157,9 +157,11 @@ class LightThemeColors {
   static const greenContainer27 = _cosmicLatte;
   static const redContainer27 = _roseWhite;
   static const blueContainer27 = _lavender1;
-
-
-
+  static const darkblueContainer27 = _midnight;
+  static const lightGreenContainer27 = _turtleGreen;
+  static const yelowOneContainer27 = _cocoaBrownThree;
+  static const yelowTwoContainer27 = _cocoaBrownTwo;
+  static const brownContainer27 = _indianTanTwo;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
@@ -216,6 +218,11 @@ const _whiteLilac1 = Color(0xFFF7F7F8);
 const _cosmicLatte = Color(0xFFEBFAF0);
 const _roseWhite = Color(0xFFFDF4F3);
 const _lavender1 = Color(0xFFF2F4FC);
+const _cocoaBrownThree = Color(0xFFFFC137);
+const _cocoaBrownTwo = Color(0xFFF63C07);
+const _midnight = Color(0xFF171725);
+const _indianTanTwo = Color(0xEA5930);
+const _turtleGreen = Color(0xff55BB00);
 
 
 

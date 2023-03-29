@@ -55,7 +55,7 @@ class _RegisterVerificationScreenState
         child: CustomScreen(
           child: BlocBuilder<RegisterBloc, RegisterState>(
             builder: (context, state) => Scaffold(
-              backgroundColor: white,
+              backgroundColor: Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
               appBar: WAppBar(
                 title: LocaleKeys.register.tr(),
                 boxShadow: [
@@ -83,7 +83,7 @@ class _RegisterVerificationScreenState
                           left: 8, right: 4, top: 4, bottom: 4),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
-                          color: border),
+                          color: Theme.of(context).extension<ThemedColors>()!.divider,),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -135,7 +135,7 @@ class _RegisterVerificationScreenState
                         fieldWidth: 50,
                         borderWidth: 1,
                       ),
-                      cursorColor: black,
+                      cursorColor: Theme.of(context).extension<ThemedColors>()!.blackToWhite,
                       cursorWidth: 1,
                       cursorHeight: 31,
                       keyboardType: TextInputType.number,
@@ -170,7 +170,7 @@ class _RegisterVerificationScreenState
                             width: 24,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(4),
-                                color: solitude),
+                                color: Theme.of(context).extension<ThemedColors>()!.borderGreyToDark,),
                             child: Center(
                               child: RefreshButton(
                                 filteredPhone: widget.phone,

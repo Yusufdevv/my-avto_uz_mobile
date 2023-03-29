@@ -54,9 +54,11 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                       bottom: MediaQuery.of(context).padding.bottom + 20,
                     ),
                     margin: MediaQuery.of(context).viewInsets,
-                    decoration: const BoxDecoration(
-                      color: white,
-                      borderRadius: BorderRadius.only(
+                    decoration:  BoxDecoration(
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .whiteToDark,
+                      borderRadius: const BorderRadius.only(
                         topRight: Radius.circular(16),
                         topLeft: Radius.circular(16),
                       ),
@@ -148,7 +150,9 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                               ],
                               keyboardType: TextInputType.phone,
                               textAlign: TextAlign.center,
-                              cursorColor: black,
+                              cursorColor: Theme.of(context)
+                                  .extension<ThemedColors>()!
+                                  .blackToWhite,
                               style: Theme.of(context)
                                   .textTheme
                                   .displayLarge!

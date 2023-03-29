@@ -55,7 +55,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
           child: BlocProvider.value(
             value: imageBloc,
             child: Scaffold(
-              backgroundColor: white,
+              backgroundColor: Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
               resizeToAvoidBottomInset: false,
               appBar: WAppBar(
                 title: LocaleKeys.register.tr(),

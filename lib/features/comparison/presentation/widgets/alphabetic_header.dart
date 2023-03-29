@@ -26,8 +26,10 @@ class AlphabeticHeader extends SliverPersistentHeaderDelegate {
       Container(
         decoration: BoxDecoration(
           color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
-          border: const Border(
-            bottom: BorderSide(color: dividerColor),
+          border: Border(
+            bottom: BorderSide(
+              color: Theme.of(context).extension<ThemedColors>()!.divider,
+              ),
           ),
           boxShadow: [
             BoxShadow(
@@ -52,7 +54,9 @@ class AlphabeticHeader extends SliverPersistentHeaderDelegate {
                   },
                   behavior: HitTestBehavior.opaque,
                   child: Container(
-                    color: white,
+                    color: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .whiteToDark,
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     child: Text(
                       letters[index],

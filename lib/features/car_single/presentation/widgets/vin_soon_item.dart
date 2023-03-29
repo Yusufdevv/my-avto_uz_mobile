@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -15,9 +16,13 @@ class VinSoonItem extends StatelessWidget {
           top: 20,
         ),
         decoration: BoxDecoration(
-          color: white,
+          color: Theme.of(context)
+              .extension<ThemedColors>()!
+              .whiteToDark,
           border: Border.all(
-            color: border,
+            color: Theme.of(context)
+                .extension<ThemedColors>()!
+                .divider,
           ),
         ),
         child: Column(

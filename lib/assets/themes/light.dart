@@ -183,6 +183,11 @@ abstract class LightTheme {
             scaffoldBackground: LightThemeColors.scaffoldBackground,
             tutuToRed: LightThemeColors.tutuToRed,
             divider: LightThemeColors.divider,
+            darkblueContainer27: LightThemeColors.darkblueContainer27,
+            lightGreenContainer27: LightThemeColors.lightGreenContainer27,
+            yelowOneContainer27: LightThemeColors.yelowOneContainer27,
+            yelowTwoContainer27: LightThemeColors.yelowTwoContainer27,
+            brownContainer27: LightThemeColors.brownContainer27,
           ),
           WTextFieldStyle(
             fillColor: LightThemeColors.solitudeToNero,
