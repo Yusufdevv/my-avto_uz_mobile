@@ -95,7 +95,10 @@ class CarNameWidget extends StatelessWidget {
         decoration: BoxDecoration(
           // color: Colors.teal,
           color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
-          border: const Border(bottom: BorderSide(color: border)),
+          border: Border(
+              bottom: BorderSide(
+            color: Theme.of(context).extension<ThemedColors>()!.divider,
+          )),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,10 +127,11 @@ class CarNameWidget extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
               child: Text(
                 fullname,
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineMedium!
-                    .copyWith(color: dark),
+                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .darkToWhite,
+                    ),
               ),
             ),
             Container(
@@ -137,13 +141,23 @@ class CarNameWidget extends StatelessWidget {
                   Text(
                     price,
                     style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                        fontSize: 24, fontWeight: FontWeight.w700, color: dark),
+                          fontSize: 24,
+                          fontWeight: FontWeight.w700,
+                          color: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .darkToWhite,
+                        ),
                   ),
                   const SizedBox(width: 4),
                   Text(
                     currency,
                     style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                        fontSize: 24, fontWeight: FontWeight.w700, color: dark),
+                          fontSize: 24,
+                          fontWeight: FontWeight.w700,
+                          color: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .darkToWhite,
+                        ),
                   ),
                   const SizedBox(width: 12),
                   WButton(

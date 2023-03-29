@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/domain/entities/equipment/gas_equipment_entity.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/marka_checkbox.dart';
@@ -58,7 +59,10 @@ class _SelectGasBalloonTypeSheetState extends State<SelectGasBalloonTypeSheet> {
               ],
             ),
           ),
-          const Divider(color: border, thickness: 1, height: 1),
+          Divider(
+              color: Theme.of(context).extension<ThemedColors>()!.divider,
+              thickness: 1,
+              height: 1),
           ListView.separated(
             itemBuilder: (context, index) => GestureDetector(
               behavior: HitTestBehavior.opaque,
@@ -69,7 +73,9 @@ class _SelectGasBalloonTypeSheetState extends State<SelectGasBalloonTypeSheet> {
                     top: 16, bottom: 16, right: 20, left: 18),
                 decoration: BoxDecoration(
                   color:
-                      selected == widget.gasEquipments[index].id ? snow : null,
+                      selected == widget.gasEquipments[index].id ? Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .snowToNero : null,
                 ),
                 child: Row(
                   children: [

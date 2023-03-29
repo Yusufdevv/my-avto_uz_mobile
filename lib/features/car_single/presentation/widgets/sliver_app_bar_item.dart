@@ -1,4 +1,5 @@
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/car_single/presentation/widgets/mine_more_bottomsheet.dart';
 import 'package:auto/features/car_single/presentation/widgets/more_actions_bottomsheet.dart';
@@ -116,8 +117,10 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                 firstChild: const SizedBox(),
                 secondChild: Text(
                   widget.absoluteCarName,
-                  style: const TextStyle(
-                    color: Colors.black,
+                  style:  TextStyle(
+                    color: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .blackToWhite,
                   ),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,

@@ -131,10 +131,12 @@ class _DealerScreenState extends State<DealerScreen>
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,
                                     color: grey),
-                                textStyle: const TextStyle(
+                                textStyle: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w400,
-                                  color: black,
+                                  color: Theme.of(context)
+                                      .extension<ThemedColors>()!
+                                      .darkToWhite,
                                 ),
                                 enabledBorderColor: Theme.of(context)
                                     .extension<ThemedColors>()!

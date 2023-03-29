@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -26,7 +27,9 @@ class ButtonGoToComparison extends StatelessWidget {
             BoxShadow(
                 offset: const Offset(0, 1), color: dark.withOpacity(0.08)),
           ],
-          color: white,
+          color: Theme.of(context)
+              .extension<ThemedColors>()!
+              .solitudeContainerToDark,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(20))),
       child: BlocConsumer<ComparisonAddBloc, ComparisonAddState>(
         listener: (context, state) {},

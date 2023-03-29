@@ -48,7 +48,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
         child: BlocBuilder<RegisterBloc, RegisterState>(
           builder: (context, state) => CustomScreen(
             child: Scaffold(
-              backgroundColor: white,
+              backgroundColor: Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
               appBar: WAppBar(
                 title: LocaleKeys.security.tr(),
                 boxShadow: [

@@ -38,7 +38,6 @@ class CarSellerCard extends StatelessWidget {
   Widget build(BuildContext context) =>
       LayoutBuilder(builder: (context, constraints) {
         final isActive = moderationStatus == ModerationStatusEnum.active.value;
-
         return Container(
           decoration: BoxDecoration(
             border: isActive
@@ -51,7 +50,7 @@ class CarSellerCard extends StatelessWidget {
                 : null,
             color: isActive
                 ? Theme.of(context).extension<ThemedColors>()!.whiteToDark
-                : const Color(0xffFAFAFB),
+                : Theme.of(context).extension<ThemedColors>()!.whiteToDark,
           ),
           padding: const EdgeInsets.all(16).copyWith(bottom: isActive ? 16 : 0),
           child: Column(

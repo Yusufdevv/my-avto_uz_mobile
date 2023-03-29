@@ -196,7 +196,7 @@ class _AddPhotoItemState extends State<AddPhotoItem> {
                             .bodyLarge
                             ?.copyWith(color: grey),
                         textColor: grey,
-                        color: solitude,
+                        color: Theme.of(context).extension<ThemedColors>()!.solitude1ToNero,
                       )
                     ],
                   ),

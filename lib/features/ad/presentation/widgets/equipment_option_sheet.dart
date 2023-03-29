@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/domain/entities/equipment/id_name_entity.dart';
 import 'package:auto/features/ad/presentation/widgets/pos_radio_item.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -62,7 +63,10 @@ class _EquipmentOptionSheetState extends State<EquipmentOptionSheet> {
                 ],
               ),
             ),
-            const Divider(color: border, thickness: 1, height: 1),
+            Divider(
+                color: Theme.of(context).extension<ThemedColors>()!.divider,
+                thickness: 1,
+                height: 1),
             SizedBox(
               height: (widget.items.length + 1) * 66,
               child: ListView.builder(

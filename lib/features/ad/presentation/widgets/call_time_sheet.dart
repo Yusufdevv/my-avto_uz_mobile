@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/storage_keys.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/presentation/widgets/hour_picker_widget.dart';
 import 'package:auto/features/ad/presentation/widgets/hour_picker_widget_uz.dart';
@@ -47,9 +48,11 @@ class _CallTimeSheetState extends State<CallTimeSheet> {
           left: 16,
           bottom: MediaQuery.of(context).padding.bottom + 42,
         ),
-        decoration: const BoxDecoration(
-          color: white,
-          borderRadius: BorderRadius.only(
+        decoration:  BoxDecoration(
+          color: Theme.of(context)
+              .extension<ThemedColors>()!
+              .whiteToDark,
+          borderRadius: const BorderRadius.only(
             topRight: Radius.circular(16),
             topLeft: Radius.circular(16),
           ),
@@ -101,7 +104,9 @@ class _CallTimeSheetState extends State<CallTimeSheet> {
                         onChanged: (value) => setState(() => from = value)),
                   Padding(
                       padding: const EdgeInsets.only(left: 16, right: 6),
-                      child: Container(width: 1, height: 120, color: border)),
+                      child: Container(width: 1, height: 120, color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .divider,)),
                   if (isUz)
                     HourPickerWidgetUz(
                         defaultHour: 17,

@@ -1,5 +1,4 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -47,7 +46,9 @@ class SelectorItem extends StatelessWidget {
                     color: Theme.of(context)
                         .extension<ThemedColors>()!
                         .solitudeToDarkRider),
-                color: LightThemeColors.scaffoldBackground,
+                color: Theme.of(context)
+                    .extension<ThemedColors>()!
+                    .solitudeContainerToDark,
               ),
               child: isLoading
                   ? const Center(child: CupertinoActivityIndicator())
@@ -59,7 +60,9 @@ class SelectorItem extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium!
-                                .copyWith(color: black),
+                                .copyWith(color: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .darkToWhite),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),

@@ -1,3 +1,4 @@
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -46,13 +47,17 @@ class TermsOfUsePage extends StatelessWidget {
                         data: state.termsOfUseEntity.content,
                         style: {
                           'p strong': Style(
-                              color: const Color(0xFF171717),
-                              fontSize: FontSize(12),
-                              fontWeight: FontWeight.w900),
+                              color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .darkToWhite,
+                              fontSize: FontSize(14),
+                              fontWeight: FontWeight.w700),
                           'p': Style(
                               padding: const EdgeInsets.only(bottom: 16),
-                              color: const Color.fromARGB(255, 37, 37, 37),
-                              fontSize: FontSize(12),
+                              color: Theme.of(context)
+                                  .extension<ThemedColors>()!
+                                  .darkToWhite,
+                              fontSize: FontSize(14),
                               fontWeight: FontWeight.w500)
                         },
                       ),

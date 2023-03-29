@@ -1,16 +1,18 @@
-import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/car_single/domain/entities/owner_action.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class OwnerActionBox extends StatelessWidget {
   final Color color;
+  final Color borderColor;
 
   final OwnerActionEntity entity;
 
   const OwnerActionBox({
     required this.color,
     required this.entity,
+    required this.borderColor,
     Key? key,
   }) : super(key: key);
 
@@ -21,7 +23,8 @@ class OwnerActionBox extends StatelessWidget {
             color: color,
             borderRadius: BorderRadius.circular(8),
             border:
-                Border.all(color: const Color(0xff171725).withOpacity(0.1))),
+                Border.all(color: borderColor)
+        ),
         child: Column(
           children: [
             SvgPicture.asset(
@@ -37,7 +40,7 @@ class OwnerActionBox extends StatelessWidget {
               textAlign: TextAlign.center,
               maxLines: 2,
               style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                  fontSize: 11, fontWeight: FontWeight.w400, color: dark),
+                  fontSize: 11, fontWeight: FontWeight.w400, color: Theme.of(context).extension<ThemedColors>()!.blackToWhite),
             )
           ],
         ),

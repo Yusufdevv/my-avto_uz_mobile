@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/car_single/domain/entities/owner_action.dart';
 import 'package:auto/features/car_single/presentation/bloc/car_single_bloc.dart';
 import 'package:auto/features/car_single/presentation/parts/payments/service_extends_ads_page_.dart';
@@ -35,7 +36,6 @@ class OwnerActions extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 16),
       child: Container(
         color: Theme.of(context).scaffoldBackgroundColor,
-        // color: Colors.teal,
         padding: const EdgeInsets.symmetric(vertical: 12),
         child: Row(
           children: [
@@ -53,10 +53,14 @@ class OwnerActions extends StatelessWidget {
                   );
                 },
                 child: OwnerActionBox(
-                    color: accentYellow,
-                    entity: OwnerActionEntity(
-                        title: LocaleKeys.become_vip_for_3_days.tr(),
-                        icon: AppIcons.crown)),
+                  color: Theme.of(context)
+                      .extension<ThemedColors>()!
+                      .yelowOneContainer27,
+                  entity: OwnerActionEntity(
+                      title: LocaleKeys.become_vip_for_3_days.tr(),
+                      icon: AppIcons.crown),
+                  borderColor: yellow.withOpacity(0.1),
+                ),
               ),
             ),
             const SizedBox(width: 8),
@@ -73,10 +77,14 @@ class OwnerActions extends StatelessWidget {
                               .id)));
                 },
                 child: OwnerActionBox(
-                    color: accentGreen,
-                    entity: OwnerActionEntity(
-                        title: LocaleKeys.extends_for_day.tr(args: ['7']),
-                        icon: AppIcons.refresher)),
+                  color: Theme.of(context)
+                      .extension<ThemedColors>()!
+                      .greenContainer26,
+                  entity: OwnerActionEntity(
+                      title: LocaleKeys.extends_for_day.tr(args: ['7']),
+                      icon: AppIcons.refresher),
+                  borderColor: green.withOpacity(0.1),
+                ),
               ),
             ),
             const SizedBox(width: 8),
@@ -93,13 +101,19 @@ class OwnerActions extends StatelessWidget {
                               .id)));
                 },
                 child: OwnerActionBox(
-                    color: accentRed,
-                    entity: OwnerActionEntity(
-                        title: LocaleKeys.send_to_top.tr(),
-                        icon: AppIcons.rocket)),
+                  color: Theme.of(context)
+                      .extension<ThemedColors>()!
+                      .redContainer26,
+                  entity: OwnerActionEntity(
+                      title: LocaleKeys.send_to_top.tr(),
+                      icon: AppIcons.rocket),
+                  borderColor: red.withOpacity(0.2),
+                ),
               ),
             ),
-            const SizedBox(width: 8),
+            const SizedBox(
+              width: 8,
+            ),
             Expanded(
               child: WScaleAnimation(
                 onTap: () {
@@ -112,11 +126,15 @@ class OwnerActions extends StatelessWidget {
                               .id)));
                 },
                 child: OwnerActionBox(
-                    color: const Color(0xffDFEFFF),
-                    entity: OwnerActionEntity(
-                      title: LocaleKeys.add_to_ways.tr(),
-                      icon: AppIcons.reels,
-                    )),
+                  color: Theme.of(context)
+                      .extension<ThemedColors>()!
+                      .blueContainer26,
+                  entity: OwnerActionEntity(
+                    title: LocaleKeys.add_to_ways.tr(),
+                    icon: AppIcons.reels,
+                  ),
+                  borderColor: red.withOpacity(0.2),
+                ),
               ),
             ),
           ],

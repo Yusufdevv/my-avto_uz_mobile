@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/login/presentation/bloc/register/register_bloc.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
@@ -96,7 +97,7 @@ class _RegionButtonState extends State<RegionButton> {
                                 : Theme.of(context)
                                     .textTheme
                                     .displayMedium
-                                    ?.copyWith(color: dark),
+                                    ?.copyWith(color: Theme.of(context).extension<ThemedColors>()!.darkToWhite,),
                           ),
                           SvgPicture.asset(AppIcons.chevronRight,
                               height: 20, width: 20, color: Colors.black)

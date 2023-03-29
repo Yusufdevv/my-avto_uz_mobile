@@ -1,4 +1,3 @@
-import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -16,7 +15,9 @@ class EditBoxWidget extends StatelessWidget {
         padding: const EdgeInsets.only(right: 4, left: 8, top: 4, bottom: 4),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: border,
+          color: Theme.of(context)
+              .extension<ThemedColors>()!
+              .whiteSmoke78ToWhiteSmoke12,
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,

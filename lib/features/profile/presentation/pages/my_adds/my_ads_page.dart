@@ -1,5 +1,5 @@
-import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/profile/presentation/bloc/user_wishlists_notifications/user_wishlists_notification_bloc.dart';
 import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -36,7 +36,8 @@ class _MyAdsPageState extends State<MyAdsPage> {
         child: DefaultTabController(
           length: 3,
           child: Scaffold(
-            backgroundColor: borderCircular,
+            backgroundColor:
+                Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
             body: NestedScrollView(
                 headerSliverBuilder: (context, item) => [
                       SliverAppBar(
@@ -57,7 +58,14 @@ class _MyAdsPageState extends State<MyAdsPage> {
                             ],
                           ),
                         ),
-                        title: Text(LocaleKeys.my_ads.tr()),
+                        title: Text(
+                          LocaleKeys.my_ads.tr(),
+                          style: TextStyle(
+                            color: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .darkToWhite,
+                          ),
+                        ),
                       ),
                       SliverPersistentHeader(
                         delegate: ProfileTabBar(

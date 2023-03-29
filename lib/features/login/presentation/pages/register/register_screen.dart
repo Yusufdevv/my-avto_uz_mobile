@@ -51,6 +51,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     phoneController.dispose();
     super.dispose();
   }
+
   // register screen -1
 
   @override
@@ -59,7 +60,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
           value: registerBloc,
           child: BlocBuilder<RegisterBloc, RegisterState>(
             builder: (context, state) => Scaffold(
-              backgroundColor: white,
+              backgroundColor: Theme.of(context)
+                  .extension<ThemedColors>()!
+                  .scaffoldBackground,
               appBar: WAppBar(
                 title: LocaleKeys.register.tr(),
                 boxShadow: [

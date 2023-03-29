@@ -90,7 +90,7 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                 }
               },
               builder: (context, state) => Scaffold(
-                backgroundColor: white,
+                backgroundColor: Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
                 resizeToAvoidBottomInset: false,
                 appBar: WAppBar(
                   title: LocaleKeys.forgot_password.tr(),
@@ -119,7 +119,7 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                             left: 8, right: 4, top: 4, bottom: 4),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
-                            color: border),
+                            color: Theme.of(context).extension<ThemedColors>()!.divider,),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -209,7 +209,7 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                               width: 24,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(4),
-                                  color: solitude),
+                                  color: Theme.of(context).extension<ThemedColors>()!.borderGreyToDark,),
                               child: Center(
                                 child: RefreshButton(
                                   filteredPhone: widget.phone,

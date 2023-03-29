@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/presentation/widgets/radio_circle_widget.dart';
 import 'package:auto/features/ad/presentation/widgets/warning_circle_widget.dart';
@@ -33,9 +34,11 @@ class _DamageTypeChooseSheetState extends State<DamageTypeChooseSheet> {
 
   @override
   Widget build(BuildContext context) => Container(
-        decoration: const BoxDecoration(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-            color: white),
+        decoration:  BoxDecoration(
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+            color: Theme.of(context)
+                .extension<ThemedColors>()!
+                .whiteToDark,),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -63,7 +66,9 @@ class _DamageTypeChooseSheetState extends State<DamageTypeChooseSheet> {
                 ],
               ),
             ),
-            const Divider(color: border, thickness: 1, height: 1),
+             Divider(color: Theme.of(context)
+                .extension<ThemedColors>()!
+                .divider, thickness: 1, height: 1),
             Padding(
               padding: const EdgeInsets.all(16),
               child: Text(

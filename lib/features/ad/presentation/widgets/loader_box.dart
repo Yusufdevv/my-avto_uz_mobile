@@ -1,5 +1,4 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -46,7 +45,9 @@ class LoaderBox extends StatelessWidget {
                     color: Theme.of(context)
                         .extension<ThemedColors>()!
                         .solitudeToDarkRider),
-                color: LightThemeColors.scaffoldBackground,
+                color: Theme.of(context)
+                    .extension<ThemedColors>()!
+                    .whiteToDark,
               ),
               child: isLoading
                   ? const Center(child: CupertinoActivityIndicator())

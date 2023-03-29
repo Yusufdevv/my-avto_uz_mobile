@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -34,9 +35,11 @@ class _ChooseDistrictSheetState extends State<ChooseDistrictSheet> {
   @override
   Widget build(BuildContext context) => Container(
         margin: const EdgeInsets.only(top: 48),
-        decoration: const BoxDecoration(
-          color: white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        decoration:  BoxDecoration(
+          color: Theme.of(context)
+              .extension<ThemedColors>()!
+              .whiteToDark,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
         ),
         child: Column(
           children: [
@@ -45,7 +48,9 @@ class _ChooseDistrictSheetState extends State<ChooseDistrictSheet> {
                 onCancelPressed: () {
                   Navigator.of(context).pop();
                 }),
-            const Divider(thickness: 1, color: border, height: 1),
+             Divider(thickness: 1, color: Theme.of(context)
+                .extension<ThemedColors>()!
+                .divider, height: 1),
             Expanded(
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
@@ -67,9 +72,11 @@ class _ChooseDistrictSheetState extends State<ChooseDistrictSheet> {
                               isChecked: widget.districts[index].id == selected,
                             ),
                           ),
-                          const Divider(
+                           Divider(
                             thickness: 1,
-                            color: border,
+                            color: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .divider,
                             height: 1,
                             indent: 16,
                           )

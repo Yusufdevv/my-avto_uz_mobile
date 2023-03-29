@@ -33,13 +33,22 @@ class MyAdDesc extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 16),
-        InformationGrid(listData: [
-          '${(DateTime.parse(item.publishedAt).difference(DateTime.now()).inDays ~/ 7) + 1} ${LocaleKeys.a_week.tr()}',
-          '${item.stats.viewsCount}',
-          '${item.stats.wishlistCount}',
-          '${item.stats.viewedContactsCount}'
-        ]),
-        if (item.moderationStatus != ModerationStatusEnum.sold.value ) const Divider(height: 24),
+        InformationGrid(
+          listData: [
+            '${(DateTime.parse(item.publishedAt).difference(DateTime.now()).inDays ~/ 7) + 1} ${LocaleKeys.a_week.tr()}',
+            '${item.stats.viewsCount}',
+            '${item.stats.wishlistCount}',
+            '${item.stats.viewedContactsCount}'
+          ],
+          color: [
+            Theme.of(context).extension<ThemedColors>()!.greyContainer26,
+            Theme.of(context).extension<ThemedColors>()!.greenContainer26,
+            Theme.of(context).extension<ThemedColors>()!.redContainer26,
+            Theme.of(context).extension<ThemedColors>()!.blueContainer26,
+          ],
+        ),
+        if (item.moderationStatus != ModerationStatusEnum.sold.value)
+          const Divider(height: 24),
         if (item.moderationStatus == ModerationStatusEnum.active.value)
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -149,8 +158,7 @@ class MyAdDesc extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 11),
                       onTap: () {
-                        Share.share(
-                            'https://avto.uz/post/${item.id}');
+                        Share.share('https://avto.uz/post/${item.id}');
                       },
                       child: SvgPicture.asset(AppIcons.share,
                           color: Theme.of(context)
@@ -162,7 +170,8 @@ class MyAdDesc extends StatelessWidget {
               ),
             ],
           )
-        else if (item.moderationStatus == ModerationStatusEnum.in_moderation.value)
+        else if (item.moderationStatus ==
+            ModerationStatusEnum.in_moderation.value)
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -185,7 +194,7 @@ class MyAdDesc extends StatelessWidget {
                       ),
                       color: Theme.of(context)
                           .extension<ThemedColors>()!
-                          .whiteToDarkRider,
+                          .whiteToBlack,
                       borderRadius: 12,
                       padding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 11),

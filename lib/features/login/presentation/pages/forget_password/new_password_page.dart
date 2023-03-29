@@ -87,7 +87,7 @@ class _LoginNewPasswordPageState extends State<LoginNewPasswordPage> {
               },
               builder: (context, state) => CustomScreen(
                 child: Scaffold(
-                  backgroundColor: white,
+                  backgroundColor: Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
                   appBar: WAppBar(
                     title: LocaleKeys.forgot_password.tr(),
                     boxShadow: [

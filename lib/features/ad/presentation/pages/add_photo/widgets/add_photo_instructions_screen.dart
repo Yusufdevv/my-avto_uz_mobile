@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/usecases/foto_instructions_usecase.dart';
@@ -40,7 +41,9 @@ class _PhotoInstructionsScreenState extends State<PhotoInstructionsScreen> {
         child: Scaffold(
           appBar: WAppBar(
             title: LocaleKeys.adding_photo.tr(),
-            backgroundColor: white,
+            backgroundColor: Theme.of(context)
+                .extension<ThemedColors>()!
+                .scaffoldBackground,
             hasBackButton: true,
             boxShadow: [
               BoxShadow(

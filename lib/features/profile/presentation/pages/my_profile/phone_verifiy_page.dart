@@ -156,7 +156,8 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                               width: 24,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(4),
-                                  color: solitude),
+                                  color: Theme.of(context).extension<ThemedColors>()!.borderGreyToDark,
+                              ),
                               child: Center(
                                 child: RefreshButton(
                                   filteredPhone: widget.phone,

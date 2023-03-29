@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/commercial/presentation/widgets/custom_chip.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -27,7 +28,9 @@ class CarNameYearWidget extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .displayMedium!
-              .copyWith(color: dark, fontSize: 16, fontWeight: FontWeight.w400),
+              .copyWith(color: Theme.of(context)
+              .extension<ThemedColors>()!
+              .darkToWhite, fontSize: 16, fontWeight: FontWeight.w400),
         ),
         WidgetSpan(
           alignment: PlaceholderAlignment.middle,

@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_bool_literals_in_conditional_expressions
 
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
@@ -94,7 +95,9 @@ class _FilterParametersState extends State<FilterParameters> {
         value: filterBloc,
         child: BlocBuilder<FilterBloc, FilterState>(
           builder: (context, state) => Scaffold(
-            backgroundColor: white,
+            backgroundColor: Theme.of(context)
+                .extension<ThemedColors>()!
+                .scaffoldBackground,
             appBar: WAppBar(
               title: LocaleKeys.options.tr(),
               centerTitle: false,
@@ -109,11 +112,12 @@ class _FilterParametersState extends State<FilterParameters> {
                     );
                   },
                   child: Text(
-                    LocaleKeys.clear.tr(),
+                    LocaleKeys.reset.tr(),
                     style: Theme.of(context).textTheme.displayLarge!.copyWith(
                           fontSize: 13,
                           fontWeight: FontWeight.w400,
-                          color: state.isFilter ? orange : null,
+                          color: orange,
+                          // state.isFilter ? orange : null,
                         ),
                   ),
                 ),

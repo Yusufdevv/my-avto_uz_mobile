@@ -37,8 +37,8 @@ class CommercialTab extends StatelessWidget {
             controller: tabController,
             indicator: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color:
-                    Theme.of(context).extension<ThemedColors>()!.whiteToDolphin,
+                color:white,
+                    // Theme.of(context).extension<ThemedColors>()!.whiteToDolphin,
                 boxShadow: [
                   BoxShadow(
                       color: black.withOpacity(0.04),
@@ -50,8 +50,8 @@ class CommercialTab extends StatelessWidget {
                       offset: const Offset(0, 3)),
                 ]),
             labelPadding: EdgeInsets.zero,
-            labelColor:
-                Theme.of(context).extension<ThemedColors>()!.blackToWhite,
+            labelColor: secondary,
+                // Theme.of(context).extension<ThemedColors>()!.blackToWhite,
             labelStyle:
                 const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
             unselectedLabelColor:
@@ -64,7 +64,8 @@ class CommercialTab extends StatelessWidget {
                   children: [
                     Expanded(child: Tab(text: tabLabels[i])),
                     VerticalDivider(
-                      color: Theme.of(context)
+                      color:
+                      Theme.of(context)
                           .extension<ThemedColors>()!
                           .veryLightGreyToEclipse,
                       thickness: 0.65,

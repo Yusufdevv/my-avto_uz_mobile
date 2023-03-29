@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
@@ -60,7 +58,9 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                       /// SEARCH FIELD
                       SliverToBoxAdapter(
                         child: WTextField(
-                          fillColor: white,
+                          fillColor: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .whiteToDark,
                           filled: true,
                           margin: const EdgeInsets.symmetric(
                               horizontal: 16, vertical: 14),
@@ -76,7 +76,9 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                           },
                           borderRadius: 12,
                           hasSearch: true,
-                          focusColor: white,
+                          focusColor: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .whiteToDark,
                           borderColor: purple,
                           hintText: LocaleKeys.search.tr(),
                           height: 40,
@@ -85,7 +87,12 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                               .textTheme
                               .displayLarge!
                               .copyWith(
-                                  fontWeight: FontWeight.w400, fontSize: 16),
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16,
+                                color: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .darkToWhite,
+                              ),
                         ),
                       ),
 

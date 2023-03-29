@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/car_single/presentation/pages/inspection_place_screen.dart';
@@ -51,9 +52,11 @@ class MineMoreBottomSheet extends StatelessWidget {
     print('==== $expiredDate');
     final date = isExpired ? DateTime.now() : expiredDate.isNotEmpty ? DateTime.parse(expiredDate) : DateTime.now();
     return Container(
-      decoration: const BoxDecoration(
-        color: white,
-        borderRadius: BorderRadius.only(
+      decoration: BoxDecoration(
+        color: Theme.of(context)
+            .extension<ThemedColors>()!
+            .whiteToDark,
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(16),
           topRight: Radius.circular(16),
         ),
@@ -102,7 +105,9 @@ class MineMoreBottomSheet extends StatelessWidget {
                     bottom: 16,
                   ),
                   decoration: BoxDecoration(
-                    color: const Color(0xffF0EFFD),
+                    color: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .blueContainer26,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Center(
@@ -119,11 +124,11 @@ class MineMoreBottomSheet extends StatelessWidget {
                               .textTheme
                               .displayLarge!
                               .copyWith(
-                                  color: const Color(
-                                    0xff171725,
-                                  ),
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 12),
+                              color: Theme.of(context)
+                                  .extension<ThemedColors>()!
+                                  .blackToWhite,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 12),
                         ),
                       ],
                     ),
@@ -176,7 +181,9 @@ class MineMoreBottomSheet extends StatelessWidget {
           MoreActionItem(
             icon: AppIcons.refresh,
             text: LocaleKeys.extends_for_day.tr(args: ['7']),
-            color: const Color(0xffF0FAF6),
+            color: Theme.of(context)
+                .extension<ThemedColors>()!
+                .greenContainer26,
             onTap: () {
               Navigator.of(context, rootNavigator: true).push(fade(
                   page: ServiceExtendsAdsPage(date: date, announcementId: id)));
@@ -186,7 +193,9 @@ class MineMoreBottomSheet extends StatelessWidget {
           MoreActionItem(
             icon: AppIcons.crown,
             text: LocaleKeys.become_vip_for_3_days.tr(),
-            color: const Color(0xffFFF6E1),
+            color: Theme.of(context)
+                .extension<ThemedColors>()!
+                .yelowTwoContainer27,
             onTap: () {
               Navigator.of(context, rootNavigator: true).push(
                   fade(page: ServiceVipPage(announcementId: id, date: date)));
@@ -196,7 +205,9 @@ class MineMoreBottomSheet extends StatelessWidget {
           MoreActionItem(
             icon: AppIcons.rocket,
             text: LocaleKeys.send_to_top.tr(),
-            color: const Color(0xffFFECE7),
+            color: Theme.of(context)
+                .extension<ThemedColors>()!
+                .yelowTwoContainer27,
             onTap: () {
               Navigator.of(context, rootNavigator: true).push(
                   fade(page: ServiceTopPage(announcementId: id, date: date)));
@@ -214,18 +225,21 @@ class MineMoreBottomSheet extends StatelessWidget {
             },
           ),
           if (long != 0 && lat != 0)
-          MoreActionItem(
-            icon: AppIcons.redMapIcon,
-            text: 'Место осмотра',
-            color: const Color(0xffFFECE7),
-            onTap: () {
-              if (long != 0 && lat != 0) {
-                Navigator.of(context, rootNavigator: true).push(fade(
-                    page: InspectionPlaceSingleScreen(long: long, lat: lat)));
-              }
-            },
-            borderColor: const Color(0xffF63C07).withOpacity(0.12),
-          ),
+            MoreActionItem(
+              icon: AppIcons.redMapIcon,
+              iconColor: blue,
+              text: 'Место осмотра',
+              color: Theme.of(context)
+                  .extension<ThemedColors>()!
+                  .darkblueContainer27,
+              onTap: () {
+                if (long != 0 && lat != 0) {
+                  Navigator.of(context, rootNavigator: true).push(fade(
+                      page: InspectionPlaceSingleScreen(long: long, lat: lat)));
+                }
+              },
+              borderColor: const Color(0xffF63C07).withOpacity(0.12),
+            ),
           if (moderationStatus == ModerationStatusEnum.active.value)
             MoreActionItem(
               icon: AppIcons.surface,
@@ -234,7 +248,10 @@ class MineMoreBottomSheet extends StatelessWidget {
               onTap: onSold,
               borderColor: const Color(0xff55BB00).withOpacity(0.12),
             ),
-          SizedBox(height: MediaQuery.of(context).padding.bottom + 24),
+          SizedBox(height: MediaQuery
+              .of(context)
+              .padding
+              .bottom + 24),
         ],
       ),
     );

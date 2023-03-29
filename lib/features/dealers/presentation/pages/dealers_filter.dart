@@ -65,7 +65,7 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
         ],
         child: BlocBuilder<DealerFilterBloc, DealerFilterState>(
           builder: (context, state) => Scaffold(
-            backgroundColor: white,
+            backgroundColor: Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
             appBar: WAppBar(
               boxShadow: [
                 BoxShadow(

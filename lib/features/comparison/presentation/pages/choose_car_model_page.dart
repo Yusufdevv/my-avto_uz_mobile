@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:auto/assets/colors/color.dart';
@@ -93,10 +92,10 @@ class _ChooseCarModelPageState extends State<ChooseCarModelPage> {
                               titleSpacing: 4,
                               title: Text(
                                 LocaleKeys.choose_model_auto.tr(),
-                                style: const TextStyle(
+                                style:  TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w700,
-                                  color: dark,
+                                  color: Theme.of(context).extension<ThemedColors>()!.blackToWhite,
                                 ),
                               ),
                               actions: [

@@ -1,5 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/features/ad/const/constants.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +20,11 @@ class CurrencyButton extends StatelessWidget {
         onTap: onTap,
         height: 36,
         width: MediaQuery.of(context).size.width * 0.45,
-        color: selected ? lavender : whiteSmoke,
+        color:
+        // selected ? lavender :
+        Theme.of(context)
+            .extension<ThemedColors>()!
+            .whiteSmoke2ToNightRider,
         borderRadius: 46,
         border: selected ? Border.all(color: purple) : null,
         child: Text(
@@ -28,7 +32,9 @@ class CurrencyButton extends StatelessWidget {
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: selected ? profileContainers : greyText,
+            color:Theme.of(context)
+                .extension<ThemedColors>()!
+                .darkToWhite,
           ),
         ),
       );

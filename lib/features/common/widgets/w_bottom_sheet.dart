@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/material.dart';
 
 class WBottomSheet extends StatelessWidget {
@@ -36,7 +37,7 @@ class WBottomSheet extends StatelessWidget {
             ),
             Container(
               decoration: BoxDecoration(
-                color: bottomsheetBackground ?? white,
+                color: bottomsheetBackground ?? Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
                 borderRadius: BorderRadius.vertical(
                   top: Radius.circular(borderRadius),
                 ),

@@ -1,9 +1,8 @@
-import 'package:auto/assets/colors/light.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/ad/presentation/widgets/gas_balloon_sheet.dart';
 import 'package:auto/features/ad/presentation/widgets/pos_radio_item.dart';
-import 'package:auto/features/common/widgets/switcher_row.dart';
 import 'package:auto/features/common/widgets/switcher_row_as_button_also.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -65,7 +64,9 @@ class _EngineScreenState extends State<EngineScreen> {
                           showModalBottomSheet<int>(
                             context: context,
                             useRootNavigator: true,
-                            backgroundColor: LightThemeColors.appBarColor,
+                            backgroundColor: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .scaffoldBackground,
                             shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.vertical(
                                   top: Radius.circular(20)),

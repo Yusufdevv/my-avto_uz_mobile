@@ -1,3 +1,4 @@
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/features/profile/presentation/pages/about_app/terms_of_use_page.dart';
@@ -15,8 +16,8 @@ class InvoiceTermsOfUse extends StatelessWidget {
           WidgetSpan(
             child: Text(
               LocaleKeys.invoice_terms1.tr(),
-              style: const TextStyle(
-                  color: Colors.black,
+              style:  TextStyle(
+                  color: Theme.of(context).extension<ThemedColors>()!.blackToWhite,
                   fontWeight: FontWeight.w400,
                   fontSize: 11),
             ),

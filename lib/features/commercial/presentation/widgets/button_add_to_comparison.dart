@@ -33,11 +33,12 @@ class ButtonAddToComparison extends StatelessWidget {
               context.read<ComparisonAddBloc>().add(
                   ComparisonAddEvent.addToMapComparison(id: id, value: false));
             } else {
-              context
-                  .read<ComparisonAddBloc>()
-                  .add(ComparisonAddEvent.postComparisonCars(id));
               context.read<ComparisonAddBloc>().add(
-                  ComparisonAddEvent.addToMapComparison(id: id, value: true));
+                    ComparisonAddEvent.postComparisonCars(id),
+                  );
+              context.read<ComparisonAddBloc>().add(
+                    ComparisonAddEvent.addToMapComparison(id: id, value: true),
+                  );
             }
           },
           padding: const EdgeInsets.only(left: 12, top: 10, bottom: 10),

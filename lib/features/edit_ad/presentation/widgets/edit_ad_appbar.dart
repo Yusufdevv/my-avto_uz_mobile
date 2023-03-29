@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/widgets/completion_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -44,7 +45,7 @@ class EditAdAppBar extends StatelessWidget implements PreferredSizeWidget {
                   color: dark.withOpacity(0.04),
                 ),
               ],
-              color: white,
+              color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),

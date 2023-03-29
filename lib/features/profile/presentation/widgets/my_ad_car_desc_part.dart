@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/commercial/presentation/widgets/custom_chip.dart';
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -21,55 +22,62 @@ class MyAdCarDescPart extends StatelessWidget {
   Widget build(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height:  8 ),
+          const SizedBox(height: 8),
           RichText(
-              text: TextSpan(children: [
-            TextSpan(
-              text: item.absoluteCarName,
-              style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                  color: dark, fontSize: 16, fontWeight: FontWeight.w400),
-            ),
-            WidgetSpan(
-              alignment: PlaceholderAlignment.middle,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 4),
-                child: CustomChip(
-                  label: '${item.year}',
-                  backgroundColor:
-                      LightThemeColors.navBarIndicator.withOpacity(0.1),
-                  borderRadius: 4,
-                  labelStyle: const TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w600,
-                    color: LightThemeColors.navBarIndicator,
-                  ),
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: item.absoluteCarName,
+                  style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .darkToWhite,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400),
                 ),
-              ),
-            ),
-            if (item.isNew)
-              WidgetSpan(
+                WidgetSpan(
                   alignment: PlaceholderAlignment.middle,
                   child: Padding(
                     padding: const EdgeInsets.only(left: 4),
                     child: CustomChip(
-                      leading: SvgPicture.asset(AppIcons.checkCurly),
-                      label: LocaleKeys.neww.tr(),
-                      backgroundColor: emerald.withOpacity(0.1),
+                      label: '${item.year}',
+                      backgroundColor:
+                          LightThemeColors.navBarIndicator.withOpacity(0.1),
                       borderRadius: 4,
                       labelStyle: const TextStyle(
                         fontSize: 10,
                         fontWeight: FontWeight.w600,
-                        color: emerald,
+                        color: LightThemeColors.navBarIndicator,
                       ),
                     ),
-                  ))
-          ])),
-          const SizedBox(height:  4 ),
+                  ),
+                ),
+                if (item.isNew)
+                  WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 4),
+                        child: CustomChip(
+                          leading: SvgPicture.asset(AppIcons.checkCurly),
+                          label: LocaleKeys.neww.tr(),
+                          backgroundColor: emerald.withOpacity(0.1),
+                          borderRadius: 4,
+                          labelStyle: const TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w600,
+                            color: emerald,
+                          ),
+                        ),
+                      ))
+              ],
+            ),
+          ),
+          const SizedBox(height: 4),
           Row(
             children: [
               Text(
                 item.discount > 0.0
-                    ? '${MyFunctions.getFormatCost((item.price.floor()-item.discount.floor()).toString())} ${item.currency.toUpperCase()}'
+                    ? '${MyFunctions.getFormatCost((item.price.floor() - item.discount.floor()).toString())} ${item.currency.toUpperCase()}'
                     : '${MyFunctions.getFormatCost(item.price.floor().toString())} ${item.currency.toUpperCase()}',
                 style: Theme.of(context)
                     .textTheme
@@ -78,22 +86,27 @@ class MyAdCarDescPart extends StatelessWidget {
               ),
               const SizedBox(width: 4),
               if (item.discount > 0.0)
-                Text(
-                  '${MyFunctions.getFormatCost(item.price.floor().toString())} ${item.currency.toUpperCase()}',
-                  style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                      decoration: TextDecoration.lineThrough, color: grey),
-                )
+                Padding(
+                  padding: const EdgeInsets.only(top: 4),
+                  child: Text(
+                    '${MyFunctions.getFormatCost(item.price.floor().toString())} ${item.currency.toUpperCase()}',
+                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                        decoration: TextDecoration.lineThrough, color: grey),
+                  ),
+                ),
             ],
           ),
           const SizedBox(height: 8),
           // if (item.description.isNotEmpty)
-          Text(item.description.trim(),
-              overflow: TextOverflow.ellipsis,
-              maxLines: 2,
-              style: Theme.of(context)
-                  .textTheme
-                  .displayMedium!
-                  .copyWith(fontSize: 13)),
+          Text(
+            item.description.trim(),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+            style: Theme.of(context)
+                .textTheme
+                .displayMedium!
+                .copyWith(fontSize: 12),
+          ),
         ],
       );
 }

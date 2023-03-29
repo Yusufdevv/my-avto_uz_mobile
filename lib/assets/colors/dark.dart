@@ -154,6 +154,16 @@ class DarkThemeColors {
   static const seashellToCinnabar15 = _cinnabar15;
   static const dividerColor = _darkGrey;
   static const fairPinkToIndianTan = _indianTan;
+
+  static const greyContainer27 = _whiteLilac1;
+  static const greenContainer27 = _cosmicLatte;
+  static const redContainer27 = _roseWhite;
+  static const blueContainer27 = _lavender1;
+  static const darkblueContainer27 = _midnight;
+  static const lightGreenContainer27 = _turtleGreen;
+  static const yelowOneContainer27 = _cocoaBrownThree;
+  static const yelowTwoContainer27 = _cocoaBrownTwo;
+  static const brownContainer27 = _indianTanTwo;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
@@ -215,3 +225,12 @@ const _charcoal1 = Color(0xff404040);
 const _cinnabar15 = Color(0x26EA5930);
 const _darkGrey = Color(0xffA0A0A0);
 const _indianTan = Color(0xff4f2b21);
+const _whiteLilac1 = Color(0xFF293848);
+const _cosmicLatte = Color(0xFF2B4516);
+const _roseWhite = Color(0xFF502C22);
+const _lavender1 = Color(0xFF302D50);
+const _cocoaBrownThree = Color(0xFF342C1C);
+const _cocoaBrownTwo = Color(0xFF34211C);
+const _midnight = Color(0xFF1C2834);
+const _indianTanTwo = Color(0xFF502C22);
+const _turtleGreen = Color(0xff27341C);

@@ -14,6 +14,7 @@ class DirectoryFilterCategory extends StatefulWidget {
     Key? key,
   }) : super(key: key);
   final List<DirCategoryEntity> category;
+
   @override
   State<DirectoryFilterCategory> createState() =>
       _DirectoryFilterCategoryState();
@@ -34,26 +35,26 @@ class _DirectoryFilterCategoryState extends State<DirectoryFilterCategory> {
                       .greySuitToWhite,
                   fontSize: 14,
                   fontWeight: FontWeight.w400)),
-          const SizedBox(height:  12 ),
+          const SizedBox(height: 12),
           Wrap(
-            spacing:  16 ,
-            runSpacing:  12 ,
+            spacing: 16,
+            runSpacing: 12,
             children: List.generate(
               widget.category.isEmpty ? 0 : widget.category.length,
               (index) {
                 final item = widget.category[index];
                 return WButton(
-                  width: (MediaQuery.of(context).size.width / 2) -
-                       24 ,
+                  width: (MediaQuery.of(context).size.width / 2) - 24,
                   borderRadius: 8,
                   border: Border.all(
-                      color: context
-                              .read<DirectoryBloc>()
-                              .state
-                              .selectedCategories
-                              .contains(item)
-                          ? purple.withOpacity(0.6)
-                          : dividerColor),
+                    color: context
+                            .read<DirectoryBloc>()
+                            .state
+                            .selectedCategories
+                            .contains(item)
+                        ? purple.withOpacity(0.6)
+                        : Theme.of(context).extension<ThemedColors>()!.divider,
+                  ),
                   shadow: [
                     BoxShadow(
                         offset: const Offset(0, 4),
@@ -83,21 +84,29 @@ class _DirectoryFilterCategoryState extends State<DirectoryFilterCategory> {
                     setState(() {});
                   },
                   padding: const EdgeInsets.symmetric(
-                    horizontal:  12 ,
+                    horizontal: 12,
                   ),
-                  color: white,
+                  color:
+                      Theme.of(context).extension<ThemedColors>()!.whiteToDark,
                   child: Stack(
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
-                            child: Text(item.name ?? '',
-                                maxLines: 1,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleLarge
-                                    ?.copyWith(height: 1.3, color: nero)),
+                            child: Text(
+                              item.name ?? '',
+                              maxLines: 1,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge
+                                  ?.copyWith(
+                                    height: 1.3,
+                                    color: Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .blackToWhite80,
+                                  ),
+                            ),
                           ),
                         ],
                       ),
@@ -106,19 +115,29 @@ class _DirectoryFilterCategoryState extends State<DirectoryFilterCategory> {
                         child: Row(
                           children: [
                             Container(
-                              height:  21 ,
-                              width:  24 ,
+                              height: 21,
+                              width: 24,
                               decoration: BoxDecoration(
-                                  gradient: LinearGradient(colors: [
-                                white.withOpacity(0),
-                                white,
-                              ])),
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .whiteToDark
+                                        .withOpacity(0),
+                                    Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .whiteToDark,
+                                  ],
+                                ),
+                              ),
                             ),
                             Container(
-                              color: white,
+                              color: Theme.of(context)
+                                  .extension<ThemedColors>()!
+                                  .whiteToDark,
                               child: Row(
                                 children: [
-                                  const SizedBox(width:  10 ),
+                                  const SizedBox(width: 10),
                                   Container(
                                     height: 25,
                                     width: 24,
@@ -128,10 +147,13 @@ class _DirectoryFilterCategoryState extends State<DirectoryFilterCategory> {
                                                 .state
                                                 .selectedCategories
                                                 .contains(item)
-                                            ? lavender2
-                                            : seashell,
-                                        borderRadius: BorderRadius.circular(
-                                            4 )),
+                                            ? Theme.of(context)
+                                                .extension<ThemedColors>()!
+                                                .whiteToDark
+                                            : Theme.of(context)
+                                                .extension<ThemedColors>()!
+                                                .whiteToDark,
+                                        borderRadius: BorderRadius.circular(4)),
                                     child: Center(
                                       child: Text(
                                         item.carPlaceCount.toString(),

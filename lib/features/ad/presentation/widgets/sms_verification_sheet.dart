@@ -64,9 +64,11 @@ class _SmsVerificationSheetState extends State<SmsVerificationSheet> {
                 bottom: MediaQuery.of(context).padding.bottom + 42,
               ),
               margin: MediaQuery.of(context).viewInsets,
-              decoration: const BoxDecoration(
-                color: white,
-                borderRadius: BorderRadius.only(
+              decoration:  BoxDecoration(
+                color: Theme.of(context)
+                    .extension<ThemedColors>()!
+                    .whiteToDark,
+                borderRadius: const BorderRadius.only(
                   topRight: Radius.circular(16),
                   topLeft: Radius.circular(16),
                 ),

@@ -71,7 +71,7 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
             },
             child: BlocBuilder<CreateOwnerBloc, CreateOwnerState>(
               builder: (context, stateOwner) => Scaffold(
-                backgroundColor: white,
+                backgroundColor: Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
                 appBar: WAppBar(
                   title: LocaleKeys.verified_owner.tr(),
                   extraActions: [

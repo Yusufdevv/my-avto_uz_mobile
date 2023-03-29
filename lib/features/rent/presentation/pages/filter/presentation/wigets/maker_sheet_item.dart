@@ -1,4 +1,4 @@
-import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/marka_checkbox.dart';
 import 'package:flutter/material.dart';
@@ -8,17 +8,6 @@ class RentSheetItemm extends StatelessWidget {
   final String title;
   final String logo;
   final VoidCallback onTap;
-  final bool hasDivider;
-
-  const RentSheetItemm({
-    required this.hasDivider,
-    required this.onTap,
-    required this.logo,
-    required this.title,
-    required this.isChecked,
-    super.key,
-  });
-
   @override
   Widget build(BuildContext context) => Column(
         children: [
@@ -31,7 +20,9 @@ class RentSheetItemm extends StatelessWidget {
                   : const EdgeInsets.only(
                       top: 12, bottom: 12, right: 20, left: 18),
               decoration: BoxDecoration(
-                color: isChecked ? snow : null,
+                color: isChecked ? Theme.of(context)
+                    .extension<ThemedColors>()!
+                    .snowToNero : null,
               ),
               child: Row(
                 children: [
@@ -66,12 +57,25 @@ class RentSheetItemm extends StatelessWidget {
             ),
           ),
           if (hasDivider)
-            const Divider(
+            Divider(
               thickness: 1,
-              color: border,
+              color: Theme.of(context)
+                  .extension<ThemedColors>()!
+                  .divider,
               height: 1,
               indent: 16,
             ),
         ],
       );
+
+  final bool hasDivider;
+
+  const RentSheetItemm({
+    required this.hasDivider,
+    required this.onTap,
+    required this.logo,
+    required this.title,
+    required this.isChecked,
+    super.key,
+  });
 }

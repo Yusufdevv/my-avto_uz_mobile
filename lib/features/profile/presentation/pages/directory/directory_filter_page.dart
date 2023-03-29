@@ -38,7 +38,7 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        backgroundColor: white,
+        backgroundColor: Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
         appBar: WAppBar(
           boxShadow: const [],
           titleStyle:
