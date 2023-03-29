@@ -18,9 +18,8 @@ class AnnouncementListState extends Equatable {
   final BodyTypeEntity? bodyType;
   final DriveTypeEntity? driveType;
   final MakeEntity? make;
-  final int? modelId;
-  final String? modelName;
-  final bool? isNeww;
+  final MakeEntity? model;
+  final IsNew isNew;
   final SaleType saleType;
   final FormzStatus saveFilterStatus;
   final CrossFadeState crossFadeState;
@@ -44,9 +43,8 @@ class AnnouncementListState extends Equatable {
     this.bodyType,
     this.driveType,
     this.make,
-    this.modelId,
-    this.modelName,
-    this.isNeww,
+    this.model,
+    this.isNew = IsNew.all,
     this.saveFilterStatus = FormzStatus.pure,
     this.crossFadeState = CrossFadeState.showFirst,
   });
@@ -70,9 +68,8 @@ class AnnouncementListState extends Equatable {
     BodyTypeEntity? bodyType,
     DriveTypeEntity? driveType,
     MakeEntity? make,
-    int? modelId,
-    String? modelName,
-    bool? isNew,
+    MakeEntity? model,
+    IsNew? isNew,
     FormzStatus? saveFilterStatus,
     CrossFadeState? crossFadeState,
   }) =>
@@ -97,10 +94,9 @@ class AnnouncementListState extends Equatable {
         gearboxType: gearboxType ?? this.gearboxType,
         bodyType: bodyType ?? this.bodyType,
         driveType: driveType ?? this.driveType,
-        make: make ?? this.make,
-        modelId: modelId ?? this.modelId,
-        modelName: modelName ?? this.modelName,
-        isNeww: isNew ?? this.isNeww,
+        make: make?.id == -1 ? null : make ?? this.make,
+        model: model?.id == -1 ? null : model ?? this.model,
+        isNew: isNew ?? this.isNew,
         saveFilterStatus: saveFilterStatus ?? this.saveFilterStatus,
         crossFadeState: crossFadeState ?? this.crossFadeState,
         sortStatus: sortResult ?? sortStatus,
@@ -124,9 +120,8 @@ class AnnouncementListState extends Equatable {
         bodyType,
         driveType,
         make,
-        modelId,
-        modelName,
-        isNeww,
+        model,
+        isNew,
         saveFilterStatus,
         crossFadeState,
         historyId,

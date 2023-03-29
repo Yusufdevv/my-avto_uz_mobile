@@ -11,9 +11,13 @@ class AnnouncementListChooseEvent extends AnnouncementListEvent {
 }
 
 class GetAnnouncementList extends AnnouncementListEvent {
+  const GetAnnouncementList();
+}
 
+class ChangeIsNew extends AnnouncementListEvent {
+  final IsNew isNew;
 
-  const GetAnnouncementList( );
+  ChangeIsNew({required this.isNew});
 }
 
 class GetMoreAnnouncementList extends AnnouncementListEvent {
@@ -80,14 +84,12 @@ class ChangeSaveFilterStatus extends AnnouncementListEvent {
 
 class SetMakeModel extends AnnouncementListEvent {
   final MakeEntity make;
-  final int? modelId;
-  final String? modelName;
+  final MakeEntity? model;
   final bool? historySaved;
 
   const SetMakeModel({
     required this.make,
-    this.modelId,
-    this.modelName,
+    this.model,
     this.historySaved,
   });
 }

@@ -40,6 +40,9 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
           builder: (context, state) => Column(
             children: [
               CommercialTab(
+                onTabTap: (tab) {
+                  bloc.add(ChangeIsNew(isNew: IsNew.values[tab]));
+                },
                 tabController: tabController,
                 tabLabels: [
                   LocaleKeys.all.tr(),
@@ -50,14 +53,13 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
               CommercialCarModelItem(
                   onTapClear: () {
                     bloc.add(const SetMakeModel(
-                      modelId: -1,
+                      model: MakeEntity(),
                       make: MakeEntity(),
-                      modelName: '',
                       historySaved: true,
                     ));
                   },
                   title: state.make?.name ?? '',
-                  subtitle: state.modelName ?? '',
+                  subtitle: state.model?.name ?? '',
                   imageUrl: state.make?.logo ?? '',
                   onTap: () async {
                     final res = await Navigator.push(
@@ -65,17 +67,16 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                       fade(
                         page: ChooseCarMakeAndModelPage(
                           selectedMake: state.make,
-                          selectedModelId: state.modelId,
+                          selectedModelId: state.model?.id ?? -1,
                         ),
                       ),
                     );
 
                     if (res is Map<String, dynamic>) {
-                      var historySaved = res['modelId'] == state.modelId;
-                      historySaved = res['makeId'] == state.make?.id;
+                      var historySaved = res['modelId'] == state.model;
+                      historySaved = res['make'].id == state.make?.id;
                       bloc.add(SetMakeModel(
-                        modelId: res['modelId'],
-                        modelName: res['modelName'],
+                        model: res['model'],
                         historySaved: historySaved,
                         make: res['make'],
                       ));
@@ -103,7 +104,7 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
 
                     historySaved =
                         state.make?.id == null || state.make?.id == -1;
-                     if (res.isFilter) {
+                    if (res.isFilter) {
                       bloc.add(
                         SetFilter(
                           saleType: res.saleType,

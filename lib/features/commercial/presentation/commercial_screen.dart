@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
@@ -29,6 +30,7 @@ class _CommercialScreenState extends State<CommercialScreen>
   late TabController tabController;
   SortStatus? sortingValue = SortStatus.cheapest;
   double height = 130;
+
   void _scrollListener() {
     if (_isShrink) {
       setState(() {
@@ -148,6 +150,9 @@ class _CommercialScreenState extends State<CommercialScreen>
                       duration: fadeDuration,
                       crossFadeState: crossFadeState,
                       firstChild: CommercialTab(
+                        onTabTap: (tab) {
+                          log(':::::::::: tab pressed in commercials page: $tab  ::::::::::');
+                        },
                         tabController: tabController,
                         tabLabels: [
                           LocaleKeys.all.tr(),

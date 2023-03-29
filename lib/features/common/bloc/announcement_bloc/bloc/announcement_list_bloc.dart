@@ -23,6 +23,16 @@ part 'announcement_list_event.dart';
 
 part 'announcement_list_state.dart';
 
+enum IsNew {
+  all(''),
+  neW('true'),
+  notNew('false');
+
+  const IsNew(this.toApi);
+
+  final String toApi;
+}
+
 class AnnouncementListBloc
     extends Bloc<AnnouncementListEvent, AnnouncementListState> {
   GetAnnouncementListUseCase useCase = GetAnnouncementListUseCase();
@@ -42,17 +52,25 @@ class AnnouncementListBloc
     on<ChangeSaveFilterStatus>(_changeSaveFilterStatus);
     on<SaveHistory>(_saveHistory);
     on<ChangeAppBarEvent>(_changeAppBar);
+    on<ChangeIsNew>(_changeIsNew);
+  }
+
+  FutureOr<void> _changeIsNew(
+      ChangeIsNew event, Emitter<AnnouncementListState> emit) async {
+    log(':::::::::: is new triggered by:  ${event.isNew}  ::::::::::');
+    emit(state.copyWith(isNew: event.isNew));
+    add(const GetAnnouncementList());
   }
 
   FutureOr<void> _getMoreAnnouncementList(GetMoreAnnouncementList event,
       Emitter<AnnouncementListState> emit) async {
     final result = await useCase.call({
       'make': state.make?.id == -1 ? '' : state.make?.id,
-      'model': state.modelId == -1 ? '' : state.modelId,
+      'model': state.model?.id == -1 ? '' : state.model?.id,
       'body_type': state.bodyType?.id == -1 ? '' : state.bodyType?.id,
       'drive_type': state.driveType?.id == -1 ? '' : state.driveType?.id,
       'gearbox_type': state.gearboxType?.id == -1 ? '' : state.gearboxType?.id,
-      'is_new': state.isNeww,
+      'is_new': state.isNew.toApi,
       'region__in': getRegionsId(state.regions),
       'price_from': state.priceValuess?.start == -1
           ? ''
@@ -117,8 +135,7 @@ class AnnouncementListBloc
   FutureOr<void> _setMakeModel(
       SetMakeModel event, Emitter<AnnouncementListState> emit) async {
     emit(state.copyWith(
-      modelId: event.modelId,
-      modelName: event.modelName,
+      model: event.model,
       make: event.make,
       historySaved: event.historySaved,
     ));
@@ -165,10 +182,10 @@ class AnnouncementListBloc
     final saveFilterModel = SaveFilterModel(
         id: state.historyId,
         make: state.make?.id,
-        model: [state.modelId],
+        model: [state.model?.id ?? -1],
         query:
-            'make=${state.make?.id ?? ''}&model=${state.modelId ?? ''}&body_type=${state.bodyType?.id == -1 ? '' : state.bodyType?.id}'
-            '&drive_type=${state.driveType?.id == -1 ? '' : state.driveType?.id}&gearbox_type=${state.gearboxType?.id == -1 ? '' : state.gearboxType?.id}&is_new=${state.isNeww ?? ''}'
+            'make=${state.make?.id ?? ''}&model=${state.model ?? ''}&body_type=${state.bodyType?.id == -1 ? '' : state.bodyType?.id}'
+            '&drive_type=${state.driveType?.id == -1 ? '' : state.driveType?.id}&gearbox_type=${state.gearboxType?.id == -1 ? '' : state.gearboxType?.id}&is_new=${state.isNew ?? ''}'
             '&region__in=${getRegionsId(state.regions)}&price_from=${state.priceValuess?.start.toInt() == -1 ? '' : state.priceValuess?.start.toInt()}'
             '&price_to${state.priceValuess?.end.toInt() == -1 ? '' : state.priceValuess?.end.toInt()}&year_from=${state.yearValuess?.start.toInt() == -1 ? '' : state.yearValuess?.start.toInt()}'
             '&year_to=${state.yearValuess?.end.toInt() == -1 ? '' : state.yearValuess?.end.toInt()}&currency=${state.currency?.value}',
@@ -205,12 +222,13 @@ class AnnouncementListBloc
     ));
 
     final result = await useCase.call({
-      'make': state.make?.id == -1 ? '' : state.make?.id,
-      'model': state.modelId == -1 ? '' : state.modelId,
+      'make': state.make == null || state.make?.id == -1 ? '' : state.make?.id,
+      'model':
+          state.model == null || state.model?.id == -1 ? '' : state.model?.id,
       'body_type': state.bodyType?.id == -1 ? '' : state.bodyType?.id,
       'drive_type': state.driveType?.id == -1 ? '' : state.driveType?.id,
       'gearbox_type': state.gearboxType?.id == -1 ? '' : state.gearboxType?.id,
-      'is_new': state.isNeww,
+      'is_new': state.isNew.toApi,
       'region__in': getRegionsId(state.regions),
       'price_from': state.priceValuess?.start == -1
           ? ''

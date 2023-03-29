@@ -161,7 +161,7 @@ class _ComparisonState extends State<Comparison> {
                             isFromComparison: true,
                             // feko  makeId is not a subtype of makeEntity
                             make: makeId,
-                            modelId: modelId,
+                            model: modelId,
                           )))
                               .then((value) {
                             if (context.read<ComparisonAddBloc>().state.count >

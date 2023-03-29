@@ -216,14 +216,15 @@ class _MainScreenState extends State<MainScreen> {
                                   ),
                                 )
                                 ..add(GetAnnouncement());
-                              Navigator.of(context, rootNavigator: true)
-                                  .push(fade(
-                                      page: AdsScreen(
-                                make: make,
-                                modelId: model.id,
-                                modelName: model.name,
-                                historySaved: false,
-                              )));
+                              Navigator.of(context, rootNavigator: true).push(
+                                fade(
+                                  page: AdsScreen(
+                                    make: make,
+                                    model: model,
+                                    historySaved: false,
+                                  ),
+                                ),
+                              );
                             } else {
                               mainBloc
                                 ..add(const GetMakeModelEvent(
@@ -239,8 +240,7 @@ class _MainScreenState extends State<MainScreen> {
                         Navigator.of(context, rootNavigator: true).push(
                           fade(
                             page: AdsScreen(
-                              modelId: state.model?.id ?? -1,
-                              modelName: state.model?.name ?? '',
+                              model: state.model ,
                               make: state.make,
                               historySaved: state.historySaved,
                             ),

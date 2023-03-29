@@ -2,14 +2,19 @@ import 'dart:developer';
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:flutter/material.dart';
 
 class CommercialTab extends StatelessWidget {
   const CommercialTab(
-      {required this.tabController, required this.tabLabels, super.key});
+      {required this.onTabTap,
+      required this.tabController,
+      required this.tabLabels,
+      super.key});
 
   final TabController tabController;
   final List<String> tabLabels;
+  final ValueChanged<int> onTabTap;
 
   @override
   Widget build(BuildContext context) => Container(
@@ -31,14 +36,12 @@ class CommercialTab extends StatelessWidget {
           padding: const EdgeInsets.all(2),
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           child: TabBar(
-            onTap: (v){
-              log(':::::::::::   TABBAR PREESED: $v    ::::::::::::::');
-            },
+            onTap: onTabTap,
             controller: tabController,
             indicator: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color:white,
-                    // Theme.of(context).extension<ThemedColors>()!.whiteToDolphin,
+                color: white,
+                // Theme.of(context).extension<ThemedColors>()!.whiteToDolphin,
                 boxShadow: [
                   BoxShadow(
                       color: black.withOpacity(0.04),
@@ -51,7 +54,7 @@ class CommercialTab extends StatelessWidget {
                 ]),
             labelPadding: EdgeInsets.zero,
             labelColor: secondary,
-                // Theme.of(context).extension<ThemedColors>()!.blackToWhite,
+            // Theme.of(context).extension<ThemedColors>()!.blackToWhite,
             labelStyle:
                 const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
             unselectedLabelColor:
@@ -64,8 +67,7 @@ class CommercialTab extends StatelessWidget {
                   children: [
                     Expanded(child: Tab(text: tabLabels[i])),
                     VerticalDivider(
-                      color:
-                      Theme.of(context)
+                      color: Theme.of(context)
                           .extension<ThemedColors>()!
                           .veryLightGreyToEclipse,
                       thickness: 0.65,

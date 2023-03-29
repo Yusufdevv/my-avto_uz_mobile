@@ -28,9 +28,8 @@ import 'package:formz/formz.dart';
 class AdsScreen extends StatefulWidget {
   const AdsScreen({
     this.make,
-    this.modelId,
+    this.model,
     this.historyId,
-    this.modelName,
     this.queryData,
     this.isFromComparison = false,
     this.historySaved = true,
@@ -38,9 +37,8 @@ class AdsScreen extends StatefulWidget {
   }) : super(key: key);
 
   final MakeEntity? make;
-  final int? modelId;
+  final MakeEntity? model;
   final int? historyId;
-  final String? modelName;
   final QueryDataModel? queryData;
   final bool isFromComparison;
   final bool historySaved;
@@ -85,8 +83,7 @@ class _AdsScreenState extends State<AdsScreen>
     }
     announcementListBloc
       ..add(SetMakeModel(
-        modelId: widget.modelId,
-        modelName: widget.modelName,
+        model: widget.model,
         make: widget.make ?? const MakeEntity(),
         historySaved: widget.historySaved,
       ))

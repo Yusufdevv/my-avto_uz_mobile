@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ads/presentation/pages/ads_screen.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
@@ -129,14 +130,17 @@ class _MySearchesPageState extends State<MySearchesPage> {
                                               historyId: mySearches[index].id,
                                               historySaved: true,
                                               make: mySearches[index].make,
-                                              modelId: mySearches[index]
-                                                  .model
-                                                  ?.first
-                                                  ?.id,
-                                              modelName: mySearches[index]
-                                                  .model
-                                                  ?.first
-                                                  ?.name,
+                                              model: MakeEntity(
+                                                  id: mySearches[index]
+                                                          .model
+                                                          ?.first
+                                                          ?.id ??
+                                                      -1,
+                                                  name: mySearches[index]
+                                                          .model
+                                                          ?.first
+                                                          ?.name ??
+                                                      ''),
                                               queryData:
                                                   mySearches[index].queryData,
                                             ),
