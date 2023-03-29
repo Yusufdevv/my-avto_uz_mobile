@@ -2,8 +2,6 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/presentation/pages/damage/widgets/damage_button.dart';
-import 'package:auto/features/car_single/domain/entities/damaged_parts_entity.dart';
-import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
 
 class InformationAboutDoors extends StatelessWidget {
@@ -11,18 +9,20 @@ class InformationAboutDoors extends StatelessWidget {
     required this.partName,
     required this.damageName,
     required this.damageType,
+    required this.k,
     Key? key,
   }) : super(key: key);
   final DamageType damageType;
   final String partName;
   final String damageName;
+  final double k;
 
   @override
   Widget build(BuildContext context) => Row(
         children: [
           Padding(
               padding: const EdgeInsets.only(right: 8),
-              child: DamageButton(damageType: damageType)),
+              child: DamageButton(k: k, damageType: damageType)),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

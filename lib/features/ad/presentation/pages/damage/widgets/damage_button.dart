@@ -10,8 +10,10 @@ class DamageButton extends StatelessWidget {
   final DamageType? damageType;
   final VoidCallback? onTap;
   final bool placedOnCar;
+  final double k;
 
   const DamageButton({
+    required this.k,
     this.onTap,
     this.damageType,
     this.placedOnCar = true,
@@ -24,8 +26,8 @@ class DamageButton extends StatelessWidget {
         onTap: onTap,
         child: damageType == null
             ? Container(
-                height: 18,
-                width: 18,
+                height: 18 * k,
+                width: 18 * k,
                 margin: EdgeInsets.all(placedOnCar ? 5 : 0),
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
@@ -43,15 +45,15 @@ class DamageButton extends StatelessWidget {
                   alignment: Alignment.center,
                   children: [
                     Container(
-                      height: 2,
-                      width: 10,
+                      height: 2 * k,
+                      width: 10 * k,
                       decoration: BoxDecoration(
                           color: emerald,
                           borderRadius: BorderRadius.circular(1)),
                     ),
                     Container(
-                      width: 2,
-                      height: 10,
+                      width: 2 * k,
+                      height: 10 * k,
                       decoration: BoxDecoration(
                           color: emerald,
                           borderRadius: BorderRadius.circular(1)),
@@ -60,8 +62,8 @@ class DamageButton extends StatelessWidget {
                 ),
               )
             : Container(
-                height: 18,
-                width: 18,
+                height: 18 * k,
+                width: 18 * k,
                 margin: EdgeInsets.all(placedOnCar ? 5 : 0),
                 padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
@@ -69,26 +71,32 @@ class DamageButton extends StatelessWidget {
                   color: MyFunctions.getStatusColor(damageType),
                 ),
                 child: damageType == DamageType.ideal
-                    ? Center(
-                        child: SvgPicture.asset(AppIcons.check, color: white))
+                    ? Padding(
+                        padding: EdgeInsets.all(k > 1.6 ? 4 : 0),
+                        child: SvgPicture.asset(
+                          AppIcons.check,
+                          color: white,
+                        ),
+                      )
                     : Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
-                            margin: const EdgeInsets.only(bottom: 2),
-                            height: 6,
-                            width: 2,
+                            margin: EdgeInsets.only(bottom: 2 * (k ?? 1)),
+                            height: 6 * k,
+                            width: 2 * k,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(1),
                                 color: white),
                           ),
                           Container(
-                            height: 2,
-                            width: 2,
+                            height: 2 * k,
+                            width: 2 * k,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(1),
-                                color: white),
+                              borderRadius: BorderRadius.circular(1 * k),
+                              color: white,
+                            ),
                           ),
                         ],
                       ),

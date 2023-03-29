@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 const String CACHED_DRAFT_ANNOUNCEMENT = 'draft_announcement';
+const double mockWith = 385;
 
 enum DamagedPart {
   rightFrontDoor('rigth_front_door'),
@@ -34,7 +35,7 @@ enum DamageType {
   final String value;
 }
 
-enum Currency  {
+enum Currency {
   uzs('uzs'),
   usd('usd'),
   none('');
@@ -43,7 +44,8 @@ enum Currency  {
 
   final String value;
 }
-enum ModerationStatusEnum  {
+
+enum ModerationStatusEnum {
   active('active'),
   blocked('blocked'),
   sold('sold'),
@@ -96,6 +98,7 @@ enum LicenceType {
 
   final String value;
 }
+
 enum TarifTypeEnum {
   vip('vip'),
   top('top'),

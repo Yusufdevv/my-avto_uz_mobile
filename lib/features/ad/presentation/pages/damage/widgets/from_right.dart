@@ -8,56 +8,77 @@ import 'package:flutter_svg/flutter_svg.dart';
 class FromRight extends StatelessWidget {
   final Map<DamagedPart, DamageType> damagedParts;
   final OnDamageButtonPressed onPressed;
+  final double width;
+  final Size imageSize;
+  final double imageWidth;
+  final double k;
 
-  const FromRight(
-      {required this.damagedParts, required this.onPressed, Key? key})
-      : super(key: key);
+  FromRight(
+      {required this.width,
+      required this.damagedParts,
+      required this.onPressed,
+      required this.imageSize,
+      required this.k,
+      Key? key})
+      : imageWidth = k * imageSize.width,
+        super(key: key);
 
   @override
-  Widget build(BuildContext context) => Center(
-        child: Stack(
-          children: [
-            SvgPicture.asset(
-              AppIcons.carFromRight,
-              fit: BoxFit.cover,
-            ),
-            Positioned(
-              left: 34,
-              top: 22,
-              child: DamageButton(
+  Widget build(BuildContext context) => Container(
+        width: width,
+        alignment: Alignment.center,
+        child: SizedBox(
+          height: (imageWidth * imageSize.height) / imageSize.width,
+          width: imageWidth,
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: SvgPicture.asset(
+                  AppIcons.carFromRight,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              Align(
+                alignment: const Alignment(-.8, -.3),
+                child: DamageButton(
+                  k: k,
                   damageType: damagedParts[DamagedPart.rearRightFender],
                   onTap: () {
                     onPressed(DamagedPart.rearRightFender);
-                  }),
-            ),
-            Positioned(
-              left: 90,
-              bottom: 34,
-              child: DamageButton(
-                  damageType: damagedParts[DamagedPart.rightRearDoor],
-                  onTap: () {
-                    onPressed(DamagedPart.rightRearDoor);
-                  }),
-            ),
-            Positioned(
-              right: 111,
-              bottom: 34,
-              child: DamageButton(
+                  },
+                ),
+              ),
+              Align(
+                alignment: const Alignment(-.3, 0),
+                child: DamageButton(
+                    k: k,
+                    damageType: damagedParts[DamagedPart.rightRearDoor],
+                    onTap: () {
+                      onPressed(DamagedPart.rightRearDoor);
+                    }),
+              ),
+              Align(
+                alignment: const Alignment(.15, 0),
+                child: DamageButton(
+                  k: k,
                   damageType: damagedParts[DamagedPart.rightFrontDoor],
                   onTap: () {
                     onPressed(DamagedPart.rightFrontDoor);
-                  }),
-            ),
-            Positioned(
-              right: 47,
-              top: 22,
-              child: DamageButton(
+                  },
+                ),
+              ),
+              Align(
+                alignment: const Alignment(.65, -.3),
+                child: DamageButton(
+                  k: k,
                   damageType: damagedParts[DamagedPart.frontRightFender],
                   onTap: () {
                     onPressed(DamagedPart.frontRightFender);
-                  }),
-            ),
-          ],
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       );
 }

@@ -245,6 +245,7 @@ class _EditAdScreenState extends State<EditAdScreen>
                             ),
                             // 4
                             DamageScreen(
+                              width: MediaQuery.of(context).size.width,
                               damagedParts: state.damagedParts,
                               onDamageTypeChanged: (part, type) {
                                 context.read<EditAdBloc>().add(

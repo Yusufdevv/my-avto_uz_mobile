@@ -11,6 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class DamageTypeInfoSheet extends StatelessWidget {
+  DamageTypeInfoSheet({required this.k});
+
+  final double k;
   final infos = [
     LocaleKeys.info_ideal.tr(),
     LocaleKeys.info_scratched.tr(),
@@ -20,9 +23,13 @@ class DamageTypeInfoSheet extends StatelessWidget {
   ];
 
   @override
-  Widget build(BuildContext context) => Padding(
+  Widget build(BuildContext context) =>
+      Padding(
         padding:
-            EdgeInsets.only(top: MediaQuery.of(context).viewInsets.top + 60),
+        EdgeInsets.only(top: MediaQuery
+            .of(context)
+            .viewInsets
+            .top + 60),
         child: Container(
           decoration: const BoxDecoration(
               borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
@@ -32,13 +39,16 @@ class DamageTypeInfoSheet extends StatelessWidget {
             children: [
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+                const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
                 child: Row(
                   children: [
                     Expanded(
                       child: Text(
                         LocaleKeys.information.tr(),
-                        style: Theme.of(context).textTheme.displayLarge,
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .displayLarge,
                       ),
                     ),
                     GestureDetector(
@@ -61,48 +71,52 @@ class DamageTypeInfoSheet extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
                   shrinkWrap: true,
                   itemCount: DamageType.values.length,
-                  itemBuilder: (context, index) => Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: border, width: 1)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
+                  itemBuilder: (context, index) =>
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(color: border, width: 1)),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            WarningCircleWidget(
-                                damageType: DamageType.values[index]),
-                            const SizedBox(width: 12),
-                            Text(
-                              MyFunctions.getStatusTitle(
+                            Row(
+                              children: [
+                                WarningCircleWidget(
+                                  k:k,
+                                  damageType: DamageType.values[index],),
+                                const SizedBox(width: 12),
+                                Text(
+                                  MyFunctions.getStatusTitle(
                                       DamageType.values[index])
-                                  .tr(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayLarge!
-                                  .copyWith(
+                                      .tr(),
+                                  style: Theme
+                                      .of(context)
+                                      .textTheme
+                                      .displayLarge!
+                                      .copyWith(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                        const SizedBox(height: 6),
-                        Text(
-                          infos[index],
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMedium!
-                              .copyWith(
+                            const SizedBox(height: 6),
+                            Text(
+                              infos[index],
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .displayMedium!
+                                  .copyWith(
                                   color: Theme.of(context)
                                       .extension<ThemedColors>()!
                                       .darkGreyToWhite),
-                        )
-                      ],
-                    ),
-                  ),
+                            )
+                          ],
+                        ),
+                      ),
                   separatorBuilder: (context, index) =>
-                      const SizedBox(height: 16),
+                  const SizedBox(height: 16),
                 ),
               ),
               WButton(
@@ -111,12 +125,16 @@ class DamageTypeInfoSheet extends StatelessWidget {
                 },
                 color: orange,
                 text: LocaleKeys.understandably.tr(),
-                textStyle: Theme.of(context)
+                textStyle: Theme
+                    .of(context)
                     .textTheme
                     .titleMedium!
                     .copyWith(color: white),
                 margin: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).padding.bottom + 20,
+                  bottom: MediaQuery
+                      .of(context)
+                      .padding
+                      .bottom + 20,
                   top: 20,
                   left: 16,
                   right: 16,

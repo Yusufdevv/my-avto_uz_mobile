@@ -95,6 +95,7 @@ class _DamageTypeChooseSheetState extends State<DamageTypeChooseSheet> {
                     child: Row(
                       children: [
                         WarningCircleWidget(
+                          k: MediaQuery.of(context).size.width / mockWith,
                           damageType: damageType,
                         ),
                         const SizedBox(width: 8),

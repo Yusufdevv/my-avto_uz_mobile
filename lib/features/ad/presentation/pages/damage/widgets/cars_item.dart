@@ -11,21 +11,51 @@ import 'package:flutter_svg/flutter_svg.dart';
 class DamageCarsItem extends StatelessWidget {
   final OnDamageButtonPressed onPressed;
   final Map<DamagedPart, DamageType> damagedParts;
+  final double width;
+  final double k;
 
   const DamageCarsItem(
-      {required this.onPressed, required this.damagedParts, Key? key})
+      {required this.onPressed,
+      required this.damagedParts,
+      required this.width,
+      required this.k,
+      Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) => Column(
         children: [
-          FromLeft(damagedParts: damagedParts, onPressed: onPressed),
+          FromLeft(
+            k: k,
+            imageSize: const Size(285, 94),
+            damagedParts: damagedParts,
+            onPressed: onPressed,
+            width: width,
+          ),
           const SizedBox(height: 32),
-          FromFront(damagedParts: damagedParts, onPressed: onPressed),
+          FromFront(
+            k: k,
+            imageSize: const Size(129, 101),
+            damagedParts: damagedParts,
+            onPressed: onPressed,
+            width: width,
+          ),
           const SizedBox(height: 32),
-          FromBack(damagedParts: damagedParts, onPressed: onPressed),
+          FromBack(
+            k: k,
+            imageSize: const Size(119, 95),
+            damagedParts: damagedParts,
+            onPressed: onPressed,
+            width: width,
+          ),
           const SizedBox(height: 32),
-          FromRight(damagedParts: damagedParts, onPressed: onPressed),
+          FromRight(
+            k: k,
+            imageSize: const Size(285, 94),
+            damagedParts: damagedParts,
+            onPressed: onPressed,
+            width: width,
+          ),
         ],
       );
 }

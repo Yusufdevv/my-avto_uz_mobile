@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/constants/app_constants.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
@@ -19,11 +20,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 typedef OnDamageTypeChanged = Function(DamagedPart part, DamageType type);
 
 class DamageScreen extends StatefulWidget {
+  final double width;
   final OnDamageTypeChanged onDamageTypeChanged;
   final Map<DamagedPart, DamageType> damagedParts;
 
   const DamageScreen(
-      {required this.onDamageTypeChanged, required this.damagedParts, Key? key})
+      {required this.width,
+      required this.onDamageTypeChanged,
+      required this.damagedParts,
+      Key? key})
       : super(key: key);
 
   @override
@@ -36,9 +41,11 @@ class _DamageScreenState extends State<DamageScreen>
   late TabController bumperController;
   late TabController wingController;
   Map<DamagedPart, DamageType> damages = {};
+  late double k;
 
   @override
   void initState() {
+    k = widget.width / mockWith;
     doorController = TabController(length: 2, vsync: this);
     bumperController = TabController(length: 2, vsync: this);
     wingController = TabController(length: 2, vsync: this);
@@ -71,13 +78,14 @@ class _DamageScreenState extends State<DamageScreen>
           extraAction: [
             const Spacer(),
             Container(
-              height: 28,
-              width: 28,
+              height: 28 * k,
+              width: 28 * k,
               margin: const EdgeInsets.only(right: 16),
               decoration:
                   const BoxDecoration(shape: BoxShape.circle, color: border),
               padding: const EdgeInsets.all(4),
               child: DamageButton(
+                  k: k,
                   placedOnCar: false,
                   damageType: DamageType.replaced,
                   onTap: () {
@@ -87,7 +95,7 @@ class _DamageScreenState extends State<DamageScreen>
                       isScrollControlled: true,
                       barrierColor: Colors.black.withOpacity(.5),
                       backgroundColor: Colors.transparent,
-                      builder: (c) => DamageTypeInfoSheet(),
+                      builder: (c) => DamageTypeInfoSheet(k: k),
                     );
                   }),
             )
@@ -112,6 +120,8 @@ class _DamageScreenState extends State<DamageScreen>
                 ),
                 const SizedBox(height: 32),
                 DamageCarsItem(
+                  k: k,
+                  width: widget.width,
                   onPressed: _showChoosDamageTypeSheet,
                   damagedParts: widget.damagedParts,
                 ),
@@ -128,6 +138,7 @@ class _DamageScreenState extends State<DamageScreen>
                     children: [
                       Column(children: [
                         SituationItem(
+                          k: k,
                           onTap: () {
                             _showChoosDamageTypeSheet(
                                 DamagedPart.leftFrontDoor);
@@ -137,6 +148,7 @@ class _DamageScreenState extends State<DamageScreen>
                               widget.damagedParts[DamagedPart.leftFrontDoor],
                         ),
                         SituationItem(
+                            k: k,
                             onTap: () {
                               _showChoosDamageTypeSheet(
                                   DamagedPart.leftRearDoor);
@@ -147,6 +159,7 @@ class _DamageScreenState extends State<DamageScreen>
                       ]),
                       Column(children: [
                         SituationItem(
+                          k: k,
                           onTap: () {
                             _showChoosDamageTypeSheet(
                                 DamagedPart.rightFrontDoor);
@@ -156,6 +169,7 @@ class _DamageScreenState extends State<DamageScreen>
                               widget.damagedParts[DamagedPart.rightFrontDoor],
                         ),
                         SituationItem(
+                          k: k,
                           onTap: () {
                             _showChoosDamageTypeSheet(
                                 DamagedPart.rightRearDoor);
@@ -180,6 +194,7 @@ class _DamageScreenState extends State<DamageScreen>
                     controller: bumperController,
                     children: [
                       SituationItem(
+                          k: k,
                           onTap: () {
                             _showChoosDamageTypeSheet(DamagedPart.rearBumper);
                           },
@@ -187,6 +202,7 @@ class _DamageScreenState extends State<DamageScreen>
                           damageType:
                               widget.damagedParts[DamagedPart.rearBumper]),
                       SituationItem(
+                          k: k,
                           onTap: () {
                             _showChoosDamageTypeSheet(DamagedPart.frontBumper);
                           },
@@ -211,6 +227,7 @@ class _DamageScreenState extends State<DamageScreen>
                       Column(
                         children: [
                           SituationItem(
+                              k: k,
                               onTap: () {
                                 _showChoosDamageTypeSheet(
                                     DamagedPart.rearLeftFender);
@@ -219,6 +236,7 @@ class _DamageScreenState extends State<DamageScreen>
                               damageType: widget
                                   .damagedParts[DamagedPart.rearLeftFender]),
                           SituationItem(
+                              k: k,
                               onTap: () {
                                 _showChoosDamageTypeSheet(
                                     DamagedPart.rearRightFender);
@@ -231,6 +249,7 @@ class _DamageScreenState extends State<DamageScreen>
                       Column(
                         children: [
                           SituationItem(
+                              k: k,
                               onTap: () {
                                 _showChoosDamageTypeSheet(
                                     DamagedPart.frontLeftFender);
@@ -239,6 +258,7 @@ class _DamageScreenState extends State<DamageScreen>
                               damageType: widget
                                   .damagedParts[DamagedPart.frontLeftFender]),
                           SituationItem(
+                              k: k,
                               onTap: () {
                                 _showChoosDamageTypeSheet(
                                     DamagedPart.frontRightFender);
@@ -254,6 +274,7 @@ class _DamageScreenState extends State<DamageScreen>
 
                 //  ROOF
                 SituationTitleItem(
+                    k: k,
                     onTap: () {
                       _showChoosDamageTypeSheet(DamagedPart.roof);
                     },
@@ -262,6 +283,7 @@ class _DamageScreenState extends State<DamageScreen>
 
                 // HOOD
                 SituationTitleItem(
+                  k: k,
                   onTap: () {
                     _showChoosDamageTypeSheet(DamagedPart.hood);
                   },
@@ -271,6 +293,7 @@ class _DamageScreenState extends State<DamageScreen>
 
                 // TRUNK
                 SituationTitleItem(
+                  k: k,
                   onTap: () {
                     _showChoosDamageTypeSheet(DamagedPart.trunk);
                   },

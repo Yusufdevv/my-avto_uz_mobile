@@ -6,8 +6,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class WarningCircleWidget extends StatelessWidget {
   final DamageType? damageType;
+  final double k;
+
   const WarningCircleWidget({
     required this.damageType,
+    required this.k,
     Key? key,
   }) : super(key: key);
 
@@ -16,19 +19,19 @@ class WarningCircleWidget extends StatelessWidget {
     final color = MyFunctions.getStatusColor(damageType);
 
     return Container(
-      padding: damageType == DamageType.ideal ? const EdgeInsets.all(4) : null,
-      height: 24,
-      width: 24,
+      padding: damageType == DamageType.ideal ? EdgeInsets.all(4 * k) : null,
+      height: 24 * k,
+      width: 24 * k,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12 * k),
         border: Border.all(
-          width: 2.3,
+          width: 2.3 * k,
           color: color,
         ),
       ),
       child: damageType == null
           ? Padding(
-              padding: const EdgeInsets.all(4),
+              padding: EdgeInsets.all(4 * k),
               child: SvgPicture.asset(
                 AppIcons.plus,
                 color: color,
@@ -44,19 +47,19 @@ class WarningCircleWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
-                      margin: const EdgeInsets.only(bottom: 2.2),
-                      width: 2.4,
-                      height: 7,
+                      margin: EdgeInsets.only(bottom: 2.2 * k),
+                      width: 2.4 * k,
+                      height: 7 * k,
                       decoration: BoxDecoration(
                           color: color,
-                          borderRadius: BorderRadius.circular(1.2)),
+                          borderRadius: BorderRadius.circular(1.2 * k)),
                     ),
                     Container(
-                      width: 2.4,
-                      height: 2.4,
+                      width: 2.4 * k,
+                      height: 2.4 * k,
                       decoration: BoxDecoration(
                           color: color,
-                          borderRadius: BorderRadius.circular(1.2)),
+                          borderRadius: BorderRadius.circular(1.2 * k)),
                     ),
                   ],
                 ),

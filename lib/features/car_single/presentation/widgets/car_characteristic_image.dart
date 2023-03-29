@@ -1,11 +1,12 @@
+import 'dart:developer';
+
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/car_single/domain/entities/damaged_parts_entity.dart';
-import 'package:auto/features/car_single/presentation/widgets/car_status_icon_on_single.dart';
 import 'package:auto/features/car_single/presentation/widgets/damage_part_row_item.dart';
+import 'package:auto/features/car_single/presentation/widgets/damaged_parts_in_the_single.dart';
 import 'package:auto/generated/locale_keys.g.dart';
-import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -13,8 +14,18 @@ import 'package:flutter_svg/svg.dart';
 class CarCharacteristicImage extends StatefulWidget {
   final List<DamagedPartsEntity> informAboutDoors;
   final bool isFaceToFaceCheck;
-  const CarCharacteristicImage({required this.informAboutDoors, required this.isFaceToFaceCheck, Key? key})
-      : super(key: key);
+  final double k;
+  final double height;
+  final double width;
+
+  const CarCharacteristicImage({
+    required this.informAboutDoors,
+    required this.isFaceToFaceCheck,
+    required this.height,
+    required this.width,
+    required this.k,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<CarCharacteristicImage> createState() => _CarCharacteristicImageState();
@@ -38,17 +49,14 @@ class _CarCharacteristicImageState extends State<CarCharacteristicImage> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
-
+    log('::::::::::     ::::::::::');
     return Container(
-      padding: const EdgeInsets.fromLTRB(16, 20, 0, 20),
+      padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
       margin: const EdgeInsets.only(bottom: 12, top: 12),
       decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(
               width: 1,
-              // color: Colors.red,
               color: Theme.of(context)
                   .extension<ThemedColors>()!
                   .solitudeToDarkRider,
@@ -58,51 +66,37 @@ class _CarCharacteristicImageState extends State<CarCharacteristicImage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            LocaleKeys.auto_characters.tr(),
-            style: Theme.of(context)
-                .textTheme
-                .displayLarge!
-                .copyWith(fontSize: 18),
-          ),
-          if(widget.isFaceToFaceCheck)
-          Row(
-            children: [
-              SvgPicture.asset(AppIcons.doubleCheck),
-              const SizedBox(width: 4),
-              Text(
-                LocaleKeys.checked_by_autouz.tr(),
-                style: Theme.of(context)
-                    .textTheme
-                    .displayLarge!
-                    .copyWith(fontSize: 12, fontWeight: FontWeight.w600),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.only(right: 16),
-              child: Stack(
-                children: [
-                  SvgPicture.asset(
-                    AppIcons.autoModel,
-                    fit: BoxFit.cover,
-                  ),
-                  ...List.generate(
-                    asEnum.length,
-                    (index) => CarStatusIconInPicture(
-                      type: asEnum[index].type,
-                      position: MyFunctions.getDamagePosition(
-                        part: asEnum[index].part,
-                        width: width,
-                        height: height,
-                      ),
-                    ),
-                  ).toList(),
-                ],
-              ),
+          Padding(
+            padding: const EdgeInsets.only(left: 16),
+            child: Text(
+              LocaleKeys.auto_characters.tr(),
+              style: Theme.of(context)
+                  .textTheme
+                  .displayLarge!
+                  .copyWith(fontSize: 18),
             ),
+          ),
+          if (widget.isFaceToFaceCheck)
+            Row(
+              children: [
+                SvgPicture.asset(AppIcons.doubleCheck),
+                const SizedBox(width: 4),
+                Text(
+                  LocaleKeys.checked_by_autouz.tr(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .displayLarge!
+                      .copyWith(fontSize: 12, fontWeight: FontWeight.w600),
+                ),
+              ],
+            ),
+          const SizedBox(height: 16),
+          DamagedPartsInTheSingle(
+            imageSize: const Size(285, 313),
+            k: widget.k,
+            damages: asEnum,
+            width: widget.width,
+            height: widget.height,
           ),
           ListView(
             shrinkWrap: true,
@@ -111,6 +105,7 @@ class _CarCharacteristicImageState extends State<CarCharacteristicImage> {
             children: _getDamgeItems(
                 asEnum,
                 (firstItem, secondItem, hasDivider) => DamagePartRowItem(
+                    k: widget.k,
                     firstItem: firstItem,
                     secondItem: secondItem,
                     hasDivider: hasDivider)).toList(),

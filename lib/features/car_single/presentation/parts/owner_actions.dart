@@ -99,9 +99,7 @@ class OwnerActions extends StatelessWidget {
                         icon: AppIcons.rocket)),
               ),
             ),
-            const SizedBox(
-              width: 8
-            ),
+            const SizedBox(width: 8),
             Expanded(
               child: WScaleAnimation(
                 onTap: () {
@@ -119,7 +117,6 @@ class OwnerActions extends StatelessWidget {
                       title: LocaleKeys.add_to_ways.tr(),
                       icon: AppIcons.reels,
                     )),
-
               ),
             ),
           ],

@@ -11,7 +11,6 @@ import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/const/constants.dart';
-import 'package:auto/features/common/entities/position_entity.dart';
 import 'package:auto/features/common/models/yandex_search_model.dart';
 import 'package:auto/features/common/widgets/maps_list_in_app.dart';
 import 'package:auto/features/dealers/domain/entities/dealer_card_entity.dart';
@@ -606,38 +605,38 @@ class MyFunctions {
     return DamagedPart.hood;
   }
 
-  static DamagePosition getDamagePosition({
+  static Alignment getDamagePosition({
     required DamagedPart part,
     required double width,
     required double height,
   }) {
     switch (part) {
       case DamagedPart.leftFrontDoor:
-        return DamagePosition(left: width * 0.28, top: 37);
+        return const Alignment(-.1, -.75);
       case DamagedPart.rightFrontDoor:
-        return DamagePosition(right: width * 0.28, bottom: 39);
+        return const Alignment(.15, .75);
       case DamagedPart.leftRearDoor:
-        return DamagePosition(top: 37, right: width * 0.23);
+        return const Alignment(.3, -.75);
       case DamagedPart.rightRearDoor:
-        return DamagePosition(left: width * 0.22, bottom: 39);
+        return const Alignment(-.3, .75);
       case DamagedPart.frontBumper:
-        return DamagePosition(top: height * 0.19, left: width * 0.13);
+        return const Alignment(-.6, .2);
       case DamagedPart.rearBumper:
-        return DamagePosition(bottom: height * 0.137, right: width * 0.13);
+        return const Alignment(.6, .18);
       case DamagedPart.frontLeftFender:
-        return DamagePosition(left: width * 0.12, top: 28);
+        return const Alignment(-.65, -.82);
       case DamagedPart.frontRightFender:
-        return DamagePosition(right: width * 0.12, bottom: 46);
+        return const Alignment(.66, .7);
       case DamagedPart.rearLeftFender:
-        return DamagePosition(right: width * 0.09, top: 28);
+        return const Alignment(.76, -.85);
       case DamagedPart.rearRightFender:
-        return DamagePosition(left: width * 0.08, bottom: 48);
+        return const Alignment(-.77, .68);
       case DamagedPart.roof:
-        return DamagePosition(top: height * 0.12, left: width * 0.13);
+        return const Alignment(-.6, -.24);
       case DamagedPart.hood:
-        return DamagePosition(top: height * 0.15, left: width * 0.13);
+        return const Alignment(-.6, 0);
       case DamagedPart.trunk:
-        return DamagePosition(top: height * 0.15, right: width * 0.13);
+        return const Alignment(.6, -.1);
     }
   }
 

@@ -290,13 +290,26 @@ class PASingleton {
       // AddPhotoScreen
       case 10:
         // return false;
-       return  [...state.gallery, ...state.panoramas].length < 3;
+        {
+          if (kDebugMode) {
+            return false;
+            // return [...state.gallery, ...state.panoramas].isNotEmpty;
+          }
+          return [...state.gallery, ...state.panoramas].length < 3;
+        }
 
       // PtsScreen
       case 11:
-        return state.ownerStep == null ||
-            state.licenceType == null ||
-            state.purchasedDate == null;
+        {
+          if (kDebugMode) {
+            return false;
+            // return [...state.gallery, ...state.panoramas].isNotEmpty;
+          }
+          return state.ownerStep == null ||
+              state.licenceType == null ||
+              state.purchasedDate == null;
+        }
+
       //  DescriptionScreen
       case 12:
         return false;

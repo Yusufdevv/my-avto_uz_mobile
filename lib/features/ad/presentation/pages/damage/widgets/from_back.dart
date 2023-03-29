@@ -8,37 +8,59 @@ import 'package:flutter_svg/flutter_svg.dart';
 class FromBack extends StatelessWidget {
   final Map<DamagedPart, DamageType> damagedParts;
   final OnDamageButtonPressed onPressed;
+  final double width;
+  final Size imageSize;
+  final double imageWidth;
+  final double k;
 
-  const FromBack(
-      {required this.damagedParts, required this.onPressed, Key? key})
-      : super(key: key);
+  FromBack(
+      {required this.width,
+      required this.damagedParts,
+      required this.onPressed,
+      required this.imageSize,
+      required this.k,
+      Key? key})
+      : imageWidth = k * imageSize.width,
+        super(key: key);
 
   @override
-  Widget build(BuildContext context) => Center(
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            SvgPicture.asset(
-              AppIcons.carFromBack,
-              fit: BoxFit.cover,
-            ),
-            Positioned(
-              top: 19,
-              child: DamageButton(
+  Widget build(BuildContext context) => Container(
+        width: width,
+        alignment: Alignment.center,
+        child: SizedBox(
+          height: (imageWidth * imageSize.height) / imageSize.width,
+          width: imageWidth,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Positioned.fill(
+                child: SvgPicture.asset(
+                  AppIcons.carFromBack,
+                  fit: BoxFit.contain,
+                ),
+              ),
+              Align(
+                alignment: Alignment(0, k > 1.6 ? -.5 : -.7),
+                child: DamageButton(
+                  k: k,
                   damageType: damagedParts[DamagedPart.trunk],
                   onTap: () {
                     onPressed(DamagedPart.trunk);
-                  }),
-            ),
-            Positioned(
-              bottom: 11,
-              child: DamageButton(
+                  },
+                ),
+              ),
+              Align(
+                alignment: Alignment(0, k > 1.6 ? .4 : .6),
+                child: DamageButton(
+                  k: k,
                   damageType: damagedParts[DamagedPart.rearBumper],
                   onTap: () {
                     onPressed(DamagedPart.rearBumper);
-                  }),
-            ),
-          ],
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       );
 }

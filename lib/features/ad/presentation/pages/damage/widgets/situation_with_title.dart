@@ -11,17 +11,20 @@ class SituationTitleItem extends StatelessWidget {
   final String title;
   final DamageType? damageType;
   final VoidCallback onTap;
+  final double k;
+
   const SituationTitleItem(
       {required this.onTap,
       required this.damageType,
       required this.title,
+      required this.k,
       Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.only(left: 16),
-    child: Column(
+        padding: const EdgeInsets.only(left: 16),
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 24),
@@ -35,10 +38,11 @@ class SituationTitleItem extends StatelessWidget {
             const SizedBox(height: 24),
             Row(
               children: [
-                WarningCircleWidget(damageType: damageType),
+                WarningCircleWidget(k: k, damageType: damageType),
                 const SizedBox(width: 10),
                 Text(
-                  MyFunctions.getStatusTitle(damageType??DamageType.ideal).tr(),
+                  MyFunctions.getStatusTitle(damageType ?? DamageType.ideal)
+                      .tr(),
                   style: Theme.of(context)
                       .textTheme
                       .displayLarge!
@@ -61,5 +65,5 @@ class SituationTitleItem extends StatelessWidget {
             ),
           ],
         ),
-  );
+      );
 }
