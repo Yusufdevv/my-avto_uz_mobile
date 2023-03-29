@@ -36,7 +36,8 @@ class ChooseCarMakeAndModelPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<ChooseCarMakeAndModelPage> createState() => _ChooseCarMakeAndModelPageState();
+  State<ChooseCarMakeAndModelPage> createState() =>
+      _ChooseCarMakeAndModelPageState();
 }
 
 class _ChooseCarMakeAndModelPageState extends State<ChooseCarMakeAndModelPage> {
@@ -183,11 +184,12 @@ class _ChooseCarMakeAndModelPageState extends State<ChooseCarMakeAndModelPage> {
                         SliverPersistentHeader(
                           delegate: AlphabeticHeader(
                             currentLetter: state.selectChar,
-                              onLetterTap: (letter) {
-                                context.read<GetMakesBloc>().add(
-                                      GetMakesGoToIndexEvent(letter: letter),
-                                    );
-                              },),
+                            onLetterTap: (letter) {
+                              context.read<GetMakesBloc>().add(
+                                    GetMakesGoToIndexEvent(letter: letter),
+                                  );
+                            },
+                          ),
                           pinned: true,
                         ),
                     ],
@@ -243,7 +245,7 @@ class _ChooseCarMakeAndModelPageState extends State<ChooseCarMakeAndModelPage> {
                               fade(
                                   page: ChooseCarModelPage(
                                       parentContext: context,
-                                      selectedMake: state.selectedMake,
+                                      selectedMake: state.selectedMake!,
                                       selectedModelId:
                                           widget.selectedModelId)));
                         }

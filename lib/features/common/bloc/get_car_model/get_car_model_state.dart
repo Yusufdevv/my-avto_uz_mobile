@@ -5,20 +5,18 @@ class CarModelsState extends Equatable {
   final FormzStatus getAnnouncementStatus;
   final MakeEntity? model;
   final List<MakeEntity> models;
-  final String next;
+  final String? next;
   final String name;
-  final int getId;
-  final int count;
+  final int makeId;
   final int announcementCount;
 
   const CarModelsState({
     required this.status,
     required this.getAnnouncementStatus,
+    required this.makeId,
     this.models = const <MakeEntity>[],
-    this.next = '',
+    this.next,
     this.name = '',
-    this.getId = -1,
-    this.count = 0,
     this.announcementCount = 0,
     this.model,
   });
@@ -30,8 +28,7 @@ class CarModelsState extends Equatable {
     List<MakeEntity>? models,
     String? next,
     String? name,
-    int? getId,
-    int? count,
+    int? makeId,
     int? announcementCount,
   }) =>
       CarModelsState(
@@ -40,10 +37,9 @@ class CarModelsState extends Equatable {
             getAnnouncementStatus ?? this.getAnnouncementStatus,
         model: model != null && model.id == -1 ? null : model ?? this.model,
         models: models ?? this.models,
-        next: next ?? this.next,
+        next: MyFunctions.returnNullIfEmpty(next, this.next),
         name: name ?? this.name,
-        getId: getId ?? this.getId,
-        count: count ?? this.count,
+        makeId: makeId ?? this.makeId,
         announcementCount: announcementCount ?? this.announcementCount,
       );
 
@@ -55,8 +51,7 @@ class CarModelsState extends Equatable {
         models,
         next,
         name,
-        getId,
-        count,
+        makeId,
         announcementCount,
       ];
 }

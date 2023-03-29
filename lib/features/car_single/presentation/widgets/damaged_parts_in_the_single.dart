@@ -7,7 +7,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class DamagedPartsInTheSingle extends StatelessWidget {
   final double k;
-  final double height;
   final double width;
   final double imageWidth;
   final Size imageSize;
@@ -17,7 +16,6 @@ class DamagedPartsInTheSingle extends StatelessWidget {
   DamagedPartsInTheSingle({
     required this.k,
     required this.damages,
-    required this.height,
     required this.width,
     required this.imageSize,
     Key? key,
@@ -26,9 +24,8 @@ class DamagedPartsInTheSingle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-
         alignment: Alignment.center,
-        width: width  ,
+        width: width,
         child: SizedBox(
           height: (imageWidth * imageSize.height) / imageSize.width,
           width: imageWidth,
@@ -45,11 +42,8 @@ class DamagedPartsInTheSingle extends StatelessWidget {
                 (index) => CarStatusIconInPicture(
                   k: k,
                   type: damages[index].type,
-                  alignment: MyFunctions.getDamagePosition(
-                    part: damages[index].part,
-                    width: width,
-                    height: height,
-                  ),
+                  alignment:
+                      MyFunctions.getDamagePosition(part: damages[index].part),
                 ),
               ).toList(),
             ],

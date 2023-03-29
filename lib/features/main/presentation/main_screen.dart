@@ -26,7 +26,6 @@ import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/features/reels/presentation/pages/reels_screen.dart';
 import 'package:auto/features/rent/presentation/rent_screen.dart';
-import 'package:auto/features/reviews/domain/entities/model_entity.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

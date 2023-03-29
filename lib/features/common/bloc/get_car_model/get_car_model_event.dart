@@ -22,3 +22,7 @@ class CarModelsChooseEvent extends CarModelsEvent {
 
   CarModelsChooseEvent({this.model, this.getId});
 }
+
+class GetMoreModelsEvent extends CarModelsEvent {
+  GetMoreModelsEvent();
+}

@@ -22,14 +22,14 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 class ChooseCarModelPage extends StatefulWidget {
   final BuildContext parentContext;
   final int? selectedModelId;
-  final MakeEntity? selectedMake;
+  final MakeEntity selectedMake;
 
-  const ChooseCarModelPage(
-      {required this.parentContext,
-      this.selectedModelId,
-      this.selectedMake,
-      Key? key})
-      : super(key: key);
+  const ChooseCarModelPage({
+    required this.selectedMake,
+    required this.parentContext,
+    this.selectedModelId,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<ChooseCarModelPage> createState() => _ChooseCarModelPageState();
@@ -38,21 +38,21 @@ class ChooseCarModelPage extends StatefulWidget {
 class _ChooseCarModelPageState extends State<ChooseCarModelPage> {
   late TextEditingController _searchController;
   late CarModelsBloc _getCarModelBloc;
-  late int id;
 
   @override
   void initState() {
     _searchController = TextEditingController();
-    _getCarModelBloc =
-        CarModelsBloc(initialSelectedId: widget.selectedModelId ?? -1)
-          ..add(CarModelsGetEvent(
-            getId: widget.selectedMake?.id ?? -1,
-            search: _searchController.text,
-          ))
-          ..add(CarModelsGetAnnouncementsEvent(
-            makeId: widget.selectedMake?.id ?? -1,
-            modelId: widget.selectedModelId ?? -1,
-          ));
+    _getCarModelBloc = CarModelsBloc(
+        makeId: widget.selectedMake.id,
+        initialSelectedId: widget.selectedModelId ?? -1)
+      ..add(CarModelsGetEvent(
+        getId: widget.selectedMake.id,
+        search: _searchController.text,
+      ))
+      ..add(CarModelsGetAnnouncementsEvent(
+        makeId: widget.selectedMake.id,
+        modelId: widget.selectedModelId ?? -1,
+      ));
     super.initState();
   }
 
@@ -118,64 +118,80 @@ class _ChooseCarModelPageState extends State<ChooseCarModelPage> {
                                 controller: _searchController,
                                 onChanged: () {
                                   _getCarModelBloc.add(CarModelsGetEvent(
-                                    getId: id,
+                                    getId: widget.selectedMake.id,
                                     search: _searchController.text,
                                   ));
                                 },
                                 onClear: () {
-                                  _getCarModelBloc.add(CarModelsGetEvent(
-                                    getId: id,
-                                    search: _searchController.text,
-                                  ));
+                                  _getCarModelBloc.add(
+                                    CarModelsGetEvent(
+                                      getId: widget.selectedMake.id,
+                                      search: _searchController.text,
+                                    ),
+                                  );
                                 },
                               ),
                               pinned: true,
                             ),
                           ],
-                          body: Builder(builder: (context) {
-                            if (state.status.isSubmissionInProgress) {
-                              return const Center(
-                                  child: CupertinoActivityIndicator());
-                            }
-                            if (state.status.isSubmissionSuccess) {
-                              return state.models.isNotEmpty
-                                  ? ListView.builder(
-                                      padding:
-                                          const EdgeInsets.only(bottom: 60),
-                                      itemBuilder: (context, index) =>
-                                          Container(
-                                        color: Theme.of(context)
-                                            .extension<ThemedColors>()!
-                                            .whiteToDark,
-                                        child: ModelItems(
-                                          title: state.models[index].name,
-                                          isSelected: state.model?.id ==
-                                              state.models[index].id,
-                                          text: _searchController.text,
-                                          onTap: () {
-                                            _getCarModelBloc
-                                              ..add(
-                                                CarModelsChooseEvent(
-                                                  model: state.models[index],
-                                                ),
-                                              )
-                                              ..add(
-                                                  CarModelsGetAnnouncementsEvent(
-                                                      makeId:
-                                                          widget.selectedMake
-                                                                  ?.id ??
-                                                              -1,
-                                                      modelId: state
-                                                          .models[index].id));
-                                          },
-                                        ),
+                          body: Builder(
+                            builder: (context) {
+                              if (state.status.isSubmissionInProgress) {
+                                return const Center(
+                                    child: CupertinoActivityIndicator());
+                              }
+                              if (state.models.isEmpty) {
+                                return const NoDataWidget();
+                              }
+
+                              return ListView.builder(
+                                  padding: const EdgeInsets.only(bottom: 60),
+                                  itemCount: state.models.length + 1,
+                                  itemBuilder: (context, index) {
+                                    if (index == state.models.length) {
+                                      if (state.next != null) {
+                                        log('state.nextModels != null:${state.next}');
+                                        _getCarModelBloc
+                                            .add(GetMoreModelsEvent());
+                                        return Container(
+                                          height: 90,
+                                          color: Theme.of(context)
+                                              .extension<ThemedColors>()!
+                                              .whiteToDark,
+                                          child:
+                                              const CupertinoActivityIndicator(),
+                                        );
+                                      }
+                                      return const SizedBox();
+                                    }
+                                    return Container(
+                                      color: Theme.of(context)
+                                          .extension<ThemedColors>()!
+                                          .whiteToDark,
+                                      child: ModelItems(
+                                        title: state.models[index].name,
+                                        isSelected: state.model?.id ==
+                                            state.models[index].id,
+                                        text: _searchController.text,
+                                        onTap: () {
+                                          _getCarModelBloc
+                                            ..add(
+                                              CarModelsChooseEvent(
+                                                model: state.models[index],
+                                              ),
+                                            )
+                                            ..add(
+                                                CarModelsGetAnnouncementsEvent(
+                                                    makeId:
+                                                        widget.selectedMake.id,
+                                                    modelId: state
+                                                        .models[index].id));
+                                        },
                                       ),
-                                      itemCount: state.models.length,
-                                    )
-                                  : const NoDataWidget();
-                            }
-                            return const SizedBox();
-                          }),
+                                    );
+                                  });
+                            },
+                          ),
                         ),
                         Positioned(
                           bottom: Platform.isAndroid ? 20 : 50,
