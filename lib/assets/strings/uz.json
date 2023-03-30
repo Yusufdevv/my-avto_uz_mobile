@@ -621,6 +621,8 @@
   "you_can_not_upload_more_than_30": "30 tadan ortiq rasm qo'ya olmaysiz",
   "rent_with_purchase_available": "Bo'lib to'lashga arenda shartlari mavjud",
   "sale_type": "Sotuv turi",
-  "direct_sale": "Joyida to'lov"
+  "direct_sale": "Joyida to'lov",
+  "systemi": "Tizimli",
+  "lighti": "Kunduzgi",
+  "darki": "Tungi"
 }
-
