@@ -9,6 +9,7 @@ class NavItemWidget extends StatelessWidget {
   final int currentIndex;
   final String? avatar;
   final NavBar navBar;
+
   //final Function onDoubleTap;
 
   const NavItemWidget({
@@ -28,22 +29,54 @@ class NavItemWidget extends StatelessWidget {
             if (avatar == null) ...{
               Center(
                 child: currentIndex == navBar.id
-                    ? Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                        child: SvgPicture.asset(
-                          navBar.icon,
-                          height: 24,
-                          width: 24,
-                        ),
-                      )
-                    : Padding(
-                        padding: const EdgeInsets.only(top: 16),
-                        child: SvgPicture.asset(
-                          navBar.outlinedIcon,
-                          height: 24,
-                          width: 24,
-                        ),
-                      ),
+                    ? currentIndex == navBar.id && navBar.id == 2
+                        ? Container(
+                            height: 24,
+                            width: 24,
+                            color: orange,
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: SvgPicture.asset(
+                                  navBar.icon,
+                                  height: 24,
+                                  width: 24,
+                                ),
+                              ),
+                            ),
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: SvgPicture.asset(
+                              navBar.icon,
+                              height: 24,
+                              width: 24,
+                            ),
+                          )
+                    : navBar.id == 2
+                        ? Container(
+                            height: 24,
+                            width: 24,
+                            decoration: BoxDecoration(
+                                color: navBar.id == 2 && currentIndex == 2 ?  const Color(0xff695CEA) : orange,
+                                borderRadius: BorderRadius.circular(6)),
+                            padding: const EdgeInsets.all(2),
+                            margin: const EdgeInsets.only(top: 16),
+                            child: SvgPicture.asset(
+                              navBar.outlinedIcon,
+                              height: 20,
+                              width: 20,
+                              color: navBar.id == 2 ? white : null,
+                            ),
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.only(top: 16),
+                            child: SvgPicture.asset(
+                              navBar.outlinedIcon,
+                              height: 24,
+                              width: 24,
+                            ),
+                          ),
               ),
             } else ...{
               Container(

@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
+import 'package:auto/features/common/bloc/theme_switcher_bloc/theme_switcher_bloc.dart';
 import 'package:auto/features/common/widgets/w_keyboard_dissmisser.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:flutter/material.dart';
@@ -30,28 +31,27 @@ class CustomScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(
                       left: 12, right: 8, top: 8, bottom: 8),
                   decoration: BoxDecoration(
-                    color: statusBgColor(state.status),
+                    color: statusBgColor(state.status,context),
                     border: Border.all(color: statusBorderColor(state.status)),
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Row(
                     children: [
                       Container(
-                          height: 32,
-                          width: 32,
-                          decoration: BoxDecoration(
-                            color: statusColor(state.status),
-                            shape: BoxShape.circle,
-                          ),
-                          alignment: Alignment.center,
-                          child: SvgPicture.asset(
-                            statusIcon(state.status),
-                            color: state.status == PopStatus.success
-                                ? white
-                                : null,
-                            height:
-                                state.status == PopStatus.success ? 14 : null,
-                          )),
+                        height: 32,
+                        width: 32,
+                        decoration: BoxDecoration(
+                          color: statusColor(state.status),
+                          shape: BoxShape.circle,
+                        ),
+                        alignment: Alignment.center,
+                        child: SvgPicture.asset(
+                          statusIcon(state.status),
+                          color:
+                              state.status == PopStatus.success ? white : null,
+                          height: state.status == PopStatus.success ? 14 : null,
+                        ),
+                      ),
                       const SizedBox(width: 12),
                       Expanded(
                         child: Text(
@@ -62,7 +62,7 @@ class CustomScreen extends StatelessWidget {
                               .textTheme
                               .bodyLarge!
                               .copyWith(
-                                  color: secondary,
+                                  color: context.read<ThemeSwitcherBloc>().state.themeMode == ThemeMode.light ? secondary : white,
                                   fontWeight: FontWeight.w600,
                                   height: 1.3),
                         ),
@@ -84,7 +84,7 @@ class CustomScreen extends StatelessWidget {
                           padding: const EdgeInsets.all(8),
                           child: SvgPicture.asset(
                             AppIcons.close,
-                            color: black,
+                            color: context.read<ThemeSwitcherBloc>().state.themeMode == ThemeMode.light ? black : white,
                           ),
                         ),
                       )
@@ -96,6 +96,7 @@ class CustomScreen extends StatelessWidget {
           ),
         ),
       );
+
   String statusIcon(PopStatus status) {
     switch (status) {
       case PopStatus.success:
@@ -107,14 +108,15 @@ class CustomScreen extends StatelessWidget {
     }
   }
 
-  Color statusBgColor(PopStatus status) {
+  Color statusBgColor(PopStatus status,BuildContext context) {
     switch (status) {
       case PopStatus.success:
-        return const Color(0xffECF8F3);
+        return  context.read<ThemeSwitcherBloc>().state.themeMode == ThemeMode.light ? const Color(0xffECF8F3) : const Color(0xff13251E);
+
       case PopStatus.error:
-        return const Color(0xffFAEEEE);
+        return  context.read<ThemeSwitcherBloc>().state.themeMode == ThemeMode.light ? const Color(0xffFAEEEE) : const Color(0xff221A0A);
       case PopStatus.warning:
-        return const Color(0xffFDF3E1);
+        return  context.read<ThemeSwitcherBloc>().state.themeMode == ThemeMode.light ? const  Color(0xffFDF3E1) : const Color(0xff2C1211);;
     }
   }
 

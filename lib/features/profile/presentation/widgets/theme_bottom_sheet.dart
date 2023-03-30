@@ -25,9 +25,9 @@ class ThemeBottomSheet extends StatefulWidget {
 
 class _ThemeBottomSheetState extends State<ThemeBottomSheet> {
   List<String> titleList = [
-    'Системная',
-    'Светлая',
-    'Темная',
+    LocaleKeys.systemi.tr(),
+    LocaleKeys.lighti.tr(),
+    LocaleKeys.darki.tr(),
   ];
 
   late int selectedTheme;

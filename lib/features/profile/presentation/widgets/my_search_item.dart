@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/profile/domain/entities/my_searches_entity.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -34,27 +35,25 @@ class MySearchItem extends StatelessWidget {
             top: index == 0 ? 20 : 0,
             bottom: 12,
           ),
-          padding: const EdgeInsets.only(
-              left: 16 ,
-              right:  12 ,
-              top:  16 ,
-              bottom:  16 ),
+          padding:
+              const EdgeInsets.only(left: 16, right: 12, top: 16, bottom: 16),
           decoration: BoxDecoration(
-              color: white,
-              borderRadius: BorderRadius.circular( 12 ),
-              boxShadow: [
-                BoxShadow(
-                    offset: const Offset(0, 8),
-                    blurRadius: 19,
-                    color: profileContainers.withOpacity(0.07))
-              ]),
+            color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                  offset: const Offset(0, 8),
+                  blurRadius: 19,
+                  color: profileContainers.withOpacity(0.07))
+            ],
+          ),
           child: Row(
             children: [
               SizedBox(
-                height: 38 ,
-                width:  38  ,
+                height: 38,
+                width: 38,
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular( 50 ),
+                  borderRadius: BorderRadius.circular(50),
                   child: CachedNetworkImage(
                     imageUrl: item.make?.logo ?? '',
                     errorWidget: (context, url, error) => Image.asset(
@@ -63,7 +62,7 @@ class MySearchItem extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(width:  6 ),
+              const SizedBox(width: 6),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,7 +72,7 @@ class MySearchItem extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .titleLarge
-                              ?.copyWith(color: dark)),
+                              ?.copyWith(color: Theme.of(context).extension<ThemedColors>()!.blackToWhite)),
                     const SizedBox(height: 2),
                     if (item.make?.name != null && item.model?[0]?.name != null)
                       Text('${item.make?.name} • ${item.model?[0]?.name}',

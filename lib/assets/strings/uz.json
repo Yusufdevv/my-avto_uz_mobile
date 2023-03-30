@@ -618,6 +618,9 @@
   "all_products": "Barcha maxsulotlar",
   "categories_services_products": "Xizmat/maxsulotlar kategoriyalari",
   "theme_of_app": "Dastur mavzusi",
-  "you_can_not_upload_more_than_30": "30 tadan ortiq rasm qo'ya olmaysiz"
+  "you_can_not_upload_more_than_30": "30 tadan ortiq rasm qo'ya olmaysiz",
+  "systemi": "Tizimli",
+  "lighti": "Kunduzgi",
+  "darki" : "Tungi"
 }
 
