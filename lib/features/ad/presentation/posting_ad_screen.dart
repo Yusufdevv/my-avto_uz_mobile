@@ -245,10 +245,10 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                 Navigator.pop(context);
                               }
                             },
-                            onTapCancel: () async {
+                            onTapCancel: () {
                               postingAdBloc.add(PostingAdClearStateEvent());
                               currentTabNotifier.value = 0;
-                              await pageController.animateToPage(
+                              pageController.animateToPage(
                                   currentTabNotifier.value,
                                   duration: const Duration(milliseconds: 100),
                                   curve: Curves.linear);

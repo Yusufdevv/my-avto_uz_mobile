@@ -13,8 +13,6 @@ class PostingAdAppBar extends StatelessWidget implements PreferredSizeWidget {
   final TextStyle? titleStyle;
   final bool hasShadow;
   final int currentTabIndex;
-
-  ///Default is 20
   final double backButtonSize;
   final String reverseTitle;
   final int tabLength;
@@ -58,68 +56,11 @@ class PostingAdAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ]
                   : null,
               color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+              // color: Colors.amber,
             ),
             child: Stack(
               alignment: Alignment.center,
               children: [
-                FadeTransition(
-                  opacity: scaleAnimation,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width - 48,
-                        child: Row(
-                          children: [
-                            const SizedBox(width: 16),
-                            GestureDetector(
-                              behavior: HitTestBehavior.opaque,
-                              onTap: onTapBack,
-                              child: SizedBox(
-                                width: 24,
-                                height: 30,
-                                child: SvgPicture.asset(
-                                  AppIcons.chevronLeft,
-                                  height: 26,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            Expanded(
-                              child: Text(
-                                title,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                                style: titleStyle ??
-                                    Theme.of(context)
-                                        .textTheme
-                                        .displayMedium!
-                                        .copyWith(
-                                            fontWeight: FontWeight.w600,
-                                            color: grey),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      if (hasCancelButton)
-                        GestureDetector(
-                          onTap: onTapCancel,
-                          behavior: HitTestBehavior.opaque,
-                          child: Container(
-                            width: 32,
-                            height: 32,
-                            padding: const EdgeInsets.all(8),
-                            child: SvgPicture.asset(
-                              AppIcons.cancel,
-                              color: grey,
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
-                ),
                 FadeTransition(
                   opacity: reversScaleAnimation,
                   child: Padding(
@@ -160,6 +101,64 @@ class PostingAdAppBar extends StatelessWidget implements PreferredSizeWidget {
                         ),
                       ],
                     ),
+                  ),
+                ),
+                FadeTransition(
+                  opacity: scaleAnimation,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width - 48,
+                        child: Row(
+                          children: [
+                            const SizedBox(width: 16),
+                            GestureDetector(
+                              behavior: HitTestBehavior.opaque,
+                              onTap: onTapBack,
+                              child: SizedBox(
+                                width: 24,
+                                height: 30,
+                                child: SvgPicture.asset(
+                                  AppIcons.chevronLeft,
+                                  height: 26,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              title,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: titleStyle ??
+                                  Theme.of(context)
+                                      .textTheme
+                                      .displayMedium!
+                                      .copyWith(
+                                        fontWeight: FontWeight.w600,
+                                        color: grey,
+                                      ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      if (hasCancelButton)
+                        GestureDetector(
+                          onTap: onTapCancel,
+                          behavior: HitTestBehavior.opaque,
+                          child: Container(
+                            alignment: Alignment.centerRight,
+                            width: 32,
+                            height: 32,
+                            padding: const EdgeInsets.all(8),
+                            child: SvgPicture.asset(
+                              AppIcons.cancel,
+                              color: grey,
+                            ),
+                          ),
+                        ),
+                    ],
                   ),
                 ),
               ],
