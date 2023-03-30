@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -230,7 +231,7 @@ class _DealerScreenState extends State<DealerScreen>
                         physics: const NeverScrollableScrollPhysics(),
                         children: [
                           const DealersList(),
-                          const MapScreen(),
+                          const MapScreen(iconPath: AppIcons.dealersLocIcon),
                         ],
                       ),
                     ),

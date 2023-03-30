@@ -186,7 +186,9 @@ class _DirectoryPageState extends State<DirectoryPage>
                       physics: const NeverScrollableScrollPhysics(),
                       children: const [
                         DirectoryList(),
-                        MapScreen(isFromDirectoryPage: true),
+                        MapScreen(
+                            isFromDirectoryPage: true,
+                            iconPath: AppIcons.directoryPoint),
                       ],
                     ),
                   ),

@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/core/utils/marker_generator.dart';
@@ -20,9 +21,11 @@ import 'package:formz/formz.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class MapScreen extends StatefulWidget {
-  const MapScreen({Key? key, this.isFromDirectoryPage = false})
+  const MapScreen(
+      {required this.iconPath, Key? key, this.isFromDirectoryPage = false})
       : super(key: key);
   final bool isFromDirectoryPage;
+  final String iconPath;
 
   @override
   State<MapScreen> createState() => _MapScreenState();
@@ -71,6 +74,7 @@ class _MapScreenState extends State<MapScreen>
           },
           listener: (context, state) async {
             await addDealer(
+              iconPath: widget.iconPath,
               points: widget.isFromDirectoryPage
                   ? state.directoriesPoints
                   : state.dealers,
@@ -98,9 +102,9 @@ class _MapScreenState extends State<MapScreen>
                                       cameraPosition.zoom)
                                   .floor()));
                       await StorageRepository.putDouble(
-                          'lat', cameraPosition.target.latitude);
-                      await StorageRepository.putDouble(
-                          'long', cameraPosition.target.longitude);
+                          StorageKeys.LATITUDE, cameraPosition.target.latitude);
+                      await StorageRepository.putDouble(StorageKeys.LONGITUDE,
+                          cameraPosition.target.longitude);
                     }
                     // setState(() {});
                   },
@@ -115,9 +119,11 @@ class _MapScreenState extends State<MapScreen>
                     minZoomLevel = await controller.getMinZoom();
                     final camera = await _mapController.getCameraPosition();
                     final position = Point(
-                        latitude: StorageRepository.getDouble('lat',
+                        latitude: StorageRepository.getDouble(
+                            StorageKeys.LATITUDE,
                             defValue: 41.310990),
-                        longitude: StorageRepository.getDouble('long',
+                        longitude: StorageRepository.getDouble(
+                            StorageKeys.LONGITUDE,
                             defValue: 69.281997));
                     await _mapController.moveCamera(
                       CameraUpdate.newCameraPosition(
@@ -143,7 +149,7 @@ class _MapScreenState extends State<MapScreen>
                                   latitude: position.latitude,
                                   longitude: position.longitude);
                               final myPlaceMark = await MyFunctions.getMyPoint(
-                                  myPoint, context, AppIcons.dealersLocIcon);
+                                  myPoint, context, widget.iconPath);
                               setState(() {
                                 _mapObjects.add(myPlaceMark);
                               });
@@ -212,8 +218,8 @@ class _MapScreenState extends State<MapScreen>
                                         latitude: position.latitude,
                                         longitude: position.longitude);
                                     final myPlaceMark =
-                                        await MyFunctions.getMyPoint(myPoint,
-                                            context, AppIcons.dealersLocIcon);
+                                        await MyFunctions.getMyPoint(
+                                            myPoint, context, widget.iconPath);
                                     setState(() {
                                       _mapObjects.add(myPlaceMark);
                                     });
@@ -346,11 +352,7 @@ class _MapScreenState extends State<MapScreen>
               scale: isDirectoryPage ? 1 : 0.9,
               image: value != null
                   ? BitmapDescriptor.fromBytes(value)
-                  : BitmapDescriptor.fromAssetImage(
-                      isDirectoryPage
-                          ? AppIcons.directoryPoint
-                          : AppIcons.dealersLocIcon,
-                    ),
+                  : BitmapDescriptor.fromAssetImage(widget.iconPath),
               rotationType: RotationType.noRotation,
             ),
           ),
@@ -358,8 +360,11 @@ class _MapScreenState extends State<MapScreen>
       );
     });
 
-    final myPoint =
-        await MyFunctions.getMyPoint(point, context, AppIcons.dealersLocIcon);
+    final myPoint = await MyFunctions.getMyPoint(
+      point,
+      context,
+      AppIcons.currentLoc,
+    );
     final clusterItem = ClusterizedPlacemarkCollection(
       mapId: MyFunctions.clusterId,
       placemarks: placeMarks,
@@ -380,7 +385,7 @@ class _MapScreenState extends State<MapScreen>
             PlacemarkIconStyle(
               image: BitmapDescriptor.fromBytes(
                 await MyFunctions.getBytesFromCanvas(
-                  image: AppIcons.dealersLocIcon,
+                  image: widget.iconPath,
                   width: 200,
                   height: 410,
                   placeCount: cluster.placemarks.length,
@@ -406,11 +411,13 @@ class _MapScreenState extends State<MapScreen>
     required Point point,
     required double accuracy,
     required bool isDirectoryPage,
+    required String iconPath,
   }) async {
     _mapObjects.clear();
     MarkerGenerator(
         points
             .map((l) => CustomPoint(
+                  iconPath: iconPath,
                   url: l.avatar,
                 ))
             .toList(), (lis) {
