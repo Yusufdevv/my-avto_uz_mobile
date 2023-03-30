@@ -136,6 +136,12 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdGetColorsEvent>(_getColors);
     on<PostingAdMoreModelsEvent>(_moreModels);
     on<PostingAdModelEvent>(_models);
+    on<PostingAdChangePageEvent>(_pageChange);
+  }
+
+  FutureOr<void> _pageChange(
+      PostingAdChangePageEvent event, Emitter<PostingAdState> emit) async {
+    emit(state.copyWith(currentPage: event.page));
   }
 
   FutureOr<void> _moreModels(

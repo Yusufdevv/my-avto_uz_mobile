@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
@@ -43,9 +44,11 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
   late ColorTween _fillTweenColor;
   late ColorTween _headerTextTweenColor;
 
-  bool get isLight => StorageRepository.getString('themeMode') == 'light';
+  bool get isLight =>
+      StorageRepository.getString(StorageKeys.THEME_MODE) == 'light';
 
-  bool get isDark => StorageRepository.getString('themeMode') == 'dark';
+  bool get isDark =>
+      StorageRepository.getString(StorageKeys.THEME_MODE) == 'dark';
 
   @override
   void initState() {

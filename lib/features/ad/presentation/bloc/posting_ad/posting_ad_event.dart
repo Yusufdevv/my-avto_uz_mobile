@@ -2,8 +2,6 @@ part of 'posting_ad_bloc.dart';
 
 abstract class PostingAdEvent {}
 
-
-
 class PostingAdShowToastEvent extends PostingAdEvent {
   final String message;
   final PopStatus status;
@@ -78,6 +76,12 @@ class PostingAdModelEvent extends PostingAdEvent {
   PostingAdModelEvent({this.name});
 }
 
+class PostingAdChangePageEvent extends PostingAdEvent {
+  final int page;
+
+  PostingAdChangePageEvent({required this.page});
+}
+
 class PostingAdDriveTypesEvent extends PostingAdEvent {
   PostingAdDriveTypesEvent();
 }
@@ -95,8 +99,6 @@ class PostingAdSearchMakesEvent extends PostingAdEvent {
 class PostingAdMakesEvent extends PostingAdEvent {
   PostingAdMakesEvent();
 }
-
-
 
 class PostingAdMoreModelsEvent extends PostingAdEvent {
   PostingAdMoreModelsEvent();
@@ -233,8 +235,6 @@ class PostingAdChooseEvent extends PostingAdEvent {
     this.getModificationStatus,
   });
 }
-
-
 
 class PostingAdSelectEquipmentEvent extends PostingAdEvent {
   final EquipmentEntity equipment;

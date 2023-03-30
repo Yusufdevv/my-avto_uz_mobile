@@ -1,5 +1,3 @@
-
-
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
@@ -21,9 +19,13 @@ import 'package:yandex_mapkit/yandex_mapkit.dart';
 class MapScreenPostingAd extends StatefulWidget {
   final double initialLat;
   final double initialLong;
+  final bool isNightMode;
 
   const MapScreenPostingAd(
-      {required this.initialLat, required this.initialLong, Key? key})
+      {required this.isNightMode,
+      required this.initialLat,
+      required this.initialLong,
+      Key? key})
       : super(key: key);
 
   @override
@@ -69,7 +71,9 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
         child: CustomScreen(
           child: Scaffold(
             appBar: AppBar(
-                backgroundColor: Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
+                backgroundColor: Theme.of(context)
+                    .extension<ThemedColors>()!
+                    .scaffoldBackground,
                 centerTitle: true,
                 leading: WScaleAnimation(
                   onTap: () {
@@ -93,6 +97,7 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                   Positioned.fill(
                     top: -24,
                     child: YandexMap(
+                      nightModeEnabled: widget.isNightMode,
                       rotateGesturesEnabled: false,
                       onCameraPositionChanged:
                           (cameraPosition, updateReason, isStopped) async {

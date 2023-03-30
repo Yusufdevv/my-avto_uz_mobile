@@ -48,6 +48,7 @@ class PostingAdState extends Equatable {
   final num minimumPrice;
   final int? makeLetterIndex;
   final int? lastEquipmentId;
+  final int currentPage;
   final String? nextModels;
   final String? milageImage;
   final String? letter;
@@ -91,6 +92,7 @@ class PostingAdState extends Equatable {
     required this.emailController,
     required this.nameController,
     required this.popStatus,
+    this.currentPage = 0,
     this.radioOptions = const <int, String>{},
     this.selectOptions = const <int, SO>{},
     this.lastEquipmentId,
@@ -175,6 +177,7 @@ class PostingAdState extends Equatable {
     Map<int, SO>? selectOptions,
     Map<int, String>? radioOptions,
     int? lastEquipmentId,
+    int? currentPage,
     Map<DamagedPart, DamageType>? damagedParts,
     Map<int, RentWithPurchaseEntity>? rentWithPurchaseConditions,
     DistrictEntity? district,
@@ -257,6 +260,7 @@ class PostingAdState extends Equatable {
     List<EquipmentOptionsListEntity>? equipmentOptionsList,
   }) =>
       PostingAdState(
+        currentPage: currentPage ?? this.currentPage,
         getLocationImage: getLocationImage ?? this.getLocationImage,
         letter: eventLetter,
         licenceType: licenceType ?? this.licenceType,
@@ -349,6 +353,7 @@ class PostingAdState extends Equatable {
 
   @override
   List<Object?> get props => [
+        currentPage,
         popStatus,
         status,
         getDistrictsStatus,
