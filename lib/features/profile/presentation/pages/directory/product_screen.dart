@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/profile/domain/entities/products_list.dart';
@@ -64,8 +65,12 @@ class ProductsScreen extends StatelessWidget {
             itemCount: products.length,
             itemBuilder: (context, index) => Container(
               decoration: BoxDecoration(
-                color: white,
-                border: Border.all(width: 1, color: dividerColor),
+                color: Theme.of(context)
+                    .extension<ThemedColors>()!
+                    .whiteToDark,
+                border: Border.all(width: 1, color: Theme.of(context)
+                    .extension<ThemedColors>()!
+                    .divider),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Column(

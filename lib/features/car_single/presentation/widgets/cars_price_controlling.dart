@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +35,7 @@ class CarsPrice extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .headlineMedium!
-                      .copyWith(color: profileContainers),
+                      .copyWith(color: Theme.of(context).extension<ThemedColors>()!.blackToWhite,),
                 ),
                 const SizedBox(width: 8),
                 Expanded(

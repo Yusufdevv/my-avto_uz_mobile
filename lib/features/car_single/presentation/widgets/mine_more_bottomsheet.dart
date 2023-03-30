@@ -147,7 +147,9 @@ class MineMoreBottomSheet extends StatelessWidget {
                         bottom: 16,
                       ),
                       decoration: BoxDecoration(
-                        color: const Color(0xffFDEFEB),
+                        color:Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .redContainer26,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Center(
@@ -207,7 +209,7 @@ class MineMoreBottomSheet extends StatelessWidget {
             text: LocaleKeys.send_to_top.tr(),
             color: Theme.of(context)
                 .extension<ThemedColors>()!
-                .yelowTwoContainer27,
+                .yelowOneContainer27,
             onTap: () {
               Navigator.of(context, rootNavigator: true).push(
                   fade(page: ServiceTopPage(announcementId: id, date: date)));
@@ -217,7 +219,9 @@ class MineMoreBottomSheet extends StatelessWidget {
           MoreActionItem(
             icon: AppIcons.reels,
             text: LocaleKeys.add_to_ways.tr(),
-            color: const Color(0xffDFEFFF),
+            color: Theme.of(context)
+                .extension<ThemedColors>()!
+                .blueContainer26,
             borderColor: const Color(0xff4D88C8).withOpacity(0.12),
             onTap: () {
               Navigator.of(context, rootNavigator: true)

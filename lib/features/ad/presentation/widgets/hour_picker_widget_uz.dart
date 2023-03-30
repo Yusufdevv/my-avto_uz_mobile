@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -46,8 +47,8 @@ class _HourPickerWidgetUzState extends State<HourPickerWidgetUz> {
   @override
   Widget build(BuildContext context) => Container(
         padding: const EdgeInsets.only(left: 8),
-        decoration: const BoxDecoration(
-          color: Colors.white,
+        decoration:  BoxDecoration(
+          color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
         ),
         height: 120,
         // width: 170,

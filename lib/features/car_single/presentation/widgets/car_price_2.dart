@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/material.dart';
 
 class CarsPrice2 extends StatelessWidget {
@@ -33,7 +34,7 @@ class CarsPrice2 extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .headlineMedium!
-                  .copyWith(color: profileContainers),
+                  .copyWith(color: Theme.of(context).extension<ThemedColors>()!.blackToWhite,),
             ),
             const SizedBox(width: 8),
             Text(
@@ -41,7 +42,7 @@ class CarsPrice2 extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .headlineMedium!
-                  .copyWith(color: textColor),
+                  .copyWith(color: Theme.of(context).extension<ThemedColors>()!.blackToWhite,),
               maxLines: 1,
             ),
           ],

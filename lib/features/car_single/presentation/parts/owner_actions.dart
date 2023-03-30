@@ -1,4 +1,3 @@
-import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/car_single/domain/entities/owner_action.dart';
@@ -59,7 +58,9 @@ class OwnerActions extends StatelessWidget {
                   entity: OwnerActionEntity(
                       title: LocaleKeys.become_vip_for_3_days.tr(),
                       icon: AppIcons.crown),
-                  borderColor: yellow.withOpacity(0.1),
+                  borderColor: Theme.of(context)
+                      .extension<ThemedColors>()!
+                      .blanchedAlmonToCountyGreen,
                 ),
               ),
             ),
@@ -83,7 +84,9 @@ class OwnerActions extends StatelessWidget {
                   entity: OwnerActionEntity(
                       title: LocaleKeys.extends_for_day.tr(args: ['7']),
                       icon: AppIcons.refresher),
-                  borderColor: green.withOpacity(0.1),
+                  borderColor: Theme.of(context)
+                      .extension<ThemedColors>()!
+                      .hummingBirdTwo,
                 ),
               ),
             ),
@@ -107,7 +110,9 @@ class OwnerActions extends StatelessWidget {
                   entity: OwnerActionEntity(
                       title: LocaleKeys.send_to_top.tr(),
                       icon: AppIcons.rocket),
-                  borderColor: red.withOpacity(0.2),
+                  borderColor: Theme.of(context)
+                      .extension<ThemedColors>()!
+                      .karryToBrownsOlive,
                 ),
               ),
             ),
@@ -117,13 +122,16 @@ class OwnerActions extends StatelessWidget {
             Expanded(
               child: WScaleAnimation(
                 onTap: () {
-                  Navigator.of(context, rootNavigator: true).push(fade(
+                  Navigator.of(context, rootNavigator: true).push(
+                    fade(
                       page: ServiceReelsPage(
                           announcementId: context
                               .read<CarSingleBloc>()
                               .state
                               .singleEntity
-                              .id)));
+                              .id),
+                    ),
+                  );
                 },
                 child: OwnerActionBox(
                   color: Theme.of(context)
@@ -133,7 +141,9 @@ class OwnerActions extends StatelessWidget {
                     title: LocaleKeys.add_to_ways.tr(),
                     icon: AppIcons.reels,
                   ),
-                  borderColor: red.withOpacity(0.2),
+                  borderColor: Theme.of(context)
+                      .extension<ThemedColors>()!
+                      .blueChalkToCaputMortum,
                 ),
               ),
             ),

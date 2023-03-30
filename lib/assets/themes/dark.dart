@@ -196,6 +196,13 @@ abstract class DarkTheme {
             yelowOneContainer27: DarkThemeColors.yelowOneContainer27,
             yelowTwoContainer27: DarkThemeColors.yelowTwoContainer27,
             brownContainer27: DarkThemeColors.brownContainer27,
+            hummingBirdTwo: DarkThemeColors.hummingBirdTwo,
+            blanchedAlmonToCountyGreen:
+                DarkThemeColors.blanchedAlmonToCountyGreen,
+            karryToBrownsOlive: DarkThemeColors.karryToBrownsOlive,
+            blueChalkToCaputMortum: DarkThemeColors.blueChalkToCaputMortum,
+            sindirellaToBurrentCrinson:
+                DarkThemeColors.sindirellaToBurrentCrinson,
           ),
           WTextFieldStyle(
             fillColor: DarkThemeColors.solitudeToNero,

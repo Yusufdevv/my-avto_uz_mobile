@@ -81,7 +81,7 @@ class AddComparisonItem extends StatelessWidget {
                           fontSize: 12,
                           color: a ? isSingle ?Theme.of(context)
                               .extension<ThemedColors>()!
-                              .blackToWhite : orange:     dark,
+                              .blackToWhite : orange:     Theme.of(context).extension<ThemedColors>()!.darkToWhite,
                         ),
                   )
                 else

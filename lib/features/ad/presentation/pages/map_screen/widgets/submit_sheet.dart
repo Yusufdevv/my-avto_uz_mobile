@@ -2,6 +2,7 @@
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/bloc/map/map_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/map_screen/widgets/map_point_name.dart';
 import 'package:auto/features/ad/presentation/pages/map_screen/widgets/point_name_shimmer.dart';
@@ -39,7 +40,7 @@ class PostingAdSubmitBox extends StatelessWidget {
                   spreadRadius: 0,
                   color: profileContainers.withOpacity(.08))
             ],
-            color: white,
+            color: Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
             // color: Colors.teal,
             borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
           ),
