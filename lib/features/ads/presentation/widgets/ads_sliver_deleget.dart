@@ -73,7 +73,7 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                     );
 
                     if (res is Map<String, dynamic>) {
-                      var historySaved = res['modelId'] == state.model;
+                      var historySaved = res['model'].id == state.model;
                       historySaved = res['make'].id == state.make?.id;
                       bloc.add(SetMakeModel(
                         model: res['model'],
@@ -104,6 +104,7 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
 
                     historySaved =
                         state.make?.id == null || state.make?.id == -1;
+
                     if (res.isFilter) {
                       bloc.add(
                         SetFilter(

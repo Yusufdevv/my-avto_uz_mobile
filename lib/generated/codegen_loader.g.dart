@@ -636,7 +636,9 @@ class CodegenLoader extends AssetLoader{
   "categories_services_products": "Категории услуг/товаров",
   "theme_of_app": "Тема приложения",
   "you_can_not_upload_more_than_30": "Вы не можете загрузить более 30 изображений",
-  "rent_with_purchase_available": "Есть аренда с выкупом"
+  "rent_with_purchase_available": "Есть аренда с выкупом",
+  "sale_type": "Тип продажи",
+  "direct_sale": "Прямая продажа"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -1259,7 +1261,9 @@ static const Map<String,dynamic> uz = {
   "categories_services_products": "Xizmat/maxsulotlar kategoriyalari",
   "theme_of_app": "Dastur mavzusi",
   "you_can_not_upload_more_than_30": "30 tadan ortiq rasm qo'ya olmaysiz",
-  "rent_with_purchase_available": "Bo'lib to'lashga arenda shartlari mavjud"
+  "rent_with_purchase_available": "Bo'lib to'lashga arenda shartlari mavjud",
+  "sale_type": "Sotuv turi",
+  "direct_sale": "Joyida to'lov"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }

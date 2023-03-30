@@ -42,7 +42,9 @@ class WFilterButton extends StatelessWidget {
           children: [
             SvgPicture.asset(
               icon,
-              color: Theme.of(context).extension<ThemedColors>()!.darkToGrey,
+              color: claerA
+                  ? activeColor
+                  : Theme.of(context).extension<ThemedColors>()!.darkToGrey,
               height: 16,
               width: 16,
               fit: BoxFit.cover,
@@ -53,10 +55,11 @@ class WFilterButton extends StatelessWidget {
                 name.isEmpty ? defaultTitle : name,
                 maxLines: 1,
                 style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      color: Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .darkToWhite,
-                      // claerA ? activeColor : null
+                      color: claerA
+                          ? activeColor
+                          : Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .darkToWhite,
                     ),
                 overflow: TextOverflow.ellipsis,
               ),

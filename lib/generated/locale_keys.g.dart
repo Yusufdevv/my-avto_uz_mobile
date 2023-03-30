@@ -623,5 +623,7 @@ abstract class  LocaleKeys {
   static const theme_of_app = 'theme_of_app';
   static const you_can_not_upload_more_than_30 = 'you_can_not_upload_more_than_30';
   static const rent_with_purchase_available = 'rent_with_purchase_available';
+  static const sale_type = 'sale_type';
+  static const direct_sale = 'direct_sale';
 
 }

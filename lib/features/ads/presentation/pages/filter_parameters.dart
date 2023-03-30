@@ -22,16 +22,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 enum SaleType {
-  all('All', ''),
-  directSale('Direct Sale', 'false'),
-  rentWithPurchase('Rent With Purchase', 'true');
-
+  all(LocaleKeys.all, ''),
+  directSale(LocaleKeys.direct_sale, 'false'),
+  rentWithPurchase(LocaleKeys.rent_to_sale, 'true');
   const SaleType(this.title, this.toApi);
-
   final String toApi;
   final String title;
 }
-
 extension SaleTypeExtention on SaleType {
   bool get isAll => this == SaleType.all;
 }
@@ -95,9 +92,8 @@ class _FilterParametersState extends State<FilterParameters> {
         value: filterBloc,
         child: BlocBuilder<FilterBloc, FilterState>(
           builder: (context, state) => Scaffold(
-            backgroundColor: Theme.of(context)
-                .extension<ThemedColors>()!
-                .scaffoldBackground,
+            backgroundColor:
+                Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
             appBar: WAppBar(
               title: LocaleKeys.options.tr(),
               centerTitle: false,
@@ -160,7 +156,7 @@ class _FilterParametersState extends State<FilterParameters> {
                       hintText: state.saleType.isAll
                           ? LocaleKeys.all.tr()
                           : state.saleType.title,
-                      title: 'Тип продажи',
+                      title: LocaleKeys.sale_type.tr(),
                       hasArrowDown: state.saleType.isAll,
                     ),
                     SelectorItem(

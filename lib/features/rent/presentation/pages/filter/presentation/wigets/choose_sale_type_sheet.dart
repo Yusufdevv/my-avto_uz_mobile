@@ -41,7 +41,7 @@ class _ChooseSaleTypeSheetState extends State<ChooseSaleTypeSheet> {
         child: Column(
           children: [
             SheetHeader(
-                title: LocaleKeys.body.tr(),
+                title: LocaleKeys.sale_type.tr(),
                 onCancelPressed: () {
                   Navigator.of(context).pop();
                 }),
@@ -60,7 +60,7 @@ class _ChooseSaleTypeSheetState extends State<ChooseSaleTypeSheet> {
                               setState(() {});
                             },
                             logo: '',
-                            title: e.title,
+                            title: e.title.tr(),
                             isChecked:
                                 e == selected || selected == SaleType.all,
                           ))
