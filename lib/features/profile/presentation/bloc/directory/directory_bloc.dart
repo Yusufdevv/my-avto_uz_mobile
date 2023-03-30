@@ -36,7 +36,6 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
           status: FormzStatus.pure,
           directories: const <DirectoryEntity>[],
           categories: const <DirCategoryEntity>[],
-          selectedCategories: const <DirCategoryEntity>[],
           directory: const DealerSingleEntity(),
         )) {
     on<DirectoryGetProductsOfSingleEvent>(_getProducts);
@@ -44,97 +43,49 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
     on<DirectorySetRegionEvent>(_setRegion);
     on<DirectoryClearFilterEvent>(_clearFilter);
     on<DirectorySetCategoryEvent>(_setCategory);
-    on<GetDirectoriesEvent>((event, emit) async {
-      emit(state.copyWith(
-          status: FormzStatus.submissionInProgress, search: event.search));
-      final result = await getDirectoriesUseCase(Params(
-          search: event.search,
-          regions: state.regionId,
-          categories:
-              MyFunctions.textForDirCategory(state.selectedCategories)));
-      if (result.isRight) {
-        emit(state.copyWith(
-            status: FormzStatus.submissionSuccess,
-            directories: result.right.results,
-            fetchMoreDirectories: result.right.next != null,
-            nextDirectories: result.right.next));
-      } else {
-        emit(state.copyWith(status: FormzStatus.submissionFailure));
-      }
-    });
+    on<GetDirectoriesEvent>(_getDirectories);
+    on<GetMoreDirectoriesEvent>(_getMoreDirectories);
+    on<GetDirCategoriesEvent>(_getDirCategories);
+    on<GetMoreDirCategoriesEvent>(_getMoreDirCategories);
+    on<OnTabIndexChangedEvent>(_onTabIndexChanged);
+    on<GetDirectorySingleEvent>(_getDirectorySingle);
+  }
 
-    on<GetMoreDirectoriesEvent>((event, emit) async {
-      final result = await getDirectoriesUseCase(Params(
-        search: state.search,
-        regions: state.regionId,
-        categories: MyFunctions.textForDirCategory(state.selectedCategories),
-        next: state.nextDirectories,
-      ));
+  FutureOr<void> _onTabIndexChanged(
+      OnTabIndexChangedEvent event, Emitter<DirectoryState> emit) async {
+    emit(state.copyWith(isIndexOne: event.index == 1));
+  }
 
-      if (result.isRight) {
-        emit(state.copyWith(
-          directories: [...state.directories, ...result.right.results],
-          fetchMoreDirectories: result.right.next != null,
-          nextDirectories: result.right.next,
-        ));
-      }
-    });
+  FutureOr<void> _getDirectorySingle(
+      GetDirectorySingleEvent event, Emitter<DirectoryState> emit) async {
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
 
-    on<GetDirCategoriesEvent>((event, emit) async {
-      emit(state.copyWith(status: FormzStatus.submissionInProgress));
-      final result = await getDirCategoriesUseCase(null);
-      if (result.isRight) {
-        emit(state.copyWith(
-            status: FormzStatus.submissionSuccess,
-            categories: result.right.results,
-            fetchMoreCategories: result.right.next != null,
-            nextCategories: result.right.next));
-      } else {
-        emit(state.copyWith(status: FormzStatus.submissionFailure));
-      }
-    });
-
-    on<GetMoreDirCategoriesEvent>((event, emit) async {
-      final result = await getDirCategoriesUseCase(event.next);
-      if (result.isRight) {
-        emit(state.copyWith(
-          categories: [...state.categories, ...result.right.results],
-          fetchMoreCategories: result.right.next != null,
-          nextCategories: result.right.next,
-        ));
-      }
-    });
-
-    on<ChangeTabIndexEvent>((event, emit) {
-      emit(state.copyWith(isIndexOne: event.index == 1));
-    });
-
-
-
-    on<GetDirectorySingleEvent>((event, emit) async {
-      emit(state.copyWith(status: FormzStatus.submissionInProgress));
-
-      final result = await directorySingleSingleUseCase.call(event.slug);
-      if (result.isRight) {
-        emit(
-          state.copyWith(
-              status: FormzStatus.submissionSuccess, directory: result.right),
-        );
-      } else {
-        emit(state.copyWith(status: FormzStatus.submissionFailure));
-      }
-    });
+    final result = await directorySingleSingleUseCase.call(event.slug);
+    if (result.isRight) {
+      emit(
+        state.copyWith(
+            status: FormzStatus.submissionSuccess, directory: result.right),
+      );
+    } else {
+      emit(state.copyWith(status: FormzStatus.submissionFailure));
+    }
   }
 
   FutureOr<void> _setCategory(
       DirectorySetCategoryEvent event, Emitter<DirectoryState> emit) async {
-    final v = state.selectedCategories..add(event.category);
+    var v = state.selectedCategories.map(MapEntry.new);
+    if (state.selectedCategories.containsKey(event.category.id)) {
+      v.remove(event.category.id);
+    } else {
+      v[event.category.id] = event.category;
+    }
+
     emit(state.copyWith(selectedCategories: v));
   }
 
   FutureOr<void> _setRegion(
       DirectorySetRegionEvent event, Emitter<DirectoryState> emit) async {
-    emit(state.copyWith(regions: event.regionId));
+    emit(state.copyWith(selectedRegions: event.regions));
   }
 
   FutureOr<void> _getProducts(DirectoryGetProductsOfSingleEvent event,
@@ -181,6 +132,81 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
           status: FormzStatus.submissionFailure,
         ),
       );
+    }
+  }
+
+  FutureOr<void> _getDirectories(
+      GetDirectoriesEvent event, Emitter<DirectoryState> emit) async {
+    emit(state.copyWith(
+        status: FormzStatus.submissionInProgress, search: event.search));
+    final reg = MyFunctions.regionsToApi(state.selectedRegions);
+    log(':::::::::: REGION TO API RESULT: ${reg}  ::::::::::');
+    final result = await getDirectoriesUseCase(Params(
+        search: event.search,
+        regions: reg,
+        categories: MyFunctions.textForDirCategory(state.selectedCategories)));
+    if (result.isRight) {
+      log(':::::::::: the filtered gotten directories:  ${result.right.next}  ::::::::::');
+      log(':::::::::: previos:  ${result.right.previous}  ::::::::::');
+      log(':::::::::: the filtered gotten directories:  ${result.right.results.length}  ::::::::::');
+      emit(state.copyWith(
+          status: FormzStatus.submissionSuccess,
+          directories: result.right.results,
+          fetchMoreDirectories: result.right.next != null,
+          nextDirectories: result.right.next));
+    } else {
+      emit(state.copyWith(status: FormzStatus.submissionFailure));
+    }
+  }
+
+  FutureOr<void> _getMoreDirectories(
+      GetMoreDirectoriesEvent event, Emitter<DirectoryState> emit) async {
+    final result = await getDirectoriesUseCase(
+      Params(
+        search: state.search,
+        regions: MyFunctions.regionsToApi(state.selectedRegions),
+        categories: MyFunctions.textForDirCategory(state.selectedCategories),
+        next: state.nextDirectories,
+      ),
+    );
+
+    if (result.isRight) {
+      emit(
+        state.copyWith(
+          directories: [...state.directories, ...result.right.results],
+          fetchMoreDirectories: result.right.next != null,
+          nextDirectories: result.right.next,
+        ),
+      );
+    }
+  }
+
+  FutureOr<void> _getDirCategories(
+      GetDirCategoriesEvent event, Emitter<DirectoryState> emit) async {
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    final result = await getDirCategoriesUseCase(null);
+    if (result.isRight) {
+      log(':::::::::: the result of get directory:  ${result.right}  ::::::::::');
+      log(':::::::::: results:  ${result.right.results}  ::::::::::');
+      emit(state.copyWith(
+          status: FormzStatus.submissionSuccess,
+          categories: result.right.results,
+          fetchMoreCategories: result.right.next != null,
+          nextCategories: result.right.next));
+    } else {
+      emit(state.copyWith(status: FormzStatus.submissionFailure));
+    }
+  }
+
+  FutureOr<void> _getMoreDirCategories(
+      GetMoreDirCategoriesEvent event, Emitter<DirectoryState> emit) async {
+    final result = await getDirCategoriesUseCase(event.next);
+    if (result.isRight) {
+      emit(state.copyWith(
+        categories: [...state.categories, ...result.right.results],
+        fetchMoreCategories: result.right.next != null,
+        nextCategories: result.right.next,
+      ));
     }
   }
 }

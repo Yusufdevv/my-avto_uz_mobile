@@ -7,7 +7,7 @@ class DealerTypeEntity extends Equatable {
   final String name;
 
   const DealerTypeEntity({
-    this.id = 0,
+    this.id = -1,
     this.name = '',
   });
 

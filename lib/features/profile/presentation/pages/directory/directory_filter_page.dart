@@ -109,7 +109,7 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
                               ).then((value) {
                                 if (value != null && value.isNotEmpty) {
                                   context.read<DirectoryBloc>().add(
-                                      DirectorySetRegionEvent(regionId: value));
+                                      DirectorySetRegionEvent(regions: value));
                                   _checkedRegions = value;
                                 }
                               });

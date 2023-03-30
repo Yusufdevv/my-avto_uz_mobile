@@ -37,16 +37,16 @@ class GetDirectorySingleEvent extends DirectoryEvent {
   GetDirectorySingleEvent({required this.slug});
 }
 
-class ChangeTabIndexEvent extends DirectoryEvent {
+class OnTabIndexChangedEvent extends DirectoryEvent {
   final int index;
 
-  ChangeTabIndexEvent({required this.index});
+  OnTabIndexChangedEvent({required this.index});
 }
 
 class DirectorySetRegionEvent extends DirectoryEvent {
-  List<RegionEntity> regionId;
+  List<RegionEntity> regions;
 
-  DirectorySetRegionEvent({required this.regionId});
+  DirectorySetRegionEvent({required this.regions});
 }
 
 class DirectorySetCategoryEvent extends DirectoryEvent {

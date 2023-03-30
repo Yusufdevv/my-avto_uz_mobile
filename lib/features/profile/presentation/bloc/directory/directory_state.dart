@@ -8,10 +8,10 @@ class DirectoryState extends Equatable {
   final List<ProductsList> popularProducts;
 
   List<ProductCategoryEntity> singleCategories;
-  List<DirCategoryEntity> selectedCategories;
+  Map<int, DirCategoryEntity> selectedCategories;
   final List<RegionEntity> regions;
   String search;
-  String regionId;
+  final List<RegionEntity> selectedRegions;
   final String nextCategories;
   final String nextDirectories;
   final bool fetchMoreCategories;
@@ -25,9 +25,9 @@ class DirectoryState extends Equatable {
     required this.categories,
     this.popularProducts = const <ProductsList>[],
     this.singleCategories = const <ProductCategoryEntity>[],
-    this.selectedCategories = const <DirCategoryEntity>[],
+    this.selectedCategories = const <int, DirCategoryEntity>{},
     this.regions = const <RegionEntity>[],
-    this.regionId = '',
+    this.selectedRegions = const <RegionEntity>[],
     this.search = '',
     this.isIndexOne = false,
     this.nextCategories = '',
@@ -43,9 +43,9 @@ class DirectoryState extends Equatable {
     DealerSingleEntity? directory,
     FormzStatus? status,
     List<DirCategoryEntity>? categories,
-    List<DirCategoryEntity>? selectedCategories,
+    Map<int, DirCategoryEntity>? selectedCategories,
     List<RegionEntity>? regions,
-    String? regionId,
+    final List<RegionEntity>? selectedRegions,
     String? search,
     bool? isIndexOne,
     String? nextCategories,
@@ -62,7 +62,7 @@ class DirectoryState extends Equatable {
         selectedCategories: selectedCategories ?? this.selectedCategories,
         status: status ?? this.status,
         regions: regions ?? this.regions,
-        regionId: regionId ?? this.regionId,
+        selectedRegions: selectedRegions ?? this.selectedRegions,
         search: search ?? this.search,
         isIndexOne: isIndexOne ?? this.isIndexOne,
         nextDirectories: nextDirectories ?? this.nextDirectories,
@@ -82,7 +82,7 @@ class DirectoryState extends Equatable {
         selectedCategories,
         regions,
         search,
-        regionId,
+        selectedRegions,
         isIndexOne,
         nextCategories,
         nextDirectories,

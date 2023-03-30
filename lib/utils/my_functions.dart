@@ -128,18 +128,21 @@ class MyFunctions {
     return result;
   }
 
-  static String textForDirCategory(List<DirCategoryEntity>? list) {
-    var result = '';
-    if (list != null) {
-      for (var i = 0; i < list.length; i++) {
-        // ignore: use_string_buffers
-        result += list[i].id.toString();
-        if (i != list.length - 1) {
-          result += ',';
-        }
+  static String textForDirCategory(Map<int, DirCategoryEntity>? categories) {
+    final buffer = StringBuffer();
+    if (categories != null) {
+      for (final c in categories.values) {
+        buffer.write('${c.id.toString()},');
       }
     }
-    return result;
+
+    if (buffer.isEmpty) {
+      return '';
+    }
+
+    final v = buffer.toString();
+
+    return v.substring(0, v.length - 1);
   }
 
   static Color mapCategoryIndexToColor(final int index) {

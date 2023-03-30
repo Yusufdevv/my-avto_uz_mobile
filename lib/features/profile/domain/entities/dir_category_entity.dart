@@ -3,14 +3,14 @@ import 'package:equatable/equatable.dart';
 // ignore: must_be_immutable
 class DirCategoryEntity extends Equatable {
   DirCategoryEntity({
-    this.id,
-    this.name,
-    this.carPlaceCount,
+    this.id = -1,
+    this.name = '',
+    this.carPlaceCount = 0,
   });
 
-  int? id;
-  String? name;
-  int? carPlaceCount;
+  int id;
+  String name;
+  int carPlaceCount;
 
   factory DirCategoryEntity.fromJson(Map<String, dynamic> json) =>
       DirCategoryEntity(

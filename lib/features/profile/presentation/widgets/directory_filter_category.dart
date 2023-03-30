@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -23,155 +25,153 @@ class DirectoryFilterCategory extends StatefulWidget {
 class _DirectoryFilterCategoryState extends State<DirectoryFilterCategory> {
   // ignore: prefer_final_fields
 
-
   @override
-  Widget build(BuildContext context) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(LocaleKeys.categories.tr(),
-              style: TextStyle(
-                  color: Theme.of(context)
-                      .extension<ThemedColors>()!
-                      .greySuitToWhite,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400)),
-          const SizedBox(height: 12),
-          Wrap(
-            spacing: 16,
-            runSpacing: 12,
-            children: List.generate(
-              widget.category.isEmpty ? 0 : widget.category.length,
-              (index) {
-                final item = widget.category[index];
-                return WButton(
-                  width: (MediaQuery.of(context).size.width / 2) - 24,
-                  borderRadius: 8,
-                  border: Border.all(
-                    color: context
+  Widget build(BuildContext context) =>
+      BlocBuilder<DirectoryBloc, DirectoryState>(
+        builder: (context, state) {
+          log('::::::::::  $state  ::::::::::');
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(LocaleKeys.categories.tr(),
+                  style: TextStyle(
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .greySuitToWhite,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400)),
+              const SizedBox(height: 12),
+              Wrap(
+                spacing: 16,
+                runSpacing: 12,
+                children: List.generate(
+                  widget.category.isEmpty ? 0 : widget.category.length,
+                  (index) {
+                    final item = widget.category[index];
+                    return WButton(
+                      width: (MediaQuery.of(context).size.width / 2) - 24,
+                      borderRadius: 8,
+                      border: Border.all(
+                        color: state.selectedCategories.containsKey(item.id)
+                            ? purple.withOpacity(0.6)
+                            : Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .divider,
+                      ),
+                      shadow: [
+                        BoxShadow(
+                            offset: const Offset(0, 4),
+                            blurRadius: 16,
+                            color: state.selectedCategories.containsKey(item.id)
+                                ? purple.withOpacity(0.12)
+                                : darkBlack.withOpacity(0.05))
+                      ],
+                      onTap: () {
+                        context
                             .read<DirectoryBloc>()
-                            .state
-                            .selectedCategories
-                            .contains(item)
-                        ? purple.withOpacity(0.6)
-                        : Theme.of(context).extension<ThemedColors>()!.divider,
-                  ),
-                  shadow: [
-                    BoxShadow(
-                        offset: const Offset(0, 4),
-                        blurRadius: 16,
-                        color: context
-                                .read<DirectoryBloc>()
-                                .state
-                                .selectedCategories
-                                .contains(item)
-                            ? purple.withOpacity(0.12)
-                            : darkBlack.withOpacity(0.05))
-                  ],
-                  onTap: () {
-                    context.read<DirectoryBloc>().add(DirectorySetCategoryEvent(
-                        category: item));
-                    setState(() {});
-                  },
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                  ),
-                  color:
-                      Theme.of(context).extension<ThemedColors>()!.whiteToDark,
-                  child: Stack(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            .add(DirectorySetCategoryEvent(category: item));
+                        setState(() {});
+                      },
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                      ),
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .whiteToDark,
+                      child: Stack(
                         children: [
-                          Expanded(
-                            child: Text(
-                              item.name ?? '',
-                              maxLines: 1,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleLarge
-                                  ?.copyWith(
-                                    height: 1.3,
-                                    color: Theme.of(context)
-                                        .extension<ThemedColors>()!
-                                        .blackToWhite80,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  item.name ?? '',
+                                  maxLines: 1,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge
+                                      ?.copyWith(
+                                        height: 1.3,
+                                        color: Theme.of(context)
+                                            .extension<ThemedColors>()!
+                                            .blackToWhite80,
+                                      ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Positioned(
+                            right: 0,
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: 21,
+                                  width: 24,
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Theme.of(context)
+                                            .extension<ThemedColors>()!
+                                            .whiteToDark
+                                            .withOpacity(0),
+                                        Theme.of(context)
+                                            .extension<ThemedColors>()!
+                                            .whiteToDark,
+                                      ],
+                                    ),
                                   ),
+                                ),
+                                Container(
+                                  color: Theme.of(context)
+                                      .extension<ThemedColors>()!
+                                      .whiteToDark,
+                                  child: Row(
+                                    children: [
+                                      const SizedBox(width: 10),
+                                      Container(
+                                        height: 25,
+                                        width: 24,
+                                        decoration: BoxDecoration(
+                                            color: state.selectedCategories
+                                                    .containsKey(item.id)
+                                                ? Theme.of(context)
+                                                    .extension<ThemedColors>()!
+                                                    .whiteToDark
+                                                : Theme.of(context)
+                                                    .extension<ThemedColors>()!
+                                                    .whiteToDark,
+                                            borderRadius:
+                                                BorderRadius.circular(4)),
+                                        child: Center(
+                                          child: Text(
+                                            item.carPlaceCount.toString(),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .displayMedium
+                                                ?.copyWith(
+                                                    color: state
+                                                            .selectedCategories
+                                                            .containsKey(
+                                                                item.id)
+                                                        ? purple
+                                                        : orange),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
                       ),
-                      Positioned(
-                        right: 0,
-                        child: Row(
-                          children: [
-                            Container(
-                              height: 21,
-                              width: 24,
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: [
-                                    Theme.of(context)
-                                        .extension<ThemedColors>()!
-                                        .whiteToDark
-                                        .withOpacity(0),
-                                    Theme.of(context)
-                                        .extension<ThemedColors>()!
-                                        .whiteToDark,
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Container(
-                              color: Theme.of(context)
-                                  .extension<ThemedColors>()!
-                                  .whiteToDark,
-                              child: Row(
-                                children: [
-                                  const SizedBox(width: 10),
-                                  Container(
-                                    height: 25,
-                                    width: 24,
-                                    decoration: BoxDecoration(
-                                        color: context
-                                                .read<DirectoryBloc>()
-                                                .state
-                                                .selectedCategories
-                                                .contains(item)
-                                            ? Theme.of(context)
-                                                .extension<ThemedColors>()!
-                                                .whiteToDark
-                                            : Theme.of(context)
-                                                .extension<ThemedColors>()!
-                                                .whiteToDark,
-                                        borderRadius: BorderRadius.circular(4)),
-                                    child: Center(
-                                      child: Text(
-                                        item.carPlaceCount.toString(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .displayMedium
-                                            ?.copyWith(
-                                                color: context
-                                                        .read<DirectoryBloc>()
-                                                        .state
-                                                        .selectedCategories
-                                                        .contains(item)
-                                                    ? purple
-                                                    : orange),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
+                    );
+                  },
+                ),
+              ),
+            ],
+          );
+        },
       );
 }

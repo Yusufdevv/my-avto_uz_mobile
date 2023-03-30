@@ -51,7 +51,7 @@ class _DirectoryPageState extends State<DirectoryPage>
         FocusScope.of(context).unfocus();
         controller.clear();
       }
-      bloc.add(ChangeTabIndexEvent(index: _tabController.index));
+      bloc.add(OnTabIndexChangedEvent(index: _tabController.index));
     });
     super.initState();
   }
@@ -120,11 +120,12 @@ class _DirectoryPageState extends State<DirectoryPage>
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,
                                     color: grey),
-                                textStyle:  TextStyle(
+                                textStyle: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w400,
-                                  color:                 Theme.of(context).extension<ThemedColors>()!.darkToWhite,
-
+                                  color: Theme.of(context)
+                                      .extension<ThemedColors>()!
+                                      .darkToWhite,
                                 ),
                                 enabledBorderColor: Theme.of(context)
                                     .extension<ThemedColors>()!
