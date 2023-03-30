@@ -2,10 +2,12 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/const/constants.dart';
+import 'package:auto/features/ad/domain/entities/rent_with_purchase/rent_with_purchase_entity.dart';
 import 'package:auto/features/car_single/presentation/parts/car_actions.dart';
 import 'package:auto/features/car_single/presentation/parts/car_details.dart';
 import 'package:auto/features/car_single/presentation/parts/statistics.dart';
 import 'package:auto/features/car_single/presentation/widgets/car_price_bottom.dart';
+import 'package:auto/features/car_single/presentation/widgets/car_rent_with_purchase_conditions.dart';
 import 'package:auto/features/car_single/presentation/widgets/day_like_call_item.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/profile/presentation/widgets/moderation_status_part.dart';
@@ -50,8 +52,10 @@ class CarNameWidget extends StatelessWidget {
   final bool isCompared;
   final double procent;
   final String moderationStatus;
+  final List<RentWithPurchaseEntity> rentWithPurchaseConditions;
 
   const CarNameWidget({
+    required this.rentWithPurchaseConditions,
     required this.fullname,
     required this.gasBalloonInfo,
     required this.price,
@@ -235,6 +239,10 @@ class CarNameWidget extends StatelessWidget {
               engineVolume: engineVolume,
               gearType: gearType,
               uzb: uzb,
+            ),
+
+            CarRentWithPurchaseConditions(
+              conditions: rentWithPurchaseConditions,
             ),
             if (isMine == true &&
                 (moderationStatus == ModerationStatusEnum.active.value ||

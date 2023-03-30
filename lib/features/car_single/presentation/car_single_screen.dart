@@ -19,6 +19,7 @@ import 'package:auto/features/car_single/presentation/widgets/become_verifired_o
 import 'package:auto/features/car_single/presentation/widgets/bottom_item.dart';
 import 'package:auto/features/car_single/presentation/widgets/car_characteristic_image.dart';
 import 'package:auto/features/car_single/presentation/widgets/car_name_widget.dart';
+import 'package:auto/features/car_single/presentation/widgets/car_rent_with_purchase_conditions.dart';
 import 'package:auto/features/car_single/presentation/widgets/car_single_resend_btn.dart';
 import 'package:auto/features/car_single/presentation/widgets/cars_characteristic.dart';
 import 'package:auto/features/car_single/presentation/widgets/confirm_bottomsheet.dart';
@@ -230,6 +231,8 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                           ),
                           SliverToBoxAdapter(
                             child: CarNameWidget(
+                              rentWithPurchaseConditions:
+                                  state.singleEntity.rentWithPurchase,
                               gasBalloonInfo:
                                   state.singleEntity.gasEquipment.name.isEmpty
                                       ? LocaleKeys.no.tr()
@@ -296,6 +299,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                             ),
                           ),
 
+
                           ///
                           if (state.singleEntity.isMine &&
                               (widget.moderationStatus ==
@@ -315,7 +319,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                             ),
                           },
 
-                          ///
+                          /// OVNER ACTIONS
                           if (state.singleEntity.isMine &&
                               (widget.moderationStatus ==
                                       ModerationStatusEnum.active.value ||
@@ -325,7 +329,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                               child: OwnerActions(),
                             ),
 
-                          ///
+                          /// THE SELLER INFO
                           SliverToBoxAdapter(
                             child: CarSellerCard(
                               moderationStatus: widget.moderationStatus,
@@ -354,7 +358,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                             ),
                           ),
 
-                          ///
+                          /// INSPECTION PLACE
                           SliverToBoxAdapter(
                             child: (currentIndex == 0)
                                 ? Column(
@@ -408,12 +412,11 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                   ),
                           ),
 
-                          ///
+                          /// DAMAGED PARTS
                           if (state.singleEntity.damagedParts.isNotEmpty)
                             SliverToBoxAdapter(
-                              child: CarCharacteristicImage(
+                              child: CarDamagedParts(
                                   width: MediaQuery.of(context).size.width,
-
                                   isFaceToFaceCheck:
                                       state.singleEntity.isFaceToFaceCheck,
                                   informAboutDoors:
