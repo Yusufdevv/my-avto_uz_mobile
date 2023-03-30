@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +12,10 @@ class AboutCarPriceBottom extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
         padding: const EdgeInsets.only(top: 16),
-        decoration: const BoxDecoration(
-          color: white,
-          borderRadius: BorderRadius.only(
+        decoration: BoxDecoration(
+          color:
+              Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
+          borderRadius: const BorderRadius.only(
             topRight: Radius.circular(16),
             topLeft: Radius.circular(16),
           ),
@@ -56,34 +58,38 @@ class AboutCarPriceBottom extends StatelessWidget {
               ),
             ),
             Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: RichText(
-                    text: TextSpan(children: [
-                  TextSpan(
-                    text: LocaleKeys.we_compared_all_parameters.tr(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .displayMedium!
-                        .copyWith(color: dark, fontSize: 16),
-                  ),
-                  TextSpan(
-                    text: 'auto.uz ',
-                    style: Theme.of(context)
-                        .textTheme
-                        .displayMedium!
-                        .copyWith(color: orange, fontSize: 16),
-                  ),
-                  TextSpan(
-                    text: LocaleKeys.by_parameters.tr(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .displayMedium!
-                        .copyWith(color: dark, fontSize: 16),
-                  ),
-                ]))),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: LocaleKeys.we_compared_all_parameters.tr(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium!
+                          .copyWith(color:  Theme.of(context).extension<ThemedColors>()!.blackToWhite, fontSize: 16),
+                    ),
+                    TextSpan(
+                      text: 'auto.uz ',
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium!
+                          .copyWith(color: orange, fontSize: 16),
+                    ),
+                    TextSpan(
+                      text: LocaleKeys.by_parameters.tr(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium!
+                          .copyWith(color:  Theme.of(context).extension<ThemedColors>()!.blackToWhite, fontSize: 16),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             Container(
               decoration: BoxDecoration(
-                color: const Color(0xffF6F6F6),
+                color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
                 borderRadius: BorderRadius.circular(8),
               ),
               margin: const EdgeInsets.only(
@@ -105,7 +111,10 @@ class AboutCarPriceBottom extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .titleSmall!
-                                .copyWith(color: dark),
+                                .copyWith(
+                                    color: Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .blackToWhite),
                           )
                         ],
                       ),
@@ -123,7 +132,10 @@ class AboutCarPriceBottom extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .titleSmall!
-                                .copyWith(color: dark),
+                                .copyWith(
+                                    color: Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .blackToWhite),
                           )
                         ],
                       ),
@@ -141,7 +153,10 @@ class AboutCarPriceBottom extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .titleSmall!
-                                .copyWith(color: dark),
+                                .copyWith(
+                                    color: Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .blackToWhite),
                           )
                         ],
                       ),
@@ -162,7 +177,10 @@ class AboutCarPriceBottom extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .titleSmall!
-                                .copyWith(color: dark),
+                                .copyWith(
+                                    color: Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .blackToWhite),
                           )
                         ],
                       ),
@@ -180,7 +198,10 @@ class AboutCarPriceBottom extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .titleSmall!
-                                .copyWith(color: dark),
+                                .copyWith(
+                                    color: Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .blackToWhite),
                           )
                         ],
                       ),
@@ -198,7 +219,10 @@ class AboutCarPriceBottom extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .titleSmall!
-                                .copyWith(color: dark),
+                                .copyWith(
+                                    color: Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .blackToWhite),
                           ),
                         ],
                       ),

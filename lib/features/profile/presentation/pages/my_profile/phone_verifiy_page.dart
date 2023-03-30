@@ -47,7 +47,7 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
   Widget build(BuildContext context) => KeyboardDismisser(
         child: CustomScreen(
           child: Scaffold(
-            backgroundColor: white,
+            backgroundColor: Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
             appBar:
                 WAppBar(hasBackButton: true, title: LocaleKeys.tel_number.tr()),
             body: Padding(
@@ -71,7 +71,7 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                           bottom: 4),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
-                          color: border),
+                          color: Theme.of(context).extension<ThemedColors>()!.divider,),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [

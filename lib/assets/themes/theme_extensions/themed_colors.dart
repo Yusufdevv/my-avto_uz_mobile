@@ -114,9 +114,12 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
   final Color darkblueContainer27;
   final Color lightGreenContainer27;
   final Color yelowOneContainer27;
-
+  final Color hummingBirdTwo;
+  final Color blanchedAlmonToCountyGreen;
+  final Color karryToBrownsOlive;
+  final Color blueChalkToCaputMortum;
+  final Color sindirellaToBurrentCrinson;
   final Color yelowTwoContainer27;
-
   final Color brownContainer27;
 
   const ThemedColors({
@@ -235,6 +238,11 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     required this.yelowOneContainer27,
     required this.yelowTwoContainer27,
     required this.brownContainer27,
+    required this.hummingBirdTwo,
+    required this.blanchedAlmonToCountyGreen,
+    required this.karryToBrownsOlive,
+    required this.blueChalkToCaputMortum,
+    required this.sindirellaToBurrentCrinson,
   });
 
   @override
@@ -353,6 +361,11 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     Color? yelowOneContainer27,
     Color? yelowTwoContainer27,
     Color? brownContainer27,
+    Color? hummingBirdTwo,
+    Color? blanchedAlmonToCountyGreen,
+    Color? karryToBrownsOlive,
+    Color? blueChalkToCaputMortum,
+    Color? sindirellaToBurrentCrinson,
   }) =>
       ThemedColors(
         whiteToBlack: whiteToBlack ?? this.whiteToBlack,
@@ -506,6 +519,14 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
         yelowOneContainer27: yelowOneContainer27 ?? this.yelowOneContainer27,
         yelowTwoContainer27: yelowTwoContainer27 ?? this.yelowTwoContainer27,
         brownContainer27: brownContainer27 ?? this.brownContainer27,
+        hummingBirdTwo: hummingBirdTwo ?? this.hummingBirdTwo,
+        blanchedAlmonToCountyGreen:
+            blanchedAlmonToCountyGreen ?? this.blanchedAlmonToCountyGreen,
+        karryToBrownsOlive: karryToBrownsOlive ?? this.karryToBrownsOlive,
+        blueChalkToCaputMortum:
+            blueChalkToCaputMortum ?? this.blueChalkToCaputMortum,
+        sindirellaToBurrentCrinson:
+            sindirellaToBurrentCrinson ?? this.sindirellaToBurrentCrinson,
       );
 
   @override
@@ -821,6 +842,21 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
       brownContainer27:
           Color.lerp(brownContainer27, other.brownContainer27, t) ??
               brownContainer27,
+      hummingBirdTwo:
+      Color.lerp(hummingBirdTwo, other.hummingBirdTwo, t) ??
+          hummingBirdTwo,
+      blanchedAlmonToCountyGreen:
+      Color.lerp(blanchedAlmonToCountyGreen, other.blanchedAlmonToCountyGreen, t) ??
+          blanchedAlmonToCountyGreen,
+      karryToBrownsOlive:
+      Color.lerp(karryToBrownsOlive, other.karryToBrownsOlive, t) ??
+          karryToBrownsOlive,
+      blueChalkToCaputMortum:
+      Color.lerp(blueChalkToCaputMortum, other.blueChalkToCaputMortum, t) ??
+          blueChalkToCaputMortum,
+      sindirellaToBurrentCrinson:
+      Color.lerp(sindirellaToBurrentCrinson, other.sindirellaToBurrentCrinson, t) ??
+          sindirellaToBurrentCrinson,
     );
   }
 }

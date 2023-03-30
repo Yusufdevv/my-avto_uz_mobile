@@ -162,6 +162,11 @@ class LightThemeColors {
   static const yelowOneContainer27 = _cocoaBrownThree;
   static const yelowTwoContainer27 = _cocoaBrownTwo;
   static const brownContainer27 = _indianTanTwo;
+  static const hummingBirdTwo = _hummingBirdTwo;//green
+  static const blanchedAlmonToCountyGreen = _blanchedAlmond;//yellow
+  static const karryToBrownsOlive = _karry;//pink
+  static const blueChalkToCaputMortum = _blueChalk;//fiolet
+  static const sindirellaToBurrentCrinson = _sindirella;//lightred
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
@@ -215,14 +220,20 @@ const _smoky = Color(0xff5D5D67);
 const _mischka = Color(0xffA5AAB4);
 const _fairPink = Color(0xffF3E1DD);
 const _whiteLilac1 = Color(0xFFF7F7F8);
-const _cosmicLatte = Color(0xFFEBFAF0);
+const _cosmicLatte = Color(0xFFF0FAF6);
 const _roseWhite = Color(0xFFFDF4F3);
 const _lavender1 = Color(0xFFF2F4FC);
-const _cocoaBrownThree = Color(0xFFFFC137);
-const _cocoaBrownTwo = Color(0xFFF63C07);
+const _cocoaBrownThree = Color(0xFFFFF6E1);
+const _cocoaBrownTwo = Color(0xFFFFF6E1);
 const _midnight = Color(0xFF171725);
 const _indianTanTwo = Color(0xEA5930);
 const _turtleGreen = Color(0xff55BB00);
+const _hummingBirdTwo = Color(0xffDEF4F8);//green
+const _blanchedAlmond = Color(0xffFFF0CD);//yellow
+const _karry = Color(0xffFED7CC);//pink
+const _blueChalk = Color(0xffD6D3E6);//fiolet
+const _sindirella = Color(0xffFAD9D0);//lightred
+const _snowyMint = Color(0xffDCF1CA);//green
 
 
 

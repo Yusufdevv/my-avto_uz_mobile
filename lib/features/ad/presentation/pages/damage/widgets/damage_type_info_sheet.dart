@@ -31,9 +31,9 @@ class DamageTypeInfoSheet extends StatelessWidget {
             .viewInsets
             .top + 60),
         child: Container(
-          decoration: const BoxDecoration(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-              color: white),
+          decoration:  BoxDecoration(
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+              color: Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -64,7 +64,7 @@ class DamageTypeInfoSheet extends StatelessWidget {
                   ],
                 ),
               ),
-              const Divider(color: border, thickness: 1, height: 1),
+               Divider(color: Theme.of(context).extension<ThemedColors>()!.divider, thickness: 1, height: 1),
               Expanded(
                 child: ListView.separated(
                   physics: const BouncingScrollPhysics(),
@@ -76,7 +76,7 @@ class DamageTypeInfoSheet extends StatelessWidget {
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
-                            border: Border.all(color: border, width: 1)),
+                            border: Border.all(color: Theme.of(context).extension<ThemedColors>()!.divider, width: 1)),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

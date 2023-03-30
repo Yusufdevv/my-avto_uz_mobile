@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/car_single/presentation/widgets/about_price_bottomsheet.dart';
 import 'package:auto/features/car_single/presentation/widgets/cars_price_controlling.dart';
 import 'package:auto/features/car_single/presentation/widgets/price_statistis_item.dart';
@@ -36,9 +37,9 @@ class CarPriceBottom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        decoration: const BoxDecoration(
-          color: white,
-          borderRadius: BorderRadius.only(
+        decoration:  BoxDecoration(
+          color: Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
+          borderRadius: const BorderRadius.only(
             topRight: Radius.circular(16),
             topLeft: Radius.circular(16),
           ),

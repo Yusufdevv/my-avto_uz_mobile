@@ -164,6 +164,11 @@ class DarkThemeColors {
   static const yelowOneContainer27 = _cocoaBrownThree;
   static const yelowTwoContainer27 = _cocoaBrownTwo;
   static const brownContainer27 = _indianTanTwo;
+  static const hummingBirdTwo = _countyGreen;
+  static const blanchedAlmonToCountyGreen = _brownsOlive; //yellow
+  static const karryToBrownsOlive = _caputMortum;
+  static const blueChalkToCaputMortum = _burrentCrinson;
+  static const sindirellaToBurrentCrinson = _parisM;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
@@ -234,3 +239,9 @@ const _cocoaBrownTwo = Color(0xFF34211C);
 const _midnight = Color(0xFF1C2834);
 const _indianTanTwo = Color(0xFF502C22);
 const _turtleGreen = Color(0xff27341C);
+const _countyGreen = Color(0xff205732);//green
+const _brownsOlive = Color(0xff574520);//yellow
+const _caputMortum = Color(0xff572C20);//pink
+const _burrentCrinson = Color(0xff572020);//fiolet
+const _parisM = Color(0xff202757);//lightred
+const _armyGreen = Color(0xff395720);//green

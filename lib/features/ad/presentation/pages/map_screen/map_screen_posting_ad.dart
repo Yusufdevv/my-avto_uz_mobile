@@ -2,6 +2,7 @@
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/presentation/bloc/map/map_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/map_screen/widgets/buttons.dart';
@@ -68,7 +69,7 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
         child: CustomScreen(
           child: Scaffold(
             appBar: AppBar(
-                backgroundColor: white,
+                backgroundColor: Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
                 centerTitle: true,
                 leading: WScaleAnimation(
                   onTap: () {
