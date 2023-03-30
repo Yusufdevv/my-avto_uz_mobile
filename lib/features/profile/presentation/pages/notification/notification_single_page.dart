@@ -24,7 +24,9 @@ class NotificationSinglePage extends StatelessWidget {
         body: BlocBuilder<UserWishListsBloc, UserWishListsState>(
           builder: (context, state) {
             if (state.myAdsStatus.isSubmissionInProgress) {
-              return const Center(child: CupertinoActivityIndicator());
+              return const Center(
+                child: CupertinoActivityIndicator(),
+              );
             }
             if (state.myAdsStatus.isSubmissionSuccess) {
               final notification = state.notificationSingle;
@@ -47,8 +49,7 @@ class NotificationSinglePage extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -74,8 +75,8 @@ class NotificationSinglePage extends StatelessWidget {
                         data: notification.notification.content,
                         style: {
                           'p': Style(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 6),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 6),
                               color: dark,
                               fontSize: FontSize(13),
                               fontWeight: FontWeight.w400)

@@ -1,3 +1,4 @@
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/material.dart';
 
 class DescriptionBox extends StatelessWidget {
@@ -13,6 +14,9 @@ class DescriptionBox extends StatelessWidget {
     return Container(
       width: double.maxFinite,
       decoration: BoxDecoration(
+        color: Theme.of(context)
+            .extension<ThemedColors>()!
+            .whiteToDark,
           border: Border.symmetric(
               horizontal:
                   BorderSide(width: 1, color: Theme.of(context).dividerColor))),
