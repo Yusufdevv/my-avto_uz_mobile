@@ -31,6 +31,7 @@ class CarDetails extends StatelessWidget {
   Widget build(BuildContext context) => Container(
         width: double.infinity,
         color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+        // color: Colors.teal,
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
         child: Column(children: [
           CarInfoTile(

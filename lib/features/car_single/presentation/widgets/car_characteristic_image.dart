@@ -11,13 +11,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class CarCharacteristicImage extends StatefulWidget {
+class CarDamagedParts extends StatefulWidget {
   final List<DamagedPartsEntity> informAboutDoors;
   final bool isFaceToFaceCheck;
   final double k;
   final double width;
 
-  const CarCharacteristicImage({
+  const CarDamagedParts({
     required this.informAboutDoors,
     required this.isFaceToFaceCheck,
     required this.width,
@@ -26,10 +26,10 @@ class CarCharacteristicImage extends StatefulWidget {
         super(key: key);
 
   @override
-  State<CarCharacteristicImage> createState() => _CarCharacteristicImageState();
+  State<CarDamagedParts> createState() => _CarDamagedPartsState();
 }
 
-class _CarCharacteristicImageState extends State<CarCharacteristicImage> {
+class _CarDamagedPartsState extends State<CarDamagedParts> {
   late int length;
   late List<DamagedPartsAsEnum> asEnum;
 

@@ -29,11 +29,13 @@ class CarInfoTile extends StatelessWidget {
                   ),
                   Expanded(
                     child: Container(
-                      decoration:  BoxDecoration(
-                          border:
-                              Border(bottom: BorderSide(color: Theme.of(context)
-                                  .extension<ThemedColors>()!
-                                  .divider,))),
+                      decoration: BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .divider,
+                      ))),
                     ),
                   ),
                 ],

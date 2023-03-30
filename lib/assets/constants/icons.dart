@@ -28,6 +28,7 @@ class AppIcons {
 
   //GLOBAL
   static const popUpWarnig = 'assets/icons/global/pop_up_warning.svg';
+  static const calendarTick = 'assets/icons/car_single/calendar_tick.svg';
   static const fluentCar = 'assets/icons/global/fluent_car.svg';
   static const userAvatar = 'assets/icons/global/user_avatar.svg';
   static const phoneWithClock = 'assets/icons/global/phone_with_clock.png';
@@ -230,7 +231,8 @@ class AppIcons {
   static const vin_skoro = 'assets/icons/car_single/vin_skoro.svg';
   static const vin_tezorada = 'assets/icons/car_single/vin_tezorada.svg';
   static const blue_vin_skoro = 'assets/icons/car_single/blue_vin_skoro.svg';
-  static const blue_vin_tezorada = 'assets/icons/car_single/blue_vin_tezorada.svg';
+  static const blue_vin_tezorada =
+      'assets/icons/car_single/blue_vin_tezorada.svg';
   static const safe = 'assets/icons/car_single/safety.svg';
   static const autoModel = 'assets/icons/car_single/auto_model.svg';
   static const shieldCheckOutlined =
@@ -240,7 +242,8 @@ class AppIcons {
   static const note = 'assets/icons/car_single/note.svg';
   static const blueCheckRounded = 'assets/icons/car_single/blue_check.svg';
   static const comparGreen = 'assets/icons/car_single/compar_green.svg';
-  static const moderationYellow = 'assets/icons/car_single/moderation_yellow.svg';
+  static const moderationYellow =
+      'assets/icons/car_single/moderation_yellow.svg';
   static const comparison = 'assets/icons/global/comparison.svg';
   static const puzzle = 'assets/icons/global/puzzle.svg';
 
@@ -251,6 +254,7 @@ class AppIcons {
   static const chevronRound = 'assets/icons/car_single/chevron_right_round.svg';
   static const shieldRound = 'assets/icons/car_single/shield_round.svg';
   static const lockRound = 'assets/icons/car_single/lock_round.svg';
+
   //REVIEWS
   static const comment = 'assets/icons/reviews/comment.svg';
   static const passenger_car = 'assets/icons/reviews/passanger_car.svg';
