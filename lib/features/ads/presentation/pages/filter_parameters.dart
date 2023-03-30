@@ -25,10 +25,13 @@ enum SaleType {
   all(LocaleKeys.all, ''),
   directSale(LocaleKeys.direct_sale, 'false'),
   rentWithPurchase(LocaleKeys.rent_to_sale, 'true');
+
   const SaleType(this.title, this.toApi);
+
   final String toApi;
   final String title;
 }
+
 extension SaleTypeExtention on SaleType {
   bool get isAll => this == SaleType.all;
 }

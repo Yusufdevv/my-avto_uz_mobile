@@ -30,10 +30,9 @@ class _ChooseSaleTypeSheetState extends State<ChooseSaleTypeSheet> {
   @override
   Widget build(BuildContext context) => Container(
         margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 44),
-        decoration:  BoxDecoration(
-          color: Theme.of(context)
-              .extension<ThemedColors>()!
-              .scaffoldBackground,
+        decoration: BoxDecoration(
+          color:
+              Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
           borderRadius: const BorderRadius.vertical(
             top: Radius.circular(20),
           ),
@@ -45,25 +44,27 @@ class _ChooseSaleTypeSheetState extends State<ChooseSaleTypeSheet> {
                 onCancelPressed: () {
                   Navigator.of(context).pop();
                 }),
-             Divider(thickness: 1, color: Theme.of(context)
-                 .extension<ThemedColors>()!
-                 .divider, height: 1),
+            Divider(
+                thickness: 1,
+                color: Theme.of(context).extension<ThemedColors>()!.divider,
+                height: 1),
             Expanded(
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: Column(
                   children: SaleType.values
-                      .map((e) => RentSheetItemm(
-                            hasDivider: e != SaleType.rentWithPurchase,
-                            onTap: () {
-                              selected = e;
-                              setState(() {});
-                            },
-                            logo: '',
-                            title: e.title.tr(),
-                            isChecked:
-                                e == selected || selected == SaleType.all,
-                          ))
+                      .map(
+                        (e) => RentSheetItemm(
+                          hasDivider: e != SaleType.rentWithPurchase,
+                          onTap: () {
+                            selected = e;
+                            setState(() {});
+                          },
+                          logo: '',
+                          title: e.title.tr(),
+                          isChecked: e == selected,
+                        ),
+                      )
                       .toList(),
                 ),
               ),
