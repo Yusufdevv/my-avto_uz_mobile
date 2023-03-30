@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
@@ -34,6 +35,7 @@ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/generated/locale_keys.g.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -57,7 +59,6 @@ class _PostingAdScreenState extends State<PostingAdScreen>
   late ChooseMakeAnimeBloc animeBloc;
   late GlobalKey globalKey;
 
-  final ValueNotifier<int> currentTabNotifier = ValueNotifier(0);
   late AnimationController animeController;
 
   final int tabLength = 20;
@@ -126,137 +127,132 @@ class _PostingAdScreenState extends State<PostingAdScreen>
   ];
 
   @override
-  Widget build(BuildContext context) => WillPopScope(
-        onWillPop: () async {
-          FocusScope.of(context).unfocus();
-          if (currentTabNotifier.value != 0) {
-            --currentTabNotifier.value;
+  Widget build(BuildContext context) => MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (c) => animeBloc),
+          BlocProvider(create: (c) => postingAdBloc)
+        ],
+        child: BlocConsumer<PostingAdBloc, PostingAdState>(
+          listener: (context, state) async {
+            if (state.createStatus == FormzStatus.submissionSuccess) {
+              FocusScope.of(context).unfocus();
+              var error = state.toastMessage ?? '';
+              if (error.toLowerCase().contains('dio') ||
+                  error.toLowerCase().contains('type')) {
+                error = LocaleKeys.service_error.tr();
+              } else if (error.toLowerCase().contains('bad')) {
+                error = LocaleKeys.bad_request.tr();
+              } else if (error.toLowerCase().contains('internal') ||
+                  error.toLowerCase().contains('internet')) {
+                error = LocaleKeys.internal_error_server.tr();
+              }
+              context.read<ShowPopUpBloc>().add(
+                    ShowPopUp(
+                      message: error,
+                      status: PopStatus.success,
+                    ),
+                  );
+              await Future.delayed(const Duration(milliseconds: 1000));
+              context.read<WishlistAddBloc>().add(WishlistAddEvent.goToAdds(1));
+              context
+                  .read<ProfileBloc>()
+                  .add(ChangeCountDataEvent(adding: true, myAdsCount: 1));
 
-            await pageController.animateToPage(currentTabNotifier.value,
-                duration: const Duration(milliseconds: 150),
-                curve: Curves.linear);
+              // currentTabNotifier.value = 0;
+              postingAdBloc.add(PostingAdChangePageEvent(page: 0));
+              await Future.delayed(const Duration(milliseconds: 500));
+              await pageController.animateToPage(0,
+                  duration: const Duration(milliseconds: 150),
+                  curve: Curves.linear);
+              postingAdBloc.add(PostingAdClearStateEvent());
 
-            return Future.value(false);
-          } else {
-            return Future.value(true);
-          }
-        },
-        child: KeyboardDismisser(
-          child: CustomScreen(
-            child: AnnotatedRegion(
-              value: SystemUiOverlayStyle(
-                statusBarColor:
-                    Theme.of(context).extension<ThemedColors>()!.whiteToDark,
-                statusBarBrightness: Brightness.light,
-                statusBarIconBrightness: Brightness.dark,
-              ),
-              child: MultiBlocProvider(
-                providers: [
-                  BlocProvider(create: (c) => animeBloc),
-                  BlocProvider(create: (c) => postingAdBloc)
-                ],
-                child: BlocConsumer<PostingAdBloc, PostingAdState>(
-                  listener: (context, state) async {
-                    if (state.createStatus == FormzStatus.submissionSuccess) {
-                      FocusScope.of(context).unfocus();
-                      var error = state.toastMessage ?? '';
-                      if (error.toLowerCase().contains('dio') ||
-                          error.toLowerCase().contains('type')) {
-                        error = LocaleKeys.service_error.tr();
-                      } else if (error.toLowerCase().contains('bad')) {
-                        error = LocaleKeys.bad_request.tr();
-                      } else if (error.toLowerCase().contains('internal') ||
-                          error.toLowerCase().contains('internet')) {
-                        error = LocaleKeys.internal_error_server.tr();
-                      }
-                      context.read<ShowPopUpBloc>().add(
-                            ShowPopUp(
-                              message: error,
-                              status: PopStatus.success,
-                            ),
-                          );
-                      await Future.delayed(const Duration(milliseconds: 1000));
-                      context
-                          .read<WishlistAddBloc>()
-                          .add(WishlistAddEvent.goToAdds(1));
-                      context.read<ProfileBloc>().add(
-                          ChangeCountDataEvent(adding: true, myAdsCount: 1));
+              Navigator.of(context).pop(true);
 
-                      currentTabNotifier.value = 0;
-                      await Future.delayed(const Duration(milliseconds: 500));
-                      await pageController.animateToPage(
-                          currentTabNotifier.value,
-                          duration: const Duration(milliseconds: 150),
-                          curve: Curves.linear);
-                      postingAdBloc.add(PostingAdClearStateEvent());
+              return;
+            }
 
-                      Navigator.of(context).pop(true);
+            if (state.toastMessage != null && state.toastMessage!.isNotEmpty) {
+              var error = state.toastMessage ?? '';
+              if (error.toLowerCase().contains('dio') ||
+                  error.toLowerCase().contains('type')) {
+                error = LocaleKeys.service_error.tr();
+              } else if (error.toLowerCase().contains('bad')) {
+                error = LocaleKeys.bad_request.tr();
+              } else if (error.toLowerCase().contains('internal') ||
+                  error.toLowerCase().contains('internet')) {
+                error = LocaleKeys.internal_error_server.tr();
+              }
+              context.read<ShowPopUpBloc>().add(
+                    ShowPopUp(
+                      message: error,
+                      status: state.popStatus,
+                    ),
+                  );
+              postingAdBloc.add(PostingAdShowToastEvent(
+                  message: '', status: PopStatus.success));
+            }
+          },
+          builder: (context, state) => WillPopScope(
+            onWillPop: () async {
+              FocusScope.of(context).unfocus();
+              if (state.currentPage != 0) {
+                final page = state.currentPage - 1;
+                postingAdBloc.add(PostingAdChangePageEvent(page: page));
 
-                      return;
-                    }
+                await pageController.animateToPage(page,
+                    duration: const Duration(milliseconds: 150),
+                    curve: Curves.linear);
 
-                    if (state.toastMessage != null &&
-                        state.toastMessage!.isNotEmpty) {
-                      var error = state.toastMessage ?? '';
-                      if (error.toLowerCase().contains('dio') ||
-                          error.toLowerCase().contains('type')) {
-                        error = LocaleKeys.service_error.tr();
-                      } else if (error.toLowerCase().contains('bad')) {
-                        error = LocaleKeys.bad_request.tr();
-                      } else if (error.toLowerCase().contains('internal') ||
-                          error.toLowerCase().contains('internet')) {
-                        error = LocaleKeys.internal_error_server.tr();
-                      }
-                      context.read<ShowPopUpBloc>().add(
-                            ShowPopUp(
-                              message: error,
-                              status: state.popStatus,
-                            ),
-                          );
-                      postingAdBloc.add(PostingAdShowToastEvent(
-                          message: '', status: PopStatus.success));
-                    }
-                  },
-                  builder: (context, state) =>
-                      BlocBuilder<ChooseMakeAnimeBloc, ChooseMakeAnimeState>(
+                return Future.value(false);
+              } else {
+                return Future.value(true);
+              }
+            },
+            child: KeyboardDismisser(
+              child: CustomScreen(
+                child: AnnotatedRegion(
+                  value: SystemUiOverlayStyle(
+                    statusBarColor: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .whiteToDark,
+                    statusBarBrightness: Brightness.light,
+                    statusBarIconBrightness: Brightness.dark,
+                  ),
+                  child: BlocBuilder<ChooseMakeAnimeBloc, ChooseMakeAnimeState>(
                     builder: (context, animeState) => Scaffold(
                       appBar: PreferredSize(
                         preferredSize: const Size.fromHeight(54),
-                        child: ValueListenableBuilder<int>(
-                          valueListenable: currentTabNotifier,
-                          builder: (c, val, child) => PostingAdAppBar(
-                            hasCancelButton: currentTabNotifier.value != 0,
-                            currentTabIndex: currentTabNotifier.value,
-                            reversScaleAnimation:
-                                animeState.reversScaleAnimation,
-                            reverseTitle: LocaleKeys.choose_brand_auto.tr(),
-                            scaleAnimation: animeState.scaleAnimation,
-                            tabLength: tabLength,
-                            hasShadow: state.hasAppBarShadow,
-                            onTapBack: () {
-                              if (currentTabNotifier.value != 0) {
-                                --currentTabNotifier.value;
-
-                                pageController.animateToPage(
-                                    currentTabNotifier.value,
-                                    duration: const Duration(milliseconds: 150),
-                                    curve: Curves.linear);
-                              } else {
-                                Navigator.pop(context);
-                              }
-                            },
-                            onTapCancel: () {
-                              postingAdBloc.add(PostingAdClearStateEvent());
-                              currentTabNotifier.value = 0;
-                              pageController.animateToPage(
-                                  currentTabNotifier.value,
-                                  duration: const Duration(milliseconds: 100),
+                        child: PostingAdAppBar(
+                          hasCancelButton: state.currentPage != 0,
+                          currentTabIndex: state.currentPage,
+                          reversScaleAnimation: animeState.reversScaleAnimation,
+                          reverseTitle: LocaleKeys.choose_brand_auto.tr(),
+                          scaleAnimation: animeState.scaleAnimation,
+                          tabLength: tabLength,
+                          hasShadow: state.hasAppBarShadow,
+                          onTapBack: () {
+                            if (state.currentPage != 0) {
+                              final page = state.currentPage - 1;
+                              postingAdBloc
+                                  .add(PostingAdChangePageEvent(page: page));
+                              pageController.animateToPage(page,
+                                  duration: const Duration(milliseconds: 150),
                                   curve: Curves.linear);
-                            },
-                            title: currentTabNotifier.value == 0
-                                ? LocaleKeys.get_back.tr()
-                                : tabs[currentTabNotifier.value - 1],
-                          ),
+                            } else {
+                              Navigator.pop(context);
+                            }
+                          },
+                          onTapCancel: () {
+                            postingAdBloc
+                              ..add(PostingAdClearStateEvent())
+                              ..add(PostingAdChangePageEvent(page: 0));
+                            pageController.animateToPage(state.currentPage,
+                                duration: const Duration(milliseconds: 100),
+                                curve: Curves.linear);
+                          },
+                          title: state.currentPage == 0
+                              ? LocaleKeys.get_back.tr()
+                              : tabs[state.currentPage - 1],
                         ),
                       ),
                       body: Stack(
@@ -270,14 +266,14 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                 tabLength: tabLength,
                                 postingAddBloc: postingAdBloc,
                                 onTopBrandPressed: (makeId) {
+                                  final page = state.currentPage + 1;
                                   postingAdBloc
-                                      .add(PostingAdChooseEvent(make: makeId));
-                                  currentTabNotifier.value++;
-                                  postingAdBloc.add(
-                                      PostingAdAddEventForEveryPage(
-                                          page: currentTabNotifier.value));
-                                  pageController.animateToPage(
-                                      currentTabNotifier.value,
+                                    ..add(PostingAdChooseEvent(make: makeId))
+                                    // currentTabNotifier.value++;
+                                    ..add(PostingAdChangePageEvent(page: page))
+                                    ..add(PostingAdAddEventForEveryPage(
+                                        page: page));
+                                  pageController.animateToPage(page,
                                       duration:
                                           const Duration(milliseconds: 150),
                                       curve: Curves.linear);
@@ -301,18 +297,18 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                               ModificationScreen(
                                 noData: () {
                                   FocusScope.of(context).unfocus();
-                                  if (currentTabNotifier.value <
-                                      tabLength - 1) {
-                                    if (currentTabNotifier.value == 0 &&
+                                  if (state.currentPage < tabLength - 1) {
+                                    if (state.currentPage == 0 &&
                                         animeState.isCollapsed) {
                                       animeState.animationController.reverse();
                                     }
-                                    currentTabNotifier.value++;
-                                    postingAdBloc.add(
-                                        PostingAdAddEventForEveryPage(
-                                            page: currentTabNotifier.value));
-                                    pageController.animateToPage(
-                                        currentTabNotifier.value,
+                                    final page = state.currentPage + 1;
+                                    postingAdBloc
+                                      ..add(
+                                          PostingAdChangePageEvent(page: page))
+                                      ..add(PostingAdAddEventForEveryPage(
+                                          page: page));
+                                    pageController.animateToPage(page,
                                         duration:
                                             const Duration(milliseconds: 60),
                                         curve: Curves.linear);
@@ -466,6 +462,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                   );
                                 },
                                 onShowMyContactChanged: (v) {
+                                  log(':::::::::: Contacts posting ad show my contacts changed:   $v }  ::::::::::');
                                   context
                                       .read<PostingAdBloc>()
                                       .add(PostingAdClearControllersEvent());
@@ -489,9 +486,12 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                     showOwnerContacts: v,
                                   ));
                                 },
-                                onGetUserDatas: () => context
-                                    .read<PostingAdBloc>()
-                                    .add(PostingAdGetUserDataEvent()),
+                                onGetUserDatas: () {
+                                  log(':::::::::: Contacts user data function triggered  ::::::::::');
+                                  context
+                                      .read<PostingAdBloc>()
+                                      .add(PostingAdGetUserDataEvent());
+                                },
                                 onCallTimeChanged: ({
                                   required isCallTimed,
                                   callTimeFrom,
@@ -513,6 +513,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                       context,
                                       fade(
                                           page: MapScreenPostingAd(
+                                        isNightMode:
+                                            MyFunctions.isNightMode(context),
                                         initialLat: state.lat ?? 0,
                                         initialLong: state.long ?? 0,
                                       ))).then(
@@ -594,81 +596,71 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                               ),
                             ],
                           ),
-                          ValueListenableBuilder<int>(
-                            valueListenable: currentTabNotifier,
-                            builder: (context, val, child) {
-                              if (val < tabLength - 1) {
-                                return Positioned(
-                                  bottom:
-                                      MediaQuery.of(context).padding.bottom +
-                                          16,
-                                  right: 16,
-                                  left: 16,
-                                  child: WButton(
-                                    disabledColor: disabledButton,
-                                    isDisabled: state
-                                        .buttonStatus(currentTabNotifier.value),
-                                    onTap: () {
-                                      FocusScope.of(context).unfocus();
-                                      if (currentTabNotifier.value <
-                                          tabLength - 1) {
-                                        if (currentTabNotifier.value == 0 &&
-                                            animeState.isCollapsed) {
-                                          animeState.animationController
-                                              .reverse();
-                                        }
-                                        currentTabNotifier.value++;
-                                        postingAdBloc.add(
-                                            PostingAdAddEventForEveryPage(
-                                                page:
-                                                    currentTabNotifier.value));
-                                        pageController.animateToPage(
-                                            currentTabNotifier.value,
-                                            duration: const Duration(
-                                                milliseconds: 150),
-                                            curve: Curves.linear);
-                                      }
-                                    },
-                                    text: LocaleKeys.further.tr(),
-                                    shadow: state.buttonStatus(
-                                            currentTabNotifier.value)
-                                        ? null
-                                        : [
-                                            BoxShadow(
-                                                offset: const Offset(0, 4),
-                                                blurRadius: 20,
-                                                color: orange.withOpacity(0.2)),
-                                          ],
+                          if (state.currentPage < tabLength - 1) ...{
+                            Positioned(
+                              bottom:
+                                  MediaQuery.of(context).padding.bottom + 16,
+                              right: 16,
+                              left: 16,
+                              child: WButton(
+                                disabledColor: disabledButton,
+                                isDisabled:
+                                    state.buttonStatus(state.currentPage),
+                                onTap: () {
+                                  FocusScope.of(context).unfocus();
+                                  if (state.currentPage < tabLength - 1) {
+                                    if (state.currentPage == 0 &&
+                                        animeState.isCollapsed) {
+                                      animeState.animationController.reverse();
+                                    }
+                                    final page = state.currentPage + 1;
+                                    postingAdBloc
+                                      ..add(
+                                          PostingAdChangePageEvent(page: page))
+                                      ..add(PostingAdAddEventForEveryPage(
+                                          page: page));
+                                    pageController.animateToPage(page,
+                                        duration:
+                                            const Duration(milliseconds: 150),
+                                        curve: Curves.linear);
+                                  }
+                                },
+                                text: LocaleKeys.further.tr(),
+                                shadow: state.buttonStatus(state.currentPage)
+                                    ? null
+                                    : [
+                                        BoxShadow(
+                                            offset: const Offset(0, 4),
+                                            blurRadius: 20,
+                                            color: orange.withOpacity(0.2)),
+                                      ],
+                              ),
+                            ),
+                          } else ...{
+                            Positioned(
+                              bottom:
+                                  MediaQuery.of(context).padding.bottom + 16,
+                              right: 16,
+                              left: 16,
+                              child: WButton(
+                                isDisabled: state.createStatus ==
+                                    FormzStatus.submissionSuccess,
+                                isLoading: state.createStatus ==
+                                    FormzStatus.submissionInProgress,
+                                onTap: () async {
+                                  postingAdBloc.add(PostingAdCreateEvent());
+                                },
+                                text: LocaleKeys.start_free_week.tr(),
+                                shadow: [
+                                  BoxShadow(
+                                    offset: const Offset(0, 4),
+                                    blurRadius: 20,
+                                    color: orange.withOpacity(0.2),
                                   ),
-                                );
-                              } else {
-                                return Positioned(
-                                  bottom:
-                                      MediaQuery.of(context).padding.bottom +
-                                          16,
-                                  right: 16,
-                                  left: 16,
-                                  child: WButton(
-                                    isDisabled: state.createStatus ==
-                                        FormzStatus.submissionSuccess,
-                                    isLoading: state.createStatus ==
-                                        FormzStatus.submissionInProgress,
-                                    onTap: () async {
-                                      postingAdBloc.add(PostingAdCreateEvent());
-                                    },
-                                    text: LocaleKeys.start_free_week.tr(),
-                                    shadow: [
-                                      BoxShadow(
-                                        offset: const Offset(0, 4),
-                                        blurRadius: 20,
-                                        color: orange.withOpacity(0.2),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              }
-                            },
-                          ),
+                                ],
+                              ),
+                            ),
+                          }
                         ],
                       ),
                     ),

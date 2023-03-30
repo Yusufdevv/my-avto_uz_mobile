@@ -22,10 +22,14 @@ import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen(
-      {required this.iconPath, Key? key, this.isFromDirectoryPage = false})
+      {required this.isNightMode,
+      required this.iconPath,
+      Key? key,
+      this.isFromDirectoryPage = false})
       : super(key: key);
   final bool isFromDirectoryPage;
   final String iconPath;
+  final bool isNightMode;
 
   @override
   State<MapScreen> createState() => _MapScreenState();
@@ -60,7 +64,7 @@ class _MapScreenState extends State<MapScreen>
 
   @override
   Widget build(BuildContext context) {
-    log(':::::::::: IS FROM DIRECTORY PAGE:  ${widget.isFromDirectoryPage}  ::::::::::');
+    log(':::::::::: IS FROM DIRECTORY PAGE:  ${MediaQuery.of(context).platformBrightness.name}  ::::::::::');
     super.build(context);
     return CustomScreen(
       child: Scaffold(
@@ -89,6 +93,7 @@ class _MapScreenState extends State<MapScreen>
               Positioned.fill(
                 top: -24,
                 child: YandexMap(
+                  nightModeEnabled: widget.isNightMode,
                   rotateGesturesEnabled: false,
                   onCameraPositionChanged:
                       (cameraPosition, updateReason, isStopped) async {

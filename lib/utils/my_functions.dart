@@ -43,8 +43,22 @@ class MyFunctions {
     );
   }
 
+  static bool isNightMode(BuildContext context) {
+    final v =
+        StorageRepository.getString(StorageKeys.THEME_MODE, defValue: 'light');
+    if (v == 'dark') {
+      return true;
+    } else {
+      if (v == 'system') {
+        return MediaQuery.of(context).platformBrightness.name == 'dark';
+      } else {
+        return false;
+      }
+    }
+  }
+
   static ThemeMode getThemeMode() {
-    final themeMode = StorageRepository.getString('themeMode');
+    final themeMode = StorageRepository.getString(StorageKeys.THEME_MODE);
     switch (themeMode) {
       case 'light':
         return ThemeMode.light;

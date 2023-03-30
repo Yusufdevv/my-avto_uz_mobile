@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/bloc/theme_switcher_bloc/theme_switcher_bloc.dart';
@@ -35,9 +36,9 @@ class _ThemeBottomSheetState extends State<ThemeBottomSheet> {
   @override
   void initState() {
     super.initState();
-    if (StorageRepository.getString('themeMode') == 'light') {
+    if (StorageRepository.getString(StorageKeys.THEME_MODE) == 'light') {
       selectedTheme = 1;
-    } else if (StorageRepository.getString('themeMode') == 'dark') {
+    } else if (StorageRepository.getString(StorageKeys.THEME_MODE) == 'dark') {
       selectedTheme = 2;
     } else {
       selectedTheme = 0;

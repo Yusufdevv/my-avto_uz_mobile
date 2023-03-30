@@ -312,6 +312,7 @@ class PASingleton {
                     false) &&
                 state.isContactsVerified) ||
             state.nameController.text.isNotEmpty && state.isContactsVerified);
+
         return v;
 // InspectionPlaceScreen
       case 16:
@@ -322,10 +323,10 @@ class PASingleton {
         return state.price == null || (state.price?.isEmpty ?? true);
       // MileageScreen
       case 18:
-        final milage =
+        final mileage =
             int.tryParse(state.mileage?.replaceAll(' ', '') ?? '0') ?? 0;
 
-        final v = !(milage > 0 ||
+        final v = !(mileage > 0 ||
             (state.isWithoutMileage ?? false) ||
             state.milageImage != null && state.milageImage!.isNotEmpty);
         return v;
