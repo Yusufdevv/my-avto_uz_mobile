@@ -31,6 +31,15 @@ import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class MyFunctions {
+  static bool isContentTypeIsImage({required String v}) {
+    if (v.isEmpty) return false;
+    return v.endsWith('.png') ||
+        v.endsWith('.jpeg') ||
+        v.endsWith('.jpg') ||
+        v.endsWith('.png') ||
+        v.endsWith('.svg');
+  }
+
   static Future<void> openMapsSheet(
       BuildContext context, double lat, double long, String title) async {
     final coords = Coords(lat, long);

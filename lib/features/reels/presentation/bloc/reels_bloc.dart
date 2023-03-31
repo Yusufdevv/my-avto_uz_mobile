@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto/features/reels/domain/entities/reel_entity.dart';
 import 'package:auto/features/reels/domain/usecases/get_of_day_use_case.dart';
 import 'package:auto/features/reels/domain/usecases/get_reels_use_case.dart';
@@ -42,11 +44,15 @@ class ReelsBloc extends Bloc<ReelsEvent, ReelsState> {
 
   Future _getReels(
       int offset, bool isFromMain, Emitter<ReelsState> emit) async {
+    log(':::::::::: GET REELS TRIGGERED}  ::::::::::');
     add(const ChangeStatusEvent(FormzStatus.submissionInProgress));
+    log(':::::::::: isFromMain $isFromMain}  ::::::::::');
     final result = isFromMain
         ? await getReelsOfDayUseCase.call({'limit': 10, 'offset': offset})
         : await getReelsUseCase.call({'limit': 10, 'offset': offset});
+
     if (result.isRight) {
+      log(':::::::::: REELS LENTH  ${result.right.results.length}  ::::::::::');
       emit(state.copWith(
         reels: result.right.results,
         statusReelsGet: FormzStatus.submissionSuccess,

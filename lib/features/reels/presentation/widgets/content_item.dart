@@ -2,10 +2,12 @@ import 'dart:math';
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/reels/domain/entities/reel_entity.dart';
 import 'package:auto/features/reels/presentation/widgets/offer_badge.dart';
 import 'package:auto/features/reels/presentation/widgets/options_item.dart';
 import 'package:auto/features/reels/presentation/widgets/price_button.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
@@ -46,25 +48,60 @@ class _ContentItemState extends State<ContentItem> {
   bool initialized = false;
   bool actualDisposed = false;
   bool isEnded = false;
+  late final double k;
+  late bool isImage;
 
   @override
   void initState() {
     super.initState();
+    isImage = MyFunctions.isContentTypeIsImage(v: widget.reel.content);
+    k = widget.deviceWidth / mockWith;
     _initVideoController();
   }
 
   @override
   Widget build(BuildContext context) {
+    final tmp = MediaQuery.of(context).size;
+    final screenH = max(tmp.height, tmp.width);
+    final screenW = min(tmp.height, tmp.width);
+
+    final previewH = max(tmp.height, tmp.width);
+    final previewW = min(tmp.height, tmp.width);
+    final screenRatio = screenH / screenW;
+    final previewRatio = previewH / previewW;
+
     var isLandscape = false;
     _pauseAndPlayVideo();
     if (initialized && _videoPlayerController.value.isInitialized) {
       isLandscape = _videoPlayerController.value.size.width >
           _videoPlayerController.value.size.height;
     }
+    print('::::::::::  ${widget.reel}  ::::::::::');
     return Stack(
       children: [
-        if (initialized)
+        if ((!isImage) && initialized) ...{
           isLandscape ? _renderLandscapeVideo() : _renderPortraitVideo(),
+        } else ...{
+          Positioned.fill(
+            child: OverflowBox(
+              maxHeight: screenRatio > previewRatio
+                  ? screenH
+                  : screenW / previewW * previewH,
+              maxWidth: screenRatio > previewRatio
+                  ? screenH / previewH * previewW
+                  : screenW,
+              child: VisibilityDetector(
+                onVisibilityChanged: _handleVisibilityDetector,
+                key: Key('key_${widget.currentPageIndex}'),
+                child: CachedNetworkImage(
+                  imageUrl: widget.reel.content,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          )
+        },
+
         Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -115,19 +152,19 @@ class _ContentItemState extends State<ContentItem> {
               Row(
                 children: [
                   Container(
-                    height: 20,
-                    width: 20,
+                    height: 20 * k,
+                    width: 20 * k,
                     decoration: BoxDecoration(
                       border: Border.all(
                         width: 1.5,
                         color: white.withOpacity(.5),
                       ),
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(10 * k),
                     ),
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(10 * k),
                       child: CachedNetworkImage(
-                        imageUrl: widget.reel.dealer.image,
+                        imageUrl: widget.reel.content,
                         fit: BoxFit.cover,
                         errorWidget: (context, url, error) => Image.asset(
                             AppImages.carPlaceHolder,

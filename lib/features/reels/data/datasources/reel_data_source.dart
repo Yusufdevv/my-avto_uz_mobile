@@ -26,7 +26,8 @@ class ReelDataSource {
           },
           options: Options(
             headers: {
-              'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
+              'Authorization':
+                  'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
             },
           ));
       return GenericPagination.fromJson(result.data,
@@ -51,11 +52,15 @@ class ReelDataSource {
           },
           options: Options(
             headers: {
-              'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
+              'Authorization':
+                  'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
             },
           ));
-      return GenericPagination.fromJson(result.data,
+
+      final v = GenericPagination.fromJson(result.data,
           (json) => ReelModel.fromJson(json as Map<String, dynamic>));
+
+      return v;
     } catch (e) {
       throw const ServerException();
     }
@@ -66,7 +71,8 @@ class ReelDataSource {
         data: {'reel': id},
         options: Options(
           headers: {
-            'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
+            'Authorization':
+                'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
           },
         ));
     return ReelsPostModel.fromJson(result.data);
@@ -77,7 +83,8 @@ class ReelDataSource {
         data: {'reel': id},
         options: Options(
           headers: {
-            'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
+            'Authorization':
+                'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
           },
         ));
     return ReelsPostModel.fromJson(result.data);
