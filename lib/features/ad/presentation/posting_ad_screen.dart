@@ -604,7 +604,9 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                               right: 16,
                               left: 16,
                               child: WButton(
-                                disabledColor: disabledButton,
+                                disabledColor: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .ghostToEclipse,
                                 isDisabled:
                                     state.buttonStatus(state.currentPage),
                                 onTap: () {
@@ -626,6 +628,11 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                         curve: Curves.linear);
                                   }
                                 },
+                                textColor: state.buttonStatus(state.currentPage)
+                                    ? Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .whiteToDolphin
+                                    : white,
                                 text: LocaleKeys.further.tr(),
                                 shadow: state.buttonStatus(state.currentPage)
                                     ? null

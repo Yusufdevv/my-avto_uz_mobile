@@ -77,8 +77,8 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
               : white,
     );
     _headerTextTweenColor = ColorTween(
-      begin: const Color(0xff171725),
-      end: white,
+      begin: isLight ?  dark : isDark ?  whiteSmoke : dark,
+      end: isLight ?  dark : isDark ?  whiteSmoke : dark,
     );
     _nestsController = ScrollController()..addListener(_nestListener);
     _makesController = ScrollController()..addListener(_makesListener);

@@ -1,5 +1,4 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/const/constants.dart';
@@ -34,11 +33,10 @@ class _DamageTypeChooseSheetState extends State<DamageTypeChooseSheet> {
 
   @override
   Widget build(BuildContext context) => Container(
-        decoration:  BoxDecoration(
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-            color: Theme.of(context)
-                .extension<ThemedColors>()!
-                .whiteToDark,),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+          color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -66,9 +64,10 @@ class _DamageTypeChooseSheetState extends State<DamageTypeChooseSheet> {
                 ],
               ),
             ),
-             Divider(color: Theme.of(context)
-                .extension<ThemedColors>()!
-                .divider, thickness: 1, height: 1),
+            Divider(
+                color: Theme.of(context).extension<ThemedColors>()!.divider,
+                thickness: 1,
+                height: 1),
             Padding(
               padding: const EdgeInsets.all(16),
               child: Text(
@@ -110,11 +109,18 @@ class _DamageTypeChooseSheetState extends State<DamageTypeChooseSheet> {
                               ? Theme.of(context)
                                   .textTheme
                                   .titleMedium!
-                                  .copyWith(fontSize: 16)
+                                  .copyWith(
+                                      fontSize: 16,
+                                      color: Theme.of(context)
+                                          .extension<ThemedColors>()!
+                                          .blackToWhite)
                               : Theme.of(context)
                                   .textTheme
                                   .titleLarge!
-                                  .copyWith(color: LightThemeColors.smoky),
+                                  .copyWith(
+                                      color: Theme.of(context)
+                                          .extension<ThemedColors>()!
+                                          .dolphinToWhite),
                         ),
                         const Spacer(),
                         RadioCircleWidget(selected: damageType == selected)

@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -30,11 +31,10 @@ class DescriptionHeader extends SliverPersistentHeaderDelegate {
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           border: Border(
-              bottom: BorderSide(color: shrinkOffset > 1 ?  Theme.of(context)
-                  .extension<ThemedColors>()!
-                  .divider : Theme.of(context)
-                  .extension<ThemedColors>()!
-                  .divider)),
+              bottom: BorderSide(
+                  color: shrinkOffset > 1
+                      ? Theme.of(context).extension<ThemedColors>()!.divider
+                      : Theme.of(context).extension<ThemedColors>()!.divider)),
           boxShadow: shrinkOffset > 1
               ? [
                   BoxShadow(
@@ -50,19 +50,17 @@ class DescriptionHeader extends SliverPersistentHeaderDelegate {
                 ]
               : [],
           color: shrinkOffset > 0
-              ?  Theme.of(context)
-              .extension<ThemedColors>()!
-              .whiteToDark
+              ? Theme.of(context).extension<ThemedColors>()!.whiteToDark
               : Theme.of(context)
-            .extension<ThemedColors>()!
-            .solitudeContainerToDark,
+                  .extension<ThemedColors>()!
+                  .solitudeContainerToDark,
         ),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
             color: Theme.of(context)
                 .extension<ThemedColors>()!
-                .whiteSmoke2ToNightRider ,
+                .whiteSmoke2ToNightRider,
           ),
           child: TabBar(
             controller: controller,
@@ -74,37 +72,28 @@ class DescriptionHeader extends SliverPersistentHeaderDelegate {
                 BoxShadow(
                   blurRadius: 8,
                   offset: const Offset(0, 3),
-                  color: black.withOpacity(0.12),
+                  color: black.withOpacity(0.04),
                 ),
               ],
               borderRadius: BorderRadius.circular(
                 8,
               ),
-              color: Theme.of(context).extension<ThemedColors>()!.whiteToSmoky,
+              color: white,
             ),
             labelPadding: const EdgeInsets.symmetric(vertical: 6),
-            unselectedLabelColor: Theme.of(context)
-                .extension<ThemedColors>()!
-                .blackToWhite,
+            unselectedLabelColor:
+                Theme.of(context).extension<ThemedColors>()!.blackToWhite,
             unselectedLabelStyle: Theme.of(context)
                 .textTheme
                 .displayLarge
                 ?.copyWith(fontSize: 13, fontWeight: FontWeight.w500),
-            labelStyle: Theme.of(context).textTheme.displayLarge!.copyWith(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                ),
-            labelColor:
-                Theme.of(context).extension<ThemedColors>()!.darkToWhite,
+            labelStyle: Theme.of(context)
+                .textTheme
+                .displayLarge!
+                .copyWith(fontSize: 13, fontWeight: FontWeight.w600),
+            labelColor: LightThemeColors.midnightExpressToWhite,
             tabs: [
-              Tab(
-                child: Text(
-                  LocaleKeys.description.tr(),
-                  style: TextStyle(color: Theme.of(context)
-                      .extension<ThemedColors>()!
-                      .blackToWhite ),
-                ),
-              ),
+              Tab(child: Text(LocaleKeys.description.tr())),
               Tab(child: Text(LocaleKeys.characteristic.tr())),
             ],
           ),

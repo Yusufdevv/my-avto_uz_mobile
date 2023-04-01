@@ -1,6 +1,5 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:flutter/material.dart';
-
-import 'color.dart';
 
 //ignore_for_file: public_member_api_docs
 
@@ -226,14 +225,14 @@ const _lavender1 = Color(0xFFF2F4FC);
 const _cocoaBrownThree = Color(0xFFFFF6E1);
 const _cocoaBrownTwo = Color(0xFFFFF6E1);
 const _midnight = Color(0xFF171725);
-const _indianTanTwo = Color(0xEA5930);
+const _indianTanTwo = Color(0xffEA5930);
 const _turtleGreen = Color(0xff55BB00);
 const _hummingBirdTwo = Color(0xffDEF4F8);//green
 const _blanchedAlmond = Color(0xffFFF0CD);//yellow
 const _karry = Color(0xffFED7CC);//pink
 const _blueChalk = Color(0xffD6D3E6);//fiolet
 const _sindirella = Color(0xffFAD9D0);//lightred
-const _snowyMint = Color(0xffDCF1CA);//green
+// const _snowyMint = Color(0xffDCF1CA);//green
 
 
 
