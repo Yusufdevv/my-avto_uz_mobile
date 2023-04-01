@@ -146,17 +146,19 @@ class _DealerCardState extends State<DealerCard> {
                   children: [
                     SvgPicture.asset(AppIcons.clock),
                     const SizedBox(width: 8),
-                    Text(
-                      widget.isAllDay
-                          ? '${LocaleKeys.every_day.tr()}, ${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}'
-                          : widget.workingDaysList.isNotEmpty
-                              ? '${MyFunctions.listToString(widget.workingDaysList)},  ${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}'
-                              : '${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}',
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayLarge!
-                          .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
-                      overflow: TextOverflow.ellipsis,
+                    Expanded(
+                      child: Text(
+                        widget.isAllDay
+                            ? '${LocaleKeys.every_day.tr()}, ${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}'
+                            : widget.workingDaysList.isNotEmpty
+                                ? '${MyFunctions.listToString(widget.workingDaysList)},  ${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}'
+                                : '${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}',
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayLarge!
+                            .copyWith(
+                                fontSize: 14, fontWeight: FontWeight.w400),
+                      ),
                     )
                   ],
                 ),
