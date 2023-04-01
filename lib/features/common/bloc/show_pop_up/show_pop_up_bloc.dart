@@ -25,7 +25,7 @@ class ShowPopUpBloc extends Bloc<ShowPopUpEvent, ShowPopUpState> {
       if (timer.isActive) {
         timer.cancel();
       }
-      timer = Timer(const Duration(seconds: 555), () {
+      timer = Timer(const Duration(seconds: 4), () {
         if (event.dismissible) {
           add(HidePopUp());
         }

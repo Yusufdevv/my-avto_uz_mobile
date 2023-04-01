@@ -116,10 +116,13 @@ class _EditAdScreenState extends State<EditAdScreen>
                     FocusScope.of(context).unfocus();
                     context.read<ShowPopUpBloc>().add(
                           ShowPopUp(
-                              message:
-                                  LocaleKeys.your_ad_edited_successfully.tr(),
-                              status: PopStatus.success),
+                            message:
+                                LocaleKeys.your_ad_edited_successfully.tr(),
+                            status: PopStatus.success,
+                            dismissible: true,
+                          ),
                         );
+                    await Future.delayed(const Duration(seconds: 2));
                     Navigator.pop(context, true);
                     return;
                   }

@@ -7,6 +7,7 @@ class ShowPopUp extends ShowPopUpEvent {
   final String message;
   final bool dismissible;
   final PopStatus status;
+
   ShowPopUp({
     required this.message,
     required this.status,
