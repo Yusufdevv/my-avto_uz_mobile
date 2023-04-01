@@ -70,6 +70,7 @@ class _CarDamagedPartsState extends State<CarDamagedParts> {
             if (widget.isFaceToFaceCheck)
               Row(
                 children: [
+                  const SizedBox(width: 16),
                   SvgPicture.asset(AppIcons.doubleCheck),
                   const SizedBox(width: 4),
                   Text(
@@ -93,12 +94,14 @@ class _CarDamagedPartsState extends State<CarDamagedParts> {
               physics: const NeverScrollableScrollPhysics(),
               scrollDirection: Axis.vertical,
               children: _getDamageItems(
-                  asEnum,
-                  (firstItem, secondItem, hasDivider) => DamagePartRowItem(
-                      k: widget.k,
-                      firstItem: firstItem,
-                      secondItem: secondItem,
-                      hasDivider: hasDivider)).toList(),
+                asEnum,
+                (firstItem, secondItem, hasDivider) => DamagePartRowItem(
+                  k: widget.k,
+                  firstItem: firstItem,
+                  secondItem: secondItem,
+                  hasDivider: hasDivider,
+                ),
+              ).toList(),
             )
           ],
         ),
@@ -119,9 +122,7 @@ Iterable<E> _getDamageItems<E, T>(
     }
   }
 
-  var index = 0;
-
-  for (; index < items.length;) {
+  for (var index = 0; index < items.length; index += 2) {
     yield f(
       getItemIfAvailable(items, index) ??
           const DamagedPartsAsEnum(
@@ -129,6 +130,5 @@ Iterable<E> _getDamageItems<E, T>(
       getItemIfAvailable(items, index + 1),
       (index + 2) < items.length,
     );
-    index = index + 2;
   }
 }

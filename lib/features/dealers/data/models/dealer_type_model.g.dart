@@ -8,7 +8,7 @@ part of 'dealer_type_model.dart';
 
 DealerTypeModel _$DealerTypeModelFromJson(Map<String, dynamic> json) =>
     DealerTypeModel(
-      id: json['id'] as int? ?? 0,
+      id: json['id'] as int? ?? -1,
       name: json['name'] as String? ?? '',
     );
 

@@ -54,9 +54,9 @@ class _DealerScreenState extends State<DealerScreen>
 
     deallerCardBloc = DealerCardBloc(DealerUseCase());
     mapOrganizationBloc = MapOrganizationBloc(
-      GetMapDealersUseCase(),
-      GetDirectoriesMapPointUseCase(),
-    );
+        getDealers: GetMapDealersUseCase(),
+        getDirectoriesMapPointUseCase: GetDirectoriesMapPointUseCase(),
+        isFromDirectoryPage: false);
     filterBloc = DealerFilterBloc();
     _tabController.addListener(() {
       if (_tabController.index == 1) {
@@ -233,7 +233,7 @@ class _DealerScreenState extends State<DealerScreen>
                         children: [
                           const DealersList(),
                           MapScreen(
-                            iconPath: AppIcons.dealersLocIcon,
+                            iconPathh: AppIcons.dealersLocIcon,
                             isNightMode: MyFunctions.isNightMode(context),
                           ),
                         ],

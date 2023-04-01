@@ -17,6 +17,7 @@ class MapEntity extends Equatable {
   final double longitude;
   final double latitude;
   final int carCount;
+  final String iconPath;
 
   @IdNameConverter()
   final IdNameEntity dealerType;
@@ -25,8 +26,30 @@ class MapEntity extends Equatable {
   final RegionEntity district;
   final List<String> gallery;
 
+  MapEntity iconize({
+    String? iconPath,
+  }) =>
+      MapEntity(
+        name: name,
+        iconPath: iconPath ?? this.iconPath,
+        slug: slug,
+        description: description,
+        phoneNumber: phoneNumber,
+        avatar: avatar,
+        contactFrom: contactFrom,
+        contactTo: contactTo,
+        locationUrl: locationUrl,
+        longitude: longitude,
+        latitude: latitude,
+        carCount: carCount,
+        district: district,
+        gallery: gallery,
+        category: category,
+      );
+
   const MapEntity({
     this.dealerType = const IdNameEntity(),
+    this.iconPath = '',
     this.id = 0,
     this.name = '',
     this.slug = '',
