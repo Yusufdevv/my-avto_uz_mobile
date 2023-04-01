@@ -169,6 +169,8 @@ class DarkThemeColors {
   static const karryToBrownsOlive = _caputMortum;
   static const blueChalkToCaputMortum = _burrentCrinson;
   static const sindirellaToBurrentCrinson = _parisM;
+  static const roseWhiteToEclipse = _eclipse;//lightred
+
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
@@ -244,4 +246,3 @@ const _brownsOlive = Color(0xff574520);//yellow
 const _caputMortum = Color(0xff572C20);//pink
 const _burrentCrinson = Color(0xff572020);//fiolet
 const _parisM = Color(0xff202757);//lightred
-const _armyGreen = Color(0xff395720);//green

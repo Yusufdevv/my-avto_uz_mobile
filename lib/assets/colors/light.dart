@@ -166,6 +166,7 @@ class LightThemeColors {
   static const karryToBrownsOlive = _karry;//pink
   static const blueChalkToCaputMortum = _blueChalk;//fiolet
   static const sindirellaToBurrentCrinson = _sindirella;//lightred
+  static const roseWhiteToEclipse = _rose_white;//lightred
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
@@ -232,6 +233,7 @@ const _blanchedAlmond = Color(0xffFFF0CD);//yellow
 const _karry = Color(0xffFED7CC);//pink
 const _blueChalk = Color(0xffD6D3E6);//fiolet
 const _sindirella = Color(0xffFAD9D0);//lightred
+const _rose_white = Color(0xffFEF8F7);//lightred
 // const _snowyMint = Color(0xffDCF1CA);//green
 
 

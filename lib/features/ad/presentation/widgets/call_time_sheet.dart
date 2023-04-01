@@ -48,10 +48,8 @@ class _CallTimeSheetState extends State<CallTimeSheet> {
           left: 16,
           bottom: MediaQuery.of(context).padding.bottom + 42,
         ),
-        decoration:  BoxDecoration(
-          color: Theme.of(context)
-              .extension<ThemedColors>()!
-              .whiteToDark,
+        decoration: BoxDecoration(
+          color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
           borderRadius: const BorderRadius.only(
             topRight: Radius.circular(16),
             topLeft: Radius.circular(16),
@@ -66,7 +64,10 @@ class _CallTimeSheetState extends State<CallTimeSheet> {
               children: [
                 Text(
                   LocaleKeys.choose_time.tr(),
-                  style: Theme.of(context).textTheme.displayLarge,
+                  style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .darkToWhite),
                 ),
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
@@ -104,9 +105,13 @@ class _CallTimeSheetState extends State<CallTimeSheet> {
                         onChanged: (value) => setState(() => from = value)),
                   Padding(
                       padding: const EdgeInsets.only(left: 16, right: 6),
-                      child: Container(width: 1, height: 120, color: Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .divider,)),
+                      child: Container(
+                        width: 1,
+                        height: 120,
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .divider,
+                      )),
                   if (isUz)
                     HourPickerWidgetUz(
                         defaultHour: 17,

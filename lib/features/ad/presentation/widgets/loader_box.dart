@@ -12,6 +12,7 @@ class LoaderBox extends StatelessWidget {
   final VoidCallback onTap;
   final bool isLoading;
   final bool isActive;
+
   const LoaderBox(
       {required this.onTap,
       required this.title,
@@ -29,9 +30,7 @@ class LoaderBox extends StatelessWidget {
             title,
             style: Theme.of(context).textTheme.displayMedium!.copyWith(
                 fontWeight: FontWeight.w600,
-                color: Theme.of(context)
-                    .extension<ThemedColors>()!
-                    .greyToCinnabar),
+                color: grey),
           ),
           const SizedBox(height: 8),
           WScaleAnimation(
@@ -45,9 +44,7 @@ class LoaderBox extends StatelessWidget {
                     color: Theme.of(context)
                         .extension<ThemedColors>()!
                         .solitudeToDarkRider),
-                color: Theme.of(context)
-                    .extension<ThemedColors>()!
-                    .whiteToDark,
+                color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
               ),
               child: isLoading
                   ? const Center(child: CupertinoActivityIndicator())
@@ -68,7 +65,7 @@ class LoaderBox extends StatelessWidget {
                                       fontWeight: FontWeight.w400,
                                       color: Theme.of(context)
                                           .extension<ThemedColors>()!
-                                          .greyToCinnabar),
+                                          .greySuitToWhite),
                         ),
                         const Spacer(),
                         SvgPicture.asset(

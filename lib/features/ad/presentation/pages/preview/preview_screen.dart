@@ -114,13 +114,15 @@ class PreviewScreen extends StatelessWidget {
                               '${MyFunctions.getFormatCost(price.replaceAll(' ', ''))} ${currency.toUpperCase()}'),
                       const SizedBox(height: 12),
                       DateAndViewsRow(date: MyFunctions.getData(purchasedDate)),
-                      const SizedBox(height: 8),    if (id != null && id!.isNotEmpty) IdRow(id: id!),
+                      const SizedBox(height: 8),
+                      if (id != null && id!.isNotEmpty) IdRow(id: id ?? ''),
                       //
                       Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 16, vertical: 16),
                           child: Divider(
-                              height: 1, color: Theme.of(context).dividerColor)),
+                              height: 1,
+                              color: Theme.of(context).dividerColor)),
                       CarInfoRow(
                         title: LocaleKeys.years_of_issue.tr(),
                         info: year,

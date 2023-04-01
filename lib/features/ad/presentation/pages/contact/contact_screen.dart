@@ -167,11 +167,15 @@ class _ContactScreenState extends State<ContactScreen> {
                       focusColor: Theme.of(context)
                           .extension<WTextFieldStyle>()!
                           .fillColor,
-                      textStyle:
-                          Theme.of(context).textTheme.displayLarge!.copyWith(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                              ),
+                      textStyle: Theme.of(context)
+                          .textTheme
+                          .displayLarge!
+                          .copyWith(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                              color: Theme.of(context)
+                                  .extension<ThemedColors>()!
+                                  .greySuitToWhite),
                     ),
                     const SizedBox(height: 16),
                     WTextField(
@@ -211,6 +215,9 @@ class _ContactScreenState extends State<ContactScreen> {
                           Theme.of(context).textTheme.displayLarge!.copyWith(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,
+                              color: Theme.of(context)
+                                  .extension<ThemedColors>()!
+                                  .greySuitToWhite,
                               ),
                     ),
                     const SizedBox(height: 16),
@@ -268,6 +275,9 @@ class _ContactScreenState extends State<ContactScreen> {
                           Theme.of(context).textTheme.displayLarge!.copyWith(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
+                              color: Theme.of(context)
+                                  .extension<ThemedColors>()!
+                                  .greySuitToWhite,
                               ),
                     ),
                     const SizedBox(height: 16),
