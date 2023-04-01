@@ -213,90 +213,94 @@ class _AdsScreenState extends State<AdsScreen>
               bottomNavigationBar:
                   widget.isFromComparison ? const ButtonGoToComparison() : null,
               floatingActionButtonLocation:
-                  FloatingActionButtonLocation.startFloat,
-              floatingActionButton: !widget.isFromComparison
-                  ? !state.historySaved
-                      ? WScaleAnimation(
-                          onTap: () {
-                            announcementListBloc.add(const SaveHistory());
-                          },
-                          child: AnimatedContainer(
-                            alignment:
-                                state.crossFadeState == CrossFadeState.showFirst
-                                    ? const Alignment(-.2, 0)
-                                    : const Alignment(-.85, 0),
+                  FloatingActionButtonLocation.centerFloat,
+              floatingActionButton: Builder(
+                builder: (context) {
+                  if (!widget.isFromComparison) {
+                    if (!state.historySaved) {
+                      return WScaleAnimation(
+                        onTap: () {
+                          announcementListBloc.add(const SaveHistory());
+                        },
+                        child: AnimatedContainer(
+                          alignment:
+                              state.crossFadeState == CrossFadeState.showFirst
+                                  ? const Alignment(0, 0)
+                                  : const Alignment(-.85, 0),
+                          width:
+                              state.crossFadeState == CrossFadeState.showFirst
+                                  ? double.maxFinite
+                                  : 44,
+                          height: 44,
+                          duration: fadeDuration,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: orange,
+                                borderRadius: BorderRadius.circular(22)),
                             width:
                                 state.crossFadeState == CrossFadeState.showFirst
-                                    ? double.maxFinite
+                                    ? 221
                                     : 44,
                             height: 44,
-                            duration: fadeDuration,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: orange,
-                                  borderRadius: BorderRadius.circular(22)),
-                              width: state.crossFadeState ==
-                                      CrossFadeState.showFirst
-                                  ? 221
-                                  : 44,
-                              height: 44,
-                              child: AnimatedCrossFade(
-                                alignment: Alignment.center,
-                                duration: fadeDuration,
-                                crossFadeState: state.crossFadeState,
-                                firstChild: Padding(
-                                  padding: const EdgeInsets.only(top: 12),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      if (_scrollController.hasClients)
-                                        _scrollController.offset <= 70
-                                            ? FittedBox(
-                                                fit: BoxFit.cover,
-                                                child: Text(
-                                                  LocaleKeys.save_search.tr(),
-                                                  style: const TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: white,
-                                                  ),
+                            child: AnimatedCrossFade(
+                              alignment: Alignment.center,
+                              duration: fadeDuration,
+                              crossFadeState: state.crossFadeState,
+                              firstChild: Padding(
+                                padding: const EdgeInsets.only(top: 12),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    if (_scrollController.hasClients)
+                                      _scrollController.offset <= 70
+                                          ? FittedBox(
+                                              fit: BoxFit.cover,
+                                              child: Text(
+                                                LocaleKeys.save_search.tr(),
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: white,
                                                 ),
-                                              )
-                                            : const Text('')
-                                      else
-                                        Text(
-                                          LocaleKeys.save_search.tr(),
-                                          style: const TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600,
-                                            color: white,
-                                          ),
+                                              ),
+                                            )
+                                          : const Text('')
+                                    else
+                                      Text(
+                                        LocaleKeys.save_search.tr(),
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          color: white,
                                         ),
-                                      SvgPicture.asset(
-                                        AppIcons.searchWithHeartWhite,
-                                        height: 20,
-                                        width: 20,
                                       ),
-                                    ],
-                                  ),
+                                    SvgPicture.asset(
+                                      AppIcons.searchWithHeartWhite,
+                                      height: 20,
+                                      width: 20,
+                                    ),
+                                  ],
                                 ),
-                                secondChild: Padding(
-                                  padding:
-                                      const EdgeInsets.only(top: 12, left: 12),
-                                  child: SvgPicture.asset(
-                                    AppIcons.searchWithHeartWhite,
-                                    height: 20,
-                                    width: 20,
-                                  ),
+                              ),
+                              secondChild: Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 12, left: 12),
+                                child: SvgPicture.asset(
+                                  AppIcons.searchWithHeartWhite,
+                                  height: 20,
+                                  width: 20,
                                 ),
                               ),
                             ),
                           ),
-                        )
-                      : null
-                  : null,
+                        ),
+                      );
+                    }
+                  }
+                  return const SizedBox();
+                },
+              ),
             ),
           ),
         ),
