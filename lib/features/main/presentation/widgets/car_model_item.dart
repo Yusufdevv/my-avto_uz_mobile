@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
@@ -94,9 +93,7 @@ class CarModelItem extends StatelessWidget {
             WButton(
               height: 44,
               onTap: onTapShow,
-              color: Theme.of(context)
-                  .extension<ThemedColors>()!
-                  .lightSlateBlue12ToLightSlateBlue,
+              color: purple.withOpacity(0.1),
               border: Border.all(
                 width: 1,
                 color: Theme.of(context)
@@ -115,9 +112,7 @@ class CarModelItem extends StatelessWidget {
                       : LocaleKeys.no_offers.tr(),
               textStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
                   fontSize: 14,
-                  color: Theme.of(context)
-                      .extension<ThemedColors>()!
-                      .mediumSlateBlueToWhite),
+                  color: purple),
             ),
           ],
         ),
