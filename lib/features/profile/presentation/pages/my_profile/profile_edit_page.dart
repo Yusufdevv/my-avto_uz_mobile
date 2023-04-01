@@ -339,21 +339,12 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                             //
                             TitleTextFieldTop(title: LocaleKeys.email.tr()),
                             ProfilTextField(
-                                hintText:
-                                    // _emailCont.text.isEmpty
-                                    //     ?
-                                    _emailCont.text
-                                // : LocaleKeys.enter_email.tr()
-                                ,
+                                hintText: _emailCont.text,
                                 onChanged: (value) {
                                   setState(() {});
                                 },
                                 controller: _emailCont,
                                 isNameField: true),
-                            // EditItemContainer(
-                            //     icon: AppIcons.lock,
-                            //     region:
-                            //         stateProfile.profileEntity.email ?? ''),
                             const SizedBox(height: 32)
                           ],
                         ),

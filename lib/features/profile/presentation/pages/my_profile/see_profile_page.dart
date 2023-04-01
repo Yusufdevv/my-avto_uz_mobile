@@ -130,7 +130,9 @@ class SeeProfilePage extends StatelessWidget {
                               .displayMedium!
                               .copyWith(
                                   fontWeight: FontWeight.w600, color: grey)),
-                      TextSpacer(
+
+                      if (state.profileEntity.phoneNumber != null)
+                        TextSpacer(
                         title: LocaleKeys.tel_number.tr(),
                         value: MyFunctions.phoneFormat(
                             state.profileEntity.phoneNumber ?? ''),
