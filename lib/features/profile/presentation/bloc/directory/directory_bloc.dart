@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
-
 import 'package:auto/features/dealers/domain/entities/dealer_single_entity.dart';
 import 'package:auto/features/profile/domain/entities/dir_category_entity.dart';
 import 'package:auto/features/profile/domain/entities/directory_entity.dart';
@@ -41,12 +39,12 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
     on<DirectoryGetProductsOfSingleEvent>(_getProducts);
     on<DirectoryGetCategoriesOfSingleEvent>(_getCategoriesOfSingle);
     on<DirectorySetRegionEvent>(_setRegion);
+    on<DirectorySetAllRegionEvent>(_setAllRegion);
     on<DirectoryClearFilterEvent>(_clearFilter);
     on<DirectorySetCategoryEvent>(_setCategory);
     on<GetDirectoriesEvent>(_getDirectories);
     on<GetMoreDirectoriesEvent>(_getMoreDirectories);
     on<GetDirCategoriesEvent>(_getDirCategories);
-    on<GetMoreDirCategoriesEvent>(_getMoreDirCategories);
     on<OnTabIndexChangedEvent>(_onTabIndexChanged);
     on<GetDirectorySingleEvent>(_getDirectorySingle);
   }
@@ -73,7 +71,7 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
 
   FutureOr<void> _setCategory(
       DirectorySetCategoryEvent event, Emitter<DirectoryState> emit) async {
-    var v = state.selectedCategories.map(MapEntry.new);
+    final v = state.selectedCategories.map(MapEntry.new);
     if (state.selectedCategories.containsKey(event.category.id)) {
       v.remove(event.category.id);
     } else {
@@ -86,6 +84,11 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
   FutureOr<void> _setRegion(
       DirectorySetRegionEvent event, Emitter<DirectoryState> emit) async {
     emit(state.copyWith(selectedRegions: event.regions));
+  }
+
+  FutureOr<void> _setAllRegion(
+      DirectorySetAllRegionEvent event, Emitter<DirectoryState> emit) async {
+    emit(state.copyWith(regions: event.regions));
   }
 
   FutureOr<void> _getProducts(DirectoryGetProductsOfSingleEvent event,
@@ -103,23 +106,15 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
 
   FutureOr<void> _clearFilter(
       DirectoryClearFilterEvent event, Emitter<DirectoryState> emit) async {
-    emit(DirectoryState(
-        status: state.status,
-        directories: state.directories,
-        directory: state.directory,
-        categories: [],
-        regions: [],
-        popularProducts: state.popularProducts));
+    emit(state.copyWith(selectedCategories: {}, selectedRegions: []));
   }
 
   FutureOr<void> _getCategoriesOfSingle(
       DirectoryGetCategoriesOfSingleEvent event,
       Emitter<DirectoryState> emit) async {
-    log(':::::::::: DirectoryGetCategoriesOfSingleEvent triggered by:  ${event.slug}  ::::::::::');
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await productCategoryUseCase.call(event.slug);
     if (result.isRight) {
-      log(':::::::::: GOTTEN SINGLE CATEGORIES:  ${result.right.results}  ::::::::::');
       emit(state.copyWith(
         status: FormzStatus.submissionSuccess,
         singleCategories: result.right.results
@@ -140,15 +135,11 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
     emit(state.copyWith(
         status: FormzStatus.submissionInProgress, search: event.search));
     final reg = MyFunctions.regionsToApi(state.selectedRegions);
-    log(':::::::::: REGION TO API RESULT: ${reg}  ::::::::::');
     final result = await getDirectoriesUseCase(Params(
         search: event.search,
         regions: reg,
         categories: MyFunctions.textForDirCategory(state.selectedCategories)));
     if (result.isRight) {
-      log(':::::::::: the filtered gotten directories:  ${result.right.next}  ::::::::::');
-      log(':::::::::: previos:  ${result.right.previous}  ::::::::::');
-      log(':::::::::: the filtered gotten directories:  ${result.right.results.length}  ::::::::::');
       emit(state.copyWith(
           status: FormzStatus.submissionSuccess,
           directories: result.right.results,
@@ -186,8 +177,6 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await getDirCategoriesUseCase(null);
     if (result.isRight) {
-      log(':::::::::: the result of get directory:  ${result.right}  ::::::::::');
-      log(':::::::::: results:  ${result.right.results}  ::::::::::');
       emit(state.copyWith(
           status: FormzStatus.submissionSuccess,
           categories: result.right.results,
@@ -198,15 +187,5 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
     }
   }
 
-  FutureOr<void> _getMoreDirCategories(
-      GetMoreDirCategoriesEvent event, Emitter<DirectoryState> emit) async {
-    final result = await getDirCategoriesUseCase(event.next);
-    if (result.isRight) {
-      emit(state.copyWith(
-        categories: [...state.categories, ...result.right.results],
-        fetchMoreCategories: result.right.next != null,
-        nextCategories: result.right.next,
-      ));
-    }
-  }
+
 }

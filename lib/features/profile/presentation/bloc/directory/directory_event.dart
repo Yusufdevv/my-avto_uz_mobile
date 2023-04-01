@@ -48,6 +48,11 @@ class DirectorySetRegionEvent extends DirectoryEvent {
 
   DirectorySetRegionEvent({required this.regions});
 }
+class DirectorySetAllRegionEvent extends DirectoryEvent {
+  List<RegionEntity> regions;
+
+  DirectorySetAllRegionEvent({required this.regions});
+}
 
 class DirectorySetCategoryEvent extends DirectoryEvent {
   DirCategoryEntity category;
