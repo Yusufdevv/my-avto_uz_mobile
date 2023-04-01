@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
@@ -234,7 +233,7 @@ class _ChooseCarMakeAndModelPageState extends State<ChooseCarMakeAndModelPage> {
                     ),
                   ),
                   Positioned(
-                    bottom: Platform.isAndroid ? 20 : 50,
+                    bottom: 20 + MediaQuery.of(context).padding.bottom,
                     right: 16,
                     left: 16,
                     child: WButton(
