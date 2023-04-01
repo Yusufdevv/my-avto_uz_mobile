@@ -7,6 +7,7 @@ import 'package:auto/features/dealers/presentation/widgets/dealer_card.dart';
 import 'package:auto/features/dealers/presentation/widgets/dealers_empty_state.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/pagination/presentation/paginator.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,9 +22,12 @@ class DealersList extends StatefulWidget {
 
 class _DealersListState extends State<DealersList>
     with AutomaticKeepAliveClientMixin {
-  void onTap(String slug) {
-    Navigator.of(context, rootNavigator: true)
-        .push(fade(page: DealerSinglePage(slug: slug)));
+  void onTap(String slug, String? workingDays) {
+    Navigator.of(context, rootNavigator: true).push(fade(
+        page: DealerSinglePage(
+      slug: slug,
+      workingDays: workingDays,
+    )));
   }
 
   @override
@@ -69,7 +73,15 @@ class _DealersListState extends State<DealersList>
                 padding: const EdgeInsets.only(bottom: 16),
                 child: DealerCard(
                   dealerId: state.list[index].id,
-                  onTap: () => onTap(state.list[index].slug),
+                  onTap: () {
+                    onTap(
+                      state.list[index].slug,
+                      state.list[index].isWorkingAllDays
+                          ? null
+                          : MyFunctions.listToString(
+                              state.list[index].workingDays),
+                    );
+                  },
                   dealerName: state.list[index].name,
                   phoneNumber: state.list[index].phoneNumber,
                   dealerInfo: state.list[index].description,

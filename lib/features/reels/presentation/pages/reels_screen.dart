@@ -82,91 +82,79 @@ class _ReelsScreenState extends State<ReelsScreen>
   }
 
   @override
-  Widget build(BuildContext context) {
-    if (3 < 2) {
-      // if (3 > 2) {
-      return Scaffold(
-        body: Center(
-          child: Container(
-            color: Colors.teal,
-          ),
-        ),
-      );
-    }
-    return BlocProvider(
-      create: (context) => bloc,
-      child: BlocBuilder<ReelsBloc, ReelsState>(
-        builder: (context, state) => CustomScreen(
-          child: Scaffold(
-            backgroundColor: Colors.black,
-            body: ClipRRect(
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(20)),
-              child: Stack(
-                children: [
-                  if (state.statusReelsGet.isSubmissionSuccess)
-                    PageView.builder(
-                      scrollDirection: Axis.vertical,
-                      controller: _pageController,
-                      itemCount: state.reels.length,
-                      itemBuilder: (context, index) => ContentItem(
-                        deviceWidth: MediaQuery.of(context).size.width,
-                        reel: state.reels[index],
-                        isLiked: state.reels[index].isLiked,
-                        onTapLike: () {
-                          bloc.add(ReelsLike(state.reels[index].id, index));
-                        },
-                        pageIndex: index,
-                        currentPageIndex: _currentPage,
-                        isPaused: _isOnPageTurning,
-                        videoEnded: () {
-                          if (index == state.reels.length - 1 &&
-                              !state.hasNext) {
-                            Navigator.pop(context);
-                          }
-                        },
+  Widget build(BuildContext context) => BlocProvider(
+        create: (context) => bloc,
+        child: BlocBuilder<ReelsBloc, ReelsState>(
+          builder: (context, state) => CustomScreen(
+            child: Scaffold(
+              backgroundColor: Colors.black,
+              body: ClipRRect(
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(20)),
+                child: Stack(
+                  children: [
+                    if (state.statusReelsGet.isSubmissionSuccess)
+                      PageView.builder(
+                        scrollDirection: Axis.vertical,
+                        controller: _pageController,
+                        itemCount: state.reels.length,
+                        itemBuilder: (context, index) => ContentItem(
+                          deviceWidth: MediaQuery.of(context).size.width,
+                          reel: state.reels[index],
+                          isLiked: state.reels[index].isLiked,
+                          onTapLike: () {
+                            bloc.add(ReelsLike(state.reels[index].id, index));
+                          },
+                          pageIndex: index,
+                          currentPageIndex: _currentPage,
+                          isPaused: _isOnPageTurning,
+                          videoEnded: () {
+                            if (index == state.reels.length - 1 &&
+                                !state.hasNext) {
+                              Navigator.pop(context);
+                            }
+                          },
+                        ),
+                      ),
+                    Positioned(
+                      top: MediaQuery.of(context).padding.top + 16,
+                      right: 16,
+                      left: 16,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          WScaleAnimation(
+                            child: SvgPicture.asset(AppIcons.chevronLeftWhite),
+                            onTap: () => Navigator.of(context).pop(),
+                          ),
+                          const Spacer(),
+                          SvgPicture.asset(AppIcons.whiteLogo),
+                        ],
                       ),
                     ),
-                  Positioned(
-                    top: MediaQuery.of(context).padding.top + 16,
-                    right: 16,
-                    left: 16,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        WScaleAnimation(
-                          child: SvgPicture.asset(AppIcons.chevronLeftWhite),
-                          onTap: () => Navigator.of(context).pop(),
-                        ),
-                        const Spacer(),
-                        SvgPicture.asset(AppIcons.whiteLogo),
-                      ],
-                    ),
-                  ),
-                  if (isFirstTimeWatchReel)
-                    AnimatedPositioned(
-                      top: isIncreasing ? topMax : topMin,
-                      left: 0,
-                      right: 0,
-                      duration: Duration(seconds: timeInSec),
-                      child: SvgPicture.asset(AppIcons.introduce),
-                    ),
-                  if (isFirstTimeWatchReel)
-                    AnimatedPositioned(
-                      bottom: (isIncreasing ? topMax : topMin) + 100,
-                      left: 0,
-                      right: 0,
-                      duration: Duration(seconds: timeInSec),
-                      child: SvgPicture.asset(AppIcons.introduce1),
-                    ),
-                ],
+                    if (isFirstTimeWatchReel)
+                      AnimatedPositioned(
+                        top: isIncreasing ? topMax : topMin,
+                        left: 0,
+                        right: 0,
+                        duration: Duration(seconds: timeInSec),
+                        child: SvgPicture.asset(AppIcons.introduce),
+                      ),
+                    if (isFirstTimeWatchReel)
+                      AnimatedPositioned(
+                        bottom: (isIncreasing ? topMax : topMin) + 100,
+                        left: 0,
+                        right: 0,
+                        duration: Duration(seconds: timeInSec),
+                        child: SvgPicture.asset(AppIcons.introduce1),
+                      ),
+                  ],
+                ),
               ),
             ),
           ),
         ),
-      ),
-    );
-  }
+      );
 
   void _scrollListener() {
     if (_isOnPageTurning &&

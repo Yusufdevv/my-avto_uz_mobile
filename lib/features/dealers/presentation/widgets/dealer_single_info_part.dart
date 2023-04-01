@@ -21,8 +21,10 @@ class DealerSingleInfoPart extends StatefulWidget {
   final double longitude;
   final double latitude;
   final Widget? mapBox;
+  final String? workingDays;
 
   const DealerSingleInfoPart({
+    required this.workingDays,
     required this.dealerName,
     required this.address,
     required this.quantityOfCars,
@@ -42,15 +44,17 @@ class DealerSingleInfoPart extends StatefulWidget {
 }
 
 class _DealerSingleInfoPartState extends State<DealerSingleInfoPart> {
-
   @override
   Widget build(BuildContext context) => Container(
         margin: const EdgeInsets.only(top: 20, left: 16, right: 16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
+          // color: Colors.teal,
           border: Border.all(
-            color: Theme.of(context).extension<ThemedColors>()!.solitude2ToNightRider,
+            color: Theme.of(context)
+                .extension<ThemedColors>()!
+                .solitude2ToNightRider,
           ),
         ),
         padding: const EdgeInsets.all(16),
@@ -59,7 +63,8 @@ class _DealerSingleInfoPartState extends State<DealerSingleInfoPart> {
           children: [
             Text(
               widget.dealerName,
-              style: const TextStyle(color: orange, fontSize: 16, fontWeight: FontWeight.w600),
+              style: const TextStyle(
+                  color: orange, fontSize: 16, fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 16),
             DeaelerInfoWidget(
@@ -72,7 +77,7 @@ class _DealerSingleInfoPartState extends State<DealerSingleInfoPart> {
             if (widget.contactFrom != '')
               DeaelerInfoWidget(
                 text:
-                    '${LocaleKeys.every_day.tr()}, ${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}',
+                    '${widget.workingDays == null ? '${LocaleKeys.every_day.tr()}, ' : '${(widget.workingDays?.isEmpty ?? true) ? '' : '${widget.workingDays} ,'} '}${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}',
                 icon: AppIcons.clock,
               ),
             if (widget.address != '')
@@ -106,7 +111,8 @@ class _DealerSingleInfoPartState extends State<DealerSingleInfoPart> {
             if (widget.additionalInfo != '')
               Padding(
                 padding: const EdgeInsets.only(top: 16),
-                child: DeaelerInfoWidget(icon: AppIcons.tablerInfo, text: widget.additionalInfo),
+                child: DeaelerInfoWidget(
+                    icon: AppIcons.tablerInfo, text: widget.additionalInfo),
               ),
           ],
         ),
@@ -120,7 +126,11 @@ class MapBox extends StatelessWidget {
   final int dealerId;
 
   const MapBox(
-      {required this.latitude, required this.longitude, required this.dealerName, required this.dealerId, Key? key})
+      {required this.latitude,
+      required this.longitude,
+      required this.dealerName,
+      required this.dealerId,
+      Key? key})
       : super(key: key);
 
   @override
@@ -143,13 +153,15 @@ class MapBox extends StatelessWidget {
                     target: Point(latitude: latitude, longitude: longitude),
                   ),
                 ),
-                animation: const MapAnimation(duration: 0.15, type: MapAnimationType.smooth),
+                animation: const MapAnimation(
+                    duration: 0.15, type: MapAnimationType.smooth),
               );
             },
             mapObjects: [
               PlacemarkMapObject(
                 onTap: (mapObject, point) {
-                  MyFunctions.openMapsSheet(context, latitude, longitude, dealerName);
+                  MyFunctions.openMapsSheet(
+                      context, latitude, longitude, dealerName);
                 },
                 icon: PlacemarkIcon.single(
                   PlacemarkIconStyle(

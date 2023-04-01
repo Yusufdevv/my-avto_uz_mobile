@@ -32,12 +32,12 @@ import 'package:formz/formz.dart';
 
 // ignore: must_be_immutable
 class DealerSinglePage extends StatefulWidget {
-  //final String dealerType;
+  final String? workingDays;
   final String slug;
 
   const DealerSinglePage({
-    //required this.dealerType,
     required this.slug,
+    this.workingDays,
   });
 
   @override
@@ -82,7 +82,7 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
           BlocProvider.value(value: carsBloc),
         ],
         child: AnnotatedRegion(
-          value: SystemUiOverlayStyle(statusBarColor: Colors.transparent),
+          value: const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
           child: Scaffold(
             extendBody: true,
             extendBodyBehindAppBar: true,
@@ -119,6 +119,7 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                                   latitude: dealer.latitude,
                                   longitude: dealer.longitude,
                                 ),
+                                workingDays: widget.workingDays,
                                 address: dealer.address,
                                 daelerId: dealer.id,
                                 dealerName: dealer.name,
