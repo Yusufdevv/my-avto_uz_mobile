@@ -246,7 +246,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                             postingAdBloc
                               ..add(PostingAdClearStateEvent())
                               ..add(PostingAdChangePageEvent(page: 0));
-                            pageController.animateToPage(state.currentPage,
+                            pageController.animateToPage(0,
                                 duration: const Duration(milliseconds: 100),
                                 curve: Curves.linear);
                           },
@@ -560,7 +560,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                     postingAdBloc.add(PostingAdChooseEvent(
                                         milageImage: image));
                                   },
-                                  initialMileageImage: state.milageImage,
+                                  initialMileageImage: state.mileageImage,
                                   initialMileage: state.mileage ?? ''),
                               //19
 

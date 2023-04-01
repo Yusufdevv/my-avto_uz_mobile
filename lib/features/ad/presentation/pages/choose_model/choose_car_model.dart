@@ -164,8 +164,6 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                               (context, index) {
                                 if (index == state.models.length) {
                                   if (state.nextModels != null) {
-                                    print(
-                                        'state.nextModels != null:${state.nextModels}');
                                     context
                                         .read<PostingAdBloc>()
                                         .add(PostingAdMoreModelsEvent());

@@ -153,7 +153,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     if (result.isRight) {
       emit(
         state.copyWith(
-          nextModels: result.right.next,
+          nextModels: result.right.next ?? '',
           models: [...state.models, ...result.right.results],
         ),
       );

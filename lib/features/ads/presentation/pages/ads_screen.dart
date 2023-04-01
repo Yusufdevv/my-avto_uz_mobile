@@ -8,6 +8,7 @@ import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ads/data/models/query_data_model.dart';
 import 'package:auto/features/ads/presentation/pages/ads_body_screen.dart';
+import 'package:auto/features/ads/presentation/widgets/ads_app_bar.dart';
 import 'package:auto/features/ads/presentation/widgets/ads_appbar_sliver_delegate.dart';
 import 'package:auto/features/ads/presentation/widgets/ads_sliver_deleget.dart';
 import 'package:auto/features/ads/presentation/widgets/button_go_to_comparison.dart';
@@ -143,59 +144,48 @@ class _AdsScreenState extends State<AdsScreen>
                 },
                 child: NestedScrollView(
                   controller: _scrollController,
-                  headerSliverBuilder: (context, innerBoxIsScrolled) => [
-                    SliverAppBar(
-                      titleSpacing: 0,
-                      pinned: true,
-                      elevation: 0,
-                      automaticallyImplyLeading: false,
-                      leading: WScaleAnimation(
-                        onTap: () => Navigator.pop(context),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 24, right: 16),
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Transform.scale(
-                              scale: 1.5,
-                              child: SvgPicture.asset(AppIcons.chevronLeft),
+                  headerSliverBuilder: (c, innerBoxIsScrolled) => [
+                    AdsAppBar(
+                      onSortTap: () {
+                        filterBottomSheet(
+                          context,
+                          onChanged: (value) {
+                            announcementListBloc
+                                .add(SetSort(sortResult: value));
+                          },
+                          sortingValue: state.sortStatus,
+                        );
+                      },
+                      fadeDuration: fadeDuration,
+                      crossFadeState: state.crossFadeState,
+                    ),
+                    if (state.announcementList.isEmpty) ...{
+                      SliverOverlapAbsorber(
+                        handle:
+                            NestedScrollView.sliverOverlapAbsorberHandleFor(c),
+                        sliver: SliverSafeArea(
+                          top: false,
+                          sliver: SliverPersistentHeader(
+                            delegate: AdsSliverWidget(
+                              size: MediaQuery.of(context).size,
+                              theme:
+                                  Theme.of(context).extension<ThemedColors>()!,
+                              tabController: tabController,
+                              bloc: announcementListBloc,
                             ),
                           ),
                         ),
                       ),
-                      title: AdsAppBarTitle(
-                        fadeDuration: fadeDuration,
-                        crossFadeState: state.crossFadeState,
-                      ),
-                      actions: [
-                        WScaleAnimation(
-                          onTap: () {
-                            filterBottomSheet(
-                              context,
-                              onChanged: (value) {
-                                announcementListBloc
-                                    .add(SetSort(sortResult: value));
-                              },
-                              sortingValue: state.sortStatus,
-                            );
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.only(
-                                right: 16, left: 16, top: 8, bottom: 8),
-                            alignment: Alignment.center,
-                            child: SvgPicture.asset(AppIcons.arrowsSort,
-                                color: orange),
-                          ),
+                    } else ...{
+                      SliverPersistentHeader(
+                        delegate: AdsSliverWidget(
+                          size: MediaQuery.of(context).size,
+                          theme: Theme.of(context).extension<ThemedColors>()!,
+                          tabController: tabController,
+                          bloc: announcementListBloc,
                         ),
-                      ],
-                    ),
-                    SliverPersistentHeader(
-                      delegate: AdsSliverWidget(
-                        size: MediaQuery.of(context).size,
-                        theme: Theme.of(context).extension<ThemedColors>()!,
-                        tabController: tabController,
-                        bloc: announcementListBloc,
                       ),
-                    ),
+                    },
                   ],
                   body: TabBarView(
                     physics: const NeverScrollableScrollPhysics(),

@@ -57,8 +57,8 @@ class PASingleton {
       announcementFields['gas_equipment'] = v.gasEquipmentId;
     }
 
-    if (v.milageImage != null && v.milageImage!.isNotEmpty) {
-      final milageImage = await MultipartFile.fromFile(v.milageImage!);
+    if (v.mileageImage != null && v.mileageImage!.isNotEmpty) {
+      final milageImage = await MultipartFile.fromFile(v.mileageImage!);
       final List<MultipartFile> list = [milageImage];
       announcementFields
           .addEntries(list.map((e) => MapEntry('mileage_image', e)));
@@ -328,7 +328,7 @@ class PASingleton {
 
         final v = !(mileage > 0 ||
             (state.isWithoutMileage ?? false) ||
-            state.milageImage != null && state.milageImage!.isNotEmpty);
+            state.mileageImage != null && state.mileageImage!.isNotEmpty);
         return v;
       // PreviewScreen
       case 19:

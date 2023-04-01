@@ -50,7 +50,7 @@ class PostingAdState extends Equatable {
   final int? lastEquipmentId;
   final int currentPage;
   final String? nextModels;
-  final String? milageImage;
+  final String? mileageImage;
   final String? letter;
   final String? ownerName;
   final String? ownerEmail;
@@ -161,7 +161,7 @@ class PostingAdState extends Equatable {
     this.lat,
     this.long,
     this.mapPointBytes,
-    this.milageImage,
+    this.mileageImage,
     this.gasEquipments = const [],
     this.gasEquipmentId,
     this.equipments = const [],
@@ -273,7 +273,7 @@ class PostingAdState extends Equatable {
         radioOptions: radioOptions ?? this.radioOptions,
         contactsFormKey: contactsFormKey ?? this.contactsFormKey,
         popStatus: popStatus ?? this.popStatus,
-        milageImage: mileageImage ?? this.milageImage,
+        mileageImage: mileageImage ?? this.mileageImage,
         modification: modification ?? this.modification,
         modifications: modifications ?? this.modifications,
         getMakesStatus: getMakesStatus ?? this.getMakesStatus,
@@ -402,7 +402,7 @@ class PostingAdState extends Equatable {
         makeLetterIndex,
         lastEquipmentId,
         nextModels,
-        milageImage,
+        mileageImage,
         letter,
         ownerName,
         ownerEmail,
