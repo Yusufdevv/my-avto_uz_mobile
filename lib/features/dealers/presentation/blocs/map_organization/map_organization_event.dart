@@ -3,7 +3,10 @@ part of 'map_organization_bloc.dart';
 @Freezed()
 class MapOrganizationEvent with _$MapOrganizationEvent {
   factory MapOrganizationEvent.getDealers(
-      {double? latitude, double? longitude, double? radius}) = _GetDealers;
+      {double? latitude,
+      double? longitude,
+      double? radius,
+      required ValueChanged<List<MapEntity>> onSuccess}) = _GetDealers;
 
   factory MapOrganizationEvent.getDirectoriesPoints(
       {double? latitude,

@@ -11,10 +11,14 @@ import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/storage.dart';
+import 'package:auto/core/utils/marker_generator.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/common/models/yandex_search_model.dart';
 import 'package:auto/features/common/widgets/maps_list_in_app.dart';
 import 'package:auto/features/dealers/domain/entities/dealer_card_entity.dart';
+import 'package:auto/features/dealers/domain/entities/map_entity.dart';
+import 'package:auto/features/dealers/presentation/blocs/map_organization/map_organization_bloc.dart';
+import 'package:auto/features/dealers/presentation/widgets/custom_point.dart';
 import 'package:auto/features/profile/domain/entities/dir_category_entity.dart';
 import 'package:auto/features/profile/domain/entities/directory_entity.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
@@ -22,6 +26,7 @@ import 'package:auto/generated/locale_keys.g.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:jiffy/jiffy.dart';
@@ -269,6 +274,121 @@ class MyFunctions {
 
   static String? extractAddress(YandexSearchModel result) =>
       result.features[0].properties.geocoderMetaData.text;
+
+  static Future<void> addDealer(
+      {required List<MapObject> mapObjects,
+      required List<MapEntity> points,
+      required BuildContext buildContext,
+      required BuildContext context,
+      required double accuracy,
+      required bool isDirectoryPage,
+      required YandexMapController mapController,
+      required String iconPath}) async {
+    mapObjects.clear();
+    MarkerGenerator(
+        points
+            .map((l) => CustomPoint(
+                  iconPath: l.iconPath,
+                  url: l.avatar,
+                ))
+            .toList(), (lis) {
+      mapBitmapsToMarkers(
+        mapController: mapController,
+        bitmaps: lis,
+        points: points,
+        isDirectoryPage: isDirectoryPage,
+        context: buildContext,
+        accuracy: accuracy,
+        iconPath: iconPath,
+        mapObjects: mapObjects,
+      );
+    }).generate(context);
+  }
+
+  static Future<void> mapBitmapsToMarkers({
+    required List<Uint8List?> bitmaps,
+    required List<MapEntity> points,
+    required BuildContext context,
+    required double accuracy,
+    required bool isDirectoryPage,
+    required YandexMapController mapController,
+    required String iconPath,
+    required List<MapObject> mapObjects,
+  }) async {
+    final placeMarks = <PlacemarkMapObject>[];
+    bitmaps.asMap().forEach((key, value) {
+      placeMarks.add(
+        PlacemarkMapObject(
+          opacity: 1,
+          mapId: MapObjectId(points[key].id.toString()),
+          point: Point(
+              latitude: points[key].latitude, longitude: points[key].longitude),
+          onTap: (object, point) {
+            context.read<MapOrganizationBloc>().add(
+                MapOrganizationEvent.getAddressOfDealler(
+                    lat: point.latitude,
+                    long: point.longitude,
+                    currentDealer: points[key]));
+            mapController.moveCamera(
+              CameraUpdate.newCameraPosition(
+                CameraPosition(
+                  target: Point(
+                      latitude: point.latitude, longitude: point.longitude),
+                  zoom: 15,
+                ),
+              ),
+            );
+          },
+          icon: PlacemarkIcon.single(
+            PlacemarkIconStyle(
+              scale: isDirectoryPage ? 1 : 0.9,
+              image: value != null
+                  ? BitmapDescriptor.fromBytes(value)
+                  : BitmapDescriptor.fromAssetImage(points[key].iconPath),
+              rotationType: RotationType.noRotation,
+            ),
+          ),
+        ),
+      );
+    });
+
+    final clusterItem = ClusterizedPlacemarkCollection(
+      mapId: MyFunctions.clusterId,
+      placemarks: placeMarks,
+      radius: 25,
+      minZoom: 30,
+      onClusterTap: (collection, cluster) {
+        mapController.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(
+            target: Point(
+                latitude: collection.placemarks.first.point.latitude,
+                longitude: collection.placemarks.first.point.latitude),
+            zoom: 15)));
+      },
+      onTap: (collection, point) {},
+      onClusterAdded: (collection, cluster) async => cluster.copyWith(
+        appearance: cluster.appearance.copyWith(
+          opacity: 1,
+          icon: PlacemarkIcon.single(
+            PlacemarkIconStyle(
+              image: BitmapDescriptor.fromBytes(
+                await MyFunctions.getBytesFromCanvas(
+                  image: iconPath,
+                  width: 200,
+                  height: 410,
+                  placeCount: cluster.placemarks.length,
+                  context: context,
+                  shouldAddText: true,
+                ),
+              ),
+              scale: 1,
+            ),
+          ),
+        ),
+      ),
+    );
+
+    mapObjects.addAll([clusterItem]);
+  }
 
   static Future<MapObject<dynamic>> getMyPoint(
       Point point, BuildContext context,

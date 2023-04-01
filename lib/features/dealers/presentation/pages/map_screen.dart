@@ -77,15 +77,15 @@ class _MapScreenState extends State<MapScreen>
           },
           listener: (context, state) async {
             log(':::::::::: MapOrganizer bloc listener triggered: ${state.dealers.length} isFromDirectory: ${widget.isFromDirectoryPage}  ::::::::::');
-            await addDealer(
-              points: widget.isFromDirectoryPage
-                  ? state.directoriesPoints
-                  : state.dealers,
-              buildContext: context,
-              accuracy: accuracy,
-              isDirectoryPage: widget.isFromDirectoryPage,
-            );
-            setState(() {});
+            // await addDealer(
+            //   points: widget.isFromDirectoryPage
+            //       ? state.directoriesPoints
+            //       : state.dealers,
+            //   buildContext: context,
+            //   accuracy: accuracy,
+            //   isDirectoryPage: widget.isFromDirectoryPage,
+            // );
+            // setState(() {});
           },
           builder: (context, mapOrganizationState) => Stack(
             children: [
@@ -118,18 +118,71 @@ class _MapScreenState extends State<MapScreen>
                   },
                   mapObjects: _mapObjects,
                   onMapCreated: (controller) async {
+                    _mapController = controller;
+                    maxZoomLevel = await controller.getMaxZoom();
+                    minZoomLevel = await controller.getMinZoom();
+                    final camera = await _mapController.getCameraPosition();
+
+                    // final positionn = Point(
+                    //     latitude: StorageRepository.getDouble(
+                    //         StorageKeys.LATITUDE,
+                    //         defValue: 41.310990),
+                    //     longitude: StorageRepository.getDouble(
+                    //         StorageKeys.LONGITUDE,
+                    //         defValue: 69.281997));
+                    // await _mapController.moveCamera(
+                    //   CameraUpdate.newCameraPosition(
+                    //     CameraPosition(
+                    //         target: Point(
+                    //             latitude: positionn.latitude,
+                    //             longitude: positionn.longitude),
+                    //         zoom: zoomLevel),
+                    //   ),
+                    //   animation: const MapAnimation(
+                    //       duration: 0.15, type: MapAnimationType.smooth),
+                    // );
+
                     context.read<MapOrganizationBloc>().add(
                           MapOrganizationEvent.getCurrentLocation(
+                            onError: (message) {
+                              context.read<ShowPopUpBloc>().add(
+                                    ShowPopUp(
+                                      message: message,
+                                      status: PopStatus.error,
+                                    ),
+                                  );
+                            },
                             onSuccess: (position) async {
+                              widget.isFromDirectoryPage
+                                  ? context.read<MapOrganizationBloc>().add(
+                                      MapOrganizationEvent.getDirectoriesPoints(
+                                          latitude: position.latitude,
+                                          longitude: position.longitude,
+                                          radius: MyFunctions.getRadiusFromZoom(
+                                              camera.zoom)))
+                                  : context.read<MapOrganizationBloc>().add(
+                                      MapOrganizationEvent.getDealers(
+                                          onSuccess: (points) async {
+                                            await MyFunctions.addDealer(
+                                              mapObjects: _mapObjects,
+                                              points: points,
+                                              buildContext: context,
+                                              context: context,
+                                              accuracy: accuracy,
+                                              isDirectoryPage:
+                                                  widget.isFromDirectoryPage,
+                                              mapController: _mapController,
+                                              iconPath: widget.iconPathh,
+                                            ).then((value) => setState(() {}));
+                                          },
+                                          latitude: position.latitude,
+                                          longitude: position.longitude,
+                                          radius: MyFunctions.getRadiusFromZoom(
+                                              camera.zoom)));
                               myPoint = Point(
                                   latitude: position.latitude,
                                   longitude: position.longitude);
-                              // final myPlaceMark =
-                              //     await MyFunctions.getMyPoint(
-                              //         myPoint, context, widget.iconPath);
-                              // setState(() {
-                              //   _mapObjects.add(myPlaceMark);
-                              // });
+
                               accuracy = position.accuracy;
                               await _mapController.moveCamera(
                                 CameraUpdate.newCameraPosition(
@@ -137,115 +190,34 @@ class _MapScreenState extends State<MapScreen>
                                     target: Point(
                                         latitude: position.latitude,
                                         longitude: position.longitude),
-                                    zoom: 15,
+                                    zoom: zoomLevel,
                                   ),
                                 ),
                                 animation: const MapAnimation(
                                     duration: 0.15,
                                     type: MapAnimationType.smooth),
                               );
+                              context.read<MapOrganizationBloc>()
+                                ..add(MapOrganizationEvent.getAddressOfDealler(
+                                    lat: position.latitude,
+                                    long: position.longitude,
+                                    currentDealer: null))
+                                ..add(
+                                  MapOrganizationEvent.changeLatLong(
+                                    lat: position.latitude,
+                                    long: position.longitude,
+                                    radius: MyFunctions.getRadiusFromZoom(
+                                            camera.zoom)
+                                        .floor(),
+                                  ),
+                                );
+
                               zoomLevel = 15;
-                              context.read<MapOrganizationBloc>().add(
-                                  MapOrganizationEvent.getAddressOfDealler(
-                                      lat: position.latitude,
-                                      long: position.longitude,
-                                      currentDealer: null));
-                            },
-                            onError: (message) {
-                              context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                    message: message,
-                                    status: PopStatus.error,
-                                  ));
                             },
                           ),
                         );
-                    zoomLevel = 15;
+                    setState(() {});
                   },
-                  // onMapCreated: (controller) async {
-                  //   _mapController = controller;
-                  //   maxZoomLevel = await controller.getMaxZoom();
-                  //   minZoomLevel = await controller.getMinZoom();
-                  //   final camera = await _mapController.getCameraPosition();
-                  //   final position = Point(
-                  //       latitude: StorageRepository.getDouble(
-                  //           StorageKeys.LATITUDE,
-                  //           defValue: 41.310990),
-                  //       longitude: StorageRepository.getDouble(
-                  //           StorageKeys.LONGITUDE,
-                  //           defValue: 69.281997));
-                  //   await _mapController.moveCamera(
-                  //     CameraUpdate.newCameraPosition(
-                  //       CameraPosition(
-                  //         target: Point(
-                  //             latitude: position.latitude,
-                  //             longitude: position.longitude),
-                  //       ),
-                  //     ),
-                  //     animation: const MapAnimation(
-                  //         duration: 0.15, type: MapAnimationType.smooth),
-                  //   );
-                  //   context.read<MapOrganizationBloc>().add(
-                  //         MapOrganizationEvent.getCurrentLocation(
-                  //           onError: (message) {
-                  //             context.read<ShowPopUpBloc>().add(ShowPopUp(
-                  //                   message: message,
-                  //                   status: PopStatus.error,
-                  //                 ));
-                  //           },
-                  //           onSuccess: (position) async {
-                  //             myPoint = Point(
-                  //                 latitude: position.latitude,
-                  //                 longitude: position.longitude);
-                  //             // final myPlaceMark = await MyFunctions.getMyPoint(
-                  //             //     myPoint, context, widget.iconPath);
-                  //             // setState(() {
-                  //             //   _mapObjects.add(myPlaceMark);
-                  //             // });
-                  //             accuracy = position.accuracy;
-                  //             await _mapController.moveCamera(
-                  //               CameraUpdate.newCameraPosition(
-                  //                 CameraPosition(
-                  //                   target: Point(
-                  //                       latitude: position.latitude,
-                  //                       longitude: position.longitude),
-                  //                 ),
-                  //               ),
-                  //               animation: const MapAnimation(
-                  //                   duration: 0.15,
-                  //                   type: MapAnimationType.smooth),
-                  //             );
-                  //             context.read<MapOrganizationBloc>()
-                  //               ..add(MapOrganizationEvent.getAddressOfDealler(
-                  //                   lat: position.latitude,
-                  //                   long: position.longitude,
-                  //                   currentDealer: null))
-                  //               ..add(
-                  //                 MapOrganizationEvent.changeLatLong(
-                  //                   lat: position.latitude,
-                  //                   long: position.longitude,
-                  //                   radius: MyFunctions.getRadiusFromZoom(
-                  //                           camera.zoom)
-                  //                       .floor(),
-                  //                 ),
-                  //               );
-                  //             widget.isFromDirectoryPage
-                  //                 ? context.read<MapOrganizationBloc>().add(
-                  //                     MapOrganizationEvent.getDirectoriesPoints(
-                  //                         latitude: position.latitude,
-                  //                         longitude: position.longitude,
-                  //                         radius: MyFunctions.getRadiusFromZoom(
-                  //                             camera.zoom)))
-                  //                 : context.read<MapOrganizationBloc>().add(
-                  //                     MapOrganizationEvent.getDealers(
-                  //                         latitude: position.latitude,
-                  //                         longitude: position.longitude,
-                  //                         radius: MyFunctions.getRadiusFromZoom(
-                  //                             camera.zoom)));
-                  //             setState(() {});
-                  //           },
-                  //         ),
-                  //       );
-                  // },
                 ),
               ),
 
@@ -362,121 +334,6 @@ class _MapScreenState extends State<MapScreen>
         ),
       ),
     );
-  }
-
-  Future<void> mapBitmapsToMarkers({
-    required List<Uint8List?> bitmaps,
-    required List<MapEntity> points,
-    required BuildContext context,
-    required double accuracy,
-    required bool isDirectoryPage,
-  }) async {
-    final placeMarks = <PlacemarkMapObject>[];
-    bitmaps.asMap().forEach((key, value) {
-      placeMarks.add(
-        PlacemarkMapObject(
-          opacity: 1,
-          mapId: MapObjectId(points[key].id.toString()),
-          point: Point(
-              latitude: points[key].latitude, longitude: points[key].longitude),
-          onTap: (object, point) {
-            context.read<MapOrganizationBloc>().add(
-                MapOrganizationEvent.getAddressOfDealler(
-                    lat: point.latitude,
-                    long: point.longitude,
-                    currentDealer: points[key]));
-            _mapController.moveCamera(
-              CameraUpdate.newCameraPosition(
-                CameraPosition(
-                  target: Point(
-                      latitude: point.latitude, longitude: point.longitude),
-                  zoom: zoomLevel,
-                ),
-              ),
-            );
-          },
-          icon: PlacemarkIcon.single(
-            PlacemarkIconStyle(
-              scale: isDirectoryPage ? 1 : 0.9,
-              image: value != null
-                  ? BitmapDescriptor.fromBytes(value)
-                  : BitmapDescriptor.fromAssetImage(points[key].iconPath),
-              rotationType: RotationType.noRotation,
-            ),
-          ),
-        ),
-      );
-    });
-
-    // final myPoint = await MyFunctions.getMyPoint(
-    //   point,
-    //   context,
-    //   widget.iconPath,
-    // );
-    final clusterItem = ClusterizedPlacemarkCollection(
-      mapId: MyFunctions.clusterId,
-      placemarks: placeMarks,
-      radius: 25,
-      minZoom: 30,
-      onClusterTap: (collection, cluster) {
-        _mapController.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(
-            target: Point(
-                latitude: collection.placemarks.first.point.latitude,
-                longitude: collection.placemarks.first.point.latitude),
-            zoom: 15)));
-      },
-      onTap: (collection, point) {},
-      onClusterAdded: (collection, cluster) async => cluster.copyWith(
-        appearance: cluster.appearance.copyWith(
-          opacity: 1,
-          icon: PlacemarkIcon.single(
-            PlacemarkIconStyle(
-              image: BitmapDescriptor.fromBytes(
-                await MyFunctions.getBytesFromCanvas(
-                  image: widget.iconPathh,
-                  width: 200,
-                  height: 410,
-                  placeCount: cluster.placemarks.length,
-                  context: context,
-                  shouldAddText: true,
-                ),
-              ),
-              scale: 1,
-            ),
-          ),
-        ),
-      ),
-    );
-
-    setState(() {
-      _mapObjects.addAll([clusterItem]);
-    });
-  }
-
-  Future<void> addDealer({
-    required List<MapEntity> points,
-    required BuildContext buildContext,
-    required double accuracy,
-    required bool isDirectoryPage,
-  }) async {
-    _mapObjects.clear();
-    MarkerGenerator(
-        points
-            .map((l) => CustomPoint(
-                  iconPath: l.iconPath,
-                  url: l.avatar,
-                ))
-            .toList(), (lis) {
-      setState(() {
-        mapBitmapsToMarkers(
-          bitmaps: lis,
-          points: points,
-          isDirectoryPage: isDirectoryPage,
-          context: buildContext,
-          accuracy: accuracy,
-        );
-      });
-    }).generate(context);
   }
 
   @override
