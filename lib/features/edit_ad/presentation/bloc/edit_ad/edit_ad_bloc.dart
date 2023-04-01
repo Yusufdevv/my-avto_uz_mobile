@@ -494,7 +494,7 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
       emit(
         state.copyWith(
           createStatus: FormzStatus.submissionSuccess,
-          toastMessage: 'Your ad created successfully!',
+          toastMessage: 'Your ad updated successfully!',
           popStatus: PopStatus.success,
         ),
       );
