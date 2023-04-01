@@ -9,7 +9,6 @@ import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ads/data/models/query_data_model.dart';
 import 'package:auto/features/ads/presentation/pages/ads_body_screen.dart';
 import 'package:auto/features/ads/presentation/widgets/ads_app_bar.dart';
-import 'package:auto/features/ads/presentation/widgets/ads_appbar_sliver_delegate.dart';
 import 'package:auto/features/ads/presentation/widgets/ads_sliver_deleget.dart';
 import 'package:auto/features/ads/presentation/widgets/button_go_to_comparison.dart';
 import 'package:auto/features/ads/presentation/widgets/filter_bottom_sheet.dart';
