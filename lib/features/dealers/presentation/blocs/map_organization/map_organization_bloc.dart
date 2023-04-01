@@ -1,3 +1,4 @@
+import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/features/common/usecases/yandex_get_address_use_case.dart';
 import 'package:auto/features/dealers/data/models/dealer_card_model.dart';
@@ -26,9 +27,13 @@ class MapOrganizationBloc
 
   YandexGetAddressUseCase getAddressUseCase = YandexGetAddressUseCase();
   final GetDirectoriesMapPointUseCase getDirectoriesMapPointUseCase;
+  final bool isFromDirectoryPage;
 
-  MapOrganizationBloc(this.getDealers, this.getDirectoriesMapPointUseCase)
-      : super(MapOrganizationState()) {
+  MapOrganizationBloc({
+    required this.getDealers,
+    required this.getDirectoriesMapPointUseCase,
+    required this.isFromDirectoryPage,
+  }) : super(MapOrganizationState()) {
     on<_GetAddressOfDealler>((event, emit) async {
       String? address;
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
@@ -51,8 +56,11 @@ class MapOrganizationBloc
               radius: event.radius?.floor() ?? state.radius));
 
       if (result.isRight) {
+        var iconizedDeallers = result.right
+            .map((e) => e.iconize(iconPath: AppIcons.dealersLocIcon))
+            .toList();
         emit(state.copyWith(
-            dealers: result.right, status: FormzStatus.submissionSuccess));
+            dealers: iconizedDeallers, status: FormzStatus.submissionSuccess));
       } else {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
@@ -66,18 +74,17 @@ class MapOrganizationBloc
               long: event.longitude ?? state.long,
               radius: event.radius?.floor() ?? state.radius));
       if (result.isRight) {
+        var iconizedDirectories = result.right
+            .map((e) => e.iconize(iconPath: AppIcons.directoryPoint))
+            .toList();
         emit(state.copyWith(
-            directoriesPoints: result.right,
+            directoriesPoints: iconizedDirectories,
             status: FormzStatus.submissionSuccess));
       } else {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     });
 
-    on<_ChangeRadius>((event, emit) {
-      emit(state.copyWith(radius: event.radius));
-    });
-    //! bu event hech qayerda ishlatilmagan, yana bir tekshirib delete qilsa bo'ladi
     on<_ChangeLatLong>((event, emit) {
       // add(_GetAddressOfDealler(lat: event.lat, long: event.long, currentDealer:const MapEntity()));
       if (event.radius != null) {
@@ -92,8 +99,24 @@ class MapOrganizationBloc
           getCurrentLocationStatus: FormzStatus.submissionInProgress));
       try {
         final position = await MyFunctions.determinePosition();
-        emit(state.copyWith(
-            getCurrentLocationStatus: FormzStatus.submissionSuccess));
+        List<MapEntity> points = [];
+
+        points = isFromDirectoryPage
+            ? state.directoriesPoints.map((e) => e).toList()
+            : state.dealers.map((e) => e).toList()
+          ..add(MapEntity(
+              id: -1,
+              iconPath: AppIcons.currentLoc,
+              latitude: position.latitude,
+              longitude: position.longitude));
+
+        emit(
+          state.copyWith(
+            getCurrentLocationStatus: FormzStatus.submissionSuccess,
+            dealers: isFromDirectoryPage ? [] : points,
+            directoriesPoints: isFromDirectoryPage ? points : [],
+          ),
+        );
         event.onSuccess(position);
       } on ParsingException catch (e) {
         event.onError(e.errorMessage);

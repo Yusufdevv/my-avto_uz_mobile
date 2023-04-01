@@ -44,8 +44,9 @@ class _DirectoryPageState extends State<DirectoryPage>
 
     bloc = DirectoryBloc();
     mapOrganizationBloc = MapOrganizationBloc(
-      GetMapDealersUseCase(),
-      GetDirectoriesMapPointUseCase(),
+      isFromDirectoryPage: true,
+      getDealers: GetMapDealersUseCase(),
+      getDirectoriesMapPointUseCase: GetDirectoriesMapPointUseCase(),
     );
     _tabController.addListener(() {
       if (_tabController.index == 1) {
@@ -188,7 +189,7 @@ class _DirectoryPageState extends State<DirectoryPage>
                         const DirectoryList(),
                         MapScreen(
                           isFromDirectoryPage: true,
-                          iconPath: AppIcons.directoryPoint,
+                          iconPathh: AppIcons.directoryPoint,
                           isNightMode: MyFunctions.isNightMode(context),
                         ),
                       ],

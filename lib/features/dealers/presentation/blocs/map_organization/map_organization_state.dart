@@ -4,9 +4,9 @@ part of 'map_organization_bloc.dart';
 class MapOrganizationState with _$MapOrganizationState {
   factory MapOrganizationState({
     @Default(null) String? address,
-    @Default([]) List<MapModel> dealers,
+    @Default([]) List<MapEntity> dealers,
     @Default(MapEntity()) MapEntity? currentDealer,
-    @Default([]) List<MapModel> directoriesPoints,
+    @Default([]) List<MapEntity> directoriesPoints,
     @Default(0) int radius,
     @Default(FormzStatus.pure) FormzStatus status,
     @Default(FormzStatus.pure) FormzStatus getCurrentLocationStatus,

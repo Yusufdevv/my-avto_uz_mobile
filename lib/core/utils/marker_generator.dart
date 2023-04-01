@@ -50,9 +50,11 @@ class _MarkerHelper extends StatefulWidget {
   final List<Widget> markerWidgets;
   final Function(List<Uint8List?>) callback;
 
-  const _MarkerHelper(
-      {Key? key, required this.markerWidgets, required this.callback})
-      : super(key: key);
+  const _MarkerHelper({
+    required this.markerWidgets,
+    required this.callback,
+    Key? key,
+  }) : super(key: key);
 
   @override
   _MarkerHelperState createState() => _MarkerHelperState();
@@ -94,7 +96,9 @@ class _MarkerHelperState extends State<_MarkerHelper> with AfterLayoutMixin {
   Future<Uint8List?> _getUint8List(GlobalKey markerKey) async {
     final boundary =
         markerKey.currentContext!.findRenderObject()! as RenderRepaintBoundary;
-    final image = await boundary.toImage(pixelRatio: 2,);
+    final image = await boundary.toImage(
+      pixelRatio: 2,
+    );
     final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
     return byteData?.buffer.asUint8List();
   }

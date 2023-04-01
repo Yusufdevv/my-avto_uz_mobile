@@ -19,7 +19,7 @@ class CustomPoint extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (isFromDirectory) {
+    if (isFromDirectory || iconPath == AppIcons.currentLoc) {
       return SizedBox(
         width: 44,
         height: 64,

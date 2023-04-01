@@ -6,6 +6,7 @@ import 'dart:ui' as ui;
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
@@ -247,7 +248,11 @@ class MyFunctions {
       painter
         ..text = TextSpan(
           text: placeCount.toString(),
-          style: const TextStyle(fontSize: 100, color: Colors.white),
+          style: TextStyle(
+              fontSize: 100,
+              color: image == AppIcons.directoryPoint
+                  ? Colors.transparent
+                  : Colors.white),
         )
         ..layout()
         ..paint(
@@ -267,7 +272,9 @@ class MyFunctions {
 
   static Future<MapObject<dynamic>> getMyPoint(
       Point point, BuildContext context,
-      [String icon = AppIcons.currentLoc, String id = 'my-point']) async {
+      [String icon = AppIcons.currentLoc,
+      String id = 'my-point',
+      double scale = .6]) async {
     final myIconData = await getBytesFromCanvas(
       placeCount: 0,
       image: icon,
@@ -281,7 +288,7 @@ class MyFunctions {
         mapId: MapObjectId(id),
         point: point,
         icon: PlacemarkIcon.single(PlacemarkIconStyle(
-          scale: 0.6,
+          scale: scale,
           image: BitmapDescriptor.fromBytes(myIconData),
         )));
     return myPoint;
