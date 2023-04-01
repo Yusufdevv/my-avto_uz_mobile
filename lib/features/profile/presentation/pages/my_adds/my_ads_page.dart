@@ -8,31 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class MyAdsPage extends StatefulWidget {
+class MyAdsPage extends StatelessWidget {
   const MyAdsPage({Key? key}) : super(key: key);
 
   @override
-  State<MyAdsPage> createState() => _MyAdsPageState();
-}
-
-class _MyAdsPageState extends State<MyAdsPage> {
-  late UserWishListsBloc bloc;
-
-  @override
-  void initState() {
-    bloc = UserWishListsBloc();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    bloc.close();
-  }
-
-  @override
-  Widget build(BuildContext context) => BlocProvider.value(
-        value: bloc,
+  Widget build(BuildContext context) => BlocProvider(
+    create: (context) => UserWishListsBloc(),
         child: DefaultTabController(
           length: 3,
           child: Scaffold(
