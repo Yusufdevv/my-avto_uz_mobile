@@ -55,8 +55,8 @@ class MapPointName extends StatelessWidget {
                   dealerImageUrl: currentDealer?.avatar ?? '',
                   dealerName: currentDealer?.name ?? '',
                   dealerType: isFromDirectoryPage
-                      ? currentDealer?.category != null
-                          ? currentDealer?.category['name']
+                      ? (currentDealer?.category as List).isNotEmpty
+                          ? (currentDealer?.category  as List).first['name']
                           : LocaleKeys.autosalon_autoservice.tr()
                       : currentDealer?.dealerType.name ??
                           LocaleKeys.autosalon.tr()),
