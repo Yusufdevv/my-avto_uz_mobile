@@ -1,8 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/constants/app_constants.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/const/constants.dart';
-import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/damage/widgets/cars_item.dart';
 import 'package:auto/features/ad/presentation/pages/damage/widgets/custom_tabbar.dart';
 import 'package:auto/features/ad/presentation/pages/damage/widgets/damage_button.dart';
@@ -15,7 +13,6 @@ import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 typedef OnDamageTypeChanged = Function(DamagedPart part, DamageType type);
 

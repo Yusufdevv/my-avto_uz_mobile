@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/formatters.dart';
 import 'package:auto/assets/constants/icons.dart';
@@ -124,8 +122,8 @@ class _PriceScreenState extends State<PriceScreen> {
                           padding: const EdgeInsets.all(14),
                           decoration: BoxDecoration(
                               color: Theme.of(context)
-                                  .extension<WTextFieldStyle>()!
-                                  .fillColor,
+                                  .extension<ThemedColors>()!
+                                  .solitudeToEclipse,
                               borderRadius: const BorderRadius.horizontal(
                                 right: Radius.circular(12),
                               ),

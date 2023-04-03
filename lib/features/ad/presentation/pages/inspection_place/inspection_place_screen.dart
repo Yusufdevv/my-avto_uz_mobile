@@ -126,7 +126,21 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                     ),
 
                     const SizedBox(height: 17),
-
+                    SwitcherRowAsButtonAlso(
+                      onTap: () {
+                        widget.onToMapPressed();
+                      },
+                      title: LocaleKeys.show_exactly_geoposition.tr(),
+                      value: state.showExactAddress,
+                      onChanged: (v) {
+                        if (!v) {
+                          context
+                              .read<PostingAdBloc>()
+                              .add(PostingAdChooseEvent(showExactAddress: v));
+                        }
+                      },
+                    ),
+                    const SizedBox(height: 16),
                     if (state.getLocationImage.isSubmissionInProgress) ...{
                       Shimmer.fromColors(
                         baseColor: grey.withOpacity(0.15),
@@ -168,20 +182,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                       ),
                     },
 
-                    SwitcherRowAsButtonAlso(
-                      onTap: () {
-                        widget.onToMapPressed();
-                      },
-                      title: LocaleKeys.show_exactly_geoposition.tr(),
-                      value: state.showExactAddress,
-                      onChanged: (v) {
-                        if (!v) {
-                          context
-                              .read<PostingAdBloc>()
-                              .add(PostingAdChooseEvent(showExactAddress: v));
-                        }
-                      },
-                    ),
+
                     const SizedBox(height: 70),
                   ],
                 ),

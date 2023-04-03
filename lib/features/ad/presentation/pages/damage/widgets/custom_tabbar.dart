@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +8,7 @@ class CustomTabBar extends StatelessWidget {
   final TabController tabController;
   final String firstTab;
   final String secondTab;
+
   const CustomTabBar(
       {required this.title,
       required this.tabController,
@@ -53,8 +55,7 @@ class CustomTabBar extends StatelessWidget {
                           blurRadius: 4,
                           offset: const Offset(0, 1)),
                     ]),
-                labelColor:
-                    Theme.of(context).extension<ThemedColors>()!.blackToWhite,
+                labelColor: LightThemeColors.midnightExpressToWhite,
                 labelStyle:
                     const TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
                 unselectedLabelColor:

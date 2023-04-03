@@ -29,12 +29,16 @@ class DirectoryFilterPage extends StatefulWidget {
 class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
   @override
   void initState() {
-    context.read<RegionsBloc>().add(RegionsEvent.getRegions());
-    widget.bloc.add(GetDirCategoriesEvent());
+    if (widget.bloc.state.regions.isEmpty) {
+      context.read<RegionsBloc>().add(RegionsEvent.getRegions());
+      context.read<DirectoryBloc>().add(DirectorySetAllRegionEvent(
+          regions: context.read<RegionsBloc>().state.regions));
+    }
+    if(widget.bloc.state.categories.isEmpty) {
+      widget.bloc.add(GetDirCategoriesEvent());
+    }
     super.initState();
   }
-
-  List<RegionEntity> _checkedRegions = <RegionEntity>[];
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -101,16 +105,18 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
                                 isScrollControlled: true,
                                 backgroundColor: Colors.transparent,
                                 builder: (c) => RentChooseRegionBottomSheet(
-                                    checkedRegions: _checkedRegions.asMap(),
-                                    list: context
-                                        .read<RegionsBloc>()
-                                        .state
-                                        .regions),
+                                    checkedRegions:
+                                        state.selectedRegions.asMap(),
+                                    list: state.regions.isEmpty
+                                        ? context
+                                            .read<RegionsBloc>()
+                                            .state
+                                            .regions
+                                        : state.regions),
                               ).then((value) {
                                 if (value != null && value.isNotEmpty) {
                                   context.read<DirectoryBloc>().add(
                                       DirectorySetRegionEvent(regions: value));
-                                  _checkedRegions = value;
                                 }
                               });
                             },
@@ -120,7 +126,7 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
                                 region: MyFunctions.regionsToToText(context
                                     .read<DirectoryBloc>()
                                     .state
-                                    .regions)),
+                                    .selectedRegions)),
                           ),
                           const SizedBox(height: 16),
 

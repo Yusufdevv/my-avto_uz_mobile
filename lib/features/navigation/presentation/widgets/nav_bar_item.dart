@@ -90,15 +90,11 @@ class NavItemWidget extends StatelessWidget {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(24),
-                  child: CachedImage(
-                    imageUrl: avatar!,
-                  ),
+                  child: CachedImage(imageUrl: avatar!),
                 ),
               ),
             },
-            const SizedBox(
-              height: 4,
-            ),
+            const SizedBox(height: 4),
             if (currentIndex == navBar.id)
               Container(
                 height: 4,
@@ -106,9 +102,7 @@ class NavItemWidget extends StatelessWidget {
                 margin: const EdgeInsets.only(bottom: 2),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(2), color: purple),
-              )
-            else
-              const SizedBox(),
+              ),
             Container(
               alignment: Alignment.bottomCenter,
               child: Text(

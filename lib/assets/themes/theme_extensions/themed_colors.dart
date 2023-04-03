@@ -121,9 +121,11 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
   final Color sindirellaToBurrentCrinson;
   final Color yelowTwoContainer27;
   final Color brownContainer27;
+  final Color roseWhiteToEclipse;
 
   const ThemedColors({
     required this.tutuToRed,
+    required this.roseWhiteToEclipse,
     required this.redToWhite,
     required this.dolphinToGhost,
     required this.ghostToGondola,
@@ -248,6 +250,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
   @override
   ThemeExtension<ThemedColors> copyWith({
     Color? whiteToWhiteOpacity20,
+    Color? roseWhiteToEclipse,
     Color? redToWhite,
     Color? whiteToSmoky,
     Color? whiteSmokeToNightRider,
@@ -369,6 +372,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
   }) =>
       ThemedColors(
         whiteToBlack: whiteToBlack ?? this.whiteToBlack,
+        roseWhiteToEclipse: roseWhiteToEclipse ?? this.roseWhiteToEclipse,
         redToWhite: redToWhite ?? this.redToWhite,
         tutuToRed: tutuToRed ?? this.tutuToRed,
         seashellToCinnabar15: seashellToCinnabar15 ?? this.seashellToCinnabar15,
@@ -539,6 +543,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
       dividerColor:
           Color.lerp(dividerColor, other.dividerColor, t) ?? dividerColor,
       tutuToRed: Color.lerp(tutuToRed, other.tutuToRed, t) ?? tutuToRed,
+      roseWhiteToEclipse: Color.lerp(roseWhiteToEclipse, other.roseWhiteToEclipse, t) ?? roseWhiteToEclipse,
       scaffoldBackground:
           Color.lerp(scaffoldBackground, other.scaffoldBackground, t) ??
               scaffoldBackground,

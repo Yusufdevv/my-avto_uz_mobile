@@ -18,44 +18,31 @@ class DateAndViewsRow extends StatelessWidget {
           children: [
             Row(
               children: [
-                SvgPicture.asset(AppIcons.calendar),
-                const SizedBox(
-                  width: 8,
-                ),
+                SvgPicture.asset(AppIcons.calendar, color: greyText),
+                const SizedBox(width: 8),
                 Text(
                   date,
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge!
-                      .copyWith(fontSize: 12, color: suvaGray),
+                      .copyWith(fontSize: 12, color: warmerGrey),
                 ),
               ],
             ),
-            const SizedBox(
-              width: 12,
-            ),
+            const SizedBox(width: 12),
             Row(
               children: [
-                SvgPicture.asset(AppIcons.eye),
-                const SizedBox(
-                  width: 8,
+                SvgPicture.asset(
+                  AppIcons.eye,
+                  color: greyText,
                 ),
+                const SizedBox(width: 8),
                 Text(
                   '0',
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge!
-                      .copyWith(fontSize: 12, color: suvaGray),
-                ),
-                const SizedBox(
-                  width: 4,
-                ),
-                Text(
-                  '',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge!
-                      .copyWith(fontSize: 12, color: suvaGray),
+                      .copyWith(fontSize: 12, color: warmerGrey),
                 ),
               ],
             ),

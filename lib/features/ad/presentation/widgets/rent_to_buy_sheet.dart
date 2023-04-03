@@ -54,7 +54,7 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                       bottom: MediaQuery.of(context).padding.bottom + 20,
                     ),
                     margin: MediaQuery.of(context).viewInsets,
-                    decoration:  BoxDecoration(
+                    decoration: BoxDecoration(
                       color: Theme.of(context)
                           .extension<ThemedColors>()!
                           .whiteToDark,
@@ -279,9 +279,6 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
         ),
       );
 
-  UnderlineInputBorder _border() => UnderlineInputBorder(
-      borderSide: BorderSide(
-          color: Theme.of(context)
-              .extension<ThemedColors>()!
-              .mediumSlateBlueToWhite));
+  UnderlineInputBorder _border() =>
+      const UnderlineInputBorder(borderSide: BorderSide(color: purple));
 }

@@ -72,6 +72,7 @@ abstract class DarkTheme {
             unselectedBackgroundColor1: DarkThemeColors.whiteToEclipse,
           ),
           ThemedColors(
+            roseWhiteToEclipse: DarkThemeColors.roseWhiteToEclipse,
             dolphinToWhite: DarkThemeColors.dolphinToWhite,
             dolphinToGhost: DarkThemeColors.dolphinToGhost,
             darkToGrey: DarkThemeColors.darkToGrey,

@@ -1,4 +1,3 @@
-import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +7,7 @@ class HourPickerWidget extends StatefulWidget {
   final String title;
   final ValueChanged<String> onChanged;
   final int defaultHour;
+
   const HourPickerWidget({
     required this.onChanged,
     required this.title,
@@ -25,6 +25,7 @@ class _HourPickerWidgetState extends State<HourPickerWidget> {
 
   late FixedExtentScrollController controller;
   late int currentIndex;
+
   @override
   void initState() {
     for (var i = 0; i <= 23; i++) {
@@ -46,9 +47,9 @@ class _HourPickerWidgetState extends State<HourPickerWidget> {
   Widget build(BuildContext context) => Container(
         padding: const EdgeInsets.only(left: 8),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8), color: Theme.of(context)
-            .extension<ThemedColors>()!
-            .whiteToDark,),
+          borderRadius: BorderRadius.circular(8),
+          color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+        ),
         height: 120,
         // width: 170,
         child: Row(
@@ -71,7 +72,9 @@ class _HourPickerWidgetState extends State<HourPickerWidget> {
                   width: 60,
                   margin: const EdgeInsets.only(bottom: 8),
                   decoration: BoxDecoration(
-                      color: orange.withOpacity(.1),
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .roseWhiteToEclipse,
                       borderRadius: BorderRadius.circular(8)),
                 ),
                 childCount: values.length,
@@ -79,7 +82,9 @@ class _HourPickerWidgetState extends State<HourPickerWidget> {
                   values[index],
                   style: Theme.of(context).textTheme.displayMedium!.copyWith(
                       fontSize: 19,
-                      color: index == currentIndex ? orange : null,
+                      color: index == currentIndex ? Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .redToWhite : null,
                       fontWeight:
                           index == currentIndex ? FontWeight.w600 : null),
                 ),

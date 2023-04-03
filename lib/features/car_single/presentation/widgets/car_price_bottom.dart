@@ -57,14 +57,14 @@ class CarPriceBottom extends StatelessWidget {
                     style: Theme.of(context).textTheme.displayMedium!.copyWith(
                         fontWeight: FontWeight.w700,
                         fontSize: 24,
-                        color: const Color(0xff171725)),
+                        color: Theme.of(context).extension<ThemedColors>()!.darkToWhite),
                   ),
                   Text(
                     ' $currency',
                     style: Theme.of(context).textTheme.displayMedium!.copyWith(
                         fontWeight: FontWeight.w700,
                         fontSize: 24,
-                        color: const Color(0xff171725)),
+                        color: Theme.of(context).extension<ThemedColors>()!.darkToWhite),
                   ),
                   const Spacer(),
                   GestureDetector(

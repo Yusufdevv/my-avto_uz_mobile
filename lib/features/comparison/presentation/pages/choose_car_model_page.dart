@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
@@ -92,10 +90,12 @@ class _ChooseCarModelPageState extends State<ChooseCarModelPage> {
                               titleSpacing: 4,
                               title: Text(
                                 LocaleKeys.choose_model_auto.tr(),
-                                style:  TextStyle(
+                                style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w700,
-                                  color: Theme.of(context).extension<ThemedColors>()!.blackToWhite,
+                                  color: Theme.of(context)
+                                      .extension<ThemedColors>()!
+                                      .blackToWhite,
                                 ),
                               ),
                               actions: [
@@ -193,7 +193,7 @@ class _ChooseCarModelPageState extends State<ChooseCarModelPage> {
                           ),
                         ),
                         Positioned(
-                          bottom: Platform.isAndroid ? 20 : 50,
+                          bottom: 20 + MediaQuery.of(context).padding.bottom,
                           right: 16,
                           left: 16,
                           child: WButton(

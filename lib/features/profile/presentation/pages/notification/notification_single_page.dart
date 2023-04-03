@@ -37,7 +37,7 @@ class NotificationSinglePage extends StatelessWidget {
                   child: Column(
                     children: [
                       SizedBox(
-                        width: 375,
+                        width: double.maxFinite,
                         height: 219,
                         child: CachedNetworkImage(
                           imageUrl: notification.notification.cover ?? '',
@@ -54,6 +54,7 @@ class NotificationSinglePage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const SizedBox(height: 16),
+                            if(notification.notification.category?.name!=null)
                             Text(
                                 '#${notification.notification.category?.name} • ${MyFunctions.getAutoPublishDate(notification.notification.createdAt ?? '')}',
                                 style: Theme.of(context)
