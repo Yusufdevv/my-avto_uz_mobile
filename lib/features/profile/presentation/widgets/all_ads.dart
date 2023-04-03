@@ -1,6 +1,5 @@
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/storage_keys.dart';
-import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/car_single/presentation/car_single_screen.dart';
@@ -78,9 +77,7 @@ class _AllAdsState extends State<AllAds> {
                         },
                         child: Container(
                           padding: const EdgeInsets.only(top: 12),
-                          color: Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .scaffoldBackground,
+                          color: Theme.of(context).appBarTheme.backgroundColor,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

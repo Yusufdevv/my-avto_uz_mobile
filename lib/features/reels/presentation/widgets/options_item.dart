@@ -33,150 +33,127 @@ class OptionsItem extends StatefulWidget {
 }
 
 class _OptionsItemState extends State<OptionsItem>
-    with
-        SingleTickerProviderStateMixin,
-        // ignore: prefer_mixin
-        WidgetsBindingObserver {
-  bool isLiked = false;
+    with SingleTickerProviderStateMixin {
+  final ValueNotifier isLiked = ValueNotifier<bool>(false);
   int countLike = 0;
-  int countShare = 0;
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    switch (state) {
-      case AppLifecycleState.resumed:
-        break;
-      case AppLifecycleState.inactive:
-        break;
-      case AppLifecycleState.paused:
-        break;
-      case AppLifecycleState.detached:
-        break;
-    }
-  }
+  final ValueNotifier countShare = ValueNotifier<int>(0);
 
   @override
   void initState() {
-    WidgetsBinding.instance.addObserver(this);
-    isLiked = widget.isLiked;
+    isLiked.value = widget.isLiked;
     countLike = widget.countLike;
-    countShare = widget.countShare;
+    countShare.value = widget.countShare;
     super.initState();
   }
 
   @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) => SizedBox(
-        width: 30,
-        child: Column(
-          children: [
-            WScaleAnimation(
-              onTap: () {
-                widget.onTapLike();
-                if (isLiked) {
-                  countLike -= 1;
-                } else {
-                  countLike += 1;
-                }
-                isLiked = !isLiked;
-                setState(() {});
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: Column(
-                  children: [
-                    AnimatedSwitcher(
-                      transitionBuilder: (child, anim) => ScaleTransition(
-                        scale: anim,
-                        child: child,
-                      ),
-                      duration: const Duration(milliseconds: 300),
-                      child: isLiked
-                          ? SvgPicture.asset(
-                              AppIcons.liked,
-                              key: const ValueKey<int>(1),
-                              width: 28,
-                              height: 28,
-                            )
-                          : SvgPicture.asset(
-                              AppIcons.like,
-                              key: const ValueKey<int>(2),
-                              width: 28,
-                              height: 28,
-                            ),
+      width: 30,
+      child: Column(
+        children: [
+          WScaleAnimation(
+            onTap: () {
+              widget.onTapLike();
+              if (isLiked.value) {
+                countLike -= 1;
+              } else {
+                countLike += 1;
+              }
+              isLiked.value = !isLiked.value;
+            },
+            child: ValueListenableBuilder(
+                valueListenable: isLiked,
+                builder: (context, ob, child) => Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Column(
+                      children: [
+                        AnimatedSwitcher(
+                          transitionBuilder: (child, anim) => ScaleTransition(
+                            scale: anim,
+                            child: child,
+                          ),
+                          duration: const Duration(milliseconds: 300),
+                          child: isLiked.value
+                              ? SvgPicture.asset(
+                                  AppIcons.liked,
+                                  key: const ValueKey<int>(1),
+                                  width: 28,
+                                  height: 28,
+                                )
+                              : SvgPicture.asset(
+                                  AppIcons.like,
+                                  key: const ValueKey<int>(2),
+                                  width: 28,
+                                  height: 28,
+                                ),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          '$countLike',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .copyWith(fontSize: 12),
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 2),
-                    Text(
-                      '$countLike',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineMedium!
-                          .copyWith(fontSize: 12),
-                    ),
-                  ],
-                ),
+                  )),
+          ),
+          WScaleAnimation(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10, bottom: 10),
+              child: Column(
+                children: [
+                  SvgPicture.asset(AppIcons.shareWhite),
+                  const SizedBox(
+                    height: 2,
+                  ),
+                  ValueListenableBuilder(
+                      valueListenable: countShare,
+                      builder: (context, obb, ch) => Text(
+                          '${countShare.value}',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .copyWith(fontSize: 12),
+                        )),
+                ],
               ),
             ),
-            WScaleAnimation(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 10, bottom: 10),
-                child: Column(
-                  children: [
-                    SvgPicture.asset(AppIcons.shareWhite),
-                    const SizedBox(
-                      height: 2,
-                    ),
-                    Text(
-                      '$countShare',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineMedium!
-                          .copyWith(fontSize: 12),
-                    ),
-                  ],
-                ),
-              ),
-              onTap: () async {
-                final box = context.findRenderObject() as RenderBox?;
-                ShareResult shareResult;
-                shareResult = await Share.shareWithResult(widget.shareUrl,
-                    sharePositionOrigin:
-                        box!.localToGlobal(Offset.zero) & box.size);
-                if (shareResult.status == ShareResultStatus.success) {
-                  context.read<ReelsBloc>().add(ReelsShare(
-                      context.read<ReelsBloc>().state.reels[widget.index].id,
-                      widget.index));
-                  countShare += 1;
-                  setState(() {});
-                }
-              },
+            onTap: () async {
+              final box = context.findRenderObject() as RenderBox?;
+              ShareResult shareResult;
+              shareResult = await Share.shareWithResult(widget.shareUrl,
+                  sharePositionOrigin:
+                      box!.localToGlobal(Offset.zero) & box.size);
+              if (shareResult.status == ShareResultStatus.success) {
+                context.read<ReelsBloc>().add(ReelsShare(
+                    context.read<ReelsBloc>().state.reels[widget.index].id,
+                    widget.index));
+                countShare.value += 1;
+              }
+            },
+          ),
+          WScaleAnimation(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: SvgPicture.asset(AppIcons.more),
             ),
-            WScaleAnimation(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: SvgPicture.asset(AppIcons.more),
-              ),
-              onTap: () {
-                Platform.isIOS
-                    ? showCupertinoModalPopup(
-                        context: context,
-                        barrierColor: black.withOpacity(.6),
-                        builder: (context) =>
-                            BusySheet(copyUrl: widget.shareUrl))
-                    : showModalBottomSheet(
-                        context: context,
-                        //backgroundColor: black.withOpacity(.6),
-                        backgroundColor: Colors.transparent,
-                        builder: (context) =>
-                            BusySheet(copyUrl: widget.shareUrl));
-              },
-            ),
-          ],
-        ),
-      );
+            onTap: () {
+              Platform.isIOS
+                  ? showCupertinoModalPopup(
+                      context: context,
+                      barrierColor: black.withOpacity(.6),
+                      builder: (context) => BusySheet(copyUrl: widget.shareUrl))
+                  : showModalBottomSheet(
+                      context: context,
+                      //backgroundColor: black.withOpacity(.6),
+                      backgroundColor: Colors.transparent,
+                      builder: (context) =>
+                          BusySheet(copyUrl: widget.shareUrl));
+            },
+          ),
+        ],
+      ),
+    );
 }

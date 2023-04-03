@@ -47,12 +47,12 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
   Widget build(BuildContext context) => KeyboardDismisser(
         child: CustomScreen(
           child: Scaffold(
-            backgroundColor: Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
+            backgroundColor:
+                Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
             appBar:
                 WAppBar(hasBackButton: true, title: LocaleKeys.tel_number.tr()),
             body: Padding(
-              padding: const EdgeInsets.symmetric(
-                  vertical:16, horizontal: 16),
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
               child: Form(
                 key: _formKey,
                 child: Column(
@@ -65,13 +65,13 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                     const SizedBox(height: 12),
                     Container(
                       padding: const EdgeInsets.only(
-                          left: 8,
-                          right: 4,
-                          top: 4,
-                          bottom: 4),
+                          left: 8, right: 4, top: 4, bottom: 4),
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: Theme.of(context).extension<ThemedColors>()!.divider,),
+                        borderRadius: BorderRadius.circular(8),
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .divider,
+                      ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -155,8 +155,10 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                               height: 24,
                               width: 24,
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(4),
-                                  color: Theme.of(context).extension<ThemedColors>()!.borderGreyToDark,
+                                borderRadius: BorderRadius.circular(4),
+                                color: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .borderGreyToDark,
                               ),
                               child: Center(
                                 child: RefreshButton(
@@ -245,10 +247,22 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                                       setState(() {
                                         isError = true;
                                       });
+                                      var error = message;
+                                      if (error.toLowerCase().contains('dio') ||
+                                          error
+                                              .toLowerCase()
+                                              .contains('type')) {
+                                        error = LocaleKeys.service_error.tr();
+                                      }
+                                      if (error
+                                          .toLowerCase()
+                                          .contains('wrong code')) {
+                                        error = LocaleKeys.wrong_code.tr();
+                                      }
                                       context
                                           .read<ShowPopUpBloc>()
                                           .add(ShowPopUp(
-                                            message: message,
+                                            message: error,
                                             status: PopStatus.error,
                                           ));
                                     }));
@@ -259,11 +273,15 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                         color: (verificationController.text.isNotEmpty &&
                                 verificationController.text.length == 6)
                             ? orange
-                            : Theme.of(context).extension<ThemedColors>()!.ghostToEclipse,
+                            : Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .ghostToEclipse,
                         text: LocaleKeys.continuee.tr(),
                         border: Border.all(
                           width: 1,
-                          color: Theme.of(context).extension<ThemedColors>()!.whiteToEclipse,
+                          color: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .whiteToEclipse,
                         ),
                       ),
                     ),

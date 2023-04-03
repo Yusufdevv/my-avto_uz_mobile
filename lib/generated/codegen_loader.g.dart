@@ -641,7 +641,8 @@ class CodegenLoader extends AssetLoader{
   "systemi": "Системная",
   "lighti": "Светлая",
   "darki": "Темная",
-  "direct_sale": "Прямая продажа"
+  "direct_sale": "Прямая продажа",
+  "wrong_code": "Неверный код"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -1269,7 +1270,8 @@ static const Map<String,dynamic> uz = {
   "direct_sale": "Joyida to'lov",
   "systemi": "Tizimli",
   "lighti": "Kunduzgi",
-  "darki": "Tungi"
+  "darki": "Tungi",
+  "wrong_code": "Noto'g'ri kod"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }

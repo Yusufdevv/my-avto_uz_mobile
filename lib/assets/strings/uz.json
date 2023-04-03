@@ -624,5 +624,7 @@
   "direct_sale": "Joyida to'lov",
   "systemi": "Tizimli",
   "lighti": "Kunduzgi",
-  "darki": "Tungi"
+  "darki": "Tungi",
+  "wrong_code": "Noto'g'ri kod"
+
 }

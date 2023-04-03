@@ -174,7 +174,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       border: Border.all(
                         width: 1,
                         color: Theme.of(context)
-                            .extension<ThemedColors>()!.whiteToEclipse,
+                            .extension<ThemedColors>()!
+                            .whiteToEclipse,
                       ),
                     ),
                   ],

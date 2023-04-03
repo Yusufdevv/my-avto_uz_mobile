@@ -168,6 +168,14 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                                             error =
                                                 LocaleKeys.service_error.tr();
                                           }
+
+                                          if (error
+                                              .toLowerCase()
+                                              .contains('user with')) {
+                                            error = LocaleKeys
+                                                .user_already_exist
+                                                .tr();
+                                          }
                                           context
                                               .read<ShowPopUpBloc>()
                                               .add(ShowPopUp(
@@ -182,7 +190,9 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                                     4 + MediaQuery.of(context).padding.bottom),
                             color: phoneController.text.length == 12
                                 ? orange
-                                : Theme.of(context).extension<ThemedColors>()!.ghostToEclipse,
+                                : Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .ghostToEclipse,
                             text: LocaleKeys.continuee.tr(),
                             // border: Border.all(width: 1, color: white),
                           ),

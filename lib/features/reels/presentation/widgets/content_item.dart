@@ -76,11 +76,10 @@ class _ContentItemState extends State<ContentItem> {
       isLandscape = _videoPlayerController.value.size.width >
           _videoPlayerController.value.size.height;
     }
-    print('::::::::::  ${widget.reel}  ::::::::::');
     return Stack(
       children: [
         if ((!isImage) && initialized) ...{
-          isLandscape ? _renderLandscapeVideo() : _renderPortraitVideo(),
+          if (isLandscape) _renderLandscapeVideo() else _renderPortraitVideo(),
         } else ...{
           Positioned.fill(
             child: OverflowBox(
@@ -118,7 +117,7 @@ class _ContentItemState extends State<ContentItem> {
             child: OfferBadge(),
           ),
         Positioned(
-          bottom: 26,
+          bottom: 26+ MediaQuery.of(context).padding.bottom,
           left: 16,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -188,7 +187,7 @@ class _ContentItemState extends State<ContentItem> {
         //
         Positioned(
           right: 14,
-          bottom: 32,
+          bottom: 32 + MediaQuery.of(context).padding.bottom,
           child: OptionsItem(
             shareUrl: widget.reel.content,
             onTapLike: widget.onTapLike,
@@ -198,6 +197,7 @@ class _ContentItemState extends State<ContentItem> {
             index: widget.pageIndex,
           ),
         ),
+        if(!isImage)
         Positioned(
           bottom: 0,
           left: 0,
@@ -232,10 +232,12 @@ class _ContentItemState extends State<ContentItem> {
     _videoPlayerController = VideoPlayerController.network(widget.reel.content);
     _videoPlayerController.addListener(_videoListener);
     _videoPlayerController.initialize().then((_) {
-      setState(() {
-        _videoPlayerController.setLooping(widget.loop);
-        initialized = true;
-      });
+      if (!isImage) {
+        setState(() {
+          _videoPlayerController.setLooping(widget.loop);
+          initialized = true;
+        });
+      }
     });
   }
 

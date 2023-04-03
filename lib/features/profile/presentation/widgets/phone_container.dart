@@ -34,7 +34,7 @@ class PhoneContainer extends StatelessWidget {
             ),
             const Spacer(),
             Container(
-                padding: EdgeInsets.all(8),
+                padding:const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(

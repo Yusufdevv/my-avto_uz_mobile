@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/edit_ad/presentation/edit_ad_screen.dart';
@@ -13,8 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:share_plus/share_plus.dart';
-
-import '../../../ad/const/constants.dart';
 
 class MyAdDesc extends StatelessWidget {
   const MyAdDesc({
@@ -32,22 +31,29 @@ class MyAdDesc extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 16),
-        InformationGrid(
-          listData: [
-            '${(DateTime.parse(item.publishedAt).difference(DateTime.now()).inDays ~/ 7) + 1} ${LocaleKeys.a_week.tr()}',
-            '${item.stats.viewsCount}',
-            '${item.stats.wishlistCount}',
-            '${item.stats.viewedContactsCount}'
-          ],
-          color: [
-            Theme.of(context).extension<ThemedColors>()!.greyContainer26,
-            Theme.of(context).extension<ThemedColors>()!.greenContainer26,
-            Theme.of(context).extension<ThemedColors>()!.redContainer26,
-            Theme.of(context).extension<ThemedColors>()!.blueContainer26,
-          ],
-        ),
-        if (item.moderationStatus != ModerationStatusEnum.sold.value)
+        if (item.moderationStatus == ModerationStatusEnum.active.value)
+          const SizedBox(height: 16),
+        if (item.moderationStatus == ModerationStatusEnum.active.value ||
+            item.moderationStatus == ModerationStatusEnum.sold.value)
+          InformationGrid(
+            listData: [
+              if (item.moderationStatus == ModerationStatusEnum.sold.value)
+                LocaleKeys.sold.tr()
+              else
+                '${(DateTime.parse(item.publishedAt).difference(DateTime.now()).inDays ~/ 7) + 1} ${LocaleKeys.a_week.tr()}',
+              '${item.stats.viewsCount}',
+              '${item.stats.wishlistCount}',
+              '${item.stats.viewedContactsCount}'
+            ],
+            color: [
+              Theme.of(context).extension<ThemedColors>()!.greyContainer26,
+              Theme.of(context).extension<ThemedColors>()!.greenContainer26,
+              Theme.of(context).extension<ThemedColors>()!.redContainer26,
+              Theme.of(context).extension<ThemedColors>()!.blueContainer26,
+            ],
+          ),
+        if (item.moderationStatus != ModerationStatusEnum.sold.value ||
+            item.moderationStatus != ModerationStatusEnum.in_moderation.value)
           const Divider(height: 24),
         if (item.moderationStatus == ModerationStatusEnum.active.value)
           Column(
@@ -60,26 +66,31 @@ class MyAdDesc extends StatelessWidget {
                       fontSize: 12, fontWeight: FontWeight.w400, height: 1.3),
                 )
               else
-                RichText(
-                  text: TextSpan(
-                      text: LocaleKeys.sale_period_left.tr(),
-                      style:
-                          Theme.of(context).textTheme.displayMedium!.copyWith(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                              ),
-                      children: [
-                        TextSpan(
-                          text:
-                              ' ${(DateTime.now().difference(DateTime.parse(item.expiredAt)).inDays).abs() + 1} ${LocaleKeys.day.tr()}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge!
-                              .copyWith(
-                                  fontWeight: FontWeight.w600, color: orange),
-                        )
-                      ]),
-                ),
+                item.expiredAt.isNotEmpty
+                    ? RichText(
+                        text: TextSpan(
+                            text: LocaleKeys.sale_period_left.tr(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium!
+                                .copyWith(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                            children: [
+                              TextSpan(
+                                text:
+                                    ' ${(DateTime.now().difference(DateTime.parse(item.expiredAt)).inDays).abs() + 1} ${LocaleKeys.day.tr()}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .copyWith(
+                                        fontWeight: FontWeight.w600,
+                                        color: orange),
+                              )
+                            ]),
+                      )
+                    : const SizedBox(),
               Padding(
                 padding: const EdgeInsets.only(top: 12),
                 child: Row(
