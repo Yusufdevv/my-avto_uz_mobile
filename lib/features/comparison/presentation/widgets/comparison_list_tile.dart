@@ -5,10 +5,12 @@ class ComparisionListTile extends StatelessWidget {
   const ComparisionListTile({
     required this.info,
     required this.isGrey,
+    required this.width,
     Key? key,
   }) : super(key: key);
 
   final String info;
+  final double width;
   final bool isGrey;
 
   @override
@@ -22,14 +24,13 @@ class ComparisionListTile extends StatelessWidget {
           left: 16,
           top: 27,
         ),
-        width: MediaQuery.of(context).size.width * 0.5,
+        width: width,
         height: 54,
         child: Row(
           children: [
             Expanded(
               child: Text(
-                info +
-                    'sadfhsfhsdfgsdfgsdfgsadfhsfhsdfgsdfgsdfgsadfhsfhsdfgsdfgsdfgsadfhsfhsdfgsdfgsdfg',
+                info,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(

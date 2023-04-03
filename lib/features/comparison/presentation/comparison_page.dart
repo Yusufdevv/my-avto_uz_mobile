@@ -64,18 +64,22 @@ class _ComparisonPageState extends State<ComparisonPage> {
                               fade(
                                   page:
                                       const AdsScreen(isFromComparison: true)))
-                          .then((value) {
-                        if (context.read<ComparisonAddBloc>().state.count > 0) {
-                          bloc.add(GetComparableCars());
-                        }
-                        context
-                            .read<ComparisonAddBloc>()
-                            .add(ComparisonAddEvent.clearCountComparison());
-                      });
+                          .then(
+                        (value) {
+                          if (context.read<ComparisonAddBloc>().state.count >
+                              0) {
+                            bloc.add(GetComparableCars());
+                          }
+                          context
+                              .read<ComparisonAddBloc>()
+                              .add(ComparisonAddEvent.clearCountComparison());
+                        },
+                      );
                     },
                   );
                 } else {
                   return Comparison(
+                    width: MediaQuery.of(context).size.width / 2,
                     isSticky: state.isSticky,
                     comparisonBloc: bloc,
                   );

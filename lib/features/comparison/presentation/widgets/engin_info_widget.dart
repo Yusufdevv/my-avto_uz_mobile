@@ -16,6 +16,7 @@ class EngineParametersWidget extends StatelessWidget {
   final Complectation comparisonParameters;
   final int selectedValue;
   final ValueChanged<int> onChanged;
+  final double width;
 
   const EngineParametersWidget({
     required this.onChanged,
@@ -23,6 +24,7 @@ class EngineParametersWidget extends StatelessWidget {
     required this.comparisonParameters,
     required this.numberOfAddedCars,
     required this.controller,
+    required this.width,
     Key? key,
   }) : super(key: key);
 
@@ -103,6 +105,7 @@ class EngineParametersWidget extends StatelessWidget {
                         (index) => Column(
                           children: [
                             ComparisionListTile(
+                              width: width,
                               info: index == numberOfAddedCars.length
                                   ? ''
                                   : numberOfAddedCars[index]
@@ -112,6 +115,7 @@ class EngineParametersWidget extends StatelessWidget {
                               isGrey: true,
                             ),
                             ComparisionListTile(
+                              width: width,
                               info: index == numberOfAddedCars.length
                                   ? ''
                                   : numberOfAddedCars[index]
@@ -121,6 +125,7 @@ class EngineParametersWidget extends StatelessWidget {
                               isGrey: false,
                             ),
                             ComparisionListTile(
+                              width: width,
                               info: index == numberOfAddedCars.length
                                   ? ''
                                   : numberOfAddedCars[index]

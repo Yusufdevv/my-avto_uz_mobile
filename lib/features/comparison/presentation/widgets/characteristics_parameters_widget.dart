@@ -16,6 +16,7 @@ class CharacteristicsParametersWidget extends StatelessWidget {
   final Complectation comparisonParameters;
   final int selectedValue;
   final ValueChanged<int> onChanged;
+  final double width;
 
   const CharacteristicsParametersWidget({
     required this.onChanged,
@@ -23,6 +24,7 @@ class CharacteristicsParametersWidget extends StatelessWidget {
     required this.comparisonParameters,
     required this.numberOfAddedCars,
     required this.controller,
+    required this.width,
     Key? key,
   }) : super(key: key);
 
@@ -103,6 +105,7 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                         (index) => Column(
                           children: [
                             ComparisionListTile(
+                              width: width,
                               info: index == numberOfAddedCars.length
                                   ? ''
                                   : numberOfAddedCars[index]
@@ -112,6 +115,7 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                               isGrey: true,
                             ),
                             ComparisionListTile(
+                              width: width,
                               info: index == numberOfAddedCars.length
                                   ? ''
                                   : numberOfAddedCars[index]
@@ -121,6 +125,7 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                               isGrey: false,
                             ),
                             ComparisionListTile(
+                              width: width,
                               info: index == numberOfAddedCars.length
                                   ? ''
                                   : numberOfAddedCars[index]
@@ -130,6 +135,7 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                               isGrey: true,
                             ),
                             ComparisionListTile(
+                              width: width,
                               info: index == numberOfAddedCars.length
                                   ? ''
                                   : numberOfAddedCars[index]
@@ -139,6 +145,7 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                               isGrey: false,
                             ),
                             ComparisionListTile(
+                              width: width,
                               info: index == numberOfAddedCars.length
                                   ? ''
                                   : numberOfAddedCars[index]
@@ -149,6 +156,7 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                               isGrey: true,
                             ),
                             ComparisionListTile(
+                              width: width,
                               info: index == numberOfAddedCars.length
                                   ? ''
                                   : numberOfAddedCars[index]
@@ -159,6 +167,7 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                               isGrey: false,
                             ),
                             ComparisionListTile(
+                              width: width,
                               info: index == numberOfAddedCars.length
                                   ? ''
                                   : numberOfAddedCars[index]
