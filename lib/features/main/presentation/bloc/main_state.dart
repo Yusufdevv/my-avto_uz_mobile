@@ -30,7 +30,7 @@ class MainState extends Equatable {
       MainState(
         stories: stories ?? this.stories,
         statusStoriesGet: statusStoriesGet ?? this.statusStoriesGet,
-        model: model ?? this.model,
+        model: model?.id == -1 ? null : model ?? this.model,
         make: make?.id == -1 ? null : make ?? this.make,
         historySaved: historySaved ?? this.historySaved,
         announcementCount: announcementCount ?? this.announcementCount,

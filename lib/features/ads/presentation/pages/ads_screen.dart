@@ -118,11 +118,13 @@ class _AdsScreenState extends State<AdsScreen>
         child: BlocConsumer<AnnouncementListBloc, AnnouncementListState>(
           listener: (context, state) {
             if (state.saveFilterStatus.isSubmissionSuccess) {
-              context.read<ShowPopUpBloc>().add(ShowPopUp(
-                    message: LocaleKeys.search_history_saved.tr(),
-                    status: PopStatus.success,
-                    dismissible: false,
-                  ));
+              context.read<ShowPopUpBloc>().add(
+                    ShowPopUp(
+                      message: LocaleKeys.search_history_saved.tr(),
+                      status: PopStatus.success,
+                      dismissible: false,
+                    ),
+                  );
               announcementListBloc
                   .add(const ChangeSaveFilterStatus(FormzStatus.pure));
 
@@ -133,172 +135,185 @@ class _AdsScreenState extends State<AdsScreen>
               }
             }
           },
-          builder: (context, state) => CustomScreen(
-            child: Scaffold(
-              extendBody: true,
-              body: NotificationListener<OverscrollIndicatorNotification>(
-                onNotification: (overscroll) {
-                  overscroll.disallowIndicator();
-                  return true;
-                },
-                child: NestedScrollView(
-                  controller: _scrollController,
-                  headerSliverBuilder: (c, innerBoxIsScrolled) => [
-                    AdsAppBar(
-                      onSortTap: () {
-                        filterBottomSheet(
-                          context,
-                          onChanged: (value) {
-                            announcementListBloc
-                                .add(SetSort(sortResult: value));
-                          },
-                          sortingValue: state.sortStatus,
-                        );
-                      },
-                      fadeDuration: fadeDuration,
-                      crossFadeState: state.crossFadeState,
-                    ),
-                    if (state.announcementList.isEmpty) ...{
-                      SliverOverlapAbsorber(
-                        handle:
-                            NestedScrollView.sliverOverlapAbsorberHandleFor(c),
-                        sliver: SliverSafeArea(
-                          top: false,
-                          sliver: SliverPersistentHeader(
-                            delegate: AdsSliverWidget(
-                              size: MediaQuery.of(context).size,
-                              theme:
-                                  Theme.of(context).extension<ThemedColors>()!,
-                              tabController: tabController,
-                              bloc: announcementListBloc,
+          builder: (context, state) => WillPopScope(
+            onWillPop: () {
+              Navigator.of(context)
+                  .pop(state.make == null || state.model == null);
+              return Future.value(false);
+            },
+            child: CustomScreen(
+              child: Scaffold(
+                // backgroundColor: Colors.teal,
+                extendBody: true,
+                body: NotificationListener<OverscrollIndicatorNotification>(
+                  onNotification: (overscroll) {
+                    overscroll.disallowIndicator();
+                    return true;
+                  },
+                  child: NestedScrollView(
+                    controller: _scrollController,
+                    headerSliverBuilder: (c, innerBoxIsScrolled) => [
+                      AdsAppBar(
+                        onBackButtonTap: () => Navigator.of(context)
+                            .pop(state.make == null || state.model == null),
+                        onSortTap: () {
+                          filterBottomSheet(
+                            context,
+                            onChanged: (value) {
+                              announcementListBloc
+                                  .add(SetSort(sortResult: value));
+                            },
+                            sortingValue: state.sortStatus,
+                          );
+                        },
+                        fadeDuration: fadeDuration,
+                        crossFadeState: state.crossFadeState,
+                      ),
+                      if (state.announcementList.isEmpty) ...{
+                        SliverOverlapAbsorber(
+                          handle:
+                              NestedScrollView.sliverOverlapAbsorberHandleFor(
+                                  c),
+                          sliver: SliverSafeArea(
+                            top: false,
+                            sliver: SliverPersistentHeader(
+                              delegate: AdsSliverWidget(
+                                size: MediaQuery.of(context).size,
+                                theme: Theme.of(context)
+                                    .extension<ThemedColors>()!,
+                                tabController: tabController,
+                                bloc: announcementListBloc,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    } else ...{
-                      SliverPersistentHeader(
-                        delegate: AdsSliverWidget(
-                          size: MediaQuery.of(context).size,
-                          theme: Theme.of(context).extension<ThemedColors>()!,
-                          tabController: tabController,
-                          bloc: announcementListBloc,
+                      } else ...{
+                        SliverPersistentHeader(
+                          delegate: AdsSliverWidget(
+                            size: MediaQuery.of(context).size,
+                            theme: Theme.of(context).extension<ThemedColors>()!,
+                            tabController: tabController,
+                            bloc: announcementListBloc,
+                          ),
                         ),
-                      ),
-                    },
-                  ],
-                  body: TabBarView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    controller: tabController,
-                    children: [
-                      AdsBodyScreen(
-                        isFromComparison: widget.isFromComparison,
-                        isNew: null,
-                        announcementListBloc: announcementListBloc,
-                      ),
-                      AdsBodyScreen(
-                        isFromComparison: widget.isFromComparison,
-                        isNew: true,
-                        announcementListBloc: announcementListBloc,
-                      ),
-                      AdsBodyScreen(
-                        isFromComparison: widget.isFromComparison,
-                        isNew: false,
-                        announcementListBloc: announcementListBloc,
-                      ),
+                      },
                     ],
+                    body: TabBarView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      controller: tabController,
+                      children: [
+                        AdsBodyScreen(
+                          isFromComparison: widget.isFromComparison,
+                          isNew: null,
+                          announcementListBloc: announcementListBloc,
+                        ),
+                        AdsBodyScreen(
+                          isFromComparison: widget.isFromComparison,
+                          isNew: true,
+                          announcementListBloc: announcementListBloc,
+                        ),
+                        AdsBodyScreen(
+                          isFromComparison: widget.isFromComparison,
+                          isNew: false,
+                          announcementListBloc: announcementListBloc,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              bottomNavigationBar:
-                  widget.isFromComparison ? const ButtonGoToComparison() : null,
-              floatingActionButtonLocation:
-                  FloatingActionButtonLocation.centerFloat,
-              floatingActionButton: Builder(
-                builder: (context) {
-                  if (!widget.isFromComparison) {
-                    if (!state.historySaved) {
-                      return WScaleAnimation(
-                        onTap: () {
-                          announcementListBloc.add(const SaveHistory());
-                        },
-                        child: AnimatedContainer(
-                          alignment:
-                              state.crossFadeState == CrossFadeState.showFirst
-                                  ? const Alignment(0, 0)
-                                  : const Alignment(-.85, 0),
-                          width:
-                              state.crossFadeState == CrossFadeState.showFirst
-                                  ? double.maxFinite
-                                  : 44,
-                          height: 44,
-                          duration: fadeDuration,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: orange,
-                                borderRadius: BorderRadius.circular(22)),
+                bottomNavigationBar: widget.isFromComparison
+                    ? const ButtonGoToComparison()
+                    : null,
+                floatingActionButtonLocation:
+                    FloatingActionButtonLocation.centerFloat,
+                floatingActionButton: Builder(
+                  builder: (context) {
+                    if (!widget.isFromComparison) {
+                      if (!state.historySaved) {
+                        return WScaleAnimation(
+                          onTap: () {
+                            announcementListBloc.add(const SaveHistory());
+                          },
+                          child: AnimatedContainer(
+                            alignment:
+                                state.crossFadeState == CrossFadeState.showFirst
+                                    ? const Alignment(0, 0)
+                                    : const Alignment(-.85, 0),
                             width:
                                 state.crossFadeState == CrossFadeState.showFirst
-                                    ? 221
+                                    ? double.maxFinite
                                     : 44,
                             height: 44,
-                            child: AnimatedCrossFade(
-                              alignment: Alignment.center,
-                              duration: fadeDuration,
-                              crossFadeState: state.crossFadeState,
-                              firstChild: Padding(
-                                padding: const EdgeInsets.only(top: 12),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    if (_scrollController.hasClients)
-                                      _scrollController.offset <= 70
-                                          ? FittedBox(
-                                              fit: BoxFit.cover,
-                                              child: Text(
-                                                LocaleKeys.save_search.tr(),
-                                                style: const TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: white,
+                            duration: fadeDuration,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: orange,
+                                  borderRadius: BorderRadius.circular(22)),
+                              width: state.crossFadeState ==
+                                      CrossFadeState.showFirst
+                                  ? 221
+                                  : 44,
+                              height: 44,
+                              child: AnimatedCrossFade(
+                                alignment: Alignment.center,
+                                duration: fadeDuration,
+                                crossFadeState: state.crossFadeState,
+                                firstChild: Padding(
+                                  padding: const EdgeInsets.only(top: 12),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      if (_scrollController.hasClients)
+                                        _scrollController.offset <= 70
+                                            ? FittedBox(
+                                                fit: BoxFit.cover,
+                                                child: Text(
+                                                  LocaleKeys.save_search.tr(),
+                                                  style: const TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: white,
+                                                  ),
                                                 ),
-                                              ),
-                                            )
-                                          : const Text('')
-                                    else
-                                      Text(
-                                        LocaleKeys.save_search.tr(),
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600,
-                                          color: white,
+                                              )
+                                            : const Text('')
+                                      else
+                                        Text(
+                                          LocaleKeys.save_search.tr(),
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
+                                            color: white,
+                                          ),
                                         ),
+                                      SvgPicture.asset(
+                                        AppIcons.searchWithHeartWhite,
+                                        height: 20,
+                                        width: 20,
                                       ),
-                                    SvgPicture.asset(
-                                      AppIcons.searchWithHeartWhite,
-                                      height: 20,
-                                      width: 20,
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              secondChild: Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 12, left: 12),
-                                child: SvgPicture.asset(
-                                  AppIcons.searchWithHeartWhite,
-                                  height: 20,
-                                  width: 20,
+                                secondChild: Padding(
+                                  padding:
+                                      const EdgeInsets.only(top: 12, left: 12),
+                                  child: SvgPicture.asset(
+                                    AppIcons.searchWithHeartWhite,
+                                    height: 20,
+                                    width: 20,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      );
+                        );
+                      }
                     }
-                  }
-                  return const SizedBox();
-                },
+                    return const SizedBox();
+                  },
+                ),
               ),
             ),
           ),

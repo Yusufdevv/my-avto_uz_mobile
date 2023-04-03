@@ -58,7 +58,12 @@ class MapOrganizationBloc
       if (result.isRight) {
         var iconizedDeallers = result.right
             .map((e) => e.iconize(iconPath: AppIcons.dealersLocIcon))
-            .toList();
+            .toList()
+          ..add(MapEntity(
+              id: -1,
+              iconPath: AppIcons.currentLoc,
+              latitude: state.lat,
+              longitude: state.long));
         emit(state.copyWith(
             dealers: iconizedDeallers, status: FormzStatus.submissionSuccess));
       } else {
