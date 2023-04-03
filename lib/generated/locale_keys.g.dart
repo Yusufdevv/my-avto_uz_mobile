@@ -1,6 +1,6 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
-abstract class  LocaleKeys {
+abstract class LocaleKeys {
   static const price_of_similar_cars = 'price_of_similar_cars';
   static const see_price_statustic = 'see_price_statustic';
   static const report_vin = 'report_vin';
@@ -27,7 +27,8 @@ abstract class  LocaleKeys {
   static const optimal = 'optimal';
   static const excellent = 'excellent';
   static const overpriced = 'overpriced';
-  static const how_the_average_price_is_calculated = 'how_the_average_price_is_calculated';
+  static const how_the_average_price_is_calculated =
+      'how_the_average_price_is_calculated';
   static const average_price = 'average_price';
   static const ratio = 'ratio';
   static const market_condition_on = 'market_condition_on';
@@ -201,7 +202,8 @@ abstract class  LocaleKeys {
   static const add_email = 'add_email';
   static const vin_check_text = 'vin_check_text';
   static const confirm = 'confirm';
-  static const service_connected_successfully = 'service_connected_successfully';
+  static const service_connected_successfully =
+      'service_connected_successfully';
   static const back_to_ad = 'back_to_ad';
   static const payment_pending = 'payment_pending';
   static const refresh_the_page = 'refresh_the_page';
@@ -286,8 +288,10 @@ abstract class  LocaleKeys {
   static const rate_us = 'rate_us';
   static const in_appstore = 'in_appstore';
   static const in_playstore = 'in_playstore';
-  static const inappropriate_conditions_or_offers = 'inappropriate_conditions_or_offers';
-  static const the_ad_offers_services_or_products_that = 'the_ad_offers_services_or_products_that';
+  static const inappropriate_conditions_or_offers =
+      'inappropriate_conditions_or_offers';
+  static const the_ad_offers_services_or_products_that =
+      'the_ad_offers_services_or_products_that';
   static const rate = 'rate';
   static const resend = 'resend';
   static const washed_car = 'washed_car';
@@ -459,14 +463,16 @@ abstract class  LocaleKeys {
   static const car_make = 'car_make';
   static const gas_ballon_equipment = 'gas_ballon_equipment';
   static const car_color = 'car_color';
-  static const original_slash_electronniy_pts = 'original_slash_electronniy_pts';
+  static const original_slash_electronniy_pts =
+      'original_slash_electronniy_pts';
   static const duplicate = 'duplicate';
   static const first = 'first';
   static const second = 'second';
   static const third = 'third';
   static const fourth_or_more = 'fourth_or_more';
   static const body_state = 'body_state';
-  static const mark_all_the_colored_and_damaged_parts = 'mark_all_the_colored_and_damaged_parts';
+  static const mark_all_the_colored_and_damaged_parts =
+      'mark_all_the_colored_and_damaged_parts';
   static const door = 'door';
   static const left = 'left';
   static const right = 'right';
@@ -517,7 +523,8 @@ abstract class  LocaleKeys {
   static const your_ad_edited_successfully = 'your_ad_edited_successfully';
   static const sum = 'sum';
   static const the_before_enter_price = 'the_before_enter_price';
-  static const you_dont_have_featured_listings = 'you_dont_have_featured_listings';
+  static const you_dont_have_featured_listings =
+      'you_dont_have_featured_listings';
   static const rent_to_buy = 'rent_to_buy';
   static const conditon_1 = 'conditon_1';
   static const prepayment = 'prepayment';
@@ -571,7 +578,8 @@ abstract class  LocaleKeys {
   static const return_again = 'return_again';
   static const back_to_ads = 'back_to_ads';
   static const become_verifered_owner = 'become_verifered_owner';
-  static const by_becoming_verified_owner_you = 'by_becoming_verified_owner_you';
+  static const by_becoming_verified_owner_you =
+      'by_becoming_verified_owner_you';
   static const reapplication = 'reapplication';
   static const apply_app = 'apply_app';
   static const verified_owner = 'verified_owner';
@@ -579,10 +587,14 @@ abstract class  LocaleKeys {
   static const application_confirmed = 'application_confirmed';
   static const application_rejected = 'application_rejected';
   static const driver_licence = 'driver_licence';
-  static const your_application_has_been_accepted = 'your_application_has_been_accepted';
-  static const your_application_has_been_rejected = 'your_application_has_been_rejected';
-  static const try_to_resubmit_the_application = 'try_to_resubmit_the_application';
-  static const wait_for_moderation_confirmation = 'wait_for_moderation_confirmation';
+  static const your_application_has_been_accepted =
+      'your_application_has_been_accepted';
+  static const your_application_has_been_rejected =
+      'your_application_has_been_rejected';
+  static const try_to_resubmit_the_application =
+      'try_to_resubmit_the_application';
+  static const wait_for_moderation_confirmation =
+      'wait_for_moderation_confirmation';
   static const i_this_service_when_ = 'i_this_service_when_';
   static const extends_for_day = 'extends_for_day';
   static const send_to_top_day = 'send_to_top_day';
@@ -596,22 +608,28 @@ abstract class  LocaleKeys {
   static const i_want_to_be = 'i_want_to_be';
   static const verified_ownerr = 'verified_ownerr';
   static const get_verified_owner_status = 'get_verified_owner_status';
-  static const application_for_verified_owner = 'application_for_verified_owner';
+  static const application_for_verified_owner =
+      'application_for_verified_owner';
   static const not_approved = 'not_approved';
   static const repeat_application = 'repeat_application';
-  static const take_a_picture_of_the_STS_car_from = 'take_a_picture_of_the_STS_car_from';
+  static const take_a_picture_of_the_STS_car_from =
+      'take_a_picture_of_the_STS_car_from';
   static const front_side = 'front_side';
   static const back_side = 'back_side';
-  static const take_a_picture_of_the_drivers_license = 'take_a_picture_of_the_drivers_license';
+  static const take_a_picture_of_the_drivers_license =
+      'take_a_picture_of_the_drivers_license';
   static const additional_information = 'additional_information';
-  static const write_information_for_the_moderator = 'write_information_for_the_moderator';
+  static const write_information_for_the_moderator =
+      'write_information_for_the_moderator';
   static const take_photo = 'take_photo';
   static const take_video = 'take_video';
   static const choose_from_gallery = 'choose_from_gallery';
   static const add_foto_video = 'add_foto_video';
-  static const you_currently_do_not_have_an_ad = 'you_currently_do_not_have_an_ad';
+  static const you_currently_do_not_have_an_ad =
+      'you_currently_do_not_have_an_ad';
   static const in_the_VIP_service_you_will = 'in_the_VIP_service_you_will';
-  static const this_payment_system_is_currently_unavailable = 'this_payment_system_is_currently_unavailable';
+  static const this_payment_system_is_currently_unavailable =
+      'this_payment_system_is_currently_unavailable';
   static const extends_adss = 'extends_adss';
   static const for_day = 'for_day';
   static const duration_service = 'duration_service';
@@ -621,17 +639,14 @@ abstract class  LocaleKeys {
   static const all_products = 'all_products';
   static const categories_services_products = 'categories_services_products';
   static const theme_of_app = 'theme_of_app';
-  static const you_can_not_upload_more_than_30 = 'you_can_not_upload_more_than_30';
+  static const you_can_not_upload_more_than_30 =
+      'you_can_not_upload_more_than_30';
   static const rent_with_purchase_available = 'rent_with_purchase_available';
   static const sale_type = 'sale_type';
   static const systemi = 'systemi';
   static const lighti = 'lighti';
   static const darki = 'darki';
   static const direct_sale = 'direct_sale';
-<<<<<<< HEAD
   static const wrong_code = 'wrong_code';
-=======
   static const your_ad_closed_successfully = 'your_ad_closed_successfully';
->>>>>>> au_465_elon_yopish_ishlamayap__pluc__toastda_text_chiqmadi
-
 }

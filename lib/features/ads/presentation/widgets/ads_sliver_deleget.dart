@@ -23,7 +23,7 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
     required this.theme,
     required this.tabController,
     required this.bloc,
-  })  : k = size.width / mockWith,
+  })  : k = size.height / mockHeight,
         super();
 
   final Size size;
@@ -161,10 +161,10 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
       );
 
   @override
-  double get maxExtent => k > 1.6 ? 218 : 194;
+  double get maxExtent => k > 1.6 ? 236 : 194;
 
   @override
-  double get minExtent => k > 1.6 ? 218 : 194;
+  double get minExtent => k > 1.6 ? 236 : 194;
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
