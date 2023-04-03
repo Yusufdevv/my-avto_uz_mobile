@@ -72,7 +72,7 @@ class CarSingleBloc extends Bloc<CarSingleEvent, CarSingleState> {
       final result = await soldAdsUseCase.call(event.id);
       emit(state.copyWith(soldStatus: FormzStatus.submissionInProgress));
       if (result.isRight) {
-        event.onSucc(LocaleKeys.your_ad_closed_successfully.tr());
+        event.onSucc("LocaleKeys.your_ad_closed_successfully.tr()");
         emit(state.copyWith(
             soldStatus: FormzStatus.submissionSuccess, succMessage: 'succes'));
       } else {
