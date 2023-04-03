@@ -625,6 +625,11 @@
   "systemi": "Tizimli",
   "lighti": "Kunduzgi",
   "darki": "Tungi",
+<<<<<<< HEAD
   "wrong_code": "Noto'g'ri kod"
 
 }
+=======
+  "your_ad_closed_successfully": "E'loningiz muvaffaqiyatli yopildi"
+}
+>>>>>>> au_465_elon_yopish_ishlamayap__pluc__toastda_text_chiqmadi

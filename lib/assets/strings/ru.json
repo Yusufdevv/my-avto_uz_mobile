@@ -626,5 +626,9 @@
   "lighti": "Светлая",
   "darki": "Темная",
   "direct_sale": "Прямая продажа",
+<<<<<<< HEAD
   "wrong_code": "Неверный код"
+=======
+  "your_ad_closed_successfully": "Ваше объявление успешно закрыто"
+>>>>>>> au_465_elon_yopish_ishlamayap__pluc__toastda_text_chiqmadi
 }

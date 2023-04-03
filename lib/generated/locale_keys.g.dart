@@ -628,6 +628,10 @@ abstract class  LocaleKeys {
   static const lighti = 'lighti';
   static const darki = 'darki';
   static const direct_sale = 'direct_sale';
+<<<<<<< HEAD
   static const wrong_code = 'wrong_code';
+=======
+  static const your_ad_closed_successfully = 'your_ad_closed_successfully';
+>>>>>>> au_465_elon_yopish_ishlamayap__pluc__toastda_text_chiqmadi
 
 }
