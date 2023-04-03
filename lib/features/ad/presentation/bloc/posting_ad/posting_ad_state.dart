@@ -452,9 +452,18 @@ class PostingAdState extends Equatable {
 class SO extends Equatable {
   final int id;
   final String optionName;
+  final String equipmentName;
 
-  const SO({required this.id, required this.optionName});
+  const SO({
+    required this.id,
+    required this.optionName,
+    required this.equipmentName,
+  });
 
   @override
-  List<Object?> get props => [id, optionName];
+  List<Object?> get props => [
+        id,
+        optionName,
+        equipmentName,
+      ];
 }

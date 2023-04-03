@@ -2,6 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/domain/entities/equipment/id_name_entity.dart';
+import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/widgets/pos_radio_item.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -13,11 +14,13 @@ class EquipmentOptionSheet extends StatefulWidget {
   final int? selected;
   final List<IdNameEntity> items;
   final String name;
+  final String equipmentName;
 
   const EquipmentOptionSheet({
     required this.selected,
     required this.items,
     required this.name,
+    required this.equipmentName,
     super.key,
   });
 
@@ -89,7 +92,13 @@ class _EquipmentOptionSheetState extends State<EquipmentOptionSheet> {
               ),
             ),
             WButton(
-              onTap: () => Navigator.of(context).pop({selected: name}),
+              onTap: () => Navigator.of(context).pop(
+                SO(
+                  equipmentName: widget.equipmentName,
+                  id: selected ?? -1,
+                  optionName: name ?? '',
+                ),
+              ),
               color: orange,
               text: LocaleKeys.apply.tr(),
               textStyle: Theme.of(context)

@@ -43,7 +43,8 @@ class _ComplectationBoxState extends State<ComplectationBox> {
       allOptions.addAll(widget.equipment!.options.map((e) => e.option.name));
     }
     allOptions
-      ..addAll(widget.selects.entries.map((e) => e.value.optionName))
+      ..addAll(widget.selects.entries
+          .map((e) => '${e.value.equipmentName}: ${e.value.optionName}'))
       ..addAll(widget.radios.entries.map((e) => e.value));
     length = allOptions.length > limit ? limit : allOptions.length;
     isCollapsable = length == limit && limit != allOptions.length;
@@ -58,9 +59,7 @@ class _ComplectationBoxState extends State<ComplectationBox> {
       margin: const EdgeInsets.only(bottom: 12),
       duration: const Duration(milliseconds: 300),
       decoration: BoxDecoration(
-          color: Theme.of(context)
-              .extension<ThemedColors>()!
-              .whiteToDark,
+          color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
           border: Border.symmetric(
               horizontal:
                   BorderSide(width: 1, color: Theme.of(context).dividerColor))),

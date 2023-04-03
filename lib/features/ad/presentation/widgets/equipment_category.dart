@@ -56,7 +56,7 @@ class EquipmentCategory extends StatelessWidget {
               behavior: HitTestBehavior.opaque,
               onTap: () {
                 if (options[index].type == 'select') {
-                  showModalBottomSheet<Map<int?, String?>>(
+                  showModalBottomSheet<SO>(
                     context: context,
                     useRootNavigator: true,
                     isScrollControlled: true,
@@ -69,6 +69,7 @@ class EquipmentCategory extends StatelessWidget {
                     ),
                     clipBehavior: Clip.hardEdge,
                     builder: (context) => EquipmentOptionSheet(
+                      equipmentName: options[index].name,
                       selected: isOptionSelected(
                               type: 'select', id: options[index].id)
                           ? selectOptions[options[index].id]?.id ?? -1
@@ -82,9 +83,7 @@ class EquipmentCategory extends StatelessWidget {
                         isAdd: true,
                         id: options[index].id,
                         itemName: options[index].name,
-                        selectOption: SO(
-                            optionName: value.values.first!,
-                            id: value.keys.first!),
+                        selectOption: value,
                         type: 'select',
                       );
                     }
@@ -125,8 +124,8 @@ class EquipmentCategory extends StatelessWidget {
                                       id: options[index].id) ||
                                   options[index].type == 'radio'
                               ? Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .blackToWhite
+                                  .extension<ThemedColors>()!
+                                  .blackToWhite
                               : grey,
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
