@@ -102,7 +102,7 @@ class EngineParametersWidget extends StatelessWidget {
                         numberOfAddedCars.length + 1,
                         (index) => Column(
                           children: [
-                            ComparsionListTile(
+                            ComparisionListTile(
                               info: index == numberOfAddedCars.length
                                   ? ''
                                   : numberOfAddedCars[index]
@@ -111,7 +111,7 @@ class EngineParametersWidget extends StatelessWidget {
                                       .engineType,
                               isGrey: true,
                             ),
-                            ComparsionListTile(
+                            ComparisionListTile(
                               info: index == numberOfAddedCars.length
                                   ? ''
                                   : numberOfAddedCars[index]
@@ -120,7 +120,7 @@ class EngineParametersWidget extends StatelessWidget {
                                       .power,
                               isGrey: false,
                             ),
-                            ComparsionListTile(
+                            ComparisionListTile(
                               info: index == numberOfAddedCars.length
                                   ? ''
                                   : numberOfAddedCars[index]
