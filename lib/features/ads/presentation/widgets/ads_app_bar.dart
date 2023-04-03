@@ -9,22 +9,25 @@ class AdsAppBar extends StatelessWidget {
   final Duration fadeDuration;
   final CrossFadeState crossFadeState;
   final VoidCallback onSortTap;
+  final VoidCallback onBackButtonTap;
 
   const AdsAppBar(
       {required this.onSortTap,
       required this.fadeDuration,
       required this.crossFadeState,
+      required this.onBackButtonTap,
       Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) => SliverAppBar(
+        // backgroundColor: Colors.teal,
         titleSpacing: 0,
         pinned: true,
         elevation: 0,
         automaticallyImplyLeading: false,
         leading: WScaleAnimation(
-          onTap: () => Navigator.pop(context),
+          onTap: onBackButtonTap,
           child: Padding(
             padding: const EdgeInsets.only(left: 24, right: 16),
             child: Align(

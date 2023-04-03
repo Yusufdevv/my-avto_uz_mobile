@@ -53,11 +53,13 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
               ),
               CommercialCarModelItem(
                   onTapClear: () {
-                    bloc.add(const SetMakeModel(
-                      model: MakeEntity(),
-                      make: MakeEntity(),
-                      historySaved: true,
-                    ));
+                    bloc.add(
+                      const SetMakeModel(
+                        model: MakeEntity(),
+                        make: MakeEntity(),
+                        historySaved: true,
+                      ),
+                    );
                   },
                   title: state.make?.name ?? '',
                   subtitle: state.model?.name ?? '',

@@ -49,7 +49,7 @@ class MainBloc extends Bloc<MainEvent, MainState> {
       GetAnnouncement event, Emitter<MainState> emit) async {
     final result = await announcementListUseCase.call({
       'make': state.make?.id,
-      'model': state.model == -1 ? null : state.model,
+      'model': state.model?.id == -1 ? null : state.model?.id,
     });
     if (result.isRight) {
       emit(state.copWith(announcementCount: result.right.count));

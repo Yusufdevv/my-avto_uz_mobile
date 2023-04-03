@@ -34,7 +34,7 @@ class _ColorsScreenState extends State<ColorsScreen> {
               }
               return GridView.builder(
                 padding: EdgeInsets.fromLTRB(
-                    16, 0, 16, 65 + MediaQuery.of(context).padding.bottom),
+                    16, 0, 16, 100 + MediaQuery.of(context).padding.bottom),
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) {
                   final color = HexColor.fromHex(state.colors[index].hexCode);
