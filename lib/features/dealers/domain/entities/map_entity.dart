@@ -30,6 +30,7 @@ class MapEntity extends Equatable {
     String? iconPath,
   }) =>
       MapEntity(
+        dealerType: dealerType,
         name: name,
         iconPath: iconPath ?? this.iconPath,
         slug: slug,

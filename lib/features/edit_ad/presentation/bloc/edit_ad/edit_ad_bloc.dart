@@ -113,8 +113,8 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
     on<EditAdSelectEquipmentEvent>(_selectEquipment);
     on<EditAdGetEquipmentOptionsList>(_getEquipmentOptionsList);
     on<EditAdChangeOption>(_onOptionChanged);
-    on<EditAdGetAnnouncementEvent>(_getAnnouncement);
     on<EditAdGetColorsEvent>(_getColors);
+    on<EditAdGetAnnouncementEvent>(_getAnnouncement);
   }
 
   FutureOr<void> _getColors(

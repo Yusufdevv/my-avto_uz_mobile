@@ -1,5 +1,5 @@
+import 'package:auto/features/ad/domain/entities/equipment/id_name_entity.dart';
 import 'package:auto/features/dealers/data/models/dealer_single_model.dart';
-import 'package:auto/features/dealers/domain/entities/dealer_type_entity.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -22,8 +22,8 @@ class DealerSingleEntity extends Equatable {
   final int carCount;
   @RegionConverter()
   final RegionEntity district;
-  @DealerTypeConverter()
-  final DealerTypeEntity dealerType;
+  @IdNameConverter()
+  final IdNameEntity dealerType;
   final List<String> gallery;
 
   const DealerSingleEntity({
@@ -44,7 +44,7 @@ class DealerSingleEntity extends Equatable {
     this.category,
     this.district = const RegionEntity(),
     this.gallery = const [],
-    this.dealerType = const DealerTypeEntity(),
+    this.dealerType = const IdNameEntity(),
   });
 
   @override

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/features/common/usecases/yandex_get_address_use_case.dart';
@@ -56,6 +58,7 @@ class MapOrganizationBloc
               radius: event.radius?.floor() ?? state.radius));
 
       if (result.isRight) {
+        log('::::::::::  the deallers length: ${result.right.length}  ::::::::::');
         var iconizedDeallers = result.right
             .map((e) => e.iconize(iconPath: AppIcons.dealersLocIcon))
             .toList()
@@ -64,6 +67,9 @@ class MapOrganizationBloc
               iconPath: AppIcons.currentLoc,
               latitude: state.lat,
               longitude: state.long));
+        log(':::::::::: iconized length:  ${iconizedDeallers.length}  ::::::::::');
+        log(':::::::::: iconized length:  ${iconizedDeallers[0].dealerType}  ::::::::::');
+
         emit(state.copyWith(
             dealers: iconizedDeallers, status: FormzStatus.submissionSuccess));
       } else {
@@ -108,13 +114,17 @@ class MapOrganizationBloc
 
         points = isFromDirectoryPage
             ? state.directoriesPoints.map((e) => e).toList()
-            : state.dealers.map((e) => e).toList()
-          ..add(MapEntity(
-              id: -1,
-              iconPath: AppIcons.currentLoc,
-              latitude: position.latitude,
-              longitude: position.longitude));
-
+            : state.dealers.map((e) => e).toList();
+        final currentLocIndex =
+            points.indexWhere((element) => element.id == -1);
+        if (currentLocIndex != -1) {
+          points.removeAt(currentLocIndex);
+        }
+        points.add(MapEntity(
+            id: -1,
+            iconPath: AppIcons.currentLoc,
+            latitude: position.latitude,
+            longitude: position.longitude));
         emit(
           state.copyWith(
             getCurrentLocationStatus: FormzStatus.submissionSuccess,
