@@ -2,6 +2,7 @@
 
 const String CACHED_DRAFT_ANNOUNCEMENT = 'draft_announcement';
 const double mockWith = 375;
+const double mockHeight = 812;
 
 enum DamagedPart {
   rightFrontDoor('rigth_front_door'),
