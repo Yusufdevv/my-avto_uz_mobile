@@ -414,7 +414,10 @@ class PASingleton {
 
     for (var i = 0; i < v.length; i++) {
       if (v[i].option.type == 'select') {
-        data[v[i].option.id] = SO(id: v[i].item.id, optionName: v[i].item.name);
+        data[v[i].option.id] = SO(
+            id: v[i].item.id,
+            optionName: v[i].item.name,
+            equipmentName: v[i].option.name);
       }
     }
     return data;

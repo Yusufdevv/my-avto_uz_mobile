@@ -13,8 +13,8 @@ DealerSingleModel _$DealerSingleModelFromJson(Map<String, dynamic> json) =>
       slug: json['slug'] as String? ?? '',
       description: json['description'] as String? ?? '',
       dealerType: json['dealer_type'] == null
-          ? const DealerTypeEntity()
-          : const DealerTypeConverter()
+          ? const IdNameEntity()
+          : const IdNameConverter()
               .fromJson(json['dealer_type'] as Map<String, dynamic>?),
       latitude: (json['latitude'] as num?)?.toDouble() ?? 0.0,
       longitude: (json['longitude'] as num?)?.toDouble() ?? 0.0,
@@ -55,6 +55,6 @@ Map<String, dynamic> _$DealerSingleModelToJson(DealerSingleModel instance) =>
       'latitude': instance.latitude,
       'car_count': instance.carCount,
       'district': const RegionConverter().toJson(instance.district),
-      'dealer_type': const DealerTypeConverter().toJson(instance.dealerType),
+      'dealer_type': const IdNameConverter().toJson(instance.dealerType),
       'gallery': instance.gallery,
     };
