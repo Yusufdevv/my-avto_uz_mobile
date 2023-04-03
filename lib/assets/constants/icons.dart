@@ -145,6 +145,7 @@ class AppIcons {
   static const id = 'assets/icons/global/id.svg';
   static const checkRounded = 'assets/icons/global/check_rounded.svg';
   static const plus = 'assets/icons/global/plus.svg';
+  static const plusMini = 'assets/icons/global/plus_mini.svg';
   static const backgroundIcon = 'assets/icons/global/background_icon.svg';
   static const videoIcon = 'assets/icons/global/video_icon.svg';
   static const flash = 'assets/icons/global/flash.svg';
