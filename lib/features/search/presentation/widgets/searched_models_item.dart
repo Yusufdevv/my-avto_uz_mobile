@@ -1,5 +1,4 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_highlighted_text.dart';
@@ -65,8 +64,8 @@ class SearchedModelsItem extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         allText: fullText,
                         highlightedText: searchText,
-                        highlightColor:
-                            LightThemeColors.tangerineYellowToMediumSlateBlue,
+                        highlightColor:Theme.of(context)
+                            .extension<ThemedColors>()!.yellowToBrown,
                         textStyle: Theme.of(context)
                             .textTheme
                             .titleMedium!

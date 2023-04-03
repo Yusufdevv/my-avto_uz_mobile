@@ -111,7 +111,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                         .email) &&
                             _nameCont.text.isNotEmpty
                         ? orange
-                        : disabledButton,
+                        : Theme.of(context).extension<ThemedColors>()!.ghostToEclipse,
                     isLoading: stateProfile.editStatus.isSubmissionInProgress,
                     margin: EdgeInsets.fromLTRB(
                         16, 0, 16, 8 + mediaQuery.padding.bottom),

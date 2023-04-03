@@ -170,12 +170,14 @@ class DarkThemeColors {
   static const blueChalkToCaputMortum = _burrentCrinson;
   static const sindirellaToBurrentCrinson = _parisM;
   static const roseWhiteToEclipse = _eclipse;//lightred
+  static const yellowToBrown = _maiTai;
 
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
 
 const _fuzzyWuzzyBrown = Color(0xffC8534D);
+const _maiTai = Color(0xffA37034);
 const _whiteOpacity = Color(0x99ffffff);
 const _black = Color(0xff121212);
 const _mediumSlateBlue = Color(0xff695CEA);

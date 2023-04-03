@@ -1,5 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/storage_keys.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
@@ -29,6 +31,7 @@ class NotificationPage extends StatefulWidget {
 
 class _NotificationPageState extends State<NotificationPage> {
   late UserWishListsBloc bloc;
+
   @override
   void initState() {
     bloc = UserWishListsBloc()..add(GetNotificationsEvent());
@@ -82,8 +85,7 @@ class _NotificationPageState extends State<NotificationPage> {
                       }
                     },
                     child: Padding(
-                      padding:const
-                          EdgeInsets.symmetric(horizontal: 16),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: SizedBox(
                           height: 20,
                           width: 20,
@@ -139,7 +141,7 @@ class _NotificationPageState extends State<NotificationPage> {
                                   child: NotificationItem(
                                     currentIndex: index,
                                     category:
-                                        '#${item.notification.category?.name} • ${item.notification.createdAt=='' ? '' : MyFunctions.getAutoPublishDate(item.notification.createdAt ?? '')}',
+                                        '#${item.notification.category?.name} • ${item.notification.createdAt == '' ? '' : MyFunctions.getAutoPublishDate(item.notification.createdAt ?? '')}',
                                     title: item.notification.title ?? '',
                                     isRead:
                                         isAllRead ? isAllRead : item.isRead!,
@@ -148,11 +150,16 @@ class _NotificationPageState extends State<NotificationPage> {
                             },
                           )
                         : Center(
-                          child: EmptyItemBody(
+                            child: EmptyItemBody(
                               title: LocaleKeys.no_notice.tr(),
                               subtitle: LocaleKeys.w_t_is_no_n_t_w_be.tr(),
-                              image: AppIcons.notification),
-                        );
+                              image: StorageRepository.getString(
+                                          StorageKeys.THEME_MODE) ==
+                                      'light'
+                                  ? AppIcons.notification
+                                  : AppIcons.notificationDark,
+                            ),
+                          );
                   }
                   return Center(
                     child: Text(LocaleKeys.error.tr()),

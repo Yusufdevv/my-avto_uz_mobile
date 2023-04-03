@@ -128,8 +128,8 @@ class _NewPasswordsPageState extends State<NewPasswordsPage> {
                     right: 16,
                     left: 16,
                     bottom: 20 + MediaQuery.of(context).viewInsets.bottom),
-                border: Border.all(width: 1, color: white),
-                disabledColor: disabledButton,
+                border: Border.all(width: 1, color: Theme.of(context).extension<ThemedColors>()!.whiteToEclipse),
+                disabledColor: Theme.of(context).extension<ThemedColors>()!.ghostToEclipse,
                 isDisabled: _oldPasswordController.text.length < 6 ||
                     _newPassword1Controller.text.length < 6 ||
                     _newPassword2Controller.text.length < 6,

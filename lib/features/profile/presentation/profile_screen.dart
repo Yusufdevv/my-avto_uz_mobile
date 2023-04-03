@@ -47,7 +47,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             boxShadow: const [
               BoxShadow(offset: Offset(0, 0), blurRadius: 0, color: white),
             ],
-            extraActions: const [NotificationButton()],
+            extraActions:   [NotificationButton()],
             hasBackButton: false,
             textWithButton: LocaleKeys.my_profile.tr()),
         body: BlocConsumer<WishlistAddBloc, WishlistAddState>(

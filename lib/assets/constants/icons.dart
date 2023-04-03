@@ -49,7 +49,10 @@ class AppIcons {
   static const carIcon = 'assets/icons/global/car.png';
   static const succesGreenIconn = 'assets/icons/global/succes_green.png';
   static const emptyFolder = 'assets/icons/profile/empty_folder.png';
+  static const emptyFolderDark = 'assets/icons/profile/empty_folder_dark.png';
+  static const carDark = 'assets/icons/profile/car_dark.png';
   static const notification = 'assets/icons/profile/notification.png';
+  static const notificationDark = 'assets/icons/profile/notification_dark.png';
   static const smallClose = 'assets/icons/global/smallClose.svg';
   static const chevrolet = 'assets/icons/global/chevrolet.svg';
   static const kia = 'assets/icons/global/kia.svg';
@@ -63,6 +66,8 @@ class AppIcons {
   static const flagUzb = 'assets/icons/global/flag_uzb.svg';
   static const bell = 'assets/icons/global/bell.svg';
   static const bellWithCircle = 'assets/icons/profile/bell_with_circle.svg';
+  static const bellWithCircleDark =
+      'assets/icons/profile/bell_with_circle_dark.svg';
   static const ellipseRed = 'assets/icons/profile/ellipse_red.svg';
   static const phoneCall1 = 'assets/icons/profile/phone-call.svg';
   static const eye = 'assets/icons/global/eye.svg';

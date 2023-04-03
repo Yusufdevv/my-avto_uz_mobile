@@ -1,5 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/constants/images.dart';
+import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/storage_keys.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +26,11 @@ class NothingFoundScreen extends StatelessWidget {
                 width: 92,
                 margin: const EdgeInsets.only(bottom: 24),
                 child: Image.asset(
-                  AppImages.noItemFoundCar,
+                  StorageRepository.getString(
+                      StorageKeys.THEME_MODE) ==
+                      'light'
+                      ? AppIcons.carIcon
+                      : AppIcons.carDark,
                   fit: BoxFit.cover,
                 ),
               ),

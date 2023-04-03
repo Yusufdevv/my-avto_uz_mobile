@@ -65,6 +65,7 @@ abstract class LightTheme {
           ),
           ThemedColors(
             roseWhiteToEclipse: LightThemeColors.roseWhiteToEclipse,
+            yellowToBrown: LightThemeColors.tangerineYellowToMediumSlateBlue,
             redToWhite: LightThemeColors.redToWhite,
             dolphinToWhite: LightThemeColors.dolphinToWhite,
             dolphinToGhost: LightThemeColors.dolphinToGhost,

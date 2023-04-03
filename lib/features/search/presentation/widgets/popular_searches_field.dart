@@ -29,6 +29,7 @@ class PopularSearchesField extends StatefulWidget {
   final bool hasClearTrailing;
   List<String> elements;
   TextEditingController textController;
+
   @override
   State<PopularSearchesField> createState() => _PopularSearchesFieldState();
 }
@@ -65,14 +66,12 @@ class _PopularSearchesFieldState extends State<PopularSearchesField> {
                         },
                         height: 20,
                         width: 64,
-                        color: transparentButton,
+                        color: Colors.transparent,
                         child: Text(LocaleKeys.clear.tr(),
                             style: Theme.of(context)
                                 .textTheme
                                 .displayMedium!
-                                .copyWith(fontSize: 13, color: blue)))
-                  else
-                    const SizedBox(),
+                                .copyWith(fontSize: 13, color: blue))),
                 ],
               ),
             ),
@@ -106,22 +105,19 @@ class _PopularSearchesFieldState extends State<PopularSearchesField> {
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      if (widget.hasClearTrailing)
-                        GestureDetector(
-                          onTap: () {
-                            widget.elements.removeAt(index);
-                            StorageRepository.putList(
-                                'last_searches', widget.elements);
-                            setState(() {});
-                          },
-                          behavior: HitTestBehavior.opaque,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: SvgPicture.asset(AppIcons.close),
-                          ),
-                        )
-                      else
-                        const SizedBox(),
+                      GestureDetector(
+                        onTap: () {
+                          widget.elements.removeAt(index);
+                          StorageRepository.putList(
+                              'last_searches', widget.elements);
+                          setState(() {});
+                        },
+                        behavior: HitTestBehavior.opaque,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: SvgPicture.asset(AppIcons.close),
+                        ),
+                      )
                     ],
                   ),
                 ),

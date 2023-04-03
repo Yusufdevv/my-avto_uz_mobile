@@ -72,7 +72,6 @@ class InfoContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-
         width: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.only(top: 12, left: 16, bottom: 8),
         decoration: BoxDecoration(
@@ -174,10 +173,13 @@ class InfoContainer extends StatelessWidget {
                   discountPrice > 0.0
                       ? '${MyFunctions.getFormatCost((price - discountPrice).floor().toString())} ${currency.toUpperCase()}'
                       : '${MyFunctions.getFormatCost(price.floor().toString())} ${currency.toUpperCase()}',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineSmall
-                      ?.copyWith(color: green, fontWeight: FontWeight.w600),
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      color: discountPrice > 0.0
+                          ? green
+                          : Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .darkToWhite,
+                      fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(width: 4),
                 if (discountPrice > 0.0)
@@ -191,10 +193,10 @@ class InfoContainer extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               subtitle ?? '',
-              style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                    fontSize: 13,
-                    color: grey,
-                  ),
+              style: Theme.of(context)
+                  .textTheme
+                  .displayMedium!
+                  .copyWith(fontSize: 13, color: grey),
               maxLines: 2,
             ),
             const SizedBox(height: 12),
@@ -209,9 +211,8 @@ class InfoContainer extends StatelessWidget {
                       imageUrl: avatarPicture!,
                       fit: BoxFit.cover,
                       errorWidget: (context, url, error) => Image.asset(
-                        AppImages.defaultPhoto,
-                        fit: BoxFit.cover,
-                      ),
+                          AppImages.defaultPhoto,
+                          fit: BoxFit.cover),
                     ),
                   ),
                 ),

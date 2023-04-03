@@ -1,5 +1,8 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/storage_keys.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ads/presentation/pages/ads_screen.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
@@ -54,162 +57,159 @@ class _MySearchesPageState extends State<MySearchesPage> {
   Widget build(BuildContext context) => BlocProvider.value(
         value: bloc,
         child: CustomScreen(
-          child: BlocBuilder<UserWishListsBloc, UserWishListsState>(
-            builder: (context, st) {
-              if (st.myAdsStatus.isSubmissionInProgress) {
-                return const Center(child: CupertinoActivityIndicator());
-              }
-              if (st.myAdsStatus.isSubmissionSuccess) {
-                mySearches = st.mySearches;
-                return Scaffold(
-                  appBar: WAppBar(
-                    textWithButton: LocaleKeys.my_searchs.tr(),
-                    extraActions: [
-                      if (st.myAdsStatus.isSubmissionSuccess)
-                        if (mySearches.isNotEmpty)
-                          WScaleAnimation(
-                            onTap: () {
-                              if (mySearches.isNotEmpty) {
-                                if (isToggled) {
-                                  deletedList.clear();
-                                }
-                                setState(() {
-                                  isToggled = !isToggled;
-                                });
-                              }
-                            },
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16),
-                              child: isToggled
-                                  ? Text(
-                                      LocaleKeys.cancell.tr(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium
-                                          ?.copyWith(color: red, height: 1.3),
-                                    )
-                                  : SvgPicture.asset(AppIcons.delete,
-                                      color: grey),
-                            ),
-                          )
-                    ],
-                  ),
-                  body: Builder(builder: (context) {
-                    if (st.myAdsStatus.isSubmissionSuccess) {
-                      return mySearches.isNotEmpty
-                          ? Paginator(
-                              errorWidget: const SizedBox(),
-                              hasMoreToFetch: st.moreFetchMySearches,
-                              fetchMoreFunction: () {
-                                bloc.add(GetMoreMySearchesEvent());
-                              },
-                              paginatorStatus: st.myAdsStatus,
-                              itemCount: mySearches.length,
-                              itemBuilder: (context, index) {
-                                final item = mySearches[index];
-                                return MySearchItem(
-                                    onTap: () {
-                                      if (isToggled) {
-                                        if (deletedList
-                                            .contains(mySearches[index])) {
-                                          setState(() {
-                                            deletedList
-                                                .remove(mySearches[index]);
-                                          });
-                                        } else {
-                                          setState(() {
-                                            deletedList.add(mySearches[index]);
-                                          });
-                                        }
-                                      } else {
-                                        Navigator.push(
-                                          context,
-                                          fade(
-                                            page: AdsScreen(
-                                              historyId: mySearches[index].id,
-                                              historySaved: true,
-                                              make: mySearches[index].make,
-                                              model: MakeEntity(
-                                                  id: mySearches[index]
-                                                          .model
-                                                          ?.first
-                                                          ?.id ??
-                                                      -1,
-                                                  name: mySearches[index]
-                                                          .model
-                                                          ?.first
-                                                          ?.name ??
-                                                      ''),
-                                              queryData:
-                                                  mySearches[index].queryData,
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                    },
-                                    item: item,
-                                    index: index,
-                                    isToggled: isToggled,
-                                    deletedList: deletedList,
-                                    mySearches: mySearches);
-                              },
-                            )
-                          : Center(
-                              child: EmptyItemBody(
-                                  title: LocaleKeys.no_results.tr(),
-                                  subtitle:
-                                      LocaleKeys.your_saved_searches_will.tr(),
-                                  image: AppIcons.emptyFolder),
-                            );
-                    }
-                    return const SizedBox();
-                  }),
-                  bottomNavigationBar: isToggled
-                      ? WButton(
-                          text: LocaleKeys.delete.tr(),
-                          color: deletedList.isNotEmpty ? orange : grey,
-                          margin: const EdgeInsets.all(16),
-                          onTap: () {
-                            deletedList.isNotEmpty
-                                ? showModalBottomSheet(
-                                    context: context,
-                                    builder: (context) =>
-                                        CustomProfileBottomsheet(
-                                      title: LocaleKeys.a_y_s_y_w_to_d.tr(),
-                                      subTitle:
-                                          LocaleKeys.del_is_non_refundable.tr(),
-                                      betweenHeight: 36,
-                                      onTap: () {
-                                        isDeleted = !isDeleted;
-                                        bloc.add(DeleteMySearchesEvent(
-                                            ids: deletedIds(deletedList)));
-                                        setState(() {});
-                                        mySearches.removeWhere(
-                                            (e) => deletedList.contains(e));
-                                        context
-                                            .read<ProfileBloc>()
-                                            .add(GetProfileEvent());
-                                        deletedList.clear();
-                                        isToggled = false;
-                                        Navigator.pop(context);
-                                        context
-                                            .read<ProfileBloc>()
-                                            .add(GetProfileEvent());
-                                      },
-                                    ),
-                                  )
-                                : context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                    status: PopStatus.error,
-                                    message: LocaleKeys.select_first_to_delete
-                                        .tr()));
+          child: Scaffold(
+            appBar: WAppBar(
+              textWithButton: LocaleKeys.my_searchs.tr(),
+              extraActions: [
+                if (bloc.state.myAdsStatus.isSubmissionSuccess)
+                  if (mySearches.isNotEmpty)
+                    WScaleAnimation(
+                      onTap: () {
+                        if (mySearches.isNotEmpty) {
+                          if (isToggled) {
+                            deletedList.clear();
+                          }
+                          setState(() {
+                            isToggled = !isToggled;
+                          });
+                        }
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: isToggled
+                            ? Text(
+                                LocaleKeys.cancell.tr(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium
+                                    ?.copyWith(color: red, height: 1.3),
+                              )
+                            : SvgPicture.asset(AppIcons.delete, color: grey),
+                      ),
+                    )
+              ],
+            ),
+            body: BlocBuilder<UserWishListsBloc, UserWishListsState>(
+              builder: (context, st) {
+                if (st.myAdsStatus.isSubmissionInProgress) {
+                  return const Center(child: CupertinoActivityIndicator());
+                }
+                if (st.myAdsStatus.isSubmissionSuccess) {
+                  mySearches = st.mySearches;
+                  return mySearches.isNotEmpty
+                      ? Paginator(
+                          errorWidget: const SizedBox(),
+                          hasMoreToFetch: st.moreFetchMySearches,
+                          fetchMoreFunction: () {
+                            bloc.add(GetMoreMySearchesEvent());
+                          },
+                          paginatorStatus: st.myAdsStatus,
+                          itemCount: mySearches.length,
+                          itemBuilder: (context, index) {
+                            final item = mySearches[index];
+                            return MySearchItem(
+                                onTap: () {
+                                  if (isToggled) {
+                                    if (deletedList
+                                        .contains(mySearches[index])) {
+                                      setState(() {
+                                        deletedList.remove(mySearches[index]);
+                                      });
+                                    } else {
+                                      setState(() {
+                                        deletedList.add(mySearches[index]);
+                                      });
+                                    }
+                                  } else {
+                                    Navigator.push(
+                                      context,
+                                      fade(
+                                        page: AdsScreen(
+                                          historyId: mySearches[index].id,
+                                          historySaved: true,
+                                          make: mySearches[index].make,
+                                          model: MakeEntity(
+                                              id: mySearches[index]
+                                                      .model
+                                                      ?.first
+                                                      ?.id ??
+                                                  -1,
+                                              name: mySearches[index]
+                                                      .model
+                                                      ?.first
+                                                      ?.name ??
+                                                  ''),
+                                          queryData:
+                                              mySearches[index].queryData,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                },
+                                item: item,
+                                index: index,
+                                isToggled: isToggled,
+                                deletedList: deletedList,
+                                mySearches: mySearches);
                           },
                         )
-                      : const SizedBox(),
-                );
-              }
-              return Center(child: Text(LocaleKeys.error.tr()));
-            },
+                      : Center(
+                          child: EmptyItemBody(
+                            title: LocaleKeys.no_results.tr(),
+                            subtitle: LocaleKeys.your_saved_searches_will.tr(),
+                            image: StorageRepository.getString(
+                                        StorageKeys.THEME_MODE) ==
+                                    'light'
+                                ? AppIcons.emptyFolder
+                                : AppIcons.emptyFolderDark,
+                          ),
+                        );
+                }
+                return const SizedBox();
+              },
+            ),
+            bottomNavigationBar: isToggled
+                ? WButton(
+                    text: LocaleKeys.delete.tr(),
+                    color: deletedList.isNotEmpty
+                        ? orange
+                        : Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .ghostToEclipse,
+                    margin: const EdgeInsets.all(16),
+                    onTap: () {
+                      deletedList.isNotEmpty
+                          ? showModalBottomSheet(
+                              context: context,
+                              builder: (context) => CustomProfileBottomsheet(
+                                title: LocaleKeys.a_y_s_y_w_to_d.tr(),
+                                subTitle: LocaleKeys.del_is_non_refundable.tr(),
+                                betweenHeight: 36,
+                                onTap: () {
+                                  isDeleted = !isDeleted;
+                                  bloc.add(DeleteMySearchesEvent(
+                                      ids: deletedIds(deletedList)));
+                                  setState(() {});
+                                  mySearches.removeWhere(
+                                      (e) => deletedList.contains(e));
+                                  context
+                                      .read<ProfileBloc>()
+                                      .add(GetProfileEvent());
+                                  deletedList.clear();
+                                  isToggled = false;
+                                  Navigator.pop(context);
+                                  context
+                                      .read<ProfileBloc>()
+                                      .add(GetProfileEvent());
+                                },
+                              ),
+                            )
+                          : context.read<ShowPopUpBloc>().add(ShowPopUp(
+                              status: PopStatus.error,
+                              message: LocaleKeys.select_first_to_delete.tr()));
+                    },
+                  )
+                : const SizedBox(),
           ),
         ),
       );

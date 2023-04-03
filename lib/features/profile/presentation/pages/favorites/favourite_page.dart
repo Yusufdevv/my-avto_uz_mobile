@@ -1,4 +1,6 @@
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/storage_keys.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/profile/domain/entities/dealer_type_entity.dart';
@@ -166,7 +168,11 @@ class _FavouritePageState extends State<FavouritePage> {
                       child: EmptyItemBody(
                           subtitle:
                               LocaleKeys.you_dont_have_featured_listings.tr(),
-                          image: AppIcons.carIcon),
+                          image: StorageRepository.getString(
+                                      StorageKeys.THEME_MODE) ==
+                                  'light'
+                              ? AppIcons.carIcon
+                              : AppIcons.carDark),
                     );
             }
             return Center(child: Text(LocaleKeys.error.tr()));

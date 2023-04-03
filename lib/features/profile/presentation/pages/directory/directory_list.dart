@@ -1,4 +1,6 @@
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/storage_keys.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/pagination/presentation/paginator.dart';
 import 'package:auto/features/profile/presentation/bloc/directory/directory_bloc.dart';
 import 'package:auto/features/profile/presentation/pages/directory/directory_card.dart';
@@ -75,9 +77,14 @@ class _DirectoryListState extends State<DirectoryList>
                   )
                 : Center(
                     child: EmptyItemBody(
-                        title: LocaleKeys.no_dealer.tr(),
-                        subtitle: '',
-                        image: AppIcons.emptyFolder),
+                      title: LocaleKeys.no_dealer.tr(),
+                      subtitle: '',
+                      image:
+                          StorageRepository.getString(StorageKeys.THEME_MODE) ==
+                                  'light'
+                              ? AppIcons.carIcon
+                              : AppIcons.carDark,
+                    ),
                   );
           }
         },

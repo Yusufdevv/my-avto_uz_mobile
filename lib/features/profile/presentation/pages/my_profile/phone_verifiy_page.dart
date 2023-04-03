@@ -259,13 +259,11 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                         color: (verificationController.text.isNotEmpty &&
                                 verificationController.text.length == 6)
                             ? orange
-                            : Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .veryLightGreyToEclipse,
+                            : Theme.of(context).extension<ThemedColors>()!.ghostToEclipse,
                         text: LocaleKeys.continuee.tr(),
                         border: Border.all(
                           width: 1,
-                          color: white,
+                          color: Theme.of(context).extension<ThemedColors>()!.whiteToEclipse,
                         ),
                       ),
                     ),

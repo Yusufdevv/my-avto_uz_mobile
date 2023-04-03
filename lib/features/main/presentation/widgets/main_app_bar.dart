@@ -39,19 +39,10 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ),
             ),
-            const NotificationButton()
+            NotificationButton()
           ],
         ),
       )
-      // AppBar(
-      //   backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-      //   elevation: 0,
-      //   actions: const [NotificationButton()],
-      //   centerTitle: false,
-      //   title: SvgPicture.asset(
-      //     Theme.of(context).extension<ThemedIcons>()!.imageUrl,
-      //   ),
-      // ),
       );
 
   @override

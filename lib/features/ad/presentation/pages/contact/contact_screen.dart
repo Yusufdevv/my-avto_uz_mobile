@@ -3,8 +3,10 @@
 import 'dart:developer';
 
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/ad/presentation/widgets/call_time_sheet.dart';
@@ -215,9 +217,9 @@ class _ContactScreenState extends State<ContactScreen> {
                           Theme.of(context).textTheme.displayLarge!.copyWith(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,
-                              color: Theme.of(context)
-                                  .extension<ThemedColors>()!
-                                  .greySuitToWhite,
+                                color: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .greySuitToWhite,
                               ),
                     ),
                     const SizedBox(height: 16),
@@ -275,9 +277,9 @@ class _ContactScreenState extends State<ContactScreen> {
                           Theme.of(context).textTheme.displayLarge!.copyWith(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
-                              color: Theme.of(context)
-                                  .extension<ThemedColors>()!
-                                  .greySuitToWhite,
+                                color: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .greySuitToWhite,
                               ),
                     ),
                     const SizedBox(height: 16),
@@ -319,9 +321,11 @@ class _ContactScreenState extends State<ContactScreen> {
                               .snowToNero,
                           border: Border.all(
                               width: 1,
-                              color: Theme.of(context)
-                                  .extension<ThemedColors>()!
-                                  .transparentToNightRider),
+                              color: StorageRepository.getString(
+                                          StorageKeys.THEME_MODE) ==
+                                      'light'
+                                  ? const Color(0xFFFFFBFA)
+                                  : const Color(0xffFA744E).withOpacity(0.1)),
                           borderRadius: BorderRadius.circular(12)),
                       child: Text(
                         LocaleKeys.incognito_mode.tr(),

@@ -1,6 +1,8 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -37,7 +39,10 @@ class PasswordChangingPage extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   LocaleKeys.to_change_your_password.tr(),
-                  style: Theme.of(context).textTheme.displayMedium,
+                  style: Theme.of(context)
+                      .textTheme
+                      .displayMedium
+                      ?.copyWith(color: grey),
                 ),
                 ConstrainedBox(
                   constraints: const BoxConstraints(
@@ -51,7 +56,10 @@ class PasswordChangingPage extends StatelessWidget {
                         height: MediaQuery.of(context).size.width * 0.664,
                         width: MediaQuery.of(context).size.width * 0.664,
                         child: Image.asset(
-                          AppImages.editPassword,
+                          StorageRepository.getString(StorageKeys.THEME_MODE) ==
+                                  'light'
+                              ? AppImages.editPassword
+                              : AppImages.editPasswordDark,
                           height: MediaQuery.of(context).size.width * 0.664,
                           width: MediaQuery.of(context).size.width * 0.664,
                         )),

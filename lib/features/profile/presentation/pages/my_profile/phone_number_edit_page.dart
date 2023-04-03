@@ -182,9 +182,7 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                                     4 + MediaQuery.of(context).padding.bottom),
                             color: phoneController.text.length == 12
                                 ? orange
-                                : Theme.of(context)
-                                    .extension<ThemedColors>()!
-                                    .veryLightGreyToEclipse,
+                                : Theme.of(context).extension<ThemedColors>()!.ghostToEclipse,
                             text: LocaleKeys.continuee.tr(),
                             // border: Border.all(width: 1, color: white),
                           ),

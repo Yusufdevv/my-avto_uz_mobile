@@ -1,5 +1,7 @@
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/car_single/presentation/car_single_screen.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
@@ -30,7 +32,7 @@ class AllAds extends StatefulWidget {
   State<AllAds> createState() => _AllAdsState();
 }
 
-class _AllAdsState extends State<AllAds>{
+class _AllAdsState extends State<AllAds> {
   @override
   void initState() {
     context
@@ -40,86 +42,94 @@ class _AllAdsState extends State<AllAds>{
   }
 
   @override
-  Widget build(BuildContext context) => BlocBuilder<UserWishListsBloc, UserWishListsState>(
-        builder: (context, state) {
-      if (state.myAdsStatus.isSubmissionInProgress) {
-        return const Center(child: CupertinoActivityIndicator());
-      }
-      if (state.myAdsStatus.isSubmissionSuccess) {
-        return state.myAds.isNotEmpty
-            ? Paginator(
-                hasMoreToFetch: state.moreFetchMyAds,
-                fetchMoreFunction: () {
-                  context.read<UserWishListsBloc>().add(GetMoreUserMyAdsEvent(
-                      moderationStatus: widget.moderationStatus));
-                },
-                loadingWidget: const CupertinoActivityIndicator(),
-                itemCount: state.myAds.length,
-                paginatorStatus: state.myAdsStatus,
-                errorWidget: const SizedBox(),
-                itemBuilder: (context, index) {
-                  final item = state.myAds[index];
-                  return Padding(
-                    padding:
-                        EdgeInsets.only(bottom: 12, top: index == 0 ? 12 : 0),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          fade(
-                            page: CarSingleScreen(
-                              id: item.id,
-                              moderationStatus: item.moderationStatus,
-                            ),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.only(top: 12),
-                        color: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .scaffoldBackground,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            MyAdImagesPart(item: item),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  ModerationStatusPart(
-                                      moderationStatus: item.moderationStatus),
-                                  //
-                                  MyAdCarDescPart(item: item),
-                                  //
-                                  if (item.moderationStatus !=
-                                      ModerationStatusEnum.blocked.value)
-                                    MyAdDesc(
-                                      moderationStatus: widget.moderationStatus,
-                                      item: item,
-                                    )
-                                  else
-                                    ReSendPart(
-                                      item: item,
-                                      moderationStatus: widget.moderationStatus,
-                                    )
-                                ],
+  Widget build(BuildContext context) =>
+      BlocBuilder<UserWishListsBloc, UserWishListsState>(
+          builder: (context, state) {
+        if (state.myAdsStatus.isSubmissionInProgress) {
+          return const Center(child: CupertinoActivityIndicator());
+        }
+        if (state.myAdsStatus.isSubmissionSuccess) {
+          return state.myAds.isNotEmpty
+              ? Paginator(
+                  hasMoreToFetch: state.moreFetchMyAds,
+                  fetchMoreFunction: () {
+                    context.read<UserWishListsBloc>().add(GetMoreUserMyAdsEvent(
+                        moderationStatus: widget.moderationStatus));
+                  },
+                  loadingWidget: const CupertinoActivityIndicator(),
+                  itemCount: state.myAds.length,
+                  paginatorStatus: state.myAdsStatus,
+                  errorWidget: const SizedBox(),
+                  itemBuilder: (context, index) {
+                    final item = state.myAds[index];
+                    return Padding(
+                      padding:
+                          EdgeInsets.only(bottom: 12, top: index == 0 ? 12 : 0),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            fade(
+                              page: CarSingleScreen(
+                                id: item.id,
+                                moderationStatus: item.moderationStatus,
                               ),
                             ),
-                          ],
+                          );
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.only(top: 12),
+                          color: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .scaffoldBackground,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              MyAdImagesPart(item: item),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ModerationStatusPart(
+                                        moderationStatus:
+                                            item.moderationStatus),
+                                    //
+                                    MyAdCarDescPart(item: item),
+                                    //
+                                    if (item.moderationStatus !=
+                                        ModerationStatusEnum.blocked.value)
+                                      MyAdDesc(
+                                        moderationStatus:
+                                            widget.moderationStatus,
+                                        item: item,
+                                      )
+                                    else
+                                      ReSendPart(
+                                        item: item,
+                                        moderationStatus:
+                                            widget.moderationStatus,
+                                      )
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                })
-            : Center(
-                child: EmptyItemBody(
-                    subtitle: '',
-                    title: LocaleKeys.no_results.tr(),
-                    image: AppIcons.carIcon),
-              );
-      }
-      return Center(child: Text(LocaleKeys.error.tr()));
-    });
+                    );
+                  })
+              : Center(
+                  child: EmptyItemBody(
+                      subtitle: '',
+                      title: LocaleKeys.no_results.tr(),
+                      image:
+                          StorageRepository.getString(StorageKeys.THEME_MODE) ==
+                                  'light'
+                              ? AppIcons.carIcon
+                              : AppIcons.carDark),
+                );
+        }
+        return Center(child: Text(LocaleKeys.error.tr()));
+      });
 }
