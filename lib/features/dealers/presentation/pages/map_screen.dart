@@ -119,6 +119,7 @@ class _MapScreenState extends State<MapScreen>
                   },
                   mapObjects: _mapObjects,
                   onMapCreated: (controller) async {
+                    log('::::::::::  ON MAP CREATED TRIGGERED: }  ::::::::::');
                     _mapController = controller;
                     maxZoomLevel = await controller.getMaxZoom();
                     minZoomLevel = await controller.getMinZoom();
@@ -367,6 +368,7 @@ class _MapScreenState extends State<MapScreen>
   }) async {
     final placeMarks = <PlacemarkMapObject>[];
     bitmaps.asMap().forEach((key, value) {
+      log(':::::::::: the name in  mapBitmapsToMarkers: ${points[key].name}  ::::::::::');
       placeMarks.add(
         PlacemarkMapObject(
           opacity: 1,
@@ -411,14 +413,20 @@ class _MapScreenState extends State<MapScreen>
       radius: 25,
       minZoom: 30,
       onClusterTap: (collection, cluster) {
-        _mapController.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(
-            target: Point(
-                latitude: collection.placemarks.first.point.latitude,
-                longitude: collection.placemarks.first.point.latitude),
-            zoom: 15)));
+        _mapController.moveCamera(
+          CameraUpdate.newCameraPosition(
+            CameraPosition(
+              target: Point(
+                  latitude: collection.placemarks.first.point.latitude,
+                  longitude: collection.placemarks.first.point.latitude),
+              zoom: 15,
+            ),
+          ),
+        );
       },
       onTap: (collection, point) {},
       onClusterAdded: (collection, cluster) async => cluster.copyWith(
+        /// marklar bir joyga kelganda chiqadigan
         appearance: cluster.appearance.copyWith(
           opacity: 1,
           icon: PlacemarkIcon.single(
@@ -433,7 +441,7 @@ class _MapScreenState extends State<MapScreen>
                   shouldAddText: true,
                 ),
               ),
-              scale: 1,
+              scale: widget.isFromDirectoryPage ? 2 : .6,
             ),
           ),
         ),
