@@ -628,5 +628,6 @@ abstract class  LocaleKeys {
   static const lighti = 'lighti';
   static const darki = 'darki';
   static const direct_sale = 'direct_sale';
+  static const your_ad_closed_successfully = 'your_ad_closed_successfully';
 
 }

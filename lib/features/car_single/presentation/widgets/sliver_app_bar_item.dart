@@ -117,7 +117,7 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                 firstChild: const SizedBox(),
                 secondChild: Text(
                   widget.absoluteCarName,
-                  style:  TextStyle(
+                  style: TextStyle(
                     color: Theme.of(context)
                         .extension<ThemedColors>()!
                         .blackToWhite,
@@ -198,7 +198,10 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                             },
                             id: widget.id,
                             status: widget.status,
-                            onSold: widget.onSold,
+                            onSold: () {
+                              Navigator.of(context).pop();
+                              widget.onSold();
+                            },
                           )
                         : MoreActionsBottomsheet(
                             name: widget.dealerName,
