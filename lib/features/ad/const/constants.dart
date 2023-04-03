@@ -1,7 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 const String CACHED_DRAFT_ANNOUNCEMENT = 'draft_announcement';
-const double mockWith = 385;
+const double mockWith = 375;
 
 enum DamagedPart {
   rightFrontDoor('rigth_front_door'),

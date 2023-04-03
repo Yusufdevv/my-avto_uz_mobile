@@ -267,11 +267,12 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                             ? orange
                             : Theme.of(context)
                                 .extension<ThemedColors>()!
-                                .veryLightGreyToEclipse,
+                                .ghostToEclipse,
                         text: LocaleKeys.continuee.tr(),
                         border: Border.all(
                           width: 1,
-                          color: white,
+                          color: Theme.of(context)
+                              .extension<ThemedColors>()!.whiteToEclipse,
                         ),
                       ),
                     ],

@@ -226,11 +226,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     bottom: 20 + MediaQuery.of(context).padding.bottom,
                   ),
                   text: LocaleKeys.continuee.tr(),
-                  border: Border.all(width: 1, color: white),
+                  border: Border.all(width: 1, color: Theme.of(context).extension<ThemedColors>()!.whiteToEclipse),
                   color: (passwordController.text.length >= 6 &&
                           phoneController.text.length > 11)
                       ? orange
-                      : disabledButton,
+                      : Theme.of(context).extension<ThemedColors>()!.ghostToEclipse,
                 ),
               ],
             ),

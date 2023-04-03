@@ -196,10 +196,11 @@ class _LoginNewPasswordPageState extends State<LoginNewPasswordPage> {
                                   confirmPasswordController.text.length < 6)
                               ? Theme.of(context)
                                   .extension<ThemedColors>()!
-                                  .veryLightGreyToEclipse
+                                  .ghostToEclipse
                               : orange,
                           text: LocaleKeys.continuee.tr(),
-                          border: Border.all(width: 1, color: white),
+                          border: Border.all(width: 1, color: Theme.of(context)
+                              .extension<ThemedColors>()!.whiteToEclipse),
                         ),
                       ],
                     ),

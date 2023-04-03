@@ -164,9 +164,9 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                           color: orange,
                           disabledColor: Theme.of(context)
                               .extension<ThemedColors>()!
-                              .veryLightGreyToEclipse,
+                              .whiteToEclipse,
+                          border: Border.all(width: 1, color: Theme.of(context).extension<ThemedColors>()!.whiteToEclipse),
                           text: LocaleKeys.continuee.tr(),
-                          border: Border.all(width: 1, color: white),
                         ),
                       ],
                     ),

@@ -160,7 +160,8 @@ class _SendPhoneNumberPageState extends State<SendPhoneNumberPage> {
                       WButton(
                         isLoading:
                             state.status == FormzStatus.submissionInProgress,
-                        disabledColor: disabledButton,
+                        disabledColor: Theme.of(context)
+                            .extension<ThemedColors>()!.ghostToEclipse,
                         isDisabled: phoneController.text.length != 12,
                         text: LocaleKeys.continuee.tr(),
                         onTap: () => sendPhoneBloc

@@ -270,13 +270,13 @@ class _RegisterVerificationScreenState
                           ? orange
                           : Theme.of(context)
                               .extension<ThemedColors>()!
-                              .veryLightGreyToEclipse,
+                              .ghostToEclipse,
                       text: LocaleKeys.continuee.tr(),
                       border: Border.all(
                         width: 1,
                         color: Theme.of(context)
                             .extension<ThemedColors>()!
-                            .whiteToDolphin,
+                            .whiteToEclipse,
                       ),
                     ),
                   ],

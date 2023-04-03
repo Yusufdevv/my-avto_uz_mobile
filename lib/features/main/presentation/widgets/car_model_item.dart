@@ -80,11 +80,9 @@ class CarModelItem extends StatelessWidget {
                     title.trim().isEmpty
                         ? LocaleKeys.choose_brand_model.tr()
                         : title,
-                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                        fontSize: 14,
-                        color: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .midnightExpressToDolphin),
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(color: title.trim().isEmpty ? Theme.of(context)
+                        .extension<ThemedColors>()!.darkToGrey : Theme.of(context)
+                        .extension<ThemedColors>()!.darkToWhite),
                   )
                 ],
               ),

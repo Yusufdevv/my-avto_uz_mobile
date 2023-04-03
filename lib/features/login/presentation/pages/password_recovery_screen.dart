@@ -229,11 +229,9 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
                         bottom: 4 + MediaQuery.of(context).padding.bottom),
                     color: (passwordRecoveryController.text.isNotEmpty)
                         ? orange
-                        : Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .veryLightGreyToEclipse,
+                        : Theme.of(context).extension<ThemedColors>()!.ghostToEclipse,
+                    border: Border.all(width: 1, color: Theme.of(context).extension<ThemedColors>()!.whiteToEclipse),
                     text: LocaleKeys.continuee.tr(),
-                    border: Border.all(width: 1, color: white),
                   ),
                 ),
                 const Spacer(),

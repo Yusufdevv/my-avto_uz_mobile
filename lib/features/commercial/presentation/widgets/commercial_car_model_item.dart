@@ -34,7 +34,7 @@ class CommercialCarModelItem extends StatelessWidget {
     final theme = Theme.of(context).extension<ThemedColors>()!;
     return WButton(
       onTap: onTap,
-      color: theme.solitudeToGondola,
+      color: theme.whiteToDark,
       border: Border.all(
         width: 1,
         color: theme.solitudeToPayneGrey,
@@ -43,27 +43,21 @@ class CommercialCarModelItem extends StatelessWidget {
       margin: const EdgeInsets.only(top: 16, bottom: 12, right: 16, left: 16),
       child: Row(
         children: [
-          if (imageUrl.isEmpty)
-            Padding(
-              padding:
-                  const EdgeInsets.only(right: 16, top: 8, bottom: 8, left: 12),
-              child: SvgPicture.asset(
+          Padding(
+            padding:
+                const EdgeInsets.only(right: 16, top: 8, bottom: 8, left: 12),
+            child: CachedNetworkImage(
+              imageUrl: imageUrl,
+              height: 36,
+              width: 36,
+              fit: BoxFit.cover,
+              errorWidget: (context, url, error) => SvgPicture.asset(
                 AppIcons.vehicle,
                 width: 24,
                 height: 24,
               ),
-            )
-          else
-            Padding(
-              padding:
-                  const EdgeInsets.only(right: 16, top: 8, bottom: 8, left: 12),
-              child: CachedNetworkImage(
-                imageUrl: imageUrl,
-                height: 36,
-                width: 36,
-                fit: BoxFit.cover,
-              ),
             ),
+          ),
           Container(
             margin: const EdgeInsets.symmetric(vertical: 6),
             width: 1,
@@ -78,34 +72,35 @@ class CommercialCarModelItem extends StatelessWidget {
               children: [
                 Text(
                   title.isEmpty ? LocaleKeys.choose_brand_model.tr() : title,
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium
-                      ?.copyWith(color: title.isNotEmpty ? orange : null),
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
                 if (subtitle!.isNotEmpty)
                   Text(
-                    subtitle!,
+                    subtitle ?? '',
                     style: Theme.of(context)
                         .textTheme
                         .displayMedium
-                        ?.copyWith(color: orange),
+                        ?.copyWith(color: darkGray),
                   )
               ],
             ),
           ),
+          const Spacer(),
           if (title.isNotEmpty)
-            CircleAvatar(
-              backgroundColor: warmerGrey,
-              radius: 10,
-              child: InkWell(
-                onTap: onTapClear,
-                child: SvgPicture.asset(
-                  AppIcons.close,
-                  color: white,
-                  fit: BoxFit.cover,
-                  height: 16,
-                  width: 16,
+            GestureDetector(
+              onTap: onTapClear,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 12, left: 12),
+                child: CircleAvatar(
+                  backgroundColor: warmerGrey,
+                  radius: 10,
+                  child: SvgPicture.asset(
+                    AppIcons.close,
+                    color: white,
+                    fit: BoxFit.cover,
+                    height: 16,
+                    width: 16,
+                  ),
                 ),
               ),
             ),
