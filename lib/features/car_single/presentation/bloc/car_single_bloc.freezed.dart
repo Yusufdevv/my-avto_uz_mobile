@@ -25,6 +25,7 @@ mixin _$CarSingleEvent {
             dynamic Function(String) onError)
         soldAds,
     required TResult Function(int id) callCount,
+    required TResult Function() changeVerifyOwnerModerationEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -36,6 +37,7 @@ mixin _$CarSingleEvent {
             dynamic Function(String) onError)?
         soldAds,
     TResult? Function(int id)? callCount,
+    TResult? Function()? changeVerifyOwnerModerationEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -47,6 +49,7 @@ mixin _$CarSingleEvent {
             dynamic Function(String) onError)?
         soldAds,
     TResult Function(int id)? callCount,
+    TResult Function()? changeVerifyOwnerModerationEvent,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -57,6 +60,8 @@ mixin _$CarSingleEvent {
     required TResult Function(_GetMoreAds value) getMoreOtherAds,
     required TResult Function(_SoldAds value) soldAds,
     required TResult Function(_CallCount value) callCount,
+    required TResult Function(_ChangeVerifyOwnerModerationEvent value)
+        changeVerifyOwnerModerationEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -66,6 +71,8 @@ mixin _$CarSingleEvent {
     TResult? Function(_GetMoreAds value)? getMoreOtherAds,
     TResult? Function(_SoldAds value)? soldAds,
     TResult? Function(_CallCount value)? callCount,
+    TResult? Function(_ChangeVerifyOwnerModerationEvent value)?
+        changeVerifyOwnerModerationEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -75,6 +82,8 @@ mixin _$CarSingleEvent {
     TResult Function(_GetMoreAds value)? getMoreOtherAds,
     TResult Function(_SoldAds value)? soldAds,
     TResult Function(_CallCount value)? callCount,
+    TResult Function(_ChangeVerifyOwnerModerationEvent value)?
+        changeVerifyOwnerModerationEvent,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -169,6 +178,7 @@ class _$_GetSingle implements _GetSingle {
             dynamic Function(String) onError)
         soldAds,
     required TResult Function(int id) callCount,
+    required TResult Function() changeVerifyOwnerModerationEvent,
   }) {
     return getSingle(id);
   }
@@ -183,6 +193,7 @@ class _$_GetSingle implements _GetSingle {
             dynamic Function(String) onError)?
         soldAds,
     TResult? Function(int id)? callCount,
+    TResult? Function()? changeVerifyOwnerModerationEvent,
   }) {
     return getSingle?.call(id);
   }
@@ -197,6 +208,7 @@ class _$_GetSingle implements _GetSingle {
             dynamic Function(String) onError)?
         soldAds,
     TResult Function(int id)? callCount,
+    TResult Function()? changeVerifyOwnerModerationEvent,
     required TResult orElse(),
   }) {
     if (getSingle != null) {
@@ -213,6 +225,8 @@ class _$_GetSingle implements _GetSingle {
     required TResult Function(_GetMoreAds value) getMoreOtherAds,
     required TResult Function(_SoldAds value) soldAds,
     required TResult Function(_CallCount value) callCount,
+    required TResult Function(_ChangeVerifyOwnerModerationEvent value)
+        changeVerifyOwnerModerationEvent,
   }) {
     return getSingle(this);
   }
@@ -225,6 +239,8 @@ class _$_GetSingle implements _GetSingle {
     TResult? Function(_GetMoreAds value)? getMoreOtherAds,
     TResult? Function(_SoldAds value)? soldAds,
     TResult? Function(_CallCount value)? callCount,
+    TResult? Function(_ChangeVerifyOwnerModerationEvent value)?
+        changeVerifyOwnerModerationEvent,
   }) {
     return getSingle?.call(this);
   }
@@ -237,6 +253,8 @@ class _$_GetSingle implements _GetSingle {
     TResult Function(_GetMoreAds value)? getMoreOtherAds,
     TResult Function(_SoldAds value)? soldAds,
     TResult Function(_CallCount value)? callCount,
+    TResult Function(_ChangeVerifyOwnerModerationEvent value)?
+        changeVerifyOwnerModerationEvent,
     required TResult orElse(),
   }) {
     if (getSingle != null) {
@@ -325,6 +343,7 @@ class _$_GetAds implements _GetAds {
             dynamic Function(String) onError)
         soldAds,
     required TResult Function(int id) callCount,
+    required TResult Function() changeVerifyOwnerModerationEvent,
   }) {
     return getOtherAds(makeModel);
   }
@@ -339,6 +358,7 @@ class _$_GetAds implements _GetAds {
             dynamic Function(String) onError)?
         soldAds,
     TResult? Function(int id)? callCount,
+    TResult? Function()? changeVerifyOwnerModerationEvent,
   }) {
     return getOtherAds?.call(makeModel);
   }
@@ -353,6 +373,7 @@ class _$_GetAds implements _GetAds {
             dynamic Function(String) onError)?
         soldAds,
     TResult Function(int id)? callCount,
+    TResult Function()? changeVerifyOwnerModerationEvent,
     required TResult orElse(),
   }) {
     if (getOtherAds != null) {
@@ -369,6 +390,8 @@ class _$_GetAds implements _GetAds {
     required TResult Function(_GetMoreAds value) getMoreOtherAds,
     required TResult Function(_SoldAds value) soldAds,
     required TResult Function(_CallCount value) callCount,
+    required TResult Function(_ChangeVerifyOwnerModerationEvent value)
+        changeVerifyOwnerModerationEvent,
   }) {
     return getOtherAds(this);
   }
@@ -381,6 +404,8 @@ class _$_GetAds implements _GetAds {
     TResult? Function(_GetMoreAds value)? getMoreOtherAds,
     TResult? Function(_SoldAds value)? soldAds,
     TResult? Function(_CallCount value)? callCount,
+    TResult? Function(_ChangeVerifyOwnerModerationEvent value)?
+        changeVerifyOwnerModerationEvent,
   }) {
     return getOtherAds?.call(this);
   }
@@ -393,6 +418,8 @@ class _$_GetAds implements _GetAds {
     TResult Function(_GetMoreAds value)? getMoreOtherAds,
     TResult Function(_SoldAds value)? soldAds,
     TResult Function(_CallCount value)? callCount,
+    TResult Function(_ChangeVerifyOwnerModerationEvent value)?
+        changeVerifyOwnerModerationEvent,
     required TResult orElse(),
   }) {
     if (getOtherAds != null) {
@@ -483,6 +510,7 @@ class _$_GetMoreAds implements _GetMoreAds {
             dynamic Function(String) onError)
         soldAds,
     required TResult Function(int id) callCount,
+    required TResult Function() changeVerifyOwnerModerationEvent,
   }) {
     return getMoreOtherAds(makeModel);
   }
@@ -497,6 +525,7 @@ class _$_GetMoreAds implements _GetMoreAds {
             dynamic Function(String) onError)?
         soldAds,
     TResult? Function(int id)? callCount,
+    TResult? Function()? changeVerifyOwnerModerationEvent,
   }) {
     return getMoreOtherAds?.call(makeModel);
   }
@@ -511,6 +540,7 @@ class _$_GetMoreAds implements _GetMoreAds {
             dynamic Function(String) onError)?
         soldAds,
     TResult Function(int id)? callCount,
+    TResult Function()? changeVerifyOwnerModerationEvent,
     required TResult orElse(),
   }) {
     if (getMoreOtherAds != null) {
@@ -527,6 +557,8 @@ class _$_GetMoreAds implements _GetMoreAds {
     required TResult Function(_GetMoreAds value) getMoreOtherAds,
     required TResult Function(_SoldAds value) soldAds,
     required TResult Function(_CallCount value) callCount,
+    required TResult Function(_ChangeVerifyOwnerModerationEvent value)
+        changeVerifyOwnerModerationEvent,
   }) {
     return getMoreOtherAds(this);
   }
@@ -539,6 +571,8 @@ class _$_GetMoreAds implements _GetMoreAds {
     TResult? Function(_GetMoreAds value)? getMoreOtherAds,
     TResult? Function(_SoldAds value)? soldAds,
     TResult? Function(_CallCount value)? callCount,
+    TResult? Function(_ChangeVerifyOwnerModerationEvent value)?
+        changeVerifyOwnerModerationEvent,
   }) {
     return getMoreOtherAds?.call(this);
   }
@@ -551,6 +585,8 @@ class _$_GetMoreAds implements _GetMoreAds {
     TResult Function(_GetMoreAds value)? getMoreOtherAds,
     TResult Function(_SoldAds value)? soldAds,
     TResult Function(_CallCount value)? callCount,
+    TResult Function(_ChangeVerifyOwnerModerationEvent value)?
+        changeVerifyOwnerModerationEvent,
     required TResult orElse(),
   }) {
     if (getMoreOtherAds != null) {
@@ -658,6 +694,7 @@ class _$_SoldAds implements _SoldAds {
             dynamic Function(String) onError)
         soldAds,
     required TResult Function(int id) callCount,
+    required TResult Function() changeVerifyOwnerModerationEvent,
   }) {
     return soldAds(id, onSucc, onError);
   }
@@ -672,6 +709,7 @@ class _$_SoldAds implements _SoldAds {
             dynamic Function(String) onError)?
         soldAds,
     TResult? Function(int id)? callCount,
+    TResult? Function()? changeVerifyOwnerModerationEvent,
   }) {
     return soldAds?.call(id, onSucc, onError);
   }
@@ -686,6 +724,7 @@ class _$_SoldAds implements _SoldAds {
             dynamic Function(String) onError)?
         soldAds,
     TResult Function(int id)? callCount,
+    TResult Function()? changeVerifyOwnerModerationEvent,
     required TResult orElse(),
   }) {
     if (soldAds != null) {
@@ -702,6 +741,8 @@ class _$_SoldAds implements _SoldAds {
     required TResult Function(_GetMoreAds value) getMoreOtherAds,
     required TResult Function(_SoldAds value) soldAds,
     required TResult Function(_CallCount value) callCount,
+    required TResult Function(_ChangeVerifyOwnerModerationEvent value)
+        changeVerifyOwnerModerationEvent,
   }) {
     return soldAds(this);
   }
@@ -714,6 +755,8 @@ class _$_SoldAds implements _SoldAds {
     TResult? Function(_GetMoreAds value)? getMoreOtherAds,
     TResult? Function(_SoldAds value)? soldAds,
     TResult? Function(_CallCount value)? callCount,
+    TResult? Function(_ChangeVerifyOwnerModerationEvent value)?
+        changeVerifyOwnerModerationEvent,
   }) {
     return soldAds?.call(this);
   }
@@ -726,6 +769,8 @@ class _$_SoldAds implements _SoldAds {
     TResult Function(_GetMoreAds value)? getMoreOtherAds,
     TResult Function(_SoldAds value)? soldAds,
     TResult Function(_CallCount value)? callCount,
+    TResult Function(_ChangeVerifyOwnerModerationEvent value)?
+        changeVerifyOwnerModerationEvent,
     required TResult orElse(),
   }) {
     if (soldAds != null) {
@@ -818,6 +863,7 @@ class _$_CallCount implements _CallCount {
             dynamic Function(String) onError)
         soldAds,
     required TResult Function(int id) callCount,
+    required TResult Function() changeVerifyOwnerModerationEvent,
   }) {
     return callCount(id);
   }
@@ -832,6 +878,7 @@ class _$_CallCount implements _CallCount {
             dynamic Function(String) onError)?
         soldAds,
     TResult? Function(int id)? callCount,
+    TResult? Function()? changeVerifyOwnerModerationEvent,
   }) {
     return callCount?.call(id);
   }
@@ -846,6 +893,7 @@ class _$_CallCount implements _CallCount {
             dynamic Function(String) onError)?
         soldAds,
     TResult Function(int id)? callCount,
+    TResult Function()? changeVerifyOwnerModerationEvent,
     required TResult orElse(),
   }) {
     if (callCount != null) {
@@ -862,6 +910,8 @@ class _$_CallCount implements _CallCount {
     required TResult Function(_GetMoreAds value) getMoreOtherAds,
     required TResult Function(_SoldAds value) soldAds,
     required TResult Function(_CallCount value) callCount,
+    required TResult Function(_ChangeVerifyOwnerModerationEvent value)
+        changeVerifyOwnerModerationEvent,
   }) {
     return callCount(this);
   }
@@ -874,6 +924,8 @@ class _$_CallCount implements _CallCount {
     TResult? Function(_GetMoreAds value)? getMoreOtherAds,
     TResult? Function(_SoldAds value)? soldAds,
     TResult? Function(_CallCount value)? callCount,
+    TResult? Function(_ChangeVerifyOwnerModerationEvent value)?
+        changeVerifyOwnerModerationEvent,
   }) {
     return callCount?.call(this);
   }
@@ -886,6 +938,8 @@ class _$_CallCount implements _CallCount {
     TResult Function(_GetMoreAds value)? getMoreOtherAds,
     TResult Function(_SoldAds value)? soldAds,
     TResult Function(_CallCount value)? callCount,
+    TResult Function(_ChangeVerifyOwnerModerationEvent value)?
+        changeVerifyOwnerModerationEvent,
     required TResult orElse(),
   }) {
     if (callCount != null) {
@@ -902,6 +956,147 @@ abstract class _CallCount implements CarSingleEvent {
   @JsonKey(ignore: true)
   _$$_CallCountCopyWith<_$_CallCount> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_ChangeVerifyOwnerModerationEventCopyWith<$Res> {
+  factory _$$_ChangeVerifyOwnerModerationEventCopyWith(
+          _$_ChangeVerifyOwnerModerationEvent value,
+          $Res Function(_$_ChangeVerifyOwnerModerationEvent) then) =
+      __$$_ChangeVerifyOwnerModerationEventCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_ChangeVerifyOwnerModerationEventCopyWithImpl<$Res>
+    extends _$CarSingleEventCopyWithImpl<$Res,
+        _$_ChangeVerifyOwnerModerationEvent>
+    implements _$$_ChangeVerifyOwnerModerationEventCopyWith<$Res> {
+  __$$_ChangeVerifyOwnerModerationEventCopyWithImpl(
+      _$_ChangeVerifyOwnerModerationEvent _value,
+      $Res Function(_$_ChangeVerifyOwnerModerationEvent) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_ChangeVerifyOwnerModerationEvent
+    implements _ChangeVerifyOwnerModerationEvent {
+  _$_ChangeVerifyOwnerModerationEvent();
+
+  @override
+  String toString() {
+    return 'CarSingleEvent.changeVerifyOwnerModerationEvent()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_ChangeVerifyOwnerModerationEvent);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int id) getSingle,
+    required TResult Function(String makeModel) getOtherAds,
+    required TResult Function(String makeModel) getMoreOtherAds,
+    required TResult Function(int id, dynamic Function(String) onSucc,
+            dynamic Function(String) onError)
+        soldAds,
+    required TResult Function(int id) callCount,
+    required TResult Function() changeVerifyOwnerModerationEvent,
+  }) {
+    return changeVerifyOwnerModerationEvent();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int id)? getSingle,
+    TResult? Function(String makeModel)? getOtherAds,
+    TResult? Function(String makeModel)? getMoreOtherAds,
+    TResult? Function(int id, dynamic Function(String) onSucc,
+            dynamic Function(String) onError)?
+        soldAds,
+    TResult? Function(int id)? callCount,
+    TResult? Function()? changeVerifyOwnerModerationEvent,
+  }) {
+    return changeVerifyOwnerModerationEvent?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int id)? getSingle,
+    TResult Function(String makeModel)? getOtherAds,
+    TResult Function(String makeModel)? getMoreOtherAds,
+    TResult Function(int id, dynamic Function(String) onSucc,
+            dynamic Function(String) onError)?
+        soldAds,
+    TResult Function(int id)? callCount,
+    TResult Function()? changeVerifyOwnerModerationEvent,
+    required TResult orElse(),
+  }) {
+    if (changeVerifyOwnerModerationEvent != null) {
+      return changeVerifyOwnerModerationEvent();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetSingle value) getSingle,
+    required TResult Function(_GetAds value) getOtherAds,
+    required TResult Function(_GetMoreAds value) getMoreOtherAds,
+    required TResult Function(_SoldAds value) soldAds,
+    required TResult Function(_CallCount value) callCount,
+    required TResult Function(_ChangeVerifyOwnerModerationEvent value)
+        changeVerifyOwnerModerationEvent,
+  }) {
+    return changeVerifyOwnerModerationEvent(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetSingle value)? getSingle,
+    TResult? Function(_GetAds value)? getOtherAds,
+    TResult? Function(_GetMoreAds value)? getMoreOtherAds,
+    TResult? Function(_SoldAds value)? soldAds,
+    TResult? Function(_CallCount value)? callCount,
+    TResult? Function(_ChangeVerifyOwnerModerationEvent value)?
+        changeVerifyOwnerModerationEvent,
+  }) {
+    return changeVerifyOwnerModerationEvent?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetSingle value)? getSingle,
+    TResult Function(_GetAds value)? getOtherAds,
+    TResult Function(_GetMoreAds value)? getMoreOtherAds,
+    TResult Function(_SoldAds value)? soldAds,
+    TResult Function(_CallCount value)? callCount,
+    TResult Function(_ChangeVerifyOwnerModerationEvent value)?
+        changeVerifyOwnerModerationEvent,
+    required TResult orElse(),
+  }) {
+    if (changeVerifyOwnerModerationEvent != null) {
+      return changeVerifyOwnerModerationEvent(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ChangeVerifyOwnerModerationEvent implements CarSingleEvent {
+  factory _ChangeVerifyOwnerModerationEvent() =
+      _$_ChangeVerifyOwnerModerationEvent;
 }
 
 /// @nodoc

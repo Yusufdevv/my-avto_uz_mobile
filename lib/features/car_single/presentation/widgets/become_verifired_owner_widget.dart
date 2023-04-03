@@ -43,12 +43,16 @@ class BecomeVerifiredOwnerWidget extends StatelessWidget {
         }
         if (moderationStatus.isEmpty) {
           return InkWell(
-            onTap: () {
-              Navigator.push(
+            onTap: () async {
+           final res =  await  Navigator.push(
                   context,
                   fade(
                       page:
                           VerifiredOwnerPage(announcementId: announcementId)));
+
+           if(res!=null) {
+
+           }
             },
             child: Container(
               margin: const EdgeInsets.all(16),

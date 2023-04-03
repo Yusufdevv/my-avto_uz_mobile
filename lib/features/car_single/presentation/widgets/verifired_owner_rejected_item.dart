@@ -36,7 +36,8 @@ class VerifiredOwnerRejectedItem extends StatelessWidget {
                 children: [
                   Text.rich(TextSpan(children: [
                     TextSpan(
-                      text: '${LocaleKeys.application_for_verified_owner.tr()} ',
+                      text:
+                          '${LocaleKeys.application_for_verified_owner.tr()} ',
                       style: Theme.of(context).textTheme.displayLarge!.copyWith(
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
@@ -52,8 +53,8 @@ class VerifiredOwnerRejectedItem extends StatelessWidget {
                   ])),
                   const SizedBox(height: 16),
                   WScaleAnimation(
-                    onTap: () {
-                      Navigator.push(
+                    onTap: () async {
+                      final res = await Navigator.push(
                           context,
                           fade(
                               page: VerifiredOwnerPage(
@@ -61,6 +62,9 @@ class VerifiredOwnerRejectedItem extends StatelessWidget {
                             announcementId: announcementId,
                             isDeleted: true,
                           )));
+                      if (res != null) {
+
+                      }
                     },
                     child: Container(
                       decoration: BoxDecoration(
