@@ -200,23 +200,23 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                   betweenHeight: 0,
                                 ),
                               ).then((value) {
-                                if (value == true) {
-                                  Navigator.pop(context);
+                                if (value ?? false) {
                                   bloc.add(
                                     CarSingleEvent.soldAds(
                                       widget.id,
                                       (message) {
                                         context.read<ShowPopUpBloc>().add(
                                               ShowPopUp(
-                                                message: state.succMessage,
+                                                message: message,
                                                 status: PopStatus.success,
                                               ),
                                             );
+                                        Navigator.of(context).pop();
                                       },
                                       (errorMessage) {
                                         context.read<ShowPopUpBloc>().add(
                                               ShowPopUp(
-                                                message: state.errorMessage,
+                                                message: errorMessage,
                                                 status: PopStatus.error,
                                               ),
                                             );

@@ -128,12 +128,14 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
         endpoint: '/car/my-announcements/',
         moderationStatus: event.moderationStatus));
     if (result.isRight) {
-      emit(state.copyWith(
-        myAdsStatus: FormzStatus.submissionSuccess,
-        myAds: result.right.results,
-        nextMyAds: result.right.next,
-        moreFetchMyAds: result.right.next != null,
-      ));
+      emit(
+        state.copyWith(
+          myAdsStatus: FormzStatus.submissionSuccess,
+          myAds: result.right.results,
+          nextMyAds: result.right.next,
+          moreFetchMyAds: result.right.next != null,
+        ),
+      );
     } else {
       emit(state.copyWith(myAdsStatus: FormzStatus.submissionFailure));
     }
