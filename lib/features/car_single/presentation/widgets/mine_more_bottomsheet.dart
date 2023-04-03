@@ -49,13 +49,14 @@ class MineMoreBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('==== $expiredDate');
-    final date = isExpired ? DateTime.now() : expiredDate.isNotEmpty ? DateTime.parse(expiredDate) : DateTime.now();
+    final date = isExpired
+        ? DateTime.now()
+        : expiredDate.isNotEmpty
+            ? DateTime.parse(expiredDate)
+            : DateTime.now();
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context)
-            .extension<ThemedColors>()!
-            .whiteToDark,
+        color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(16),
           topRight: Radius.circular(16),
@@ -124,11 +125,11 @@ class MineMoreBottomSheet extends StatelessWidget {
                               .textTheme
                               .displayLarge!
                               .copyWith(
-                              color: Theme.of(context)
-                                  .extension<ThemedColors>()!
-                                  .blackToWhite,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 12),
+                                  color: Theme.of(context)
+                                      .extension<ThemedColors>()!
+                                      .blackToWhite,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 12),
                         ),
                       ],
                     ),
@@ -147,7 +148,7 @@ class MineMoreBottomSheet extends StatelessWidget {
                         bottom: 16,
                       ),
                       decoration: BoxDecoration(
-                        color:Theme.of(context)
+                        color: Theme.of(context)
                             .extension<ThemedColors>()!
                             .redContainer26,
                         borderRadius: BorderRadius.circular(8),
@@ -219,9 +220,7 @@ class MineMoreBottomSheet extends StatelessWidget {
           MoreActionItem(
             icon: AppIcons.reels,
             text: LocaleKeys.add_to_ways.tr(),
-            color: Theme.of(context)
-                .extension<ThemedColors>()!
-                .blueContainer26,
+            color: Theme.of(context).extension<ThemedColors>()!.blueContainer26,
             borderColor: const Color(0xff4D88C8).withOpacity(0.12),
             onTap: () {
               Navigator.of(context, rootNavigator: true)
@@ -232,10 +231,10 @@ class MineMoreBottomSheet extends StatelessWidget {
             MoreActionItem(
               icon: AppIcons.redMapIcon,
               iconColor: blue,
-              text: 'Место осмотра',
-              color: Theme.of(context)
+              text: LocaleKeys.place_of_inspection.tr(),
+              color:Theme.of(context)
                   .extension<ThemedColors>()!
-                  .darkblueContainer27,
+                  .yelowTwoContainer27,
               onTap: () {
                 if (long != 0 && lat != 0) {
                   Navigator.of(context, rootNavigator: true).push(fade(
@@ -252,16 +251,9 @@ class MineMoreBottomSheet extends StatelessWidget {
               onTap: onSold,
               borderColor: const Color(0xff55BB00).withOpacity(0.12),
             ),
-          SizedBox(height: MediaQuery
-              .of(context)
-              .padding
-              .bottom + 24),
+          SizedBox(height: MediaQuery.of(context).padding.bottom + 24),
         ],
       ),
     );
   }
 }
-
-// onTap: () {
-// Navigator.of(context).push(fade(page: const VinPage()));
-// },

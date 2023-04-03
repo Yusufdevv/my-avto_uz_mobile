@@ -110,7 +110,7 @@ class LightThemeColors {
   static const greySuitToWhite60 = _grey;
   static const dolphinToWhite60 = _dolphin;
   static const dolphinToWhite = _dolphin;
-  static const solitudeToGondola = _white;
+  static const solitudeToGondola = _solitude;
   static const solitudeToPayneGrey = _solitude;
   static const dolphinToGreySuit = _dolphin;
   static const dolphinToGhost = _dolphin;

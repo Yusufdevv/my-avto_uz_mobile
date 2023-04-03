@@ -22,7 +22,10 @@ class CustomProfileBottomsheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+        padding:
+            const EdgeInsets.symmetric(vertical: 24, horizontal: 16).copyWith(
+          bottom: 16 + MediaQuery.of(context).padding.bottom,
+        ),
         decoration: BoxDecoration(
             color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
             borderRadius: const BorderRadius.only(

@@ -19,7 +19,6 @@ import 'package:auto/features/car_single/presentation/widgets/become_verifired_o
 import 'package:auto/features/car_single/presentation/widgets/bottom_item.dart';
 import 'package:auto/features/car_single/presentation/widgets/car_characteristic_image.dart';
 import 'package:auto/features/car_single/presentation/widgets/car_name_widget.dart';
-import 'package:auto/features/car_single/presentation/widgets/car_rent_with_purchase_conditions.dart';
 import 'package:auto/features/car_single/presentation/widgets/car_single_resend_btn.dart';
 import 'package:auto/features/car_single/presentation/widgets/cars_characteristic.dart';
 import 'package:auto/features/car_single/presentation/widgets/confirm_bottomsheet.dart';
@@ -299,7 +298,6 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                             ),
                           ),
 
-
                           ///
                           if (state.singleEntity.isMine &&
                               (widget.moderationStatus ==
@@ -550,7 +548,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                         Positioned(
                           left: 16,
                           right: 16,
-                          bottom: 16,
+                          bottom: 16 + MediaQuery.of(context).padding.bottom,
                           child: widget.moderationStatus ==
                                   ModerationStatusEnum.active.value
                               ? BottomItem(

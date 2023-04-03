@@ -219,6 +219,7 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
                           }));
                       Navigator.pop(context);
                     },
+                    margin: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
                     text: LocaleKeys.apply.tr(),
                   ),
                 ],

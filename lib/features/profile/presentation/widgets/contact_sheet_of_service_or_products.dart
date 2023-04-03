@@ -53,7 +53,7 @@ class ContactSheetOfServiceOrProduct extends StatelessWidget {
                   color: orange.withOpacity(0.2),
                 ),
               ],
-              margin: const EdgeInsets.only(top: 20),
+              margin:   EdgeInsets.only(top: 20, bottom: MediaQuery.of(context).padding.bottom),
               onTap: () {
                 launchUrl(Uri.parse('tel: $phoneNumber'));
                 Navigator.pop(context);

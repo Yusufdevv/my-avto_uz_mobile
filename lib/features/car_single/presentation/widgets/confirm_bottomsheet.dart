@@ -55,33 +55,37 @@ class _ConfirmBottomSheetState extends State<ConfirmBottomSheet> {
                     .copyWith(fontWeight: FontWeight.w400, fontSize: 16),
                 textAlign: TextAlign.center),
             SizedBox(height: widget.betweenHeight.toDouble()),
-            Row(
-              children: [
-                Expanded(
-                  child: WButton(
-                      color: solitude,
-                      onTap: () {
-                        Navigator.pop(
-                          context,
-                          false,
-                        );
-                      },
-                      text: LocaleKeys.no.tr(),
-                      textColor: greyText),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: WButton(
-                    color: tutu,
-                    onTap: () {
-                      Navigator.pop(context, true);
-                    },
-                    text: LocaleKeys.yes.tr(),
-                    textColor: red,
+            Padding(
+              padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: WButton(
+                        color: solitude,
+                        onTap: () {
+                          Navigator.pop(
+                            context,
+                            false,
+                          );
+                        },
+                        text: LocaleKeys.no.tr(),
+                        textColor: greyText),
                   ),
-                ),
-              ],
-            )
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: WButton(
+                      color: tutu,
+                      onTap: () {
+                        Navigator.pop(context, true);
+                      },
+                      text: LocaleKeys.yes.tr(),
+                      textColor: red,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
           ],
         ),
       );

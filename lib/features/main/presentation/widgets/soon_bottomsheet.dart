@@ -53,6 +53,8 @@ class SoonBottomsheet extends StatelessWidget {
           SizedBox(height: size.height * 0.079),
           WButton(
               color: orange,
+              margin: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).padding.bottom),
               onTap: () => Navigator.pop(context),
               text: LocaleKeys.superr.tr(),
               textColor: white)
