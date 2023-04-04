@@ -1,13 +1,14 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/car_single/data/model/create_owner.dart';
 import 'package:auto/features/car_single/presentation/bloc/create_owner/create_owner_bloc.dart';
 import 'package:auto/features/car_single/presentation/parts/clue_btsht.dart';
 import 'package:auto/features/car_single/presentation/parts/sts_image_item_widget.dart';
 import 'package:auto/features/car_single/presentation/parts/verifired_owner_more_btsht.dart';
+import 'package:auto/features/car_single/presentation/widgets/applications_rejected_ui.dart';
 import 'package:auto/features/car_single/presentation/widgets/invoice_termsofsuse.dart';
+import 'package:auto/features/car_single/presentation/widgets/verifired_owner_moderation_btn.dart';
 import 'package:auto/features/common/bloc/image/image_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -71,15 +72,21 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
             },
             child: BlocBuilder<CreateOwnerBloc, CreateOwnerState>(
               builder: (context, stateOwner) => WillPopScope(
-                onWillPop: () async{
-                  Navigator.pop(context,stateOwner.showModerationBtn ? 'in_moderation' : null);
+                onWillPop: () async {
+                  Navigator.pop(context,
+                      stateOwner.showModerationBtn ? 'in_moderation' : null);
                   return false;
                 },
                 child: Scaffold(
-                  backgroundColor: Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
+                  backgroundColor:
+                      Theme.of(context).extension<ThemedColors>()!.whiteToDark,
                   appBar: WAppBar(
-                    onTapBack: (){
-                      Navigator.pop(context,stateOwner.showModerationBtn ? 'in_moderation' : null);
+                    onTapBack: () {
+                      Navigator.pop(
+                          context,
+                          stateOwner.showModerationBtn
+                              ? 'in_moderation'
+                              : null);
                     },
                     title: LocaleKeys.verified_owner.tr(),
                     extraActions: [
@@ -149,7 +156,8 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                         onTap: () {
                                           showModalBottomSheet(
                                               useRootNavigator: true,
-                                              backgroundColor: Colors.transparent,
+                                              backgroundColor:
+                                                  Colors.transparent,
                                               isScrollControlled: true,
                                               context: context,
                                               builder: (context) => ClueBtsht(
@@ -172,9 +180,10 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                   children: [
                                     StsImageItemWidget(
                                       height: 110,
-                                      width: (MediaQuery.of(context).size.width /
-                                              2) -
-                                          24,
+                                      width:
+                                          (MediaQuery.of(context).size.width /
+                                                  2) -
+                                              24,
                                       title: LocaleKeys.front_side.tr(),
                                       image: state.images[0],
                                       video: '',
@@ -202,9 +211,10 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                     const SizedBox(width: 12),
                                     StsImageItemWidget(
                                       height: 110,
-                                      width: (MediaQuery.of(context).size.width /
-                                              2) -
-                                          24,
+                                      width:
+                                          (MediaQuery.of(context).size.width /
+                                                  2) -
+                                              24,
                                       title: LocaleKeys.back_side.tr(),
                                       image: state.images[1],
                                       video: '',
@@ -249,7 +259,8 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                         onTap: () {
                                           showModalBottomSheet(
                                               useRootNavigator: true,
-                                              backgroundColor: Colors.transparent,
+                                              backgroundColor:
+                                                  Colors.transparent,
                                               isScrollControlled: true,
                                               context: context,
                                               builder: (context) => ClueBtsht(
@@ -272,9 +283,10 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                   children: [
                                     StsImageItemWidget(
                                       height: 110,
-                                      width: (MediaQuery.of(context).size.width /
-                                              2) -
-                                          24,
+                                      width:
+                                          (MediaQuery.of(context).size.width /
+                                                  2) -
+                                              24,
                                       title: LocaleKeys.front_side.tr(),
                                       image: state.secondImage[0],
                                       video: '',
@@ -302,9 +314,10 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                     const SizedBox(width: 12),
                                     StsImageItemWidget(
                                       height: 110,
-                                      width: (MediaQuery.of(context).size.width /
-                                              2) -
-                                          24,
+                                      width:
+                                          (MediaQuery.of(context).size.width /
+                                                  2) -
+                                              24,
                                       title: LocaleKeys.back_side.tr(),
                                       image: state.secondImage[1],
                                       video: '',
@@ -444,8 +457,8 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                   color: orange,
                                   onTap: () {
                                     if (stateOwner.isDeleted) {
-                                      createOwnerBloc
-                                          .add(ReApplicationEvent(refresh: true));
+                                      createOwnerBloc.add(
+                                          ReApplicationEvent(refresh: true));
                                     }
                                   },
                                 ),
@@ -456,116 +469,6 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
               ),
             ),
           ),
-        ),
-      );
-}
-
-class ApplicationRejectedUI extends StatelessWidget {
-  final String comment;
-
-  const ApplicationRejectedUI(this.comment);
-
-  @override
-  Widget build(BuildContext context) => Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset(
-              AppImages.applicationRejected,
-              height: 120,
-              width: 120,
-            ),
-            Text(
-              LocaleKeys.your_application_has_been_rejected.tr(),
-              style: Theme.of(context)
-                  .textTheme
-                  .displayLarge!
-                  .copyWith(fontSize: 16),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              LocaleKeys.try_to_resubmit_the_application.tr(),
-              textAlign: TextAlign.center,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyLarge!
-                  .copyWith(fontSize: 14, color: greyText),
-            ),
-            if (comment != '') ...{
-              const SizedBox(height: 20),
-              Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 28),
-              child:DecoratedBox(
-                decoration: BoxDecoration(
-                  color: red.withOpacity(0.04),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        LocaleKeys.cause.tr(),
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: red),
-                      ),
-                      Text(
-                        comment,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyLarge!
-                            .copyWith(fontSize: 14, color: red),
-                      ),
-                    ],
-                  ),
-                ),
-              ))
-            },
-          ],
-        ),
-      );
-}
-
-class VerifyOwnerModerationBtn extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) => Container(
-        height: 53,
-        padding: const EdgeInsets.all(12).copyWith(top: 8, bottom: 3),
-        decoration: BoxDecoration(
-            color: const Color(0xFFF1B747).withOpacity(.1),
-            borderRadius: BorderRadius.circular(12)),
-        child: Row(
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    LocaleKeys.your_application_has_been_accepted.tr(),
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w700,
-                        color: const Color(0xFFFFC137)),
-                  ),
-                  Text(
-                    LocaleKeys.wait_for_moderation_confirmation.tr(),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w400,
-                        color: const Color(0xFFFFC137)),
-                  ),
-                ],
-              ),
-            ),
-            SvgPicture.asset(AppIcons.moderationYellow),
-          ],
         ),
       );
 }

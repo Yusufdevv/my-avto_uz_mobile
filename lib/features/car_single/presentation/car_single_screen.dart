@@ -134,12 +134,11 @@ class _CarSingleScreenState extends State<CarSingleScreen>
         value: bloc,
         child: CustomScreen(
           child: Scaffold(
-            // backgroundColor:Colors.teal,
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             body: BlocBuilder<CarSingleBloc, CarSingleState>(
               builder: (context, state) {
                 if (state.status != FormzStatus.submissionSuccess) {
-                  return const Center(child: CupertinoActivityIndicator());
+                  return const Center(child: CupertinoActivityIndicator(color: grey, radius: 16));
                 } else {
                   return Stack(
                     children: [

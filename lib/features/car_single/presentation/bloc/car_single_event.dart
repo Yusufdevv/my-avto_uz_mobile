@@ -8,5 +8,4 @@ class CarSingleEvent with _$CarSingleEvent {
   factory CarSingleEvent.soldAds(int id, Function(String message) onSucc,
       Function(String errorMessage) onError) = _SoldAds;
   factory CarSingleEvent.callCount(int id) = _CallCount;
-  factory CarSingleEvent.changeVerifyOwnerModerationEvent() = _ChangeVerifyOwnerModerationEvent;
 }

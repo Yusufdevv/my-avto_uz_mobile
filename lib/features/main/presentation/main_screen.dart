@@ -150,7 +150,8 @@ class _MainScreenState extends State<MainScreen> {
                 Theme.of(context).extension<ThemedColors>()!.whiteToBlack,
             appBar: const MainAppBar(),
             body: RefreshIndicator(
-              color: purple,
+              backgroundColor: Colors.grey.shade200,
+              color: orange,
               onRefresh: () async {
                 mainBloc
                   ..add(InitialEvent())
