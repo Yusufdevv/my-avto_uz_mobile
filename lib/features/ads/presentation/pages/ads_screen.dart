@@ -12,6 +12,8 @@ import 'package:auto/features/ads/presentation/widgets/ads_app_bar.dart';
 import 'package:auto/features/ads/presentation/widgets/ads_sliver_deleget.dart';
 import 'package:auto/features/ads/presentation/widgets/button_go_to_comparison.dart';
 import 'package:auto/features/ads/presentation/widgets/filter_bottom_sheet.dart';
+import 'package:auto/features/ads/presentation/widgets/no_data_widget.dart';
+import 'package:auto/features/ads/presentation/widgets/unscrollable_no_data_widget.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
@@ -143,40 +145,53 @@ class _AdsScreenState extends State<AdsScreen>
             },
             child: CustomScreen(
               child: Scaffold(
-                // backgroundColor: Colors.teal,
                 extendBody: true,
                 body: NotificationListener<OverscrollIndicatorNotification>(
                   onNotification: (overscroll) {
                     overscroll.disallowIndicator();
                     return true;
                   },
-                  child: NestedScrollView(
-                    controller: _scrollController,
-                    headerSliverBuilder: (c, innerBoxIsScrolled) => [
-                      AdsAppBar(
-                        onBackButtonTap: () => Navigator.of(context)
-                            .pop(state.make == null || state.model == null),
-                        onSortTap: () {
-                          filterBottomSheet(
-                            context,
-                            onChanged: (value) {
-                              announcementListBloc
-                                  .add(SetSort(sortResult: value));
-                            },
-                            sortingValue: state.sortStatus,
-                          );
-                        },
-                        fadeDuration: fadeDuration,
-                        crossFadeState: state.crossFadeState,
-                      ),
-                      if (state.announcementList.isEmpty) ...{
-                        SliverOverlapAbsorber(
-                          handle:
-                              NestedScrollView.sliverOverlapAbsorberHandleFor(
-                                  c),
-                          sliver: SliverSafeArea(
-                            top: false,
-                            sliver: SliverPersistentHeader(
+                  child: state.announcementList.isEmpty
+                      ? UnScrollableNoDataWidget(
+                          announcementListBloc: announcementListBloc,
+                          crossfade: state.crossFadeState,
+                          fadeDuration: fadeDuration,
+                          tabController: tabController,
+                          onSortTap: () {
+                            filterBottomSheet(
+                              context,
+                              onChanged: (value) {
+                                announcementListBloc
+                                    .add(SetSort(sortResult: value));
+                              },
+                              sortingValue: state.sortStatus,
+                            );
+                          },
+                          onBackButtonTap: () => Navigator.of(context)
+                              .pop(state.make == null || state.model == null))
+                      : NestedScrollView(
+                          physics: state.announcementList.isEmpty
+                              ? NeverScrollableScrollPhysics()
+                              : BouncingScrollPhysics(),
+                          controller: _scrollController,
+                          headerSliverBuilder: (c, innerBoxIsScrolled) => [
+                            AdsAppBar(
+                              onBackButtonTap: () => Navigator.of(context).pop(
+                                  state.make == null || state.model == null),
+                              onSortTap: () {
+                                filterBottomSheet(
+                                  context,
+                                  onChanged: (value) {
+                                    announcementListBloc
+                                        .add(SetSort(sortResult: value));
+                                  },
+                                  sortingValue: state.sortStatus,
+                                );
+                              },
+                              fadeDuration: fadeDuration,
+                              crossFadeState: state.crossFadeState,
+                            ),
+                            SliverPersistentHeader(
                               delegate: AdsSliverWidget(
                                 size: MediaQuery.of(context).size,
                                 theme: Theme.of(context)
@@ -185,58 +200,29 @@ class _AdsScreenState extends State<AdsScreen>
                                 bloc: announcementListBloc,
                               ),
                             ),
-                          ),
-                        ),
-                      } else ...{
-                        SliverOverlapAbsorber(
-                          handle:
-                              NestedScrollView.sliverOverlapAbsorberHandleFor(
-                                  c),
-                          sliver: SliverSafeArea(
-                            top: false,
-                            sliver: SliverPersistentHeader(
-                              delegate: AdsSliverWidget(
-                                size: MediaQuery.of(context).size,
-                                theme: Theme.of(context)
-                                    .extension<ThemedColors>()!,
-                                tabController: tabController,
-                                bloc: announcementListBloc,
+                          ],
+                          body: TabBarView(
+                            physics: const NeverScrollableScrollPhysics(),
+                            controller: tabController,
+                            children: [
+                              AdsBodyScreen(
+                                isFromComparison: widget.isFromComparison,
+                                isNew: null,
+                                announcementListBloc: announcementListBloc,
                               ),
-                            ),
+                              AdsBodyScreen(
+                                isFromComparison: widget.isFromComparison,
+                                isNew: true,
+                                announcementListBloc: announcementListBloc,
+                              ),
+                              AdsBodyScreen(
+                                isFromComparison: widget.isFromComparison,
+                                isNew: false,
+                                announcementListBloc: announcementListBloc,
+                              ),
+                            ],
                           ),
                         ),
-                        // SliverPersistentHeader(
-                        //   delegate: AdsSliverWidget(
-                        //     size: MediaQuery.of(context).size,
-                        //     theme: Theme.of(context).extension<ThemedColors>()!,
-                        //     tabController: tabController,
-                        //     bloc: announcementListBloc,
-                        //   ),
-                        // ),
-                      },
-                    ],
-                    body: TabBarView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      controller: tabController,
-                      children: [
-                        AdsBodyScreen(
-                          isFromComparison: widget.isFromComparison,
-                          isNew: null,
-                          announcementListBloc: announcementListBloc,
-                        ),
-                        AdsBodyScreen(
-                          isFromComparison: widget.isFromComparison,
-                          isNew: true,
-                          announcementListBloc: announcementListBloc,
-                        ),
-                        AdsBodyScreen(
-                          isFromComparison: widget.isFromComparison,
-                          isNew: false,
-                          announcementListBloc: announcementListBloc,
-                        ),
-                      ],
-                    ),
-                  ),
                 ),
                 bottomNavigationBar: widget.isFromComparison
                     ? const ButtonGoToComparison()
