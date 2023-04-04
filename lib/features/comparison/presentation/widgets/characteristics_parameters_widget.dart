@@ -1,4 +1,5 @@
-import 'dart:math';
+import 'dart:developer';
+import 'dart:math' as math;
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
@@ -10,7 +11,17 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class CharacteristicsParametersWidget extends StatelessWidget {
+enum TileH {
+  makeH,
+  generationH,
+  bodyTypeH,
+  driveTypeH,
+  gearboxTypeH,
+  yearH,
+  colorH,
+}
+
+class CharacteristicsParametersWidget extends StatefulWidget {
   final ScrollController controller;
   final List<ComparisonEntity> numberOfAddedCars;
   final Complectation comparisonParameters;
@@ -29,6 +40,20 @@ class CharacteristicsParametersWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<CharacteristicsParametersWidget> createState() =>
+      _CharacteristicsParametersWidgetState();
+}
+
+class _CharacteristicsParametersWidgetState
+    extends State<CharacteristicsParametersWidget> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  bool printd = false;
+
+  @override
   Widget build(BuildContext context) => Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,10 +61,10 @@ class CharacteristicsParametersWidget extends StatelessWidget {
           GestureDetector(
             behavior: HitTestBehavior.opaque,
             onTap: () {
-              if (selectedValue == comparisonParameters.id) {
-                onChanged(-1);
+              if (widget.selectedValue == widget.comparisonParameters.id) {
+                widget.onChanged(-1);
               } else {
-                onChanged(comparisonParameters.id);
+                widget.onChanged(widget.comparisonParameters.id);
               }
             },
             child: Container(
@@ -49,7 +74,8 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                   Expanded(
                     child: AnimatedDefaultTextStyle(
                       style: TextStyle(
-                        color: selectedValue != comparisonParameters.id
+                        color: widget.selectedValue !=
+                                widget.comparisonParameters.id
                             ? Theme.of(context)
                                 .extension<ThemedColors>()!
                                 .midnightExpressToWhite
@@ -61,22 +87,26 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                         milliseconds: 100,
                       ),
                       child: Text(
-                        comparisonParameters.parameterName.tr(),
+                        widget.comparisonParameters.parameterName.tr(),
                       ),
                     ),
                   ),
                   TweenAnimationBuilder<double>(
                     tween: Tween<double>(
                         begin: 0,
-                        end: selectedValue == comparisonParameters.id ? pi : 0),
+                        end: widget.selectedValue ==
+                                widget.comparisonParameters.id
+                            ? math.pi
+                            : 0),
                     duration: const Duration(
                       milliseconds: 100,
                     ),
                     child: SvgPicture.asset(
                       AppIcons.chevronDown,
-                      color: selectedValue != comparisonParameters.id
-                          ? warmerGrey
-                          : orange,
+                      color:
+                          widget.selectedValue != widget.comparisonParameters.id
+                              ? warmerGrey
+                              : orange,
                     ),
                     builder: (
                       context,
@@ -94,87 +124,73 @@ class CharacteristicsParametersWidget extends StatelessWidget {
             firstChild: Stack(
               children: [
                 SizedBox(
-                  height:
-                      comparisonParameters.complectationParameters.length * 54,
+                  height: widget
+                          .comparisonParameters.complectationParameters.length *
+                      54,
                   child: ListView(
-                    controller: controller,
+                    controller: widget.controller,
                     scrollDirection: Axis.horizontal,
                     children: [
                       ...List.generate(
-                        numberOfAddedCars.length + 1,
+                        widget.numberOfAddedCars.length + 1,
                         (index) => Column(
                           children: [
                             ComparisionListTile(
-                              width: width,
-                              info: index == numberOfAddedCars.length
+                              width: widget.width,
+                              info: index == widget.numberOfAddedCars.length
                                   ? ''
-                                  : numberOfAddedCars[index]
-                                      .announcement
-                                      .mainData
-                                      .make,
+                                  : widget.numberOfAddedCars[index].announcement
+                                      .mainData.make,
                               isGrey: true,
                             ),
                             ComparisionListTile(
-                              width: width,
-                              info: index == numberOfAddedCars.length
+                              width: widget.width,
+                              info: index == widget.numberOfAddedCars.length
                                   ? ''
-                                  : numberOfAddedCars[index]
-                                      .announcement
-                                      .mainData
-                                      .generation,
+                                  : widget.numberOfAddedCars[index].announcement
+                                      .mainData.generation,
                               isGrey: false,
                             ),
                             ComparisionListTile(
-                              width: width,
-                              info: index == numberOfAddedCars.length
+                              width: widget.width,
+                              info: index == widget.numberOfAddedCars.length
                                   ? ''
-                                  : numberOfAddedCars[index]
-                                      .announcement
-                                      .mainData
-                                      .bodyType,
+                                  : widget.numberOfAddedCars[index].announcement
+                                      .mainData.bodyType,
                               isGrey: true,
                             ),
                             ComparisionListTile(
-                              width: width,
-                              info: index == numberOfAddedCars.length
+                              width: widget.width,
+                              info: index == widget.numberOfAddedCars.length
                                   ? ''
-                                  : numberOfAddedCars[index]
-                                      .announcement
-                                      .mainData
-                                      .driveType,
+                                  : widget.numberOfAddedCars[index].announcement
+                                      .mainData.driveType,
                               isGrey: false,
                             ),
                             ComparisionListTile(
-                              width: width,
-                              info: index == numberOfAddedCars.length
+                              width: widget.width,
+                              info: index == widget.numberOfAddedCars.length
                                   ? ''
-                                  : numberOfAddedCars[index]
-                                      .announcement
-                                      .mainData
-                                      .gearboxType
+                                  : widget.numberOfAddedCars[index].announcement
+                                      .mainData.gearboxType
                                       .toUpperCase(),
                               isGrey: true,
                             ),
                             ComparisionListTile(
-                              width: width,
-                              info: index == numberOfAddedCars.length
+                              width: widget.width,
+                              info: index == widget.numberOfAddedCars.length
                                   ? ''
-                                  : numberOfAddedCars[index]
-                                      .announcement
-                                      .mainData
-                                      .year
+                                  : widget.numberOfAddedCars[index].announcement
+                                      .mainData.year
                                       .toString(),
                               isGrey: false,
                             ),
                             ComparisionListTile(
-                              width: width,
-                              info: index == numberOfAddedCars.length
+                              width: widget.width,
+                              info: index == widget.numberOfAddedCars.length
                                   ? ''
-                                  : numberOfAddedCars[index]
-                                      .announcement
-                                      .mainData
-                                      .color
-                                      .name,
+                                  : widget.numberOfAddedCars[index].announcement
+                                      .mainData.color.name,
                               isGrey: true,
                             ),
                           ],
@@ -184,13 +200,13 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                   ),
                 ),
                 ...List.generate(
-                  comparisonParameters.complectationParameters.length,
+                  widget.comparisonParameters.complectationParameters.length,
                   (index) => Positioned(
                     top: 8 + index * 54,
                     left: 16,
                     child: Text(
-                      comparisonParameters
-                          .complectationParameters[index].comparisonParameters
+                      widget.comparisonParameters.complectationParameters[index]
+                          .comparisonParameters
                           .tr(),
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
@@ -203,14 +219,16 @@ class CharacteristicsParametersWidget extends StatelessWidget {
               ],
             ),
             secondChild: const SizedBox(),
-            crossFadeState: selectedValue == comparisonParameters.id
-                ? CrossFadeState.showFirst
-                : CrossFadeState.showSecond,
+            crossFadeState:
+                widget.selectedValue == widget.comparisonParameters.id
+                    ? CrossFadeState.showFirst
+                    : CrossFadeState.showSecond,
             duration: const Duration(milliseconds: 100),
             alignment: Alignment.bottomLeft,
           ),
           SizedBox(
-            height: selectedValue == comparisonParameters.id ? 12 : 0,
+            height:
+                widget.selectedValue == widget.comparisonParameters.id ? 12 : 0,
           ),
           Container(
             margin: const EdgeInsets.only(left: 16),
