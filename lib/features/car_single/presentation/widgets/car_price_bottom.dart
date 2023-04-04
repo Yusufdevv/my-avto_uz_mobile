@@ -37,8 +37,9 @@ class CarPriceBottom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        decoration:  BoxDecoration(
-          color: Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
+        decoration: BoxDecoration(
+          color:
+              Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
           borderRadius: const BorderRadius.only(
             topRight: Radius.circular(16),
             topLeft: Radius.circular(16),
@@ -57,14 +58,18 @@ class CarPriceBottom extends StatelessWidget {
                     style: Theme.of(context).textTheme.displayMedium!.copyWith(
                         fontWeight: FontWeight.w700,
                         fontSize: 24,
-                        color: Theme.of(context).extension<ThemedColors>()!.darkToWhite),
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .darkToWhite),
                   ),
                   Text(
                     ' $currency',
                     style: Theme.of(context).textTheme.displayMedium!.copyWith(
                         fontWeight: FontWeight.w700,
                         fontSize: 24,
-                        color: Theme.of(context).extension<ThemedColors>()!.darkToWhite),
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .darkToWhite),
                   ),
                   const Spacer(),
                   GestureDetector(
