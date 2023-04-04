@@ -78,58 +78,55 @@ class _DamageTypeChooseSheetState extends State<DamageTypeChooseSheet> {
                     .copyWith(fontSize: 13, fontWeight: FontWeight.w600),
               ),
             ),
-            ...DamageType.values.map(
-              (damageType) {
-                if (damageType == DamageType.ideal) {
-                  return const SizedBox();
-                }
-                return GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () => setState(() => selected = damageType),
-                  child: Container(
-                    padding: const EdgeInsets.all(12),
-                    margin:
-                        const EdgeInsets.only(left: 16, bottom: 10, right: 16),
-                    decoration: BoxDecoration(
-                      color: selected == damageType
-                          ? purple.withOpacity(.1)
-                          : null,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Row(
-                      children: [
-                        WarningCircleWidget(
-                          k: MediaQuery.of(context).size.width / mockWith,
-                          damageType: damageType,
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          MyFunctions.getStatusTitle(damageType).tr(),
-                          style: damageType == selected
-                              ? Theme.of(context)
-                                  .textTheme
-                                  .titleMedium!
-                                  .copyWith(
-                                      fontSize: 16,
-                                      color: Theme.of(context)
-                                          .extension<ThemedColors>()!
-                                          .blackToWhite)
-                              : Theme.of(context)
-                                  .textTheme
-                                  .titleLarge!
-                                  .copyWith(
-                                      color: Theme.of(context)
-                                          .extension<ThemedColors>()!
-                                          .dolphinToWhite),
-                        ),
-                        const Spacer(),
-                        RadioCircleWidget(selected: damageType == selected)
-                      ],
+            ...DamageType.values
+                .map(
+                  (damageType) => GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () => setState(() => selected = damageType),
+                    child: Container(
+                      padding: const EdgeInsets.all(12),
+                      margin: const EdgeInsets.only(
+                          left: 16, bottom: 10, right: 16),
+                      decoration: BoxDecoration(
+                        color: selected == damageType
+                            ? purple.withOpacity(.1)
+                            : null,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Row(
+                        children: [
+                          WarningCircleWidget(
+                            k: MediaQuery.of(context).size.width / mockWith,
+                            damageType: damageType,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            MyFunctions.getStatusTitle(damageType).tr(),
+                            style: damageType == selected
+                                ? Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(
+                                        fontSize: 16,
+                                        color: Theme.of(context)
+                                            .extension<ThemedColors>()!
+                                            .blackToWhite)
+                                : Theme.of(context)
+                                    .textTheme
+                                    .titleLarge!
+                                    .copyWith(
+                                        color: Theme.of(context)
+                                            .extension<ThemedColors>()!
+                                            .dolphinToWhite),
+                          ),
+                          const Spacer(),
+                          RadioCircleWidget(selected: damageType == selected)
+                        ],
+                      ),
                     ),
                   ),
-                );
-              },
-            ).toList(),
+                )
+                .toList(),
             WButton(
               onTap: () {
                 Navigator.of(context).pop(selected);
