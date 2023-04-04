@@ -252,7 +252,7 @@ class InfoContainer extends StatelessWidget {
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge!
-                                    .copyWith(color: grey),
+                                    .copyWith(color: greyText),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -290,7 +290,7 @@ class InfoContainer extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .bodyLarge!
-                              .copyWith(color: grey),
+                              .copyWith(color: greyText),
                         ),
                         const Spacer(),
                         AddComparisonItem(

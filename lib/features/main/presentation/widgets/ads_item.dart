@@ -57,6 +57,7 @@ class AdsItem extends StatelessWidget {
                   color: dark.withOpacity(.04)),
             ],
             borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: border.withOpacity(0.8)),
             color:
                 Theme.of(context).extension<ThemedColors>()?.whiteToSecondNero),
         child: Column(
@@ -119,7 +120,8 @@ class AdsItem extends StatelessWidget {
                     .extension<ThemedColors>()
                     ?.solitudeToWhite35),
             Padding(
-              padding: const EdgeInsets.only(right: 12, left: 16, top: 6, bottom: 6),
+              padding:
+                  const EdgeInsets.only(right: 12, left: 16, top: 6, bottom: 6),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -130,14 +132,11 @@ class AdsItem extends StatelessWidget {
                     child: Text(location,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleLarge
-                            ?.copyWith(
-                                fontSize: 12,
-                                color: Theme.of(context)
-                                    .extension<ThemedColors>()
-                                    ?.dolphinToGreySuit)),
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            fontSize: 12,
+                            color: Theme.of(context)
+                                .extension<ThemedColors>()
+                                ?.dolphinToGreySuit)),
                   ),
                   BlocConsumer<WishlistAddBloc, WishlistAddState>(
                     listener: (context, state) {},

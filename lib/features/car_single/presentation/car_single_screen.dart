@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_null_comparison
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/const/constants.dart';
@@ -104,13 +105,10 @@ class _CarSingleScreenState extends State<CarSingleScreen>
         isAppBarOffset = false;
         actionState = CrossFadeState.showFirst;
         setState(() {});
-      } else {
-        likeColor = white;
-        crossFadeState = CrossFadeState.showFirst;
-        setState(() {});
       }
       if (_scrollController.offset > 240) {
-        iconColor = grey;
+        iconColor =
+            Theme.of(context).extension<ThemedColors>()!.greySuitToWhite;
       } else {
         iconColor = white;
       }
@@ -138,7 +136,12 @@ class _CarSingleScreenState extends State<CarSingleScreen>
             body: BlocBuilder<CarSingleBloc, CarSingleState>(
               builder: (context, state) {
                 if (state.status != FormzStatus.submissionSuccess) {
-                  return const Center(child: CupertinoActivityIndicator(color: grey, radius: 16));
+                  return Center(
+                      child: CupertinoActivityIndicator(
+                          color: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .greySuitToWhite,
+                          radius: 16));
                 } else {
                   return Stack(
                     children: [
@@ -183,9 +186,6 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                     page: DealerSinglePage(
                                         slug: state.singleEntity.user.slug)));
                               }
-                            },
-                            onCompare: () {
-                              /// tegma, ichkarida AddComparisonItemda function-i yozilgan
                             },
                             isMine: state.singleEntity.isMine,
                             status: state.soldStatus,
@@ -248,9 +248,6 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                               currency:
                                   state.singleEntity.currency.toUpperCase(),
                               onVin: () {},
-                              onComparison: () {
-                                /// tegma, ichkarida AddComparisonItemda function-i yozilgan
-                              },
                               onShare: () {
                                 Share.share(
                                     'https://avto.uz/post/${state.singleEntity.id}');

@@ -1,5 +1,5 @@
 
-import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -21,9 +21,8 @@ class VerifiredOwnerModerationItem extends StatelessWidget {
         padding: const EdgeInsets.only(left: 16),
         margin: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: white,
+          color: Theme.of(context).extension<ThemedColors>()!.solitude1ToNero,
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: border),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -40,7 +39,7 @@ class VerifiredOwnerModerationItem extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .displayLarge!
-                        .copyWith(fontSize: 18, color: dark),
+                        .copyWith(fontSize: 18, color: Theme.of(context).extension<ThemedColors>()!.darkToWhite),
                   ),
                   const SizedBox(height: 4),
                   Text(

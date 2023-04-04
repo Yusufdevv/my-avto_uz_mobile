@@ -10,7 +10,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class CarActions extends StatelessWidget {
   final VoidCallback onVin;
-  final VoidCallback onComparison;
   final VoidCallback onShare;
   final int id;
   final bool isComparised;
@@ -18,7 +17,6 @@ class CarActions extends StatelessWidget {
 
   const CarActions({
     required this.onVin,
-    required this.onComparison,
     required this.onShare,
     required this.id,
     required this.isComparised,

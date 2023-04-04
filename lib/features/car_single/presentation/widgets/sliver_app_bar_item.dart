@@ -33,7 +33,6 @@ class SliverAppBarItem extends StatefulWidget {
   final int id;
   final int userId;
   final VoidCallback onDealer;
-  final VoidCallback onCompare;
   final VoidCallback onSold;
   final bool isMine;
   final bool isCompare;
@@ -57,7 +56,6 @@ class SliverAppBarItem extends StatefulWidget {
     required this.shareUrl,
     required this.images,
     required this.onDealer,
-    required this.onCompare,
     required this.isMine,
     required this.status,
     required this.onSold,
@@ -214,7 +212,6 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                                 widget.shareUrl,
                               );
                             },
-                            onCompare: widget.onCompare,
                             onDealer: widget.onDealer,
                             id: widget.id,
                             isCompare: widget.isCompare,

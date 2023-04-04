@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/car_single/presentation/bloc/car_single_bloc.dart';
 import 'package:auto/features/car_single/presentation/parts/verifered_owner_page.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -24,9 +25,8 @@ class VerifiredOwnerRejectedItem extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         margin: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: white,
+          color: Theme.of(context).extension<ThemedColors>()!.solitude1ToNero,
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: border),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -43,7 +43,7 @@ class VerifiredOwnerRejectedItem extends StatelessWidget {
                       style: Theme.of(context).textTheme.displayLarge!.copyWith(
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
-                          color: black),
+                          color: Theme.of(context).extension<ThemedColors>()!.darkToWhite),
                     ),
                     TextSpan(
                       text: LocaleKeys.not_approved.tr(),

@@ -1,5 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/storage_keys.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/car_single/presentation/widgets/call_like_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -64,7 +66,10 @@ class DayLikeCallItem extends StatelessWidget {
               padding: const EdgeInsets.only(left: 12, top: 8, bottom: 8),
               margin: const EdgeInsets.only(top: 16, bottom: 16),
               decoration: BoxDecoration(
-                color: const Color(0xffFFFBFA),
+                color: StorageRepository.getString(StorageKeys.THEME_MODE) ==
+                        'light'
+                    ? const Color(0xffFFFBFA)
+                    : const Color(0xffFFFFFF).withOpacity(0.08),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: RichText(

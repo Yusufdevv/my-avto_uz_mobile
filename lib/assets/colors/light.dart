@@ -51,7 +51,7 @@ class LightThemeColors {
   static const solitudeToEclipse = _solitude;
   static const gainsboroToBlack = _solitude1;
   static const solitude1ToNero = _solitude1;
-  static const solitude2ToNightRider = _solitude2;
+  static const solitude2ToNightRider = _solitude1;
   static const solitude2ToNero = _solitude3;
   static const whiteWithOpacity90ToNero = _whiteWithOpacity90ToNero;
   static const whiteSmoke2ToNightRider = _whiteSmoke2;
@@ -76,7 +76,7 @@ class LightThemeColors {
   static const warmerGreyToDarkGray = _ghost;
   static const lightGreyToEclipse = _eclipse;
   static const solitudeToNero = _solitude3;
-  static const solitudeToDarkRider = _solitudeBorder;
+  static const solitudeToDarkRider = _solitude1;
   static const veryLightGreyToEclipse = _veryLightGrey;
   static const whiteToDolphin = _white;
   static const solitudeToWhite35 = _solitude;
@@ -110,27 +110,27 @@ class LightThemeColors {
   static const greySuitToWhite60 = _grey;
   static const dolphinToWhite60 = _dolphin;
   static const dolphinToWhite = _dolphin;
-  static const solitudeToGondola = _solitude2;
+  static const solitudeToGondola = _solitude1;
   static const solitudeToPayneGrey = _solitude;
   static const dolphinToGreySuit = _dolphin;
   static const dolphinToGhost = _dolphin;
   static const lightSlateBlue12ToLightSlateBlue = _lightSlateBlue12;
   static const whiteLilacToWhiteLilac10 = _whiteLilac;
-  static const solitudeBorderToSolitudeBorder10 = _solitudeBorder;
+  static const solitudeBorderToSolitudeBorder10 = _solitude1;
   static const whiteLilacToWhite4 = _whiteLilac;
-  static const solitudeToDolphin8 = _solitudeBorder;
+  static const solitudeToDolphin8 = _solitude1;
   static const cinnabar12ToCinnabar = _cinnabar12;
   static const navBarUnselected = _white;
   static const whiteToEclipse = _white;
-  static const borderGreyToDark = _solitude2;
+  static const borderGreyToDark = _solitude1;
   static const iconPearlToWhite = _spunPearl;
   static const whiteToDarkRider = _white;
-  static const borderGreyToGreen = _solitude2;
+  static const borderGreyToGreen = _solitude1;
   static const lightGreenToDarkGreen = _hummingBird;
   static const greyToDarkRider = _solitude1;
   static const darkToPurple = _midnightExpress;
   static const darkToGrey = _midnightExpress;
-  static const solitudeToDolphinBorder = _solitudeBorder;
+  static const solitudeToDolphinBorder = _solitude1;
   static const whiteSmoke78ToWhiteSmoke12 = _whiteSmoke78;
   static const ghostToGondola = _ghost;
   static const tangerineYellowToMediumSlateBlue = _tangerineYellow;
@@ -166,7 +166,7 @@ class LightThemeColors {
   static const karryToBrownsOlive = _karry;//pink
   static const blueChalkToCaputMortum = _blueChalk;//fiolet
   static const sindirellaToBurrentCrinson = _sindirella;//lightred
-  static const roseWhiteToEclipse = _rose_white;//lightred
+  static const roseWhiteToEclipse = _roseeWhite;//lightred
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
@@ -174,7 +174,6 @@ const _midnightExpress = Color(0xff171725);
 const _nero = Color(0xff2B2B2B);
 const _dolphin = Color(0xff696974);
 const _solitude = Color(0xffE2E2EA);
-const _solitude2 = Color(0xffF1F1F5);
 const _solitude3 = Color(0xffFAFAFB);
 const _white = Color(0xffffffff);
 const _whiteWithOpacity90ToNero = Color.fromRGBO(255, 255, 255, 9);
@@ -201,7 +200,6 @@ const _aluminum = Color(0xff7f878f);
 const _stormGrey12 = Color(0x1f767680);
 const _lightSlateBlue12 = Color(0x1f7B61FF);
 const _whiteLilac = Color(0xffF4F4F5);
-const _solitudeBorder = Color(0xffF1F1F5);
 const _solitude1 = Color(0xFFF1F1F5);
 const _spunPearl = Color(0xFF9E9EA9);
 const _hummingBird = Color(0xffF0FAF6);
@@ -233,7 +231,7 @@ const _blanchedAlmond = Color(0xffFFF0CD);//yellow
 const _karry = Color(0xffFED7CC);//pink
 const _blueChalk = Color(0xffD6D3E6);//fiolet
 const _sindirella = Color(0xffFAD9D0);//lightred
-const _rose_white = Color(0xffFEF8F7);//lightred
+const _roseeWhite = Color(0xffFEF8F7);//lightred
 // const _snowyMint = Color(0xffDCF1CA);//green
 
 

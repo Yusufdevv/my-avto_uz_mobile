@@ -89,7 +89,7 @@ class AddComparisonItem extends StatelessWidget {
                     LocaleKeys.compare.tr(),
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           fontSize: 12,
-                          color: a ? orange : const Color(0xff696974),
+                          color: a ? orange : greyText,
                         ),
                   )
             ],

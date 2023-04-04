@@ -34,7 +34,6 @@ class CarNameWidget extends StatelessWidget {
   final String todayViewedCount;
   final String id;
   final VoidCallback onVin;
-  final VoidCallback onComparison;
   final VoidCallback onShare;
   final String saleDays;
   final int addToFavorite;
@@ -65,7 +64,6 @@ class CarNameWidget extends StatelessWidget {
     required this.id,
     required this.currency,
     required this.onVin,
-    required this.onComparison,
     required this.onShare,
     required this.year,
     required this.mileage,
@@ -97,7 +95,6 @@ class CarNameWidget extends StatelessWidget {
   Widget build(BuildContext context) => Container(
         margin: EdgeInsets.only(bottom: isMine ? 0 : 12),
         decoration: BoxDecoration(
-          // color: Colors.teal,
           color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
           border: Border(
               bottom: BorderSide(
@@ -216,7 +213,6 @@ class CarNameWidget extends StatelessWidget {
               CarActions(
                 inModeration: moderationStatus,
                 onVin: onVin,
-                onComparison: onComparison,
                 onShare: onShare,
                 id: compareId,
                 isComparised: isCompared,

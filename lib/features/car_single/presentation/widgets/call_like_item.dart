@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -29,18 +30,15 @@ class CallLikeItem extends StatelessWidget {
                 height: 17,
                 color: orange,
               ),
-              const SizedBox(
-                width: 2,
-              ),
+              const SizedBox(width: 2),
               Text(
                 number,
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: const Color(
-                        0xff171725,
-                      ),
-                    ),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .darkToWhite),
               )
             ],
           ),
@@ -48,12 +46,7 @@ class CallLikeItem extends StatelessWidget {
             text,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  color: const Color(
-                    0xff696974,
-                  ),
-                ),
+                fontSize: 12, fontWeight: FontWeight.w400, color: greyText),
           ),
         ],
       );

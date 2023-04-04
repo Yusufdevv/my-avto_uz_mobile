@@ -71,44 +71,51 @@ class _AdsBodyScreenState extends State<AdsBodyScreen>
                         }
                       },
                       behavior: HitTestBehavior.opaque,
-                      child: InfoContainer(
-                        isFromComparison: widget.isFromComparison,
-                        index: index,
-                        phone: state.announcementList[index].userType == 'owner'
-                            ? state.announcementList[index].user.phoneNumber
-                            : state.announcementList[index].dealer.phoneNumber,
-                        avatarPicture: state.announcementList[index].user.image,
-                        carModel:
-                            '${state.announcementList[index].make} ${state.announcementList[index].model} ${state.announcementList[index].generation.name}',
-                        hasDiscount:
-                            state.announcementList[index].discount != 0,
-                        location: state.announcementList[index].region.title,
-                        owner:
-                            state.announcementList[index].user.name.isNotEmpty
-                                ? state.announcementList[index].user.name
-                                : state.announcementList[index].user.fullName,
-                        ownerType: state.announcementList[index].userType,
-                        publishTime: MyFunctions.getDateNamedMonthEdit(
-                            state.announcementList[index].publishedAt),
-                        subtitle: state.announcementList[index].description,
-                        year: state.announcementList[index].year,
-                        price: state.announcementList[index].price,
-                        discountPrice:
-                            state.announcementList[index].discount ?? 0,
-                        sellType:
-                            state.announcementList[index].isRentWithPurchase
-                                ? LocaleKeys.rent_to_buy.tr()
-                                : LocaleKeys.car_sale.tr(),
-                        hasStatusInfo: state.announcementList[index].isNew,
-                        gallery: state.announcementList[index].gallery,
-                        currency: state.announcementList[index].currency,
-                        initialLike: state.announcementList[index].isWishlisted,
-                        id: state.announcementList[index].id,
-                        onTapFavorites: () {
-                          /// tegma, ichkarida AddWishlistItemda function-i yozilgan
-                        },
-                        initialComparsions:
-                            state.announcementList[index].isComparison,
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 12),
+                        child: InfoContainer(
+                          isFromComparison: widget.isFromComparison,
+                          index: index,
+                          phone: state.announcementList[index].userType ==
+                                  'owner'
+                              ? state.announcementList[index].user.phoneNumber
+                              : state
+                                  .announcementList[index].dealer.phoneNumber,
+                          avatarPicture:
+                              state.announcementList[index].user.image,
+                          carModel:
+                              '${state.announcementList[index].make} ${state.announcementList[index].model} ${state.announcementList[index].generation.name}',
+                          hasDiscount:
+                              state.announcementList[index].discount != 0,
+                          location: state.announcementList[index].region.title,
+                          owner:
+                              state.announcementList[index].user.name.isNotEmpty
+                                  ? state.announcementList[index].user.name
+                                  : state.announcementList[index].user.fullName,
+                          ownerType: state.announcementList[index].userType,
+                          publishTime: MyFunctions.getDateNamedMonthEdit(
+                              state.announcementList[index].publishedAt),
+                          subtitle: state.announcementList[index].description,
+                          year: state.announcementList[index].year,
+                          price: state.announcementList[index].price,
+                          discountPrice:
+                              state.announcementList[index].discount ?? 0,
+                          sellType:
+                              state.announcementList[index].isRentWithPurchase
+                                  ? LocaleKeys.rent_to_buy.tr()
+                                  : LocaleKeys.car_sale.tr(),
+                          hasStatusInfo: state.announcementList[index].isNew,
+                          gallery: state.announcementList[index].gallery,
+                          currency: state.announcementList[index].currency,
+                          initialLike:
+                              state.announcementList[index].isWishlisted,
+                          id: state.announcementList[index].id,
+                          onTapFavorites: () {
+                            /// tegma, ichkarida AddWishlistItemda function-i yozilgan
+                          },
+                          initialComparsions:
+                              state.announcementList[index].isComparison,
+                        ),
                       ),
                     ),
                     itemCount: state.announcementList.length,

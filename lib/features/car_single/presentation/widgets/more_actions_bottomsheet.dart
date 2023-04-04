@@ -14,7 +14,6 @@ class MoreActionsBottomsheet extends StatefulWidget {
   final String position;
   final String image;
   final VoidCallback onShare;
-  final VoidCallback onCompare;
   final VoidCallback onDealer;
   final int id;
   final bool? isCompare;
@@ -24,7 +23,6 @@ class MoreActionsBottomsheet extends StatefulWidget {
     required this.position,
     required this.image,
     required this.onShare,
-    required this.onCompare,
     required this.onDealer,
     required this.id,
     required this.isCompare,
