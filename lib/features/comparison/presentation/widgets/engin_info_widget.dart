@@ -10,7 +10,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class EngineParametersWidget extends StatelessWidget {
+class EngineParametersWidget extends StatefulWidget {
   final ScrollController controller;
   final List<ComparisonEntity> numberOfAddedCars;
   final Complectation comparisonParameters;
@@ -29,6 +29,11 @@ class EngineParametersWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<EngineParametersWidget> createState() => _EngineParametersWidgetState();
+}
+
+class _EngineParametersWidgetState extends State<EngineParametersWidget> {
+  @override
   Widget build(BuildContext context) => Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,10 +41,10 @@ class EngineParametersWidget extends StatelessWidget {
           GestureDetector(
             behavior: HitTestBehavior.opaque,
             onTap: () {
-              if (selectedValue == comparisonParameters.id) {
-                onChanged(-1);
+              if (widget.selectedValue == widget.comparisonParameters.id) {
+                widget.onChanged(-1);
               } else {
-                onChanged(comparisonParameters.id);
+                widget.onChanged(widget.comparisonParameters.id);
               }
             },
             child: Container(
@@ -49,7 +54,8 @@ class EngineParametersWidget extends StatelessWidget {
                   Expanded(
                     child: AnimatedDefaultTextStyle(
                       style: TextStyle(
-                        color: selectedValue != comparisonParameters.id
+                        color: widget.selectedValue !=
+                                widget.comparisonParameters.id
                             ? Theme.of(context)
                                 .extension<ThemedColors>()!
                                 .midnightExpressToWhite
@@ -61,22 +67,26 @@ class EngineParametersWidget extends StatelessWidget {
                         milliseconds: 100,
                       ),
                       child: Text(
-                        comparisonParameters.parameterName.tr(),
+                        widget.comparisonParameters.parameterName.tr(),
                       ),
                     ),
                   ),
                   TweenAnimationBuilder<double>(
                     tween: Tween<double>(
                         begin: 0,
-                        end: selectedValue == comparisonParameters.id ? pi : 0),
+                        end: widget.selectedValue ==
+                                widget.comparisonParameters.id
+                            ? pi
+                            : 0),
                     duration: const Duration(
                       milliseconds: 100,
                     ),
                     child: SvgPicture.asset(
                       AppIcons.chevronDown,
-                      color: selectedValue != comparisonParameters.id
-                          ? warmerGrey
-                          : orange,
+                      color:
+                          widget.selectedValue != widget.comparisonParameters.id
+                              ? warmerGrey
+                              : orange,
                     ),
                     builder: (
                       context,
@@ -94,44 +104,39 @@ class EngineParametersWidget extends StatelessWidget {
             firstChild: Stack(
               children: [
                 SizedBox(
-                  height:
-                      comparisonParameters.complectationParameters.length * 54,
+                  height: widget
+                          .comparisonParameters.complectationParameters.length *
+                      54,
                   child: ListView(
-                    controller: controller,
+                    controller: widget.controller,
                     scrollDirection: Axis.horizontal,
                     children: [
                       ...List.generate(
-                        numberOfAddedCars.length + 1,
+                        widget.numberOfAddedCars.length + 1,
                         (index) => Column(
                           children: [
                             ComparisionListTile(
-                              width: width,
-                              info: index == numberOfAddedCars.length
+                              width: widget.width,
+                              info: index == widget.numberOfAddedCars.length
                                   ? ''
-                                  : numberOfAddedCars[index]
-                                      .announcement
-                                      .engineData
-                                      .engineType,
+                                  : widget.numberOfAddedCars[index].announcement
+                                      .engineData.engineType,
                               isGrey: true,
                             ),
                             ComparisionListTile(
-                              width: width,
-                              info: index == numberOfAddedCars.length
+                              width: widget.width,
+                              info: index == widget.numberOfAddedCars.length
                                   ? ''
-                                  : numberOfAddedCars[index]
-                                      .announcement
-                                      .engineData
-                                      .power,
+                                  : widget.numberOfAddedCars[index].announcement
+                                      .engineData.power,
                               isGrey: false,
                             ),
                             ComparisionListTile(
-                              width: width,
-                              info: index == numberOfAddedCars.length
+                              width: widget.width,
+                              info: index == widget.numberOfAddedCars.length
                                   ? ''
-                                  : numberOfAddedCars[index]
-                                      .announcement
-                                      .engineData
-                                      .volume,
+                                  : widget.numberOfAddedCars[index].announcement
+                                      .engineData.volume,
                               isGrey: true,
                             ),
                           ],
@@ -141,13 +146,13 @@ class EngineParametersWidget extends StatelessWidget {
                   ),
                 ),
                 ...List.generate(
-                  comparisonParameters.complectationParameters.length,
+                  widget.comparisonParameters.complectationParameters.length,
                   (index) => Positioned(
                     top: 8 + index * 54,
                     left: 16,
                     child: Text(
-                      comparisonParameters
-                          .complectationParameters[index].comparisonParameters
+                      widget.comparisonParameters.complectationParameters[index]
+                          .comparisonParameters
                           .tr(),
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
@@ -160,14 +165,16 @@ class EngineParametersWidget extends StatelessWidget {
               ],
             ),
             secondChild: const SizedBox(),
-            crossFadeState: selectedValue == comparisonParameters.id
-                ? CrossFadeState.showFirst
-                : CrossFadeState.showSecond,
+            crossFadeState:
+                widget.selectedValue == widget.comparisonParameters.id
+                    ? CrossFadeState.showFirst
+                    : CrossFadeState.showSecond,
             duration: const Duration(milliseconds: 100),
             alignment: Alignment.bottomLeft,
           ),
           SizedBox(
-            height: selectedValue == comparisonParameters.id ? 12 : 0,
+            height:
+                widget.selectedValue == widget.comparisonParameters.id ? 12 : 0,
           ),
           Container(
             margin: const EdgeInsets.only(left: 16),
