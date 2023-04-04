@@ -144,7 +144,6 @@ class _PriceStatisticItemState extends State<PriceStatisticItem> {
                   getPointTop(widget.percent),
               left: MediaQuery.of(context).size.width * pointLeft,
               child: Column(
-                //  crossAxisAlignment: alighment,
                 children: [
                   Text(
                     '${widget.price} ${widget.currency}',
