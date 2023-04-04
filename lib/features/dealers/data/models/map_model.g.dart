@@ -7,7 +7,7 @@ part of 'map_model.dart';
 // **************************************************************************
 
 MapModel _$MapModelFromJson(Map<String, dynamic> json) => MapModel(
-      id: json['id'] as int? ?? 0,
+      id: json['id'] as int? ?? -1,
       name: json['name'] as String? ?? '',
       slug: json['slug'] as String? ?? '',
       description: json['description'] as String? ?? '',

@@ -462,7 +462,6 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                   );
                                 },
                                 onShowMyContactChanged: (v) {
-                                  log(':::::::::: Contacts posting ad show my contacts changed:   $v }  ::::::::::');
                                   context
                                       .read<PostingAdBloc>()
                                       .add(PostingAdClearControllersEvent());
@@ -487,7 +486,6 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                   ));
                                 },
                                 onGetUserDatas: () {
-                                  log(':::::::::: Contacts user data function triggered  ::::::::::');
                                   context
                                       .read<PostingAdBloc>()
                                       .add(PostingAdGetUserDataEvent());
@@ -520,7 +518,6 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                       ))).then(
                                     (latLongZoom) {
                                       if (latLongZoom is List<double>) {
-                                        log('::::::::::  the lat ${latLongZoom[0]} / ${latLongZoom[1]}, / ${latLongZoom[1]} ::::::::::');
                                         postingAdBloc.add(
                                           PostingAdGetMapScreenShotEvent(
                                             lat: latLongZoom[0],

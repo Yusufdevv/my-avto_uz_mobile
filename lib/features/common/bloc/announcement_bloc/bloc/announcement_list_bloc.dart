@@ -57,7 +57,6 @@ class AnnouncementListBloc
 
   FutureOr<void> _changeIsNew(
       ChangeIsNew event, Emitter<AnnouncementListState> emit) async {
-    log(':::::::::: is new triggered by:  ${event.isNew}  ::::::::::');
     emit(state.copyWith(isNew: event.isNew));
     add(const GetAnnouncementList());
   }

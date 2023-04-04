@@ -36,21 +36,14 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
       final response = await _dio.get(
         '/car/announcement/$id/detail/',
         options: Options(headers: {
-          'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+          'Authorization':
+              'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
         }),
       );
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
-        log(':::::::::: Car single data:  ${response.data}  ::::::::::');
-        try{
-          return CarSingleModel.fromJson(response.data);
-        }catch (e){
-          log(':::::::::: Car single from json exception:  ${e.toString()}  ::::::::::');
-          throw ServerException(
-              statusCode: response.statusCode!,
-              errorMessage: response.data.toString());
-        }
+        return CarSingleModel.fromJson(response.data);
       } else {
         throw ServerException(
             statusCode: response.statusCode!,
@@ -72,7 +65,8 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
       final response = await _dio.get('/es/AnnouncementElasticSearch/',
           queryParameters: params,
           options: Options(headers: {
-            'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+            'Authorization':
+                'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
           }));
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
@@ -115,7 +109,8 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
     try {
       final response = await _dio.post('/car/announcement/$id/sold/',
           options: Options(headers: {
-            'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+            'Authorization':
+                'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
           }));
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
@@ -152,7 +147,8 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
       final response = await _dio.post('/car/announcement/call/',
           data: {'announcement': id},
           options: Options(headers: {
-            'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+            'Authorization':
+                'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
           }));
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
@@ -195,7 +191,8 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
       final response = await _dio.post('/car/announcement/verify-owner/create/',
           data: FormData.fromMap(datas),
           options: Options(headers: {
-            'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+            'Authorization':
+                'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
           }));
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
@@ -221,7 +218,8 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
       final response = await _dio.delete(
           '/car/announcement/verify-owner/$id/delete/',
           options: Options(headers: {
-            'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+            'Authorization':
+                'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
           }));
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&

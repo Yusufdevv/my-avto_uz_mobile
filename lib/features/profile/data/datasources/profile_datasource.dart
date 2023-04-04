@@ -225,8 +225,6 @@ class ProfileDataSourceImpl extends ProfileDataSource {
 
   @override
   Future<TermsOfUseModel> getTermsOfUseData(String slug) async {
-    log(':::::::::: DIO OPTIONS:   ${dio.options.headers}  ::::::::::');
-
     try {
       final response = await dio.get(
         '/common/static-pages/$slug/',

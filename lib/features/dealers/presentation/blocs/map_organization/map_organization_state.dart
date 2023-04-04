@@ -16,5 +16,6 @@ class MapOrganizationState with _$MapOrganizationState {
     @Default(0) double currentLong,
     @Default('') String searchText,
     @Default(false) bool fetchMore,
+    @Default(false) bool isAdDealler,
   }) = _MapOrganizationState;
 }

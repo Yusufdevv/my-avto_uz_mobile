@@ -153,8 +153,6 @@ class EASingleton {
       rentWithPurchaseConditions[v.rentWithPurchase[i].id] =
           v.rentWithPurchase[i];
     }
-    log(':::::::::: hgserfgsdrg ${gallery.length}  ::::::::::');
-    log('::::::::::  ${gallery.length}  ::::::::::');
 
     return EditAdState(
       lat: v.latitude,

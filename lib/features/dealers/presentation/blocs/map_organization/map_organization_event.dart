@@ -12,6 +12,8 @@ class MapOrganizationEvent with _$MapOrganizationEvent {
       {double? latitude,
       double? longitude,
       double? radius}) = _GetDirectoriesPoints;
+  factory MapOrganizationEvent.switchIsAdDealler({required bool value}) =
+      _GetSwitchedIsAdDealler;
 
   factory MapOrganizationEvent.getCurrentLocation(
       {required ValueChanged<String> onError,

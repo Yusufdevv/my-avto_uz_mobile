@@ -219,13 +219,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
   Future<void> _GetCarProductByCategoryEvent(
       GetCarProductByCategoryEvent event, Emitter<ProfileState> emit) async {
-    log(':::::::::: GET PRODUCT BY CATEGORY EVENT TRIGGERED:   ${event.id} / ${event.slug} ::::::::::');
     emit(state.copyWith(
         getCarProductByCategoryStatus: FormzStatus.submissionInProgress));
     final result = await getCarProductByCategory
         .call(SlugId(slug: event.slug, id: event.id));
 
-    log(':::::::::: GET PRODUCT BY CATEGORY RESULT IS:   ${result} ::::::::::');
     if (result.isRight) {
       print(
           'BLOC SUCCES _GetCarProductByCategoryEvent - > ${result.right.results.length}');
@@ -240,6 +238,4 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       ));
     }
   }
-
-
 }

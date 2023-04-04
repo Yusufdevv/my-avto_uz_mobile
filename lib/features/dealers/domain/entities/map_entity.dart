@@ -30,6 +30,7 @@ class MapEntity extends Equatable {
     String? iconPath,
   }) =>
       MapEntity(
+        id: id,
         dealerType: dealerType,
         name: name,
         iconPath: iconPath ?? this.iconPath,
@@ -51,7 +52,7 @@ class MapEntity extends Equatable {
   const MapEntity({
     this.dealerType = const IdNameEntity(),
     this.iconPath = '',
-    this.id = 0,
+    this.id = -1,
     this.name = '',
     this.slug = '',
     this.description = '',

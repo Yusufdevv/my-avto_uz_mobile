@@ -49,6 +49,8 @@ class MapOrganizationBloc
           status: FormzStatus.submissionSuccess,
           currentDealer: event.currentDealer));
     });
+    on<_GetSwitchedIsAdDealler>(
+        (event, emit) => emit(state.copyWith(isAdDealler: event.value)));
     on<_GetDealers>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await getDealers(state.searchText,
@@ -58,7 +60,6 @@ class MapOrganizationBloc
               radius: event.radius?.floor() ?? state.radius));
 
       if (result.isRight) {
-        log('::::::::::  the deallers length: ${result.right.length}  ::::::::::');
         var iconizedDeallers = result.right
             .map((e) => e.iconize(iconPath: AppIcons.dealersLocIcon))
             .toList()
@@ -67,11 +68,11 @@ class MapOrganizationBloc
               iconPath: AppIcons.currentLoc,
               latitude: state.lat,
               longitude: state.long));
-        log(':::::::::: iconized length:  ${iconizedDeallers.length}  ::::::::::');
-        log(':::::::::: iconized length:  ${iconizedDeallers[0].dealerType}  ::::::::::');
 
         emit(state.copyWith(
-            dealers: iconizedDeallers, status: FormzStatus.submissionSuccess));
+            isAdDealler: true,
+            dealers: iconizedDeallers,
+            status: FormzStatus.submissionSuccess));
       } else {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
@@ -127,6 +128,7 @@ class MapOrganizationBloc
             longitude: position.longitude));
         emit(
           state.copyWith(
+            isAdDealler: true,
             getCurrentLocationStatus: FormzStatus.submissionSuccess,
             dealers: isFromDirectoryPage ? [] : points,
             directoriesPoints: isFromDirectoryPage ? points : [],

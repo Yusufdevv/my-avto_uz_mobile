@@ -150,9 +150,7 @@ class _CommercialScreenState extends State<CommercialScreen>
                       duration: fadeDuration,
                       crossFadeState: crossFadeState,
                       firstChild: CommercialTab(
-                        onTabTap: (tab) {
-                          log(':::::::::: tab pressed in commercials page: $tab  ::::::::::');
-                        },
+                        onTabTap: (tab) {},
                         tabController: tabController,
                         tabLabels: [
                           LocaleKeys.all.tr(),

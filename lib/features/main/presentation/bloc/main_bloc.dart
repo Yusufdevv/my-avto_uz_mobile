@@ -35,7 +35,6 @@ class MainBloc extends Bloc<MainEvent, MainState> {
   }
 
   void _onGetMakeModel(GetMakeModelEvent event, Emitter<MainState> emit) {
-    log(':::::::::: _onGetMakeModel triggered:  ${event.make}  ::::::::::');
     emit(
       state.copWith(
         model: event.model,

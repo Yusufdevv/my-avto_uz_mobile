@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:auto/assets/colors/color.dart';
@@ -64,7 +63,6 @@ class _MapScreenState extends State<MapScreen>
 
   @override
   Widget build(BuildContext context) {
-    log(':::::::::: IS FROM DIRECTORY PAGE:  ${MediaQuery.of(context).platformBrightness.name}  ::::::::::');
     super.build(context);
     return CustomScreen(
       child: Scaffold(
@@ -74,10 +72,9 @@ class _MapScreenState extends State<MapScreen>
                 ? state1.directoriesPoints.length !=
                     state2.directoriesPoints.length
                 : state1.dealers.length != state2.dealers.length;
-            return isBuild;
+            return isBuild || state2.isAdDealler;
           },
           listener: (context, state) async {
-            log(':::::::::: MapOrganizer bloc listener triggered: ${state.dealers.length} isFromDirectory: ${widget.isFromDirectoryPage}  ::::::::::');
             await addDealer(
               points: widget.isFromDirectoryPage
                   ? state.directoriesPoints
@@ -86,7 +83,9 @@ class _MapScreenState extends State<MapScreen>
               accuracy: accuracy,
               isDirectoryPage: widget.isFromDirectoryPage,
             );
-            setState(() {});
+            context
+                .read<MapOrganizationBloc>()
+                .add(MapOrganizationEvent.switchIsAdDealler(value: false));
           },
           builder: (context, mapOrganizationState) => Stack(
             children: [
@@ -119,7 +118,6 @@ class _MapScreenState extends State<MapScreen>
                   },
                   mapObjects: _mapObjects,
                   onMapCreated: (controller) async {
-                    log('::::::::::  ON MAP CREATED TRIGGERED: }  ::::::::::');
                     _mapController = controller;
                     maxZoomLevel = await controller.getMaxZoom();
                     minZoomLevel = await controller.getMinZoom();
@@ -195,7 +193,7 @@ class _MapScreenState extends State<MapScreen>
                                           longitude: position.longitude,
                                           radius: MyFunctions.getRadiusFromZoom(
                                               camera.zoom)));
-                              setState(() {});
+
                               ////////////////////////////////////////////
                               await Future.delayed(
                                   const Duration(milliseconds: 1000));
@@ -230,12 +228,12 @@ class _MapScreenState extends State<MapScreen>
                                                     currentDealer: null));
                                       },
                                       onError: (message) {
-                                        context
-                                            .read<ShowPopUpBloc>()
-                                            .add(ShowPopUp(
-                                              message: message,
-                                              status: PopStatus.error,
-                                            ));
+                                        context.read<ShowPopUpBloc>().add(
+                                              ShowPopUp(
+                                                message: message,
+                                                status: PopStatus.error,
+                                              ),
+                                            );
                                       },
                                     ),
                                   );
@@ -362,13 +360,13 @@ class _MapScreenState extends State<MapScreen>
   Future<void> mapBitmapsToMarkers({
     required List<Uint8List?> bitmaps,
     required List<MapEntity> points,
-    required BuildContext context,
+    required BuildContext contextt,
     required double accuracy,
     required bool isDirectoryPage,
   }) async {
     final placeMarks = <PlacemarkMapObject>[];
-    bitmaps.asMap().forEach((key, value) {
-      log(':::::::::: the name in  mapBitmapsToMarkers: ${points[key].name}  ::::::::::');
+    var key = 0;
+    for (final b in bitmaps) {
       placeMarks.add(
         PlacemarkMapObject(
           opacity: 1,
@@ -385,7 +383,9 @@ class _MapScreenState extends State<MapScreen>
               CameraUpdate.newCameraPosition(
                 CameraPosition(
                   target: Point(
-                      latitude: point.latitude, longitude: point.longitude),
+                    latitude: point.latitude,
+                    longitude: point.longitude,
+                  ),
                   zoom: zoomLevel,
                 ),
               ),
@@ -397,17 +397,18 @@ class _MapScreenState extends State<MapScreen>
                   isDirectoryPage && points[key].iconPath != AppIcons.currentLoc
                       ? 2
                       : 0.9,
-              image: value != null
-                  ? BitmapDescriptor.fromBytes(value)
+              image: b != null
+                  ? BitmapDescriptor.fromBytes(b)
                   : BitmapDescriptor.fromAssetImage(points[key].iconPath),
               rotationType: RotationType.noRotation,
             ),
           ),
         ),
       );
-    });
-
-    final clusterItem = ClusterizedPlacemarkCollection(
+      key++;
+    }
+    var clusterItem = ClusterizedPlacemarkCollection(
+      zIndex: 1,
       mapId: MyFunctions.clusterId,
       placemarks: placeMarks,
       radius: 25,
@@ -448,9 +449,8 @@ class _MapScreenState extends State<MapScreen>
       ),
     );
 
-    setState(() {
-      _mapObjects.addAll([clusterItem]);
-    });
+    _mapObjects.addAll([clusterItem]);
+    setState(() {});
   }
 
   Future<void> addDealer({
@@ -472,11 +472,11 @@ class _MapScreenState extends State<MapScreen>
           bitmaps: lis,
           points: points,
           isDirectoryPage: isDirectoryPage,
-          context: buildContext,
+          contextt: buildContext,
           accuracy: accuracy,
         );
       });
-    }).generate(context);
+    }).generate(buildContext);
   }
 
   @override

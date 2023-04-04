@@ -24,6 +24,7 @@ mixin _$MapOrganizationEvent {
     required TResult Function(
             double? latitude, double? longitude, double? radius)
         getDirectoriesPoints,
+    required TResult Function(bool value) switchIsAdDealler,
     required TResult Function(
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)
         getCurrentLocation,
@@ -41,6 +42,7 @@ mixin _$MapOrganizationEvent {
         getDealers,
     TResult? Function(double? latitude, double? longitude, double? radius)?
         getDirectoriesPoints,
+    TResult? Function(bool value)? switchIsAdDealler,
     TResult? Function(
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)?
         getCurrentLocation,
@@ -57,6 +59,7 @@ mixin _$MapOrganizationEvent {
         getDealers,
     TResult Function(double? latitude, double? longitude, double? radius)?
         getDirectoriesPoints,
+    TResult Function(bool value)? switchIsAdDealler,
     TResult Function(
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)?
         getCurrentLocation,
@@ -71,6 +74,7 @@ mixin _$MapOrganizationEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetDealers value) getDealers,
     required TResult Function(_GetDirectoriesPoints value) getDirectoriesPoints,
+    required TResult Function(_GetSwitchedIsAdDealler value) switchIsAdDealler,
     required TResult Function(_GetCurrentLocation value) getCurrentLocation,
     required TResult Function(_ChangeLatLong value) changeLatLong,
     required TResult Function(_GetAddressOfDealler value) getAddressOfDealler,
@@ -81,6 +85,7 @@ mixin _$MapOrganizationEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetDealers value)? getDealers,
     TResult? Function(_GetDirectoriesPoints value)? getDirectoriesPoints,
+    TResult? Function(_GetSwitchedIsAdDealler value)? switchIsAdDealler,
     TResult? Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult? Function(_ChangeLatLong value)? changeLatLong,
     TResult? Function(_GetAddressOfDealler value)? getAddressOfDealler,
@@ -91,6 +96,7 @@ mixin _$MapOrganizationEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetDealers value)? getDealers,
     TResult Function(_GetDirectoriesPoints value)? getDirectoriesPoints,
+    TResult Function(_GetSwitchedIsAdDealler value)? switchIsAdDealler,
     TResult Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult Function(_ChangeLatLong value)? changeLatLong,
     TResult Function(_GetAddressOfDealler value)? getAddressOfDealler,
@@ -222,6 +228,7 @@ class _$_GetDealers implements _GetDealers {
     required TResult Function(
             double? latitude, double? longitude, double? radius)
         getDirectoriesPoints,
+    required TResult Function(bool value) switchIsAdDealler,
     required TResult Function(
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)
         getCurrentLocation,
@@ -242,6 +249,7 @@ class _$_GetDealers implements _GetDealers {
         getDealers,
     TResult? Function(double? latitude, double? longitude, double? radius)?
         getDirectoriesPoints,
+    TResult? Function(bool value)? switchIsAdDealler,
     TResult? Function(
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)?
         getCurrentLocation,
@@ -261,6 +269,7 @@ class _$_GetDealers implements _GetDealers {
         getDealers,
     TResult Function(double? latitude, double? longitude, double? radius)?
         getDirectoriesPoints,
+    TResult Function(bool value)? switchIsAdDealler,
     TResult Function(
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)?
         getCurrentLocation,
@@ -281,6 +290,7 @@ class _$_GetDealers implements _GetDealers {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetDealers value) getDealers,
     required TResult Function(_GetDirectoriesPoints value) getDirectoriesPoints,
+    required TResult Function(_GetSwitchedIsAdDealler value) switchIsAdDealler,
     required TResult Function(_GetCurrentLocation value) getCurrentLocation,
     required TResult Function(_ChangeLatLong value) changeLatLong,
     required TResult Function(_GetAddressOfDealler value) getAddressOfDealler,
@@ -294,6 +304,7 @@ class _$_GetDealers implements _GetDealers {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetDealers value)? getDealers,
     TResult? Function(_GetDirectoriesPoints value)? getDirectoriesPoints,
+    TResult? Function(_GetSwitchedIsAdDealler value)? switchIsAdDealler,
     TResult? Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult? Function(_ChangeLatLong value)? changeLatLong,
     TResult? Function(_GetAddressOfDealler value)? getAddressOfDealler,
@@ -307,6 +318,7 @@ class _$_GetDealers implements _GetDealers {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetDealers value)? getDealers,
     TResult Function(_GetDirectoriesPoints value)? getDirectoriesPoints,
+    TResult Function(_GetSwitchedIsAdDealler value)? switchIsAdDealler,
     TResult Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult Function(_ChangeLatLong value)? changeLatLong,
     TResult Function(_GetAddressOfDealler value)? getAddressOfDealler,
@@ -425,6 +437,7 @@ class _$_GetDirectoriesPoints implements _GetDirectoriesPoints {
     required TResult Function(
             double? latitude, double? longitude, double? radius)
         getDirectoriesPoints,
+    required TResult Function(bool value) switchIsAdDealler,
     required TResult Function(
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)
         getCurrentLocation,
@@ -445,6 +458,7 @@ class _$_GetDirectoriesPoints implements _GetDirectoriesPoints {
         getDealers,
     TResult? Function(double? latitude, double? longitude, double? radius)?
         getDirectoriesPoints,
+    TResult? Function(bool value)? switchIsAdDealler,
     TResult? Function(
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)?
         getCurrentLocation,
@@ -464,6 +478,7 @@ class _$_GetDirectoriesPoints implements _GetDirectoriesPoints {
         getDealers,
     TResult Function(double? latitude, double? longitude, double? radius)?
         getDirectoriesPoints,
+    TResult Function(bool value)? switchIsAdDealler,
     TResult Function(
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)?
         getCurrentLocation,
@@ -484,6 +499,7 @@ class _$_GetDirectoriesPoints implements _GetDirectoriesPoints {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetDealers value) getDealers,
     required TResult Function(_GetDirectoriesPoints value) getDirectoriesPoints,
+    required TResult Function(_GetSwitchedIsAdDealler value) switchIsAdDealler,
     required TResult Function(_GetCurrentLocation value) getCurrentLocation,
     required TResult Function(_ChangeLatLong value) changeLatLong,
     required TResult Function(_GetAddressOfDealler value) getAddressOfDealler,
@@ -497,6 +513,7 @@ class _$_GetDirectoriesPoints implements _GetDirectoriesPoints {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetDealers value)? getDealers,
     TResult? Function(_GetDirectoriesPoints value)? getDirectoriesPoints,
+    TResult? Function(_GetSwitchedIsAdDealler value)? switchIsAdDealler,
     TResult? Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult? Function(_ChangeLatLong value)? changeLatLong,
     TResult? Function(_GetAddressOfDealler value)? getAddressOfDealler,
@@ -510,6 +527,7 @@ class _$_GetDirectoriesPoints implements _GetDirectoriesPoints {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetDealers value)? getDealers,
     TResult Function(_GetDirectoriesPoints value)? getDirectoriesPoints,
+    TResult Function(_GetSwitchedIsAdDealler value)? switchIsAdDealler,
     TResult Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult Function(_ChangeLatLong value)? changeLatLong,
     TResult Function(_GetAddressOfDealler value)? getAddressOfDealler,
@@ -534,6 +552,191 @@ abstract class _GetDirectoriesPoints implements MapOrganizationEvent {
   double? get radius;
   @JsonKey(ignore: true)
   _$$_GetDirectoriesPointsCopyWith<_$_GetDirectoriesPoints> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_GetSwitchedIsAdDeallerCopyWith<$Res> {
+  factory _$$_GetSwitchedIsAdDeallerCopyWith(_$_GetSwitchedIsAdDealler value,
+          $Res Function(_$_GetSwitchedIsAdDealler) then) =
+      __$$_GetSwitchedIsAdDeallerCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool value});
+}
+
+/// @nodoc
+class __$$_GetSwitchedIsAdDeallerCopyWithImpl<$Res>
+    extends _$MapOrganizationEventCopyWithImpl<$Res, _$_GetSwitchedIsAdDealler>
+    implements _$$_GetSwitchedIsAdDeallerCopyWith<$Res> {
+  __$$_GetSwitchedIsAdDeallerCopyWithImpl(_$_GetSwitchedIsAdDealler _value,
+      $Res Function(_$_GetSwitchedIsAdDealler) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? value = null,
+  }) {
+    return _then(_$_GetSwitchedIsAdDealler(
+      value: null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_GetSwitchedIsAdDealler implements _GetSwitchedIsAdDealler {
+  _$_GetSwitchedIsAdDealler({required this.value});
+
+  @override
+  final bool value;
+
+  @override
+  String toString() {
+    return 'MapOrganizationEvent.switchIsAdDealler(value: $value)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_GetSwitchedIsAdDealler &&
+            (identical(other.value, value) || other.value == value));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, value);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_GetSwitchedIsAdDeallerCopyWith<_$_GetSwitchedIsAdDealler> get copyWith =>
+      __$$_GetSwitchedIsAdDeallerCopyWithImpl<_$_GetSwitchedIsAdDealler>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(double? latitude, double? longitude,
+            double? radius, ValueChanged<List<MapEntity>> onSuccess)
+        getDealers,
+    required TResult Function(
+            double? latitude, double? longitude, double? radius)
+        getDirectoriesPoints,
+    required TResult Function(bool value) switchIsAdDealler,
+    required TResult Function(
+            ValueChanged<String> onError, ValueChanged<Position> onSuccess)
+        getCurrentLocation,
+    required TResult Function(double lat, double long, int? radius)
+        changeLatLong,
+    required TResult Function(double lat, double long, MapEntity? currentDealer)
+        getAddressOfDealler,
+    required TResult Function(List<DealerCardModel> list) setMapPoints,
+  }) {
+    return switchIsAdDealler(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(double? latitude, double? longitude, double? radius,
+            ValueChanged<List<MapEntity>> onSuccess)?
+        getDealers,
+    TResult? Function(double? latitude, double? longitude, double? radius)?
+        getDirectoriesPoints,
+    TResult? Function(bool value)? switchIsAdDealler,
+    TResult? Function(
+            ValueChanged<String> onError, ValueChanged<Position> onSuccess)?
+        getCurrentLocation,
+    TResult? Function(double lat, double long, int? radius)? changeLatLong,
+    TResult? Function(double lat, double long, MapEntity? currentDealer)?
+        getAddressOfDealler,
+    TResult? Function(List<DealerCardModel> list)? setMapPoints,
+  }) {
+    return switchIsAdDealler?.call(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(double? latitude, double? longitude, double? radius,
+            ValueChanged<List<MapEntity>> onSuccess)?
+        getDealers,
+    TResult Function(double? latitude, double? longitude, double? radius)?
+        getDirectoriesPoints,
+    TResult Function(bool value)? switchIsAdDealler,
+    TResult Function(
+            ValueChanged<String> onError, ValueChanged<Position> onSuccess)?
+        getCurrentLocation,
+    TResult Function(double lat, double long, int? radius)? changeLatLong,
+    TResult Function(double lat, double long, MapEntity? currentDealer)?
+        getAddressOfDealler,
+    TResult Function(List<DealerCardModel> list)? setMapPoints,
+    required TResult orElse(),
+  }) {
+    if (switchIsAdDealler != null) {
+      return switchIsAdDealler(value);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetDealers value) getDealers,
+    required TResult Function(_GetDirectoriesPoints value) getDirectoriesPoints,
+    required TResult Function(_GetSwitchedIsAdDealler value) switchIsAdDealler,
+    required TResult Function(_GetCurrentLocation value) getCurrentLocation,
+    required TResult Function(_ChangeLatLong value) changeLatLong,
+    required TResult Function(_GetAddressOfDealler value) getAddressOfDealler,
+    required TResult Function(_SetMapPoints value) setMapPoints,
+  }) {
+    return switchIsAdDealler(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetDealers value)? getDealers,
+    TResult? Function(_GetDirectoriesPoints value)? getDirectoriesPoints,
+    TResult? Function(_GetSwitchedIsAdDealler value)? switchIsAdDealler,
+    TResult? Function(_GetCurrentLocation value)? getCurrentLocation,
+    TResult? Function(_ChangeLatLong value)? changeLatLong,
+    TResult? Function(_GetAddressOfDealler value)? getAddressOfDealler,
+    TResult? Function(_SetMapPoints value)? setMapPoints,
+  }) {
+    return switchIsAdDealler?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetDealers value)? getDealers,
+    TResult Function(_GetDirectoriesPoints value)? getDirectoriesPoints,
+    TResult Function(_GetSwitchedIsAdDealler value)? switchIsAdDealler,
+    TResult Function(_GetCurrentLocation value)? getCurrentLocation,
+    TResult Function(_ChangeLatLong value)? changeLatLong,
+    TResult Function(_GetAddressOfDealler value)? getAddressOfDealler,
+    TResult Function(_SetMapPoints value)? setMapPoints,
+    required TResult orElse(),
+  }) {
+    if (switchIsAdDealler != null) {
+      return switchIsAdDealler(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetSwitchedIsAdDealler implements MapOrganizationEvent {
+  factory _GetSwitchedIsAdDealler({required final bool value}) =
+      _$_GetSwitchedIsAdDealler;
+
+  bool get value;
+  @JsonKey(ignore: true)
+  _$$_GetSwitchedIsAdDeallerCopyWith<_$_GetSwitchedIsAdDealler> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -617,6 +820,7 @@ class _$_GetCurrentLocation implements _GetCurrentLocation {
     required TResult Function(
             double? latitude, double? longitude, double? radius)
         getDirectoriesPoints,
+    required TResult Function(bool value) switchIsAdDealler,
     required TResult Function(
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)
         getCurrentLocation,
@@ -637,6 +841,7 @@ class _$_GetCurrentLocation implements _GetCurrentLocation {
         getDealers,
     TResult? Function(double? latitude, double? longitude, double? radius)?
         getDirectoriesPoints,
+    TResult? Function(bool value)? switchIsAdDealler,
     TResult? Function(
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)?
         getCurrentLocation,
@@ -656,6 +861,7 @@ class _$_GetCurrentLocation implements _GetCurrentLocation {
         getDealers,
     TResult Function(double? latitude, double? longitude, double? radius)?
         getDirectoriesPoints,
+    TResult Function(bool value)? switchIsAdDealler,
     TResult Function(
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)?
         getCurrentLocation,
@@ -676,6 +882,7 @@ class _$_GetCurrentLocation implements _GetCurrentLocation {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetDealers value) getDealers,
     required TResult Function(_GetDirectoriesPoints value) getDirectoriesPoints,
+    required TResult Function(_GetSwitchedIsAdDealler value) switchIsAdDealler,
     required TResult Function(_GetCurrentLocation value) getCurrentLocation,
     required TResult Function(_ChangeLatLong value) changeLatLong,
     required TResult Function(_GetAddressOfDealler value) getAddressOfDealler,
@@ -689,6 +896,7 @@ class _$_GetCurrentLocation implements _GetCurrentLocation {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetDealers value)? getDealers,
     TResult? Function(_GetDirectoriesPoints value)? getDirectoriesPoints,
+    TResult? Function(_GetSwitchedIsAdDealler value)? switchIsAdDealler,
     TResult? Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult? Function(_ChangeLatLong value)? changeLatLong,
     TResult? Function(_GetAddressOfDealler value)? getAddressOfDealler,
@@ -702,6 +910,7 @@ class _$_GetCurrentLocation implements _GetCurrentLocation {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetDealers value)? getDealers,
     TResult Function(_GetDirectoriesPoints value)? getDirectoriesPoints,
+    TResult Function(_GetSwitchedIsAdDealler value)? switchIsAdDealler,
     TResult Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult Function(_ChangeLatLong value)? changeLatLong,
     TResult Function(_GetAddressOfDealler value)? getAddressOfDealler,
@@ -813,6 +1022,7 @@ class _$_ChangeLatLong implements _ChangeLatLong {
     required TResult Function(
             double? latitude, double? longitude, double? radius)
         getDirectoriesPoints,
+    required TResult Function(bool value) switchIsAdDealler,
     required TResult Function(
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)
         getCurrentLocation,
@@ -833,6 +1043,7 @@ class _$_ChangeLatLong implements _ChangeLatLong {
         getDealers,
     TResult? Function(double? latitude, double? longitude, double? radius)?
         getDirectoriesPoints,
+    TResult? Function(bool value)? switchIsAdDealler,
     TResult? Function(
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)?
         getCurrentLocation,
@@ -852,6 +1063,7 @@ class _$_ChangeLatLong implements _ChangeLatLong {
         getDealers,
     TResult Function(double? latitude, double? longitude, double? radius)?
         getDirectoriesPoints,
+    TResult Function(bool value)? switchIsAdDealler,
     TResult Function(
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)?
         getCurrentLocation,
@@ -872,6 +1084,7 @@ class _$_ChangeLatLong implements _ChangeLatLong {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetDealers value) getDealers,
     required TResult Function(_GetDirectoriesPoints value) getDirectoriesPoints,
+    required TResult Function(_GetSwitchedIsAdDealler value) switchIsAdDealler,
     required TResult Function(_GetCurrentLocation value) getCurrentLocation,
     required TResult Function(_ChangeLatLong value) changeLatLong,
     required TResult Function(_GetAddressOfDealler value) getAddressOfDealler,
@@ -885,6 +1098,7 @@ class _$_ChangeLatLong implements _ChangeLatLong {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetDealers value)? getDealers,
     TResult? Function(_GetDirectoriesPoints value)? getDirectoriesPoints,
+    TResult? Function(_GetSwitchedIsAdDealler value)? switchIsAdDealler,
     TResult? Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult? Function(_ChangeLatLong value)? changeLatLong,
     TResult? Function(_GetAddressOfDealler value)? getAddressOfDealler,
@@ -898,6 +1112,7 @@ class _$_ChangeLatLong implements _ChangeLatLong {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetDealers value)? getDealers,
     TResult Function(_GetDirectoriesPoints value)? getDirectoriesPoints,
+    TResult Function(_GetSwitchedIsAdDealler value)? switchIsAdDealler,
     TResult Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult Function(_ChangeLatLong value)? changeLatLong,
     TResult Function(_GetAddressOfDealler value)? getAddressOfDealler,
@@ -1014,6 +1229,7 @@ class _$_GetAddressOfDealler implements _GetAddressOfDealler {
     required TResult Function(
             double? latitude, double? longitude, double? radius)
         getDirectoriesPoints,
+    required TResult Function(bool value) switchIsAdDealler,
     required TResult Function(
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)
         getCurrentLocation,
@@ -1034,6 +1250,7 @@ class _$_GetAddressOfDealler implements _GetAddressOfDealler {
         getDealers,
     TResult? Function(double? latitude, double? longitude, double? radius)?
         getDirectoriesPoints,
+    TResult? Function(bool value)? switchIsAdDealler,
     TResult? Function(
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)?
         getCurrentLocation,
@@ -1053,6 +1270,7 @@ class _$_GetAddressOfDealler implements _GetAddressOfDealler {
         getDealers,
     TResult Function(double? latitude, double? longitude, double? radius)?
         getDirectoriesPoints,
+    TResult Function(bool value)? switchIsAdDealler,
     TResult Function(
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)?
         getCurrentLocation,
@@ -1073,6 +1291,7 @@ class _$_GetAddressOfDealler implements _GetAddressOfDealler {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetDealers value) getDealers,
     required TResult Function(_GetDirectoriesPoints value) getDirectoriesPoints,
+    required TResult Function(_GetSwitchedIsAdDealler value) switchIsAdDealler,
     required TResult Function(_GetCurrentLocation value) getCurrentLocation,
     required TResult Function(_ChangeLatLong value) changeLatLong,
     required TResult Function(_GetAddressOfDealler value) getAddressOfDealler,
@@ -1086,6 +1305,7 @@ class _$_GetAddressOfDealler implements _GetAddressOfDealler {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetDealers value)? getDealers,
     TResult? Function(_GetDirectoriesPoints value)? getDirectoriesPoints,
+    TResult? Function(_GetSwitchedIsAdDealler value)? switchIsAdDealler,
     TResult? Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult? Function(_ChangeLatLong value)? changeLatLong,
     TResult? Function(_GetAddressOfDealler value)? getAddressOfDealler,
@@ -1099,6 +1319,7 @@ class _$_GetAddressOfDealler implements _GetAddressOfDealler {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetDealers value)? getDealers,
     TResult Function(_GetDirectoriesPoints value)? getDirectoriesPoints,
+    TResult Function(_GetSwitchedIsAdDealler value)? switchIsAdDealler,
     TResult Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult Function(_ChangeLatLong value)? changeLatLong,
     TResult Function(_GetAddressOfDealler value)? getAddressOfDealler,
@@ -1203,6 +1424,7 @@ class _$_SetMapPoints implements _SetMapPoints {
     required TResult Function(
             double? latitude, double? longitude, double? radius)
         getDirectoriesPoints,
+    required TResult Function(bool value) switchIsAdDealler,
     required TResult Function(
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)
         getCurrentLocation,
@@ -1223,6 +1445,7 @@ class _$_SetMapPoints implements _SetMapPoints {
         getDealers,
     TResult? Function(double? latitude, double? longitude, double? radius)?
         getDirectoriesPoints,
+    TResult? Function(bool value)? switchIsAdDealler,
     TResult? Function(
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)?
         getCurrentLocation,
@@ -1242,6 +1465,7 @@ class _$_SetMapPoints implements _SetMapPoints {
         getDealers,
     TResult Function(double? latitude, double? longitude, double? radius)?
         getDirectoriesPoints,
+    TResult Function(bool value)? switchIsAdDealler,
     TResult Function(
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)?
         getCurrentLocation,
@@ -1262,6 +1486,7 @@ class _$_SetMapPoints implements _SetMapPoints {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetDealers value) getDealers,
     required TResult Function(_GetDirectoriesPoints value) getDirectoriesPoints,
+    required TResult Function(_GetSwitchedIsAdDealler value) switchIsAdDealler,
     required TResult Function(_GetCurrentLocation value) getCurrentLocation,
     required TResult Function(_ChangeLatLong value) changeLatLong,
     required TResult Function(_GetAddressOfDealler value) getAddressOfDealler,
@@ -1275,6 +1500,7 @@ class _$_SetMapPoints implements _SetMapPoints {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetDealers value)? getDealers,
     TResult? Function(_GetDirectoriesPoints value)? getDirectoriesPoints,
+    TResult? Function(_GetSwitchedIsAdDealler value)? switchIsAdDealler,
     TResult? Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult? Function(_ChangeLatLong value)? changeLatLong,
     TResult? Function(_GetAddressOfDealler value)? getAddressOfDealler,
@@ -1288,6 +1514,7 @@ class _$_SetMapPoints implements _SetMapPoints {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetDealers value)? getDealers,
     TResult Function(_GetDirectoriesPoints value)? getDirectoriesPoints,
+    TResult Function(_GetSwitchedIsAdDealler value)? switchIsAdDealler,
     TResult Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult Function(_ChangeLatLong value)? changeLatLong,
     TResult Function(_GetAddressOfDealler value)? getAddressOfDealler,
@@ -1326,6 +1553,7 @@ mixin _$MapOrganizationState {
   double get currentLong => throw _privateConstructorUsedError;
   String get searchText => throw _privateConstructorUsedError;
   bool get fetchMore => throw _privateConstructorUsedError;
+  bool get isAdDealler => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MapOrganizationStateCopyWith<MapOrganizationState> get copyWith =>
@@ -1351,7 +1579,8 @@ abstract class $MapOrganizationStateCopyWith<$Res> {
       double currentLat,
       double currentLong,
       String searchText,
-      bool fetchMore});
+      bool fetchMore,
+      bool isAdDealler});
 }
 
 /// @nodoc
@@ -1381,6 +1610,7 @@ class _$MapOrganizationStateCopyWithImpl<$Res,
     Object? currentLong = null,
     Object? searchText = null,
     Object? fetchMore = null,
+    Object? isAdDealler = null,
   }) {
     return _then(_value.copyWith(
       address: freezed == address
@@ -1435,6 +1665,10 @@ class _$MapOrganizationStateCopyWithImpl<$Res,
           ? _value.fetchMore
           : fetchMore // ignore: cast_nullable_to_non_nullable
               as bool,
+      isAdDealler: null == isAdDealler
+          ? _value.isAdDealler
+          : isAdDealler // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -1460,7 +1694,8 @@ abstract class _$$_MapOrganizationStateCopyWith<$Res>
       double currentLat,
       double currentLong,
       String searchText,
-      bool fetchMore});
+      bool fetchMore,
+      bool isAdDealler});
 }
 
 /// @nodoc
@@ -1487,6 +1722,7 @@ class __$$_MapOrganizationStateCopyWithImpl<$Res>
     Object? currentLong = null,
     Object? searchText = null,
     Object? fetchMore = null,
+    Object? isAdDealler = null,
   }) {
     return _then(_$_MapOrganizationState(
       address: freezed == address
@@ -1541,6 +1777,10 @@ class __$$_MapOrganizationStateCopyWithImpl<$Res>
           ? _value.fetchMore
           : fetchMore // ignore: cast_nullable_to_non_nullable
               as bool,
+      isAdDealler: null == isAdDealler
+          ? _value.isAdDealler
+          : isAdDealler // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -1561,7 +1801,8 @@ class _$_MapOrganizationState implements _MapOrganizationState {
       this.currentLat = 0,
       this.currentLong = 0,
       this.searchText = '',
-      this.fetchMore = false})
+      this.fetchMore = false,
+      this.isAdDealler = false})
       : _dealers = dealers,
         _directoriesPoints = directoriesPoints;
 
@@ -1617,10 +1858,13 @@ class _$_MapOrganizationState implements _MapOrganizationState {
   @override
   @JsonKey()
   final bool fetchMore;
+  @override
+  @JsonKey()
+  final bool isAdDealler;
 
   @override
   String toString() {
-    return 'MapOrganizationState(address: $address, dealers: $dealers, currentDealer: $currentDealer, directoriesPoints: $directoriesPoints, radius: $radius, status: $status, getCurrentLocationStatus: $getCurrentLocationStatus, lat: $lat, long: $long, currentLat: $currentLat, currentLong: $currentLong, searchText: $searchText, fetchMore: $fetchMore)';
+    return 'MapOrganizationState(address: $address, dealers: $dealers, currentDealer: $currentDealer, directoriesPoints: $directoriesPoints, radius: $radius, status: $status, getCurrentLocationStatus: $getCurrentLocationStatus, lat: $lat, long: $long, currentLat: $currentLat, currentLong: $currentLong, searchText: $searchText, fetchMore: $fetchMore, isAdDealler: $isAdDealler)';
   }
 
   @override
@@ -1648,7 +1892,9 @@ class _$_MapOrganizationState implements _MapOrganizationState {
             (identical(other.searchText, searchText) ||
                 other.searchText == searchText) &&
             (identical(other.fetchMore, fetchMore) ||
-                other.fetchMore == fetchMore));
+                other.fetchMore == fetchMore) &&
+            (identical(other.isAdDealler, isAdDealler) ||
+                other.isAdDealler == isAdDealler));
   }
 
   @override
@@ -1666,7 +1912,8 @@ class _$_MapOrganizationState implements _MapOrganizationState {
       currentLat,
       currentLong,
       searchText,
-      fetchMore);
+      fetchMore,
+      isAdDealler);
 
   @JsonKey(ignore: true)
   @override
@@ -1690,7 +1937,8 @@ abstract class _MapOrganizationState implements MapOrganizationState {
       final double currentLat,
       final double currentLong,
       final String searchText,
-      final bool fetchMore}) = _$_MapOrganizationState;
+      final bool fetchMore,
+      final bool isAdDealler}) = _$_MapOrganizationState;
 
   @override
   String? get address;
@@ -1718,6 +1966,8 @@ abstract class _MapOrganizationState implements MapOrganizationState {
   String get searchText;
   @override
   bool get fetchMore;
+  @override
+  bool get isAdDealler;
   @override
   @JsonKey(ignore: true)
   _$$_MapOrganizationStateCopyWith<_$_MapOrganizationState> get copyWith =>

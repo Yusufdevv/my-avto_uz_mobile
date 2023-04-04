@@ -25,17 +25,14 @@ class ComparisonDataSourceImpl extends ComparisonCarsDataSource {
     try {
       final response = await _dio.get('/car/comparison/',
           options: Options(headers: {
-            'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+            'Authorization':
+                'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
           }));
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
-       try{
-         return (response.data as List)
-         // ignore: unnecessary_lambdas
-             .map((e) => ComparisonModel.fromJson(e))
-             .toList();
-       }catch (e){
-         log(':::::::::: GOTTEN COMPARISON CARS DATA EXCEPTION:  $e  ::::::::::');
-        }
+        return (response.data as List)
+            // ignore: unnecessary_lambdas
+            .map((e) => ComparisonModel.fromJson(e))
+            .toList();
       } else {
         throw ServerException(
             errorMessage: response.data.toString(),
@@ -55,7 +52,8 @@ class ComparisonDataSourceImpl extends ComparisonCarsDataSource {
     final response = await _dio.post('/car/comparison/',
         data: {'announcement': id, 'order': id},
         options: Options(headers: {
-          'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+          'Authorization':
+              'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
         }));
     if (response.statusCode! >= 200 && response.statusCode! < 300) {
     } else {
@@ -70,7 +68,8 @@ class ComparisonDataSourceImpl extends ComparisonCarsDataSource {
     final response = await _dio.delete(
         '/car/comparison/$id/delete-announcement/',
         options: Options(headers: {
-          'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
+          'Authorization':
+              'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
         }));
     if (response.statusCode! >= 200 && response.statusCode! < 300) {
     } else {

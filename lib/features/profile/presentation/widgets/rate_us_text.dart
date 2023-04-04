@@ -13,7 +13,6 @@ class RateUsText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log('::::::::::  ${LocaleKeys.in_appstore.tr().capitalize()}  ::::::::::');
     if (locale == 'uz') {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,

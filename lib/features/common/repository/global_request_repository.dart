@@ -58,10 +58,6 @@ class GlobalRequestRepository {
                   : {}));
 
       List<S> list = [];
-      log(':::::::::: the endpoint:  ${endpoint}  ::::::::::');
-      if (endpoint == '/users/dealers-map/') {
-        log(' :::::::::::::::::::  getList:  $endpoint => DATA: ${result.data}  ::::::::::');
-      }
 
       if (result.statusCode! >= 200 && result.statusCode! < 300) {
         if (responseDataKey != null && responseDataKey.isNotEmpty) {
