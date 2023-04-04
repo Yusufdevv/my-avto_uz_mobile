@@ -188,31 +188,31 @@ class _AdsScreenState extends State<AdsScreen>
                           ),
                         ),
                       } else ...{
-                        SliverOverlapAbsorber(
-                          handle:
-                              NestedScrollView.sliverOverlapAbsorberHandleFor(
-                                  c),
-                          sliver: SliverSafeArea(
-                            top: false,
-                            sliver: SliverPersistentHeader(
-                              delegate: AdsSliverWidget(
-                                size: MediaQuery.of(context).size,
-                                theme: Theme.of(context)
-                                    .extension<ThemedColors>()!,
-                                tabController: tabController,
-                                bloc: announcementListBloc,
-                              ),
-                            ),
-                          ),
-                        ),
-                        // SliverPersistentHeader(
-                        //   delegate: AdsSliverWidget(
-                        //     size: MediaQuery.of(context).size,
-                        //     theme: Theme.of(context).extension<ThemedColors>()!,
-                        //     tabController: tabController,
-                        //     bloc: announcementListBloc,
+                        // SliverOverlapAbsorber(
+                        //   handle:
+                        //       NestedScrollView.sliverOverlapAbsorberHandleFor(
+                        //           c),
+                        //   sliver: SliverSafeArea(
+                        //     top: false,
+                        //     sliver: SliverPersistentHeader(
+                        //       delegate: AdsSliverWidget(
+                        //         size: MediaQuery.of(context).size,
+                        //         theme: Theme.of(context)
+                        //             .extension<ThemedColors>()!,
+                        //         tabController: tabController,
+                        //         bloc: announcementListBloc,
+                        //       ),
+                        //     ),
                         //   ),
                         // ),
+                        SliverPersistentHeader(
+                          delegate: AdsSliverWidget(
+                            size: MediaQuery.of(context).size,
+                            theme: Theme.of(context).extension<ThemedColors>()!,
+                            tabController: tabController,
+                            bloc: announcementListBloc,
+                          ),
+                        ),
                       },
                     ],
                     body: TabBarView(

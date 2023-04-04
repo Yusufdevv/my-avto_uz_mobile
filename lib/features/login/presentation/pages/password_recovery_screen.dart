@@ -128,7 +128,7 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
                     FilteringTextInputFormatter.allow(
                         RegExp(r'[\da-zA-Z!@#$&*~]')),
                   ],
-                  cursorColor: black,
+                  cursorColor: Theme.of(context).extension<ThemedColors>()!.darkToWhite,
                   cursorWidth: 1,
                   cursorHeight: 31,
                   keyboardType: TextInputType.number,

@@ -30,7 +30,7 @@ class _SmsPinCodeFieldsState extends State<SmsPinCodeFields> {
         keyboardType: TextInputType.number,
         controller: widget.controller,
         appContext: context,
-        cursorColor: Theme.of(context).colorScheme.primary,
+        cursorColor: Theme.of(context).extension<ThemedColors>()!.darkToWhite,
         cursorHeight: 22,
         textInputAction: TextInputAction.next,
         autoDismissKeyboard: true,

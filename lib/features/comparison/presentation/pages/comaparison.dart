@@ -20,10 +20,8 @@ import 'package:linked_scroll_controller/linked_scroll_controller.dart';
 class Comparison extends StatefulWidget {
   final bool isSticky;
   final ComparisonBloc comparisonBloc;
-  final double width;
 
   const Comparison({
-    required this.width,
     required this.isSticky,
     required this.comparisonBloc,
     Key? key,
@@ -216,7 +214,7 @@ class _ComparisonState extends State<Comparison> {
                           ),
                         ),
                         CharacteristicsParametersWidget(
-                          width: widget.width,
+                          width: MediaQuery.of(context).size.width / 2,
                           onChanged: (integer) {
                             setState(() {
                               currentValueOfComplectation = integer;
@@ -228,7 +226,7 @@ class _ComparisonState extends State<Comparison> {
                           controller: scrollControllers[0],
                         ),
                         EngineParametersWidget(
-                          width: widget.width,
+                          width: MediaQuery.of(context).size.width / 2,
                           onChanged: (integer) {
                             setState(() {
                               currentValueOfCharacteristics = integer;

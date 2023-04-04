@@ -79,7 +79,6 @@ class _ComparisonPageState extends State<ComparisonPage> {
                   );
                 } else {
                   return Comparison(
-                    width: MediaQuery.of(context).size.width / 2,
                     isSticky: state.isSticky,
                     comparisonBloc: bloc,
                   );
