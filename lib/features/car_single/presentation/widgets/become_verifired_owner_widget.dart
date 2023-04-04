@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/features/car_single/presentation/bloc/car_single_bloc.dart';
 import 'package:auto/features/car_single/presentation/parts/verifered_owner_page.dart';
 import 'package:auto/features/car_single/presentation/widgets/verifired_owner_moderation_item.dart';
 import 'package:auto/features/car_single/presentation/widgets/verifired_owner_rejected_item.dart';
@@ -7,6 +8,7 @@ import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BecomeVerifiredOwnerWidget extends StatelessWidget {
   const BecomeVerifiredOwnerWidget({
@@ -44,15 +46,17 @@ class BecomeVerifiredOwnerWidget extends StatelessWidget {
         if (moderationStatus.isEmpty) {
           return InkWell(
             onTap: () async {
-           final res =  await  Navigator.push(
+              final res = await Navigator.push(
                   context,
                   fade(
                       page:
                           VerifiredOwnerPage(announcementId: announcementId)));
 
-           if(res!=null) {
-
-           }
+              if (res != null) {
+                context
+                    .read<CarSingleBloc>()
+                    .add(CarSingleEvent.getSingle(announcementId));
+              }
             },
             child: Container(
               margin: const EdgeInsets.all(16),
