@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:auto/assets/colors/color.dart';
@@ -365,8 +366,7 @@ class _MapScreenState extends State<MapScreen>
     required bool isDirectoryPage,
   }) async {
     final placeMarks = <PlacemarkMapObject>[];
-    var key = 0;
-    for (final b in bitmaps) {
+    bitmaps.asMap().forEach((key, value) {
       placeMarks.add(
         PlacemarkMapObject(
           opacity: 1,
@@ -375,10 +375,13 @@ class _MapScreenState extends State<MapScreen>
               latitude: points[key].latitude, longitude: points[key].longitude),
           onTap: (object, point) {
             context.read<MapOrganizationBloc>().add(
-                MapOrganizationEvent.getAddressOfDealler(
+                  MapOrganizationEvent.getAddressOfDealler(
                     lat: point.latitude,
                     long: point.longitude,
-                    currentDealer: points[key]));
+                    currentDealer: points[key],
+                  ),
+                );
+
             _mapController.moveCamera(
               CameraUpdate.newCameraPosition(
                 CameraPosition(
@@ -397,16 +400,15 @@ class _MapScreenState extends State<MapScreen>
                   isDirectoryPage && points[key].iconPath != AppIcons.currentLoc
                       ? 2
                       : 0.9,
-              image: b != null
-                  ? BitmapDescriptor.fromBytes(b)
+              image: value != null
+                  ? BitmapDescriptor.fromBytes(value)
                   : BitmapDescriptor.fromAssetImage(points[key].iconPath),
               rotationType: RotationType.noRotation,
             ),
           ),
         ),
       );
-      key++;
-    }
+    });
     var clusterItem = ClusterizedPlacemarkCollection(
       zIndex: 1,
       mapId: MyFunctions.clusterId,

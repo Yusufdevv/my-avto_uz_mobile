@@ -37,10 +37,12 @@ class MapOrganizationBloc
     required this.isFromDirectoryPage,
   }) : super(MapOrganizationState()) {
     on<_GetAddressOfDealler>((event, emit) async {
+      log(':::::::::: Get adress of dealler triggered: ${event.currentDealer}  ::::::::::');
       String? address;
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await getAddressUseCase.call(
           {'type': 'geo', 'long': '${event.long}', 'lat': '${event.lat}'});
+      log('::::::::::  ${result}  ::::::::::');
       if (result.isRight) {
         address = MyFunctions.extractAddress(result.right);
       }
