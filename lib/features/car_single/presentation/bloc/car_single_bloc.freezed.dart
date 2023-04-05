@@ -596,15 +596,15 @@ class __$$_SoldAdsCopyWithImpl<$Res>
     Object? onError = null,
   }) {
     return _then(_$_SoldAds(
-      null == id
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      null == onSucc
+      onSucc: null == onSucc
           ? _value.onSucc
           : onSucc // ignore: cast_nullable_to_non_nullable
               as dynamic Function(String),
-      null == onError
+      onError: null == onError
           ? _value.onError
           : onError // ignore: cast_nullable_to_non_nullable
               as dynamic Function(String),
@@ -615,7 +615,7 @@ class __$$_SoldAdsCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_SoldAds implements _SoldAds {
-  _$_SoldAds(this.id, this.onSucc, this.onError);
+  _$_SoldAds({required this.id, required this.onSucc, required this.onError});
 
   @override
   final int id;
@@ -736,8 +736,10 @@ class _$_SoldAds implements _SoldAds {
 }
 
 abstract class _SoldAds implements CarSingleEvent {
-  factory _SoldAds(final int id, final dynamic Function(String) onSucc,
-      final dynamic Function(String) onError) = _$_SoldAds;
+  factory _SoldAds(
+      {required final int id,
+      required final dynamic Function(String) onSucc,
+      required final dynamic Function(String) onError}) = _$_SoldAds;
 
   int get id;
   dynamic Function(String) get onSucc;

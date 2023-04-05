@@ -202,17 +202,19 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                 if (value ?? false) {
                                   bloc.add(
                                     CarSingleEvent.soldAds(
-                                      widget.id,
-                                      (message) {
+                                      id: widget.id,
+                                      onSucc: (message) async {
                                         context.read<ShowPopUpBloc>().add(
                                               ShowPopUp(
                                                 message: message,
                                                 status: PopStatus.success,
                                               ),
                                             );
+                                        await Future.delayed(
+                                            const Duration(milliseconds: 3000));
                                         Navigator.of(context).pop();
                                       },
-                                      (errorMessage) {
+                                      onError: (errorMessage) {
                                         context.read<ShowPopUpBloc>().add(
                                               ShowPopUp(
                                                 message: errorMessage,

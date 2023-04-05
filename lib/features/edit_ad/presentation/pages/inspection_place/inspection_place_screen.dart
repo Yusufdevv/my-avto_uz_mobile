@@ -1,10 +1,5 @@
-// ignore_for_file: unused_import
-
-
-import 'package:auto/assets/constants/icons.dart';
+import 'dart:developer';
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
-
-import 'package:auto/features/ad/presentation/pages/map_screen/widgets/point_name_shimmer.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/ad/presentation/widgets/choose_district_sheet.dart';
 import 'package:auto/features/ad/presentation/widgets/loader_box.dart';
@@ -48,8 +43,11 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
           headerText: LocaleKeys.place_of_inspection.tr(),
           child: Padding(
             padding: const EdgeInsets.all(16),
-            child: BlocBuilder<EditAdBloc, EditAdState>(
-              builder: (context, state) => SingleChildScrollView(
+            child:
+                BlocBuilder<EditAdBloc, EditAdState>(builder: (context, state) {
+              log(':::::::::: map points lenth in page: ${state.mapPointBytes}  ::::::::::');
+              log(':::::::::: condition: ${state.mapPointBytes != null && (state.mapPointBytes?.isNotEmpty ?? false) && state.showExactAddress}  ::::::::::');
+              return SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -74,7 +72,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                           ),
                         ).then((value) {
                           if (value != null && value.isNotEmpty) {
-                           context
+                            context
                                 .read<EditAdBloc>()
                                 .add(EditAdChooseEvent(region: value[0]));
                           }
@@ -165,8 +163,8 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                     const SizedBox(height: 70),
                   ],
                 ),
-              ),
-            ),
+              );
+            }),
           ),
         ),
       );
