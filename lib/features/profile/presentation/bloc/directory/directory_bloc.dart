@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:auto/features/dealers/domain/entities/dealer_single_entity.dart';
 import 'package:auto/features/profile/domain/entities/dir_category_entity.dart';
 import 'package:auto/features/profile/domain/entities/directory_entity.dart';
@@ -13,6 +14,7 @@ import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:formz/formz.dart';
 
 part 'directory_event.dart';
@@ -96,9 +98,16 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await productListUseCase.call(event.slug);
     if (result.isRight) {
-      emit(state.copyWith(
+      var popularProducts = [...result.right.results]
+        ..retainWhere((element) => element.isPopular);
+
+      emit(
+        state.copyWith(
           status: FormzStatus.submissionSuccess,
-          popularProducts: result.right.results));
+          directoryProducts: result.right.results,
+          popularProducts: popularProducts,
+        ),
+      );
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
@@ -186,6 +195,4 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
   }
-
-
 }

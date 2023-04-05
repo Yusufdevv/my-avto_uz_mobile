@@ -17,6 +17,7 @@ import 'package:formz/formz.dart';
 class DirectorySinglePage extends StatefulWidget {
   final String slug;
   final String categoriesTitle;
+
   const DirectorySinglePage({
     required this.slug,
     required this.categoriesTitle,
@@ -54,14 +55,14 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
                   headerSliverBuilder: (context, innerBoxIsScrolled) =>
                       <Widget>[
                     SliverPersistentHeader(
-                      pinned: true,
-                      delegate: DirectorySliverDelegate(
+                        pinned: true,
+                        delegate: DirectorySliverDelegate(
                           gallery: directory.gallery,
                           avatarImage: directory.avatar,
                           name: directory.name,
                           minHeight: 100,
-                          category: widget.categoriesTitle,)
-                    ),
+                          category: widget.categoriesTitle,
+                        )),
                   ],
                   body: ListView(
                     shrinkWrap: true,
@@ -81,7 +82,7 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
                         ),
                       ),
                       const SizedBox(height: 16),
-                      if (state.popularProducts.isNotEmpty)
+                      if (state.directoryProducts.isNotEmpty)
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: GoAllButton(
@@ -93,7 +94,7 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
                                 fade(
                                   page: ProductsScreen(
                                     title: LocaleKeys.all_products.tr(),
-                                    products: state.popularProducts,
+                                    products: state.directoryProducts,
                                     slug: widget.slug,
                                     phoneNumber: directory.phone,
                                   ),
@@ -119,7 +120,9 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
                                 const SizedBox(width: 13),
                             itemCount: state.popularProducts.length,
                           ),
-                        ),
+                        )
+                      else
+                        const SizedBox(height: 24),
                       if (state.singleCategories.isNotEmpty)
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
