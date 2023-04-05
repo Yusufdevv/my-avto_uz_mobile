@@ -20,7 +20,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 class AllAds extends StatefulWidget {
-  final String moderationStatus;
+  final ModerationStatusEnum moderationStatus;
 
   const AllAds({
     required this.moderationStatus,
@@ -34,9 +34,8 @@ class AllAds extends StatefulWidget {
 class _AllAdsState extends State<AllAds> {
   @override
   void initState() {
-    context
-        .read<UserWishListsBloc>()
-        .add(GetUserMyAdsEvent(moderationStatus: widget.moderationStatus));
+    context.read<UserWishListsBloc>().add(
+        GetUserMyAdsEvent(moderationStatus: widget.moderationStatus.value));
     super.initState();
   }
 
@@ -53,7 +52,7 @@ class _AllAdsState extends State<AllAds> {
                   hasMoreToFetch: state.moreFetchMyAds,
                   fetchMoreFunction: () {
                     context.read<UserWishListsBloc>().add(GetMoreUserMyAdsEvent(
-                        moderationStatus: widget.moderationStatus));
+                        moderationStatus: widget.moderationStatus.value));
                   },
                   loadingWidget: const CupertinoActivityIndicator(),
                   itemCount: state.myAds.length,
@@ -78,7 +77,8 @@ class _AllAdsState extends State<AllAds> {
                               .then((value) {
                             context.read<UserWishListsBloc>().add(
                                 GetUserMyAdsEvent(
-                                    moderationStatus: widget.moderationStatus));
+                                    moderationStatus:
+                                        widget.moderationStatus.value));
                           });
                         },
                         child: Container(
@@ -100,19 +100,19 @@ class _AllAdsState extends State<AllAds> {
                                     //
                                     MyAdCarDescPart(item: item),
                                     //
-                                    if (item.moderationStatus !=
-                                        ModerationStatusEnum.blocked.value)
+                                    if (widget.moderationStatus !=
+                                        ModerationStatusEnum.blockedOrSold)
                                       MyAdDesc(
                                         moderationStatus:
-                                            widget.moderationStatus,
+                                            widget.moderationStatus.value,
                                         item: item,
                                       )
                                     else
                                       ReSendPart(
                                         item: item,
                                         moderationStatus:
-                                            widget.moderationStatus,
-                                      )
+                                            widget.moderationStatus.value,
+                                      ),
                                   ],
                                 ),
                               ),

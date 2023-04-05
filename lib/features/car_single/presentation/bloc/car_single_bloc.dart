@@ -5,7 +5,9 @@ import 'package:auto/features/car_single/domain/usecases/get_ads_usecase.dart';
 import 'package:auto/features/car_single/domain/usecases/other_ads_usecase.dart';
 import 'package:auto/features/car_single/domain/usecases/sold_ads_usecase.dart';
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
+import 'package:auto/generated/locale_keys.g.dart';
 import 'package:bloc/bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -68,7 +70,7 @@ class CarSingleBloc extends Bloc<CarSingleEvent, CarSingleState> {
       final result = await soldAdsUseCase.call(event.id);
       emit(state.copyWith(soldStatus: FormzStatus.submissionInProgress));
       if (result.isRight) {
-        event.onSucc('LocaleKeys.your_ad_closed_successfully.tr()');
+        event.onSucc(LocaleKeys.your_ad_closed_successfully.tr());
         emit(state.copyWith(
             soldStatus: FormzStatus.submissionSuccess, succMessage: 'succes'));
       } else {

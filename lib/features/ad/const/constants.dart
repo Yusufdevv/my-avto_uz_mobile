@@ -50,6 +50,7 @@ enum ModerationStatusEnum {
   active('active'),
   blocked('blocked'),
   sold('sold'),
+  blockedOrSold('blocked,sold'),
   in_moderation('in_moderation');
 
   const ModerationStatusEnum(this.value);

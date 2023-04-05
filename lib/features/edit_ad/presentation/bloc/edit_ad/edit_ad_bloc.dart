@@ -414,6 +414,10 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
     if (result.isRight) {
       final isLatLongAvailable =
           result.right.latitude != 0 && result.right.longitude != 0;
+
+      final stateForEdit =
+          await EASingleton.stateForEdit(result.right, isLatLongAvailable);
+      emit(stateForEdit);
       if (isLatLongAvailable) {
         add(
           EditAdGetMapScreenShotEvent(
@@ -423,10 +427,6 @@ class EditAdBloc extends Bloc<EditAdEvent, EditAdState> {
           ),
         );
       }
-
-      final stateForEdit =
-          await EASingleton.stateForEdit(result.right, isLatLongAvailable);
-      emit(stateForEdit);
     } else {
       emit(state.copyWith(
         getAnnouncementToEditStatus: FormzStatus.submissionFailure,
