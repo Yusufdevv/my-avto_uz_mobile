@@ -202,28 +202,25 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                 if (value ?? false) {
                                   bloc.add(
                                     CarSingleEvent.soldAds(
-                                      widget.id,
-                                      (message) {
-                                        if (message.isNotEmpty) {
-                                          context.read<ShowPopUpBloc>().add(
-                                                ShowPopUp(
-                                                  message: message,
-                                                  status: PopStatus.success,
-                                                ),
-                                              );
-                                        }
-
+                                      id: widget.id,
+                                      onSucc: (message) async {
+                                        context.read<ShowPopUpBloc>().add(
+                                              ShowPopUp(
+                                                message: message,
+                                                status: PopStatus.success,
+                                              ),
+                                            );
+                                        await Future.delayed(
+                                            const Duration(milliseconds: 3000));
                                         Navigator.of(context).pop();
                                       },
-                                      (errorMessage) {
-                                        if (errorMessage.isNotEmpty) {
-                                          context.read<ShowPopUpBloc>().add(
-                                                ShowPopUp(
-                                                  message: errorMessage,
-                                                  status: PopStatus.error,
-                                                ),
-                                              );
-                                        }
+                                      onError: (errorMessage) {
+                                        context.read<ShowPopUpBloc>().add(
+                                              ShowPopUp(
+                                                message: errorMessage,
+                                                status: PopStatus.error,
+                                              ),
+                                            );
                                       },
                                     ),
                                   );

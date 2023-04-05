@@ -1,5 +1,6 @@
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/profile/presentation/bloc/user_wishlists_notifications/user_wishlists_notification_bloc.dart';
 import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -13,7 +14,7 @@ class MyAdsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => BlocProvider(
-    create: (context) => UserWishListsBloc(),
+        create: (context) => UserWishListsBloc(),
         child: DefaultTabController(
           length: 3,
           child: Scaffold(
@@ -63,13 +64,13 @@ class MyAdsPage extends StatelessWidget {
                   physics: NeverScrollableScrollPhysics(),
                   children: [
                     AllAds(
-                      moderationStatus: 'in_moderation',
+                      moderationStatus: ModerationStatusEnum.in_moderation,
                     ),
                     AllAds(
-                      moderationStatus: 'active',
+                      moderationStatus: ModerationStatusEnum.active,
                     ),
                     AllAds(
-                      moderationStatus: 'blocked,sold',
+                      moderationStatus: ModerationStatusEnum.blockedOrSold,
                     ),
                   ],
                 )),
