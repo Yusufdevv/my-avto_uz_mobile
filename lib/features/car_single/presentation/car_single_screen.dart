@@ -204,21 +204,26 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                     CarSingleEvent.soldAds(
                                       widget.id,
                                       (message) {
-                                        context.read<ShowPopUpBloc>().add(
-                                              ShowPopUp(
-                                                message: message,
-                                                status: PopStatus.success,
-                                              ),
-                                            );
+                                        if (message.isNotEmpty) {
+                                          context.read<ShowPopUpBloc>().add(
+                                                ShowPopUp(
+                                                  message: message,
+                                                  status: PopStatus.success,
+                                                ),
+                                              );
+                                        }
+
                                         Navigator.of(context).pop();
                                       },
                                       (errorMessage) {
-                                        context.read<ShowPopUpBloc>().add(
-                                              ShowPopUp(
-                                                message: errorMessage,
-                                                status: PopStatus.error,
-                                              ),
-                                            );
+                                        if (errorMessage.isNotEmpty) {
+                                          context.read<ShowPopUpBloc>().add(
+                                                ShowPopUp(
+                                                  message: errorMessage,
+                                                  status: PopStatus.error,
+                                                ),
+                                              );
+                                        }
                                       },
                                     ),
                                   );
