@@ -133,6 +133,11 @@ CarSingleModel _$CarSingleModelFromJson(Map<String, dynamic> json) =>
           ? const AnnouncementVerifyOwnerEntity()
           : const AnnouncementVerifyOwnerEntityConverter().fromJson(
               json['announcement_verify_owners'] as Map<String, dynamic>?),
+      gallery_360: (json['gallery_360'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          [],
+      mileageImage: json['mileage_image'] as String? ?? '',
     );
 
 Map<String, dynamic> _$CarSingleModelToJson(CarSingleModel instance) =>
@@ -160,6 +165,7 @@ Map<String, dynamic> _$CarSingleModelToJson(CarSingleModel instance) =>
       'licence_type': instance.licenceType,
       'ownership': instance.ownership,
       'purchase_date': instance.purchaseDate,
+      'mileage_image': instance.mileageImage,
       'description': instance.description,
       'is_registered_locally': instance.isRegisteredLocally,
       'registration_vin': instance.registrationVin,
@@ -175,6 +181,7 @@ Map<String, dynamic> _$CarSingleModelToJson(CarSingleModel instance) =>
       'contact_available_to': instance.contactAvailableTo,
       'is_new': instance.isNew,
       'gallery': instance.gallery,
+      'gallery_360': instance.gallery_360,
       'longitude': instance.longitude,
       'latitude': instance.latitude,
       'is_mine': instance.isMine,

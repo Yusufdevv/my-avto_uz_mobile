@@ -147,14 +147,26 @@ class EASingleton {
         gallery.add(path);
       }
     }
+    var gallery360 = <String>[];
+    for (var i = 0; i < v.gallery_360.length; i++) {
+      final path = await MyFunctions.urlToFilePath(v.gallery_360[i]);
+      if (path != null) {
+        gallery360.add(path);
+      }
+    }
     Map<int, RentWithPurchaseEntity> rentWithPurchaseConditions = {};
 
     for (int i = 0; i < v.rentWithPurchase.length; i++) {
       rentWithPurchaseConditions[v.rentWithPurchase[i].id] =
           v.rentWithPurchase[i];
     }
+    String? mileageImage;
+    if (v.mileageImage.isNotEmpty) {
+      mileageImage = await MyFunctions.urlToFilePath(v.mileageImage);
+    }
 
     return EditAdState(
+      milageImage: mileageImage,
       lat: v.latitude,
       long: v.longitude,
       contactsFormKey: GlobalKey<FormState>(),
@@ -169,6 +181,7 @@ class EASingleton {
       getAnnouncementToEditStatus: FormzStatus.submissionSuccess,
       licenceType: v.licenceType,
       gallery: gallery,
+      panaramaGallery: gallery360,
       popStatus: PopStatus.success,
       isContactsVerified: true,
       phoneController: TextEditingController(text: phone ?? v.user.phoneNumber),

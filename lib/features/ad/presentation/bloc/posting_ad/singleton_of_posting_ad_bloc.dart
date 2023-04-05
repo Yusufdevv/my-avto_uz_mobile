@@ -79,19 +79,33 @@ class PASingleton {
       i++;
       return MapEntry('damaged_parts[$i]damage_type', e.value.value);
     }));
-
+///////////////////////////////////////
     var images = <MultipartFile>[];
 
-    for (final element in [...v.gallery, ...v.panoramas]) {
+    for (final element in v.gallery) {
       final multiParFile = await MultipartFile.fromFile(element);
       images.add(multiParFile);
     }
+
     i = -1;
 
     announcementFields.addEntries(images.map((e) {
       i++;
       return MapEntry('gallery[$i]', e);
     }));
+    ///////////////////////////////////////
+    var images360 = <MultipartFile>[];
+    for (final i360 in v.panoramas) {
+      final mFile = await MultipartFile.fromFile(i360);
+      images360.add(mFile);
+    }
+    i = -1;
+    announcementFields.addEntries(images360.map((e) {
+      i++;
+      return MapEntry('gallery_360[$i]', e);
+    }));
+
+    /////////////////////////////////////////
     i = -1;
     Map<int, String> rO = v.equipment == null
         ? v.radioOptions
@@ -289,7 +303,10 @@ class PASingleton {
         return false;
       // AddPhotoScreen
       case 10:
-        return [...state.gallery, ...state.panoramas].length < 3;
+        {
+          log('::::::::::  ${state.gallery.length} / ${state.panoramas.isEmpty}  ::::::::::');
+          return !(state.gallery.length > 2 && state.panoramas.isNotEmpty);
+        }
 
       // PtsScreen
       case 11:

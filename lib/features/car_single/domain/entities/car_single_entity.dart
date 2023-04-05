@@ -61,6 +61,8 @@ class CarSingleEntity extends Equatable {
   @JsonKey(defaultValue: '')
   final String purchaseDate;
   @JsonKey(defaultValue: '')
+  final String mileageImage;
+  @JsonKey(defaultValue: '')
   final String description;
   @JsonKey(defaultValue: false)
   final bool isRegisteredLocally;
@@ -90,6 +92,8 @@ class CarSingleEntity extends Equatable {
   final bool isNew;
   @JsonKey(defaultValue: [])
   final List<String> gallery;
+  @JsonKey(defaultValue: [])
+  final List<String> gallery_360;
   @JsonKey(defaultValue: 0)
   final double longitude;
   @JsonKey(defaultValue: 0)
@@ -153,6 +157,7 @@ class CarSingleEntity extends Equatable {
     this.isRentWithPurchase = false,
     this.isExpired = false,
     this.expiredAt = '',
+    this.mileageImage = '',
     this.wishlistCount = 0,
     this.callCount = 0,
     this.absoluteCarName = '',
@@ -193,6 +198,7 @@ class CarSingleEntity extends Equatable {
     this.contactPhone = '',
     this.isNew = false,
     this.gallery = const [],
+    this.gallery_360 = const [],
     this.longitude = 0,
     this.latitude = 0,
     this.isMine = false,
@@ -246,6 +252,7 @@ class CarSingleEntity extends Equatable {
         contactPhone,
         isNew,
         gallery,
+        gallery_360,
         longitude,
         latitude,
         isMine,
