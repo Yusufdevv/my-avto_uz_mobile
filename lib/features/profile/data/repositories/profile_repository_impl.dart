@@ -118,11 +118,11 @@ class ProfileRepositoryImpl extends ProfileRepository {
   }
 
   @override
-  Future<Either<Failure, GenericPagination<CarProductEntity>>> getCarProductByCategory(
-      String slug, int id) async {
+  Future<Either<Failure, GenericPagination<CarProductEntity>>>
+      getCarProductByCategory(String slug, int id) async {
     try {
       final result = await dataSource.getCarProductByCategory(slug, id);
-      print('FROM DATA REPO 2 - > ${result.results}');
+
       return Right(result);
     } on ServerException catch (error) {
       return Left(ServerFailure(
@@ -135,12 +135,11 @@ class ProfileRepositoryImpl extends ProfileRepository {
   }
 
   @override
-  Future<Either<Failure, GenericPagination<ProductCategoryModel>>> productCategory(
-      String slug) async {
+  Future<Either<Failure, GenericPagination<ProductCategoryModel>>>
+      productCategory(String slug) async {
     try {
       final result = await dataSource.productCategory(slug);
-      print('FROM DATA REPO 2 - > ${result.results}');
-      print('FROM DATA REPO 2 - > ${result.count}');
+
       return Right(result);
     } on ServerException catch (error) {
       return Left(ServerFailure(
