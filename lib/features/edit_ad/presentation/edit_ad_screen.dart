@@ -121,7 +121,9 @@ class _EditAdScreenState extends State<EditAdScreen>
                           ShowPopUp(
                             message: widget.moderationStatus ==
                                     ModerationStatusEnum.blocked
-                                ? LocaleKeys.your_ad_resend_successfully.tr()
+                                ? LocaleKeys
+                                    .your_application_has_been_sent_for_review
+                                    .tr()
                                 : LocaleKeys.your_ad_edited_successfully.tr(),
                             status: PopStatus.success,
                             dismissible: true,
