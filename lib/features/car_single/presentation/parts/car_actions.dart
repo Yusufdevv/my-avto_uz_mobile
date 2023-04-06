@@ -13,14 +13,12 @@ class CarActions extends StatelessWidget {
   final VoidCallback onShare;
   final int id;
   final bool isComparised;
-  final String inModeration;
 
   const CarActions({
     required this.onVin,
     required this.onShare,
     required this.id,
     required this.isComparised,
-      this.inModeration='',
     Key? key,
   }) : super(key: key);
 

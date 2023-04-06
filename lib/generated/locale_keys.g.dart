@@ -631,5 +631,6 @@ abstract class  LocaleKeys {
   static const wrong_code = 'wrong_code';
   static const add_phone_number = 'add_phone_number';
   static const your_ad_closed_successfully = 'your_ad_closed_successfully';
+  static const negotiable = 'negotiable';
 
 }

@@ -13,6 +13,7 @@ import 'package:auto/features/profile/presentation/widgets/my_ad_desc_part.dart'
 import 'package:auto/features/profile/presentation/widgets/my_ad_images_part.dart';
 import 'package:auto/features/profile/presentation/widgets/resend_part.dart';
 import 'package:auto/generated/locale_keys.g.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -70,16 +71,20 @@ class _AllAdsState extends State<AllAds> {
                             fade(
                               page: CarSingleScreen(
                                 id: item.id,
-                                moderationStatus: item.moderationStatus,
+                                moderationStatus:
+                                    MyFunctions.strToModerationStatus(
+                                        item.moderationStatus),
                               ),
                             ),
                           )
-                              .then((value) {
-                            context.read<UserWishListsBloc>().add(
-                                GetUserMyAdsEvent(
-                                    moderationStatus:
-                                        widget.moderationStatus.value));
-                          });
+                              .then(
+                            (value) {
+                              context.read<UserWishListsBloc>().add(
+                                  GetUserMyAdsEvent(
+                                      moderationStatus:
+                                          widget.moderationStatus.value));
+                            },
+                          );
                         },
                         child: Container(
                           padding: const EdgeInsets.only(top: 12),

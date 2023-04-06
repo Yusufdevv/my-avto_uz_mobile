@@ -65,12 +65,11 @@ class ProductsScreen extends StatelessWidget {
             itemCount: products.length,
             itemBuilder: (context, index) => Container(
               decoration: BoxDecoration(
-                color: Theme.of(context)
-                    .extension<ThemedColors>()!
-                    .whiteToDark,
-                border: Border.all(width: 1, color: Theme.of(context)
-                    .extension<ThemedColors>()!
-                    .divider),
+                color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+                border: Border.all(
+                    width: 1,
+                    color:
+                        Theme.of(context).extension<ThemedColors>()!.divider),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Column(
@@ -120,17 +119,11 @@ class ProductsScreen extends StatelessWidget {
                                 .copyWith(
                                     fontSize: 12, fontWeight: FontWeight.w400),
                           ),
-                          // Text(
-                          //   ' 36 КВТ',
-                          //   style: Theme.of(context)
-                          //       .textTheme
-                          //       .displayLarge!
-                          //       .copyWith(
-                          //           fontSize: 12, fontWeight: FontWeight.w400),
-                          // ),
                           const Spacer(),
                           Text(
-                            '${MyFunctions.getFormatCost(products[index].price ?? '')} UZS',
+                            products[index].isAgreedPrice
+                                ? LocaleKeys.negotiable.tr()
+                                : '${MyFunctions.getFormatCost(products[index].price ?? '')} UZS',
                             style: Theme.of(context)
                                 .textTheme
                                 .displaySmall!

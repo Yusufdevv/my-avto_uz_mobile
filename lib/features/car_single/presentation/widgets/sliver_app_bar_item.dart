@@ -41,6 +41,7 @@ class SliverAppBarItem extends StatefulWidget {
   final String expiredDate;
   final double long;
   final double lat;
+  final ModerationStatusEnum moderationStatus;
 
   const SliverAppBarItem({
     required this.brightness,
@@ -64,7 +65,7 @@ class SliverAppBarItem extends StatefulWidget {
     required this.expiredDate,
     required this.long,
     required this.lat,
-    this.moderationStatus = 'active',
+    this.moderationStatus = ModerationStatusEnum.active,
     Key? key,
   }) : super(key: key);
 
@@ -129,47 +130,43 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 8, right: 8),
-              child: widget.isMine
-                  ? widget.moderationStatus == ModerationStatusEnum.sold.value
-                      ? const SizedBox()
-                      : GestureDetector(
-                          onTap: () {
-                            Navigator.of(context, rootNavigator: true).push(
-                                fade(
-                                    page: EditAdScreen(
-                                        announcementId: widget.id)));
-                          },
-                          behavior: HitTestBehavior.opaque,
-                          child: SvgPicture.asset(
-                            AppIcons.edit_single,
-                            color: widget.iconColor,
-                          ),
-                        )
-                  : AddWishlistItem(
-                      onTap: () {
-                        context
-                            .read<WishlistAddBloc>()
-                            .add(WishlistAddEvent.clearState());
-                        if (!isLiked!) {
+            if (widget.moderationStatus != ModerationStatusEnum.sold) ...{
+              Padding(
+                padding: const EdgeInsets.only(left: 8, right: 8),
+                child: widget.isMine
+                    ? GestureDetector(
+                        onTap: () {
+                          Navigator.of(context, rootNavigator: true).push(fade(
+                              page: EditAdScreen(announcementId: widget.id)));
+                        },
+                        behavior: HitTestBehavior.opaque,
+                        child: SvgPicture.asset(
+                          AppIcons.edit_single,
+                          color: widget.iconColor,
+                        ),
+                      )
+                    : AddWishlistItem(
+                        onTap: () {
                           context
                               .read<WishlistAddBloc>()
-                              .add(WishlistAddEvent.addWishlist(widget.id, 0));
-                          isLiked = true;
-                        } else {
-                          context.read<WishlistAddBloc>().add(
-                              WishlistAddEvent.removeWishlist(widget.id, 0));
-                          isLiked = false;
-                        }
-                        setState(() {});
-                      },
-                      initialLike: isLiked!,
-                    ),
-            ),
-            if (widget.moderationStatus == ModerationStatusEnum.active.value ||
-                widget.moderationStatus ==
-                    ModerationStatusEnum.in_moderation.value)
+                              .add(WishlistAddEvent.clearState());
+                          if (!isLiked!) {
+                            context.read<WishlistAddBloc>().add(
+                                WishlistAddEvent.addWishlist(widget.id, 0));
+                            isLiked = true;
+                          } else {
+                            context.read<WishlistAddBloc>().add(
+                                WishlistAddEvent.removeWishlist(widget.id, 0));
+                            isLiked = false;
+                          }
+                          setState(() {});
+                        },
+                        initialLike: isLiked!,
+                      ),
+              )
+            },
+            if (widget.moderationStatus == ModerationStatusEnum.active ||
+                widget.moderationStatus == ModerationStatusEnum.in_moderation)
               WScaleAnimation(
                 child: SvgPicture.asset(
                   AppIcons.moreVertical,

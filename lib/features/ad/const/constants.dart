@@ -47,6 +47,7 @@ enum Currency {
 }
 
 enum ModerationStatusEnum {
+  none(''),
   active('active'),
   blocked('blocked'),
   sold('sold'),
