@@ -5,8 +5,10 @@ abstract class PostingAdEvent {}
 class PostingAdShowToastEvent extends PostingAdEvent {
   final String message;
   final PopStatus status;
+  final FormzStatus? createAdStatus;
 
-  PostingAdShowToastEvent({required this.message, required this.status});
+  PostingAdShowToastEvent(
+      {required this.message, required this.status, this.createAdStatus});
 }
 
 class PostingAdSerchControllerClearEvent extends PostingAdEvent {}

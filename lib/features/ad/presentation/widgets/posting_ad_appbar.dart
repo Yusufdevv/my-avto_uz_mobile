@@ -137,7 +137,9 @@ class PostingAdAppBar extends StatelessWidget implements PreferredSizeWidget {
                                       .displayMedium!
                                       .copyWith(
                                         fontWeight: FontWeight.w600,
-                                        color: grey,
+                                        color: Theme.of(context)
+                                            .extension<ThemedColors>()!
+                                            .greySuitToWhite60,
                                       ),
                             ),
                           ],

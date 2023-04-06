@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:developer';
-
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/data/models/pagination/get_pagination_param_model.dart';
@@ -211,7 +210,13 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
   FutureOr<void> _showToast(
       PostingAdShowToastEvent event, Emitter<PostingAdState> emit) {
-    emit(state.copyWith(toastMessage: event.message, popStatus: event.status));
+    emit(
+      state.copyWith(
+        toastMessage: event.message,
+        popStatus: event.status,
+        createStatus: event.createAdStatus,
+      ),
+    );
   }
 
   FutureOr<void> _clearSearchController(
