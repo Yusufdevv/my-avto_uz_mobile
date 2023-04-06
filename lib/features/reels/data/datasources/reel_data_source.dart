@@ -17,6 +17,7 @@ class ReelDataSource {
     int? limit,
     int? offset,
   }) async {
+    final token = StorageRepository.getString(StorageKeys.TOKEN);
     try {
       final result = await dio.get('reels/',
           queryParameters: {
@@ -25,10 +26,11 @@ class ReelDataSource {
             'offset': offset,
           },
           options: Options(
-            headers: {
-              'Authorization':
-                  'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
-            },
+            headers: token.isEmpty
+                ? null
+                : {
+                    'Authorization': 'Bearer $token',
+                  },
           ));
       return GenericPagination.fromJson(result.data,
           (json) => ReelModel.fromJson(json as Map<String, dynamic>));

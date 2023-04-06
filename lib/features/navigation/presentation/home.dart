@@ -1,5 +1,6 @@
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/ad/presentation/posting_ad_screen.dart';
+
 import 'package:auto/features/common/bloc/internet_bloc/internet_bloc.dart';
 import 'package:auto/features/common/widgets/internet_error_bottomsheet.dart';
 import 'package:auto/features/navigation/domain/entities/navbar.dart';
@@ -208,9 +209,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       ),
                     ),
                     GestureDetector(
-                      onDoubleTap: () => _navigatorKeys[NavItemEnum.values[_currentIndex]]!
-                          .currentState!
-                          .popUntil((route) => route.isFirst),
+                      onDoubleTap: () =>
+                          _navigatorKeys[NavItemEnum.values[_currentIndex]]!
+                              .currentState!
+                              .popUntil((route) => route.isFirst),
                       behavior: HitTestBehavior.opaque,
                       child: NavItemWidget(
                         navBar: lables[2],
