@@ -358,7 +358,7 @@ class _FavoriteItemState extends State<FavoriteItem> {
                           style: Theme.of(context)
                               .textTheme
                               .bodyLarge
-                              ?.copyWith(color: grey),
+                              ?.copyWith(color: LightThemeColors.displayMedium),
                         ),
                       ),
                       AddComparisonItem(

@@ -74,7 +74,6 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                         ),
                       ),
                     );
-
                     if (res is Map<String, dynamic>) {
                       var historySaved = res['model'].id == state.model;
                       historySaved = res['make'].id == state.make?.id;
@@ -161,10 +160,10 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
       );
 
   @override
-  double get maxExtent => k > 1.6 ? 236 : 186;
+  double get maxExtent => k > 1.6 ? 236 : 188;
 
   @override
-  double get minExtent => k > 1.6 ? 236 : 186;
+  double get minExtent => k > 1.6 ? 236 : 188;
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>

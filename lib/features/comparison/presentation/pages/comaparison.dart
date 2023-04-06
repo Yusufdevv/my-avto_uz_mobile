@@ -152,17 +152,16 @@ class _ComparisonState extends State<Comparison> {
                       )
                           .then((value) {
                         if (value != null) {
-                          final result = value as Map<String, dynamic>;
-                          final makeId = result['makeId'];
-                          final modelId = result['modelId'];
                           Navigator.of(context, rootNavigator: true)
-                              .push(fade(
-                                  page: AdsScreen(
-                            isFromComparison: true,
-                            // feko  makeId is not a subtype of makeEntity
-                            make: makeId,
-                            model: modelId,
-                          )))
+                              .push(
+                            fade(
+                              page: AdsScreen(
+                                isFromComparison: true,
+                                make: value['make'],
+                                model:value['model'],
+                              ),
+                            ),
+                          )
                               .then((value) {
                             if (context.read<ComparisonAddBloc>().state.count >
                                 0) {
