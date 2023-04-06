@@ -127,97 +127,103 @@ class _PostingAdScreenState extends State<PostingAdScreen>
   ];
 
   @override
-  Widget build(BuildContext context) => MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (c) => animeBloc),
-          BlocProvider(create: (c) => postingAdBloc)
-        ],
-        child: BlocConsumer<PostingAdBloc, PostingAdState>(
-          listener: (context, state) async {
-            if (state.createStatus == FormzStatus.submissionSuccess) {
-              FocusScope.of(context).unfocus();
-              var error = state.toastMessage ?? '';
-              if (error.toLowerCase().contains('dio') ||
-                  error.toLowerCase().contains('type')) {
-                error = LocaleKeys.service_error.tr();
-              } else if (error.toLowerCase().contains('bad')) {
-                error = LocaleKeys.bad_request.tr();
-              } else if (error.toLowerCase().contains('internal') ||
-                  error.toLowerCase().contains('internet')) {
-                error = LocaleKeys.internal_error_server.tr();
-              }
-              context.read<ShowPopUpBloc>().add(
-                    ShowPopUp(
-                      message: error,
-                      status: PopStatus.success,
-                    ),
-                  );
-              await Future.delayed(const Duration(milliseconds: 1000));
-              context.read<WishlistAddBloc>().add(WishlistAddEvent.goToAdds(1));
-              context
-                  .read<ProfileBloc>()
-                  .add(ChangeCountDataEvent(adding: true, myAdsCount: 1));
+  Widget build(BuildContext context) => KeyboardDismisser(
+        child: AnnotatedRegion(
+          value: SystemUiOverlayStyle(
+            statusBarColor:
+                Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+            statusBarBrightness: Brightness.light,
+            statusBarIconBrightness: Brightness.dark,
+          ),
+          child: CustomScreen(
+            child: MultiBlocProvider(
+              providers: [
+                BlocProvider(create: (c) => animeBloc),
+                BlocProvider(create: (c) => postingAdBloc)
+              ],
+              child: BlocConsumer<PostingAdBloc, PostingAdState>(
+                listener: (context, state) async {
+                  if (state.createStatus == FormzStatus.submissionSuccess) {
+                    FocusScope.of(context).unfocus();
+                    var error = state.toastMessage ?? '';
+                    if (error.toLowerCase().contains('dio') ||
+                        error.toLowerCase().contains('type')) {
+                      error = LocaleKeys.service_error.tr();
+                    } else if (error.toLowerCase().contains('bad')) {
+                      error = LocaleKeys.bad_request.tr();
+                    } else if (error.toLowerCase().contains('internal') ||
+                        error.toLowerCase().contains('internet')) {
+                      error = LocaleKeys.internal_error_server.tr();
+                    }
+                    context.read<ShowPopUpBloc>().add(
+                          ShowPopUp(
+                            message: error,
+                            status: PopStatus.success,
+                          ),
+                        );
+                    postingAdBloc.add(PostingAdShowToastEvent(
+                        createAdStatus: FormzStatus.pure,
+                        message: '',
+                        status: PopStatus.success));
+                    await Future.delayed(const Duration(milliseconds: 1000));
+                    context
+                        .read<WishlistAddBloc>()
+                        .add(WishlistAddEvent.goToAdds(1));
+                    context
+                        .read<ProfileBloc>()
+                        .add(ChangeCountDataEvent(adding: true, myAdsCount: 1));
 
-              // currentTabNotifier.value = 0;
-              postingAdBloc.add(PostingAdChangePageEvent(page: 0));
-              await Future.delayed(const Duration(milliseconds: 500));
-              await pageController.animateToPage(0,
-                  duration: const Duration(milliseconds: 150),
-                  curve: Curves.linear);
-              postingAdBloc.add(PostingAdClearStateEvent());
+                    // currentTabNotifier.value = 0;
+                    postingAdBloc.add(PostingAdChangePageEvent(page: 0));
+                    await Future.delayed(const Duration(milliseconds: 500));
+                    await pageController.animateToPage(0,
+                        duration: const Duration(milliseconds: 150),
+                        curve: Curves.linear);
+                    postingAdBloc.add(PostingAdClearStateEvent());
 
-              Navigator.of(context).pop(true);
+                    Navigator.of(context).pop(true);
 
-              return;
-            }
+                    return;
+                  }
 
-            if (state.toastMessage != null && state.toastMessage!.isNotEmpty) {
-              var error = state.toastMessage ?? '';
-              if (error.toLowerCase().contains('dio') ||
-                  error.toLowerCase().contains('type')) {
-                error = LocaleKeys.service_error.tr();
-              } else if (error.toLowerCase().contains('bad')) {
-                error = LocaleKeys.bad_request.tr();
-              } else if (error.toLowerCase().contains('internal') ||
-                  error.toLowerCase().contains('internet')) {
-                error = LocaleKeys.internal_error_server.tr();
-              }
-              context.read<ShowPopUpBloc>().add(
-                    ShowPopUp(
-                      message: error,
-                      status: state.popStatus,
-                    ),
-                  );
-              postingAdBloc.add(PostingAdShowToastEvent(
-                  message: '', status: PopStatus.success));
-            }
-          },
-          builder: (context, state) => WillPopScope(
-            onWillPop: () async {
-              FocusScope.of(context).unfocus();
-              if (state.currentPage != 0) {
-                final page = state.currentPage - 1;
-                postingAdBloc.add(PostingAdChangePageEvent(page: page));
+                  if (state.toastMessage != null &&
+                      state.toastMessage!.isNotEmpty) {
+                    var error = state.toastMessage ?? '';
+                    if (error.toLowerCase().contains('dio') ||
+                        error.toLowerCase().contains('type')) {
+                      error = LocaleKeys.service_error.tr();
+                    } else if (error.toLowerCase().contains('bad')) {
+                      error = LocaleKeys.bad_request.tr();
+                    } else if (error.toLowerCase().contains('internal') ||
+                        error.toLowerCase().contains('internet')) {
+                      error = LocaleKeys.internal_error_server.tr();
+                    }
+                    context.read<ShowPopUpBloc>().add(
+                          ShowPopUp(
+                            message: error,
+                            status: state.popStatus,
+                          ),
+                        );
+                    postingAdBloc.add(PostingAdShowToastEvent(
+                        message: '', status: PopStatus.success));
+                  }
+                },
+                builder: (context, state) => WillPopScope(
+                  onWillPop: () async {
+                    FocusScope.of(context).unfocus();
+                    if (state.currentPage != 0) {
+                      final page = state.currentPage - 1;
+                      postingAdBloc.add(PostingAdChangePageEvent(page: page));
 
-                await pageController.animateToPage(page,
-                    duration: const Duration(milliseconds: 150),
-                    curve: Curves.linear);
+                      await pageController.animateToPage(page,
+                          duration: const Duration(milliseconds: 150),
+                          curve: Curves.linear);
 
-                return Future.value(false);
-              } else {
-                return Future.value(true);
-              }
-            },
-            child: KeyboardDismisser(
-              child: CustomScreen(
-                child: AnnotatedRegion(
-                  value: SystemUiOverlayStyle(
-                    statusBarColor: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .whiteToDark,
-                    statusBarBrightness: Brightness.light,
-                    statusBarIconBrightness: Brightness.dark,
-                  ),
+                      return Future.value(false);
+                    } else {
+                      return Future.value(true);
+                    }
+                  },
                   child: BlocBuilder<ChooseMakeAnimeBloc, ChooseMakeAnimeState>(
                     builder: (context, animeState) => Scaffold(
                       appBar: PreferredSize(

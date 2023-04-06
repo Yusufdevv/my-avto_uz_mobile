@@ -300,7 +300,9 @@ class _ContactScreenState extends State<ContactScreen> {
                         onChanged: (value) {
                           widget.onCallTimeChanged(isCallTimed: value);
                         }),
-                    if (widget.isCallTimed) ...{
+                    if (widget.isCallTimed &&
+                        widget.callTimeFrom != null &&
+                        widget.callTimeTo != null) ...{
                       const SizedBox(height: 4),
                       EditBoxWidget(
                           text: '${widget.callTimeFrom}-${widget.callTimeTo}',
