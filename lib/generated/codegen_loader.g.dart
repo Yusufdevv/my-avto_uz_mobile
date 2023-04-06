@@ -558,9 +558,9 @@ class CodegenLoader extends AssetLoader{
   "please_enter_your_name": "Пожалуйста, введите Ваше имя",
   "information": "Информация",
   "info_ideal": "Практически как новое и не требует никаких доработок, или поправок.",
-  "info_scratched": "Данный элемент был заменен на другой",
+  "info_scratched": "Имеются определённые повреждения, советуется ремонт или замена",
   "info_replacement": "Имеются не значительные вмятины",
-  "info_replacement_not_required": "Имеются определённқе повреждения и советуеся ремон, или замена",
+  "info_replacement_not_required": "Данный элемент был заменен на другой",
   "info_replacement_required": "Состояние плохое, ремонт сильно не поможет, трубется замена",
   "not_necessary": "Неважно",
   "other1": "Другая",
@@ -644,7 +644,8 @@ class CodegenLoader extends AssetLoader{
   "direct_sale": "Прямая продажа",
   "wrong_code": "Неверный код",
   "add_phone_number": "Добавить номер телефона",
-  "your_ad_closed_successfully": "E'lonigiz muvaffaqiyatli tugatildi"
+  "your_ad_closed_successfully": "E'lonigiz muvaffaqiyatli tugatildi",
+  "negotiable": "Договорная"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -1275,7 +1276,8 @@ static const Map<String,dynamic> uz = {
   "darki": "Tungi",
   "wrong_code": "Noto'g'ri kod",
   "add_phone_number": "Telefon raqamni qo'shish",
-  "your_ad_closed_successfully": "E'lonigiz muvaffaqiyatli tugatildi"
+  "your_ad_closed_successfully": "E'lonigiz muvaffaqiyatli tugatildi",
+  "negotiable": "Kelishiladi"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }
