@@ -296,4 +296,5 @@ class AppIcons {
   static const carFromBack = 'assets/icons/global/car_from_back.svg';
   static const carFromFront = 'assets/icons/global/car_from_front.svg';
   static const videoPlus = 'assets/icons/global/video_plus.svg';
+  static const fileEmpty = 'assets/icons/car_single/file_empty.svg';
 }

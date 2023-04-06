@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -25,12 +26,13 @@ class _ConfirmBottomSheetState extends State<ConfirmBottomSheet> {
   @override
   Widget build(BuildContext context) => Container(
         padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-        decoration: const BoxDecoration(
-            color: white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            )),
+        decoration: BoxDecoration(
+          color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
@@ -56,12 +58,15 @@ class _ConfirmBottomSheetState extends State<ConfirmBottomSheet> {
                 textAlign: TextAlign.center),
             SizedBox(height: widget.betweenHeight.toDouble()),
             Padding(
-              padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).padding.bottom),
               child: Row(
                 children: [
                   Expanded(
                     child: WButton(
-                        color: solitude,
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .greyToDarkRider,
                         onTap: () {
                           Navigator.pop(
                             context,
@@ -74,7 +79,9 @@ class _ConfirmBottomSheetState extends State<ConfirmBottomSheet> {
                   const SizedBox(width: 12),
                   Expanded(
                     child: WButton(
-                      color: tutu,
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .redContainer26,
                       onTap: () {
                         Navigator.pop(context, true);
                       },
@@ -85,7 +92,6 @@ class _ConfirmBottomSheetState extends State<ConfirmBottomSheet> {
                 ],
               ),
             ),
-
           ],
         ),
       );
