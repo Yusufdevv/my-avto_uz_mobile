@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+// org.uicgroup.uz
 import 'package:auto/assets/constants/app_constants.dart';
 import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/assets/themes/dark.dart';
@@ -12,13 +13,13 @@ import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
-import 'package:auto/features/common/bloc/deeplinking/deep_link_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc.dart';
 import 'package:auto/features/common/bloc/internet_bloc/internet_bloc.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/bloc/theme_switcher_bloc/theme_switcher_bloc.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
+import 'package:auto/features/deep_linking/deep_link_bloc.dart';
 import 'package:auto/features/login/domain/usecases/register_user.dart';
 import 'package:auto/features/login/domain/usecases/send_code.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';
@@ -28,10 +29,12 @@ import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/onboarding/presentation/first_onboarding.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
+import 'package:auto/features/reels/presentation/pages/reels_screen.dart';
 import 'package:auto/features/splash/presentation/pages/splash_sc.dart';
 import 'package:auto/generated/codegen_loader.g.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
+
 // import 'package:firebase_core/firebase_core.dart';
 // import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
@@ -125,11 +128,11 @@ class _AppState extends State<App> {
                   RegionsBloc()..add(RegionsEvent.getRegions())),
           BlocProvider(create: (context) => ShowPopUpBloc()),
           BlocProvider(create: (context) => ProfileBloc()),
-          BlocProvider(create: (context) => DeepLinkBloc()),
           BlocProvider(create: (context) => GetMakesBloc()),
           BlocProvider(create: (context) => WishlistAddBloc()),
           BlocProvider(create: (context) => ComparisonAddBloc()),
-          BlocProvider(create: (context) => ThemeSwitcherBloc())
+          BlocProvider(create: (context) => ThemeSwitcherBloc()),
+          BlocProvider(create: (context) => DeepLinkBloc()),
         ],
         child: BlocBuilder<ThemeSwitcherBloc, ThemeSwitcherState>(
           builder: (context, themeState) => MaterialApp(
@@ -162,7 +165,12 @@ class _AppState extends State<App> {
                 child: ScrollConfiguration(
                   behavior: MyBehavior(),
                   child: BlocListener<DeepLinkBloc, DeepLinkState>(
-                    listener: (context, state) {},
+                    listener: (context, state) {
+                      if (state is DeepLinkTriggeredByReelState) {
+                        Navigator.of(context)
+                            .push(fade(page: const ReelsScreen()));
+                      }
+                    },
                     child:
                         BlocListener<AuthenticationBloc, AuthenticationState>(
                       listener: (context, state) {
