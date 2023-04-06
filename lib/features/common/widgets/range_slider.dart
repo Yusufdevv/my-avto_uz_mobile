@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
 
@@ -56,11 +57,9 @@ class _WRangeSliderState extends State<WRangeSlider> {
               style: Theme.of(context)
                   .textTheme
                   .displayMedium!
-                  .copyWith(fontWeight: FontWeight.w400,color: grey),
+                  .copyWith(fontWeight: FontWeight.w400),
             ),
-          const SizedBox(
-            height: 12,
-          ),
+          const SizedBox(height: 12),
           SizedBox(
             height: 20,
             width: double.infinity,
@@ -77,9 +76,7 @@ class _WRangeSliderState extends State<WRangeSlider> {
               ),
             ),
           ),
-          const SizedBox(
-            height: 6,
-          ),
+          const SizedBox(height: 6),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5),
             child: Row(
@@ -89,18 +86,14 @@ class _WRangeSliderState extends State<WRangeSlider> {
                     widget.isForPrice
                         ? '${MyFunctions.getFormatCost(widget.values.start.toInt().toString())} ${widget.description}'
                         : widget.values.start.toInt().toString(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .displayMedium!
-                        .copyWith(fontWeight: FontWeight.w600,color: grey)),
+                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                        fontWeight: FontWeight.w600, color: grey92929D)),
                 Text(
                     widget.isForPrice
                         ? '${MyFunctions.getFormatCost(widget.values.end.toInt().toString())} ${widget.description}'
                         : widget.values.end.toInt().toString(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .displayMedium!
-                        .copyWith(fontWeight: FontWeight.w600,color: grey)),
+                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                        fontWeight: FontWeight.w600, color: grey92929D)),
               ],
             ),
           ),

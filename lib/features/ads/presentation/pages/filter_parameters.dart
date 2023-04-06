@@ -112,12 +112,13 @@ class _FilterParametersState extends State<FilterParameters> {
                   },
                   child: Text(
                     LocaleKeys.reset.tr(),
-                    style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w400,
-                          color: orange,
-                          // state.isFilter ? orange : null,
-                        ),
+                    style: state.isFilter
+                        ? Theme.of(context).textTheme.displayLarge!.copyWith(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400,
+                            color: orange)
+                        : Theme.of(context).textTheme.displayLarge!.copyWith(
+                            fontSize: 13, fontWeight: FontWeight.w400),
                   ),
                 ),
                 const SizedBox(width: 16),

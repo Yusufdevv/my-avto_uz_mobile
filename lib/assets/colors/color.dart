@@ -82,6 +82,7 @@ const makeSearchCancel = _makeSearchCancelColor;
 const popUpWarning = _popUpWarning;
 const greyLight = _greyLight;
 const sunglow = _sunglow;
+const grey92929D = _grey;
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
 const _popUpWarning = Color(0xffF1B747);
@@ -167,3 +168,4 @@ const _veryLightGrey = Color(0xFFCCCCCC);
 const _orangeMid = Color(0xFFFF930F);
 const _orangeLight = Color(0xFFEBCC54);
 const _greyLight = Color(0xFFF8F8FC);
+const _grey = Color(0xFF92929D);
