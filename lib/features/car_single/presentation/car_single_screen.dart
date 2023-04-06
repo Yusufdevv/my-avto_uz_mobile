@@ -530,24 +530,24 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                 : const SizedBox(),
                           ),
                           if (widget.moderationStatus ==
-                                  ModerationStatusEnum.active.value ||
+                                  ModerationStatusEnum.active ||
                               widget.moderationStatus ==
-                                  ModerationStatusEnum.blocked.value)
+                                  ModerationStatusEnum.blocked)
                             const SliverToBoxAdapter(
                               child: SizedBox(height: 74),
                             ),
                         ],
                       ),
                       if (widget.moderationStatus ==
-                              ModerationStatusEnum.active.value ||
+                              ModerationStatusEnum.active ||
                           widget.moderationStatus ==
-                              ModerationStatusEnum.blocked.value) ...{
+                              ModerationStatusEnum.blocked) ...{
                         Positioned(
                           left: 16,
                           right: 16,
                           bottom: 16 + MediaQuery.of(context).padding.bottom,
                           child: widget.moderationStatus ==
-                                  ModerationStatusEnum.active.value
+                                  ModerationStatusEnum.active
                               ? BottomItem(
                                   isMine: state.singleEntity.isMine,
                                   callFrom:

@@ -36,7 +36,6 @@ class SliverAppBarItem extends StatefulWidget {
   final VoidCallback onSold;
   final bool isMine;
   final bool isCompare;
-  final String moderationStatus;
   final bool isExpired;
   final String expiredDate;
   final double long;
