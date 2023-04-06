@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/colors/light.dart';
 import 'package:flutter/material.dart';
 
 class TitleTextFieldTop extends StatelessWidget {
@@ -17,7 +18,7 @@ class TitleTextFieldTop extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .displayMedium!
-                      .copyWith(color: grey)),
+                      .copyWith(color: LightThemeColors.displayMedium)),
               if (isRequired)
                 Text('*',
                     style: Theme.of(context)

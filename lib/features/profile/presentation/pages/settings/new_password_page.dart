@@ -1,4 +1,4 @@
-import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
@@ -64,7 +64,7 @@ class _NewPasswordsPageState extends State<NewPasswordsPage> {
                           style: Theme.of(context)
                               .textTheme
                               .displayMedium!
-                              .copyWith(color: grey)),
+                              .copyWith(color: LightThemeColors.displayMedium)),
                       const SizedBox(height: 36),
                       Align(
                         alignment: Alignment.centerLeft,
@@ -73,7 +73,7 @@ class _NewPasswordsPageState extends State<NewPasswordsPage> {
                           style: Theme.of(context)
                               .textTheme
                               .displayMedium!
-                              .copyWith(color: grey),
+                              .copyWith(color: LightThemeColors.displayMedium),
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -91,7 +91,7 @@ class _NewPasswordsPageState extends State<NewPasswordsPage> {
                           style: Theme.of(context)
                               .textTheme
                               .displayMedium!
-                              .copyWith(color: grey),
+                              .copyWith(color: LightThemeColors.displayMedium),
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -108,7 +108,7 @@ class _NewPasswordsPageState extends State<NewPasswordsPage> {
                           style: Theme.of(context)
                               .textTheme
                               .displayMedium!
-                              .copyWith(color: grey),
+                              .copyWith(color: LightThemeColors.displayMedium),
                         ),
                       ),
                       const SizedBox(height: 8),

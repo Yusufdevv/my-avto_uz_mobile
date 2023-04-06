@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/constants/storage_keys.dart';
@@ -129,7 +130,7 @@ class SeeProfilePage extends StatelessWidget {
                               .textTheme
                               .displayMedium!
                               .copyWith(
-                                  fontWeight: FontWeight.w600, color: grey)),
+                                  fontWeight: FontWeight.w600, color: LightThemeColors.displayMedium)),
 
                       if (state.profileEntity.phoneNumber != null)
                         TextSpacer(

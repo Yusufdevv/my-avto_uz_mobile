@@ -1,7 +1,7 @@
 import 'dart:async';
 
+import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -48,8 +48,7 @@ class _RefreshButtonState extends State<RefreshButton>
             padding: const EdgeInsets.only(left: 6, right: 6),
             child: SvgPicture.asset(
               AppIcons.refreshSmall,
-              color:
-                  Theme.of(context).extension<ThemedColors>()!.greyToCinnabar,
+              color:LightThemeColors.displayMedium,
             ),
           ),
         ),

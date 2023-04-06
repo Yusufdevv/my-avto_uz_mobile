@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/edit_ad/presentation/edit_ad_screen.dart';
@@ -35,13 +36,13 @@ class ReSendPart extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .headlineMedium
-              ?.copyWith(height: 1.3, color: dark),
+              ?.copyWith(height: 1.3, color: Theme.of(context).extension<ThemedColors>()!.darkToWhite),
         ),
         const SizedBox(height: 10),
         Text(
           LocaleKeys.the_ad_offers_services_or_products_that.tr(),
           style:
-              Theme.of(context).textTheme.displayMedium?.copyWith(color: dark),
+              Theme.of(context).textTheme.displayMedium?.copyWith(color: Theme.of(context).extension<ThemedColors>()!.darkToWhite),
         ),
         const SizedBox(height: 12),
         WButton(

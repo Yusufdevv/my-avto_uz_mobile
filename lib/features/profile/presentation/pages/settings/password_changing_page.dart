@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
@@ -42,7 +43,7 @@ class PasswordChangingPage extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .displayMedium
-                      ?.copyWith(color: grey),
+                      ?.copyWith(color: LightThemeColors.displayMedium),
                 ),
                 ConstrainedBox(
                   constraints: const BoxConstraints(

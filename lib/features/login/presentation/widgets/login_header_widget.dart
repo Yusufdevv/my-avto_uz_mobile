@@ -1,4 +1,4 @@
-import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/colors/light.dart';
 import 'package:flutter/material.dart';
 
 class LoginHeader extends StatelessWidget {
@@ -35,7 +35,7 @@ class LoginHeader extends StatelessWidget {
             style: Theme.of(context).textTheme.titleLarge!.copyWith(
                   fontSize: 13,
                   fontWeight: FontWeight.w400,
-                  color: grey,
+                  color: LightThemeColors.displayMedium,
                 ),
           ),
         ],

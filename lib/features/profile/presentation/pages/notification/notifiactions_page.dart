@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/singletons/storage.dart';
@@ -94,7 +95,7 @@ class _NotificationPageState extends State<NotificationPage> {
                                       .watch<ProfileBloc>()
                                       .state
                                       .isNotificationAllRead
-                                  ? grey
+                                  ? LightThemeColors.displayMedium
                                   : orange)),
                     ),
                   )

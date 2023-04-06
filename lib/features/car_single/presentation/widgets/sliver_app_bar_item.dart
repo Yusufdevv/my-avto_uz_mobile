@@ -132,17 +132,21 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
             Padding(
               padding: const EdgeInsets.only(left: 8, right: 8),
               child: widget.isMine
-                  ? GestureDetector(
-                      onTap: () {
-                        Navigator.of(context, rootNavigator: true).push(fade(
-                            page: EditAdScreen(announcementId: widget.id)));
-                      },
-                      behavior: HitTestBehavior.opaque,
-                      child: SvgPicture.asset(
-                        AppIcons.edit_single,
-                        color: widget.iconColor,
-                      ),
-                    )
+                  ? widget.moderationStatus == ModerationStatusEnum.sold.value
+                      ? const SizedBox()
+                      : GestureDetector(
+                          onTap: () {
+                            Navigator.of(context, rootNavigator: true).push(
+                                fade(
+                                    page: EditAdScreen(
+                                        announcementId: widget.id)));
+                          },
+                          behavior: HitTestBehavior.opaque,
+                          child: SvgPicture.asset(
+                            AppIcons.edit_single,
+                            color: widget.iconColor,
+                          ),
+                        )
                   : AddWishlistItem(
                       onTap: () {
                         context

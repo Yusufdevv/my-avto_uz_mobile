@@ -79,9 +79,6 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                         ZTextFormField(
                           disabledBorderColor: border,
                           onChanged: (value) {
-                            if (value.length == 12) {
-                              FocusScope.of(context).unfocus();
-                            }
                             if (value.length == 11) {
                               setState(() {});
                             }

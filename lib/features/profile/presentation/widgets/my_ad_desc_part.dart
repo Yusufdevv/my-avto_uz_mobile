@@ -234,7 +234,7 @@ class MyAdDesc extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .displayMedium!
-                                .copyWith(fontSize: 15, color: secondary),
+                                .copyWith(fontSize: 15, color: Theme.of(context).extension<ThemedColors>()!.darkToWhite),
                           ),
                         ],
                       ),

@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/profile/presentation/bloc/user_wishlists_notifications/user_wishlists_notification_bloc.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -78,7 +79,7 @@ class NotificationSinglePage extends StatelessWidget {
                           'p': Style(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 6),
-                              color: dark,
+                              color: Theme.of(context).extension<ThemedColors>()!.darkToWhite,
                               fontSize: FontSize(13),
                               fontWeight: FontWeight.w400)
                         },

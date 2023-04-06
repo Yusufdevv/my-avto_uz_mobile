@@ -35,9 +35,7 @@ class EmptyItemBody extends StatelessWidget {
               child: Text(
                 title!,
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      color: Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .midnightExpressToGreySuit,
+                      color: Theme.of(context).extension<ThemedColors>()!.darkToWhite,
                     ),
               ),
             )

@@ -1,4 +1,4 @@
-import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -51,7 +51,7 @@ class CustomProfileBottomsheet extends StatelessWidget {
             const SizedBox(height: 8),
             Text(subTitle,
                 style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                    fontWeight: FontWeight.w400, fontSize: 16, color: grey),
+                    fontWeight: FontWeight.w400, fontSize: 16, color: LightThemeColors.displayMedium),
                 textAlign: TextAlign.center),
             SizedBox(height: betweenHeight.toDouble()),
             Row(

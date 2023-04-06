@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -44,7 +45,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
           hintStyle: Theme.of(context)
               .textTheme
               .displayMedium!
-              .copyWith(fontSize: 14, fontWeight: FontWeight.w600, color: grey),
+              .copyWith(fontSize: 14, fontWeight: FontWeight.w600, color: LightThemeColors.displayMedium),
           labelStyle: Theme.of(context)
               .textTheme
               .displayLarge!

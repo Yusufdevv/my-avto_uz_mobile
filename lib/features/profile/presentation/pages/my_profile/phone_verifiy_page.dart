@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
@@ -81,7 +82,7 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                                 .textTheme
                                 .titleLarge!
                                 .copyWith(
-                                    fontWeight: FontWeight.w400, fontSize: 14),
+                                    fontWeight: FontWeight.w400, fontSize: 14, color: LightThemeColors.displayMedium),
                           ),
                           const SizedBox(width: 12),
                           WButton(
@@ -94,7 +95,7 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                                 .solitudeToSolitude14,
                             height: 24,
                             width: 24,
-                            child: SvgPicture.asset(AppIcons.edit, color: grey),
+                            child: SvgPicture.asset(AppIcons.edit, color: LightThemeColors.displayMedium),
                           )
                         ],
                       ),
@@ -148,7 +149,7 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                                 .textTheme
                                 .titleLarge!
                                 .copyWith(
-                                    fontSize: 14, fontWeight: FontWeight.w400)),
+                                    fontSize: 14, fontWeight: FontWeight.w400, color: LightThemeColors.displayMedium)),
                         const SizedBox(width: 6),
                         if (timeComplete)
                           Container(
@@ -156,9 +157,7 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                               width: 24,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(4),
-                                color: Theme.of(context)
-                                    .extension<ThemedColors>()!
-                                    .borderGreyToDark,
+                                color: border,
                               ),
                               child: Center(
                                 child: RefreshButton(

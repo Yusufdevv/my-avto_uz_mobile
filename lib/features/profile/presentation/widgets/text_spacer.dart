@@ -1,4 +1,4 @@
-import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/colors/light.dart';
 import 'package:flutter/material.dart';
 
 class TextSpacer extends StatelessWidget {
@@ -22,13 +22,13 @@ class TextSpacer extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .displayMedium!
-                    .copyWith(color: grey)),
+                    .copyWith(color: LightThemeColors.displayMedium)),
             const Spacer(),
             Text(value,
-                style: Theme.of(context)
-                    .textTheme
-                    .displayLarge!
-                    .copyWith(fontSize: 14, fontWeight: FontWeight.w600)),
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    )),
           ],
         ),
       );

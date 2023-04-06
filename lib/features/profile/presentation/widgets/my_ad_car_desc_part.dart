@@ -91,7 +91,7 @@ class MyAdCarDescPart extends StatelessWidget {
                   child: Text(
                     '${MyFunctions.getFormatCost(item.price.floor().toString())} ${item.currency.toUpperCase()}',
                     style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                        decoration: TextDecoration.lineThrough, color: grey),
+                        decoration: TextDecoration.lineThrough, color: LightThemeColors.displayMedium),
                   ),
                 ),
             ],
@@ -105,7 +105,7 @@ class MyAdCarDescPart extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .displayMedium!
-                .copyWith(fontSize: 12),
+                .copyWith(fontSize: 12, color: LightThemeColors.displayMedium),
           ),
         ],
       );
