@@ -275,7 +275,8 @@ class MineMoreBottomSheet extends StatelessWidget {
             ),
           if (moderationStatus == ModerationStatusEnum.active)
             MoreActionItem(
-              icon: AppIcons.surface,
+              icon: AppIcons.fileEmpty,
+              //
               text: LocaleKeys.close_ad.tr(),
               // color: const Color(0xff55BB00).withOpacity(0.12),
               color: isLightTheme
