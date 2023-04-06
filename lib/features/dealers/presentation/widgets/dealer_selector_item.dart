@@ -12,6 +12,7 @@ class DealerSelectorItem extends StatelessWidget {
   final String defaultText;
   final VoidCallback onTap;
   final bool isLoading;
+
   const DealerSelectorItem(
       {required this.onTap,
       required this.title,
@@ -27,10 +28,12 @@ class DealerSelectorItem extends StatelessWidget {
         children: [
           Text(
             title,
-            style: Theme.of(context)
-                .textTheme
-                .displayMedium!
-                .copyWith(fontWeight: FontWeight.w400, color: grey),
+            style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                  fontWeight: FontWeight.w400,
+                  color: Theme.of(context)
+                      .extension<ThemedColors>()!
+                      .greySuitToWhite60,
+                ),
           ),
           const SizedBox(height: 8),
           WScaleAnimation(
@@ -58,7 +61,12 @@ class DealerSelectorItem extends StatelessWidget {
                                 .textTheme
                                 .titleMedium!
                                 .copyWith(
-                                    color: hintText.isEmpty ? grey : Theme.of(context).extension<ThemedColors>()!.darkToWhite,),
+                                  color: hintText.isEmpty
+                                      ? grey
+                                      : Theme.of(context)
+                                          .extension<ThemedColors>()!
+                                          .darkToWhite,
+                                ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
