@@ -126,7 +126,9 @@ class EquipmentCategory extends StatelessWidget {
                               ? Theme.of(context)
                                   .extension<ThemedColors>()!
                                   .blackToWhite
-                              : grey,
+                              : Theme.of(context)
+                                  .extension<ThemedColors>()!
+                                  .greySuitToWhite60,
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
