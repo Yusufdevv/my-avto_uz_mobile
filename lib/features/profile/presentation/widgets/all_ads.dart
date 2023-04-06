@@ -66,15 +66,14 @@ class _AllAdsState extends State<AllAds> {
                           EdgeInsets.only(bottom: 12, top: index == 0 ? 12 : 0),
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.of(context)
+                          Navigator.of(context, rootNavigator: true)
                               .push(
                             fade(
                               page: CarSingleScreen(
-                                id: item.id,
-                                moderationStatus:
-                                    MyFunctions.strToModerationStatus(
-                                        item.moderationStatus),
-                              ),
+                                  id: item.id,
+                                  moderationStatus:
+                                      MyFunctions.strToModerationStatus(
+                                          item.moderationStatus)),
                             ),
                           )
                               .then(

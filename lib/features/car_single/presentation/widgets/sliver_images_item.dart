@@ -24,6 +24,12 @@ class _SingleImagePartState extends State<SingleImagePart> {
   final PageController pageController = PageController();
 
   @override
+  void dispose() {
+    controller.dispose();
+    pageController.dispose();
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) => GestureDetector(
         onTap: () {
           if (widget.images.isNotEmpty) {
