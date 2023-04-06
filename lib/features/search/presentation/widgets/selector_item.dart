@@ -28,10 +28,11 @@ class SelectorItem extends StatelessWidget {
         children: [
           Text(
             title,
-            style: Theme.of(context)
-                .textTheme
-                .displayMedium!
-                .copyWith(fontWeight: FontWeight.w400, color: grey),
+            style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                fontWeight: FontWeight.w400,
+                color: Theme.of(context)
+                    .extension<ThemedColors>()!
+                    .greySuitToWhite60),
           ),
           const SizedBox(height: 8),
           WScaleAnimation(
@@ -60,9 +61,10 @@ class SelectorItem extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium!
-                                .copyWith(color: Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .darkToWhite),
+                                .copyWith(
+                                    color: Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .darkToWhite),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),

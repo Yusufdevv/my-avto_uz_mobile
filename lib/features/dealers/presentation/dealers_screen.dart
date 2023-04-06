@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -129,10 +128,13 @@ class _DealerScreenState extends State<DealerScreen>
                                     .extension<ThemedColors>()!
                                     .whiteSmokeToEclipse,
                                 hintText: LocaleKeys.autosalon.tr(),
-                                hintTextStyle: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                    color: grey),
+                                hintTextStyle: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  color: Theme.of(context)
+                                      .extension<ThemedColors>()!
+                                      .greySuitToWhite60,
+                                ),
                                 textStyle: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w400,

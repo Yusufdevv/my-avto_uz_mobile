@@ -1,7 +1,9 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/pages/map_screen/widgets/point_name_shimmer.dart';
 import 'package:auto/features/car_single/presentation/bloc/inspection_place_address_bloc/inspection_place_address_bloc.dart';
+import 'package:auto/features/common/bloc/theme_switcher_bloc/theme_switcher_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -57,6 +59,9 @@ class _InspectionPlaceSingleScreenState
               Positioned.fill(
                 child: YandexMap(
                   rotateGesturesEnabled: false,
+                  nightModeEnabled:
+                      !(context.read<ThemeSwitcherBloc>().state.themeMode ==
+                          ThemeMode.light),
                   onMapCreated: (controller) async {
                     _mapController = controller;
                     maxZoomLevel = await controller.getMaxZoom();
@@ -111,9 +116,14 @@ class _InspectionPlaceSingleScreenState
                         },
                         height: 36,
                         width: 36,
-                        color: white,
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .whiteToDark,
                         borderRadius: 8,
-                        border: Border.all(color: dividerColor),
+                        border: Border.all(
+                            color: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .divider),
                         padding: const EdgeInsets.all(10),
                         margin: const EdgeInsets.only(right: 16),
                         child: SvgPicture.asset(AppIcons.plus, color: greyText),
@@ -132,9 +142,14 @@ class _InspectionPlaceSingleScreenState
                         },
                         height: 36,
                         width: 36,
-                        color: white,
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .whiteToDark,
                         borderRadius: 8,
-                        border: Border.all(color: dividerColor),
+                        border: Border.all(
+                            color: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .divider),
                         padding: const EdgeInsets.all(10),
                         margin: const EdgeInsets.only(right: 16),
                         child:
@@ -145,7 +160,9 @@ class _InspectionPlaceSingleScreenState
                         padding: const EdgeInsets.all(16).copyWith(
                             bottom: 16 + MediaQuery.of(context).padding.bottom),
                         decoration: BoxDecoration(
-                            color: white,
+                            color: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .whiteToDark,
                             borderRadius: const BorderRadius.vertical(
                                 top: Radius.circular(20)),
                             boxShadow: [
@@ -174,10 +191,16 @@ class _InspectionPlaceSingleScreenState
                                     const PointNameShimmer()
                                   } else ...{
                                     Expanded(
-                                      child: Text(state.address,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleSmall),
+                                      child: Text(
+                                        state.address,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                                color: Theme.of(context)
+                                                    .extension<ThemedColors>()!
+                                                    .darkToWhite),
+                                      ),
                                     ),
                                   }
                                 ],

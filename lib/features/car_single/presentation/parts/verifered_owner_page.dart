@@ -424,7 +424,9 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                       state.images[1].isEmpty ||
                                       state.secondImage[0].isEmpty ||
                                       state.secondImage[1].isEmpty,
-                                  disabledColor: Theme.of(context).extension<ThemedColors>()!.ghostToEclipse,
+                                  disabledColor: Theme.of(context)
+                                      .extension<ThemedColors>()!
+                                      .ghostToEclipse,
                                   text: stateOwner.isDeleted
                                       ? LocaleKeys.repeat_application.tr()
                                       : LocaleKeys.apply_app.tr(),
