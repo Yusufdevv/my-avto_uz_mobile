@@ -164,27 +164,37 @@ class _AppState extends State<App> {
                 ),
                 child: ScrollConfiguration(
                   behavior: MyBehavior(),
-                  child: BlocListener<DeepLinkBloc, DeepLinkState>(
+                  child: BlocListener<AuthenticationBloc, AuthenticationState>(
                     listener: (context, state) {
-                      if (state is DeepLinkTriggeredByReelState) {
-                        Navigator.of(context)
-                            .push(fade(page: const ReelsScreen()));
-                      }
-                    },
-                    child:
-                        BlocListener<AuthenticationBloc, AuthenticationState>(
-                      listener: (context, state) {
-                        switch (state.status) {
-                          case AuthenticationStatus.unauthenticated:
-                            if (!StorageRepository.getBool(
-                                StorageKeys.ON_BOARDING,
-                                defValue: false)) {
-                              AppConstants.navigatorKey.currentState
-                                  ?.pushAndRemoveUntil(
-                                      fade(page: const FirstOnBoarding()),
-                                      (route) => false);
-                              break;
-                            }
+                      switch (state.status) {
+                        case AuthenticationStatus.unauthenticated:
+                          if (!StorageRepository.getBool(
+                              StorageKeys.ON_BOARDING,
+                              defValue: false)) {
+                            AppConstants.navigatorKey.currentState
+                                ?.pushAndRemoveUntil(
+                                    fade(page: const FirstOnBoarding()),
+                                    (route) => false);
+                            break;
+                          }
+                          AppConstants.navigatorKey.currentState
+                              ?.pushAndRemoveUntil(
+                                  fade(
+                                    page: BlocProvider(
+                                      create: (c) => RegisterBloc(
+                                        sendCodeUseCase: SendCodeUseCase(),
+                                        registerUseCase: RegisterUseCase(),
+                                        verifyCodeUseCase: VerifyCodeUseCase(),
+                                      ),
+                                      child: const LoginScreen(),
+                                    ),
+                                  ),
+                                  (route) => false);
+                          break;
+                        case AuthenticationStatus.authenticated:
+                          context.read<ShowPopUpBloc>().add(HidePopUp());
+                          if (StorageRepository.getString(StorageKeys.TOKEN)
+                              .isEmpty) {
                             AppConstants.navigatorKey.currentState
                                 ?.pushAndRemoveUntil(
                                     fade(
@@ -199,39 +209,19 @@ class _AppState extends State<App> {
                                       ),
                                     ),
                                     (route) => false);
-                            break;
-                          case AuthenticationStatus.authenticated:
-                            context.read<ShowPopUpBloc>().add(HidePopUp());
-                            if (StorageRepository.getString(StorageKeys.TOKEN)
-                                .isEmpty) {
-                              AppConstants.navigatorKey.currentState
-                                  ?.pushAndRemoveUntil(
-                                      fade(
-                                        page: BlocProvider(
-                                          create: (c) => RegisterBloc(
-                                            sendCodeUseCase: SendCodeUseCase(),
-                                            registerUseCase: RegisterUseCase(),
-                                            verifyCodeUseCase:
-                                                VerifyCodeUseCase(),
-                                          ),
-                                          child: const LoginScreen(),
-                                        ),
-                                      ),
-                                      (route) => false);
-                            } else {
-                              AppConstants.navigatorKey.currentState
-                                  ?.pushAndRemoveUntil(
-                                      fade(page: const HomeScreen()),
-                                      (route) => false);
-                            }
-                            break;
-                          case AuthenticationStatus.loading:
-                          case AuthenticationStatus.cancelLoading:
-                            break;
-                        }
-                      },
-                      child: child,
-                    ),
+                          } else {
+                            AppConstants.navigatorKey.currentState
+                                ?.pushAndRemoveUntil(
+                                    fade(page: const HomeScreen()),
+                                    (route) => false);
+                          }
+                          break;
+                        case AuthenticationStatus.loading:
+                        case AuthenticationStatus.cancelLoading:
+                          break;
+                      }
+                    },
+                    child: child,
                   ),
                 ),
               );

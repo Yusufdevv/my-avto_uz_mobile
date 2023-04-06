@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/services.dart';
-import 'package:meta/meta.dart';
 
 part 'deep_link_event.dart';
 
@@ -20,8 +19,46 @@ class DeepLinkBloc extends Bloc<DeepLinkEvent, DeepLinkState> {
   Sink<String> get stateSink => _stateController.sink;
 
   DeepLinkBloc() : super(DeepLinkInitial()) {
-    on<DeepLinkEvent>((event, emit) {
-      // TODO: implement event handler
-    });
+    startUri().then(_onRedirected);
+    dlStream.receiveBroadcastStream().listen((v) => _onRedirected(v));
+    on<DeepLinkChangedEvent>(
+      (event, emit) {
+        emit(DeepLinkInitial());
+        String? parsedSlug;
+        if (event.uri.contains('org.uicgroup.avto.uz')) {
+          parsedSlug =
+              event.uri.replaceAll('avtouz://org.uicgroup.avto.uz/', '');
+          final pathParams = parsedSlug.split('/');
+          if (pathParams.first == 'reels') {
+            emit(DeepLinkTriggeredByReelState());
+          }
+        } else if (event.uri.contains('https://avto.uz')) {
+          parsedSlug = event.uri.replaceAll('https://avto.uz/', '');
+          final pathParams = parsedSlug.split('/');
+          if (pathParams.first == 'reels') {
+            emit(DeepLinkTriggeredByReelState());
+          }
+        }
+      },
+    );
+  }
+
+  void _onRedirected(String uri) {
+    add(DeepLinkChangedEvent(uri: uri));
+    stateSink.add(uri);
+  }
+
+  Future<String> startUri() async {
+    try {
+      final link = await platform.invokeMethod('initialLink');
+      add(DeepLinkChangedEvent(uri: link));
+      return link;
+    } on PlatformException catch (e) {
+      return "Failed to Invoke: '${e.message}'.";
+    }
+  }
+
+  void dispose() {
+    _stateController.close();
   }
 }
