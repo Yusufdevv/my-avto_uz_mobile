@@ -1,6 +1,7 @@
 class DirectoryEntity {
   DirectoryEntity({
    required this.category,
+    required this.workingDays,
     this.id,
     this.name,
     this.slug,
@@ -11,6 +12,7 @@ class DirectoryEntity {
     this.contactFrom,
     this.contactTo,
     this.avatar,
+    this.isWorkingAllDays=false,
   });
 
   int? id;
@@ -24,6 +26,9 @@ class DirectoryEntity {
   String? contactFrom;
   String? contactTo;
   String? avatar;
+  final bool isWorkingAllDays;
+   final List<WorkingDay> workingDays;
+
 }
 
 class Category {
@@ -44,4 +49,30 @@ class Category {
         'id': id,
         'name': name,
       };
+}
+
+class WorkingDaysEntity {
+  WorkingDaysEntity({
+    required this.workingDays,
+  });
+
+  final List<WorkingDay> workingDays;
+
+  factory WorkingDaysEntity.fromJson(Map<String, dynamic> json) => WorkingDaysEntity(
+    workingDays: List<WorkingDay>.from(json['working_days'].map(WorkingDay.fromJson)),
+  );
+
+}
+
+class WorkingDay {
+  WorkingDay({
+    required this.dayOfWeek,
+  });
+
+  final String dayOfWeek;
+
+  factory WorkingDay.fromJson(Map<String, dynamic> json) => WorkingDay(
+    dayOfWeek: json['day_of_week'],
+  );
+
 }

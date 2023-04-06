@@ -151,7 +151,7 @@ class _DealerCardState extends State<DealerCard> {
                         widget.isAllDay
                             ? '${LocaleKeys.every_day.tr()}, ${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}'
                             : widget.workingDaysList.isNotEmpty
-                                ? '${MyFunctions.listToString(widget.workingDaysList)},  ${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}'
+                                ? '${MyFunctions.listToString(widget.workingDaysList)}, ${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}'
                                 : '${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}',
                         style: Theme.of(context)
                             .textTheme

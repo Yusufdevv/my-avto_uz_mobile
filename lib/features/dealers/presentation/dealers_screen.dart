@@ -121,12 +121,13 @@ class _DealerScreenState extends State<DealerScreen>
                                 contentPadding: const EdgeInsets.only(
                                     left: 12, right: 12, top: 12),
                                 borderColor: purple,
+
                                 disabledBorderColor: Theme.of(context)
                                     .extension<ThemedColors>()!
-                                    .whiteSmokeToEclipse,
+                                    .whiteSmokeToNero,
                                 fillColor: Theme.of(context)
                                     .extension<ThemedColors>()!
-                                    .whiteSmokeToEclipse,
+                                    .whiteSmokeToNero,
                                 hintText: LocaleKeys.autosalon.tr(),
                                 hintTextStyle: TextStyle(
                                   fontSize: 16,
@@ -144,10 +145,10 @@ class _DealerScreenState extends State<DealerScreen>
                                 ),
                                 enabledBorderColor: Theme.of(context)
                                     .extension<ThemedColors>()!
-                                    .whiteSmokeToEclipse,
+                                    .whiteSmokeToNero,
                                 focusColor: Theme.of(context)
                                     .extension<ThemedColors>()!
-                                    .whiteSmokeToEclipse,
+                                    .whiteSmokeToNero,
                                 onChanged: (value) {
                                   deallerCardBloc.add(
                                     DealerCardEvent.getResults(
@@ -208,7 +209,7 @@ class _DealerScreenState extends State<DealerScreen>
                                 borderRadius: 12,
                                 color: Theme.of(context)
                                     .extension<ThemedColors>()!
-                                    .whiteSmokeToNightRider,
+                                    .whiteSmokeToNero,
                                 padding: const EdgeInsets.all(8),
                                 child: SvgPicture.asset(
                                   AppIcons.delaerFilter,

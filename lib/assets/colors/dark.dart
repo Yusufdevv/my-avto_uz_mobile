@@ -69,6 +69,7 @@ class DarkThemeColors {
   static const midnightExpressToGreySuit = _greySuit;
   static const snowToNero1 = _nero1;
   static const whiteToNero1 = _nero1;
+  static const whiteSmokeToNero = _nero1;
   static const whiteLilacToPayneGrey = _payneGrey;
   static const tutuToRed = red;
 
@@ -131,7 +132,7 @@ class DarkThemeColors {
   static const mediumSlateBlueToWhite = _white;
   static const whiteLilacToWhiteLilac3 = _whiteLilac3;
   static const solitudeBorderToSolitudeBorder10 = _solitudeBorder10;
-  static const whiteToSecondNero = _secondNero;
+  static const whiteToSecondNero = _nero1;
   static const greySuitToWhite60 = _white60;
   static const whiteLilacToWhite4 = _white4;
   static const dolphinToWhite60 = _white60;
@@ -224,7 +225,6 @@ const _lightSlateBlue = Color(0xff7B61FF);
 const _payneGrey = Color(0xff404041);
 const _whiteLilac3 = Color(0x08F4F4F5);
 const _solitudeBorder10 = Color(0x1aF1F1F5);
-const _secondNero = Color(0xff252525);
 const _white60 = Color(0x99ffffff);
 const _white4 = Color(0x0affffff);
 const _dolphin8 = Color(0x14696974);

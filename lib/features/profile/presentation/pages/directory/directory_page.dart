@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -112,15 +113,15 @@ class _DirectoryPageState extends State<DirectoryPage>
                                 borderColor: purple,
                                 disabledBorderColor: Theme.of(context)
                                     .extension<ThemedColors>()!
-                                    .whiteSmokeToEclipse,
+                                    .whiteSmokeToNero,
                                 fillColor: Theme.of(context)
                                     .extension<ThemedColors>()!
-                                    .whiteSmokeToEclipse,
+                                    .whiteSmokeToNero,
                                 hintText: LocaleKeys.autosalon_autoservice.tr(),
                                 hintTextStyle: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,
-                                    color: grey),
+                                    color: LightThemeColors.displayMedium),
                                 textStyle: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w400,
@@ -130,10 +131,10 @@ class _DirectoryPageState extends State<DirectoryPage>
                                 ),
                                 enabledBorderColor: Theme.of(context)
                                     .extension<ThemedColors>()!
-                                    .whiteSmokeToEclipse,
+                                    .whiteSmokeToNero,
                                 focusColor: Theme.of(context)
                                     .extension<ThemedColors>()!
-                                    .whiteSmokeToEclipse,
+                                    .whiteSmokeToNero,
                                 onChanged: (value) {
                                   bloc.add(GetDirectoriesEvent(search: value));
                                 },
@@ -162,7 +163,7 @@ class _DirectoryPageState extends State<DirectoryPage>
                               borderRadius: 12,
                               color: Theme.of(context)
                                   .extension<ThemedColors>()!
-                                  .whiteSmokeToNightRider,
+                                  .whiteSmokeToNero,
                               padding: const EdgeInsets.all(8),
                               child: SvgPicture.asset(
                                 AppIcons.filter,

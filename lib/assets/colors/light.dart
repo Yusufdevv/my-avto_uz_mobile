@@ -48,6 +48,7 @@ class LightThemeColors {
   static const redToWhite = red;
   static const mediumSlateBlueToDolphin = _mediumSlateBlue;
   static const whiteSmokeToEclipse = _whiteSmoke1;
+  static const whiteSmokeToNero = _whiteSmoke1;
   static const solitudeToEclipse = _solitude;
   static const gainsboroToBlack = _solitude1;
   static const solitude1ToNero = _solitude1;

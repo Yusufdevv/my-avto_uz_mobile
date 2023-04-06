@@ -3,8 +3,10 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/profile/domain/entities/directory_entity.dart';
 import 'package:auto/features/profile/presentation/pages/directory/directory_single_page.dart';
 import 'package:auto/generated/locale_keys.g.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +27,8 @@ class DirectoryCard extends StatefulWidget {
   final String region;
   final double latitude;
   final double longitude;
+  final bool isAllDay;
+  final List<WorkingDay> workingDaysList;
 
   const DirectoryCard({
     required this.slug,
@@ -41,6 +45,8 @@ class DirectoryCard extends StatefulWidget {
     required this.latitude,
     required this.longitude,
     required this.phoneNumber,
+    required this.isAllDay,
+    required this.workingDaysList,
     Key? key,
   }) : super(key: key);
 
@@ -91,12 +97,27 @@ class _DirectoryCardState extends State<DirectoryCard> {
                 children: [
                   SvgPicture.asset(AppIcons.clock),
                   const SizedBox(width: 8),
-                  Text(
-                      '${LocaleKeys.every_day.tr()}, ${widget.contactFrom} - ${widget.contactTo}',
+                  Expanded(
+                    child: Text(
+                      widget.isAllDay
+                          ? '${LocaleKeys.every_day.tr()}, ${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}'
+                          : widget.workingDaysList.isNotEmpty
+                          ? '${MyFunctions.listToStringWorkDays(widget.workingDaysList)}, ${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}'
+                          : '${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}',
                       style: Theme.of(context)
                           .textTheme
                           .displayLarge!
-                          .copyWith(fontSize: 14, fontWeight: FontWeight.w400))
+                          .copyWith(
+                          fontSize: 14, fontWeight: FontWeight.w400),
+                    ),
+                  )
+                  //
+                  // Text(
+                  //     '${LocaleKeys.every_day.tr()}, ${widget.contactFrom} - ${widget.contactTo}',
+                  //     style: Theme.of(context)
+                  //         .textTheme
+                  //         .displayLarge!
+                  //         .copyWith(fontSize: 14, fontWeight: FontWeight.w400))
                 ],
               ),
             ],

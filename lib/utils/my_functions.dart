@@ -6,19 +6,14 @@ import 'dart:ui' as ui;
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/storage.dart';
-import 'package:auto/core/utils/marker_generator.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/common/models/yandex_search_model.dart';
 import 'package:auto/features/common/widgets/maps_list_in_app.dart';
 import 'package:auto/features/dealers/domain/entities/dealer_card_entity.dart';
-import 'package:auto/features/dealers/domain/entities/map_entity.dart';
-import 'package:auto/features/dealers/presentation/blocs/map_organization/map_organization_bloc.dart';
-import 'package:auto/features/dealers/presentation/widgets/custom_point.dart';
 import 'package:auto/features/profile/domain/entities/dir_category_entity.dart';
 import 'package:auto/features/profile/domain/entities/directory_entity.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
@@ -26,7 +21,6 @@ import 'package:auto/generated/locale_keys.g.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:jiffy/jiffy.dart';
@@ -865,12 +859,26 @@ class MyFunctions {
 // temporary directory and image bytes from response is written to // that file.
       return file.path;
     } catch (e) {
-      print('::::::::::  THE URL TO PATH EXCEPTION: $e   ::::::::::');
       return null;
     }
   }
 
   static String listToString(List<WorkingDays> list) {
+    if (list.isEmpty) {
+      return '';
+    } else {
+      final cardId = StringBuffer();
+      for (final element in list) {
+        if (element.dayOfWeek == list.last.dayOfWeek) {
+          cardId.write(element.dayOfWeek);
+        } else {
+          cardId.write('${element.dayOfWeek}, ');
+        }
+      }
+      return cardId.toString();
+    }
+  }
+  static String listToStringWorkDays(List<WorkingDay> list) {
     if (list.isEmpty) {
       return '';
     } else {

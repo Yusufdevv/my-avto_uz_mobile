@@ -3,6 +3,7 @@ import 'package:auto/features/profile/domain/entities/directory_entity.dart';
 class DirectoryModel extends DirectoryEntity {
   DirectoryModel({
    required super.category,
+    required super.workingDays,
     super.id,
     super.name,
     super.slug,
@@ -13,6 +14,7 @@ class DirectoryModel extends DirectoryEntity {
     super.contactFrom,
     super.contactTo,
     super.avatar,
+    super.isWorkingAllDays,
   });
 
   factory DirectoryModel.fromJson(Map<String, dynamic> json) => DirectoryModel(
@@ -27,5 +29,7 @@ class DirectoryModel extends DirectoryEntity {
         contactFrom: json['contact_from'],
         contactTo: json['contact_to'],
         avatar: json['avatar'],
+        isWorkingAllDays: json['is_working_all_days'],
+        workingDays: (json['working_days'] as List).isEmpty ? [] : List<WorkingDay>.from(json['working_days'].map((x) => WorkingDay.fromJson(x))) ,
       );
 }

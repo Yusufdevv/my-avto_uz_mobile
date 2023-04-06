@@ -53,6 +53,8 @@ class _DirectoryListState extends State<DirectoryList>
                     itemBuilder: (context, index) {
                       final item = directories[index];
                       return DirectoryCard(
+                        isAllDay: item.isWorkingAllDays,
+                        workingDaysList: item.workingDays,
                         slug: item.slug ?? '',
                         region: item.region ?? '',
                         dealerType:

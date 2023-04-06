@@ -64,6 +64,7 @@ abstract class LightTheme {
             unselectedBackgroundColor1: LightThemeColors.whiteToEclipse,
           ),
           ThemedColors(
+            whiteSmokeToNero: LightThemeColors.whiteSmokeToNero,
             roseWhiteToEclipse: LightThemeColors.roseWhiteToEclipse,
             yellowToBrown: LightThemeColors.tangerineYellowToMediumSlateBlue,
             redToWhite: LightThemeColors.redToWhite,
