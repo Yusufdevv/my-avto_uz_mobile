@@ -220,7 +220,7 @@ class _ChooseCarModelPageState extends State<ChooseCarModelPage> {
                                 .getAnnouncementStatus.isSubmissionInProgress,
                             isDisabled: state.announcementCount == 0 ||
                                 state.model == null,
-                            disabledColor: disabledButton,
+                            disabledColor: Theme.of(context).extension<ThemedColors>()!.ghostToEclipse,
                             shadow: state.announcementCount != 0 &&
                                     state.model != null
                                 ? [

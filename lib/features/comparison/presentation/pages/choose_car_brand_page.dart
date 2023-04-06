@@ -250,7 +250,7 @@ class _ChooseCarMakeAndModelPageState extends State<ChooseCarMakeAndModelPage> {
                         }
                       },
                       isDisabled: state.selectedMake == null,
-                      disabledColor: disabledButton,
+                      disabledColor: Theme.of(context).extension<ThemedColors>()!.ghostToEclipse,
                       text: LocaleKeys.further.tr(),
                       shadow: state.selectedMake != null
                           ? [
