@@ -152,7 +152,8 @@ class _AdsScreenState extends State<AdsScreen>
                     overscroll.disallowIndicator();
                     return true;
                   },
-                  child: state.announcementList.isEmpty
+                  child: state.announcementList.isEmpty &&
+                          !state.status.isSubmissionInProgress
                       ? UnScrollableNoDataWidget(
                           announcementListBloc: announcementListBloc,
                           crossfade: state.crossFadeState,
