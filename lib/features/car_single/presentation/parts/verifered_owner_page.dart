@@ -149,7 +149,10 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleMedium!
-                                          .copyWith(color: grey),
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                  .extension<ThemedColors>()!
+                                                  .greySuitToWhite60),
                                     ),
                                     const SizedBox(width: 8),
                                     GestureDetector(
@@ -252,7 +255,10 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleMedium!
-                                          .copyWith(color: grey),
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                  .extension<ThemedColors>()!
+                                                  .greySuitToWhite60),
                                     ),
                                     const SizedBox(width: 8),
                                     GestureDetector(
@@ -353,7 +359,10 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleMedium!
-                                      .copyWith(color: grey),
+                                      .copyWith(
+                                          color: Theme.of(context)
+                                              .extension<ThemedColors>()!
+                                              .greySuitToWhite60),
                                 ),
                               ),
                               Padding(

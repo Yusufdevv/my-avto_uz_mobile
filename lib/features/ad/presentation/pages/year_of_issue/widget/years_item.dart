@@ -36,7 +36,9 @@ class YearItem extends StatelessWidget {
                       style: Theme.of(context).textTheme.displayLarge!.copyWith(
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
-                          color: grey),
+                          color: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .greySuitToWhite60),
                     ),
                     TextSpan(
                       text: year.substring(year.length - 2),

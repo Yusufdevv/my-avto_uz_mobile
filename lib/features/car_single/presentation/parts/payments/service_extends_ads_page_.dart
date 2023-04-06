@@ -2,6 +2,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/car_single/presentation/bloc/invoice_bloc/invoice_bloc.dart';
 import 'package:auto/features/car_single/presentation/parts/invoice_tarif_item.dart';
@@ -58,9 +59,13 @@ class _ServiceExtendsAdsPageState extends State<ServiceExtendsAdsPage> {
         value: bloc,
         child: CustomScreen(
           child: Scaffold(
-            backgroundColor: white,
+            backgroundColor:
+                Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
             appBar: WAppBar(
               hasUnderline: true,
+              underlineColor: Theme.of(context)
+                  .extension<ThemedColors>()!
+                  .scaffoldBackground,
               hasBackButton: true,
               title: LocaleKeys.service.tr(),
             ),
@@ -109,8 +114,12 @@ class _ServiceExtendsAdsPageState extends State<ServiceExtendsAdsPage> {
                                                 : greyText,
                                             value: index,
                                             color: tarifValue.value == index
-                                                ? lavanda
-                                                : white,
+                                                ? Theme.of(context)
+                                                    .extension<ThemedColors>()!
+                                                    .lavenderBlueToCharcoal
+                                                : Theme.of(context)
+                                                    .extension<ThemedColors>()!
+                                                    .scaffoldBackground,
                                             groupValue: tarifValue.value,
                                             onTap: (val) {
                                               tarifValue.value = val;
@@ -125,7 +134,8 @@ class _ServiceExtendsAdsPageState extends State<ServiceExtendsAdsPage> {
                                   valueListenable: tarifValue,
                                   builder: (context, value, child) {
                                     final item = state.tarifs[tarifValue.value];
-                                    final date = widget.date.add(Duration(days: item.typeInt));
+                                    final date = widget.date
+                                        .add(Duration(days: item.typeInt));
                                     return TarifItem(
                                         serviceTitle:
                                             LocaleKeys.extends_adss.tr(),
@@ -133,7 +143,8 @@ class _ServiceExtendsAdsPageState extends State<ServiceExtendsAdsPage> {
                                         type: LocaleKeys.for_day.tr(
                                             args: [item.typeInt.toString()]),
                                         id: item.id,
-                                        date: DateFormat('dd.MM.y').format(date));
+                                        date:
+                                            DateFormat('dd.MM.y').format(date));
                                   }),
                               const SizedBox(height: 16),
                               Column(
@@ -153,36 +164,40 @@ class _ServiceExtendsAdsPageState extends State<ServiceExtendsAdsPage> {
                                     children: List.generate(
                                       4,
                                       (index) => ValueListenableBuilder<int>(
-                                          valueListenable: paymentValue,
-                                          builder: (context, value, child) =>
-                                              SelectPaymentItem(
-                                                onTap: (val) {
-                                                  // paymentValue.value = val;
-                                                  if (val != 0) {
-                                                    context
-                                                        .read<ShowPopUpBloc>()
-                                                        .add(ShowPopUp(
-                                                            message: LocaleKeys
-                                                                .this_payment_system_is_currently_unavailable
-                                                                .tr(),
-                                                            status: PopStatus
-                                                                .warning));
-                                                  }
-                                                },
-                                                value: index,
-                                                groupValue: paymentValue.value,
-                                                color:
-                                                    paymentValue.value == index
-                                                        ? lavanda
-                                                        : borderCircular,
-                                                iconPath: iconPathProviders
-                                                    .values
-                                                    .toList()[index],
-                                                borderColor:
-                                                    paymentValue.value == index
-                                                        ? purple
-                                                        : border,
-                                              )),
+                                        valueListenable: paymentValue,
+                                        builder: (context, value, child) =>
+                                            SelectPaymentItem(
+                                          onTap: (val) {
+                                            // paymentValue.value = val;
+                                            if (val != 0) {
+                                              context.read<ShowPopUpBloc>().add(
+                                                  ShowPopUp(
+                                                      message: LocaleKeys
+                                                          .this_payment_system_is_currently_unavailable
+                                                          .tr(),
+                                                      status:
+                                                          PopStatus.warning));
+                                            }
+                                          },
+                                          value: index,
+                                          groupValue: paymentValue.value,
+                                          color: paymentValue.value == index
+                                              ? Theme.of(context)
+                                                  .extension<ThemedColors>()!
+                                                  .lavenderBlueToCharcoal
+                                              : Theme.of(context)
+                                                  .extension<ThemedColors>()!
+                                                  .whiteToDark,
+                                          iconPath: iconPathProviders.values
+                                              .toList()[index],
+                                          borderColor: paymentValue.value ==
+                                                  index
+                                              ? purple
+                                              : Theme.of(context)
+                                                  .extension<ThemedColors>()!
+                                                  .divider,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                   const SizedBox(height: 16),

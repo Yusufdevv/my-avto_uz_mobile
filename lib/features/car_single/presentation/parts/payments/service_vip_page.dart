@@ -2,6 +2,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/car_single/presentation/bloc/invoice_bloc/invoice_bloc.dart';
 import 'package:auto/features/car_single/presentation/parts/invoice_tarif_item.dart';
@@ -66,10 +67,14 @@ class _ServiceVipPageState extends State<ServiceVipPage> {
               statusBarIconBrightness: Brightness.dark),
           child: CustomScreen(
             child: Scaffold(
-              backgroundColor: white,
+              backgroundColor: Theme.of(context)
+                  .extension<ThemedColors>()!
+                  .scaffoldBackground,
               appBar: WAppBar(
                 hasUnderline: true,
                 hasBackButton: true,
+                underlineColor:
+                    Theme.of(context).extension<ThemedColors>()!.divider,
                 title: LocaleKeys.service.tr(),
               ),
               body: BlocBuilder<InvoiceBloc, InvoiceState>(
@@ -133,8 +138,14 @@ class _ServiceVipPageState extends State<ServiceVipPage> {
                                                     value: index,
                                                     color: tarifValue.value ==
                                                             index
-                                                        ? lavanda
-                                                        : white,
+                                                        ? Theme.of(context)
+                                                            .extension<
+                                                                ThemedColors>()!
+                                                            .lavenderBlueToCharcoal
+                                                        : Theme.of(context)
+                                                            .extension<
+                                                                ThemedColors>()!
+                                                            .scaffoldBackground,
                                                     groupValue:
                                                         tarifValue.value,
                                                     onTap: (val) {
@@ -148,7 +159,9 @@ class _ServiceVipPageState extends State<ServiceVipPage> {
                                 ),
                                 const SizedBox(height: 4),
                                 Container(
-                                  color: Colors.grey.shade100,
+                                  color: Theme.of(context)
+                                      .extension<ThemedColors>()!
+                                      .scaffoldBackground,
                                   padding: const EdgeInsets.all(16)
                                       .copyWith(top: 12),
                                   child: Column(
@@ -258,44 +271,54 @@ class _ServiceVipPageState extends State<ServiceVipPage> {
                                             runSpacing: 12,
                                             children: List.generate(
                                               4,
-                                              (index) =>
-                                                  ValueListenableBuilder<int>(
-                                                      valueListenable:
-                                                          paymentValue,
-                                                      builder: (context, value,
-                                                              child) =>
-                                                          SelectPaymentItem(
-                                                            onTap: (val) {
-                                                              // paymentValue.value = val;
-                                                              if (val != 0) {
-                                                                context.read<ShowPopUpBloc>().add(ShowPopUp(
+                                              (index) => ValueListenableBuilder<
+                                                      int>(
+                                                  valueListenable: paymentValue,
+                                                  builder: (context, value,
+                                                          child) =>
+                                                      SelectPaymentItem(
+                                                        onTap: (val) {
+                                                          // paymentValue.value = val;
+                                                          if (val != 0) {
+                                                            context
+                                                                .read<
+                                                                    ShowPopUpBloc>()
+                                                                .add(ShowPopUp(
                                                                     message: LocaleKeys
                                                                         .this_payment_system_is_currently_unavailable
                                                                         .tr(),
                                                                     status: PopStatus
                                                                         .warning));
-                                                              }
-                                                            },
-                                                            value: index,
-                                                            groupValue:
-                                                                paymentValue
-                                                                    .value,
-                                                            color: paymentValue
-                                                                        .value ==
-                                                                    index
-                                                                ? lavanda
-                                                                : borderCircular,
-                                                            iconPath:
-                                                                iconPathProviders
-                                                                        .values
-                                                                        .toList()[
-                                                                    index],
-                                                            borderColor:
-                                                                paymentValue.value ==
-                                                                        index
-                                                                    ? purple
-                                                                    : border,
-                                                          )),
+                                                          }
+                                                        },
+                                                        value: index,
+                                                        groupValue:
+                                                            paymentValue.value,
+                                                        color: paymentValue
+                                                                    .value ==
+                                                                index
+                                                            ? Theme.of(context)
+                                                                .extension<
+                                                                    ThemedColors>()!
+                                                                .lavenderBlueToCharcoal
+                                                            : Theme.of(context)
+                                                                .extension<
+                                                                    ThemedColors>()!
+                                                                .whiteToDark,
+                                                        iconPath:
+                                                            iconPathProviders
+                                                                    .values
+                                                                    .toList()[
+                                                                index],
+                                                        borderColor: paymentValue
+                                                                    .value ==
+                                                                index
+                                                            ? purple
+                                                            : Theme.of(context)
+                                                                .extension<
+                                                                    ThemedColors>()!
+                                                                .divider,
+                                                      )),
                                             ),
                                           ),
                                           const SizedBox(height: 16),

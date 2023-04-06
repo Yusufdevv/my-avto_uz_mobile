@@ -12,96 +12,110 @@ class InvoiceTermsOfUse extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => RichText(
-        text: TextSpan(children: [
-          WidgetSpan(
-            child: Text(
-              LocaleKeys.invoice_terms1.tr(),
-              style:  TextStyle(
-                  color: Theme.of(context).extension<ThemedColors>()!.blackToWhite,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 11),
-            ),
-          ),
-          WidgetSpan(
-            child: GestureDetector(
-              onTap: () {
-                context
-                    .read<ProfileBloc>()
-                    .add(GetTermsOfUseEvent(slug: 'условия пользования'));
-                Navigator.push(context, fade(page: const TermsOfUsePage()));
-              },
+        text: TextSpan(
+          children: [
+            WidgetSpan(
               child: Text(
-                LocaleKeys.invoice_terms2.tr(),
-                style: const TextStyle(
-                    color: Colors.blue,
+                LocaleKeys.invoice_terms1.tr(),
+                style: TextStyle(
+                    color: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .blackToWhite,
                     fontWeight: FontWeight.w400,
                     fontSize: 11),
               ),
             ),
-          ),
-          WidgetSpan(
-            child: GestureDetector(
-              onTap: () {
-                context
-                    .read<ProfileBloc>()
-                    .add(GetTermsOfUseEvent(slug: 'условия пользования'));
-                Navigator.push(context, fade(page: const TermsOfUsePage()));
-              },
+            WidgetSpan(
+              child: GestureDetector(
+                onTap: () {
+                  context
+                      .read<ProfileBloc>()
+                      .add(GetTermsOfUseEvent(slug: 'условия пользования'));
+                  Navigator.push(context, fade(page: const TermsOfUsePage()));
+                },
+                child: Text(
+                  LocaleKeys.invoice_terms2.tr(),
+                  style: const TextStyle(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 11),
+                ),
+              ),
+            ),
+            WidgetSpan(
+              child: GestureDetector(
+                onTap: () {
+                  context
+                      .read<ProfileBloc>()
+                      .add(GetTermsOfUseEvent(slug: 'условия пользования'));
+                  Navigator.push(context, fade(page: const TermsOfUsePage()));
+                },
+                child: Text(
+                  LocaleKeys.invoice_terms3.tr(),
+                  style: const TextStyle(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 11),
+                ),
+              ),
+            ),
+            WidgetSpan(
+              child: GestureDetector(
+                onTap: () {
+                  context
+                      .read<ProfileBloc>()
+                      .add(GetTermsOfUseEvent(slug: 'условия пользования'));
+                  Navigator.push(context, fade(page: const TermsOfUsePage()));
+                },
+                child: Text(
+                  LocaleKeys.invoice_terms4.tr(),
+                  style: const TextStyle(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 11),
+                ),
+              ),
+            ),
+            WidgetSpan(
+              child: GestureDetector(
+                onTap: () {
+                  context
+                      .read<ProfileBloc>()
+                      .add(GetTermsOfUseEvent(slug: 'условия пользования'));
+                  Navigator.push(context, fade(page: const TermsOfUsePage()));
+                },
+                child: Text(
+                  LocaleKeys.invoice_terms5.tr(),
+                  style: const TextStyle(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 11),
+                ),
+              ),
+            ),
+            WidgetSpan(
               child: Text(
-                LocaleKeys.invoice_terms3.tr(),
-                style: const TextStyle(
-                    color: Colors.blue,
+                LocaleKeys.invoice_terms6.tr(),
+                style: TextStyle(
+                    color: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .blackToWhite,
                     fontWeight: FontWeight.w400,
                     fontSize: 11),
               ),
             ),
-          ),
-          WidgetSpan(
-            child: GestureDetector(
-              onTap: () {
-                context
-                    .read<ProfileBloc>()
-                    .add(GetTermsOfUseEvent(slug: 'условия пользования'));
-                Navigator.push(context, fade(page: const TermsOfUsePage()));
-              },
+            WidgetSpan(
               child: Text(
-                LocaleKeys.invoice_terms4.tr(),
-                style: const TextStyle(
-                    color: Colors.blue,
+                LocaleKeys.invoice_terms7.tr(),
+                style: TextStyle(
+                    color: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .blackToWhite,
                     fontWeight: FontWeight.w400,
                     fontSize: 11),
               ),
             ),
-          ),
-          WidgetSpan(
-            child: GestureDetector(
-              onTap: () {
-                context
-                    .read<ProfileBloc>()
-                    .add(GetTermsOfUseEvent(slug: 'условия пользования'));
-                Navigator.push(context, fade(page: const TermsOfUsePage()));
-              },
-              child: Text(
-                LocaleKeys.invoice_terms5.tr(),
-                style: const TextStyle(
-                    color: Colors.blue,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 11),
-              ),
-            ),
-          ),
-          WidgetSpan(
-              child: Text(
-            LocaleKeys.invoice_terms6.tr(),
-            style: const TextStyle(
-                color: Colors.black, fontWeight: FontWeight.w400, fontSize: 11),
-          )),
-          WidgetSpan(
-              child: Text(
-            LocaleKeys.invoice_terms7.tr(),
-            style: const TextStyle(
-                color: Colors.black, fontWeight: FontWeight.w400, fontSize: 11),
-          )),
-        ]),
+          ],
+        ),
       );
 }

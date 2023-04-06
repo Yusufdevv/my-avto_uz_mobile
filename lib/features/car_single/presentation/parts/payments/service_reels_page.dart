@@ -2,6 +2,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/car_single/presentation/bloc/invoice_bloc/invoice_bloc.dart';
 import 'package:auto/features/car_single/presentation/parts/payments/invoice_status_page.dart';
@@ -61,10 +62,14 @@ class _ServiceReelsPageState extends State<ServiceReelsPage> {
               statusBarIconBrightness: Brightness.dark),
           child: CustomScreen(
             child: Scaffold(
-              backgroundColor: white,
+              backgroundColor: Theme.of(context)
+                  .extension<ThemedColors>()!
+                  .scaffoldBackground,
               appBar: WAppBar(
                 hasUnderline: true,
                 hasBackButton: true,
+                underlineColor:
+                    Theme.of(context).extension<ThemedColors>()!.divider,
                 title: LocaleKeys.service.tr(),
               ),
               body: BlocBuilder<InvoiceBloc, InvoiceState>(
@@ -187,16 +192,25 @@ class _ServiceReelsPageState extends State<ServiceReelsPage> {
                                                       paymentValue.value,
                                                   color: paymentValue.value ==
                                                           index
-                                                      ? lavanda
-                                                      : borderCircular,
+                                                      ? Theme.of(context)
+                                                          .extension<
+                                                              ThemedColors>()!
+                                                          .lavenderBlueToCharcoal
+                                                      : Theme.of(context)
+                                                          .extension<
+                                                              ThemedColors>()!
+                                                          .whiteToDark,
                                                   iconPath: iconPathProviders
                                                       .values
                                                       .toList()[index],
-                                                  borderColor:
-                                                      paymentValue.value ==
-                                                              index
-                                                          ? purple
-                                                          : border,
+                                                  borderColor: paymentValue
+                                                              .value ==
+                                                          index
+                                                      ? purple
+                                                      : Theme.of(context)
+                                                          .extension<
+                                                              ThemedColors>()!
+                                                          .divider,
                                                 )),
                                       ),
                                     ),

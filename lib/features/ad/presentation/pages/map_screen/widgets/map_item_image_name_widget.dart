@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
@@ -50,7 +48,7 @@ class MapItemImageNameWidget extends StatelessWidget {
                           fontSize: 14,
                           color: Theme.of(context)
                               .extension<ThemedColors>()!
-                              .whiteToNero,
+                              .greySuitToWhite60,
                         ),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1),

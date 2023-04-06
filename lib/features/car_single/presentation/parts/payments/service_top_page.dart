@@ -2,6 +2,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/car_single/presentation/bloc/invoice_bloc/invoice_bloc.dart';
 import 'package:auto/features/car_single/presentation/parts/invoice_tarif_item.dart';
@@ -59,10 +60,13 @@ class _ServiceTopPageState extends State<ServiceTopPage> {
         value: bloc,
         child: CustomScreen(
           child: Scaffold(
-            backgroundColor: white,
+            backgroundColor:
+                Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
             appBar: WAppBar(
               hasUnderline: true,
               hasBackButton: true,
+              underlineColor:
+                  Theme.of(context).extension<ThemedColors>()!.divider,
               title: LocaleKeys.service.tr(),
             ),
             body: BlocBuilder<InvoiceBloc, InvoiceState>(
@@ -100,23 +104,28 @@ class _ServiceTopPageState extends State<ServiceTopPage> {
                                 return Padding(
                                   padding: const EdgeInsets.only(bottom: 12),
                                   child: ValueListenableBuilder<int>(
-                                      valueListenable: tarifValue,
-                                      builder: (context, value, child) =>
-                                          InvoiceTarifItem(
-                                            tarifDay: item.typeInt.toString(),
-                                            amount: item.amount.toString(),
-                                            dayColor: tarifValue.value == index
-                                                ? null
-                                                : greyText,
-                                            value: item.id,
-                                            color: tarifValue.value == index
-                                                ? lavanda
-                                                : white,
-                                            groupValue: tarifValue.value,
-                                            onTap: (val) {
-                                              tarifValue.value = val;
-                                            },
-                                          )),
+                                    valueListenable: tarifValue,
+                                    builder: (context, value, child) =>
+                                        InvoiceTarifItem(
+                                      tarifDay: item.typeInt.toString(),
+                                      amount: item.amount.toString(),
+                                      dayColor: tarifValue.value == index
+                                          ? null
+                                          : greyText,
+                                      value: item.id,
+                                      color: tarifValue.value == index
+                                          ? Theme.of(context)
+                                              .extension<ThemedColors>()!
+                                              .lavenderBlueToCharcoal
+                                          : Theme.of(context)
+                                              .extension<ThemedColors>()!
+                                              .scaffoldBackground,
+                                      groupValue: tarifValue.value,
+                                      onTap: (val) {
+                                        tarifValue.value = val;
+                                      },
+                                    ),
+                                  ),
                                 );
                               }),
                               const SizedBox(height: 4),
@@ -128,14 +137,14 @@ class _ServiceTopPageState extends State<ServiceTopPage> {
                                     final item = state.tarifs[tarifValue.value];
                                     final date = widget.date
                                         .add(Duration(days: item.typeInt));
-
                                     return TarifItem(
                                         serviceTitle: LocaleKeys.top.tr(),
                                         amount: item.amount.toString(),
                                         type: LocaleKeys.for_day.tr(
                                             args: [item.typeInt.toString()]),
                                         id: item.id,
-                                        date: DateFormat('dd.MM.y').format(date));
+                                        date:
+                                            DateFormat('dd.MM.y').format(date));
                                   }),
                               const SizedBox(height: 16),
                               Column(
@@ -173,17 +182,26 @@ class _ServiceTopPageState extends State<ServiceTopPage> {
                                                 },
                                                 value: index,
                                                 groupValue: paymentValue.value,
-                                                color:
-                                                    paymentValue.value == index
-                                                        ? lavanda
-                                                        : borderCircular,
+                                                color: paymentValue.value ==
+                                                        index
+                                                    ? Theme.of(context)
+                                                        .extension<
+                                                            ThemedColors>()!
+                                                        .lavenderBlueToCharcoal
+                                                    : Theme.of(context)
+                                                        .extension<
+                                                            ThemedColors>()!
+                                                        .scaffoldBackground,
                                                 iconPath: iconPathProviders
                                                     .values
                                                     .toList()[index],
                                                 borderColor:
                                                     paymentValue.value == index
                                                         ? purple
-                                                        : border,
+                                                        : Theme.of(context)
+                                                            .extension<
+                                                                ThemedColors>()!
+                                                            .divider,
                                               )),
                                     ),
                                   ),
