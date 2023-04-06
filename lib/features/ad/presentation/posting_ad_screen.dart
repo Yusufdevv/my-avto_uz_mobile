@@ -560,6 +560,18 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                       .toList()),
                               //18
                               MileageScreen(
+                                  onMileageChanged: (v) => postingAdBloc
+                                      .add(PostingAdChooseEvent(mileage: v)),
+                                  isWithoutMileage: state.isWithoutMileage,
+                                  onIsWithoutMileageChanged: (v) =>
+                                      context.read<PostingAdBloc>().add(
+                                            PostingAdChooseEvent(
+                                                isWithoutMileage: v),
+                                          ),
+                                  onShowToast: (message, toastStatus) {
+                                    postingAdBloc.add(PostingAdShowToastEvent(
+                                        message: message, status: toastStatus));
+                                  },
                                   onImageChange: (image) {
                                     postingAdBloc.add(PostingAdChooseEvent(
                                         milageImage: image));

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:auto/assets/colors/color.dart';
@@ -12,72 +13,56 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 
-class MileageImageItem extends StatefulWidget {
+class MileageImageItem extends StatelessWidget {
+  final VoidCallback onTap;
   final String? image;
 
-  const MileageImageItem({required this.image, Key? key}) : super(key: key);
+  const MileageImageItem({required this.onTap, required this.image, Key? key})
+      : super(key: key);
 
   @override
-  State<MileageImageItem> createState() => _MileageImageItemState();
-}
-
-class _MileageImageItemState extends State<MileageImageItem> {
-  @override
-  Widget build(BuildContext context) =>
-      widget.image == null || widget.image!.isEmpty
-          ? WScaleAnimation(
-              onTap: () async {
-                await showModalBottomSheet<ImageSource>(
-                        backgroundColor: Colors.transparent,
-                        context: context,
-                        useRootNavigator: true,
-                        builder: (context) => const CameraBottomSheet())
-                    .then((value) {
-                  if (value != null) {
-                    context
-                        .read<MileageImageBloc>()
-                        .add(PickMileageImage(source: value));
-                  }
-                });
+  Widget build(BuildContext context) {
+    if (image == null || image!.isEmpty) {
+      return WScaleAnimation(
+        onTap: onTap,
+        child: Container(
+          alignment: Alignment.center,
+          height: 82,
+          width: double.maxFinite,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(width: 1, color: purple),
+            color: Theme.of(context)
+                .extension<ThemedColors>()!
+                .ghostWhiteToUltramarine10,
+          ),
+          child: const PlusCircle(),
+        ),
+      );
+    }
+    return Stack(
+      children: [
+        Container(
+          height: 140,
+          width: double.maxFinite,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: FileImage(File(image ?? '')),
+            ),
+          ),
+        ),
+        Positioned(
+          top: 4,
+          right: 4,
+          child: WScaleAnimation(
+              onTap: () {
+                context.read<MileageImageBloc>().add(DeleteImage());
               },
-              child: Container(
-                alignment: Alignment.center,
-                height: 82,
-                width: double.maxFinite,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(width: 1, color: purple),
-                  color: Theme.of(context)
-                      .extension<ThemedColors>()!
-                      .ghostWhiteToUltramarine10,
-                ),
-                child: const PlusCircle(),
-              ),
-            )
-          : Stack(
-              children: [
-                Container(
-                  height: 140,
-                  width: double.maxFinite,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: FileImage(File(widget.image ?? '')),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: 4,
-                  right: 4,
-                  child: WScaleAnimation(
-                      onTap: () {
-                        context
-                            .read<MileageImageBloc>()
-                            .add(DeleteImage());
-                      },
-                      child: SvgPicture.asset(AppIcons.closeSquare)),
-                ),
-              ],
-            );
+              child: SvgPicture.asset(AppIcons.closeSquare)),
+        ),
+      ],
+    );
+  }
 }

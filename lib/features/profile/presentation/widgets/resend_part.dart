@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/edit_ad/presentation/edit_ad_screen.dart';
@@ -20,7 +21,7 @@ class ReSendPart extends StatelessWidget {
   }) : super(key: key);
 
   final AutoEntity item;
-  final String moderationStatus;
+  final ModerationStatusEnum moderationStatus;
 
   @override
   // ignore: prefer_expression_function_bodies
@@ -33,28 +34,30 @@ class ReSendPart extends StatelessWidget {
         const Divider(height: 12),
         Text(
           LocaleKeys.inappropriate_conditions_or_offers.tr(),
-          style: Theme.of(context)
-              .textTheme
-              .headlineMedium
-              ?.copyWith(height: 1.3, color: Theme.of(context).extension<ThemedColors>()!.darkToWhite),
+          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+              height: 1.3,
+              color: Theme.of(context).extension<ThemedColors>()!.darkToWhite),
         ),
         const SizedBox(height: 10),
         Text(
           LocaleKeys.the_ad_offers_services_or_products_that.tr(),
-          style:
-              Theme.of(context).textTheme.displayMedium?.copyWith(color: Theme.of(context).extension<ThemedColors>()!.darkToWhite),
+          style: Theme.of(context).textTheme.displayMedium?.copyWith(
+              color: Theme.of(context).extension<ThemedColors>()!.darkToWhite),
         ),
         const SizedBox(height: 12),
         WButton(
           border: Border.all(color: yellowSea.withOpacity(0.48)),
           width: double.maxFinite,
           onTap: () async {
-            final res = await Navigator.of(context, rootNavigator: true)
-                .push(fade(page: EditAdScreen(announcementId: item.id)));
+            final res =
+                await Navigator.of(context, rootNavigator: true).push(fade(
+                    page: EditAdScreen(
+              announcementId: item.id,
+              moderationStatus: moderationStatus,
+            )));
             if (res is bool && res) {
-              context
-                  .read<UserWishListsBloc>()
-                  .add(GetUserMyAdsEvent(moderationStatus: moderationStatus));
+              context.read<UserWishListsBloc>().add(
+                  GetUserMyAdsEvent(moderationStatus: moderationStatus.value));
             }
           },
           color: yellowSea.withOpacity(0.08),

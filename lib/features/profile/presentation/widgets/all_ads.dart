@@ -105,18 +105,18 @@ class _AllAdsState extends State<AllAds> {
                                     //
                                     MyAdCarDescPart(item: item),
                                     //
-                                    if (widget.moderationStatus !=
-                                        ModerationStatusEnum.blockedOrSold)
+                                    if (item.moderationStatus !=
+                                        ModerationStatusEnum.blocked.value)
                                       MyAdDesc(
                                         moderationStatus:
-                                            widget.moderationStatus.value,
+                                            widget.moderationStatus,
                                         item: item,
                                       )
                                     else
                                       ReSendPart(
                                         item: item,
                                         moderationStatus:
-                                            widget.moderationStatus.value,
+                                            widget.moderationStatus,
                                       ),
                                   ],
                                 ),

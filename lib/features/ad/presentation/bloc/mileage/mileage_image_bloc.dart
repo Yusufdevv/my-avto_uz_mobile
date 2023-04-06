@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:auto/utils/my_functions.dart';
@@ -15,16 +16,17 @@ class MileageImageBloc extends Bloc<MileageImageEvent, MileageImageState> {
 
   MileageImageBloc(String? mileageImage)
       : super(MileageImageState(image: mileageImage)) {
-
     on<MakeToastMessageNullEvent>(
         (event, emit) => emit(state.copyWith(toastMessage: '')));
 
     on<PickMileageImage>((event, emit) async {
+      log(':::::::::: Pick milage image triggered by : ${event.source.name}  ::::::::::');
       final permission = event.source == ImageSource.camera
           ? await MyFunctions.getCameraPermission(Platform.isAndroid)
           : await MyFunctions.getPhotosPermission(Platform.isAndroid);
       if (permission.isGranted) {
-        final image =await imagePicker.pickImage(source: event.source, imageQuality: 90);
+        final image =
+            await imagePicker.pickImage(source: event.source, imageQuality: 90);
 
         if (image != null) {
           emit(state.copyWith(image: image.path));
@@ -42,5 +44,4 @@ class MileageImageBloc extends Bloc<MileageImageEvent, MileageImageState> {
       emit(state.copyWith(image: ''));
     });
   }
-
 }

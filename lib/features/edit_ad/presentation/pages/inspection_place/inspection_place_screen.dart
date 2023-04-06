@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/ad/presentation/widgets/choose_district_sheet.dart';
@@ -43,128 +42,126 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
           headerText: LocaleKeys.place_of_inspection.tr(),
           child: Padding(
             padding: const EdgeInsets.all(16),
-            child:
-                BlocBuilder<EditAdBloc, EditAdState>(builder: (context, state) {
-              log(':::::::::: map points lenth in page: ${state.mapPointBytes}  ::::::::::');
-              log(':::::::::: condition: ${state.mapPointBytes != null && (state.mapPointBytes?.isNotEmpty ?? false) && state.showExactAddress}  ::::::::::');
-              return SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // CHOOSE REGION
-                    LoaderBox(
-                      isActive: state.region != null,
-                      isLoading:
-                          state.status == FormzStatus.submissionInProgress,
-                      onTap: () async {
-                        hidePopUp();
-                        await showModalBottomSheet<List<RegionEntity>>(
-                          isDismissible: false,
-                          context: context,
-                          isScrollControlled: true,
-                          backgroundColor: Colors.transparent,
-                          builder: (c) => RentChooseRegionBottomSheet(
-                            isMultiChoice: false,
-                            checkedRegions: state.region == null
-                                ? <int, RegionEntity>{}
-                                : {state.region!.id: state.region!},
-                            list: state.regions,
-                          ),
-                        ).then((value) {
-                          if (value != null && value.isNotEmpty) {
-                            context
-                                .read<EditAdBloc>()
-                                .add(EditAdChooseEvent(region: value[0]));
-                          }
-                        });
-                      },
-                      hintText:
-                          state.region?.title ?? LocaleKeys.choose_region.tr(),
-                      title: LocaleKeys.area.tr(),
-                    ),
-                    const SizedBox(height: 16),
-
-                    // CHOOSE DISTRICT
-                    LoaderBox(
-                      isActive: state.district != null,
-                      isLoading: state.getDistrictsStatus ==
-                          FormzStatus.submissionInProgress,
-                      onTap: () async {
-                        hidePopUp();
-                        if (state.districts.isEmpty) {
-                          context.read<ShowPopUpBloc>().add(
-                                ShowPopUp(
-                                  dismissible: false,
-                                  message:
-                                      LocaleKeys.the_before_choose_region.tr(),
-                                  status: PopStatus.warning,
+            child: BlocBuilder<EditAdBloc, EditAdState>(
+                builder: (context, state) => SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // CHOOSE REGION
+                          LoaderBox(
+                            isActive: state.region != null,
+                            isLoading: state.status ==
+                                FormzStatus.submissionInProgress,
+                            onTap: () async {
+                              hidePopUp();
+                              await showModalBottomSheet<List<RegionEntity>>(
+                                isDismissible: false,
+                                context: context,
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                builder: (c) => RentChooseRegionBottomSheet(
+                                  isMultiChoice: false,
+                                  checkedRegions: state.region == null
+                                      ? <int, RegionEntity>{}
+                                      : {state.region!.id: state.region!},
+                                  list: state.regions,
                                 ),
-                              );
-                          return;
-                        }
-                        await showModalBottomSheet<DistrictEntity>(
-                          isDismissible: false,
-                          context: context,
-                          isScrollControlled: true,
-                          backgroundColor: Colors.transparent,
-                          builder: (c) => ChooseDistrictSheet(
-                            selectedId: state.district?.id ?? -1,
-                            districts: state.districts,
+                              ).then((value) {
+                                if (value != null && value.isNotEmpty) {
+                                  context
+                                      .read<EditAdBloc>()
+                                      .add(EditAdChooseEvent(region: value[0]));
+                                }
+                              });
+                            },
+                            hintText: state.region?.title ??
+                                LocaleKeys.choose_region.tr(),
+                            title: LocaleKeys.area.tr(),
                           ),
-                        ).then((value) {
-                          if (value != null) {
-                            context.read<EditAdBloc>().add(EditAdChooseEvent(
-                                  district: value,
-                                ));
-                          }
-                        });
-                      },
-                      hintText:
-                          state.district?.title ?? LocaleKeys.choose_area.tr(),
-                      title:
-                          '${LocaleKeys.area.tr()} / ${LocaleKeys.city.tr().toLowerCase()}',
-                    ),
+                          const SizedBox(height: 16),
 
-                    const SizedBox(height: 17),
-                    if (state.mapPointBytes != null &&
-                        (state.mapPointBytes?.isNotEmpty ?? false) &&
-                        state.showExactAddress) ...{
-                      Container(
-                        height: 200,
-                        width: double.maxFinite,
-                        decoration: BoxDecoration(
-                            color: Colors.amber,
-                            borderRadius: BorderRadius.circular(12),
-                            image: DecorationImage(
-                              image: MemoryImage(state.mapPointBytes!),
-                              fit: BoxFit.cover,
-                            )),
-                        // child:Image.asset(AppIcons.currentLoc),
+                          // CHOOSE DISTRICT
+                          LoaderBox(
+                            isActive: state.district != null,
+                            isLoading: state.getDistrictsStatus ==
+                                FormzStatus.submissionInProgress,
+                            onTap: () async {
+                              hidePopUp();
+                              if (state.districts.isEmpty) {
+                                context.read<ShowPopUpBloc>().add(
+                                      ShowPopUp(
+                                        dismissible: false,
+                                        message: LocaleKeys
+                                            .the_before_choose_region
+                                            .tr(),
+                                        status: PopStatus.warning,
+                                      ),
+                                    );
+                                return;
+                              }
+                              await showModalBottomSheet<DistrictEntity>(
+                                isDismissible: false,
+                                context: context,
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                builder: (c) => ChooseDistrictSheet(
+                                  selectedId: state.district?.id ?? -1,
+                                  districts: state.districts,
+                                ),
+                              ).then((value) {
+                                if (value != null) {
+                                  context
+                                      .read<EditAdBloc>()
+                                      .add(EditAdChooseEvent(
+                                        district: value,
+                                      ));
+                                }
+                              });
+                            },
+                            hintText: state.district?.title ??
+                                LocaleKeys.choose_area.tr(),
+                            title:
+                                '${LocaleKeys.area.tr()} / ${LocaleKeys.city.tr().toLowerCase()}',
+                          ),
+
+                          const SizedBox(height: 17),
+                          if (state.mapPointBytes != null &&
+                              (state.mapPointBytes?.isNotEmpty ?? false) &&
+                              state.showExactAddress) ...{
+                            Container(
+                              height: 200,
+                              width: double.maxFinite,
+                              decoration: BoxDecoration(
+                                  color: Colors.amber,
+                                  borderRadius: BorderRadius.circular(12),
+                                  image: DecorationImage(
+                                    image: MemoryImage(state.mapPointBytes!),
+                                    fit: BoxFit.cover,
+                                  )),
+                              // child:Image.asset(AppIcons.currentLoc),
+                            ),
+                            const SizedBox(height: 17),
+                          },
+
+                          SwitcherRowAsButtonAlso(
+                            onTap: () {
+                              hidePopUp();
+                              widget.onToMapPressed();
+                            },
+                            title: LocaleKeys.show_exactly_geoposition.tr(),
+                            value: state.showExactAddress,
+                            onChanged: (v) {
+                              hidePopUp();
+                              if (!v) {
+                                context.read<EditAdBloc>().add(
+                                    EditAdChooseEvent(showExactAddress: v));
+                              }
+                            },
+                          ),
+                          const SizedBox(height: 70),
+                        ],
                       ),
-                      const SizedBox(height: 17),
-                    },
-
-                    SwitcherRowAsButtonAlso(
-                      onTap: () {
-                        hidePopUp();
-                        widget.onToMapPressed();
-                      },
-                      title: LocaleKeys.show_exactly_geoposition.tr(),
-                      value: state.showExactAddress,
-                      onChanged: (v) {
-                        hidePopUp();
-                        if (!v) {
-                          context
-                              .read<EditAdBloc>()
-                              .add(EditAdChooseEvent(showExactAddress: v));
-                        }
-                      },
-                    ),
-                    const SizedBox(height: 70),
-                  ],
-                ),
-              );
-            }),
+                    )),
           ),
         ),
       );

@@ -67,10 +67,10 @@ class EASingleton {
       i++;
       return MapEntry('damaged_parts[$i]damage_type', e.value.value);
     }));
-
+//////////////////////////////////////////////////////////////
     var images = <MultipartFile>[];
 
-    for (final element in [...v.gallery, ...v.panaramaGallery]) {
+    for (final element in v.gallery) {
       final multiParFile = await MultipartFile.fromFile(element);
       images.add(multiParFile);
     }
@@ -79,6 +79,18 @@ class EASingleton {
       i++;
       return MapEntry('gallery[$i]', e);
     }));
+    ///////////////////////////////////////////////////////
+    var images360 = <MultipartFile>[];
+    for (final i360 in v.panaramaGallery) {
+      final mFile = await MultipartFile.fromFile(i360);
+      images360.add(mFile);
+    }
+    i = -1;
+    announcementFields.addEntries(images360.map((e) {
+      i++;
+      return MapEntry('gallery_360[$i]', e);
+    }));
+    ////////////////////////////////////////////////////////
 
     final announcementFormData = FormData.fromMap(announcementFields);
 
@@ -281,7 +293,8 @@ class EASingleton {
       // AddPhotoScreen
       case 0:
         // return false;
-        return [...state.gallery, ...state.panaramaGallery].isEmpty;
+
+        return !(state.gallery.length > 2 && state.panaramaGallery.isNotEmpty);
       // PtsScreen
       case 1:
         return state.ownerStep == null ||
