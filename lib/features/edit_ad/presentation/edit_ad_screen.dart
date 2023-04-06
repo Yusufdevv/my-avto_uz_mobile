@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/presentation/pages/add_photo/add_photo_screen.dart';
 import 'package:auto/features/ad/presentation/pages/contact/contact_screen.dart';
 import 'package:auto/features/ad/presentation/pages/damage/damage_screen.dart';
 import 'package:auto/features/ad/presentation/pages/equipment/equipment_screen.dart';
 import 'package:auto/features/ad/presentation/pages/map_screen/map_screen_posting_ad.dart';
+import 'package:auto/features/ad/presentation/pages/mileage/mileage_screen.dart';
 import 'package:auto/features/ad/presentation/pages/preview/preview_screen.dart';
 import 'package:auto/features/ad/presentation/pages/price/price_screen.dart';
 import 'package:auto/features/ad/presentation/widgets/sms_verification_sheet.dart';
@@ -15,7 +17,6 @@ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/edit_ad/presentation/bloc/edit_ad/edit_ad_bloc.dart';
 import 'package:auto/features/edit_ad/presentation/pages/description/description_screen.dart';
 import 'package:auto/features/edit_ad/presentation/pages/inspection_place/inspection_place_screen.dart';
-import 'package:auto/features/edit_ad/presentation/pages/mileage/mileage_screen.dart';
 import 'package:auto/features/edit_ad/presentation/pages/pts/pts_screen.dart';
 import 'package:auto/features/edit_ad/presentation/widgets/edit_ad_appbar.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
@@ -30,8 +31,10 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class EditAdScreen extends StatefulWidget {
   final int announcementId;
+  final ModerationStatusEnum moderationStatus;
 
   const EditAdScreen({
+    required this.moderationStatus,
     required this.announcementId,
     Key? key,
   }) : super(key: key);
@@ -116,8 +119,10 @@ class _EditAdScreenState extends State<EditAdScreen>
                     FocusScope.of(context).unfocus();
                     context.read<ShowPopUpBloc>().add(
                           ShowPopUp(
-                            message:
-                                LocaleKeys.your_ad_edited_successfully.tr(),
+                            message: widget.moderationStatus ==
+                                    ModerationStatusEnum.blocked
+                                ? LocaleKeys.your_ad_resend_successfully.tr()
+                                : LocaleKeys.your_ad_edited_successfully.tr(),
                             status: PopStatus.success,
                             dismissible: true,
                           ),
@@ -418,6 +423,18 @@ class _EditAdScreenState extends State<EditAdScreen>
                                     .toList()),
                             // 8
                             MileageScreen(
+                                onShowToast: (message, toastStatus) {
+                                  editAdBloc.add(EditAdShowToastEvent(
+                                      message: message, status: toastStatus));
+                                },
+                                onIsWithoutMileageChanged: (v) {
+                                  editAdBloc.add(
+                                      EditAdChooseEvent(isWithoutMileage: v));
+                                },
+                                isWithoutMileage: state.isWithoutMileage,
+                                onMileageChanged: (v) {
+                                  editAdBloc.add(EditAdChooseEvent(mileage: v));
+                                },
                                 onImageChange: (image) {
                                   editAdBloc.add(
                                       EditAdChooseEvent(milageImage: image));

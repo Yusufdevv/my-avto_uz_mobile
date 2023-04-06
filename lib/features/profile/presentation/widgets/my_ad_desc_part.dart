@@ -23,7 +23,7 @@ class MyAdDesc extends StatelessWidget {
   }) : super(key: key);
 
   final AutoEntity item;
-  final String moderationStatus;
+  final ModerationStatusEnum moderationStatus;
 
   @override
   // ignore: prefer_expression_function_bodies
@@ -139,14 +139,17 @@ class MyAdDesc extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 11),
                       onTap: () async {
-                        final res = await Navigator.of(context,
-                                rootNavigator: true)
-                            .push(fade(
-                                page: EditAdScreen(announcementId: item.id)));
+                        final res =
+                            await Navigator.of(context, rootNavigator: true)
+                                .push(fade(
+                                    page: EditAdScreen(
+                          announcementId: item.id,
+                          moderationStatus: moderationStatus,
+                        )));
                         if (res is bool && res) {
                           context.read<UserWishListsBloc>().add(
                               GetUserMyAdsEvent(
-                                  moderationStatus: moderationStatus));
+                                  moderationStatus: moderationStatus.value));
                         }
                       },
                       child: SvgPicture.asset(AppIcons.editProfile,
@@ -210,14 +213,17 @@ class MyAdDesc extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 11),
                       onTap: () async {
-                        final res = await Navigator.of(context,
-                                rootNavigator: true)
-                            .push(fade(
-                                page: EditAdScreen(announcementId: item.id)));
+                        final res =
+                            await Navigator.of(context, rootNavigator: true)
+                                .push(fade(
+                                    page: EditAdScreen(
+                          announcementId: item.id,
+                          moderationStatus: moderationStatus,
+                        )));
                         if (res is bool && res) {
                           context.read<UserWishListsBloc>().add(
                               GetUserMyAdsEvent(
-                                  moderationStatus: moderationStatus));
+                                  moderationStatus: moderationStatus.value));
                         }
                       },
                       child: Row(
@@ -234,7 +240,11 @@ class MyAdDesc extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .displayMedium!
-                                .copyWith(fontSize: 15, color: Theme.of(context).extension<ThemedColors>()!.darkToWhite),
+                                .copyWith(
+                                    fontSize: 15,
+                                    color: Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .darkToWhite),
                           ),
                         ],
                       ),

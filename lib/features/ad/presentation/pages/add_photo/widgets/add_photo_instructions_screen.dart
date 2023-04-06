@@ -41,9 +41,8 @@ class _PhotoInstructionsScreenState extends State<PhotoInstructionsScreen> {
         child: Scaffold(
           appBar: WAppBar(
             title: LocaleKeys.adding_photo.tr(),
-            backgroundColor: Theme.of(context)
-                .extension<ThemedColors>()!
-                .scaffoldBackground,
+            backgroundColor:
+                Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
             hasBackButton: true,
             boxShadow: [
               BoxShadow(
@@ -119,7 +118,7 @@ class _PhotoInstructionsScreenState extends State<PhotoInstructionsScreen> {
                                 SvgPicture.asset(AppIcons.arrowLeft,
                                     height: 20),
                                 Text(
-                                  'Назад',
+                                  LocaleKeys.get_back.tr(),
                                   style: Theme.of(context)
                                       .textTheme
                                       .headlineMedium,

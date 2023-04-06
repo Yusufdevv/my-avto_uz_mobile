@@ -32,6 +32,7 @@ import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/dealers/presentation/pages/dealer_single_page.dart';
+import 'package:auto/features/edit_ad/presentation/edit_ad_screen.dart';
 import 'package:auto/features/main/presentation/widgets/ads_item.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/pagination/presentation/paginator.dart';
@@ -565,7 +566,20 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                   usertype: state.singleEntity.userType,
                                   slug: state.singleEntity.user.slug,
                                 )
-                              : const CarSingleResendBtn(),
+                              : CarSingleResendBtn(
+                                  onTap: () {
+                                    Navigator.of(context, rootNavigator: true)
+                                        .push(
+                                      fade(
+                                        page: EditAdScreen(
+                                          moderationStatus:
+                                              widget.moderationStatus,
+                                          announcementId: state.singleEntity.id,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
                         )
                       },
                     ],
