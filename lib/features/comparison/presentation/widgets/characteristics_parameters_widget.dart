@@ -1,7 +1,7 @@
-import 'dart:developer';
 import 'dart:math' as math;
 
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/comparison/domain/entities/comparison_entity.dart';
@@ -211,7 +211,7 @@ class _CharacteristicsParametersWidgetState
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 12,
-                        color: grey,
+                        color: LightThemeColors.displayMedium,
                       ),
                     ),
                   ),

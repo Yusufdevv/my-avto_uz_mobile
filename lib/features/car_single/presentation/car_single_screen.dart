@@ -231,6 +231,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                           ),
                           SliverToBoxAdapter(
                             child: CarNameWidget(
+                              isExpired : state.singleEntity.isExpired,
                               rentWithPurchaseConditions:
                                   state.singleEntity.rentWithPurchase,
                               gasBalloonInfo:

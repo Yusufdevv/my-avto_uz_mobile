@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/car_single/data/model/create_owner.dart';
@@ -149,7 +150,9 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleMedium!
-                                          .copyWith(color: grey),
+                                          .copyWith(
+                                              color: LightThemeColors
+                                                  .displayMedium),
                                     ),
                                     const SizedBox(width: 8),
                                     GestureDetector(
@@ -252,7 +255,9 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleMedium!
-                                          .copyWith(color: grey),
+                                          .copyWith(
+                                              color: LightThemeColors
+                                                  .displayMedium),
                                     ),
                                     const SizedBox(width: 8),
                                     GestureDetector(
@@ -353,7 +358,9 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleMedium!
-                                      .copyWith(color: grey),
+                                      .copyWith(
+                                          color:
+                                              LightThemeColors.displayMedium),
                                 ),
                               ),
                               Padding(
@@ -417,7 +424,7 @@ class _VerifiredOwnerPageState extends State<VerifiredOwnerPage> {
                                       state.images[1].isEmpty ||
                                       state.secondImage[0].isEmpty ||
                                       state.secondImage[1].isEmpty,
-                                  disabledColor: disabledButton,
+                                  disabledColor: Theme.of(context).extension<ThemedColors>()!.ghostToEclipse,
                                   text: stateOwner.isDeleted
                                       ? LocaleKeys.repeat_application.tr()
                                       : LocaleKeys.apply_app.tr(),

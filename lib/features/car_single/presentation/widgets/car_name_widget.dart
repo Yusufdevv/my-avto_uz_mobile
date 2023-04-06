@@ -49,6 +49,7 @@ class CarNameWidget extends StatelessWidget {
   final String uzb;
   final int compareId;
   final bool isCompared;
+  final bool isExpired;
   final double procent;
   final ModerationStatusEnum moderationStatus;
   final List<RentWithPurchaseEntity> rentWithPurchaseConditions;
@@ -87,6 +88,7 @@ class CarNameWidget extends StatelessWidget {
     required this.isCompared,
     required this.percenti,
     required this.procent,
+    required this.isExpired,
     this.moderationStatus = ModerationStatusEnum.active,
     Key? key,
   }) : super(key: key);
@@ -105,7 +107,7 @@ class CarNameWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 4),
-            if (moderationStatus == ModerationStatusEnum.blocked.value)
+            if (moderationStatus == ModerationStatusEnum.blocked)
               Padding(
                 padding: const EdgeInsets.only(left: 16),
                 child: ModerationWidget(
@@ -251,6 +253,8 @@ class CarNameWidget extends StatelessWidget {
                             .solitudeToDarkRider),
                   ),
                   DayLikeCallItem(
+                    isExpired: isExpired,
+                    moderationStatus: moderationStatus,
                     days: saleDays,
                     likes: addToFavorite,
                     calls: callToNumber,

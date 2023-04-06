@@ -337,7 +337,7 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                         style: Theme.of(context)
                             .textTheme
                             .bodyLarge!
-                            .copyWith(color: grey),
+                            .copyWith(color: LightThemeColors.displayMedium),
                       ),
                     ),
                     AddComparisonItem(

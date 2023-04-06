@@ -8,7 +8,7 @@ class VerifyOwnerModerationBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
     height: 53,
-    padding: const EdgeInsets.all(12).copyWith(top: 8, bottom: 3),
+    padding: const EdgeInsets.all(12).copyWith(top: 8, bottom: 5),
     decoration: BoxDecoration(
         color: const Color(0xFFF1B747).withOpacity(.1),
         borderRadius: BorderRadius.circular(12)),

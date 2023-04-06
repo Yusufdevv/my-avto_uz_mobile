@@ -16,8 +16,9 @@ class InvoiceTermsOfUse extends StatelessWidget {
           WidgetSpan(
             child: Text(
               LocaleKeys.invoice_terms1.tr(),
-              style:  TextStyle(
-                  color: Theme.of(context).extension<ThemedColors>()!.blackToWhite,
+              style: TextStyle(
+                  color:
+                      Theme.of(context).extension<ThemedColors>()!.blackToWhite,
                   fontWeight: FontWeight.w400,
                   fontSize: 11),
             ),
@@ -93,14 +94,20 @@ class InvoiceTermsOfUse extends StatelessWidget {
           WidgetSpan(
               child: Text(
             LocaleKeys.invoice_terms6.tr(),
-            style: const TextStyle(
-                color: Colors.black, fontWeight: FontWeight.w400, fontSize: 11),
+            style: TextStyle(
+                color:
+                    Theme.of(context).extension<ThemedColors>()!.blackToWhite,
+                fontWeight: FontWeight.w400,
+                fontSize: 11),
           )),
           WidgetSpan(
               child: Text(
             LocaleKeys.invoice_terms7.tr(),
-            style: const TextStyle(
-                color: Colors.black, fontWeight: FontWeight.w400, fontSize: 11),
+            style: TextStyle(
+                color:
+                    Theme.of(context).extension<ThemedColors>()!.blackToWhite,
+                fontWeight: FontWeight.w400,
+                fontSize: 11),
           )),
         ]),
       );

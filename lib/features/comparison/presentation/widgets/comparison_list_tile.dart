@@ -35,7 +35,7 @@ class ComparisionListTile extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
                       fontSize: 14,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w600, color:Theme.of(context).extension<ThemedColors>()!.darkToWhite,
                     ),
               ),
             ),

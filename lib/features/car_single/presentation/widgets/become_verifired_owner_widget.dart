@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/features/car_single/presentation/bloc/car_single_bloc.dart';
 import 'package:auto/features/car_single/presentation/parts/verifered_owner_page.dart';
@@ -62,11 +63,12 @@ class BecomeVerifiredOwnerWidget extends StatelessWidget {
               margin: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                color:const Color(0xffE5E5E5),
               ),
               child: Stack(
                 children: [
                   Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12), color: dark),
                     padding:
                         const EdgeInsets.only(left: 16, top: 8, bottom: 16),
                     child: Row(
@@ -97,8 +99,12 @@ class BecomeVerifiredOwnerWidget extends StatelessWidget {
                               const SizedBox(height: 8),
                               Text(
                                 LocaleKeys.get_verified_owner_status.tr(),
-                                style:
-                                    Theme.of(context).textTheme.displayMedium,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium
+                                    ?.copyWith(
+                                        color:
+                                            LightThemeColors.ghostToGreySuit),
                               ),
                             ],
                           ),
