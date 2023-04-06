@@ -50,7 +50,7 @@ class CarNameWidget extends StatelessWidget {
   final int compareId;
   final bool isCompared;
   final double procent;
-  final String moderationStatus;
+  final ModerationStatusEnum moderationStatus;
   final List<RentWithPurchaseEntity> rentWithPurchaseConditions;
 
   const CarNameWidget({
@@ -87,7 +87,7 @@ class CarNameWidget extends StatelessWidget {
     required this.isCompared,
     required this.percenti,
     required this.procent,
-    this.moderationStatus = 'active',
+    this.moderationStatus = ModerationStatusEnum.active,
     Key? key,
   }) : super(key: key);
 
@@ -193,15 +193,14 @@ class CarNameWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
               child: CarStatistics(
-                  moderationStatus: moderationStatus,
                   date: date,
                   views: view,
                   todayViewedCount: todayViewedCount,
                   id: id),
             ),
-            if (moderationStatus != ModerationStatusEnum.active.value)
+            if (moderationStatus != ModerationStatusEnum.active)
               const SizedBox(height: 8),
-            if (moderationStatus == ModerationStatusEnum.active.value) ...{
+            if (moderationStatus == ModerationStatusEnum.active) ...{
               Divider(
                   height: 32,
                   thickness: 1,
@@ -211,7 +210,6 @@ class CarNameWidget extends StatelessWidget {
                       .extension<ThemedColors>()!
                       .solitudeToDarkRider),
               CarActions(
-                inModeration: moderationStatus,
                 onVin: onVin,
                 onShare: onShare,
                 id: compareId,
@@ -236,13 +234,12 @@ class CarNameWidget extends StatelessWidget {
               gearType: gearType,
               uzb: uzb,
             ),
-
             CarRentWithPurchaseConditions(
               conditions: rentWithPurchaseConditions,
             ),
             if (isMine == true &&
-                (moderationStatus == ModerationStatusEnum.active.value ||
-                    moderationStatus == ModerationStatusEnum.sold.value))
+                (moderationStatus == ModerationStatusEnum.active ||
+                    moderationStatus == ModerationStatusEnum.sold))
               Column(
                 children: [
                   Padding(

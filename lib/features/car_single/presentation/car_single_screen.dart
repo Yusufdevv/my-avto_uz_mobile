@@ -46,11 +46,11 @@ import 'package:share_plus/share_plus.dart';
 
 class CarSingleScreen extends StatefulWidget {
   final int id;
-  final String moderationStatus;
+  final ModerationStatusEnum moderationStatus;
 
   const CarSingleScreen({
     required this.id,
-    this.moderationStatus = 'active',
+    this.moderationStatus = ModerationStatusEnum.active,
     Key? key,
   }) : super(key: key);
 
@@ -299,10 +299,9 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                           ///
                           if (state.singleEntity.isMine &&
                               (widget.moderationStatus ==
-                                      ModerationStatusEnum.active.value ||
+                                      ModerationStatusEnum.active ||
                                   widget.moderationStatus ==
-                                      ModerationStatusEnum
-                                          .in_moderation.value)) ...{
+                                      ModerationStatusEnum.in_moderation)) ...{
                             SliverToBoxAdapter(
                               child: BecomeVerifiredOwnerWidget(
                                   comment: state.singleEntity
@@ -318,9 +317,9 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                           /// OVNER ACTIONS
                           if (state.singleEntity.isMine &&
                               (widget.moderationStatus ==
-                                      ModerationStatusEnum.active.value ||
+                                      ModerationStatusEnum.active ||
                                   widget.moderationStatus ==
-                                      ModerationStatusEnum.in_moderation.value))
+                                      ModerationStatusEnum.in_moderation))
                             const SliverToBoxAdapter(
                               child: OwnerActions(),
                             ),

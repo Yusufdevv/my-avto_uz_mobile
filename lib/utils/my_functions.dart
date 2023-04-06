@@ -58,6 +58,23 @@ class MyFunctions {
     );
   }
 
+  static ModerationStatusEnum strToModerationStatus(String v) {
+    switch (v) {
+      case 'active':
+        return ModerationStatusEnum.active;
+      case 'blocked':
+        return ModerationStatusEnum.blocked;
+      case 'sold':
+        return ModerationStatusEnum.sold;
+      case 'blocked,sold':
+        return ModerationStatusEnum.blockedOrSold;
+      case 'in_moderation':
+        return ModerationStatusEnum.in_moderation;
+      default:
+        return ModerationStatusEnum.none;
+    }
+  }
+
   static bool isNightMode(BuildContext context) {
     final v =
         StorageRepository.getString(StorageKeys.THEME_MODE, defValue: 'light');

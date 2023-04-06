@@ -26,7 +26,7 @@ class MineMoreBottomSheet extends StatelessWidget {
   final String image;
   final VoidCallback onShare;
   final VoidCallback onSold;
-  final String moderationStatus;
+  final ModerationStatusEnum moderationStatus;
   final bool isExpired;
   final String expiredDate;
   final double long;
@@ -44,7 +44,7 @@ class MineMoreBottomSheet extends StatelessWidget {
     required this.lat,
     required this.long,
     required this.expiredDate,
-    this.moderationStatus = '',
+    required this.moderationStatus,
     Key? key,
   }) : super(key: key);
 
@@ -140,8 +140,8 @@ class MineMoreBottomSheet extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 8),
-              if (moderationStatus == ModerationStatusEnum.active.value ||
-                  moderationStatus.isEmpty)
+              if (moderationStatus == ModerationStatusEnum.active ||
+                  moderationStatus == ModerationStatusEnum.none)
                 Expanded(
                   child: WScaleAnimation(
                     onTap: onShare,
@@ -273,7 +273,7 @@ class MineMoreBottomSheet extends StatelessWidget {
                   ? const Color(0xffF63C07).withOpacity(0.12)
                   : const Color(0xFF3396FF).withOpacity(0.17),
             ),
-          if (moderationStatus == ModerationStatusEnum.active.value)
+          if (moderationStatus == ModerationStatusEnum.active)
             MoreActionItem(
               icon: AppIcons.surface,
               text: LocaleKeys.close_ad.tr(),
