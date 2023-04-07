@@ -323,18 +323,13 @@ class _ContactScreenState extends State<ContactScreen> {
                               .snowToNero,
                           border: Border.all(
                               width: 1,
-                              color: StorageRepository.getString(
-                                          StorageKeys.THEME_MODE) ==
-                                      'light'
+                              color: MyFunctions.isNightMode(context)
                                   ? const Color(0xFFFFFBFA)
                                   : const Color(0xffFA744E).withOpacity(0.1)),
                           borderRadius: BorderRadius.circular(12)),
                       child: Text(
                         LocaleKeys.incognito_mode.tr(),
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium!
-                            .copyWith(color: grey),
+                        style: Theme.of(context).textTheme.displayMedium!,
                       ),
                     ),
                     SizedBox(

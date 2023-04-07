@@ -172,7 +172,10 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                 : state.singleEntity.user.avatar,
                             shareUrl:
                                 'https://avto.uz/post/${state.singleEntity.id}',
-                            images: state.singleEntity.gallery,
+                            images: [
+                              ...state.singleEntity.gallery,
+                              ...state.singleEntity.gallery_360
+                            ],
                             onDealer: () {
                               if (state.singleEntity.userType == 'owner') {
                                 Navigator.of(context).push(fade(
@@ -262,7 +265,8 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                       .toString()),
                               body: state.singleEntity.bodyType.type,
                               color: state.singleEntity.color.name,
-                              complectation: '',
+                              complectation:
+                                  state.singleEntity.equipment.name ?? '',
                               engineVolume:
                                   '${state.singleEntity.modificationType.volume} (${state.singleEntity.modificationType.power})',
                               gearType: state.singleEntity.gearboxType.type,

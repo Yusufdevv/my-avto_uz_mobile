@@ -98,6 +98,7 @@ class CarNameWidget extends StatelessWidget {
         margin: EdgeInsets.only(bottom: isMine ? 0 : 12),
         decoration: BoxDecoration(
           color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+          // color: Colors.teal,
           border: Border(
               bottom: BorderSide(
             color: Theme.of(context).extension<ThemedColors>()!.divider,
@@ -117,7 +118,7 @@ class CarNameWidget extends StatelessWidget {
                   color: red.withOpacity(0.1),
                 ),
               )
-            else if (moderationStatus == ModerationStatusEnum.sold.value)
+            else if (moderationStatus == ModerationStatusEnum.sold)
               Padding(
                 padding: const EdgeInsets.only(left: 16),
                 child: ModerationWidget(
