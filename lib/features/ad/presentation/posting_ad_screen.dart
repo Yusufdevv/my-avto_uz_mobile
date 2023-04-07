@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
-
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/bloc/bloc/choose_make_anime_bloc.dart';
@@ -98,7 +96,6 @@ class _PostingAdScreenState extends State<PostingAdScreen>
       ..add(
         PostingAdTopMakesEvent(),
       );
-
     pageController = PageController(initialPage: 0);
     super.initState();
   }

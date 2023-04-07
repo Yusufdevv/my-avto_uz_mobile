@@ -103,7 +103,9 @@ class EquipmentCategory extends StatelessWidget {
                             type: options[index].type, id: options[index].id) ||
                         options[index].type == 'radio'
                     ? Theme.of(context).extension<ThemedColors>()!.whiteToDark
-                    : Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+                    : Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .whiteLilacToWhite4,
                 padding: const EdgeInsets.only(
                     left: 16, right: 16, top: 16, bottom: 16),
                 child: Row(

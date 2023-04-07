@@ -156,7 +156,9 @@ class PostingAdAppBar extends StatelessWidget implements PreferredSizeWidget {
                             padding: const EdgeInsets.all(8),
                             child: SvgPicture.asset(
                               AppIcons.cancel,
-                              color: grey,
+                              color: Theme.of(context)
+                                  .extension<ThemedColors>()!
+                                  .greySuitToWhite60,
                             ),
                           ),
                         ),
