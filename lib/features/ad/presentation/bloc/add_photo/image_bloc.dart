@@ -1,4 +1,4 @@
-
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:auto/utils/my_functions.dart';
@@ -28,9 +28,14 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
       final permission =
           await MyFunctions.getPhotosPermission(Platform.isAndroid);
       if (permission.isGranted) {
+        // final image = await imagePicker.pickVideo(
+        //   source: ImageSource.gallery,
+        // );
         final image = await imagePicker.pickImage(
             source: ImageSource.gallery, imageQuality: 90);
         if (image != null) {
+          log('::::::::::  ${image.runtimeType}  ::::::::::');
+          log(':::::::::: fasedfs:  ${image.path}  ::::::::::');
           emit(state
               .copyWith(panaramaImages: [...state.panaramaImages, image.path]));
         }

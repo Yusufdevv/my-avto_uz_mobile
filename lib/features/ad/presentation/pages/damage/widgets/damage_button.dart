@@ -30,17 +30,19 @@ class DamageButton extends StatelessWidget {
                 width: 18 * k,
                 margin: EdgeInsets.all(placedOnCar ? 5 : 0),
                 decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .whiteToGondola,
-                    boxShadow: const [
-                      BoxShadow(
-                          color: Color(0xffE5E5E5),
-                          offset: Offset(0, 4),
-                          blurRadius: 24,
-                          spreadRadius: 0)
-                    ]),
+                  shape: BoxShape.circle,
+                  color: Theme.of(context)
+                      .extension<ThemedColors>()!
+                      .whiteToGondola,
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0xffE5E5E5),
+                      offset: Offset(0, 4),
+                      blurRadius: 24,
+                      spreadRadius: 0,
+                    ),
+                  ],
+                ),
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
@@ -49,14 +51,14 @@ class DamageButton extends StatelessWidget {
                       width: 10 * k,
                       decoration: BoxDecoration(
                           color: emerald,
-                          borderRadius: BorderRadius.circular(1)),
+                          borderRadius: BorderRadius.circular(k)),
                     ),
                     Container(
                       width: 2 * k,
                       height: 10 * k,
                       decoration: BoxDecoration(
                           color: emerald,
-                          borderRadius: BorderRadius.circular(1)),
+                          borderRadius: BorderRadius.circular(k)),
                     )
                   ],
                 ),
@@ -87,14 +89,14 @@ class DamageButton extends StatelessWidget {
                             height: 6 * k,
                             width: 2 * k,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(1),
+                                borderRadius: BorderRadius.circular(k),
                                 color: white),
                           ),
                           Container(
                             height: 2 * k,
                             width: 2 * k,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(1 * k),
+                              borderRadius: BorderRadius.circular(k),
                               color: white,
                             ),
                           ),
