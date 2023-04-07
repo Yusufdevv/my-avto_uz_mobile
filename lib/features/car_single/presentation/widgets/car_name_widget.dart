@@ -100,9 +100,10 @@ class CarNameWidget extends StatelessWidget {
           color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
           // color: Colors.teal,
           border: Border(
-              bottom: BorderSide(
-            color: Theme.of(context).extension<ThemedColors>()!.divider,
-          )),
+            bottom: BorderSide(
+              color: Theme.of(context).extension<ThemedColors>()!.divider,
+            ),
+          ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

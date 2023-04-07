@@ -101,52 +101,50 @@ class _AnimatedImagesState extends State<AnimatedImages>
                   if (!widget.isUserSingle && widget.images.isNotEmpty) {
                     Navigator.of(context).push(fade(
                         page: ImagesPage(
+                      initialIndex: 0,
                       images: widget.images,
                     )));
                   }
                 }
               },
               behavior: HitTestBehavior.opaque,
-              child:
-
-                  PageView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      controller: _pageController,
-                      scrollDirection: Axis.horizontal,
-                      onPageChanged: (value) {
-                        setState(() {
-                            page = value;
-                          });
-                        _animationController.forward(from: 0);
-                      },
-                      itemCount:
-                          widget.images.isEmpty ? 1 : widget.images.length,
-                      itemBuilder: (context, index) => Container(
-                            foregroundDecoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.center,
-                                colors: [
-                                  Colors.black,
-                                  Colors.black.withOpacity(0),
-                                ],
+              child: PageView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  controller: _pageController,
+                  scrollDirection: Axis.horizontal,
+                  onPageChanged: (value) {
+                    setState(() {
+                      page = value;
+                    });
+                    _animationController.forward(from: 0);
+                  },
+                  itemCount: widget.images.isEmpty ? 1 : widget.images.length,
+                  itemBuilder: (context, index) => Container(
+                        foregroundDecoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.center,
+                            colors: [
+                              Colors.black,
+                              Colors.black.withOpacity(0),
+                            ],
+                          ),
+                        ),
+                        child: widget.images.isEmpty
+                            ? Image.asset(
+                                AppImages.diler,
+                                fit: BoxFit.cover,
+                              )
+                            : CachedNetworkImage(
+                                imageUrl: widget.images[index],
+                                width: double.maxFinite,
+                                height: 340,
+                                fit: BoxFit.cover,
+                                errorWidget: (context, url, error) =>
+                                    Image.asset(AppImages.diler,
+                                        fit: BoxFit.cover),
                               ),
-                            ),
-                            child: widget.images.isEmpty
-                                ? Image.asset(
-                                    AppImages.diler,
-                                    fit: BoxFit.cover,
-                                  )
-                                : CachedNetworkImage(
-                                    imageUrl: widget.images[index],
-                                    width: double.maxFinite,
-                                    height: 340,
-                                    fit: BoxFit.cover,
-                                    errorWidget: (context, url, error) =>
-                                        Image.asset(AppImages.diler,
-                                            fit: BoxFit.cover),
-                                  ),
-                          )),
+                      )),
             ),
             Positioned(
               bottom: 0,

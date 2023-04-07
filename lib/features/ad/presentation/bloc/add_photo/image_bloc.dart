@@ -28,11 +28,11 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
       final permission =
           await MyFunctions.getPhotosPermission(Platform.isAndroid);
       if (permission.isGranted) {
-        // final image = await imagePicker.pickVideo(
-        //   source: ImageSource.gallery,
-        // );
-        final image = await imagePicker.pickImage(
-            source: ImageSource.gallery, imageQuality: 90);
+        final image = await imagePicker.pickVideo(
+          source: ImageSource.gallery,
+        );
+        // final image = await imagePicker.pickImage(
+        //     source: ImageSource.gallery, imageQuality: 90);
         if (image != null) {
           log('::::::::::  ${image.runtimeType}  ::::::::::');
           log(':::::::::: fasedfs:  ${image.path}  ::::::::::');

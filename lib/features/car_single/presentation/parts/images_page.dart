@@ -1,15 +1,16 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:photo_view/photo_view_gallery.dart';
 
 class ImagesPage extends StatefulWidget {
   final List images;
+  final int initialIndex;
 
   const ImagesPage({
+    required this.initialIndex,
     required this.images,
     Key? key,
   }) : super(key: key);
@@ -21,7 +22,14 @@ class ImagesPage extends StatefulWidget {
 class _ImagesPageState extends State<ImagesPage> {
   int currentIndex = 0;
   final ScrollController controller = ScrollController();
-  final PageController pageController = PageController();
+  late PageController pageController;
+
+  @override
+  void initState() {
+    pageController = PageController(initialPage: widget.initialIndex);
+    currentIndex = widget.initialIndex;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) => AnnotatedRegion(
@@ -32,23 +40,18 @@ class _ImagesPageState extends State<ImagesPage> {
           body: Stack(
             children: [
               Center(
-                child: PhotoViewGallery.builder(
-                  scrollPhysics: const ClampingScrollPhysics(),
-                  backgroundDecoration: const BoxDecoration(
-                    color: black,
-                  ),
+                child: PageView.builder(
                   onPageChanged: (value) => setState(() {
                     currentIndex = value;
                   }),
                   itemCount: widget.images.length,
-                  builder: (context, index) => PhotoViewGalleryPageOptions(
-                    imageProvider: NetworkImage(
-                      widget.images[index],
-                    ),
-                    gestureDetectorBehavior: HitTestBehavior.opaque,
-                  ),
-                  loadingBuilder: (_, __) => const CupertinoActivityIndicator(),
-                  pageController: pageController,
+                  itemBuilder: (context, index) {
+                    return CachedNetworkImage(
+                      imageUrl: widget.images[index],
+                      fit: BoxFit.cover,
+                    );
+                  },
+                  controller: pageController,
                 ),
               ),
               Positioned(
