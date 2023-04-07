@@ -78,10 +78,14 @@ class _AllAdsState extends State<AllAds> {
                           )
                               .then(
                             (value) {
-                              context.read<UserWishListsBloc>().add(
-                                  GetUserMyAdsEvent(
-                                      moderationStatus:
-                                          widget.moderationStatus.value));
+                              if (value != null && value) {
+                                context.read<UserWishListsBloc>().add(
+                                      GetUserMyAdsEvent(
+                                        moderationStatus:
+                                            widget.moderationStatus.value,
+                                      ),
+                                    );
+                              }
                             },
                           );
                         },

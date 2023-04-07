@@ -3,6 +3,7 @@ import 'package:auto/assets/constants/images.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/profile/presentation/bloc/dirctory_products/directory_products_bloc.dart';
+import 'package:auto/features/profile/presentation/pages/directory/directory_product_box.dart';
 import 'package:auto/features/profile/presentation/widgets/contact_sheet_of_service_or_products.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
@@ -88,77 +89,12 @@ class _ServiceOrProductsScreenState extends State<ServiceOrProductsScreen> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 25),
                   itemCount: state.products.length,
-                  itemBuilder: (context, index) => Container(
-                    decoration: BoxDecoration(
-                      color: white,
-                      border: Border.all(width: 1, color: dividerColor),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          flex: 96,
-                          child: Container(
-                            width: double.maxFinite,
-                            margin: const EdgeInsets.all(4),
-                            decoration: const BoxDecoration(
-                              color: dividerColor,
-                              borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(8),
-                                bottom: Radius.circular(4),
-                              ),
-                            ),
-                            child: ClipRRect(
-                              borderRadius: const BorderRadius.vertical(
-                                top: Radius.circular(8),
-                                bottom: Radius.circular(4),
-                              ),
-                              child: CachedNetworkImage(
-                                imageUrl: state.products[index].image,
-                                fit: BoxFit.cover,
-                                errorWidget: (x, y, z) => Image.asset(
-                                    AppImages.defaultPhoto,
-                                    fit: BoxFit.cover),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Expanded(
-                          flex: 58,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 12),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  state.products[index].name,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displayLarge!
-                                      .copyWith(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400),
-                                ),
-                                const Spacer(),
-                                Text(
-                                  MyFunctions.getFormatCost(
-                                      state.products[index].price),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displaySmall!
-                                      .copyWith(
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 12),
-                      ],
-                    ),
+                  itemBuilder: (context, index) => DirectoryProductBox(
+                    isAgreedPrice: state.products[index].isAgreedPrice,
+                    price: state.products[index].price,
+                    name: state.products[index].name ?? '',
+                    image: state.products[index].image,
+                    phoneNumber: widget.phoneNumber,
                   ),
                 ),
               );

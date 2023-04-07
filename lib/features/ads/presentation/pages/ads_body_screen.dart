@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_bool_literals_in_conditional_expressions
 
+import 'dart:developer';
+
 import 'package:auto/features/ads/presentation/widgets/no_data_widget.dart';
 import 'package:auto/features/car_single/presentation/car_single_screen.dart';
 import 'package:auto/features/commercial/presentation/widgets/info_container.dart';
@@ -65,9 +67,18 @@ class _AdsBodyScreenState extends State<AdsBodyScreen>
                     itemBuilder: (context, index) => GestureDetector(
                       onTap: () {
                         if (!widget.isFromComparison) {
-                          Navigator.of(context, rootNavigator: true).push(fade(
-                              page: CarSingleScreen(
-                                  id: state.announcementList[index].id)));
+                          Navigator.of(context, rootNavigator: true)
+                              .push(fade(
+                                  page: CarSingleScreen(
+                                      id: state.announcementList[index].id)))
+                              .then((value) {
+                            log(':::::::::: the value ${value.toString()}  ::::::::::');
+                            if (value != null && value) {
+                              context
+                                  .read<AnnouncementListBloc>()
+                                  .add(const GetAnnouncementList());
+                            }
+                          });
                         }
                       },
                       behavior: HitTestBehavior.opaque,

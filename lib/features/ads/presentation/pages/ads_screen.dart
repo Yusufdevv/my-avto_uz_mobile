@@ -173,8 +173,8 @@ class _AdsScreenState extends State<AdsScreen>
                               .pop(state.make == null || state.model == null))
                       : NestedScrollView(
                           physics: state.announcementList.isEmpty
-                              ? NeverScrollableScrollPhysics()
-                              : BouncingScrollPhysics(),
+                              ? const NeverScrollableScrollPhysics()
+                              : const BouncingScrollPhysics(),
                           controller: _scrollController,
                           headerSliverBuilder: (c, innerBoxIsScrolled) => [
                             AdsAppBar(

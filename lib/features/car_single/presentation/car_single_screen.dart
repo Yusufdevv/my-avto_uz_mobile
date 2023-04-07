@@ -213,7 +213,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                             );
                                         await Future.delayed(
                                             const Duration(milliseconds: 3000));
-                                        Navigator.of(context).pop();
+                                        Navigator.of(context).pop(true);
                                       },
                                       onError: (errorMessage) {
                                         context.read<ShowPopUpBloc>().add(
@@ -232,7 +232,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                           ),
                           SliverToBoxAdapter(
                             child: CarNameWidget(
-                              isExpired : state.singleEntity.isExpired,
+                              isExpired: state.singleEntity.isExpired,
                               rentWithPurchaseConditions:
                                   state.singleEntity.rentWithPurchase,
                               gasBalloonInfo:
