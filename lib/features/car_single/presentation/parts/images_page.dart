@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ImagesPage extends StatefulWidget {
-  final List images;
+  final List<String> images;
   final int initialIndex;
 
   const ImagesPage({
@@ -29,6 +29,12 @@ class _ImagesPageState extends State<ImagesPage> {
     pageController = PageController(initialPage: widget.initialIndex);
     currentIndex = widget.initialIndex;
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
   }
 
   @override

@@ -1,5 +1,4 @@
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/features/car_single/presentation/parts/custom_images_page.dart';
 import 'package:auto/features/car_single/presentation/parts/images_page.dart';
 import 'package:auto/features/car_single/presentation/widgets/more_container.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
@@ -35,13 +34,8 @@ class _SingleImagePartState extends State<SingleImagePart> {
   Widget build(BuildContext context) => GestureDetector(
         onTap: () {
           if (widget.images.isNotEmpty) {
-            // Navigator.of(context, rootNavigator: true).push(fade(
-            //     page: ImagesPage(
-            //   initialIndex: currentIndex,
-            //   images: widget.images,
-            // )));
             Navigator.of(context, rootNavigator: true).push(fade(
-                page: CustomImagesPage(
+                page: ImagesPage(
               initialIndex: currentIndex,
               images: widget.images,
             )));
