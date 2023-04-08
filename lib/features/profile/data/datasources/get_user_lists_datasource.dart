@@ -28,7 +28,8 @@ abstract class GetUserListDatasource {
   Future<GenericPagination<DirectoryModel>> getDirectories(
       String search, String regions, String categories, String? next);
 
-  Future<GenericPagination<DirCategoryModel>> getDirCategory(String? next);
+  Future<GenericPagination<DirCategoryModel>> getDirCategory(
+      {required String regions});
 
   Future<DirectoryModel> getDirectory(String id);
 
@@ -216,10 +217,10 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
 
   @override
   Future<GenericPagination<DirCategoryModel>> getDirCategory(
-      String? next) async {
+      {required String regions}) async {
     try {
       final response = await dio.get(
-        next ?? '/car-place/category/list/?limit=100',
+        '/car-place/category/list/?limit=100&region=$regions',
         options: Options(headers: {
           'Authorization':
               'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'

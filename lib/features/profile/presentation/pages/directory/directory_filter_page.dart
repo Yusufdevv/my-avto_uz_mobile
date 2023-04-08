@@ -30,11 +30,9 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
   @override
   void initState() {
     if (widget.bloc.state.regions.isEmpty) {
-      context.read<RegionsBloc>().add(RegionsEvent.getRegions());
-      context.read<DirectoryBloc>().add(DirectorySetAllRegionEvent(
-          regions: context.read<RegionsBloc>().state.regions));
+      widget.bloc.add(DirectoryGetRegionsEvent());
     }
-    if(widget.bloc.state.categories.isEmpty) {
+    if (widget.bloc.state.categories.isEmpty) {
       widget.bloc.add(GetDirCategoriesEvent());
     }
     super.initState();
@@ -55,9 +53,7 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
                     .textTheme
                     .displayLarge!
                     .copyWith(fontSize: 16, fontWeight: FontWeight.w600)),
-            const Spacer(
-              flex: 30,
-            ),
+            const Spacer(flex: 30),
             WScaleAnimation(
               onTap: () {
                 context.read<DirectoryBloc>().add(DirectoryClearFilterEvent());
@@ -116,7 +112,7 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
                               ).then((value) {
                                 if (value != null && value.isNotEmpty) {
                                   context.read<DirectoryBloc>().add(
-                                      DirectorySetRegionEvent(regions: value));
+                                      DirectorySetRegionsEvent(regions: value));
                                 }
                               });
                             },

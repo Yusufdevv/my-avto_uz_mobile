@@ -14,6 +14,10 @@ class DirectoryGetCategoriesOfSingleEvent extends DirectoryEvent {
   DirectoryGetCategoriesOfSingleEvent({required this.slug});
 }
 
+class DirectoryGetRegionsEvent extends DirectoryEvent {
+  DirectoryGetRegionsEvent();
+}
+
 class GetDirCategoriesEvent extends DirectoryEvent {}
 
 class GetMoreDirCategoriesEvent extends DirectoryEvent {
@@ -43,15 +47,10 @@ class OnTabIndexChangedEvent extends DirectoryEvent {
   OnTabIndexChangedEvent({required this.index});
 }
 
-class DirectorySetRegionEvent extends DirectoryEvent {
+class DirectorySetRegionsEvent extends DirectoryEvent {
   List<RegionEntity> regions;
 
-  DirectorySetRegionEvent({required this.regions});
-}
-class DirectorySetAllRegionEvent extends DirectoryEvent {
-  List<RegionEntity> regions;
-
-  DirectorySetAllRegionEvent({required this.regions});
+  DirectorySetRegionsEvent({required this.regions});
 }
 
 class DirectorySetCategoryEvent extends DirectoryEvent {

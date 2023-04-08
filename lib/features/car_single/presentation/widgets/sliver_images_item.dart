@@ -34,11 +34,14 @@ class _SingleImagePartState extends State<SingleImagePart> {
   Widget build(BuildContext context) => GestureDetector(
         onTap: () {
           if (widget.images.isNotEmpty) {
-            Navigator.of(context, rootNavigator: true).push(fade(
+            Navigator.of(context, rootNavigator: true).push(
+              fade(
                 page: ImagesPage(
-              initialIndex: currentIndex,
-              images: widget.images,
-            )));
+                  initialIndex: currentIndex,
+                  images: widget.images,
+                ),
+              ),
+            );
           }
         },
         behavior: HitTestBehavior.opaque,

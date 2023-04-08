@@ -1,6 +1,5 @@
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/common/usecases/get_regions_usecase.dart';
-import 'package:auto/features/rent/data/models/region_model.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';

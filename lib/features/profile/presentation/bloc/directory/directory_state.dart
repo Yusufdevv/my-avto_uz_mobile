@@ -5,6 +5,7 @@ class DirectoryState extends Equatable {
   final DealerSingleEntity directory;
   final List<DirCategoryEntity> categories;
   final FormzStatus status;
+  final FormzStatus getRegionsStatus;
   final List<ProductsList> directoryProducts;
   final List<ProductsList> popularProducts;
 
@@ -21,6 +22,7 @@ class DirectoryState extends Equatable {
 
   DirectoryState({
     required this.status,
+    required this.getRegionsStatus,
     required this.directories,
     required this.directory,
     required this.categories,
@@ -45,6 +47,7 @@ class DirectoryState extends Equatable {
     List<DirectoryEntity>? directories,
     DealerSingleEntity? directory,
     FormzStatus? status,
+    FormzStatus? getRegionsStatus,
     List<DirCategoryEntity>? categories,
     Map<int, DirCategoryEntity>? selectedCategories,
     List<RegionEntity>? regions,
@@ -65,6 +68,7 @@ class DirectoryState extends Equatable {
         categories: categories ?? this.categories,
         selectedCategories: selectedCategories ?? this.selectedCategories,
         status: status ?? this.status,
+        getRegionsStatus: getRegionsStatus ?? this.getRegionsStatus,
         regions: regions ?? this.regions,
         selectedRegions: selectedRegions ?? this.selectedRegions,
         search: search ?? this.search,
@@ -77,6 +81,7 @@ class DirectoryState extends Equatable {
 
   @override
   List<Object?> get props => [
+        getRegionsStatus,
         popularProducts,
         directoryProducts,
         singleCategories,

@@ -108,10 +108,12 @@ class GetUserListRepoImpl extends GetUserListRepository {
   }
 
   @override
-  Future<Either<Failure, GenericPagination<DirCategoryEntity>>> getDirCategory(
-      String? next) async {
+  Future<Either<Failure, GenericPagination<DirCategoryEntity>>> getDirCategory({
+    required String regions,
+    String? next,
+  }) async {
     try {
-      final result = await dataSource.getDirCategory(next);
+      final result = await dataSource.getDirCategory(regions: regions);
       return Right(result);
     } on ServerException catch (error) {
       return Left(ServerFailure(
