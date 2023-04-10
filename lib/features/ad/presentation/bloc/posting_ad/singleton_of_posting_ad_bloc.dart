@@ -31,13 +31,10 @@ class PASingleton {
       'contact_phone': v.ownerPhone,
       'region': v.region?.id,
       'district': v.district?.id,
-      'location_url':
-          'https://yandex.com/maps/10335/tashkent/?ll=${v.long}%2C${v.lat}&z=15',
+      'location_url': 'https://yandex.com/maps/10335/tashkent/?ll=${v.long}%2C${v.lat}&z=15',
       'price': v.price?.replaceAll(' ', ''),
       'currency': v.currency,
-      'distance_traveled': (v.isWithoutMileage ?? false)
-          ? '0'
-          : (v.mileage?.replaceAll(' ', '') ?? '0'),
+      'distance_traveled': (v.isWithoutMileage ?? false) ? '0' : (v.mileage?.replaceAll(' ', '') ?? '0'),
       'contact_available_from': v.callTimeFrom,
       'contact_available_to': v.callTimeTo,
       'registration_vin': 'KENTEKENMEWIJS',
@@ -46,8 +43,7 @@ class PASingleton {
       'registration_serial_number': 'KENTEKENMEWIJS',
       'registered_in_uzbekistan': !v.notRegisteredInUzbekistan,
       'is_new': v.isWithoutMileage,
-      'is_rent_with_purchase':
-          v.rentWithPurchaseConditions.isNotEmpty && (v.rentToBuy ?? false),
+      'is_rent_with_purchase': v.rentWithPurchaseConditions.isNotEmpty && (v.rentToBuy ?? false),
     };
 
     if (v.equipment != null && v.equipment?.id != -1) {
@@ -60,8 +56,7 @@ class PASingleton {
     if (v.mileageImage != null && v.mileageImage!.isNotEmpty) {
       final milageImage = await MultipartFile.fromFile(v.mileageImage!);
       final List<MultipartFile> list = [milageImage];
-      announcementFields
-          .addEntries(list.map((e) => MapEntry('mileage_image', e)));
+      announcementFields.addEntries(list.map((e) => MapEntry('mileage_image', e)));
     }
     Map<DamagedPart, DamageType> allDamages = {};
     for (final d in DamagedPart.values) {
@@ -107,18 +102,16 @@ class PASingleton {
 
     /////////////////////////////////////////
     i = -1;
-    Map<int, String> rO = v.equipment == null
-        ? v.radioOptions
-        : _removeEquipmentContainingRadios(v.equipment!, v.radioOptions);
+    Map<int, String> rO =
+        v.equipment == null ? v.radioOptions : _removeEquipmentContainingRadios(v.equipment!, v.radioOptions);
     announcementFields.addEntries(rO.entries.map((e) {
       i++;
       return MapEntry('options[$i]', e.key);
     }));
     i = -1;
 
-    Map<int, SO> selectedOptions = v.equipment == null
-        ? v.selectOptions
-        : _removeEquipmentContainingSelects(v.equipment!, v.selectOptions);
+    Map<int, SO> selectedOptions =
+        v.equipment == null ? v.selectOptions : _removeEquipmentContainingSelects(v.equipment!, v.selectOptions);
     announcementFields.addEntries(selectedOptions.entries.map((e) {
       i++;
       return MapEntry('option_items[$i]', e.value.id);
@@ -132,69 +125,53 @@ class PASingleton {
     i = -1;
     announcementFields.addEntries(v.rentWithPurchaseConditions.entries.map((e) {
       i++;
-      return MapEntry(
-          'rent_with_purchase[$i]monthly_payment', e.value.monthlyPayment);
+      return MapEntry('rent_with_purchase[$i]monthly_payment', e.value.monthlyPayment);
     }));
     i = -1;
     announcementFields.addEntries(v.rentWithPurchaseConditions.entries.map((e) {
       i++;
-      return MapEntry(
-          'rent_with_purchase[$i]rental_period', e.value.rentalPeriod);
+      return MapEntry('rent_with_purchase[$i]rental_period', e.value.rentalPeriod);
     }));
 
-    final announcementFormData =
-        FormData.fromMap(announcementFields, ListFormat.multiCompatible);
+    final announcementFormData = FormData.fromMap(announcementFields, ListFormat.multiCompatible);
 
     return announcementFormData;
   }
 
-  static Map<String, dynamic> getMiniPrice(PostingAdState state) => {
-        'make': state.make?.id,
-        'model': state.model?.id,
-        'currency': state.currency
-      };
+  static Map<String, dynamic> getMiniPrice(PostingAdState state) =>
+      {'make': state.make?.id, 'model': state.model?.id, 'currency': state.currency};
 
-  static PostingAdState initUserFromApi(UserModel user, PostingAdState state) =>
-      state.copyWith(
+  static PostingAdState initUserFromApi(UserModel user, PostingAdState state) => state.copyWith(
         contactsFormKey: GlobalKey<FormState>(),
         isContactsVerified: user.phoneNumber.length > 4,
         showOwnerContacts: true,
         status: FormzStatus.submissionSuccess,
         phoneController: TextEditingController(
-            text: MyFunctions.phoneFormat(user.phoneNumber.length > 4
-                ? user.phoneNumber.substring(4)
-                : '')),
+            text: MyFunctions.phoneFormat(user.phoneNumber.length > 4 ? user.phoneNumber.substring(4) : '')),
         emailController: TextEditingController(text: user.email),
         nameController: TextEditingController(text: user.fullName),
         ownerEmail: user.email,
         ownerName: user.fullName,
-        ownerPhone:
-            user.phoneNumber.length > 4 ? user.phoneNumber.substring(4) : '',
+        ownerPhone: user.phoneNumber.length > 4 ? user.phoneNumber.substring(4) : '',
         userModel: user,
       );
 
-  static PostingAdState initUserFromState(PostingAdState state) =>
-      state.copyWith(
-          contactsFormKey: GlobalKey<FormState>(),
-          phoneController: TextEditingController(
-              text: state.userModel!.phoneNumber.length > 4
-                  ? MyFunctions.phoneFormat(
-                      state.userModel!.phoneNumber.substring(4))
-                  : ''),
-          emailController: TextEditingController(text: state.userModel!.email),
-          nameController:
-              TextEditingController(text: state.userModel!.fullName),
-          ownerEmail: state.userModel?.email,
-          ownerName: state.userModel?.fullName,
-          ownerPhone: state.userModel!.phoneNumber.length > 4
-              ? state.userModel?.phoneNumber.substring(4)
-              : '',
-          showOwnerContacts: true,
-          isContactsVerified: state.userModel!.phoneNumber.length > 4,
-          status: FormzStatus.submissionSuccess);
+  static PostingAdState initUserFromState(PostingAdState state) => state.copyWith(
+      contactsFormKey: GlobalKey<FormState>(),
+      phoneController: TextEditingController(
+          text: state.userModel!.phoneNumber.length > 4
+              ? MyFunctions.phoneFormat(state.userModel!.phoneNumber.substring(4))
+              : ''),
+      emailController: TextEditingController(text: state.userModel!.email),
+      nameController: TextEditingController(text: state.userModel!.fullName),
+      ownerEmail: state.userModel?.email,
+      ownerName: state.userModel?.fullName,
+      ownerPhone: state.userModel!.phoneNumber.length > 4 ? state.userModel?.phoneNumber.substring(4) : '',
+      showOwnerContacts: true,
+      isContactsVerified: state.userModel!.phoneNumber.length > 4,
+      status: FormzStatus.submissionSuccess);
 
-  static Map<DamagedPart, DamageType> damagedPartAdopter(
-      List<DamagedPartsEntity> damages) {
+  static Map<DamagedPart, DamageType> damagedPartAdopter(List<DamagedPartsEntity> damages) {
     var result = <DamagedPart, DamageType>{};
     for (final v in damages) {
       final part = MyFunctions.strToDamagePart(v.part);
@@ -205,9 +182,7 @@ class PASingleton {
     return result;
   }
 
-  static PostingAdState choose(
-          PostingAdState state, PostingAdChooseEvent event) =>
-      state.copyWith(
+  static PostingAdState choose(PostingAdState state, PostingAdChooseEvent event) => state.copyWith(
         isEquipmentToNull: event.isEquipmentToNull ?? false,
         createStatus: event.createStatus,
         mileageImage: event.milageImage,
@@ -261,8 +236,7 @@ class PASingleton {
   static int? _getMakeLetterIndex(String? letter, List<MakeEntity> makes) {
     if (letter == null) return null;
 
-    final i = makes.indexWhere((element) =>
-        element.name.toUpperCase().startsWith(letter!.toUpperCase()));
+    final i = makes.indexWhere((element) => element.name.toUpperCase().startsWith(letter!.toUpperCase()));
 
     if (i > -1) return i;
 
@@ -305,14 +279,12 @@ class PASingleton {
       case 10:
         {
           log('::::::::::  ${state.gallery.length} / ${state.panoramas.isEmpty}  ::::::::::');
-          return !(state.gallery.length > 2 && state.panoramas.isNotEmpty);
+          return !(state.gallery.length > 2);
         }
 
       // PtsScreen
       case 11:
-        return state.ownerStep == null ||
-            state.licenceType == null ||
-            state.purchasedDate == null;
+        return state.ownerStep == null || state.licenceType == null || state.purchasedDate == null;
 
       //  DescriptionScreen
       case 12:
@@ -325,9 +297,7 @@ class PASingleton {
         return false;
       // ContactsScreen
       case 15:
-        final v = !(((state.contactsFormKey.currentState?.validate() ??
-                    false) &&
-                state.isContactsVerified) ||
+        final v = !(((state.contactsFormKey.currentState?.validate() ?? false) && state.isContactsVerified) ||
             state.nameController.text.isNotEmpty && state.isContactsVerified);
 
         return v;
@@ -340,8 +310,7 @@ class PASingleton {
         return state.price == null || (state.price?.isEmpty ?? true);
       // MileageScreen
       case 18:
-        final mileage =
-            int.tryParse(state.mileage?.replaceAll(' ', '') ?? '0') ?? 0;
+        final mileage = int.tryParse(state.mileage?.replaceAll(' ', '') ?? '0') ?? 0;
 
         final v = !(mileage > 0 ||
             (state.isWithoutMileage ?? false) ||
@@ -360,16 +329,13 @@ class PASingleton {
     required int? lastEquipmentId,
     required String where,
   }) {
-    final v = equipments.any((e) => e.id == lastEquipmentId)
-        ? equipments.firstWhere((e) => e.id == lastEquipmentId)
-        : null;
+    final v =
+        equipments.any((e) => e.id == lastEquipmentId) ? equipments.firstWhere((e) => e.id == lastEquipmentId) : null;
     return v;
   }
 
   static EquipmentEntity? isEquipmentFull(
-      {required EquipmentEntity? equipment,
-      required Map<int, String> sR,
-      required Map<int, SO> sS}) {
+      {required EquipmentEntity? equipment, required Map<int, String> sR, required Map<int, SO> sS}) {
     if (equipment == null) {
       return null;
     }
@@ -397,8 +363,7 @@ class PASingleton {
     }
   }
 
-  static Map<int, String> _removeEquipmentContainingRadios(
-      EquipmentEntity equipment, Map<int, String> radios) {
+  static Map<int, String> _removeEquipmentContainingRadios(EquipmentEntity equipment, Map<int, String> radios) {
     Map<int, String> rO = radios;
     for (final e in equipment.options) {
       if (e.option.type == 'radio') {
@@ -410,8 +375,7 @@ class PASingleton {
     return rO;
   }
 
-  static Map<int, SO> _removeEquipmentContainingSelects(
-      EquipmentEntity equipment, Map<int, SO> selects) {
+  static Map<int, SO> _removeEquipmentContainingSelects(EquipmentEntity equipment, Map<int, SO> selects) {
     Map<int, SO> selectedOptions = selects;
     for (final e in equipment.options) {
       if (e.option.type == 'select') {
@@ -425,23 +389,18 @@ class PASingleton {
     return selectedOptions;
   }
 
-  static Map<int, SO> makeSelectsSelected(
-      {required List<EquipmentOptionsEntity> v}) {
+  static Map<int, SO> makeSelectsSelected({required List<EquipmentOptionsEntity> v}) {
     var data = <int, SO>{};
 
     for (var i = 0; i < v.length; i++) {
       if (v[i].option.type == 'select') {
-        data[v[i].option.id] = SO(
-            id: v[i].item.id,
-            optionName: v[i].item.name,
-            equipmentName: v[i].option.name);
+        data[v[i].option.id] = SO(id: v[i].item.id, optionName: v[i].item.name, equipmentName: v[i].option.name);
       }
     }
     return data;
   }
 
-  static Map<int, String> makeRadiosSelected(
-      {required List<EquipmentOptionsEntity> v}) {
+  static Map<int, String> makeRadiosSelected({required List<EquipmentOptionsEntity> v}) {
     var data = <int, String>{};
 
     for (var i = 0; i < v.length; i++) {
