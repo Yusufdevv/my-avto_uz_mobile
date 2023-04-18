@@ -59,8 +59,7 @@ class CarSingleScreen extends StatefulWidget {
   State<CarSingleScreen> createState() => _CarSingleScreenState();
 }
 
-class _CarSingleScreenState extends State<CarSingleScreen>
-    with SingleTickerProviderStateMixin {
+class _CarSingleScreenState extends State<CarSingleScreen> with SingleTickerProviderStateMixin {
   Brightness brightness = Brightness.light;
   CrossFadeState actionState = CrossFadeState.showFirst;
   CrossFadeState crossFadeState = CrossFadeState.showFirst;
@@ -108,8 +107,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
         setState(() {});
       }
       if (_scrollController.offset > 240) {
-        iconColor =
-            Theme.of(context).extension<ThemedColors>()!.greySuitToWhite;
+        iconColor = Theme.of(context).extension<ThemedColors>()!.greySuitToWhite;
       } else {
         iconColor = white;
       }
@@ -139,10 +137,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                 if (state.status != FormzStatus.submissionSuccess) {
                   return Center(
                       child: CupertinoActivityIndicator(
-                          color: Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .greySuitToWhite,
-                          radius: 16));
+                          color: Theme.of(context).extension<ThemedColors>()!.greySuitToWhite, radius: 16));
                 } else {
                   return Stack(
                     children: [
@@ -170,12 +165,9 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                             avatar: state.singleEntity.userType == 'owner'
                                 ? state.singleEntity.user.image
                                 : state.singleEntity.user.avatar,
-                            shareUrl:
-                                'https://avto.uz/post/${state.singleEntity.id}',
-                            images: [
-                              ...state.singleEntity.gallery,
-                              ...state.singleEntity.gallery_360
-                            ],
+                            shareUrl: 'https://avto.uz/post/${state.singleEntity.id}',
+                            panoramaImages: state.singleEntity.gallery_360,
+                            images: state.singleEntity.gallery,
                             onDealer: () {
                               if (state.singleEntity.userType == 'owner') {
                                 Navigator.of(context).push(fade(
@@ -184,11 +176,9 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                   announcementId: state.singleEntity.id,
                                 )));
                               }
-                              if (state.singleEntity.userType == 'dealer' &&
-                                  state.singleEntity.user.slug.isNotEmpty) {
-                                Navigator.of(context).push(fade(
-                                    page: DealerSinglePage(
-                                        slug: state.singleEntity.user.slug)));
+                              if (state.singleEntity.userType == 'dealer' && state.singleEntity.user.slug.isNotEmpty) {
+                                Navigator.of(context)
+                                    .push(fade(page: DealerSinglePage(slug: state.singleEntity.user.slug)));
                               }
                             },
                             isMine: state.singleEntity.isMine,
@@ -214,8 +204,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                                 status: PopStatus.success,
                                               ),
                                             );
-                                        await Future.delayed(
-                                            const Duration(milliseconds: 3000));
+                                        await Future.delayed(const Duration(milliseconds: 3000));
                                         Navigator.of(context).pop(true);
                                       },
                                       onError: (errorMessage) {
@@ -236,12 +225,10 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                           SliverToBoxAdapter(
                             child: CarNameWidget(
                               isExpired: state.singleEntity.isExpired,
-                              rentWithPurchaseConditions:
-                                  state.singleEntity.rentWithPurchase,
-                              gasBalloonInfo:
-                                  state.singleEntity.gasEquipment.name.isEmpty
-                                      ? LocaleKeys.no.tr()
-                                      : state.singleEntity.gasEquipment.name,
+                              rentWithPurchaseConditions: state.singleEntity.rentWithPurchase,
+                              gasBalloonInfo: state.singleEntity.gasEquipment.name.isEmpty
+                                  ? LocaleKeys.no.tr()
+                                  : state.singleEntity.gasEquipment.name,
                               moderationStatus: widget.moderationStatus,
                               fullname: state.singleEntity.absoluteCarName,
                               price: MyFunctions.getFormatCost(
@@ -249,83 +236,63 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                               ),
                               date: state.singleEntity.publishedAt,
                               view: '${state.singleEntity.viewsCount}',
-                              todayViewedCount:
-                                  '${state.singleEntity.todayViewedCount}',
+                              todayViewedCount: '${state.singleEntity.todayViewedCount}',
                               id: '${state.singleEntity.id}',
-                              currency:
-                                  state.singleEntity.currency.toUpperCase(),
+                              currency: state.singleEntity.currency.toUpperCase(),
                               onVin: () {},
                               onShare: () {
-                                Share.share(
-                                    'https://avto.uz/post/${state.singleEntity.id}');
+                                Share.share('https://avto.uz/post/${state.singleEntity.id}');
                               },
                               year: '${state.singleEntity.year}',
                               mileage: MyFunctions.getThousandsSeparatedPrice(
-                                  state.singleEntity.distanceTraveled
-                                      .toString()),
+                                  state.singleEntity.distanceTraveled.toString()),
                               body: state.singleEntity.bodyType.type,
                               color: state.singleEntity.color.name,
-                              complectation:
-                                  state.singleEntity.equipment.name ?? '',
+                              complectation: state.singleEntity.equipment.name ?? '',
                               engineVolume:
                                   '${state.singleEntity.modificationType.volume} (${state.singleEntity.modificationType.power})',
                               gearType: state.singleEntity.gearboxType.type,
-                              uzb: state.singleEntity.isRegisteredLocally
-                                  ? LocaleKeys.yes.tr()
-                                  : LocaleKeys.no.tr(),
+                              uzb: state.singleEntity.isRegisteredLocally ? LocaleKeys.yes.tr() : LocaleKeys.no.tr(),
                               priceBsh: state.singleEntity.price,
-                              middlePrice: state
-                                  .singleEntity.priceAnalytics.averagePrice,
-                              ration: state
-                                  .singleEntity.priceAnalytics.priceDifference,
+                              middlePrice: state.singleEntity.priceAnalytics.averagePrice,
+                              ration: state.singleEntity.priceAnalytics.priceDifference,
                               dateBsh: DateFormat(
                                 'd MMMM',
                                 StorageRepository.getString('language'),
                               ).format(DateTime.now()),
-                              percent: MyFunctions.getFormatCost(
-                                  '${100 - state.singleEntity.priceAnalytics.percentage}'),
+                              percent:
+                                  MyFunctions.getFormatCost('${100 - state.singleEntity.priceAnalytics.percentage}'),
                               isMine: state.singleEntity.isMine,
                               saleDays:
                                   '${DateTime.now().difference(DateTime.parse(state.singleEntity.publishedAt)).inDays + 1}',
                               addToFavorite: state.singleEntity.wishlistCount,
                               callToNumber: state.singleEntity.callCount,
-                              daysLeft: state.singleEntity.expiredAt != '' &&
-                                      state.singleEntity.publishedAt != ''
+                              daysLeft: state.singleEntity.expiredAt != '' && state.singleEntity.publishedAt != ''
                                   ? '${DateTime.parse(state.singleEntity.expiredAt).difference(DateTime.now()).inDays + 1}'
                                   : LocaleKeys.what_was_ordered.tr(),
                               compareId: state.singleEntity.id,
                               isCompared: state.singleEntity.isComparison,
-                              percenti:
-                                  state.singleEntity.priceAnalytics.percentage,
-                              procent:
-                                  state.singleEntity.priceAnalytics.percentage,
+                              percenti: state.singleEntity.priceAnalytics.percentage,
+                              procent: state.singleEntity.priceAnalytics.percentage,
                             ),
                           ),
 
                           ///
                           if (state.singleEntity.isMine &&
-                              (widget.moderationStatus ==
-                                      ModerationStatusEnum.active ||
-                                  widget.moderationStatus ==
-                                      ModerationStatusEnum.in_moderation)) ...{
+                              (widget.moderationStatus == ModerationStatusEnum.active ||
+                                  widget.moderationStatus == ModerationStatusEnum.in_moderation)) ...{
                             SliverToBoxAdapter(
                               child: BecomeVerifiredOwnerWidget(
-                                  comment: state.singleEntity
-                                      .announcementVerifyOwners.comment,
-                                  moderationStatus: state
-                                      .singleEntity
-                                      .announcementVerifyOwners
-                                      .moderationStatus,
+                                  comment: state.singleEntity.announcementVerifyOwners.comment,
+                                  moderationStatus: state.singleEntity.announcementVerifyOwners.moderationStatus,
                                   announcementId: state.singleEntity.id),
                             ),
                           },
 
                           /// OVNER ACTIONS
                           if (state.singleEntity.isMine &&
-                              (widget.moderationStatus ==
-                                      ModerationStatusEnum.active ||
-                                  widget.moderationStatus ==
-                                      ModerationStatusEnum.in_moderation))
+                              (widget.moderationStatus == ModerationStatusEnum.active ||
+                                  widget.moderationStatus == ModerationStatusEnum.in_moderation))
                             const SliverToBoxAdapter(
                               child: OwnerActions(),
                             ),
@@ -363,53 +330,39 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                           SliverToBoxAdapter(
                             child: (currentIndex == 0)
                                 ? Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       if (!state.singleEntity.isMine &&
                                           state.singleEntity.longitude != 0 &&
                                           state.singleEntity.longitude != 0)
                                         PlaceInspection(
                                           id: state.singleEntity.id,
-                                          region:
-                                              state.singleEntity.region.title,
-                                          district:
-                                              state.singleEntity.district.title,
+                                          region: state.singleEntity.region.title,
+                                          district: state.singleEntity.district.title,
                                           name: state.singleEntity.contactName,
                                           lat: state.singleEntity.latitude,
                                           long: state.singleEntity.longitude,
                                         ),
-                                      if (state
-                                          .singleEntity.description.isNotEmpty)
+                                      if (state.singleEntity.description.isNotEmpty)
                                         SellerComment(
-                                          comment:
-                                              state.singleEntity.description,
+                                          comment: state.singleEntity.description,
                                         ),
                                       ComplectationBox(
                                         equipment: state.singleEntity.equipment,
-                                        radios: PASingleton.makeRadiosSelected(
-                                            v: state.singleEntity.options),
-                                        selects:
-                                            PASingleton.makeSelectsSelected(
-                                                v: state.singleEntity.options),
+                                        radios: PASingleton.makeRadiosSelected(v: state.singleEntity.options),
+                                        selects: PASingleton.makeSelectsSelected(v: state.singleEntity.options),
                                       ),
                                       const VinSoonItem(),
                                     ],
                                   )
                                 : CarCharacteristicItem(
                                     bodyType: state.singleEntity.bodyType.type,
-                                    milleage:
-                                        '${state.singleEntity.distanceTraveled}',
-                                    driveType:
-                                        state.singleEntity.driveType.type,
-                                    engineType:
-                                        state.singleEntity.engineType.type,
-                                    gearboxType:
-                                        state.singleEntity.gearboxType.type,
-                                    enginePower: state
-                                        .singleEntity.modificationType.power,
-                                    engineVolume: state
-                                        .singleEntity.modificationType.volume,
+                                    milleage: '${state.singleEntity.distanceTraveled}',
+                                    driveType: state.singleEntity.driveType.type,
+                                    engineType: state.singleEntity.engineType.type,
+                                    gearboxType: state.singleEntity.gearboxType.type,
+                                    enginePower: state.singleEntity.modificationType.power,
+                                    engineVolume: state.singleEntity.modificationType.volume,
                                   ),
                           ),
 
@@ -418,10 +371,8 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                             SliverToBoxAdapter(
                               child: CarDamagedParts(
                                   width: MediaQuery.of(context).size.width,
-                                  isFaceToFaceCheck:
-                                      state.singleEntity.isFaceToFaceCheck,
-                                  informAboutDoors:
-                                      state.singleEntity.damagedParts),
+                                  isFaceToFaceCheck: state.singleEntity.isFaceToFaceCheck,
+                                  informAboutDoors: state.singleEntity.damagedParts),
                             ),
 
                           ///
@@ -434,41 +385,24 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                     widget: Paginator(
                                       scrollDirection: Axis.horizontal,
                                       paginatorStatus: state.adsStatus,
-                                      padding: const EdgeInsets.only(
-                                          top: 8, left: 16),
-                                      separatorBuilder: (context, index) =>
-                                          SizedBox(
-                                              width: state.singleEntity.id ==
-                                                      state
-                                                          .elasticSearchEntity[
-                                                              index]
-                                                          .id
-                                                  ? 0
-                                                  : 24),
-                                      itemBuilder: (context, index) =>
-                                          BlocConsumer<WishlistAddBloc,
-                                              WishlistAddState>(
+                                      padding: const EdgeInsets.only(top: 8, left: 16),
+                                      separatorBuilder: (context, index) => SizedBox(
+                                          width: state.singleEntity.id == state.elasticSearchEntity[index].id ? 0 : 24),
+                                      itemBuilder: (context, index) => BlocConsumer<WishlistAddBloc, WishlistAddState>(
                                         listener: (context, stateWish) {
-                                          if (stateWish.addStatus
-                                                  .isSubmissionSuccess ||
-                                              stateWish.removeStatus
-                                                  .isSubmissionSuccess) {
-                                            if (stateWish.id ==
-                                                state.elasticSearchEntity[index]
-                                                    .id) {
+                                          if (stateWish.addStatus.isSubmissionSuccess ||
+                                              stateWish.removeStatus.isSubmissionSuccess) {
+                                            if (stateWish.id == state.elasticSearchEntity[index].id) {
                                               // context.read<TopAdBloc>().add(
                                               //     TopAdEvent.changeIsWish(
                                               //         index: stateWish.index,
                                               //         id: stateWish.id));
                                             }
-                                            context.read<WishlistAddBloc>().add(
-                                                WishlistAddEvent.clearState());
+                                            context.read<WishlistAddBloc>().add(WishlistAddEvent.clearState());
                                           }
                                         },
                                         builder: (context, stateWish) {
-                                          if (state.singleEntity.id ==
-                                              state.elasticSearchEntity[index]
-                                                  .id) {
+                                          if (state.singleEntity.id == state.elasticSearchEntity[index].id) {
                                             return const SizedBox();
                                           }
                                           return Container(
@@ -476,55 +410,28 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                               bottom: 20,
                                             ),
                                             child: AdsItem(
-                                              id: state
-                                                  .elasticSearchEntity[index]
-                                                  .id,
+                                              id: state.elasticSearchEntity[index].id,
                                               name:
                                                   '${state.elasticSearchEntity[index].make.name} ${state.elasticSearchEntity[index].model.name} ${state.elasticSearchEntity[index].generation.name}',
-                                              price:
-                                                  '${state.elasticSearchEntity[index].price}',
-                                              location: state
-                                                  .elasticSearchEntity[index]
-                                                  .region
-                                                  .title,
-                                              description: state
-                                                  .elasticSearchEntity[index]
-                                                  .description
-                                                  .trim(),
-                                              image: state
-                                                  .elasticSearchEntity[index]
-                                                  .gallery[0],
-                                              currency: state
-                                                  .elasticSearchEntity[index]
-                                                  .currency,
-                                              isLiked: state
-                                                  .elasticSearchEntity[index]
-                                                  .isWishlisted,
+                                              price: '${state.elasticSearchEntity[index].price}',
+                                              location: state.elasticSearchEntity[index].region.title,
+                                              description: state.elasticSearchEntity[index].description.trim(),
+                                              image: state.elasticSearchEntity[index].gallery[0],
+                                              currency: state.elasticSearchEntity[index].currency,
+                                              isLiked: state.elasticSearchEntity[index].isWishlisted,
                                               onTapLike: () {
-                                                context.read<WishlistAddBloc>().add(state
-                                                        .elasticSearchEntity[
-                                                            index]
-                                                        .isWishlisted
-                                                    ? WishlistAddEvent
-                                                        .removeWishlist(
-                                                            state
-                                                                .elasticSearchEntity[
-                                                                    index]
-                                                                .id,
-                                                            index)
-                                                    : WishlistAddEvent.addWishlist(
-                                                        state
-                                                            .elasticSearchEntity[
-                                                                index]
-                                                            .id,
-                                                        index));
+                                                context.read<WishlistAddBloc>().add(
+                                                    state.elasticSearchEntity[index].isWishlisted
+                                                        ? WishlistAddEvent.removeWishlist(
+                                                            state.elasticSearchEntity[index].id, index)
+                                                        : WishlistAddEvent.addWishlist(
+                                                            state.elasticSearchEntity[index].id, index));
                                               },
                                             ),
                                           );
                                         },
                                       ),
-                                      itemCount:
-                                          state.elasticSearchEntity.length,
+                                      itemCount: state.elasticSearchEntity.length,
                                       fetchMoreFunction: () {
                                         bloc.add(CarSingleEvent.getMoreOtherAds(
                                             '${state.singleEntity.make.name} ${state.singleEntity.model.name}'));
@@ -535,36 +442,28 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                   )
                                 : const SizedBox(),
                           ),
-                          if (widget.moderationStatus ==
-                                  ModerationStatusEnum.active ||
-                              widget.moderationStatus ==
-                                  ModerationStatusEnum.blocked)
+                          if (widget.moderationStatus == ModerationStatusEnum.active ||
+                              widget.moderationStatus == ModerationStatusEnum.blocked)
                             const SliverToBoxAdapter(
                               child: SizedBox(height: 74),
                             ),
                         ],
                       ),
-                      if (widget.moderationStatus ==
-                              ModerationStatusEnum.active ||
-                          widget.moderationStatus ==
-                              ModerationStatusEnum.blocked) ...{
+                      if (widget.moderationStatus == ModerationStatusEnum.active ||
+                          widget.moderationStatus == ModerationStatusEnum.blocked) ...{
                         Positioned(
                           left: 16,
                           right: 16,
                           bottom: 16 + MediaQuery.of(context).padding.bottom,
-                          child: widget.moderationStatus ==
-                                  ModerationStatusEnum.active
+                          child: widget.moderationStatus == ModerationStatusEnum.active
                               ? BottomItem(
                                   isMine: state.singleEntity.isMine,
-                                  callFrom:
-                                      state.singleEntity.contactAvailableFrom,
+                                  callFrom: state.singleEntity.contactAvailableFrom,
                                   callTo: state.singleEntity.contactAvailableTo,
-                                  phoneNumber:
-                                      state.singleEntity.user.phoneNumber,
-                                  userAvatar:
-                                      state.singleEntity.userType == 'dealer'
-                                          ? state.singleEntity.user.avatar ?? ''
-                                          : state.singleEntity.user.image ?? '',
+                                  phoneNumber: state.singleEntity.user.phoneNumber,
+                                  userAvatar: state.singleEntity.userType == 'dealer'
+                                      ? state.singleEntity.user.avatar ?? ''
+                                      : state.singleEntity.user.image ?? '',
                                   id: state.singleEntity.id,
                                   userId: state.singleEntity.user.id,
                                   usertype: state.singleEntity.userType,
@@ -572,12 +471,10 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                 )
                               : CarSingleResendBtn(
                                   onTap: () {
-                                    Navigator.of(context, rootNavigator: true)
-                                        .push(
+                                    Navigator.of(context, rootNavigator: true).push(
                                       fade(
                                         page: EditAdScreen(
-                                          moderationStatus:
-                                              widget.moderationStatus,
+                                          moderationStatus: widget.moderationStatus,
                                           announcementId: state.singleEntity.id,
                                         ),
                                       ),

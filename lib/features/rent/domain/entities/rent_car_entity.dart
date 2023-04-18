@@ -40,6 +40,7 @@ class RentCarEntity extends Equatable {
   final bool isClean;
   final bool isFullFuel;
   final List<String> gallery;
+  final List<String> gallery360;
 
   const RentCarEntity({
     this.id = 0,
@@ -62,6 +63,7 @@ class RentCarEntity extends Equatable {
     this.isClean = false,
     this.isFullFuel = false,
     this.gallery = const [],
+    this.gallery360 = const [],
   });
 
   @override
@@ -86,16 +88,15 @@ class RentCarEntity extends Equatable {
         isClean,
         isFullFuel,
         gallery,
+        gallery360,
       ];
 }
 
-class RentCarConverter
-    implements JsonConverter<RentCarEntity, Map<String, dynamic>?> {
+class RentCarConverter implements JsonConverter<RentCarEntity, Map<String, dynamic>?> {
   const RentCarConverter();
 
   @override
-  RentCarEntity fromJson(Map<String, dynamic>? json) =>
-      RentCarModel.fromJson(json ?? {});
+  RentCarEntity fromJson(Map<String, dynamic>? json) => RentCarModel.fromJson(json ?? {});
 
   @override
   Map<String, dynamic> toJson(RentCarEntity object) => {};

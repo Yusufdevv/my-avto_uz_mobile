@@ -1,6 +1,7 @@
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/const/constants.dart';
+import 'package:auto/features/ad/presentation/pages/preview/widgets/view_360_screen.dart';
 import 'package:auto/features/car_single/presentation/widgets/mine_more_bottomsheet.dart';
 import 'package:auto/features/car_single/presentation/widgets/more_actions_bottomsheet.dart';
 import 'package:auto/features/car_single/presentation/widgets/sliver_images_item.dart';
@@ -25,6 +26,7 @@ class SliverAppBarItem extends StatefulWidget {
   final CrossFadeState actionState;
   final bool isWishlisted;
   final List<String> images;
+  final List<String> panoramaImages;
   final String dealerName;
   final String position;
   final String? avatar;
@@ -64,6 +66,7 @@ class SliverAppBarItem extends StatefulWidget {
     required this.expiredDate,
     required this.long,
     required this.lat,
+    required this.panoramaImages,
     this.moderationStatus = ModerationStatusEnum.active,
     Key? key,
   }) : super(key: key);
@@ -116,9 +119,7 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                 secondChild: Text(
                   widget.absoluteCarName,
                   style: TextStyle(
-                    color: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .blackToWhite,
+                    color: Theme.of(context).extension<ThemedColors>()!.blackToWhite,
                   ),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
@@ -129,6 +130,17 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                 ),
               ),
             ),
+            if (widget.panoramaImages.isNotEmpty) ...{
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(fade(page: View360Screen(images: widget.panoramaImages)));
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: SvgPicture.asset(AppIcons.icon360),
+                ),
+              ),
+            },
             if (widget.moderationStatus != ModerationStatusEnum.sold) ...{
               Padding(
                 padding: const EdgeInsets.only(left: 8, right: 8),
@@ -149,16 +161,12 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                       )
                     : AddWishlistItem(
                         onTap: () {
-                          context
-                              .read<WishlistAddBloc>()
-                              .add(WishlistAddEvent.clearState());
+                          context.read<WishlistAddBloc>().add(WishlistAddEvent.clearState());
                           if (!isLiked!) {
-                            context.read<WishlistAddBloc>().add(
-                                WishlistAddEvent.addWishlist(widget.id, 0));
+                            context.read<WishlistAddBloc>().add(WishlistAddEvent.addWishlist(widget.id, 0));
                             isLiked = true;
                           } else {
-                            context.read<WishlistAddBloc>().add(
-                                WishlistAddEvent.removeWishlist(widget.id, 0));
+                            context.read<WishlistAddBloc>().add(WishlistAddEvent.removeWishlist(widget.id, 0));
                             isLiked = false;
                           }
                           setState(() {});
@@ -206,9 +214,8 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                           )
                         : MoreActionsBottomsheet(
                             name: widget.dealerName,
-                            position: widget.position == 'owner'
-                                ? LocaleKeys.private_person.tr()
-                                : LocaleKeys.autosalon.tr(),
+                            position:
+                                widget.position == 'owner' ? LocaleKeys.private_person.tr() : LocaleKeys.autosalon.tr(),
                             image: widget.avatar ?? '',
                             onShare: () {
                               Share.share(
@@ -227,6 +234,7 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
         flexibleSpace: FlexibleSpaceBar(
           background: SingleImagePart(
             images: widget.images,
+            panoramaImages: widget.panoramaImages,
           ),
         ),
       );

@@ -3,13 +3,17 @@
 import 'dart:io';
 
 import 'package:auto/features/ad/presentation/pages/preview/widgets/image_indicator.dart';
+import 'package:auto/features/ad/presentation/pages/preview/widgets/view_360_screen.dart';
 import 'package:auto/features/car_single/presentation/widgets/more_container.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ImageViewer extends StatefulWidget {
   final List<String> images;
+  final List<String> panoramaImages;
 
-  const ImageViewer({required this.images, Key? key}) : super(key: key);
+  const ImageViewer({required this.images, this.panoramaImages = const [], Key? key}) : super(key: key);
 
   @override
   State<ImageViewer> createState() => _ImageViewerState();
@@ -62,28 +66,39 @@ class _ImageViewerState extends State<ImageViewer> {
         child: Stack(
           children: [
             Positioned.fill(
-              child: PageView(
+              child: PageView.builder(
                 controller: pageController,
                 onPageChanged: (page) {
                   setState(() {
                     currentIndex = page;
                   });
                 },
-                children: List.generate(
-                  widget.images.length,
-                  (index) => SizedBox(
+                itemCount: widget.panoramaImages.isNotEmpty ? widget.images.length + 1 : widget.images.length,
+                itemBuilder: (context, index) {
+                  if (index == widget.images.length) {
+                    return Container(
+                      alignment: Alignment.center,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).push(fade(page: View360Screen(images: widget.panoramaImages)));
+                        },
+                        child: const Text('Open 360 view'),
+                      ),
+                    );
+                  }
+                  return SizedBox(
                     width: double.infinity,
                     child: widget.images[index].startsWith('http')
-                        ? Image.network(
-                            widget.images[index],
+                        ? CachedNetworkImage(
+                            imageUrl: widget.images[index],
                             fit: BoxFit.cover,
                           )
                         : Image.file(
                             File(widget.images[index]),
                             fit: BoxFit.cover,
                           ),
-                  ),
-                ),
+                  );
+                },
               ),
             ),
             if (widget.images.length > 1)
@@ -98,12 +113,11 @@ class _ImageViewerState extends State<ImageViewer> {
                       height: 20,
                       child: Row(
                         children: List.generate(
-                          widget.images.length,
+                          widget.panoramaImages.isNotEmpty ? widget.images.length + 1 : widget.images.length,
                           (index) => MoreContainer(
-                            itemQuantity: widget.images.length,
-                            color: index == currentIndex
-                                ? Colors.white
-                                : const Color(0xFFB5B5BE),
+                            itemQuantity:
+                                widget.panoramaImages.isNotEmpty ? widget.images.length + 1 : widget.images.length,
+                            color: index == currentIndex ? Colors.white : const Color(0xFFB5B5BE),
                           ),
                         ),
                       ),

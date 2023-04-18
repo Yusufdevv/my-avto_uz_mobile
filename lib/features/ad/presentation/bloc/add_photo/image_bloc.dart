@@ -22,27 +22,19 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
             image: File(''),
           ),
         ) {
-    on<PickImageEmptyToastMessageEvent>(
-        (event, emit) => emit(state.copyWith(toastMessage: '')));
+    on<PickImageEmptyToastMessageEvent>((event, emit) => emit(state.copyWith(toastMessage: '')));
     on<PickPanaramaImageEvent>((event, emit) async {
-      final permission =
-          await MyFunctions.getPhotosPermission(Platform.isAndroid);
+      final permission = await MyFunctions.getPhotosPermission(Platform.isAndroid);
       if (permission.isGranted) {
-        final image = await imagePicker.pickVideo(
-          source: ImageSource.gallery,
-        );
+        final image = await imagePicker.pickMultiImage();
         // final image = await imagePicker.pickImage(
         //     source: ImageSource.gallery, imageQuality: 90);
-        if (image != null) {
-          log('::::::::::  ${image.runtimeType}  ::::::::::');
-          log(':::::::::: fasedfs:  ${image.path}  ::::::::::');
-          emit(state
-              .copyWith(panaramaImages: [...state.panaramaImages, image.path]));
+        if (image.isNotEmpty) {
+          emit(state.copyWith(panaramaImages: [...state.panaramaImages, ...image.map((e) => e.path).toList()]));
         }
       } else {
         final how = permission.isPermanentlyDenied ? 'permanently' : '';
-        emit(
-            state.copyWith(toastMessage: 'You have denied picking image $how'));
+        emit(state.copyWith(toastMessage: 'You have denied picking image $how'));
       }
     });
     on<PickImage>((event, emit) async {
@@ -51,15 +43,12 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
           : await MyFunctions.getPhotosPermission(Platform.isAndroid);
 
       if (permission.isGranted) {
-        final image =
-            await imagePicker.pickImage(source: event.source, imageQuality: 90);
+        final image = await imagePicker.pickImage(source: event.source, imageQuality: 90);
         if (image != null) {
           emit(state.copyWith(images: [...state.images, image.path]));
         }
       } else {
-        final what = event.source == ImageSource.camera
-            ? 'taking picture'
-            : 'picking image';
+        final what = event.source == ImageSource.camera ? 'taking picture' : 'picking image';
         final how = permission.isPermanentlyDenied ? 'permanently' : '';
         emit(state.copyWith(toastMessage: 'You have denied $what $how'));
       }
@@ -78,8 +67,7 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
       emit(state.copyWith(image: File('')));
     });
     on<GetImage>((event, emit) async {
-      final image =
-          await imagePicker.pickImage(source: event.source, imageQuality: 90);
+      final image = await imagePicker.pickImage(source: event.source, imageQuality: 90);
       if (image != null) {
         emit(state.copyWith(image: File(image.path)));
       }

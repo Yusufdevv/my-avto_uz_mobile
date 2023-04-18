@@ -634,5 +634,6 @@ abstract class  LocaleKeys {
   static const add_phone_number = 'add_phone_number';
   static const your_ad_closed_successfully = 'your_ad_closed_successfully';
   static const negotiable = 'negotiable';
+  static const image_360 = 'image_360';
 
 }

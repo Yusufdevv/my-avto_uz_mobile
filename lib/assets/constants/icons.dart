@@ -66,8 +66,7 @@ class AppIcons {
   static const flagUzb = 'assets/icons/global/flag_uzb.svg';
   static const bell = 'assets/icons/global/bell.svg';
   static const bellWithCircle = 'assets/icons/profile/bell_with_circle.svg';
-  static const bellWithCircleDark =
-      'assets/icons/profile/bell_with_circle_dark.svg';
+  static const bellWithCircleDark = 'assets/icons/profile/bell_with_circle_dark.svg';
   static const ellipseRed = 'assets/icons/profile/ellipse_red.svg';
   static const phoneCall1 = 'assets/icons/profile/phone-call.svg';
   static const eye = 'assets/icons/global/eye.svg';
@@ -204,8 +203,7 @@ class AppIcons {
   // SEARCH
   static const parameter = 'assets/icons/search/parameter.svg';
   static const searchWithHeart = 'assets/icons/search/search_with_heart.svg';
-  static const searchWithHeartWhite =
-      'assets/icons/search/search_with_heart_white.svg';
+  static const searchWithHeartWhite = 'assets/icons/search/search_with_heart_white.svg';
   static const circleClose = 'assets/icons/search/circle_close.svg';
   static const car = 'assets/icons/search/lightweight_car.svg';
   static const shieldCheck = 'assets/icons/search/shield_check.svg';
@@ -215,8 +213,7 @@ class AppIcons {
   static const checkCurly = 'assets/icons/search/check_curly.svg';
   static const chevronRightGrey = 'assets/icons/global/chevron_right_grey.svg';
   static const wind = 'assets/icons/global/wind.svg';
-  static const chevronRightBlack =
-      'assets/icons/global/chevron_right_black.svg';
+  static const chevronRightBlack = 'assets/icons/global/chevron_right_black.svg';
   static const chevronRight1 = 'assets/icons/profile/chevron_right.svg';
   static const enabledHeart = 'assets/icons/search/enabled_heart.svg';
   static const disabledHeart = 'assets/icons/search/disabled_heart.svg';
@@ -237,19 +234,16 @@ class AppIcons {
   static const vin_skoro = 'assets/icons/car_single/vin_skoro.svg';
   static const vin_tezorada = 'assets/icons/car_single/vin_tezorada.svg';
   static const blue_vin_skoro = 'assets/icons/car_single/blue_vin_skoro.svg';
-  static const blue_vin_tezorada =
-      'assets/icons/car_single/blue_vin_tezorada.svg';
+  static const blue_vin_tezorada = 'assets/icons/car_single/blue_vin_tezorada.svg';
   static const safe = 'assets/icons/car_single/safety.svg';
   static const autoModel = 'assets/icons/car_single/auto_model.svg';
-  static const shieldCheckOutlined =
-      'assets/icons/car_single/shield_check_outlined.svg';
+  static const shieldCheckOutlined = 'assets/icons/car_single/shield_check_outlined.svg';
 
   static const moreVertical = 'assets/icons/car_single/more.svg';
   static const note = 'assets/icons/car_single/note.svg';
   static const blueCheckRounded = 'assets/icons/car_single/blue_check.svg';
   static const comparGreen = 'assets/icons/car_single/compar_green.svg';
-  static const moderationYellow =
-      'assets/icons/car_single/moderation_yellow.svg';
+  static const moderationYellow = 'assets/icons/car_single/moderation_yellow.svg';
   static const comparison = 'assets/icons/global/comparison.svg';
   static const puzzle = 'assets/icons/global/puzzle.svg';
 
@@ -297,4 +291,5 @@ class AppIcons {
   static const carFromFront = 'assets/icons/global/car_from_front.svg';
   static const videoPlus = 'assets/icons/global/video_plus.svg';
   static const fileEmpty = 'assets/icons/car_single/file_empty.svg';
+  static const icon360 = 'assets/icons/car_single/icon_360.svg';
 }

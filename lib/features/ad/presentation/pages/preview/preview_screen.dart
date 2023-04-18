@@ -77,8 +77,7 @@ class PreviewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        backgroundColor:
-            Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
+        backgroundColor: Theme.of(context).extension<ThemedColors>()!.scaffoldBackground,
         body: Builder(
           builder: (context) {
             if (isWaiting) {
@@ -97,47 +96,41 @@ class PreviewScreen extends StatelessWidget {
                     style: Theme.of(context).textTheme.displayLarge,
                   ),
                 ),
-                ImageViewer(images: [...gallery, ...panaramaGallery]),
+                ImageViewer(
+                  images: gallery,
+                  panoramaImages: panaramaGallery,
+                ),
                 //
 
                 Container(
-                  color:
-                      Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+                  color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(height: 12),
-                      CarModelText(
-                          text: '$makeName $modelName $generationName'),
+                      CarModelText(text: '$makeName $modelName $generationName'),
                       CarPriceText(
-                          text:
-                              '${MyFunctions.getFormatCost(price.replaceAll(' ', ''))} ${currency.toUpperCase()}'),
+                          text: '${MyFunctions.getFormatCost(price.replaceAll(' ', ''))} ${currency.toUpperCase()}'),
                       const SizedBox(height: 12),
                       DateAndViewsRow(date: MyFunctions.getData(purchasedDate)),
                       const SizedBox(height: 8),
                       if (id != null && id!.isNotEmpty) IdRow(id: id ?? ''),
                       //
                       Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 16),
-                          child: Divider(
-                              height: 1,
-                              color: Theme.of(context).dividerColor)),
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                          child: Divider(height: 1, color: Theme.of(context).dividerColor)),
                       CarInfoRow(
                         title: LocaleKeys.years_of_issue.tr(),
                         info: year,
                       ),
-                      if (mileage.isNotEmpty)
-                        CarInfoRow(
-                            title: LocaleKeys.Mileage.tr(), info: mileage),
+                      if (mileage.isNotEmpty) CarInfoRow(title: LocaleKeys.Mileage.tr(), info: mileage),
                       CarInfoRow(title: LocaleKeys.body.tr(), info: bodyType),
                       CarInfoRow(
                         title: LocaleKeys.color.tr(),
                         info: colorName,
                       ),
                       CarInfoRow(
-                          title: LocaleKeys.complectation.tr(),
-                          info: equipment?.name ?? LocaleKeys.not_shown.tr()),
+                          title: LocaleKeys.complectation.tr(), info: equipment?.name ?? LocaleKeys.not_shown.tr()),
                       CarInfoRow(
                         title: LocaleKeys.engine_volume_l.tr(),
                         info: '$modificationVolume $modificationPower',
@@ -148,9 +141,7 @@ class PreviewScreen extends StatelessWidget {
                       ),
                       CarInfoRow(
                         title: LocaleKeys.rastamojen_v_uzbekistan.tr(),
-                        info: registeredInUzbekistan
-                            ? LocaleKeys.no.tr()
-                            : LocaleKeys.yes.tr(),
+                        info: registeredInUzbekistan ? LocaleKeys.no.tr() : LocaleKeys.yes.tr(),
                       ),
                     ],
                   ),

@@ -1,4 +1,6 @@
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/features/ad/presentation/pages/preview/widgets/image_viewer.dart';
+import 'package:auto/features/ad/presentation/pages/preview/widgets/view_360_screen.dart';
 import 'package:auto/features/car_single/presentation/parts/images_page.dart';
 import 'package:auto/features/car_single/presentation/widgets/more_container.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
@@ -8,9 +10,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class SingleImagePart extends StatefulWidget {
   final List<String> images;
+  final List<String> panoramaImages;
 
   const SingleImagePart({
     required this.images,
+    required this.panoramaImages,
     Key? key,
   }) : super(key: key);
 
@@ -72,8 +76,7 @@ class _SingleImagePartState extends State<SingleImagePart> {
                         width: double.maxFinite,
                         height: 340,
                         fit: BoxFit.cover,
-                        errorWidget: (context, url, error) =>
-                            SvgPicture.asset(AppIcons.defalut),
+                        errorWidget: (context, url, error) => SvgPicture.asset(AppIcons.defalut),
                       ),
               ),
             ),
@@ -92,9 +95,7 @@ class _SingleImagePartState extends State<SingleImagePart> {
                           widget.images.length,
                           (index) => MoreContainer(
                             itemQuantity: widget.images.length,
-                            color: index == currentIndex
-                                ? Colors.white
-                                : const Color(0xFFB5B5BE),
+                            color: index == currentIndex ? Colors.white : const Color(0xFFB5B5BE),
                           ),
                         ),
                       ),

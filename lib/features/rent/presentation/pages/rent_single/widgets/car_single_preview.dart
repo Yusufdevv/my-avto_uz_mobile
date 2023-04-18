@@ -12,9 +12,7 @@ class CarSinglePreview extends StatelessWidget {
   final RentListEntity rentEntity;
   final bool hasCarInfo;
 
-  const CarSinglePreview(
-      {required this.rentEntity, this.hasCarInfo = true, Key? key})
-      : super(key: key);
+  const CarSinglePreview({required this.rentEntity, this.hasCarInfo = true, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(
@@ -22,7 +20,10 @@ class CarSinglePreview extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ImageViewer(images: rentEntity.rentCar.gallery),
+            ImageViewer(
+              images: rentEntity.rentCar.gallery,
+              panoramaImages: rentEntity.rentCar.gallery360,
+            ),
             const SizedBox(
               height: 12,
             ),
@@ -30,10 +31,7 @@ class CarSinglePreview extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 '${rentEntity.rentCar.make.name} ${rentEntity.rentCar.model.name}',
-                style: Theme.of(context)
-                    .textTheme
-                    .displayLarge!
-                    .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 16, fontWeight: FontWeight.w600),
               ),
             ),
             const SizedBox(
@@ -45,20 +43,15 @@ class CarSinglePreview extends StatelessWidget {
                 children: [
                   Text(
                     '${MyFunctions.getFormatCost(rentEntity.price)} UZS',
-                    style: Theme.of(context)
-                        .textTheme
-                        .displaySmall!
-                        .copyWith(fontWeight: FontWeight.w600, fontSize: 24),
+                    style:
+                        Theme.of(context).textTheme.displaySmall!.copyWith(fontWeight: FontWeight.w600, fontSize: 24),
                   ),
                   const SizedBox(
                     width: 4,
                   ),
                   Text(
                     LocaleKeys.per_day.tr(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .displayMedium!
-                        .copyWith(fontSize: 16, color: grey),
+                    style: Theme.of(context).textTheme.displayMedium!.copyWith(fontSize: 16, color: grey),
                   ),
                 ],
               ),
@@ -76,10 +69,7 @@ class CarSinglePreview extends StatelessWidget {
               )
             else
               const SizedBox(),
-            if (hasCarInfo)
-              SingleCarInfoItemm(rentCarEntity: rentEntity.rentCar)
-            else
-              const SizedBox(),
+            if (hasCarInfo) SingleCarInfoItemm(rentCarEntity: rentEntity.rentCar) else const SizedBox(),
           ],
         ),
       );
