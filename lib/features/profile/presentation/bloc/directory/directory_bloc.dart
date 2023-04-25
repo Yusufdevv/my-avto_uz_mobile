@@ -26,12 +26,9 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
   final GetRegionsUseCase getRegionsUseCase = GetRegionsUseCase();
   final ProductListUseCase productListUseCase = ProductListUseCase();
   final GetDirectoriesUseCase getDirectoriesUseCase = GetDirectoriesUseCase();
-  final GetDirCategoriesUseCase getDirCategoriesUseCase =
-      GetDirCategoriesUseCase();
-  final DirectorySingleSingleUseCase directorySingleSingleUseCase =
-      DirectorySingleSingleUseCase();
-  final ProductCategoryUseCase productCategoryUseCase =
-      ProductCategoryUseCase();
+  final GetDirCategoriesUseCase getDirCategoriesUseCase = GetDirCategoriesUseCase();
+  final DirectorySingleSingleUseCase directorySingleSingleUseCase = DirectorySingleSingleUseCase();
+  final ProductCategoryUseCase productCategoryUseCase = ProductCategoryUseCase();
 
   DirectoryBloc()
       : super(DirectoryState(
@@ -54,8 +51,7 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
     on<DirectoryGetRegionsEvent>(_getRegions);
   }
 
-  FutureOr<void> _getRegions(
-      DirectoryGetRegionsEvent event, Emitter<DirectoryState> emit) async {
+  FutureOr<void> _getRegions(DirectoryGetRegionsEvent event, Emitter<DirectoryState> emit) async {
     emit(state.copyWith(getRegionsStatus: FormzStatus.submissionInProgress));
     final result = await getRegionsUseCase.call(NoParams());
     if (result.isRight) {
@@ -70,28 +66,24 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
     }
   }
 
-  FutureOr<void> _onTabIndexChanged(
-      OnTabIndexChangedEvent event, Emitter<DirectoryState> emit) async {
+  FutureOr<void> _onTabIndexChanged(OnTabIndexChangedEvent event, Emitter<DirectoryState> emit) async {
     emit(state.copyWith(isIndexOne: event.index == 1));
   }
 
-  FutureOr<void> _getDirectorySingle(
-      GetDirectorySingleEvent event, Emitter<DirectoryState> emit) async {
+  FutureOr<void> _getDirectorySingle(GetDirectorySingleEvent event, Emitter<DirectoryState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
 
     final result = await directorySingleSingleUseCase.call(event.slug);
     if (result.isRight) {
       emit(
-        state.copyWith(
-            status: FormzStatus.submissionSuccess, directory: result.right),
+        state.copyWith(status: FormzStatus.submissionSuccess, directory: result.right),
       );
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
   }
 
-  FutureOr<void> _setCategory(
-      DirectorySetCategoryEvent event, Emitter<DirectoryState> emit) async {
+  FutureOr<void> _setCategory(DirectorySetCategoryEvent event, Emitter<DirectoryState> emit) async {
     final v = state.selectedCategories.map(MapEntry.new);
     if (state.selectedCategories.containsKey(event.category.id)) {
       v.remove(event.category.id);
@@ -102,19 +94,16 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
     emit(state.copyWith(selectedCategories: v));
   }
 
-  FutureOr<void> _setRegions(
-      DirectorySetRegionsEvent event, Emitter<DirectoryState> emit) async {
+  FutureOr<void> _setRegions(DirectorySetRegionsEvent event, Emitter<DirectoryState> emit) async {
     add(GetDirCategoriesEvent());
     emit(state.copyWith(selectedRegions: event.regions));
   }
 
-  FutureOr<void> _getProducts(DirectoryGetProductsOfSingleEvent event,
-      Emitter<DirectoryState> emit) async {
+  FutureOr<void> _getProducts(DirectoryGetProductsOfSingleEvent event, Emitter<DirectoryState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await productListUseCase.call(event.slug);
     if (result.isRight) {
-      var popularProducts = [...result.right.results]
-        ..retainWhere((element) => element.isPopular);
+      var popularProducts = [...result.right.results]..retainWhere((element) => element.isPopular);
 
       emit(
         state.copyWith(
@@ -128,41 +117,31 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
     }
   }
 
-  FutureOr<void> _clearFilter(
-      DirectoryClearFilterEvent event, Emitter<DirectoryState> emit) async {
+  FutureOr<void> _clearFilter(DirectoryClearFilterEvent event, Emitter<DirectoryState> emit) async {
     emit(state.copyWith(selectedCategories: {}, selectedRegions: []));
   }
 
-  FutureOr<void> _getCategoriesOfSingle(
-      DirectoryGetCategoriesOfSingleEvent event,
-      Emitter<DirectoryState> emit) async {
+  FutureOr<void> _getCategoriesOfSingle(DirectoryGetCategoriesOfSingleEvent event, Emitter<DirectoryState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await productCategoryUseCase.call(event.slug);
     if (result.isRight) {
       emit(state.copyWith(
         status: FormzStatus.submissionSuccess,
-        singleCategories: result.right.results
-            .where((element) => element.productsCount > 0)
-            .toList(),
+        singleCategories: result.right.results.where((element) => element.productsCount > 0).toList(),
       ));
     } else {
       emit(
-        state.copyWith(
-          status: FormzStatus.submissionFailure,
-        ),
+        state.copyWith(status: FormzStatus.submissionFailure),
       );
     }
   }
 
-  FutureOr<void> _getDirectories(
-      GetDirectoriesEvent event, Emitter<DirectoryState> emit) async {
-    emit(state.copyWith(
-        status: FormzStatus.submissionInProgress, search: event.search));
+  FutureOr<void> _getDirectories(GetDirectoriesEvent event, Emitter<DirectoryState> emit) async {
+    emit(state.copyWith(status: FormzStatus.submissionInProgress, search: event.search));
     final reg = MyFunctions.regionsToApi(state.selectedRegions);
-    final result = await getDirectoriesUseCase(Params(
-        search: event.search,
-        regions: reg,
-        categories: MyFunctions.textForDirCategory(state.selectedCategories)));
+    final v = MyFunctions.textForDirCategory(state.selectedCategories);
+    log(':::::::::: the categories to api:  ${v}  ::::::::::');
+    final result = await getDirectoriesUseCase(Params(search: event.search, regions: reg, categories: v));
     if (result.isRight) {
       emit(state.copyWith(
           status: FormzStatus.submissionSuccess,
@@ -174,13 +153,14 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
     }
   }
 
-  FutureOr<void> _getMoreDirectories(
-      GetMoreDirectoriesEvent event, Emitter<DirectoryState> emit) async {
+  FutureOr<void> _getMoreDirectories(GetMoreDirectoriesEvent event, Emitter<DirectoryState> emit) async {
+    final v = MyFunctions.textForDirCategory(state.selectedCategories);
+    log(':::::::::: the categories to api:  ${v}  ::::::::::');
     final result = await getDirectoriesUseCase(
       Params(
         search: state.search,
         regions: MyFunctions.regionsToApi(state.selectedRegions),
-        categories: MyFunctions.textForDirCategory(state.selectedCategories),
+        categories: v,
         next: state.nextDirectories,
       ),
     );
@@ -196,17 +176,21 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
     }
   }
 
-  FutureOr<void> _getDirCategories(
-      GetDirCategoriesEvent event, Emitter<DirectoryState> emit) async {
+  FutureOr<void> _getDirCategories(GetDirCategoriesEvent event, Emitter<DirectoryState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    final result = await getDirCategoriesUseCase(
-        MyFunctions.regionsToApi(state.selectedRegions));
+    final result = await getDirCategoriesUseCase(MyFunctions.regionsToApi(state.selectedRegions));
     if (result.isRight) {
+      Map<int, DirCategoryEntity> v = {};
+      for (final e in result.right.results) {
+        v[e.id] = e;
+      }
       emit(state.copyWith(
-          status: FormzStatus.submissionSuccess,
-          categories: result.right.results,
-          fetchMoreCategories: result.right.next != null,
-          nextCategories: result.right.next));
+        status: FormzStatus.submissionSuccess,
+        categories: result.right.results,
+        selectedCategories: v,
+        fetchMoreCategories: result.right.next != null,
+        nextCategories: result.right.next,
+      ));
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }

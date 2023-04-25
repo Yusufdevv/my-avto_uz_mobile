@@ -8,8 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void showCupertinoDatePicker(BuildContext context,
-    Function(DateTime) datePicked, DateTime? minDateTime) {
+void showCupertinoDatePicker(BuildContext context, Function(DateTime) datePicked, DateTime? minDateTime) {
   DateTime? date;
   FocusScope.of(context).unfocus();
   showCupertinoModalPopup<void>(
@@ -37,9 +36,7 @@ void showCupertinoDatePicker(BuildContext context,
                           style: Theme.of(context)
                               .textTheme
                               .displayLarge
-                              ?.copyWith(
-                                  color: disabledButton,
-                                  fontWeight: FontWeight.w500),
+                              ?.copyWith(color: disabledButton, fontWeight: FontWeight.w500),
                         ),
                         onTap: () {
                           Navigator.of(context).pop();
@@ -48,10 +45,7 @@ void showCupertinoDatePicker(BuildContext context,
                     WScaleAnimation(
                         child: Text(
                           LocaleKeys.apply.tr(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayLarge
-                              ?.copyWith(color: blue),
+                          style: Theme.of(context).textTheme.displayLarge?.copyWith(color: blue),
                         ),
                         onTap: () {
                           datePicked(date ?? minDateTime!);
@@ -66,11 +60,9 @@ void showCupertinoDatePicker(BuildContext context,
                     top: false,
                     child: CupertinoTheme(
                       data: CupertinoThemeData(
-                        brightness:
-                            context.read<ThemeSwitcherBloc>().state.themeMode ==
-                                    ThemeMode.dark
-                                ? Brightness.dark
-                                : Brightness.light,
+                        brightness: context.read<ThemeSwitcherBloc>().state.themeMode == ThemeMode.dark
+                            ? Brightness.dark
+                            : Brightness.light,
                       ),
                       child: CupertinoDatePicker(
                         initialDateTime: minDateTime,
