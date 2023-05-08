@@ -146,29 +146,36 @@ class _DirectoryPageState extends State<DirectoryPage>
                           ),
                           const SizedBox(width: 12),
                           WButton(
-                              height: 50,
-                              width: 50,
-                              onTap: () {
-                                FocusScope.of(context).unfocus();
-                                controller.clear();
-                                Navigator.of(context, rootNavigator: true).push(
-                                  fade(
-                                    page: BlocProvider.value(
-                                      value: bloc,
-                                      child: DirectoryFilterPage(bloc: bloc),
-                                    ),
+                            height: 50,
+                            width: 50,
+                            onTap: () {
+                              FocusScope.of(context).unfocus();
+                              controller.clear();
+                              Navigator.of(context, rootNavigator: true).push(
+                                fade(
+                                  page: MultiBlocProvider(
+                                    providers: [
+                                      BlocProvider.value(value: bloc),
+                                      BlocProvider.value(
+                                          value: mapOrganizationBloc),
+                                    ],
+                                    child: DirectoryFilterPage(
+                                        bloc: bloc,
+                                        mapBloc: mapOrganizationBloc),
                                   ),
-                                );
-                              },
-                              borderRadius: 12,
-                              color: Theme.of(context)
-                                  .extension<ThemedColors>()!
-                                  .whiteSmokeToNero,
-                              padding: const EdgeInsets.all(8),
-                              child: SvgPicture.asset(
-                                AppIcons.filter,
-                                color: purple,
-                              ))
+                                ),
+                              );
+                            },
+                            borderRadius: 12,
+                            color: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .whiteSmokeToNero,
+                            padding: const EdgeInsets.all(8),
+                            child: SvgPicture.asset(
+                              AppIcons.filter,
+                              color: purple,
+                            ),
+                          ),
                         ],
                       ),
                     ),

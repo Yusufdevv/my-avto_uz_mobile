@@ -9,6 +9,7 @@ class DealerModel extends DealerEntity {
     required super.id,
     required super.name,
     required super.image,
+    required super.slug,
   });
 
   factory DealerModel.fromJson(Map<String, dynamic> json) =>

@@ -6,11 +6,13 @@ class DealerEntity extends Equatable {
   final int id;
   final String name;
   final String image;
+  final String slug;
 
   const DealerEntity({
     this.id = -1,
     this.name = '',
     this.image = '',
+    this.slug = '',
   });
 
   @override
@@ -18,6 +20,7 @@ class DealerEntity extends Equatable {
         id,
         name,
         image,
+        slug,
       ];
 }
 

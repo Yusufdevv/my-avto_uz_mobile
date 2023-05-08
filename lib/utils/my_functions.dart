@@ -407,32 +407,48 @@ class MyFunctions {
   static Future<Position> determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    final geolocator = GeolocatorPlatform.instance;
+    serviceEnabled = await geolocator.isLocationServiceEnabled();
 
-    permission = await Geolocator.checkPermission();
+    permission = await geolocator.checkPermission();
     if (!serviceEnabled || permission == LocationPermission.denied) {
-      permission = await Geolocator.checkPermission();
+      print('denied 1 $permission');
+
+      permission = await geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        permission = await Geolocator.requestPermission();
+        print('denied 2');
+        permission = await geolocator.requestPermission();
         if (permission == LocationPermission.denied) {
+          print('denied 3');
+
+          permission = await geolocator.requestPermission();
+
           throw const ParsingException(
               errorMessage: 'location_permission_disabled');
         }
       }
 
       if (permission == LocationPermission.deniedForever) {
-        permission = await Geolocator.requestPermission();
+        print('denied 4');
+
+        permission = await geolocator.checkPermission();
         if (permission == LocationPermission.denied) {
+          print('denied 5');
+
+          permission = await geolocator.requestPermission();
+
           throw const ParsingException(
               errorMessage: 'location_permission_disabled');
         } else if (permission == LocationPermission.deniedForever) {
+          permission = await geolocator.requestPermission();
+
           throw const ParsingException(
               errorMessage: 'location_permission_permanent_disabled');
         }
       }
     }
 
-    return await Geolocator.getCurrentPosition();
+    return await geolocator.getCurrentPosition();
   }
 
   static String getHoursFormat(String data) =>
@@ -455,7 +471,7 @@ class MyFunctions {
     }
     if (percent <= 90) {
       return Colors.green;
-    } else if (percent! > 90 && percent < 94) {
+    } else if (percent > 90 && percent < 94) {
       return Colors.green;
     } else if (percent >= 94 && percent < 98) {
       return Colors.green;
@@ -878,6 +894,7 @@ class MyFunctions {
       return cardId.toString();
     }
   }
+
   static String listToStringWorkDays(List<WorkingDay> list) {
     if (list.isEmpty) {
       return '';

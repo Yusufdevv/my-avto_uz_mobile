@@ -9,6 +9,7 @@ class AnnouncementModel extends AnnouncementEntity {
     required super.id,
     required super.price,
     required super.currency,
+    required super.discount,
   });
 
   factory AnnouncementModel.fromJson(Map<String, dynamic> json) =>

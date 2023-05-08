@@ -103,11 +103,15 @@ class _ChatPageState extends State<ChatPage> {
           body: Stack(
             children: [
               Padding(
-                padding: EdgeInsets.only(bottom: 16 + MediaQuery.of(context).padding.bottom, top: 20),
+                padding: EdgeInsets.only(
+                    bottom: 16 + MediaQuery.of(context).padding.bottom,
+                    top: 20),
                 child: Builder(
                   builder: (context) {
                     if (isLoading) {
-                      return const Center(child: CupertinoActivityIndicator(color: Colors.black26));
+                      return const Center(
+                          child: CupertinoActivityIndicator(
+                              color: Colors.black26));
                     }
                     if (error != null && error!.isNotEmpty) {
                       return Center(child: Text(error!));

@@ -3,12 +3,15 @@ import 'dart:math';
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/features/ad/const/constants.dart';
+import 'package:auto/features/dealers/presentation/dealers_screen.dart';
+import 'package:auto/features/dealers/presentation/pages/dealer_single_page.dart';
 import 'package:auto/features/reels/domain/entities/reel_entity.dart';
 import 'package:auto/features/reels/presentation/widgets/offer_badge.dart';
 import 'package:auto/features/reels/presentation/widgets/options_item.dart';
 import 'package:auto/features/reels/presentation/widgets/price_button.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -117,7 +120,7 @@ class _ContentItemState extends State<ContentItem> {
             child: OfferBadge(),
           ),
         Positioned(
-          bottom: 26+ MediaQuery.of(context).padding.bottom,
+          bottom: 26 + MediaQuery.of(context).padding.bottom,
           left: 16,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -148,38 +151,49 @@ class _ContentItemState extends State<ContentItem> {
                 ),
               ),
               const SizedBox(height: 10),
-              Row(
-                children: [
-                  Container(
-                    height: 20 * k,
-                    width: 20 * k,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 1.5,
-                        color: white.withOpacity(.5),
-                      ),
-                      borderRadius: BorderRadius.circular(10 * k),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                      builder: (context) =>
+                          DealerSinglePage(slug: widget.reel.dealer.slug),
                     ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10 * k),
-                      child: CachedNetworkImage(
-                        imageUrl: widget.reel.content,
-                        fit: BoxFit.cover,
-                        errorWidget: (context, url, error) => Image.asset(
-                            AppImages.carPlaceHolder,
-                            fit: BoxFit.cover),
+                  );
+                },
+                child: Row(
+                  children: [
+                    Container(
+                      height: 20 * k,
+                      width: 20 * k,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 1.5,
+                          color: white.withOpacity(.5),
+                        ),
+                        borderRadius: BorderRadius.circular(10 * k),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10 * k),
+                        child: CachedNetworkImage(
+                          imageUrl: widget.reel.content,
+                          fit: BoxFit.cover,
+                          errorWidget: (context, url, error) => Image.asset(
+                              AppImages.carPlaceHolder,
+                              fit: BoxFit.cover),
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 8),
-                  Text(
-                    widget.reel.dealer.name,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium!
-                        .copyWith(color: white.withOpacity(.7)),
-                  ),
-                ],
+                    const SizedBox(width: 8),
+                    Text(
+                      widget.reel.dealer.name,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium!
+                          .copyWith(color: white.withOpacity(.7)),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -197,21 +211,21 @@ class _ContentItemState extends State<ContentItem> {
             index: widget.pageIndex,
           ),
         ),
-        if(!isImage)
-        Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: VideoProgressIndicator(
-            _videoPlayerController,
-            allowScrubbing: true,
-            colors: VideoProgressColors(
-              backgroundColor: white.withOpacity(.3),
-              playedColor: white,
-              bufferedColor: white.withOpacity(.3),
+        if (!isImage)
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: VideoProgressIndicator(
+              _videoPlayerController,
+              allowScrubbing: true,
+              colors: VideoProgressColors(
+                backgroundColor: white.withOpacity(.3),
+                playedColor: white,
+                bufferedColor: white.withOpacity(.3),
+              ),
             ),
           ),
-        ),
       ],
     );
   }

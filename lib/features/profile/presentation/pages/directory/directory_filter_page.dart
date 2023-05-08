@@ -5,6 +5,7 @@ import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/dealers/presentation/blocs/map_organization/map_organization_bloc.dart';
 import 'package:auto/features/profile/presentation/bloc/directory/directory_bloc.dart';
 import 'package:auto/features/profile/presentation/widgets/directory_filter_category.dart';
 import 'package:auto/features/profile/presentation/widgets/edit_item_container.dart';
@@ -19,8 +20,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 class DirectoryFilterPage extends StatefulWidget {
-  const DirectoryFilterPage({required this.bloc, Key? key}) : super(key: key);
+  const DirectoryFilterPage(
+      {required this.bloc, required this.mapBloc, Key? key})
+      : super(key: key);
   final DirectoryBloc bloc;
+  final MapOrganizationBloc mapBloc;
 
   @override
   State<DirectoryFilterPage> createState() => _DirectoryFilterPageState();
@@ -131,16 +135,21 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
                         ],
                       ),
                     ),
-                    WButton(
-                      textStyle: const TextStyle(
-                          fontWeight: FontWeight.w600, fontSize: 14),
-                      onTap: () {
-                        context
-                            .read<DirectoryBloc>()
-                            .add(GetDirectoriesEvent());
-                        Navigator.pop(context);
-                      },
-                      text: LocaleKeys.apply.tr(),
+                    BlocBuilder<MapOrganizationBloc, MapOrganizationState>(
+                      builder: (context, mapState) => WButton(
+                        textStyle: const TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 14),
+                        onTap: () {
+                          context
+                              .read<DirectoryBloc>()
+                              .add(GetDirectoriesEvent());
+                          context
+                              .read<MapOrganizationBloc>()
+                              .add(MapOrganizationEvent.getDirectoriesPoints());
+                          Navigator.pop(context);
+                        },
+                        text: LocaleKeys.apply.tr(),
+                      ),
                     ),
                   ],
                 ),

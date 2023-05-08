@@ -30,6 +30,7 @@ import 'package:auto/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({required this.parentContext, Key? key}) : super(key: key);
@@ -44,6 +45,7 @@ class _MainScreenState extends State<MainScreen> {
   late TopBrandBloc topBrandBloc;
   late TopAdBloc topAdBloc;
   late List<VoidCallback> serviceTaps = [];
+  late TutorialCoachMark tutorialCoachMark;
 
   final List<ServiceEntity> serviceEntity = [
     const ServiceEntity(
@@ -77,6 +79,54 @@ class _MainScreenState extends State<MainScreen> {
     mainBloc = MainBloc()
       ..add(InitialEvent())
       ..add(GetAnnouncement());
+    // tutorialCoachMark = TutorialCoachMark(
+    //   targets: [
+    //     TargetFocus(
+    //       targetPosition: TargetPosition(
+    //         const Size(200, 100),
+    //         Offset.zero,
+    //       ),
+    //       alignSkip: Alignment.topRight,
+    //       contents: [
+    //         TargetContent(
+    //           align: ContentAlign.top,
+    //           builder: (context, controller) => Stories(
+    //             status: context.read<MainBloc>().state.statusStoriesGet,
+    //             stories: context.read<MainBloc>().state.stories,
+    //             onBack: () {
+    //               mainBloc.add(
+    //                 InitialEvent(),
+    //               );
+    //             },
+    //           ),
+    //         ),
+    //       ],
+    //     ),
+    //   ],
+    //   colorShadow: Colors.red,
+    //   textSkip: "SKIP",
+    //   paddingFocus: 10,
+    //   opacityShadow: 0.8,
+    //   onFinish: () {
+    //     print("finish");
+    //   },
+    //   onClickTarget: (target) {
+    //     print('onClickTarget: $target');
+    //   },
+    //   onClickTargetWithTapPosition: (target, tapDetails) {
+    //     print("target: $target");
+    //     print(
+    //         "clicked at position local: ${tapDetails.localPosition} - global: ${tapDetails.globalPosition}");
+    //   },
+    //   onClickOverlay: (target) {
+    //     print('onClickOverlay: $target');
+    //   },
+    //   onSkip: () {
+    //     print("skip");
+    //   },
+    // );
+    Future.delayed(Duration.zero, showTutorial);
+
     context.read<ProfileBloc>().add(GetProfileEvent());
     context.read<ProfileBloc>().add(GetNoReadNotificationsEvent(filter: 0));
     topAdBloc = TopAdBloc(GetTopAdsUseCase())
@@ -129,6 +179,10 @@ class _MainScreenState extends State<MainScreen> {
       }
     ];
     super.initState();
+  }
+
+  void showTutorial() {
+    tutorialCoachMark.show(context: context);
   }
 
   @override

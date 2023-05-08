@@ -144,10 +144,43 @@ class _MapScreenState extends State<MapScreen>
                     context.read<MapOrganizationBloc>().add(
                           MapOrganizationEvent.getCurrentLocation(
                             onError: (message) {
-                              context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                    message: message,
-                                    status: PopStatus.error,
-                                  ));
+                              print('show pop up 3');
+                              context.read<ShowPopUpBloc>().add(
+                                    ShowPopUp(
+                                      message: message,
+                                      status: PopStatus.error,
+                                    ),
+                                  );
+                              print('poistion => ${position}');
+
+                              context.read<MapOrganizationBloc>()
+                                ..add(MapOrganizationEvent.getAddressOfDealler(
+                                    lat: position.latitude,
+                                    long: position.longitude,
+                                    currentDealer: null))
+                                ..add(
+                                  MapOrganizationEvent.changeLatLong(
+                                    lat: position.latitude,
+                                    long: position.longitude,
+                                    radius: MyFunctions.getRadiusFromZoom(
+                                            camera.zoom)
+                                        .floor(),
+                                  ),
+                                );
+                              widget.isFromDirectoryPage
+                                  ? context.read<MapOrganizationBloc>().add(
+                                      MapOrganizationEvent.getDirectoriesPoints(
+                                          latitude: position.latitude,
+                                          longitude: position.longitude,
+                                          radius: MyFunctions.getRadiusFromZoom(
+                                              camera.zoom)))
+                                  : context.read<MapOrganizationBloc>().add(
+                                      MapOrganizationEvent.getDealers(
+                                          onSuccess: (v) {},
+                                          latitude: position.latitude,
+                                          longitude: position.longitude,
+                                          radius: MyFunctions.getRadiusFromZoom(
+                                              camera.zoom)));
                             },
                             onSuccess: (position) async {
                               myPoint = Point(
@@ -229,6 +262,7 @@ class _MapScreenState extends State<MapScreen>
                                                     currentDealer: null));
                                       },
                                       onError: (message) {
+                                        print('show pop up 1');
                                         context.read<ShowPopUpBloc>().add(
                                               ShowPopUp(
                                                 message: message,
@@ -289,10 +323,13 @@ class _MapScreenState extends State<MapScreen>
                                         );
                                   },
                                   onError: (message) {
-                                    context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                          message: message,
-                                          status: PopStatus.error,
-                                        ));
+                                    print('show pop up 2');
+                                    context.read<ShowPopUpBloc>().add(
+                                          ShowPopUp(
+                                            message: message,
+                                            status: PopStatus.error,
+                                          ),
+                                        );
                                   },
                                 ),
                               );

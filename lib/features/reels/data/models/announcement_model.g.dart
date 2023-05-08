@@ -11,11 +11,13 @@ AnnouncementModel _$AnnouncementModelFromJson(Map<String, dynamic> json) =>
       id: json['id'] as int? ?? -1,
       price: json['price'] as String? ?? '0',
       currency: json['currency'] as String? ?? '',
+      discount: json['discount'] as String? ?? '0',
     );
 
 Map<String, dynamic> _$AnnouncementModelToJson(AnnouncementModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'price': instance.price,
+      'discount': instance.discount,
       'currency': instance.currency,
     };
