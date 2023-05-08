@@ -32,29 +32,28 @@ class ReelsBloc extends Bloc<ReelsEvent, ReelsState> {
     await _getReels(0, event.isForOfferDay, emit);
   }
 
-  Future _onGetMoreReels(
-      GetMoreReelsEvent event, Emitter<ReelsState> emit) async {
+  Future _onGetMoreReels(GetMoreReelsEvent event, Emitter<ReelsState> emit) async {
     await _getReels(event.offset, event.isForOfferDay, emit);
   }
 
-  Future _onChangeStatus(
-      ChangeStatusEvent event, Emitter<ReelsState> emit) async {
+  Future _onChangeStatus(ChangeStatusEvent event, Emitter<ReelsState> emit) async {
     emit(state.copWith(statusReelsGet: event.status));
   }
 
-  Future _getReels(
-      int offset, bool isFromMain, Emitter<ReelsState> emit) async {
+  Future _getReels(int offset, bool isFromMain, Emitter<ReelsState> emit) async {
     add(const ChangeStatusEvent(FormzStatus.submissionInProgress));
     final result = isFromMain
         ? await getReelsOfDayUseCase.call({'limit': 10, 'offset': offset})
         : await getReelsUseCase.call({'limit': 10, 'offset': offset});
 
     if (result.isRight) {
-      emit(state.copWith(
-        reels: result.right.results,
-        statusReelsGet: FormzStatus.submissionSuccess,
-        hasNext: result.right.next != null,
-      ));
+      emit(
+        state.copWith(
+          reels: result.right.results,
+          statusReelsGet: FormzStatus.submissionSuccess,
+          hasNext: result.right.next != null,
+        ),
+      );
     } else {
       emit(state.copWith(statusReelsGet: FormzStatus.submissionFailure));
     }

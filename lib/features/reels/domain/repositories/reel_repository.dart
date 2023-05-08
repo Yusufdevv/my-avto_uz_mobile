@@ -11,27 +11,19 @@ abstract class ReelRepository {
     String? search,
     int? limit,
     int? offset,
-  }) {
-    throw Exception('not implemented');
-  }
+  });
 
   Future<Either<Failure, GenericPagination<ReelModel>>> getReelsOfDay({
     String? search,
     int? limit,
     int? offset,
-  }) {
-    throw Exception('not implemented');
-  }
+  });
 
   Future<Either<Failure, ReelsPostEntity>> getReelsLike({
     required int id,
-  }) {
-    throw Exception('not implemented');
-  }
+  });
 
   Future<Either<Failure, ReelsPostEntity>> getReelsShare({
     required int id,
-  }) {
-    throw Exception('not implemented');
-  }
+  });
 }
