@@ -236,7 +236,7 @@ class PASingleton {
   static int? _getMakeLetterIndex(String? letter, List<MakeEntity> makes) {
     if (letter == null) return null;
 
-    final i = makes.indexWhere((element) => element.name.toUpperCase().startsWith(letter!.toUpperCase()));
+    final i = makes.indexWhere((element) => element.name.toUpperCase().startsWith(letter.toUpperCase()));
 
     if (i > -1) return i;
 

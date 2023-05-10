@@ -1,8 +1,6 @@
-import 'dart:developer';
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:flutter/material.dart';
 
 class CommercialTab extends StatelessWidget {

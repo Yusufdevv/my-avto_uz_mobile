@@ -260,9 +260,6 @@ class ProfileDataSourceImpl extends ProfileDataSource {
         '/car-place/$slug/product/category/list/',
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        print('FROM DATA SOURCE 1 - > ${response.data}');
-        print('FROM DATA SOURCE 1 - > ${response.statusCode}');
-        print('FROM DATA SOURCE 1 - > ${response.realUri}');
         log('FROM DATA SOURCE 2 - > ${GenericPagination.fromJson(response.data, (p0) => ProductCategoryModel.fromJson(p0 as Map<String, dynamic>)).results}');
 
         return GenericPagination.fromJson(response.data,
@@ -288,13 +285,9 @@ class ProfileDataSourceImpl extends ProfileDataSource {
         '/car-place/$slug/$id/list/',
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        print('FROM DATA SOURCE 2 - > ${response.data}');
-        print('FROM DATA SOURCE 2 - > ${response.realUri}');
-        print('FROM DATA SOURCE 2 - > ${response.statusCode}');
         return GenericPagination.fromJson(response.data,
             (p0) => CarProductModel.fromJson(p0 as Map<String, dynamic>));
       }
-      print('FROM FAIL DATA SOURCE 2 - > ${response.statusCode}');
       throw ServerException(
           statusCode: response.statusCode ?? 0,
           errorMessage: response.statusMessage ?? '');
@@ -314,9 +307,6 @@ class ProfileDataSourceImpl extends ProfileDataSource {
         '/car-place/$slug/product/list/',
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        print('FROM DATA SOURCE 3 - > ${response.data}');
-        print('FROM DATA SOURCE 3 - > ${response.realUri}');
-        print('FROM DATA SOURCE 3 - > ${response.statusCode}');
         return GenericPagination.fromJson(response.data,
             (p0) => ProductsList.fromJson(p0 as Map<String, dynamic>));
       }

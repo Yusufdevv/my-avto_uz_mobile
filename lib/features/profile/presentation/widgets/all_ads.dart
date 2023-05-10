@@ -61,7 +61,6 @@ class _AllAdsState extends State<AllAds> {
                   errorWidget: const SizedBox(),
                   itemBuilder: (context, index) {
                     final item = state.myAds[index];
-                    print(item.gallery);
                     return Padding(
                       padding:
                           EdgeInsets.only(bottom: 12, top: index == 0 ? 12 : 0),

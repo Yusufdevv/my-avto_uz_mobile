@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/pages/map_screen/widgets/map_item_image_name_widget.dart';
 import 'package:auto/features/ad/presentation/pages/map_screen/widgets/point_name_shimmer.dart';
@@ -12,7 +11,6 @@ import 'package:auto/features/dealers/presentation/pages/dealer_single_page.dart
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/pages/directory/directory_single_page.dart';
 import 'package:auto/generated/locale_keys.g.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -34,8 +32,8 @@ class MapPointName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     log(':::::::::: fasefasef  ${currentDealer != null && currentDealer?.name != '' && !isWaiting}  ::::::::::');
-    log(':::::::::: is waiting:  ${isWaiting}  ::::::::::');
-    log(':::::::::: current dealler:  ${currentDealer}  ::::::::::');
+    log(':::::::::: is waiting:  $isWaiting  ::::::::::');
+    log(':::::::::: current dealler:  $currentDealer  ::::::::::');
     return WScaleAnimation(
       onTap: () {
         if (currentDealer != null && !isWaiting) {

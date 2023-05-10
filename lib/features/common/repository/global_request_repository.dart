@@ -1,6 +1,3 @@
-// ignore_for_file: avoid_catches_without_on_clauses, always_put_required_named_parameters_first, omit_local_variable_types
-
-import 'dart:developer';
 
 import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/failures.dart';

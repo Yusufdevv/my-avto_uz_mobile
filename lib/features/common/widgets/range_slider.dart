@@ -1,5 +1,4 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
 

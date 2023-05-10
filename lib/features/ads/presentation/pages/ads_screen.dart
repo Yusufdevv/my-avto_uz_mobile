@@ -12,7 +12,6 @@ import 'package:auto/features/ads/presentation/widgets/ads_app_bar.dart';
 import 'package:auto/features/ads/presentation/widgets/ads_sliver_deleget.dart';
 import 'package:auto/features/ads/presentation/widgets/button_go_to_comparison.dart';
 import 'package:auto/features/ads/presentation/widgets/filter_bottom_sheet.dart';
-import 'package:auto/features/ads/presentation/widgets/no_data_widget.dart';
 import 'package:auto/features/ads/presentation/widgets/unscrollable_no_data_widget.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';

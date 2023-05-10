@@ -11,7 +11,7 @@ class ModelHeader extends SliverPersistentHeaderDelegate {
   double get maxExtent => 36;
 
   @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate _) => true;
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
   final List<String> numbers = [
     '0',
     '1',

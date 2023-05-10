@@ -2,11 +2,11 @@ import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/car_single/data/datasource/invoice_datasource.dart';
+import 'package:auto/features/car_single/domain/entities/payment_entity.dart';
 import 'package:auto/features/car_single/domain/entities/tarif_entity.dart';
 import 'package:auto/features/car_single/domain/repository/invoice_repository.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 
-import '../../domain/entities/payment_entity.dart';
 
 class InvoiceRepositoryImplemation extends InvoiceRepository{
   final InvoiceDatasource datasource = InvoiceDatasourceImplemation();

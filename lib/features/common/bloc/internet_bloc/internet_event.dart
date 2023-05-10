@@ -7,3 +7,7 @@ class GlobalCheck extends InternetEvent {
 
   GlobalCheck({required this.isConnected});
 }
+
+class CheckConnectionStatus extends InternetEvent {
+  CheckConnectionStatus();
+}

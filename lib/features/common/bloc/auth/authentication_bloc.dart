@@ -7,6 +7,7 @@ import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/domain/model/user.dart';
 import 'package:auto/features/common/repository/auth.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -54,7 +55,6 @@ class AuthenticationBloc
       }
     });
     on<LoginWithAppLe>((event, emit) async {
-      print('call call');
       final credential = await SignInWithApple.getAppleIDCredential(
           scopes: [
             AppleIDAuthorizationScopes.email,
@@ -127,6 +127,8 @@ class AuthenticationBloc
           emit(AuthenticationState.unauthenticated());
           break;
         case AuthenticationStatus.loading:
+          emit(AuthenticationState.loading());
+          break;
         case AuthenticationStatus.cancelLoading:
           break;
       }
@@ -148,20 +150,28 @@ class AuthenticationBloc
     });
 
     on<CheckUser>((event, emit) async {
-      final hasToken =
-          StorageRepository.getString(StorageKeys.TOKEN, defValue: '')
-              .isNotEmpty;
-      if (hasToken) {
-        final response = await repository.getUser();
-        if (response.isRight) {
-          add(AuthenticationStatusChanged(
-              status: AuthenticationStatus.authenticated));
+      final hasInternet = await Connectivity().checkConnectivity();
+      if (hasInternet == ConnectivityResult.wifi ||
+          hasInternet == ConnectivityResult.mobile ||
+          hasInternet == ConnectivityResult.ethernet ||
+          hasInternet == ConnectivityResult.vpn) {
+        final hasToken =
+            StorageRepository.getString(StorageKeys.TOKEN, defValue: '')
+                .isNotEmpty;
+        if (hasToken) {
+          final response = await repository.getUser();
+          if (response.isRight) {
+            add(AuthenticationStatusChanged(
+                status: AuthenticationStatus.authenticated));
+          } else {
+            add(RefreshToken());
+          }
         } else {
-          add(RefreshToken());
+          add(AuthenticationStatusChanged(
+              status: AuthenticationStatus.unauthenticated));
         }
       } else {
-        add(AuthenticationStatusChanged(
-            status: AuthenticationStatus.unauthenticated));
+        add(AuthenticationStatusChanged(status: AuthenticationStatus.loading));
       }
     });
     on<RefreshToken>((event, emit) async {
@@ -177,9 +187,7 @@ class AuthenticationBloc
 
     on<ChangeNotificationAllRead>(
       (event, emit) {
-        // ignore: prefer_final_locals
-        var user = state.user;
-        // ignore: cascade_invocations
+        final user = state.user;
         user.isReadAllNotifications = true;
 
         emit(state.copyWith(user: user));

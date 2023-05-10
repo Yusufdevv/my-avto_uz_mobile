@@ -19,11 +19,8 @@ class GetDriveTypesBloc extends Bloc<GetDriveTypesEvent, GetDriveTypesState> {
         (event, emit) => emit(state.copyWith(selected: event.index)));
     on<GetDriveTypesGetEvent>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
-      print('result is getting');
       final result = await getBodyTypeUseCase.call(NoParams());
-      print('result is got');
       if (result.isRight) {
-        print('result is right in drivetype bloc');
         emit(
           state.copyWith(
             selected: result.right.results

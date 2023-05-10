@@ -140,7 +140,7 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
     emit(state.copyWith(status: FormzStatus.submissionInProgress, search: event.search));
     final reg = MyFunctions.regionsToApi(state.selectedRegions);
     final v = MyFunctions.textForDirCategory(state.selectedCategories);
-    log(':::::::::: the categories to api:  ${v}  ::::::::::');
+    log(':::::::::: the categories to api:  $v  ::::::::::');
     final result = await getDirectoriesUseCase(Params(search: event.search, regions: reg, categories: v));
     if (result.isRight) {
       emit(state.copyWith(
@@ -155,7 +155,7 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
 
   FutureOr<void> _getMoreDirectories(GetMoreDirectoriesEvent event, Emitter<DirectoryState> emit) async {
     final v = MyFunctions.textForDirCategory(state.selectedCategories);
-    log(':::::::::: the categories to api:  ${v}  ::::::::::');
+    log(':::::::::: the categories to api:  $v  ::::::::::');
     final result = await getDirectoriesUseCase(
       Params(
         search: state.search,

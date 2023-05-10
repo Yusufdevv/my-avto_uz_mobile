@@ -1,6 +1,4 @@
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/features/ad/presentation/pages/preview/widgets/image_viewer.dart';
-import 'package:auto/features/ad/presentation/pages/preview/widgets/view_360_screen.dart';
 import 'package:auto/features/car_single/presentation/parts/images_page.dart';
 import 'package:auto/features/car_single/presentation/widgets/more_container.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';

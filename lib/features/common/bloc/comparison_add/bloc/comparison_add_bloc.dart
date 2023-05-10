@@ -17,7 +17,6 @@ class ComparisonAddBloc extends Bloc<ComparisonAddEvent, ComparisonAddState> {
   ComparisonAddBloc() : super(ComparisonAddState()) {
     on<_PostComparisonCars>((event, emit) async {
       emit(state.copyWith(addStatus: FormzStatus.submissionInProgress));
-      print('object ${event.id}');
       final result = await addUseCase(event.id);
       if (result.isRight) {
         emit(state.copyWith(

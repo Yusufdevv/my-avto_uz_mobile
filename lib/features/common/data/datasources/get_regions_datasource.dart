@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/dio_settings.dart';

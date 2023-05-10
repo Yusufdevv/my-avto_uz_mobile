@@ -12,24 +12,22 @@ class StatisticsTile extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Container(
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SvgPicture.asset(
-              carStatistic.icon,
-              width: 16,
-              height: 16,
-            ),
-            const SizedBox(
-              width: 8,
-            ),
-            Text(
-              carStatistic.valueText,
-              style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                  fontWeight: FontWeight.w600, fontSize: 12, color: suvaGray),
-            )
-          ],
-        ),
-      );
+  Widget build(BuildContext context) => Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      SvgPicture.asset(
+        carStatistic.icon,
+        width: 16,
+        height: 16,
+      ),
+      const SizedBox(
+        width: 8,
+      ),
+      Text(
+        carStatistic.valueText,
+        style: Theme.of(context).textTheme.displayLarge!.copyWith(
+            fontWeight: FontWeight.w600, fontSize: 12, color: suvaGray),
+      )
+    ],
+  );
 }

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/service_locator.dart';

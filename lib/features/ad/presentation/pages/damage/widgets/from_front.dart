@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/ad/const/constants.dart';

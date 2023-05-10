@@ -7,7 +7,6 @@ import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/domain/repositories/ad_repository.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
-import 'package:equatable/equatable.dart';
 
 class GetMakesUseCase
     extends UseCase<GenericPagination<MakeEntity>, GetPaginationParam> {

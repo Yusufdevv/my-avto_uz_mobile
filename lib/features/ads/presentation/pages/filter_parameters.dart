@@ -68,8 +68,6 @@ class _FilterParametersState extends State<FilterParameters> {
   @override
   void initState() {
     super.initState();
-    final isYearValuesIsNull = widget.yearValues == null;
-    final isPriceValuesIsNull = widget.priceValues == null;
 
     final currency =
         widget.currency == Currency.none ? Currency.usd : widget.currency;

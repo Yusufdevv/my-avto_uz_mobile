@@ -85,7 +85,7 @@ class DamageButton extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
-                            margin: EdgeInsets.only(bottom: 2 * (k ?? 1)),
+                            margin: EdgeInsets.only(bottom: 2 * k),
                             height: 6 * k,
                             width: 2 * k,
                             decoration: BoxDecoration(

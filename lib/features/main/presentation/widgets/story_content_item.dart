@@ -282,18 +282,14 @@ class _StoryContentItemState extends State<StoryContentItem>
     final dx = details.globalPosition.dx;
     final dy = details.globalPosition.dy;
     if (dx < screenWidth / 3 && dy < screenHeight - (canNavigate ? 54 : 0)) {
-      print('go to: prev');
       setState(prevStory);
     } else if (dx > 2 * screenWidth / 3 &&
         dy < screenHeight - (canNavigate ? 54 : 0)) {
-      print('go to: next');
       setState(nextStory);
     }
   }
 
   void prevStory() {
-    print('story: itemIndex $itemIndex');
-    print('story: pageIndex ${widget.pageIndex}');
     if (itemIndex == 0) {
       if (widget.pageIndex == 0) {
         Navigator.pop(context);
@@ -324,18 +320,15 @@ class _StoryContentItemState extends State<StoryContentItem>
   }
 
   void _loadStory() {
-    print('story: load');
     if (!(widget.pageIndex == widget.pageIndex && !widget.isPaused)) {
       return;
     }
     final last = widget.story.items[itemIndex].content.split('.').last;
     isVideo = last == 'mp4' || last == 'mov';
     if (isVideo) {
-      print('story: video');
       _initVideoController();
       _pauseAndPlayVideo();
     } else {
-      print('story: not video');
       disposeVideo();
       animationController
         ..stop()

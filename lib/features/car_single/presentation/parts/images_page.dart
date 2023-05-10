@@ -51,12 +51,10 @@ class _ImagesPageState extends State<ImagesPage> {
                     currentIndex = value;
                   }),
                   itemCount: widget.images.length,
-                  itemBuilder: (context, index) {
-                    return CachedNetworkImage(
+                  itemBuilder: (context, index) => CachedNetworkImage(
                       imageUrl: widget.images[index],
                       fit: BoxFit.cover,
-                    );
-                  },
+                    ),
                   controller: pageController,
                 ),
               ),

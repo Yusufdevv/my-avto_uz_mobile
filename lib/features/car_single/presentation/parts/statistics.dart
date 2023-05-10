@@ -1,8 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/singletons/storage.dart';
-import 'package:auto/features/ad/const/constants.dart';
-import 'package:auto/features/profile/presentation/widgets/moderation_status_part.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';

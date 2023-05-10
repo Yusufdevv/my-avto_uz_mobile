@@ -207,8 +207,6 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
       queryParameters:
           next == null ? {'search': name, 'limit': 10, 'offset': 0} : null,
     );
-    print(response.statusCode);
-    print(response.realUri);
 
     if (response.statusCode! >= 200 && response.statusCode! < 300) {
       return GenericPagination.fromJson(response.data,

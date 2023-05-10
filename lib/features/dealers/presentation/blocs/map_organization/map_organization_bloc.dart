@@ -42,7 +42,7 @@ class MapOrganizationBloc
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await getAddressUseCase.call(
           {'type': 'geo', 'long': '${event.long}', 'lat': '${event.lat}'});
-      log('::::::::::  ${result}  ::::::::::');
+      log('::::::::::  $result  ::::::::::');
       if (result.isRight) {
         address = MyFunctions.extractAddress(result.right);
       }

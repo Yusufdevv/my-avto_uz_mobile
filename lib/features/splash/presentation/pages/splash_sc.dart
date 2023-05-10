@@ -18,7 +18,6 @@ class _SplashScState extends State<SplashSc> {
   Timer? _timer;
   @override
   void initState() {
-    print('splash screen intstatega krdi');
     // if (mounted) {
     //   _timer = Timer(const Duration(seconds: 5), () async {
     //     await Navigator.pushReplacement(context,

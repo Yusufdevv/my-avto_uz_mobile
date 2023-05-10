@@ -3,7 +3,6 @@ import 'package:auto/features/rent/domain/usecases/rent_single_usecase.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'rent_single_event.dart';
 part 'rent_single_state.dart';

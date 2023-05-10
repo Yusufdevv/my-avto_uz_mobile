@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:auto/assets/colors/color.dart';
@@ -144,14 +143,12 @@ class _MapScreenState extends State<MapScreen>
                     context.read<MapOrganizationBloc>().add(
                           MapOrganizationEvent.getCurrentLocation(
                             onError: (message) {
-                              print('show pop up 3');
                               context.read<ShowPopUpBloc>().add(
                                     ShowPopUp(
                                       message: message,
                                       status: PopStatus.error,
                                     ),
                                   );
-                              print('poistion => ${position}');
 
                               context.read<MapOrganizationBloc>()
                                 ..add(MapOrganizationEvent.getAddressOfDealler(
@@ -262,7 +259,6 @@ class _MapScreenState extends State<MapScreen>
                                                     currentDealer: null));
                                       },
                                       onError: (message) {
-                                        print('show pop up 1');
                                         context.read<ShowPopUpBloc>().add(
                                               ShowPopUp(
                                                 message: message,
@@ -323,7 +319,6 @@ class _MapScreenState extends State<MapScreen>
                                         );
                                   },
                                   onError: (message) {
-                                    print('show pop up 2');
                                     context.read<ShowPopUpBloc>().add(
                                           ShowPopUp(
                                             message: message,

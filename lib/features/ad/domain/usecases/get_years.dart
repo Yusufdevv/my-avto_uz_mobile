@@ -5,7 +5,6 @@ import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/entities/years/years.dart';
 import 'package:auto/features/ad/domain/repositories/ad_repository.dart';
-import 'package:auto/features/pagination/models/generic_pagination.dart';
 
 class GetYearsUseCase extends UseCase<YearsEntity, YearsParams> {
   final AdRepository repository = serviceLocator<AdRepositoryImpl>();

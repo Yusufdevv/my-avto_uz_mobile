@@ -1,6 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/maker_sheet_item.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/marks_sheet_all_select_item.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/sheet_header.dart';
