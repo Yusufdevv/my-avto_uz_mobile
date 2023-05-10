@@ -5,7 +5,6 @@ import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:auto/features/profile/data/datasources/profile_datasource.dart';
 import 'package:auto/features/profile/data/models/product_category.dart';
 import 'package:auto/features/profile/domain/entities/car_product.dart';
-import 'package:auto/features/profile/domain/entities/product_category.dart';
 import 'package:auto/features/profile/domain/entities/products_list.dart';
 import 'package:auto/features/profile/domain/entities/profile_data_entity.dart';
 import 'package:auto/features/profile/domain/entities/profile_entity.dart';
@@ -156,7 +155,6 @@ class ProfileRepositoryImpl extends ProfileRepository {
       String slug) async {
     try {
       final result = await dataSource.productList(slug);
-      print('FROM DATA REPO 3 - > ${result.results}');
       return Right(result);
     } on ServerException catch (error) {
       return Left(ServerFailure(

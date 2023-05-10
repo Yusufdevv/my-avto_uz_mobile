@@ -116,7 +116,7 @@ class CustomScreen extends StatelessWidget {
       case PopStatus.error:
         return  context.read<ThemeSwitcherBloc>().state.themeMode == ThemeMode.light ? const Color(0xffFAEEEE) : const Color(0xff221A0A);
       case PopStatus.warning:
-        return  context.read<ThemeSwitcherBloc>().state.themeMode == ThemeMode.light ? const  Color(0xffFDF3E1) : const Color(0xff2C1211);;
+        return  context.read<ThemeSwitcherBloc>().state.themeMode == ThemeMode.light ? const  Color(0xffFDF3E1) : const Color(0xff2C1211);
     }
   }
 

@@ -412,14 +412,11 @@ class MyFunctions {
 
     permission = await geolocator.checkPermission();
     if (!serviceEnabled || permission == LocationPermission.denied) {
-      print('denied 1 $permission');
 
       permission = await geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        print('denied 2');
         permission = await geolocator.requestPermission();
         if (permission == LocationPermission.denied) {
-          print('denied 3');
 
           permission = await geolocator.requestPermission();
 
@@ -429,11 +426,9 @@ class MyFunctions {
       }
 
       if (permission == LocationPermission.deniedForever) {
-        print('denied 4');
 
         permission = await geolocator.checkPermission();
         if (permission == LocationPermission.denied) {
-          print('denied 5');
 
           permission = await geolocator.requestPermission();
 

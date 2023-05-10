@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/features/ad/const/constants.dart';
-import 'package:auto/features/dealers/presentation/dealers_screen.dart';
 import 'package:auto/features/dealers/presentation/pages/dealer_single_page.dart';
 import 'package:auto/features/reels/domain/entities/reel_entity.dart';
 import 'package:auto/features/reels/presentation/widgets/offer_badge.dart';

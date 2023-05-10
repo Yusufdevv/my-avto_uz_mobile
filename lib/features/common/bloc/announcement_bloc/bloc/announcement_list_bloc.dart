@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
@@ -184,7 +183,7 @@ class AnnouncementListBloc
         model: [state.model?.id ?? -1],
         query:
             'make=${state.make?.id ?? ''}&model=${state.model ?? ''}&body_type=${state.bodyType?.id == -1 ? '' : state.bodyType?.id}'
-            '&drive_type=${state.driveType?.id == -1 ? '' : state.driveType?.id}&gearbox_type=${state.gearboxType?.id == -1 ? '' : state.gearboxType?.id}&is_new=${state.isNew ?? ''}'
+            '&drive_type=${state.driveType?.id == -1 ? '' : state.driveType?.id}&gearbox_type=${state.gearboxType?.id == -1 ? '' : state.gearboxType?.id}&is_new=${state.isNew}'
             '&region__in=${getRegionsId(state.regions)}&price_from=${state.priceValuess?.start.toInt() == -1 ? '' : state.priceValuess?.start.toInt()}'
             '&price_to${state.priceValuess?.end.toInt() == -1 ? '' : state.priceValuess?.end.toInt()}&year_from=${state.yearValuess?.start.toInt() == -1 ? '' : state.yearValuess?.start.toInt()}'
             '&year_to=${state.yearValuess?.end.toInt() == -1 ? '' : state.yearValuess?.end.toInt()}&currency=${state.currency?.value}',

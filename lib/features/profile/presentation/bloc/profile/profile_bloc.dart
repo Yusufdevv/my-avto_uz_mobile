@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/usecases/usecase.dart';
@@ -225,14 +224,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         .call(SlugId(slug: event.slug, id: event.id));
 
     if (result.isRight) {
-      print(
-          'BLOC SUCCES _GetCarProductByCategoryEvent - > ${result.right.results.length}');
       emit(state.copyWith(
         getCarProductByCategoryStatus: FormzStatus.submissionSuccess,
         cartProductEntity: result.right.results,
       ));
     } else {
-      print('BLOC FAIL _GetCarProductByCategoryEvent - > ${result.left}');
       emit(state.copyWith(
         getCarProductByCategoryStatus: FormzStatus.submissionFailure,
       ));

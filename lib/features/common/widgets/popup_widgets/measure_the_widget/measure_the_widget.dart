@@ -26,13 +26,13 @@ class AppMeasuredSizeWidget extends StatefulWidget {
 class _AppMeasuredSizeWidgetState extends State<AppMeasuredSizeWidget> {
   @override
   void initState() {
-    SchedulerBinding.instance!.addPostFrameCallback(postFrameCallback);
+    SchedulerBinding.instance.addPostFrameCallback(postFrameCallback);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    SchedulerBinding.instance!.addPostFrameCallback(postFrameCallback);
+    SchedulerBinding.instance.addPostFrameCallback(postFrameCallback);
     return Container(
       key: widgetKey,
       child: widget.child,
@@ -46,7 +46,7 @@ class _AppMeasuredSizeWidgetState extends State<AppMeasuredSizeWidget> {
     var context = widgetKey.currentContext!;
 
     await Future.delayed(
-        Duration(milliseconds: 100)); // wait till the image is drawn
+        const Duration(milliseconds: 100)); // wait till the image is drawn
     Size newSize = context.size!;
     if (newSize == Size.zero) return;
     if (oldSize == newSize) return;

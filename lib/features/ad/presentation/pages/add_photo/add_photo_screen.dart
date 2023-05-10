@@ -45,7 +45,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: Builder(builder: (context) {
-          if (widget?.isWaiting ?? false) {
+          if (widget.isWaiting ?? false) {
             return Center(
               child: Column(
                 mainAxisSize: MainAxisSize.max,

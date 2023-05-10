@@ -1,5 +1,4 @@
 import 'package:auto/features/profile/data/models/profile.dart';
-import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 

@@ -28,7 +28,6 @@ class GetBodyTypesBloc extends Bloc<GetBodyTypesEvent, GetBodyTypesState> {
           ),
         );
       } else {
-        print("got result is left ${result.left.toString()}");
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     });

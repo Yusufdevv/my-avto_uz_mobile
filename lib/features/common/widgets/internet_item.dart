@@ -22,7 +22,10 @@ class InetWidget extends StatelessWidget {
   final Widget widget;
 
   const InetWidget({Key? key, required this.snapshot, required this.widget})
-      : super(key: key);
+      : super(key: key) {
+          // TODO: implement InetWidget
+          throw UnimplementedError();
+        }
 
   @override
   Widget build(BuildContext context) {

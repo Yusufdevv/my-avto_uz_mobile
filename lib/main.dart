@@ -29,7 +29,6 @@ import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/onboarding/presentation/first_onboarding.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
-import 'package:auto/features/reels/presentation/pages/reels_screen.dart';
 import 'package:auto/features/splash/presentation/pages/splash_sc.dart';
 import 'package:auto/generated/codegen_loader.g.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -79,17 +78,13 @@ class AppProvider extends StatefulWidget {
 }
 
 class _AppProviderState extends State<AppProvider> {
-  late InternetBloc bloc;
-
   @override
   void initState() {
     super.initState();
-    bloc = InternetBloc();
   }
 
   @override
-  Widget build(BuildContext context) =>
-      BlocProvider.value(value: bloc, child: const App());
+  Widget build(BuildContext context) => const App();
 }
 
 class App extends StatefulWidget {
@@ -102,11 +97,14 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   // ignore: cancel_subscriptions
   StreamSubscription? streamSubscription;
-  InternetBloc bloc = InternetBloc();
+  late InternetBloc bloc;
+  late AuthenticationBloc authenticationBloc;
 
   @override
   void initState() {
     bloc = InternetBloc();
+    authenticationBloc = AuthenticationBloc()..add(CheckUser());
+
     streamSubscription = Connectivity().onConnectivityChanged.listen((status) {
       bloc.add(GlobalCheck(
           isConnected: status == ConnectivityResult.mobile ||
@@ -122,7 +120,7 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) => MultiBlocProvider(
         providers: [
           BlocProvider(create: (c) => bloc),
-          BlocProvider(create: (c) => AuthenticationBloc()..add(CheckUser())),
+          BlocProvider(create: (c) => authenticationBloc),
           BlocProvider(
               create: (context) =>
                   RegionsBloc()..add(RegionsEvent.getRegions())),
@@ -165,6 +163,7 @@ class _AppState extends State<App> {
                 child: ScrollConfiguration(
                   behavior: MyBehavior(),
                   child: BlocListener<AuthenticationBloc, AuthenticationState>(
+                    listenWhen: (previous, current) => true,
                     listener: (context, state) {
                       switch (state.status) {
                         case AuthenticationStatus.unauthenticated:
@@ -177,38 +176,35 @@ class _AppState extends State<App> {
                                     (route) => false);
                             break;
                           }
-                          AppConstants.navigatorKey.currentState
-                              ?.pushAndRemoveUntil(
-                                  fade(
-                                    page: BlocProvider(
-                                      create: (c) => RegisterBloc(
-                                        sendCodeUseCase: SendCodeUseCase(),
-                                        registerUseCase: RegisterUseCase(),
-                                        verifyCodeUseCase: VerifyCodeUseCase(),
-                                      ),
-                                      child: const LoginScreen(),
-                                    ),
-                                  ),
-                                  (route) => false);
+                          AppConstants.navigatorKey.currentState?.push(
+                            fade(
+                              page: BlocProvider(
+                                create: (c) => RegisterBloc(
+                                  sendCodeUseCase: SendCodeUseCase(),
+                                  registerUseCase: RegisterUseCase(),
+                                  verifyCodeUseCase: VerifyCodeUseCase(),
+                                ),
+                                child: const LoginScreen(),
+                              ),
+                            ),
+                          );
                           break;
                         case AuthenticationStatus.authenticated:
                           context.read<ShowPopUpBloc>().add(HidePopUp());
                           if (StorageRepository.getString(StorageKeys.TOKEN)
                               .isEmpty) {
-                            AppConstants.navigatorKey.currentState
-                                ?.pushAndRemoveUntil(
-                                    fade(
-                                      page: BlocProvider(
-                                        create: (c) => RegisterBloc(
-                                          sendCodeUseCase: SendCodeUseCase(),
-                                          registerUseCase: RegisterUseCase(),
-                                          verifyCodeUseCase:
-                                              VerifyCodeUseCase(),
-                                        ),
-                                        child: const LoginScreen(),
-                                      ),
-                                    ),
-                                    (route) => false);
+                            AppConstants.navigatorKey.currentState?.push(
+                              fade(
+                                page: BlocProvider(
+                                  create: (c) => RegisterBloc(
+                                    sendCodeUseCase: SendCodeUseCase(),
+                                    registerUseCase: RegisterUseCase(),
+                                    verifyCodeUseCase: VerifyCodeUseCase(),
+                                  ),
+                                  child: const LoginScreen(),
+                                ),
+                              ),
+                            );
                           } else {
                             AppConstants.navigatorKey.currentState
                                 ?.pushAndRemoveUntil(
@@ -217,6 +213,11 @@ class _AppState extends State<App> {
                           }
                           break;
                         case AuthenticationStatus.loading:
+                          AppConstants.navigatorKey.currentState
+                              ?.pushAndRemoveUntil(
+                                  fade(page: const HomeScreen()),
+                                  (route) => false);
+                          break;
                         case AuthenticationStatus.cancelLoading:
                           break;
                       }

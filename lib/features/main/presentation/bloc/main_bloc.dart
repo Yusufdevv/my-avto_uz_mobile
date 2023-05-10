@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ads/domain/usecases/get_announcement_list_usecase.dart';
 import 'package:auto/features/main/domain/entities/story_entity.dart';

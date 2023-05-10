@@ -1,10 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
-import 'package:auto/generated/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-
-// ignore: must_be_immutable
 class PriceStatisticItem extends StatefulWidget {
   final double percent;
   final String price;
@@ -121,10 +117,7 @@ class _PriceStatisticItemState extends State<PriceStatisticItem> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    print('====${widget.percent}');
-    print('icon:$icon');
-    return Stack(
+  Widget build(BuildContext context) => Stack(
       children: [
         Stack(
           children: [
@@ -161,5 +154,4 @@ class _PriceStatisticItemState extends State<PriceStatisticItem> {
         ),
       ],
     );
-  }
 }

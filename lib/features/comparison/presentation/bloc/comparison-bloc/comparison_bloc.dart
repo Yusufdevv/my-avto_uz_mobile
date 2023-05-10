@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';

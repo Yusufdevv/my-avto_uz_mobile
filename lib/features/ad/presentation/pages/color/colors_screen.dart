@@ -1,4 +1,3 @@
-import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/color/widgets/colors_item.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';

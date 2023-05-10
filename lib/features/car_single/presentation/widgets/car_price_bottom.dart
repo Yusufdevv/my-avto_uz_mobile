@@ -2,6 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/car_single/presentation/widgets/about_price_bottomsheet.dart';
+import 'package:auto/features/car_single/presentation/widgets/car_price_2.dart';
 import 'package:auto/features/car_single/presentation/widgets/cars_price_controlling.dart';
 import 'package:auto/features/car_single/presentation/widgets/price_statistis_item.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -10,8 +11,6 @@ import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
-import 'car_price_2.dart';
 
 class CarPriceBottom extends StatelessWidget {
   final String price;

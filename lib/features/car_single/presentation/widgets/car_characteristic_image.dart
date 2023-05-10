@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';

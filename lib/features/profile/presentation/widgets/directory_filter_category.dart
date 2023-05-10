@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
@@ -83,7 +82,7 @@ class _DirectoryFilterCategoryState extends State<DirectoryFilterCategory> {
                           children: [
                             Expanded(
                               child: Text(
-                                item.name ?? '',
+                                item.name,
                                 maxLines: 1,
                                 style: Theme.of(context)
                                     .textTheme

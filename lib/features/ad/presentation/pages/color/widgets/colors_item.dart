@@ -1,6 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:flutter/material.dart';
 
 class ColorsItem extends StatelessWidget {

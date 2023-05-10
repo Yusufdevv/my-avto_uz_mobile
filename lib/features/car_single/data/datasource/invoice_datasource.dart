@@ -96,7 +96,6 @@ class InvoiceDatasourceImplemation extends InvoiceDatasource {
             'Authorization': 'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}'
           }));
 
-      print('===status code ${response.statusCode}');
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {

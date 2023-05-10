@@ -2,10 +2,8 @@ import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/common/data/datasources/get_regions_datasource.dart';
-import 'package:auto/features/rent/data/models/region_model.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
 
-// ignore: one_member_abstracts
 abstract class GetRegionsRepository {
   Future<Either<Failure, List<RegionEntity>>> getRegions();
 }

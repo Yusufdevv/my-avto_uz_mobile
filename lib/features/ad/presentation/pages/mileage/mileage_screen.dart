@@ -4,7 +4,6 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/formatters.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
 import 'package:auto/features/ad/presentation/bloc/mileage/mileage_image_bloc.dart';
-import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/add_photo/add_photo_screen.dart';
 import 'package:auto/features/ad/presentation/pages/mileage/widgets/mileage_image.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';

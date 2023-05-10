@@ -570,7 +570,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     final result =
         await modelsUseCase.call(state.make?.id ?? -1, name: event.name);
     if (result.isRight) {
-      print('result.right.next:${result.right.next}');
       emit(
         state.copyWith(
           nextModels: result.right.next,
@@ -735,7 +734,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       PostingAdChangeOption event, Emitter<PostingAdState> emit) {
     if (event.isAdd) {
       if (event.type == 'select') {
-        var m = state.selectOptions.map(MapEntry.new);
+        final m = state.selectOptions.map(MapEntry.new);
         int? lastEquipmentId;
         EquipmentEntity? equipment;
 
@@ -777,7 +776,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         );
       } else {
         /// for add radios
-        var m = state.radioOptions.map(MapEntry.new);
+        final m = state.radioOptions.map(MapEntry.new);
         EquipmentEntity? equipment;
 
         m[event.id] = event.itemName;
@@ -804,7 +803,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       if (event.type == 'select') {
         /// remove for -> selects
 
-        var m = state.selectOptions.map(MapEntry.new)..remove(event.id);
+        final m = state.selectOptions.map(MapEntry.new)..remove(event.id);
         final equipment = PASingleton.isEquipmentFull(
             equipment: state.equipment ??
                 PASingleton.isEquipmentAvailable(
@@ -829,7 +828,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       } else {
         /// for remove -> radios
 
-        var m = state.radioOptions.map(MapEntry.new)..remove(event.id);
+        final m = state.radioOptions.map(MapEntry.new)..remove(event.id);
         final equipment = PASingleton.isEquipmentFull(
             equipment: state.equipment ??
                 PASingleton.isEquipmentAvailable(

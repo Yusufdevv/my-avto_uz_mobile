@@ -3,7 +3,6 @@ import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:auto/features/profile/data/models/product_category.dart';
 import 'package:auto/features/profile/domain/entities/car_product.dart';
-import 'package:auto/features/profile/domain/entities/product_category.dart';
 import 'package:auto/features/profile/domain/entities/products_list.dart';
 import 'package:auto/features/profile/domain/entities/profile_data_entity.dart';
 import 'package:auto/features/profile/domain/entities/profile_entity.dart';

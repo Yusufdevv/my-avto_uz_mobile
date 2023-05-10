@@ -248,7 +248,7 @@ class _CarSingleScreenState extends State<CarSingleScreen> with SingleTickerProv
                                   state.singleEntity.distanceTraveled.toString()),
                               body: state.singleEntity.bodyType.type,
                               color: state.singleEntity.color.name,
-                              complectation: state.singleEntity.equipment.name ?? '',
+                              complectation: state.singleEntity.equipment.name,
                               engineVolume:
                                   '${state.singleEntity.modificationType.volume} (${state.singleEntity.modificationType.power})',
                               gearType: state.singleEntity.gearboxType.type,

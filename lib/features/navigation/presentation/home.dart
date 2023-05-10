@@ -1,5 +1,6 @@
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/ad/presentation/posting_ad_screen.dart';
+import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 
 import 'package:auto/features/common/bloc/internet_bloc/internet_bloc.dart';
 import 'package:auto/features/common/widgets/internet_error_bottomsheet.dart';
@@ -17,7 +18,8 @@ enum NavItemEnum { head, search, newPost, reels, profile }
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
-  static Route route() => MaterialPageRoute<void>(builder: (_) => const HomeScreen());
+  static Route route() =>
+      MaterialPageRoute<void>(builder: (_) => const HomeScreen());
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -83,7 +85,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       setState(() {
         _currentIndex = _controller.index;
       });
-      _navigatorKeys[NavItemEnum.values[_currentIndex]]?.currentState?.popUntil((route) => route.isFirst);
+      _navigatorKeys[NavItemEnum.values[_currentIndex]]
+          ?.currentState
+          ?.popUntil((route) => route.isFirst);
     }
   }
 
@@ -97,15 +101,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     _controller.animateTo(index);
   }
 
-  bool isBtmSheetOpened = false;
-
   @override
   Widget build(BuildContext context) => HomeTabControllerProvider(
         controller: _controller,
         child: WillPopScope(
           onWillPop: () async {
             final isFirstRouteInCurrentTab =
-                !await _navigatorKeys[NavItemEnum.values[_currentIndex]]!.currentState!.maybePop();
+                !await _navigatorKeys[NavItemEnum.values[_currentIndex]]!
+                    .currentState!
+                    .maybePop();
             if (isFirstRouteInCurrentTab) {
               if (NavItemEnum.values[_currentIndex] != NavItemEnum.head) {
                 changePage(0);
@@ -121,10 +125,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               }
             },
             child: BlocListener<InternetBloc, InternetState>(
+              bloc: context.read<InternetBloc>()..add(CheckConnectionStatus()),
               listener: (context, state) {
                 WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
                   if (!state.isConnected) {
-                    isBtmSheetOpened = true;
                     showModalBottomSheet(
                       isDismissible: false,
                       constraints: const BoxConstraints(
@@ -136,13 +140,18 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       context: context,
                       builder: (context) => InternetErrorBottomSheet(
                         onTap: () {
-                          context.read<InternetBloc>().add(GlobalCheck(isConnected: state.isConnected));
+                          context
+                              .read<InternetBloc>()
+                              .add(GlobalCheck(isConnected: state.isConnected));
                         },
                       ),
                     );
-                  } else if (isBtmSheetOpened && state.isConnected) {
-                    isBtmSheetOpened = false;
+                  } else if (state.isConnected) {
                     Navigator.of(context).pop();
+                    if (context.read<AuthenticationBloc>().state.status ==
+                        AuthenticationStatus.loading) {
+                      context.read<AuthenticationBloc>().add(CheckUser());
+                    }
                   }
                 });
               },
@@ -151,7 +160,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 bottomNavigationBar: Container(
                   height: 70 + MediaQuery.of(context).padding.bottom,
                   decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(15),
+                        topRight: Radius.circular(15)),
                     color: Theme.of(context).appBarTheme.backgroundColor,
                     boxShadow: [
                       BoxShadow(
@@ -165,7 +176,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     enableFeedback: true,
                     onTap: (index) async {
                       if (index == 3) {
-                        await Navigator.of(context, rootNavigator: true).push(fade(page: const ReelsScreen()));
+                        await Navigator.of(context, rootNavigator: true)
+                            .push(fade(page: const ReelsScreen()));
                         changePage(_currentIndex);
                       } else if (index == 2) {
                         await Navigator.of(context, rootNavigator: true)
@@ -184,9 +196,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     indicatorSize: TabBarIndicatorSize.tab,
                     tabs: [
                       GestureDetector(
-                        onDoubleTap: () => _navigatorKeys[NavItemEnum.values[_currentIndex]]!
-                            .currentState!
-                            .popUntil((route) => route.isFirst),
+                        onDoubleTap: () =>
+                            _navigatorKeys[NavItemEnum.values[_currentIndex]]!
+                                .currentState!
+                                .popUntil((route) => route.isFirst),
                         behavior: HitTestBehavior.opaque,
                         child: NavItemWidget(
                           navBar: lables[0],
@@ -194,9 +207,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         ),
                       ),
                       GestureDetector(
-                        onDoubleTap: () => _navigatorKeys[NavItemEnum.values[_currentIndex]]!
-                            .currentState!
-                            .popUntil((route) => route.isFirst),
+                        onDoubleTap: () =>
+                            _navigatorKeys[NavItemEnum.values[_currentIndex]]!
+                                .currentState!
+                                .popUntil((route) => route.isFirst),
                         behavior: HitTestBehavior.opaque,
                         child: NavItemWidget(
                           navBar: lables[1],
@@ -204,9 +218,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         ),
                       ),
                       GestureDetector(
-                        onDoubleTap: () => _navigatorKeys[NavItemEnum.values[_currentIndex]]!
-                            .currentState!
-                            .popUntil((route) => route.isFirst),
+                        onDoubleTap: () =>
+                            _navigatorKeys[NavItemEnum.values[_currentIndex]]!
+                                .currentState!
+                                .popUntil((route) => route.isFirst),
                         behavior: HitTestBehavior.opaque,
                         child: NavItemWidget(
                           navBar: lables[2],
@@ -214,9 +229,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         ),
                       ),
                       GestureDetector(
-                        onDoubleTap: () => _navigatorKeys[NavItemEnum.values[_currentIndex]]!
-                            .currentState!
-                            .popUntil((route) => route.isFirst),
+                        onDoubleTap: () =>
+                            _navigatorKeys[NavItemEnum.values[_currentIndex]]!
+                                .currentState!
+                                .popUntil((route) => route.isFirst),
                         behavior: HitTestBehavior.opaque,
                         child: NavItemWidget(
                           navBar: lables[3],
@@ -224,9 +240,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         ),
                       ),
                       GestureDetector(
-                        onDoubleTap: () => _navigatorKeys[NavItemEnum.values[_currentIndex]]!
-                            .currentState!
-                            .popUntil((route) => route.isFirst),
+                        onDoubleTap: () =>
+                            _navigatorKeys[NavItemEnum.values[_currentIndex]]!
+                                .currentState!
+                                .popUntil((route) => route.isFirst),
                         behavior: HitTestBehavior.opaque,
                         child: NavItemWidget(
                           navBar: lables[4],
@@ -264,7 +281,8 @@ class HomeTabControllerProvider extends InheritedWidget {
   }) : super(key: key, child: child);
 
   static HomeTabControllerProvider of(BuildContext context) {
-    final result = context.dependOnInheritedWidgetOfExactType<HomeTabControllerProvider>();
+    final result =
+        context.dependOnInheritedWidgetOfExactType<HomeTabControllerProvider>();
     assert(result != null, 'No HomeTabControllerProvider found in context');
     return result!;
   }

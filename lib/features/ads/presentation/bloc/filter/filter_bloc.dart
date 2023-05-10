@@ -11,7 +11,6 @@ import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'dart:developer';
 
 part 'filter_event.dart';
 

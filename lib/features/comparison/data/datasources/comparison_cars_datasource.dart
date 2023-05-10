@@ -1,12 +1,9 @@
-import 'dart:developer';
 
 import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/comparison/data/models/comparison_model.dart';
 import 'package:dio/dio.dart';
-
-// ignore: one_member_abstracts
 abstract class ComparisonCarsDataSource {
   Future getComparableCars();
 
