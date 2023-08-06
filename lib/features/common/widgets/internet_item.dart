@@ -23,6 +23,7 @@ class InetWidget extends StatelessWidget {
 
   const InetWidget({Key? key, required this.snapshot, required this.widget})
       : super(key: key) {
+          // ignore: todo
           // TODO: implement InetWidget
           throw UnimplementedError();
         }

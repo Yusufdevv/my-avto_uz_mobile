@@ -101,7 +101,7 @@ class MyFunctions {
       Jiffy(data).format('dd-MM-yyyy').replaceAll('-', '/').toString();
 
   static String getAppendix(int count) {
-    var res;
+   late String res;
     if (count == 1) {
       res = 'е';
     } else if (count == 2 || count == 3) {
@@ -219,7 +219,7 @@ class MyFunctions {
     var counter = 0;
     for (var i = price.length - 1; i >= 0; i--) {
       counter++;
-      var str = price[i];
+      final str = price[i];
       if ((counter % 3) != 0 && i != 0) {
         priceInText = '$str$priceInText';
       } else if (i == 0) {
@@ -802,13 +802,12 @@ class MyFunctions {
         'logicalSize and imageSize must not be the same');
 
     final renderView = RenderView(
-      window: ui.window,
       child: RenderPositionedBox(
           alignment: Alignment.center, child: repaintBoundary),
       configuration: ViewConfiguration(
         size: logicalSize,
         devicePixelRatio: 1,
-      ),
+      ), view: ui.window,
     );
 
     final pipelineOwner = PipelineOwner();
@@ -861,7 +860,7 @@ class MyFunctions {
       final tempPath = tempDir.path;
 // create a new file in temporary path with random file name.
       final file = File(
-          '$tempPath${(rng.nextInt(100)).toString()}.${imageUrl.split('.').toList().last}');
+          '$tempPath${rng.nextInt(100).toString()}.${imageUrl.split('.').toList().last}');
 // call http.get method and pass imageUrl into it to get response.
       final response = await http.get(Uri.parse(imageUrl));
 // write bodyBytes received in response to file.
